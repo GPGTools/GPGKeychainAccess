@@ -1,0 +1,41 @@
+/*!
+    @framework  MacGPGME Framework
+    @abstract   <acronym>MacGPGME</acronym> is an Objective-C framework wrapping <a target="_blank" href="http://www.gnupg.org/gpgme.html">libgpgme</a>, a C language library (`GnuPG Made Easy'), that allows to add support for cryptography to a program.
+    @discussion 
+<style type="text/css"><!-- a:link {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #0000ff;}a:visited:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:active {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}a:hover {text-decoration: underline; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: small; color: #ff6600;}h4 {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: tiny; font-weight: bold;}body {text-decoration: none; font-family: lucida grande, geneva, helvetica, arial, sans-serif; font-size: 10pt;}code > pre{margin: 20px 0; padding: 4px 4px 4px 14px; font-size: 11px; font-family: monaco, courier, monospace; white-space: pre; background-color: #F1F5F9; border: 1px solid #C9D1D7;}font.param {font-style: italic;} --></style> 
+<acronym>MacGPGME</acronym> is an Objective-C framework wrapping <a target="_blank" href="http://www.gnupg.org/gpgme.html">libgpgme</a>, a C language library (`GnuPG Made Easy'), that allows to add support for cryptography to a program. It is designed to make access to crypto engines like GnuPG or GpgSM easier for applications. <acronym>MacGPGME</acronym> provides a high-level crypto API for encryption, decryption, signing, signature verification and key management.
+<br/><acronym>MacGPGME</acronym> uses GnuPG and GpgSM as its back-ends to support OpenPGP and the Cryptographic Message Syntax (CMS).
+<h2>Getting Started</h2>
+<p>This file introduces the <acronym>MacGPGME</acronym> framework programming interface. Read the different pages to get more information about classes, methods, functions and data types provided by the framework.</p>
+<p>The reader is assumed to possess basic knowledge about cryptography in general, and public key cryptography in particular. The underlying cryptographic engines that are used by the framework are not explained, but where necessary, special features or requirements by an engine are mentioned as far as they are relevant to <acronym>MacGPGME</acronym> or its users.</p>
+<h2>Features</h2>
+<p><acronym>MacGPGME</acronym> has a couple of advantages over other libraries/frameworks doing a similar job, and over implementing support for GnuPG or other crypto engines into your application directly.</p>
+<dl>
+<dt>It's free software</dt>
+<dd>Anybody can use, modify, and redistribute it under the terms of the <a target="_blank" href="http://www.gnu.org/">GNU Lesser General Public License</a>.</dd>
+<dt>It's flexible</dt>
+<dd><acronym>MacGPGME</acronym> provides transparent support for several cryptographic protocols by different engines. Currently, <acronym>MacGPGME</acronym> supports the OpenPGP protocol using GnuPG as the back-end, and the Cryptographic Message Syntax using GpgSM as the back-end. <b>NOTE: GpgSM has not yet been ported to MacOS X.</b></dd>
+<dt>It's easy</dt>
+<dd><acronym>MacGPGME</acronym> hides the differences between the protocols and engines from the programmer behind an easy-to-use interface. This way the programmer can focus on the other parts of the program, and still integrate strong cryptography in his application. Once support for <acronym>MacGPGME</acronym> has been added to a program, it is easy to add support for other crypto protocols once <acronym>MacGPGME</acronym> back-ends provide them.</dd>
+</dl>
+<h2>Overview</h2>
+<p><acronym>MacGPGME</acronym> provides a data abstraction that is used to pass data to the crypto engine, and receive returned data from it. Data can be read from memory or from files, but it can also be provided by a data source.</p>
+<p>The actual cryptographic operations are always set within a context. A context provides configuration parameters that define the behaviour of all operations performed within it. Only one operation per context is allowed at any time, but when one operation is finished, you can run the next operation in the same context. There can be more than one context, and all can run different operations at the same time.</p>
+<p>Furthermore, <acronym>MacGPGME</acronym> has rich key management facilities including listing keys, querying their attributes, generating, importing, exporting and deleting keys, and acquiring information about the trust path.</p>
+<p><strong>Caution:</strong> The <acronym>MacGPGME</acronym> framework is not thread-safe. It will be to some extent in the future, but currently great care has to be taken if <acronym>MacGPGME</acronym> is used in a multi-threaded environment. You should at least take care that no instance of <code>@link //macgpg/occ/cl/GPGContext GPGContext@/link</code> nor <code>@link //macgpg/occ/cl/GPGData GPGData@/link</code> is accessed concurrently, and that only one thread at any time calls <code>@link //macgpg/occ/cl/GPGContext GPGContext@/link</code>'s <code>@link //macgpg/occ/clm/GPGContext(GPGAsynchronousOperations)/waitOnAnyRequest: waitOnAnyRequest:@/link</code> or <code>@link //macgpg/occ/instm/GPGContext(GPGAsynchronousOperations)/wait: wait:@/link</code> methods.</p>
+<h2>Error handling</h2>
+<p>Many methods in <acronym>MacGPGME</acronym> can raise an exception if they fail. 
+For this reason, the application should always catch the 
+error condition and take appropriate measures, for example
+by releasing the resources and passing the error up to the caller,
+or by displaying a descriptive message to the user and cancelling the operation.</p>
+<p>Some error values do not indicate a system error
+or an error in the operation, but the result of an operation that failed properly.
+For example, if you try to decrypt a tampered message,
+the decryption will fail.</p>
+<p>Most methods indicate that they could raise an exception, but in most cases,
+this is... exceptional (e.g. out of memory condition). You don't need
+to enclose all <acronym>MacGPGME</acronym> method calls in exception handlers. Just do it
+for operations which could fail, due to invalid parameters/data given
+by the end user.</p>
+ */

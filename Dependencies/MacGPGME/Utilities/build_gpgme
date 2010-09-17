@@ -1,0 +1,277 @@
+#!/bin/bash
+
+if [ "${TARGET_BUILD_DIR}" == "" ]; then
+    BASE=`pwd`
+else
+    BASE="${TARGET_BUILD_DIR}/.."
+fi
+
+PREFIX="${BASE}/dist"
+SOURCES="${BASE}/sources"
+
+GETTEXT_VERSION="0.18.1.1"
+LIBGPG_ERROR_VERSION="1.8"
+LIBASSUAN_VERSION="2.0.0"
+GPGME_VERSION="1.3.0"
+
+# Download the source code and unpack it.
+function fetch {
+	url=$1
+	file=$(basename $url)
+	dir=$2
+	
+	if [ ! -f "$file" ]; then
+		curl -O $url
+	
+		if [ $? -ne 0 ]; then
+			bailout "Failed to download source at $url";
+		fi
+	fi
+	
+	if [ ! -d "$2" ]; then
+	    extract "$file" "$2"
+	fi
+}
+
+# Extract the source code.
+function extract {
+    file=$1
+    dir=$2
+    
+    if [ -d "$dir" ]; then
+        return;
+    fi
+    
+    ext=$(echo $file | awk -F . '{print $NF}')
+    
+    if [ "$ext" == "gz" ]; then
+        tar xzf $file
+        ret=$?
+    else
+        tar xjf $file
+        ret=$?
+    fi
+    
+    if [ $ret -ne 0 ]; then
+        bailout "Failed to extract: $file"
+    fi
+}
+
+function bailout {
+    msg=$1
+    
+    echo "build_gpgme error: $msg"
+    exit 1;
+}
+
+# Build the library.
+function build_gettext {
+    # Only build if the binary doesn't exist already.
+	
+    if [ -f "$PREFIX/bin/gettext" ]; then
+        return;
+    fi
+    
+    version=$1-$2
+    fetch "http://ftp.gnu.org/gnu/gettext/${version}.tar.gz" $1
+	
+	# Check if the package was successfully extracted
+	if [ ! -d "$version" ]; then
+	    bailout "$version directory doesn't exist."
+	fi
+	
+	pushd "$version" 1> /dev/null
+	
+	CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch x86_64 -arch i386" \
+        ./configure --prefix="$PREFIX" --disable-shared --disable-dependency-tracking \
+        --disable-java --disable-native-java --disable-csharp \
+        --with-included-gettext --with-included-glib \
+        --with-included-libcroco --with-included-libxml --disable-libasprintf CC="gcc-4.0" \
+        1> /dev/null
+    
+    ret=$?
+    
+    if [ $ret -ne 0 ]; then
+        bailout "$version - failed to configure"
+    fi
+    
+    make install 1> /dev/null
+    
+    ret=$?
+    
+    if [ $ret -ne 0 ]; then
+        bailout "$version - failed to build and install"
+    fi
+    
+    popd 1> /dev/null
+
+}
+
+function build_libgpg_error {
+    # Only build if the binary doesn't exist already.
+    if [ -f "$PREFIX/bin/gpg-error-config" ]; then
+        return;
+    fi
+    
+    version=$1-$2
+    fetch "ftp://ftp.gnupg.org/gcrypt/libgpg-error/$version.tar.bz2" $1
+
+    # Check if the package was successfully extracted
+    if [ ! -d "$version" ]; then
+        bailout "$version directory doesn't exist."
+    fi
+    
+    pushd "$version" 1> /dev/null
+
+    CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch x86_64 -arch i386" \
+    LDFLAGS="-framework CoreFoundation" \
+    ./configure --prefix="$PREFIX" --disable-shared --disable-dependency-tracking \
+    --with-libintl-prefix="$PREFIX" CC="gcc-4.0" 1> /dev/null
+    
+    ret=$?
+    
+    if [ $ret -ne 0 ]; then
+        bailout "$version - failed to configure"
+    fi
+    
+    make install 1> /dev/null
+    
+    ret=$?
+    
+    if [ $ret -ne 0 ]; then
+        bailout "$version - failed to build and install"
+    fi
+
+    popd 1> /dev/null
+
+}
+
+function build_libassuan {
+    # Only build if the binary doesn't exist already.
+    
+    if [ -f "$PREFIX/bin/libassuan-config" ]; then
+        return;
+    fi
+    
+    version=$1-$2
+    fetch "ftp://ftp.gnupg.org/gcrypt/libassuan/$version.tar.bz2" $1
+
+    # Check if the package was successfully extracted
+	if [ ! -d "$version" ]; then
+	    bailout "$version directory doesn't exist."
+	fi
+
+    pushd "$version" 1> /dev/null
+
+    CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch x86_64 -arch i386" \
+    ./configure --prefix="$PREFIX" --disable-shared --disable-dependency-tracking \
+    --with-gpg-error-prefix="$PREFIX" CC="gcc-4.0" 1> /dev/null
+    
+    ret=$?
+
+    if [ $ret -ne 0 ]; then
+        bailout "$version - failed to configure"
+    fi
+    
+    make install 1> /dev/null
+    
+    ret=$?
+    
+    if [ $ret -ne 0 ]; then
+        bailout "$version - failed to build and install"
+    fi
+    
+    popd 1> /dev/null
+
+}
+
+function build_gpgme {
+    # Only build if the binary doesn't exist already.
+    if [ -f "$PREFIX/bin/gpgme-config" ]; then
+        return;
+    fi
+    
+    version=$1-$2
+    fetch "ftp://ftp.gnupg.org/gcrypt/gpgme/$version.tar.bz2" $1
+
+    # Check if the package was successfully extracted
+	if [ ! -d "$version" ]; then
+	    bailout "$version directory doesn't exist."
+	fi
+
+    pushd "$version" 1> /dev/null
+
+    CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch x86_64 -arch i386" \
+    ./configure --prefix="$PREFIX" --enable-static --disable-shared \
+    --disable-dependency-tracking --with-gpg-error-prefix="$PREFIX" \
+    --with-gpg="$PREFIX/bin/gpg" --with-libassuan-prefix="$PREFIX" \
+    --without-pth --disable-glibtest CC="gcc-4.0" 1> /dev/null
+    
+    ret=$?
+    
+    if [ $ret -ne 0 ]; then
+        bailout "$version - failed to configure"
+    fi
+    
+    make install 1> /dev/null
+    
+    ret=$?
+    
+    if [ $ret -ne 0 ]; then
+        bailout "$version - failed to build and install"
+    fi
+    
+    popd 1> /dev/null
+}
+
+function build {
+    build_gettext "gettext" "${GETTEXT_VERSION}"
+    build_libgpg_error "libgpg-error" "${LIBGPG_ERROR_VERSION}"
+    build_libassuan "libassuan" "${LIBASSUAN_VERSION}"
+    build_gpgme "gpgme" "${GPGME_VERSION}"
+}
+
+function clean {
+    dir=$1-$2
+    pushd "$SOURCES/$dir"
+    
+    make clean
+    make uninstall
+    
+    popd
+    
+    rm -rf "$SOURCES/$dir"
+}
+
+action=$1
+library=$2
+version=$3
+
+mkdir -p "$SOURCES"
+pushd "$SOURCES" 1> /dev/null
+
+if [ "$action" == "clean" ]; then
+    clean $library $version;
+else
+    case "$library" in
+        gettext)
+            build_gettext $library $version;;
+    
+        libgpg-error) 
+            build_libgpg_error $library $version;;
+    
+        libassuan)
+            build_libassuan $library $version;;
+    
+        gpgme)
+            build_gpgme $library $version;;
+    
+        *) build;;
+    esac
+
+fi
+
+popd 1> /dev/null
+
+echo "gpgme was built successfully."
+exit 0

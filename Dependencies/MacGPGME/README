@@ -1,0 +1,121 @@
+gpgme library
+=============
+
+*** WARNING These instructions are for MacOS X 10.5.x, and will NOT work as-is for previous versions ***
+
+In order to build this framework, you need gpgme 1.1.6 or greater installed (and whatever version of GnuPG that requires; currently >= 1.2.2), and libgpg-error 1.6. These instructions show you how to build these libraries as static libraries, and not dynamic ones; this way you have no problem when installing your framework (not other dependency than framework's).
+
+To be sure you don't have problems with any previously installed libraries WHEN MAKING A REDISTRIBUTABLE VERSION, do the following, temporarily:
+
+sudo mv /usr/local /usr/local-current
+sudo mkdir /usr/local
+
+Then, when you're finished:
+
+sudo mv /usr/local /usr/local-gpgme
+sudo mv /usr/local-current /usr/local
+cd /usr/local-gpgme
+sudo gnutar cf /tmp/gpgme-install.tar .
+cd /usr/local
+sudo gnutar xf /tmp/gpgme-install.tar
+
+
+To download and install it, proceed like this:
+
+Use bash
+--------
+bash
+
+
+libgettext
+----------
+curl -O http://ftp.gnu.org/gnu/gettext/gettext-0.17.tar.gz
+curl -O http://ftp.gnu.org/gnu/gettext/gettext-0.17.tar.gz.sig
+gpg --verify gettext-0.17.tar.gz.sig
+gnutar xzf gettext-0.17.tar.gz
+cd gettext-0.17
+
+CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch ppc -arch i386" \
+    ./configure --disable-shared --disable-dependency-tracking \
+    --disable-java --disable-native-java --disable-csharp \
+    --with-included-gettext --with-included-glib \
+    --with-included-libcroco --with-included-libxml --disable-libasprintf
+
+sudo make install
+
+cd ..
+
+
+libgpg-error
+------------
+curl -O ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.6.tar.bz2
+curl -O ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-1.6.tar.bz2.sig
+gpg --verify libgpg-error-1.6.tar.bz2.sig
+gnutar xjf libgpg-error-1.6.tar.bz2
+cd libgpg-error-1.6
+
+CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch ppc -arch i386" \
+    LDFLAGS="-framework CoreFoundation" \
+    ./configure --disable-shared --disable-dependency-tracking --with-libintl-prefix=/usr/local
+sudo make install
+
+cd ..
+
+
+gpgme
+-----
+curl -O ftp://ftp.gnupg.org/gcrypt/gpgme/gpgme-1.1.6.tar.bz2
+curl -O ftp://ftp.gnupg.org/gcrypt/gpgme/gpgme-1.1.6.tar.bz2.sig
+gpg --verify gpgme-1.1.6.tar.bz2.sig
+gnutar xjf gpgme-1.1.6.tar.bz2
+cd gpgme-1.1.6
+
+CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -arch i386 -arch ppc" \
+    ./configure --enable-static --disable-shared --disable-dependency-tracking --with-gpg-error-prefix=/usr/local --with-gpg=/usr/local/bin/gpg --without-pth --disable-glibtest
+sudo make install
+
+cd ..
+
+
+WARNING: since gpgme 0.4.3, we need to use libgpgme-pthread (instead of libgpgme) if we want support for multithreading. We do that in MacGPGME.
+
+
+Installing MacGPGME framework (OR: Using It In Your Code)
+=======================================================
+
+In order to do anything useful with this framework you must install it. There are 4 build styles, 2 of them are for stand-alone framework, the 2 others are for embedding the framework in your application (these are the ones you should use).
+So, compile the framework using the Debug or Release Build Styles, then add a Copy Phase in your application's project to copy the MacGPGME.framework (located in your build products directory) in the Frameworks subdirectory of your application. See GPGTester settings to get an example or read Xcode's help about frameworks.
+Note that the Release styles generate Universal Binaries.
+
+If you prefer to have a standalone installed version of MacGPGME.framework (why would you do?), then use the Debug (standalone) or Release (standalone) Build Styles. 
+/Library/Frameworks is the default install location.
+(Why? It's really hard to create a portable access path to ~/Library/Frameworks. Very easy to create one to /Library/Frameworks)
+
+
+Documentation generation (NOT VALID YET ON 10.5 - ONLY FOR 10.4)
+========================
+HTML documentation can be generated automatically from code with HeaderDoc. For this you need to have a patched version of HeaderDoc 8.5.10. Why a patched version? Because the original version, which comes installed with Xcode 2.4, is broken in many aspects - read the headerdoc-dev mailing list archives for more info at http://lists.apple.com/archives/headerdoc-dev (for more information on the patch: http://lists.apple.com/archives/headerdoc-dev/2005/Dec/msg00001.html).
+
+1) Make a folder somewhere sensible to keep everything and cd to that folder.
+
+2) Download and verify the patch archive:
+  curl -O http://www.sente.ch/pub/beta/HeaderDoc/HeaderDocPatches.zip
+  curl -O http://www.sente.ch/pub/beta/HeaderDoc/HeaderDocPatches.zip.asc
+  gpg --verify HeaderDocPatches.zip.asc
+  unzip HeaderDocPatches.zip
+
+3) Use Safari or your favourite browser to download the original headerDoc utility (you can't use curl as you first need to login with your ADC username and pasword) into the folder you created: http://www.opensource.apple.com/darwinsource/tarballs/apsl/headerdoc-8.5.10.tar.gz
+
+4) unarchive headerDoc and patch it:
+  gnutar xzf headerdoc-8.5.10.tar.gz
+  cd headerdoc-8.5.10
+  patch -p1 < ../HeaderDoc.patch
+  patch -p1 < ../Makefile.patch
+
+5) Install the patched HeaderDoc:
+  make
+  sudo make realinstall
+
+The patched version will install files in /Library/Perl/5.8.6/Extras/HeaderDoc and /usr/local, whereas original HeaderDoc distribution remains intact in /System/Library/Perl/5.8.6/Extras/HeaderDoc and /usr/. To use it on the command line, ensure you have /usr/local/bin in your $PATH (you can check this by typing: "echo $PATH" in Terminal and checking that "/usr/local/bin" is one of the listed paths). Verify also that you don't have a (very) old version of HeaderDoc in /System/Library/Perl/5.8.6/darwin-thread-multi-2level/HeaderDoc (or something like that) - you should delete it.
+
+Documentation is generated automatically each time you compile MacGPGME; to avoid that, select the Run Script build phase of the MacGPGME target and display the Info panel: check the 'only on install' checkbox. Documentation is put into framework's Resources/English.lproj/Documentation folder.
