@@ -17,5 +17,5 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface SplitViewController : NSObject <NSSplitViewDelegate> {}
+@interface SplitViewController : NSObject {}
 @end

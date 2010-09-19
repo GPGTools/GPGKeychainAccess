@@ -17,7 +17,7 @@
 
 @class KeyInfo;
 
-@interface KeychainController : NSObject <NSOutlineViewDelegate> {
+@interface KeychainController : NSObject {
     IBOutlet NSTextField *numberOfKeysLabel;
 	
 	NSArray *keyInfosSortDescriptors;

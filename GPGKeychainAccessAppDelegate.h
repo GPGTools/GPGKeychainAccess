@@ -15,7 +15,7 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-@interface GPGKeychainAccessAppDelegate : NSObject <NSApplicationDelegate> {
+@interface GPGKeychainAccessAppDelegate : NSObject {
     NSWindow *window;
 	NSOutlineView *keyTable;
 }

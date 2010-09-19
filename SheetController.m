@@ -384,12 +384,16 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		[displayedView removeFromSuperview];
 		displayedView = value;
 		if (value != nil) {
-			NSRect windowRect = [sheetWindow frame];
-			windowRect.size = [value frame].size;
-			[sheetWindow setFrame:windowRect display:NO animate:YES];
-			[sheetWindow setContentSize:windowRect.size];
+			NSRect oldRect, newRect;
+			oldRect = [sheetWindow frame];
+			newRect.size = [value frame].size;
+			newRect.origin.x = oldRect.origin.x + (oldRect.size.width - newRect.size.width) / 2;
+			newRect.origin.y = oldRect.origin.y + oldRect.size.height - newRect.size.height;
+			
+			[sheetWindow setFrame:newRect display:YES animate:YES];
+			[sheetWindow setContentSize:newRect.size];			
+			
 			[sheetView addSubview:value];
-
 			if (value == progressView) {
 				[progressIndicator startAnimation:nil];
 			}

@@ -38,6 +38,7 @@
 	[keychainController asyncUpdateKeyInfos:nil];
 }
 - (void)importFromFiles:(NSArray *)files {
+	//TODO: Rückmeldung über importierte Schlüssel.
 	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:[files count] + 1];
 	[arguments addObject:@"--import"];
 
@@ -607,10 +608,12 @@
 }
 
 
-- (IBAction)deleteKey:(id)sender {
+- (IBAction)deleteKey:(id)sender { 
+	//TODO: Bessere Dialoge mit der auswahl "Für alle".
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
 		NSInteger retVal;
+		NSString *cmd;
 		
 		for (KeyInfo *keyInfo in keyInfos) {
 			
@@ -618,10 +621,20 @@
 				retVal = NSRunAlertPanel(localized(@"DeleteSecretKey_Title"), 
 								localized(@"DeleteSecretKey_Msg"), 
 								localized(@"Delete secret key only"), 
-								localized(@"Cancel"), 
 								localized(@"Delete both"), 
+								localized(@"Cancel"), 
 								[keyInfo userID], 
 								[keyInfo shortKeyID]);
+				switch (retVal) {
+					case NSAlertDefaultReturn:
+						cmd = @"--delete-secret-keys";
+						break;
+					case NSAlertAlternateReturn:
+						cmd = @"--delete-secret-and-public-key";
+						break;
+					default:
+						cmd = nil;
+				}
 			} else {
 				retVal = NSRunAlertPanel(localized(@"DeleteKey_Title"), 
 										 localized(@"DeleteKey_Msg"), 
@@ -630,24 +643,18 @@
 										 nil, 
 										 [keyInfo userID], 
 										 [keyInfo shortKeyID]);				
-			}
-			@try {
 				switch (retVal) {
 					case NSAlertDefaultReturn:
-						if (keyInfo.isSecret) {
-							NotImplementedAlert;
-							//TODO: Nur geheimen Schlüssel löschen.
-						} else {
-							[gpgContext deleteKey:[keyInfo gpgKey] evenIfSecretKey:NO];
-						}
+						cmd = @"--delete-keys";
 						break;
-					case NSAlertOtherReturn:
-						[gpgContext deleteKey:[keyInfo gpgKey] evenIfSecretKey:YES];						
-						break;
+					default:
+						cmd = nil;
 				}
 			}
-			@catch (NSException * e) {
-				NSLog(@"deleteKey: delete für Schlüssel %@ fehlgeschlagen.\n%@", [keyInfo keyID], [e reason]);
+			if (cmd) {
+				if (runGPGCommand(nil, nil, nil, cmd, [keyInfo fingerprint], nil) != 0) {
+					NSLog(@"deleteKey: %@ für Schlüssel %@ fehlgeschlagen.", cmd, [keyInfo keyID]);
+				}						
 			}
 		}
 		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
