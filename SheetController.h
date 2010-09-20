@@ -73,6 +73,7 @@ typedef enum {
 	
 	
 	NSString *msgText;
+	NSArray *emailAddresses;
 	
 	NSString *pattern;
 	NSString *name;
@@ -87,6 +88,7 @@ typedef enum {
 	NSArray *availableLengths;
 	NSInteger length;
 	BOOL localSig;
+	
 }
 
 @property (retain) KeyInfo *myKeyInfo;
@@ -95,6 +97,8 @@ typedef enum {
 
 
 @property (retain) NSString *msgText;
+@property (retain) NSArray *emailAddresses;
+
 @property (retain) NSString *pattern;
 @property (retain) NSString *name;
 @property (retain) NSString *email;
@@ -130,6 +134,7 @@ typedef enum {
 - (void)runSheetForWindow:(NSWindow *)window;
 - (void)closeSheet;
 - (void)setStandardExpirationDates;
+- (void)setDataFromAddressBook;
 
 
 - (IBAction)okButton:(id)sender;

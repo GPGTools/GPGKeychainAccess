@@ -306,7 +306,7 @@ NSLock *updateLock;
 
 
 - (void)updateThread {
-	[self updateKeyInfos:nil]; //TODO: Nach Update an die alte Position scrollen und die die zuvor ausgewählten Schlüssel wieder auswählen.
+	[self updateKeyInfos:nil];
 }
 
 

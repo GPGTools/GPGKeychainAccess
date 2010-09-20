@@ -19,6 +19,7 @@
 #import "ActionController.h"
 #import "KeychainController.h"
 #import "KeyInfo.h";
+#import <AddressBook/AddressBook.h>
 
 @implementation SheetController
 
@@ -41,6 +42,7 @@ static SheetController *_sharedInstance = nil;
 @synthesize maxExpirationDate;
 @synthesize sigType;
 @synthesize localSig;
+@synthesize emailAddresses;
 
 
 + (id)sharedInstance {
@@ -79,8 +81,8 @@ static SheetController *_sharedInstance = nil;
 
 - (void)addUserID:(KeyInfo *)keyInfo {
 	self.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
-	self.name = @"";
-	self.email = @"";
+	
+	[self setDataFromAddressBook];
 	self.comment = @"";
 
 	
@@ -181,22 +183,21 @@ static SheetController *_sharedInstance = nil;
 
 
 - (void)generateNewKey {
-	self.msgText = localized(@"GenerateNewKey_Msg");
 	self.length = 2048;
 	self.keyType = 1;
 	[self setStandardExpirationDates];
 	self.hasExpirationDate = NO;
-	self.name = @"";
-	self.email = @"";
-	self.comment = @"";
 	
-	//TODO: Adressbuch benutzen.
+	[self setDataFromAddressBook];
+	self.comment = @"";
 	
 	currentAction = NewKeyAction;
 	self.displayedView = newKeyView;
 	
 	[self runSheetForWindow:mainWindow];
 }
+
+
 - (void)newKey_Action {
 	[actionController generateNewKeyWithName:name email:email comment:comment type:keyType length:length daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
 	[self closeSheet];
@@ -285,6 +286,43 @@ static SheetController *_sharedInstance = nil;
 	self.expirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0]; 	
 	[dateComponents setYear:500];
 	self.maxExpirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0]; 	
+}
+- (void)setDataFromAddressBook {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	ABPerson *myPerson = [[ABAddressBook sharedAddressBook] me];
+	if (myPerson) {
+		NSString *abFirstName = [myPerson valueForProperty:kABFirstNameProperty];
+		NSString *abLastName = [myPerson valueForProperty:kABLastNameProperty];
+		
+		if (abFirstName && abLastName) {
+			self.name = [NSString stringWithFormat:@"%@ %@", abFirstName, abLastName];
+		} else if (abFirstName) {
+			self.name = abFirstName;
+		} else if (abLastName) {
+			self.name = abLastName;
+		} else {
+			self.name = @"";
+		}
+		
+		ABMultiValue *abEmailAddresses = [myPerson valueForProperty:kABEmailProperty];
+		
+		NSUInteger count = [abEmailAddresses count];
+		if (count > 0) {
+			NSMutableArray *newEmailAddresses = [NSMutableArray arrayWithCapacity:count];
+			for (NSUInteger i = 0; i < count; i++) {
+				[newEmailAddresses addObject:[abEmailAddresses valueAtIndex:i]];
+			}
+			self.emailAddresses = [newEmailAddresses copy];	
+			self.email = [emailAddresses objectAtIndex:0];
+		} else {
+			self.emailAddresses = nil;
+			self.email = @"";
+		}
+	} else {
+		self.name = @"";
+		self.email = @"";
+	}
+	[pool drain];
 }
 
 
