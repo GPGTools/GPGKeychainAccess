@@ -32,7 +32,7 @@
 	[openPanel setAllowsMultipleSelection:YES];
 	[openPanel setTitle:localized(@"Import")];
 	
-	if ([openPanel runModalForTypes:[NSArray arrayWithObjects:@"gpgkey", @"key", nil]] == NSOKButton) {
+	if ([openPanel runModalForTypes:[NSArray arrayWithObjects:@"gpgkey", @"key", @"asc", nil]] == NSOKButton) {
 		[self importFromFiles:[openPanel filenames]];
 	}
 	[keychainController asyncUpdateKeyInfos:nil];
@@ -66,6 +66,7 @@
 	}
 	[filename appendString:@".gpgkey"];
 	
+	
 	if([savePanel runModalForDirectory:nil file:filename] == NSOKButton){
 		[self exportKeys:keyInfos toFile:[savePanel filename] armored:useASCIIForExport allowSecret:allowSecretKeyExport];
 	}
@@ -73,13 +74,11 @@
 - (void)exportKeys:(NSSet *)keys toFile:(NSString *)path armored:(BOOL)armored allowSecret:(BOOL)allowSec {
 	BOOL hasSecKeys = NO;
 	NSMutableArray *arguments;
-	NSSet *pubKeys;
 	NSData *exportedSecretData, *exportedData = nil;
 	KeyInfo *keyInfo;
 	
 	if (allowSec) {
 		arguments = [NSMutableArray array];
-		pubKeys = [NSMutableSet set];
 		[arguments addObject:armored ? @"--armor" : @"--no-armor"];
 		[arguments addObject:@"--export-secret-keys"];
 		
@@ -87,8 +86,6 @@
 			if ([keyInfo isSecret]) {
 				[arguments addObject:[keyInfo fingerprint]];
 				hasSecKeys = YES;
-			} else {
-				[(NSMutableSet*)pubKeys addObject:keyInfo];
 			}
 		}
 		
@@ -98,24 +95,20 @@
 				NSLog(@"exportKeys: --export-secret-keys fehlgeschlagen.");
 			}
 		}
-	} else {
-		pubKeys = keys;
 	}
 	
 	
-	if (!([keys count] > 0 && [pubKeys count] == 0)) {
-		arguments = [NSMutableArray array];
-		[arguments addObject:armored ? @"--armor" : @"--no-armor"];
-		[arguments addObject:@"--export"];
-		
-		for (keyInfo in pubKeys) {
-			[arguments addObject:[keyInfo fingerprint]];
-		}
-		
-		if (runGPGCommandWithArray(nil, &exportedData, nil, arguments, YES) != 0) {
-			NSLog(@"exportKeys: --export fehlgeschlagen.");	
-		}		
+	arguments = [NSMutableArray array];
+	[arguments addObject:armored ? @"--armor" : @"--no-armor"];
+	[arguments addObject:@"--export"];
+	
+	for (keyInfo in keys) {
+		[arguments addObject:[keyInfo fingerprint]];
 	}
+	
+	if (runGPGCommandWithArray(nil, &exportedData, nil, arguments, YES) != 0) {
+		NSLog(@"exportKeys: --export fehlgeschlagen.");	
+	}		
 	
 	if (hasSecKeys) {
 		if (exportedData) {

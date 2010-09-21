@@ -18,11 +18,19 @@
 @interface GPGKeychainAccessAppDelegate : NSObject {
     NSWindow *window;
 	NSOutlineView *keyTable;
+	NSTableView *userIDTable;
+	NSTableView *subkeyTable;
+	NSTableView *signatureTable;
 }
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSWindow *inspectorWindow;
 @property (assign) IBOutlet NSOutlineView *keyTable;
+@property (assign) IBOutlet NSTableView *userIDTable;
+@property (assign) IBOutlet NSTableView *subkeyTable;
+@property (assign) IBOutlet NSTableView *signatureTable;
+
+- (void)generateContextMenuForTable:(NSTableView *)table;
 
 - (IBAction)selectHeaderVisibility:(NSMenuItem *)sender;
 

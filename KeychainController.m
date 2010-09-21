@@ -296,7 +296,6 @@ NSLock *updateLock;
 - (BOOL)showSecretKeysOnly {
     return showSecretKeysOnly;
 }
-
 - (void)setShowSecretKeysOnly:(BOOL)value {
     if (showSecretKeysOnly != value) {
         showSecretKeysOnly = value;

@@ -21,6 +21,10 @@
 @implementation GPGKeychainAccessAppDelegate
 
 @synthesize keyTable;
+@synthesize userIDTable;
+@synthesize subkeyTable;
+@synthesize signatureTable;
+
 
 - (NSWindow *)window {
     return window;
@@ -40,12 +44,35 @@
 
 - (void)awakeFromNib {
 	[keyTable setDoubleAction:@selector(orderFront:)];
-	[keyTable setTarget:inspectorWindow];	
+	[keyTable setTarget:inspectorWindow];
+	
+	[self generateContextMenuForTable:keyTable];
+	[self generateContextMenuForTable:subkeyTable];
+	[self generateContextMenuForTable:userIDTable];
+	[self generateContextMenuForTable:signatureTable];
+}
+
+
+- (void)generateContextMenuForTable:(NSTableView *)table {
+	NSMenuItem *menuItem;
+	NSString *title;
+	NSMenu *contextMenu = [[NSMenu alloc] initWithTitle:@""];
+	[[table headerView] setMenu:contextMenu];
+	
+	NSArray *columns = [table tableColumns];
+	for (NSTableColumn *column in columns) {
+		title = [[column headerCell] title];
+		if (![title isEqualToString:@""]) {
+			menuItem = [contextMenu addItemWithTitle:title action:@selector(selectHeaderVisibility:) keyEquivalent:@""];
+			[menuItem setTarget:self];
+			[menuItem setRepresentedObject:column];
+			[menuItem setState:[column isHidden] ? NSOffState : NSOnState];
+		}
+	}
 }
 
 - (IBAction)selectHeaderVisibility:(NSMenuItem *)sender {
-	NSArray *columns = [NSArray arrayWithObjects:@"type",@"name",@"email",@"shortKeyID",@"creationDate",@"length",@"algorithmDescription",@"keyID",@"fingerprint",@"comment",nil];
-	[[keyTable tableColumnWithIdentifier:[columns objectAtIndex:sender.tag]] setHidden:sender.state];
+	[[sender representedObject] setHidden:sender.state];
 	sender.state = !sender.state;
 }
 
