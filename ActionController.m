@@ -122,7 +122,7 @@
 	[exportedData writeToFile:path atomically:NO];
 }
 
-- (IBAction)addSignature:(id)sender { //TODO: Nach dem geheimen Schlüssel zum Signieren fragen. (Irgendwann...)
+- (IBAction)addSignature:(id)sender {
 	if ([sender tag] != 1 || [userIDsController selectionIndex] != NSNotFound) {
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		SheetController *sheetController = [SheetController sharedInstance];
@@ -137,7 +137,7 @@
 		[sheetController addSignature:keyInfo userID:userID];
 	}
 }
-- (void)addSignatureForKeyInfo:(KeyInfo *)keyInfo andUserID:(NSString *)userID type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire {
+- (void)addSignatureForKeyInfo:(KeyInfo *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	NSString *fingerprint = [keyInfo fingerprint];
@@ -146,7 +146,7 @@
 	NSString *uid = userID ? [NSString stringWithFormat:@"%i", getIndexForUserID(fingerprint, userID)] : @"uid *";
 	
 	NSString *cmdText = [NSString stringWithFormat:@"%@\n%@\n%i\n%i\ny\nsave\n", uid, sigType, daysToExpire, type];
-	NSArray *arguments = [NSArray arrayWithObjects:@"--ask-cert-level", @"--ask-cert-expire", @"--edit-key", fingerprint, nil];
+	NSArray *arguments = [NSArray arrayWithObjects:@"-u", signFingerprint, @"--ask-cert-level", @"--ask-cert-expire", @"--edit-key", fingerprint, nil];
 	
 	if (runGPGCommandWithArray(cmdText, nil, nil, arguments, NO) != 0) {
 		NSLog(@"addSignature: --edit-key:%@ für Schlüssel %@ fehlgeschlagen.", sigType, fingerprint);	

@@ -26,6 +26,7 @@
 	
 	
 	NSMutableDictionary *keychain; //Liste der KeyInfos
+	NSSet *secretKeys;
 	
 	NSMutableArray *filteredKeyList; //Liste der momentan angezeigten KeyInfos.
 	NSArray *filterStrings;
@@ -39,6 +40,7 @@
 @property (retain) NSArray *keyInfosSortDescriptors;
 @property (retain) NSArray *userIDsSortDescriptors;
 @property (retain) NSArray *subkeysSortDescriptors;
+@property (copy) NSSet *secretKeys;
 
 
 

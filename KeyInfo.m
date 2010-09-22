@@ -269,6 +269,9 @@
 - (void)setOwnerTrust:(GPGValidity)value {}
 - (void)setIsKeyDisabled:(BOOL)value {}
 
+
+- (NSString *)description {return [primaryUserID userID];}
+
 //
 //GPGKey Properties
 //

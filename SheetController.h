@@ -74,6 +74,9 @@ typedef enum {
 	
 	NSString *msgText;
 	NSArray *emailAddresses;
+	NSArray *secretKeys;
+	NSArray *secretKeyFingerprints;
+	NSInteger secretKeyId;
 	
 	NSString *pattern;
 	NSString *name;
@@ -98,6 +101,9 @@ typedef enum {
 
 @property (retain) NSString *msgText;
 @property (retain) NSArray *emailAddresses;
+@property (copy) NSArray *secretKeys;
+@property (copy) NSArray *secretKeyFingerprints;
+@property NSInteger secretKeyId;
 
 @property (retain) NSString *pattern;
 @property (retain) NSString *name;

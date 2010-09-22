@@ -30,6 +30,7 @@
 @synthesize userIDsSortDescriptors;
 @synthesize subkeysSortDescriptors;
 @synthesize keyInfosSortDescriptors;
+@synthesize secretKeys;
 
 
 NSLock *updateLock;
@@ -55,17 +56,18 @@ NSLock *updateLock;
 	GPGKey *gpgKey, *secKey;
 	NSString *fingerprint;
 	
+	NSMutableSet *secKeys;
+	
 	@try {
 		
 		[gpgContext setKeyListMode:(GPGKeyListModeLocal | GPGKeyListModeSignatures)];
 		
 		if (keyInfos && [keyInfos count] > 0) { // Nur die übergebenene Schlüssel aktualisieren.
-						
 			NSMutableSet *processedKeyInfos = [NSMutableSet setWithCapacity:[keyInfos count]];
 			NSMutableArray *keyInfosToUpdate = [NSMutableArray array];
 			NSMutableArray *gpgKeysToUpdate = [NSMutableArray array];
 			NSMutableArray *secKeysToUpdate = [NSMutableArray array];
-			
+			secKeys = [secretKeys mutableCopy];
 			
 			for (NSObject *aObject in keyInfos) {
 				if ([aObject isKindOfClass:[KeyInfo class]]) {
@@ -86,8 +88,16 @@ NSLock *updateLock;
 						[keyInfosToUpdate addObject:keyInfo];
 						[gpgKeysToUpdate addObject:gpgKey];
 						[secKeysToUpdate addObject:secKey ? secKey : gpgKey];
+						if ([secKeys containsObject:fingerprint]) {
+							if (!secKey) {
+								[secKeys removeObject:fingerprint];
+							}
+						} else if (secKey) {
+							[secKeys addObject:fingerprint];
+						}
 					} else {
 						[keychain removeObjectForKey:fingerprint];
+						[secKeys removeObject:fingerprint];
 					}
 					if ([keyInfosToUpdate count] > 0) {
 						[self performSelectorOnMainThread:@selector(updateKeyInfosWithDict:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:keyInfosToUpdate, @"keyInfos", gpgKeysToUpdate, @"gpgKeys", secKeysToUpdate, @"secKeys", nil] waitUntilDone:YES];
@@ -101,11 +111,14 @@ NSLock *updateLock;
 			NSArray *gpgKeyList;
 			NSMutableDictionary *secKeyDict = [NSMutableDictionary dictionaryWithCapacity:1];
 			
+			secKeys = [NSMutableSet setWithCapacity:1];
+			
 			gpgKeyList = [[gpgContext keyEnumeratorForSearchPattern:nil secretKeysOnly:NO] allObjects]; //Liste aller GPGKeys.
 			NSEnumerator *secKeyEnum = [gpgContext keyEnumeratorForSearchPattern:nil secretKeysOnly:YES];
 			
 			while (secKey = [secKeyEnum nextObject]) {
 				[secKeyDict setObject:secKey forKey:[secKey fingerprint]];
+				[secKeys addObject:[secKey fingerprint]];
 			}
 			
 			[self performSelectorOnMainThread:@selector(updateKeychain:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:gpgKeyList, @"gpgKeyList", secKeyDict, @"secKeyDict", nil] waitUntilDone:YES];
@@ -117,6 +130,7 @@ NSLock *updateLock;
 				[keyInfo updateFilterText];
 			}
 		}
+		self.secretKeys = secKeys;
 		[self performSelectorOnMainThread:@selector(updateFilteredKeyList:) withObject:nil waitUntilDone:YES];
 	} @catch (NSException * e) {
 		NSLog(@"Fehler in updateKeyInfos: %@", [e reason]);

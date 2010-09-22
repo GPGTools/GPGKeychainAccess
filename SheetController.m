@@ -43,6 +43,10 @@ static SheetController *_sharedInstance = nil;
 @synthesize sigType;
 @synthesize localSig;
 @synthesize emailAddresses;
+@synthesize secretKeys;
+@synthesize secretKeyFingerprints;
+@synthesize secretKeyId;
+
 
 
 + (id)sharedInstance {
@@ -105,6 +109,56 @@ static SheetController *_sharedInstance = nil;
 	self.hasExpirationDate = NO;
 	
 	
+	NSArray *defaultKeys = [[gpgContext options] activeOptionValuesForName:@"default-key"];
+	NSString *defaultKey;
+	if ([defaultKeys count] > 0) {
+		defaultKey = [defaultKeys objectAtIndex:0];
+		switch ([defaultKey length]) {
+			case 9:
+			case 17:
+			case 33:
+			case 41:
+				if ([defaultKey hasPrefix:@"0"]) {
+					defaultKey = [defaultKey substringFromIndex:1];
+				}
+				break;
+			case 10:
+			case 18:
+			case 34:
+			case 42:
+				if ([defaultKey hasPrefix:@"0x"]) {
+					defaultKey = [defaultKey substringFromIndex:2];
+				}
+				break;
+		}
+	} else {
+		defaultKey = nil;
+	}
+
+	self.secretKeyId = 0;
+	
+	NSSet *secKeySet = [keychainController secretKeys];
+	NSMutableArray *secKeys = [NSMutableArray arrayWithCapacity:[secKeySet count]];
+	NSMutableArray *fingerprints = [NSMutableArray arrayWithCapacity:[secKeySet count]];
+	KeyInfo *aKeyInfo;
+	NSDictionary *keychain = [keychainController keychain];
+	int i = 0;
+	
+	for (NSString *fingerprint in secKeySet) {
+		aKeyInfo = [keychain objectForKey:fingerprint];
+		if (defaultKey && [aKeyInfo.textForFilter rangeOfString:defaultKey].length != 0) {
+			self.secretKeyId = i;
+			defaultKey = nil;
+		}
+		[secKeys addObject:[NSString stringWithFormat:@"%@, %@", aKeyInfo.shortKeyID, aKeyInfo.userID]];
+		[fingerprints addObject:fingerprint];
+		i++;
+	}
+	self.secretKeys = secKeys;
+	self.secretKeyFingerprints = fingerprints;
+
+	
+	
 	self.myKeyInfo = keyInfo;
 	self.myString = userID;
 	currentAction = AddSignatureAction;
@@ -113,7 +167,7 @@ static SheetController *_sharedInstance = nil;
 	[self runSheetForWindow:userID ? inspectorWindow : mainWindow];
 }
 - (void)addSignature_Action {
-	[actionController addSignatureForKeyInfo:myKeyInfo andUserID:myString type:sigType local:localSig daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
+	[actionController addSignatureForKeyInfo:myKeyInfo andUserID:myString signKey:[secretKeyFingerprints objectAtIndex:secretKeyId] type:sigType local:localSig daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
 	[self closeSheet];
 }
 
