@@ -82,4 +82,14 @@
 }
 
 
+
+- (CGFloat) splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex {
+	return proposedMinimumPosition + 68;
+}
+- (CGFloat) splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex {
+	return proposedMaximumPosition - 108;
+}
+
+
+
 @end
