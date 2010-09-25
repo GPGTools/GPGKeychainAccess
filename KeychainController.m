@@ -22,6 +22,7 @@
 //KeychainController kümmert sich um das anzeigen und Filtern der Schlüssel-Liste.
 
 
+
 @implementation KeychainController
 
 @synthesize filteredKeyList;
@@ -155,7 +156,6 @@ NSLock *updateLock;
 }
 
 
-
 - (void)updateKeychain:(NSDictionary *)aDict { //Darf nur im Main-Thread laufen!
 	
 	NSArray *gpgKeyList = [aDict objectForKey:@"gpgKeyList"];
@@ -202,7 +202,7 @@ NSLock *updateLock;
 	
 	if ([sender isKindOfClass:[NSTextField class]]) {
 		self.filterStrings = [[sender stringValue] componentsSeparatedByString:@" "];
-	}	
+	}
 	
 	keysToRemove = [NSMutableArray arrayWithArray:filteredKeyList];
 	
@@ -239,7 +239,7 @@ NSLock *updateLock;
 		}
 	}
 	return YES;
-}	
+}
 
 - (id)init {
 	self = [super init];
@@ -281,7 +281,7 @@ NSLock *updateLock;
 		NSArray *engines = [GPGEngine availableEngines];
 		BOOL engineFound = NO;
 		for (GPGEngine *engine in engines) {
-			if ([[engine availableExecutablePaths] count] > 0) {
+			if ([[engine availableExecutablePaths] count] > 0 && [[engine version] hasPrefix:@"2."]) {
 				engineFound = YES;
 				GPG_PATH = [[engine executablePath] retain];
 				break;
@@ -352,7 +352,7 @@ NSLock *updateLock;
 			return localized(@"GPG_DiffieHellmanAlgorithm");
 		default:
 			return @"";
-	}	
+	}
 }
 
 @end
@@ -387,6 +387,43 @@ NSLock *updateLock;
 }
 
 @end
+
+@implementation SplitFormatter
+@synthesize blockSize;
+
+- (id)init {
+	if (self = [super init]) {
+		blockSize = 4;
+	}
+	return self;
+}
+
+- (NSString*)stringForObjectValue:(id)obj {
+	char const* fingerprint = [[obj description] cStringUsingEncoding:NSASCIIStringEncoding];
+	int length = strlen(fingerprint),i = 0, pos = 0;
+	char formattedFingerprint[length + (length -1) / blockSize + 1];
+	
+	for (; i + blockSize < length; i += blockSize) {
+		memcpy(formattedFingerprint+pos, fingerprint+i, blockSize);
+		pos += blockSize + 1;
+		formattedFingerprint[pos-1] = ' ';
+	}
+	memcpy(formattedFingerprint+pos, fingerprint+i, length - i);
+	formattedFingerprint[pos+length - i] = 0;
+	
+			
+	return [NSString stringWithCString:formattedFingerprint encoding:NSASCIIStringEncoding];
+}
+
+- (BOOL)getObjectValue:(id*)obj forString:(NSString*)string errorDescription:(NSString**)error {
+	return NO;
+}
+- (BOOL)isPartialStringValid:(NSString*)partialString newEditingString:(NSString**) newString errorDescription:(NSString**)error {
+	return YES;
+}
+
+@end
+
 
 
 

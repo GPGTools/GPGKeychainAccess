@@ -34,10 +34,12 @@ typedef enum {
 	GPGSubkey *primarySubkey;
 	KeyInfo *primaryKeyInfo;
 	
-	NSImage *photo;
+	NSArray *photos;
 	NSString *textForFilter; //In diesem String stehen die verschiedenen Informationen über den Schlüssel, damit das Filtern schnell funktioniert.
 	BOOL isSecret;
 }
+
+
 
 
 @property ( retain ) GPGKey *gpgKey;
@@ -76,8 +78,10 @@ typedef enum {
 @property ( readonly ) BOOL isKeyRevoked;
 @property ( readonly ) BOOL isSecret;
 @property GPGValidity ownerTrust;
-@property ( retain ) NSImage *photo;
+@property ( readonly ) NSArray *photos;
 @property ( readonly ) NSString *type;
+
+- (void)updatePhotos;
 
 
 - (void)setChildren:(NSMutableArray *)value;

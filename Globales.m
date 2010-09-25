@@ -39,3 +39,13 @@ NSSet* KeyInfoSet(NSArray *keyInfos) {
 NSInteger getDaysToExpire(NSDate *expirationDate) {
 	return ([expirationDate timeIntervalSinceNow] + 86399) / 86400;
 }
+
+
+NSString* dataToString(NSData *data) {
+	NSString *retString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+	if (retString == nil) {
+		retString = [[NSString alloc] initWithData:data encoding:NSISOLatin1StringEncoding];
+	}
+	return [retString autorelease];
+}
+

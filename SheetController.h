@@ -130,7 +130,7 @@ typedef enum {
 - (void)changeExpirationDate:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey;
 - (void)searchKeys;
 - (void)searchKeys_Action;
-- (void)showFoundKeysWithText:(NSString *)text;	
+- (void)showFoundKeysWithText:(NSString *)text;
 - (void)receiveKeys;
 - (void)receiveKeys_Action;
 - (void)generateNewKey;

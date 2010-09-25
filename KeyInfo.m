@@ -16,6 +16,8 @@
 */
 
 #import "KeyInfo.h"
+#import "ActionController.h"
+#include <sys/stat.h>
 
 
 @implementation KeyInfo
@@ -117,8 +119,61 @@
 
 
 
-
-
+- (NSArray *)photos {
+	if (!photos) {
+		[self updatePhotos];
+	}
+	return [[photos retain] autorelease];
+}
+- (void)updatePhotos {
+	NSData *outData, *statusData, *attributeData;
+	
+	NSArray *arguments = [NSArray arrayWithObjects:@"-k", self.fingerprint, nil];
+	if (runGPGCommandWithArray(nil, &outData, nil, &statusData, &attributeData, arguments) != 0) {
+		NSLog(@"updatePhotos: --attribute-fd für Schlüssel %@ fehlgeschlagen.", self.keyID);
+		photos = nil;
+		return;
+	}
+	
+	NSString *outText = dataToString(outData);
+	NSString *statusText = dataToString(statusData);
+	
+	NSArray *outLines = [outText componentsSeparatedByString:@"\n"];
+	NSArray *statusLines = [statusText componentsSeparatedByString:@"\n"];
+	
+	
+	NSMutableArray *thePhotos = [NSMutableArray array];
+	
+	NSArray *fields;
+	NSInteger pos = 0, dataLength;
+	int curOutLine = 0, countOutLines = [outLines count];
+	NSString *outLine, *photoHash;
+	
+	for (NSString *statuLine in statusLines) {
+		if ([statuLine hasPrefix:@"[GNUPG:] ATTRIBUTE "]) {
+			photoHash = nil;
+			for (; curOutLine < countOutLines; curOutLine++) {
+				outLine = [outLines objectAtIndex:curOutLine];
+				if ([outLine hasPrefix:@"uat:"]) {
+					photoHash = [[outLine componentsSeparatedByString:@":"] objectAtIndex:7];
+					curOutLine++;
+					break;
+				}
+			}
+			fields = [statuLine componentsSeparatedByString:@" "];
+			dataLength = [[fields objectAtIndex:3] integerValue];
+			if ([[fields objectAtIndex:4] isEqualToString:@"1"]) { //1 = Bild
+				NSImage *aPhoto = [[NSImage alloc] initWithData:[attributeData subdataWithRange:(NSRange) {pos + 16, dataLength - 16}]];
+				if (aPhoto && photoHash) {
+					[thePhotos addObject:[NSDictionary dictionaryWithObjectsAndKeys:aPhoto, @"photo", photoHash, @"hash", nil]];
+					[aPhoto release];
+				}
+			}
+			pos += dataLength;
+		}
+	}
+	photos = [thePhotos copy];
+}
 
 
 
@@ -145,7 +200,7 @@
 	
 	
 	
-	NSUInteger i, index, userIDsCount, subkeysCount;
+	NSUInteger i, aIndex, userIDsCount, subkeysCount;
 	
 	
 	NSMutableIndexSet *subkeysToRemove = [NSMutableIndexSet indexSetWithIndexesInRange:(NSRange) {0, [subkeys count]}];
@@ -167,14 +222,14 @@
 		aFingerprint = [aSubkey fingerprint];
 		
 		subkeyChild = nil;
-		index = [subkeysToRemove firstIndex];
-		while (index != NSNotFound) {
-			if ([aFingerprint isEqualToString:[[subkeys objectAtIndex:index] fingerprint]]) {
-				subkeyChild = [subkeys objectAtIndex:index];
-				[subkeysToRemove removeIndex:index];
+		aIndex = [subkeysToRemove firstIndex];
+		while (aIndex != NSNotFound) {
+			if ([aFingerprint isEqualToString:[[subkeys objectAtIndex:aIndex] fingerprint]]) {
+				subkeyChild = [subkeys objectAtIndex:aIndex];
+				[subkeysToRemove removeIndex:aIndex];
 				break;
 			}
-			index = [subkeysToRemove indexGreaterThanIndex:index];
+			aIndex = [subkeysToRemove indexGreaterThanIndex:aIndex];
 		}
 		if (subkeyChild) {
 			subkeyChild.subkey = aSubkey;
@@ -185,11 +240,11 @@
 		}
 		subkeyChild.index = i - 1;
 	}
-	index = [subkeysToRemove firstIndex];
-	while (index != NSNotFound) {
-		[self removeObjectFromSubkeysAtIndex:index];
-		[self removeObjectFromChildrenAtIndex:index];
-		index = [subkeysToRemove indexGreaterThanIndex:index];
+	aIndex = [subkeysToRemove firstIndex];
+	while (aIndex != NSNotFound) {
+		[self removeObjectFromSubkeysAtIndex:aIndex];
+		[self removeObjectFromChildrenAtIndex:aIndex];
+		aIndex = [subkeysToRemove indexGreaterThanIndex:aIndex];
 	}
 	subkeysCount--;
 	
@@ -201,15 +256,15 @@
 		aUserIDString = [aUserID userID];
 		
 		userIDChild = nil;
-		index = [userIDsToRemove firstIndex];
-		while (index != NSNotFound) {
-			NSString *temp = [[userIDs objectAtIndex:index] userID];
+		aIndex = [userIDsToRemove firstIndex];
+		while (aIndex != NSNotFound) {
+			NSString *temp = [[userIDs objectAtIndex:aIndex] userID];
 			if ([aUserIDString isEqualToString:temp]) {
-				userIDChild = [userIDs objectAtIndex:index];
-				[userIDsToRemove removeIndex:index];
+				userIDChild = [userIDs objectAtIndex:aIndex];
+				[userIDsToRemove removeIndex:aIndex];
 				break;
 			}
-			index = [userIDsToRemove indexGreaterThanIndex:index];
+			aIndex = [userIDsToRemove indexGreaterThanIndex:aIndex];
 		}
 		if (userIDChild) {
 			userIDChild.gpgUserID = aUserID;
@@ -220,18 +275,19 @@
 		}
 		userIDChild.index = subkeysCount + i;
 	}
-	index = [userIDsToRemove firstIndex];
-	while (index != NSNotFound) {
-		[self removeObjectFromUserIDsAtIndex:index];
-		[self removeObjectFromChildrenAtIndex:subkeysCount + index];
-		index = [userIDsToRemove indexGreaterThanIndex:index];
+	aIndex = [userIDsToRemove firstIndex];
+	while (aIndex != NSNotFound) {
+		[self removeObjectFromUserIDsAtIndex:aIndex];
+		[self removeObjectFromChildrenAtIndex:subkeysCount + aIndex];
+		aIndex = [userIDsToRemove indexGreaterThanIndex:aIndex];
 	}
 	
-		
-
 	self.primaryUserID = [[gpgKey userIDs] objectAtIndex:0];
 	self.primarySubkey = [[gpgKey subkeys] objectAtIndex:0];
 	
+	[self willChangeValueForKey:@"photos"];
+	photos = nil;
+	[self didChangeValueForKey:@"photos"];
 }
 
 - (void)updateFilterText { // Muss für den Schlüssel aufgerufen werden, bevor auf textForFilter zugegriffen werden kann!
@@ -258,7 +314,7 @@
 	self.userIDs = nil;
 	self.primaryUserID = nil;
 	self.primarySubkey = nil;
-	self.photo = nil;
+	[photos release];
 	[textForFilter release];
 	
 	[super dealloc];
@@ -303,19 +359,6 @@
 - (BOOL)isKeyDisabled { return [gpgKey isKeyDisabled]; }
 - (BOOL)isKeyRevoked { return [gpgKey isKeyRevoked]; }
 - (GPGValidity)ownerTrust { return [gpgKey ownerTrust]; }
-
-- (NSImage *)photo {
-	if (!photo) {
-		photo = [[NSImage alloc] initWithData:[gpgKey photoData]];
-	}
-	return [[photo retain] autorelease];
-}
-- (void)setPhoto:(NSImage *)value {
-	if (value != photo) {
-		[photo release];
-		photo = [value retain];
-	}
-}
 
 @end
 
@@ -436,5 +479,4 @@
 }
 
 @end
-
 

@@ -36,8 +36,9 @@ enum {
     IBOutlet NSArrayController *signaturesController;
     IBOutlet NSArrayController *subkeysController;
     IBOutlet NSArrayController *userIDsController;
+	IBOutlet NSArrayController *photosController;
 	IBOutlet NSView *exportKeyOptionsView;
-
+	
 	
 	BOOL allowSecretKeyExport;
 	BOOL useASCIIForExport;
@@ -45,6 +46,9 @@ enum {
 @property BOOL allowSecretKeyExport;
 @property BOOL useASCIIForExport;
 
+- (IBAction)addPhoto:(NSButton *)sender;
+- (IBAction)removePhoto:(NSButton *)sender;
+- (IBAction)revokePhoto:(NSButton *)sender;
 - (IBAction)exportKey:(id)sender;
 - (IBAction)importKey:(id)sender;
 - (IBAction)addSignature:(id)sender;
@@ -58,11 +62,11 @@ enum {
 - (IBAction)revokeSignature:(NSButton *)sender;
 - (IBAction)revokeSubkey:(NSButton *)sender;
 - (IBAction)setDisabled:(NSButton *)sender;
-- (IBAction)setPhoto:(NSImageView *)sender;
 - (IBAction)setPrimaryUserID:(NSButton *)sender;
 - (IBAction)setTrsut:(NSPopUpButton *)sender;
 - (IBAction)generateNewKey:(id)sender;
 - (IBAction)deleteKey:(id)sender;
+- (IBAction)refreshDisplayedKeys:(id)sender;
 - (void)exportKeys:(NSSet *)keys toFile:(NSString *)path armored:(BOOL)armored allowSecret:(BOOL)allowSec;
 - (void)importFromFiles:(NSArray *)files;
 - (IBAction)sendKeysToServer:(id)sender;
@@ -85,7 +89,7 @@ enum {
 
 
 int runCommandWithArray(NSString *command, NSString *inText, NSData **outData, NSData **errData, NSArray *arguments);
-int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData, NSArray *args, BOOL batchMode);
+int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData, NSData **statusData, NSData **attributeData, NSArray *args);
 int runGPGCommand(NSString *inText, NSString **outText, NSString **errText, NSString *firstArg, ...) NS_REQUIRES_NIL_TERMINATION;
 int searchKeysOnServer(NSString *searchPattern, NSString **outText);
 

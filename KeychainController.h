@@ -68,4 +68,10 @@
 @interface GPGKeyStatusTransformer : NSValueTransformer {}
 @end
 
+@interface SplitFormatter : NSFormatter {
+	NSInteger blockSize;
+}
+@property NSInteger blockSize;
+@end
+
 

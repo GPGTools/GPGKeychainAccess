@@ -28,6 +28,7 @@ extern GPGContext *gpgContext;
 
 NSSet* KeyInfoSet(NSArray *keyInfos);
 NSInteger getDaysToExpire(NSDate *expirationDate);
-
+NSString* dataToString(NSData *data);
+	
 #define NotImplementedAlert NSRunAlertPanel(@"Noch nicht implementiert", @"", @"OK", nil, nil)
 

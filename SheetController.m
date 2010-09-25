@@ -69,7 +69,7 @@ static SheetController *_sharedInstance = nil;
 	self.length = 2048;
 	self.keyType = 3;
 	[self setStandardExpirationDates];
-	self.hasExpirationDate = NO;	
+	self.hasExpirationDate = NO;
 
 	
 	self.myKeyInfo = keyInfo;
@@ -94,7 +94,7 @@ static SheetController *_sharedInstance = nil;
 	currentAction = AddUserIDAction;
 	self.displayedView = generateUserIDView;
 	
-	[self runSheetForWindow:inspectorWindow];	
+	[self runSheetForWindow:inspectorWindow];
 }
 - (void)addUserID_Action {
 	[actionController addUserIDForKeyInfo:myKeyInfo name:name email:email comment:comment];
@@ -178,14 +178,14 @@ static SheetController *_sharedInstance = nil;
 		aDate = [subkey expirationDate];
 	} else {
 		self.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
-		aDate = [keyInfo expirationDate];		
-	}	
+		aDate = [keyInfo expirationDate];
+	}
 
 	[self setStandardExpirationDates];
 	if (aDate) {
 		self.hasExpirationDate = YES;
 		self.expirationDate = aDate;
-		self.minExpirationDate = [self.minExpirationDate earlierDate:aDate];			
+		self.minExpirationDate = [self.minExpirationDate earlierDate:aDate];
 	} else {
 		self.hasExpirationDate = NO;
 	}
@@ -196,7 +196,7 @@ static SheetController *_sharedInstance = nil;
 	currentAction = ChangeExpirationDateAction;
 	self.displayedView = changeExpirationDateView;
 	
-	[self runSheetForWindow:inspectorWindow];	
+	[self runSheetForWindow:inspectorWindow];
 }
 - (void)changeExpirationDate_Action {
 	[actionController changeExpirationDateForKeyInfo:myKeyInfo subkey:mySubkey daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
@@ -209,7 +209,7 @@ static SheetController *_sharedInstance = nil;
 	currentAction = SearchKeysAction;
 	self.displayedView = searchKeysView;
 	
-	[self runSheetForWindow:mainWindow];		
+	[self runSheetForWindow:mainWindow];
 }
 - (void)searchKeys_Action {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -228,7 +228,7 @@ static SheetController *_sharedInstance = nil;
 	currentAction = ReceiveKeysAction;
 	self.displayedView = receiveKeysView;
 	
-	[self runSheetForWindow:mainWindow];		
+	[self runSheetForWindow:mainWindow];
 }
 - (void)receiveKeys_Action {
 	[actionController receiveKeysWithPattern:pattern];
@@ -283,7 +283,7 @@ static SheetController *_sharedInstance = nil;
 			if (![self checkComment]) return;
 	
 			self.displayedView = progressView;
-			[NSThread detachNewThreadSelector:@selector(addUserID_Action) toTarget:self withObject:nil];			
+			[NSThread detachNewThreadSelector:@selector(addUserID_Action) toTarget:self withObject:nil];
 			break;
 		case AddSignatureAction:
 			self.displayedView = progressView;
@@ -366,7 +366,7 @@ static SheetController *_sharedInstance = nil;
 			for (NSUInteger i = 0; i < count; i++) {
 				[newEmailAddresses addObject:[abEmailAddresses valueAtIndex:i]];
 			}
-			self.emailAddresses = [newEmailAddresses copy];	
+			self.emailAddresses = [newEmailAddresses copy];
 			self.email = [emailAddresses objectAtIndex:0];
 		} else {
 			self.emailAddresses = nil;
@@ -454,13 +454,13 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		return YES;
 	}
 	if ([comment length] > 500) {
-		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_CommentToLong"), nil, nil, nil);			
-		return NO;			
-	}			
+		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_CommentToLong"), nil, nil, nil);
+		return NO;
+	}
 	if ([comment rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()"]].length != 0) {
-		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_InvalidCharInComment"), nil, nil, nil);			
-		return NO;			
-	}		
+		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_InvalidCharInComment"), nil, nil, nil);
+		return NO;
+	}
 	return YES;
 }
 
@@ -472,7 +472,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	if (displayedView != value) {
 		if (displayedView == progressView) {
 			[progressIndicator stopAnimation:nil];
-		}		
+		}
 		[displayedView removeFromSuperview];
 		displayedView = value;
 		if (value != nil) {
@@ -483,7 +483,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			newRect.origin.y = oldRect.origin.y + oldRect.size.height - newRect.size.height;
 			
 			[sheetWindow setFrame:newRect display:YES animate:YES];
-			[sheetWindow setContentSize:newRect.size];			
+			[sheetWindow setContentSize:newRect.size];
 			
 			[sheetView addSubview:value];
 			if (value == progressView) {

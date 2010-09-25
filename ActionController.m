@@ -25,6 +25,33 @@
 @synthesize allowSecretKeyExport;
 @synthesize useASCIIForExport;
 
+//TODO: Photo hinzufügen.
+//TODO: Photo widerrufen.
+//TODO: Primäres Foto wählbar machen.
+//TODO: Fotos die auf mehrere Subpackets aufgeteilt sind.
+
+
+- (IBAction)addPhoto:(NSButton *)sender {
+	NotImplementedAlert;
+}
+- (IBAction)removePhoto:(NSButton *)sender {
+	if ([photosController selectionIndex] != NSNotFound) {
+		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		NSString *fingerprint = [keyInfo fingerprint];
+		NSInteger uid = getIndexForUserID(fingerprint, [[[photosController selectedObjects] objectAtIndex:0] objectForKey:@"hash"]);
+		if (uid > 0) {
+			NSString *cmdText = [NSString stringWithFormat:@"%i\ndeluid\ny\nsave\n", uid];
+			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, nil) != 0) {
+				NSLog(@"removePhoto: --edit-key:deluid für Schlüssel %@ fehlgeschlagen.", fingerprint);
+			}
+		}
+		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+	}
+}
+- (IBAction)revokePhoto:(NSButton *)sender {
+	NotImplementedAlert;
+}
+
 
 - (IBAction)importKey:(id)sender {
 	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
@@ -46,9 +73,9 @@
 		[arguments addObject:file];
 	}
 	
-	if (runGPGCommandWithArray(nil, nil, nil, arguments, YES) != 0) {
-		NSLog(@"importFromFiles: --import fehlgeschlagen.");	
-	}	
+	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
+		NSLog(@"importFromFiles: --import fehlgeschlagen.");
+	}
 }
 
 - (IBAction)exportKey:(id)sender {
@@ -91,7 +118,7 @@
 		
 		if (hasSecKeys || [keys count] == 0) {
 			hasSecKeys = YES;
-			if (runGPGCommandWithArray(nil, &exportedSecretData, nil, arguments, YES) != 0) {
+			if (runGPGCommandWithArray(nil, &exportedSecretData, nil, nil, nil, arguments) != 0) {
 				NSLog(@"exportKeys: --export-secret-keys fehlgeschlagen.");
 			}
 		}
@@ -106,9 +133,9 @@
 		[arguments addObject:[keyInfo fingerprint]];
 	}
 	
-	if (runGPGCommandWithArray(nil, &exportedData, nil, arguments, YES) != 0) {
-		NSLog(@"exportKeys: --export fehlgeschlagen.");	
-	}		
+	if (runGPGCommandWithArray(nil, &exportedData, nil, nil, nil, arguments) != 0) {
+		NSLog(@"exportKeys: --export fehlgeschlagen.");
+	}
 	
 	if (hasSecKeys) {
 		if (exportedData) {
@@ -142,14 +169,27 @@
 	
 	NSString *fingerprint = [keyInfo fingerprint];
 	
-	NSString *sigType = local ? @"lsign" : @"sign";	
-	NSString *uid = userID ? [NSString stringWithFormat:@"%i", getIndexForUserID(fingerprint, userID)] : @"uid *";
+	NSString *sigType = local ? @"lsign" : @"sign";
+	NSString *uid;
+	if (userID) {
+		uid = @"uid *";
+	} else {
+		int uidIndex = getIndexForUserID(fingerprint, userID);
+		if (uidIndex > 0) {
+			uid = [NSString stringWithFormat:@"%i", uidIndex];
+		} else {
+			//UserID konnte nicht gefunden werden. Der Schlüssel wird aktualisiert.
+			[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
+			[pool drain];
+			return;
+		}
+	}
 	
-	NSString *cmdText = [NSString stringWithFormat:@"%@\n%@\n%i\n%i\ny\nsave\n", uid, sigType, daysToExpire, type];
-	NSArray *arguments = [NSArray arrayWithObjects:@"-u", signFingerprint, @"--ask-cert-level", @"--ask-cert-expire", @"--edit-key", fingerprint, nil];
+	NSString *cmdText = [NSString stringWithFormat:@"%@\n%@\n%i\ny\nsave\n", uid, sigType, daysToExpire];
+	NSArray *arguments = [NSArray arrayWithObjects:@"-u", signFingerprint, @"--no-ask-cert-level", @"--default-cert-level", [NSString stringWithFormat:@"%i", type], @"--ask-cert-expire", @"--edit-key", fingerprint, nil];
 	
-	if (runGPGCommandWithArray(cmdText, nil, nil, arguments, NO) != 0) {
-		NSLog(@"addSignature: --edit-key:%@ für Schlüssel %@ fehlgeschlagen.", sigType, fingerprint);	
+	if (runGPGCommandWithArray(cmdText, nil, nil, nil, nil, arguments) != 0) {
+		NSLog(@"addSignature: --edit-key:%@ für Schlüssel %@ fehlgeschlagen.", sigType, fingerprint);
 	}
 	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
 
@@ -213,7 +253,7 @@
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
-		[sheetController changeExpirationDate:keyInfo subkey:subkey];		
+		[sheetController changeExpirationDate:keyInfo subkey:subkey];
 	}
 	
 }
@@ -226,7 +266,7 @@
 		NSInteger index = getIndexForSubkey([subkey fingerprint], [subkey keyID]);
 		if (index == 0) {
 			return;
-		}		
+		}
 		cmdText = [NSString stringWithFormat:@"key %i\nexpire\n%i\ny\nsave\n", index, daysToExpire];
 	} else {
 		cmdText = [NSString stringWithFormat:@"expire\n%i\ny\nsave\n", daysToExpire];
@@ -271,7 +311,7 @@
 						  [splitedLine objectAtIndex:3], 
 						  [algorithmTransformer transformedValue:[splitedLine objectAtIndex:2]], 
 						  [splitedLine objectAtIndex:1], 
-						  [splitedLine objectAtIndex:4]];			
+						  [splitedLine objectAtIndex:4]];
 		} else if (pubKeyText && [[splitedLine objectAtIndex:0] isEqualToString:@"uid"]) {
 			[foundText appendFormat:localized(@"%@\n"), 
 			 [splitedLine objectAtIndex:1]];
@@ -335,8 +375,8 @@
 		}
 	}
 	
-	if (runGPGCommandWithArray(nil, nil, nil, arguments, YES) != 0) {
-		NSLog(@"receiveKeys_Selector: --recv-keys für \"%@\" fehlgeschlagen.", pattern);	
+	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
+		NSLog(@"receiveKeys_Selector: --recv-keys für \"%@\" fehlgeschlagen.", pattern);
 	}
 	[keychainController updateKeyInfos:nil];
 	[pool drain];
@@ -349,10 +389,10 @@
 		for (KeyInfo *keyInfo in keyInfos) {
 			[arguments addObject:[keyInfo fingerprint]];
 		}
-		if (runGPGCommandWithArray(nil, nil, nil, arguments, YES) != 0) {
+		if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
 			NSLog(@"sendKeysToServer: --send-key fehlgeschlagen.");
-		}						
-	}	
+		}
+	}
 }
 
 - (IBAction)refreshKeysFromServer:(id)sender {
@@ -361,7 +401,7 @@
 	for (KeyInfo *keyInfo in keyInfos) {
 		[arguments addObject:[keyInfo fingerprint]];
 	}
-	if (runGPGCommandWithArray(nil, nil, nil, arguments, YES) != 0) {
+	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
 		NSLog(@"refreshKeysFromServer: --refresh-keys fehlgeschlagen.");
 	}
 	[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
@@ -372,7 +412,7 @@
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		
 		if (runGPGCommand(@"passwd\ny\nsave\n", nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
-			NSLog(@"changePassphrase: --edit-key:passwd für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);	
+			NSLog(@"changePassphrase: --edit-key:passwd für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
 		}
 		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
 	}
@@ -386,24 +426,26 @@
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [userID userID]);
-		NSMutableString *cmdText = [NSMutableString stringWithCapacity:4];
-		
-		for (GPGKeySignature *aSignature in signatures) {
-			if (aSignature == gpgKeySignature) {
-				[cmdText appendString:@"y\n"];
-				if ([[gpgKeySignature signerKeyID] isEqualToString:[keyInfo keyID]]) {
+		if (uid > 0) {
+			NSMutableString *cmdText = [NSMutableString stringWithCapacity:4];
+			
+			for (GPGKeySignature *aSignature in signatures) {
+				if (aSignature == gpgKeySignature) {
 					[cmdText appendString:@"y\n"];
+					if ([[gpgKeySignature signerKeyID] isEqualToString:[keyInfo keyID]]) {
+						[cmdText appendString:@"y\n"];
+					}
+				} else {
+					[cmdText appendString:@"n\n"];
 				}
-			} else {
-				[cmdText appendString:@"n\n"];
+			}
+			
+			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"delsig", @"save", nil) != 0) {
+				NSLog(@"removeSignature: --edit-key:delsig für Schlüssel %@ fehlgeschlagen.", fingerprint);
 			}
 		}
-				
-		if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"delsig", @"save", nil) != 0) {
-			NSLog(@"removeSignature: --edit-key:delsig für Schlüssel %@ fehlgeschlagen.", fingerprint);	
-		}
 		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
-	}	
+	}
 }
 
 - (IBAction)removeSubkey:(NSButton *)sender {
@@ -417,7 +459,7 @@
 			}
 			[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
 		}
-	}	
+	}
 }
 
 - (IBAction)removeUserID:(NSButton *)sender {
@@ -425,10 +467,11 @@
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [[[userIDsController selectedObjects] objectAtIndex:0] userID]);
-				
-		NSString *cmdText = [NSString stringWithFormat:@"%i\ndeluid\ny\nsave\n", uid];
-		if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, nil) != 0) {
-			NSLog(@"removeUserID: --edit-key:deluid für Schlüssel %@ fehlgeschlagen.", fingerprint);	
+		if (uid > 0) {
+			NSString *cmdText = [NSString stringWithFormat:@"%i\ndeluid\ny\nsave\n", uid];
+			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, nil) != 0) {
+				NSLog(@"removeUserID: --edit-key:deluid für Schlüssel %@ fehlgeschlagen.", fingerprint);
+			}
 		}
 		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
 	}
@@ -441,48 +484,50 @@
 		NSArray *signatures = [userID signatures];
 		NSString *fingerprint = [[[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo] fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [userID userID]);
-		NSMutableString *cmdText = [NSMutableString stringWithCapacity:9];
-		NSMutableArray *secKeyIDs = [NSMutableArray arrayWithCapacity:1];
-		NSEnumerator *keyEnum = [[keychainController keychain] objectEnumerator];
-		KeyInfo *keyInfo;
-		NSString *signerKeyID1 = [gpgKeySignature signerKeyID];
-		NSString *signerKeyID2;
-		BOOL isSigFromMe;
-		NSUInteger i, count;
-		
-		while (keyInfo = [keyEnum nextObject]) {
-			if ([keyInfo isSecret]) {
-				[secKeyIDs addObject:[keyInfo keyID]];
-			}
-		}
-		count = [secKeyIDs count];
-		
-		for (GPGKeySignature *aSignature in signatures) {
-			if (![aSignature isRevocationSignature]) {
-				isSigFromMe = NO;
-				signerKeyID2 = [aSignature signerKeyID];
-				for (i = 0; i < count; i++) {
-					if ([signerKeyID2 isEqualToString:[secKeyIDs objectAtIndex:i]]) {
-						isSigFromMe = YES;
-						break;
-					}
-				}
-				if (isSigFromMe) {
-					if ([signerKeyID1 isEqualToString:signerKeyID2]) {
-						[cmdText appendString:@"y\ny\n0\n\ny\n"]; //Eigensignatur
-					} else {
-						[cmdText appendString:@"n\n"]; //Normale Signatur
-					}
+		if (uid > 0) {
+			NSMutableString *cmdText = [NSMutableString stringWithCapacity:9];
+			NSMutableArray *secKeyIDs = [NSMutableArray arrayWithCapacity:1];
+			NSEnumerator *keyEnum = [[keychainController keychain] objectEnumerator];
+			KeyInfo *keyInfo;
+			NSString *signerKeyID1 = [gpgKeySignature signerKeyID];
+			NSString *signerKeyID2;
+			BOOL isSigFromMe;
+			NSUInteger i, count;
+			
+			while (keyInfo = [keyEnum nextObject]) {
+				if ([keyInfo isSecret]) {
+					[secKeyIDs addObject:[keyInfo keyID]];
 				}
 			}
-		}
-		if ([cmdText length] > 0) {
-			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"revsig", @"save", nil) != 0) {
-				NSLog(@"revokeSignature: --edit-key:revsig für Schlüssel %@ fehlgeschlagen.", fingerprint);	
+			count = [secKeyIDs count];
+			
+			for (GPGKeySignature *aSignature in signatures) {
+				if (![aSignature isRevocationSignature]) {
+					isSigFromMe = NO;
+					signerKeyID2 = [aSignature signerKeyID];
+					for (i = 0; i < count; i++) {
+						if ([signerKeyID2 isEqualToString:[secKeyIDs objectAtIndex:i]]) {
+							isSigFromMe = YES;
+							break;
+						}
+					}
+					if (isSigFromMe) {
+						if ([signerKeyID1 isEqualToString:signerKeyID2]) {
+							[cmdText appendString:@"y\ny\n0\n\ny\n"]; //Eigensignatur
+						} else {
+							[cmdText appendString:@"n\n"]; //Normale Signatur
+						}
+					}
+				}
 			}
-			[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+			if ([cmdText length] > 0) {
+				if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"revsig", @"save", nil) != 0) {
+					NSLog(@"revokeSignature: --edit-key:revsig für Schlüssel %@ fehlgeschlagen.", fingerprint);
+				}
+				[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+			}
 		}
-	}	
+	}
 }
 
 - (IBAction)revokeSubkey:(NSButton *)sender {
@@ -496,7 +541,7 @@
 			}
 			[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
 		}
-	}	
+	}
 	
 }
 
@@ -507,14 +552,10 @@
 		for (KeyInfo *keyInfo in keyInfos) {
 			if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], enOrDisable, nil) != 0) {
 				NSLog(@"setDisabled: --edit-key:%@ für Schlüssel %@ fehlgeschlagen.", enOrDisable, [keyInfo keyID]);
-			}						
+			}
 		}
 		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
 	}
-}
-
-- (IBAction)setPhoto:(NSImageView *)sender {
-    //TODO: Irgendwann...
 }
 
 - (IBAction)setPrimaryUserID:(NSButton *)sender {
@@ -522,8 +563,10 @@
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [[[userIDsController selectedObjects] objectAtIndex:0] userID]);
-		if (runGPGCommand(nil, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"primary", @"save", nil) != 0) {
-			NSLog(@"setPrimaryUserID: --edit-key:primary für Schlüssel %@ fehlgeschlagen.", fingerprint);	
+		if (uid > 0) {
+			if (runGPGCommand(nil, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"primary", @"save", nil) != 0) {
+				NSLog(@"setPrimaryUserID: --edit-key:primary für Schlüssel %@ fehlgeschlagen.", fingerprint);
+			}
 		}
 		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
 	}
@@ -536,7 +579,7 @@
 		for (KeyInfo *keyInfo in keyInfos) {
 			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
 				NSLog(@"setTrsut: --edit-key:trust für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
-			}						
+			}
 		}
 		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
 	}
@@ -600,8 +643,11 @@
 	[pool drain];
 }
 
+- (IBAction)refreshDisplayedKeys:(id)sender {
+	[keychainController asyncUpdateKeyInfos:nil];
+}
 
-- (IBAction)deleteKey:(id)sender { 
+- (IBAction)deleteKey:(id)sender { 	
 	//TODO: Bessere Dialoge mit der auswahl "Für alle".
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
@@ -635,7 +681,7 @@
 										 localized(@"Cancel"), 
 										 nil, 
 										 [keyInfo userID], 
-										 [keyInfo shortKeyID]);				
+										 [keyInfo shortKeyID]);
 				switch (retVal) {
 					case NSAlertDefaultReturn:
 						cmd = @"--delete-keys";
@@ -647,7 +693,7 @@
 			if (cmd) {
 				if (runGPGCommand(nil, nil, nil, cmd, [keyInfo fingerprint], nil) != 0) {
 					NSLog(@"deleteKey: %@ für Schlüssel %@ fehlgeschlagen.", cmd, [keyInfo keyID]);
-				}						
+				}
 			}
 		}
 		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
@@ -668,31 +714,185 @@
 //Wenn inText nicht nil ist, wird es gpg als stdin übergeben.
 //Wenn outData nicht nil ist, wird Stdout in diesem NSData zurückgegeben. Gleiches für errData.
 //Rückgabewert ist der Exitcode von GPG.
-int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData, NSArray *args, BOOL batchMode) {
-	NSMutableArray *arguments = [[NSMutableArray alloc] initWithCapacity:6];
-	int exitcode;
-		
+int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData, NSData **statusData, NSData **attributeData, NSArray *args) {
+	int pipes[4][2];
+	int i;
+	NSData **datas[4];
 	
-	if (inText) {
-		[arguments addObject:@"--command-fd"];
-		[arguments addObject:@"0"];
+	datas[0] = outData;
+	datas[1] = errData;
+	datas[2] = statusData;
+	datas[3] = attributeData;
+	
+	for (i = 0; i < 4; i++) {
+		if (datas[i]) {
+			pipe(pipes[i]);
+		}
 	}
 	
-	[arguments addObject:@"--no-greeting"];
-	[arguments addObject:@"--with-colons"];
-	[arguments addObject:@"--yes"];
-	[arguments addObject:batchMode ? @"--batch" : @"--no-batch"];
-	[arguments addObject:@"--no-tty"];
-	[arguments addObjectsFromArray:args];
-
+	pid_t pid = fork();
 	
-	exitcode = runCommandWithArray(GPG_PATH, inText, outData, errData, arguments);
-	
-	
-	[arguments release];
-	
-	return exitcode;
+	if (pid == 0) { //Kindprozess
+		int numArgs, argPos = 1;
+		numArgs = 7 + [args count];
+		
+		int nullDescriptor = open("/dev/null", O_WRONLY);
+		
+		if (outData) {
+			close(pipes[0][0]);
+		} else {
+			pipes[0][1] = nullDescriptor;
+		}
+		if (errData) {
+			close(pipes[1][0]);
+		} else {
+			pipes[1][1] = nullDescriptor;
+		}
+		
+		if (statusData) {
+			close(pipes[2][0]);
+			dup2(pipes[2][1], 3);
+			numArgs += 2;
+		}
+		if (attributeData) {
+			close(pipes[3][0]);
+			dup2(pipes[3][1], 4);
+			numArgs += 2;
+		}
+		
+		if (inText) {
+			NSPipe *inPipe = [NSPipe pipe];
+			dup2([[inPipe fileHandleForReading] fileDescriptor], 0);
+			[[inPipe fileHandleForWriting] writeData:[inText dataUsingEncoding:NSUTF8StringEncoding]];
+			[[inPipe fileHandleForWriting] closeFile];
+			numArgs += 2;
+		}
+		
+		dup2(pipes[0][1], 1);
+		dup2(pipes[1][1], 2);
+		
+		
+		char* argv[numArgs];
+		
+		argv[0] = (char*)[GPG_PATH cStringUsingEncoding:NSUTF8StringEncoding];
+		
+		if (inText) {
+			argv[argPos] = "--command-fd";
+			argv[argPos + 1] = "0";
+			argPos += 2;
+		}
+		if (statusData) {
+			argv[argPos] = "--status-fd";
+			argv[argPos + 1] = "3";
+			argPos += 2;
+		}
+		if (attributeData) {
+			argv[argPos] = "--attribute-fd";
+			argv[argPos + 1] = "4";
+			argPos += 2;
+		}
+		
+		argv[argPos] = "--no-greeting";
+		argv[argPos + 1] = "--with-colons";
+		argv[argPos + 2] = "--yes";
+		argv[argPos + 3] = "--batch";
+		argv[argPos + 4] = "--no-tty";
+		argPos += 5;
+		
+		
+		for (NSString *argument in args) {
+			argv[argPos] = (char*)[argument cStringUsingEncoding:NSUTF8StringEncoding];
+			argPos++;
+		}
+		argv[argPos] = NULL;
+		
+		
+		execv(argv[0], argv);
+		
+		
+		//Hier sollte das Programm NIE landen!
+		NSLog(@"runGPGCommandWithArray: execl fehlgeschlagen!");
+		exit(255);
+	} else if (pid < 0) { //Fehler
+		NSLog(@"runGPGCommandWithArray: fork fehlgeschlagen!");
+		return -1;
+	} else { //Elternprozess
+		fd_set fds1, fds2;
+		int maxfd = 0;
+		FD_ZERO(&fds1);
+		FD_ZERO(&fds2);
+		
+		
+		char *tempData[4];
+		BOOL doRead[4];
+		int dataSize[4], readPos[4], dataRead;
+		#define bufferSize 1000
+		
+		
+		for (i = 0; i < 4; i++) {
+			if (datas[i]) {
+				close(pipes[i][1]);
+				tempData[i] = malloc(bufferSize);
+				dataSize[i] = bufferSize;
+				readPos[i] = 0;
+				doRead[i] = YES;
+				FD_SET(pipes[i][0], &fds2);
+				if (pipes[i][0] > maxfd) {
+					maxfd = pipes[i][0];
+				}
+			} else {
+				doRead[i] = NO;
+			}
+		}
+		maxfd++;
+		
+		
+		int i;
+		while (doRead[0] || doRead[1] || doRead[2] || doRead[3]) {
+			FD_COPY(&fds2, &fds1);
+			if (select(maxfd, &fds1, NULL, NULL, NULL) <= 0) {
+				break;
+			}
+			
+			for (i = 0; i < 4; i++) {
+				if (doRead[i] && FD_ISSET(pipes[i][0], &fds1)) {
+					while ((dataRead = read(pipes[i][0], (tempData[i] + readPos[i]), dataSize[i] - readPos[i])) == dataSize[i] - readPos[i]) {
+						readPos[i] = dataSize[i];
+						dataSize[i] *= 2;
+						tempData[i] = realloc(tempData[i], dataSize[i]);
+					}
+					if (dataRead > 0) {
+						readPos[i] += dataRead;
+					} else {
+						FD_CLR(pipes[i][0], &fds2);
+						doRead[i] = NO;
+					}
+				}
+			}
+		}
+		
+		for (i = 0; i < 4; i++) {
+			if (datas[i]) {
+				*datas[i] = [NSData dataWithBytes:tempData[i] length:readPos[i]];
+				free(tempData[i]);
+			}
+		}
+		
+		int exitcode, retval, loops = 0;
+		while ((retval = waitpid(pid, &exitcode, 0)) != pid) {
+			if (loops++ > 10) { //Solte zwar nicht dazu kommen, aber...
+				NSLog(@"runGPGCommandWithArray: waitpid loops:%i!", loops);
+			}
+		}
+		if (retval != pid) {
+			NSLog(@"runGPGCommandWithArray: waitpid Fehler!");
+		}
+		exitcode = WEXITSTATUS(exitcode);
+		
+		return exitcode;
+	}
 }
+
 int runGPGCommand(NSString *inText, NSString **outText, NSString **errText, NSString *firstArg, ...) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:5];
@@ -705,30 +905,18 @@ int runGPGCommand(NSString *inText, NSString **outText, NSString **errText, NSSt
 		[arguments addObject:tempArg];
 	}
 	
-	NSData *outData, **outDataPointer = nil;
-	NSData *errData, **errDataPointer = nil;
+	NSData *outData;
+	NSData *errData;
 	
-	if (outText) {
-		outDataPointer = &outData;
-	}
-	if (errText) {
-		errDataPointer = &errData;
-	}
 	
-	int exitcode = runGPGCommandWithArray(inText, outDataPointer, errDataPointer, arguments, YES);
+	int exitcode = runGPGCommandWithArray(inText, outText ? &outData : nil, errText ? &errData : nil, nil, nil, arguments);
 	
 	
 	if (outText) {
-		*outText = [[NSString alloc] initWithData:outData encoding:NSUTF8StringEncoding];
-		if (*outText == nil) {
-			*outText = [[NSString alloc] initWithData:outData encoding:NSISOLatin1StringEncoding];
-		}
+		*outText = [dataToString(outData) retain];
 	}
 	if (errText) {
-		*errText = [[NSString alloc] initWithData:errData encoding:NSUTF8StringEncoding];
-		if (*errText == nil) {
-			*errText = [[NSString alloc] initWithData:errData encoding:NSISOLatin1StringEncoding];
-		}
+		*errText = [dataToString(errData) retain];
 	}
 	
 	[pool drain];
@@ -743,6 +931,7 @@ int runGPGCommand(NSString *inText, NSString **outText, NSString **errText, NSSt
 	
 	return exitcode;
 }
+
 
 int runCommandWithArray(NSString *command, NSString *inText, NSData **outData, NSData **errData, NSArray *arguments) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -915,25 +1104,23 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 
 
 NSInteger getIndexForUserID(NSString *fingerprint, NSString *userID) {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSInteger uid = 0;
-
-	NSEnumerator *keyEnum = [gpgContext keyEnumeratorForSearchPattern:fingerprint secretKeysOnly:NO];
-	GPGKey *gpgKey = [keyEnum nextObject];
-	[gpgContext stopKeyEnumeration];
-	
-	NSArray *userIDs = [gpgKey userIDs];
-	NSUInteger i, count = [userIDs count];
-	for (i = 0; i < count; i++) {
-		NSString *au = [[userIDs objectAtIndex:i] userID];
-		if ([userID isEqualToString:au]) {
-			uid = i + 1;
-			break;
+	NSString *outText;
+	if (runGPGCommand(nil, &outText, nil, @"-k", fingerprint, nil) == 0) {
+		NSRange aRange = [outText rangeOfString:[NSString stringWithFormat:@":%@:", userID]];
+		if (aRange.length != 0) {
+			NSInteger uid = 0;
+			NSArray *lines = [[outText substringToIndex:aRange.location] componentsSeparatedByString:@"\n"];
+			for (NSString *line in lines) {
+				 if ([line hasPrefix:@"uid:"] || [line hasPrefix:@"uat:"]) {
+					 uid++;
+				 }
+			}
+			return uid;
 		}
-	}	
-
-	[pool drain];
-	return uid;
+	} else {
+		NSLog(@"getIndexForUserID: -k für Schlüssel %@ fehlgeschlagen.", fingerprint);
+	}
+	return 0;
 }
 
 
@@ -946,37 +1133,12 @@ NSInteger getIndexForSubkey(NSString *fingerprint, NSString *keyID) {
 			return [[[outText substringToIndex:aRange.location] componentsSeparatedByString:@"\nsub:"] count] - 1;
 		}
 	} else {
-		NSLog(@"getIndexForSubkey: --edit-key für Schlüssel %@ fehlgeschlagen.", fingerprint);	
+		NSLog(@"getIndexForSubkey: --edit-key für Schlüssel %@ fehlgeschlagen.", fingerprint);
 	}
 	return 0;
 }
 
 
-/*NSString* unescape(NSString *string, NSString *escapeString) {
-	NSInteger escapeLength = [escapeString length];
-	NSInteger length = [string length];
-	NSMutableString *unescapedString = [NSMutableString stringWithCapacity:length];
-	char chars[3] = {'\0', '\0', '\0'};
-	NSRange oldRange, newRange;
-	oldRange.location = 0;
-	oldRange.length = length;
-	
-	while ((newRange = [string rangeOfString:escapeString options:NSLiteralSearch range:oldRange]).length != 0) {
-		oldRange.length = newRange.location - oldRange.location;
-		[unescapedString appendString:[string substringWithRange:oldRange]];
-		
-		newRange.location += escapeLength;
-		chars[0] = [string characterAtIndex:newRange.location];
-		chars[1] = [string characterAtIndex:newRange.location + 1];
-		[unescapedString appendFormat:@"%c", strtol(chars, NULL, 16)];
-		
-		oldRange.location = newRange.location + 2;
-		oldRange.length = length - oldRange.location;
-	}
-	[unescapedString appendString:[string substringWithRange:oldRange]];
-	
-	return [[unescapedString copy] autorelease];
-}*/
 
 
 @end
