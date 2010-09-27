@@ -27,7 +27,6 @@
 @synthesize primaryUserID;
 @synthesize primarySubkey;
 @synthesize primaryKeyInfo;
-//@synthesize subkeys;
 @synthesize textForFilter;
 @synthesize isSecret;
 
@@ -144,8 +143,8 @@
 	
 	NSMutableArray *thePhotos = [NSMutableArray array];
 	
-	NSArray *fields;
-	NSInteger pos = 0, dataLength;
+	NSArray *statusFields, *colons;
+	NSInteger pos = 0, dataLength, photoStatus;
 	int curOutLine = 0, countOutLines = [outLines count];
 	NSString *outLine, *photoHash;
 	
@@ -155,17 +154,22 @@
 			for (; curOutLine < countOutLines; curOutLine++) {
 				outLine = [outLines objectAtIndex:curOutLine];
 				if ([outLine hasPrefix:@"uat:"]) {
-					photoHash = [[outLine componentsSeparatedByString:@":"] objectAtIndex:7];
+					colons = [outLine componentsSeparatedByString:@":"];
+					photoHash = [colons objectAtIndex:7];
+					photoStatus = [[colons objectAtIndex:1] isEqualToString:@"r"] ? GPGKeyStatus_Revoked : 0;
 					curOutLine++;
 					break;
 				}
 			}
-			fields = [statuLine componentsSeparatedByString:@" "];
-			dataLength = [[fields objectAtIndex:3] integerValue];
-			if ([[fields objectAtIndex:4] isEqualToString:@"1"]) { //1 = Bild
+			statusFields = [statuLine componentsSeparatedByString:@" "];
+			dataLength = [[statusFields objectAtIndex:3] integerValue];
+			if ([[statusFields objectAtIndex:4] isEqualToString:@"1"]) { //1 = Bild
 				NSImage *aPhoto = [[NSImage alloc] initWithData:[attributeData subdataWithRange:(NSRange) {pos + 16, dataLength - 16}]];
 				if (aPhoto && photoHash) {
-					[thePhotos addObject:[NSDictionary dictionaryWithObjectsAndKeys:aPhoto, @"photo", photoHash, @"hash", nil]];
+					GKPhotoID *photoID = [[GKPhotoID alloc] initWithImage:aPhoto hashID:photoHash status:photoStatus];
+					
+					[thePhotos addObject:photoID];
+					[photoID release];
 					[aPhoto release];
 				}
 			}
@@ -456,6 +460,49 @@
 }
 
 @end
+
+@implementation GPGUserID (Extended)
+
+- (NSInteger)status {
+	NSInteger statusValue = 0;
+	
+	if ([self isInvalid]) {
+		statusValue = GPGKeyStatus_Invalid;
+	}
+	if ([self hasBeenRevoked]) {
+		statusValue += GPGKeyStatus_Revoked;
+	}
+	return statusValue;
+}
+
+@end
+
+
+@implementation GKPhotoID
+@synthesize image;
+@synthesize hashID;
+@synthesize status;
+
+- (id)initWithImage:(NSImage *)aImage hashID:(NSString *)aHashID status:(NSInteger)aStatus {
+	[self init];
+	
+	image = [aImage retain];
+	hashID = [aHashID retain];
+	status = aStatus;
+	
+	return self;
+}
+
+- (void) dealloc {
+	[image release];
+	[hashID release];
+	
+	[super dealloc];
+}
+
+
+@end
+
 
 @implementation GPGKeySignature (Extended)
 

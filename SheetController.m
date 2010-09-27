@@ -25,6 +25,8 @@
 
 static SheetController *_sharedInstance = nil;
 
+@synthesize allowSecretKeyExport;
+
 @synthesize myKeyInfo;
 @synthesize myString;
 @synthesize mySubkey;
@@ -59,6 +61,7 @@ static SheetController *_sharedInstance = nil;
 - (id)init {
 	if (self = [super init]) {
 		[NSBundle loadNibNamed:@"ModalSheets" owner:self];
+		exportFormat = 1;
 	}
 	return self;
 }
@@ -511,6 +514,124 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		self.availableLengths = [NSArray arrayWithObjects:@"1024", @"2048", @"3072", @"4096", nil];
 	}
 }
+
+
+
+//Für Öffnen- und Speichern-Sheets.
+
+- (void)addPhoto:(KeyInfo *)keyInfo {
+	openPanel = [NSOpenPanel openPanel];
+	
+	[openPanel setAllowsMultipleSelection:NO];
+	[openPanel setDelegate:self];
+	
+	NSArray *fileTypes = [NSArray arrayWithObjects:@"jpg", @"jpeg", nil];
+	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:keyInfo, @"keyInfo",[NSNumber numberWithInt:GKOpenSavePanelAddPhotoAction], @"action", nil];
+
+	[openPanel beginSheetForDirectory:nil file:nil types:fileTypes modalForWindow:inspectorWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];			
+	[NSApp runModalForWindow:inspectorWindow];
+}
+
+- (void)importKey {
+	openPanel = [NSOpenPanel openPanel];
+	
+	[openPanel setAllowsMultipleSelection:YES];
+	
+	NSArray *fileTypes = [NSArray arrayWithObjects:@"gpgkey", @"key", @"asc", nil];
+	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:GKOpenSavePanelImportKeyAction], @"action", nil];
+	
+	[openPanel beginSheetForDirectory:nil file:nil types:fileTypes modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
+	[NSApp runModalForWindow:mainWindow];
+}
+- (void)exportKeys:(NSSet *)keyInfos {
+	savePanel = [NSSavePanel savePanel];
+	
+	[savePanel setAccessoryView:exportKeyOptionsView];
+	
+	[savePanel setAllowsOtherFileTypes:YES];
+	[savePanel setCanSelectHiddenExtension:YES];
+	self.exportFormat = exportFormat;
+	
+	
+	NSString *filename;
+	if ([keyInfos count] == 1) {
+		filename = [[keyInfos anyObject] shortKeyID];
+	} else {
+		filename = localized(@"untitled");
+	}
+	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:keyInfos, @"keyInfos", [NSNumber numberWithInt:GKOpenSavePanelExportKeyAction], @"action", nil];
+	
+	[savePanel beginSheetForDirectory:nil file:filename modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
+	[NSApp runModalForWindow:mainWindow];
+}
+
+
+
+
+- (void)openSavePanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo {
+	[NSApp stopModal];
+	if (returnCode == NSOKButton) {
+		[sheet orderOut:self];
+		switch ([[contextInfo objectForKey:@"action"] integerValue]) {
+			case GKOpenSavePanelExportKeyAction: {
+				NSSet *keyInfos = [contextInfo objectForKey:@"keyInfos"];
+				BOOL hideExtension = [sheet isExtensionHidden];
+				NSString *path = [[sheet URL] path];
+				
+				NSData *exportData = [actionController exportKeys:keyInfos armored:(exportFormat & 1) allowSecret:allowSecretKeyExport];
+				if (exportData) {
+					[[NSFileManager defaultManager] createFileAtPath:path contents:exportData attributes:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:hideExtension] forKey:NSFileExtensionHidden]];
+				} else {
+					NSRunAlertPanel(localized(@"Error"), localized(@"Export failed!"), nil, nil, nil);
+				}
+				break; }
+			case GKOpenSavePanelImportKeyAction:
+				[actionController importFromURLs:[sheet URLs]];
+				[keychainController asyncUpdateKeyInfos:nil];
+				break;
+			case GKOpenSavePanelAddPhotoAction: {
+				KeyInfo *keyInfo = [contextInfo objectForKey:@"keyInfo"];
+				NSString *path = [[sheet URL] path];
+				[actionController addPhotoForKeyInfo:keyInfo photoPath:path];
+				break; }
+		}
+	}
+}
+
+- (NSInteger)exportFormat {
+    return exportFormat;
+}
+- (void)setExportFormat:(NSInteger)value {
+	exportFormat = value;
+	NSString *extension;
+	switch (value) {
+		case 1:
+			extension = @"asc";
+			break;
+		default:
+			extension = @"gpgkey";
+			break;
+	}
+	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:extension]];
+}
+
+- (BOOL)panel:(NSOpenPanel *)sender validateURL:(NSURL *)url error:(NSError **)outError {
+	NSString *path = [url path];
+	//TODO: Sheets statt der Panels verwenden.
+	unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
+	if (filesize > 1024 * 1024) {
+		NSRunAlertPanel(localized(@"Error"), localized(@"This picture is to large!"), nil, nil, nil);
+		return NO;
+	} else if (filesize > 15 * 1024) {
+		NSInteger retVal = NSRunAlertPanel(localized(@"Warning"), localized(@"This picture is really large!"), localized(@"Choose another"), localized(@"Use this photo"), nil);
+		if (retVal == NSAlertDefaultReturn) {
+			return NO;
+		}
+	}
+	return YES;
+}
+
+
 
 
 @end

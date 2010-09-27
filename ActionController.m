@@ -22,23 +22,39 @@
 
 @implementation ActionController
 
-@synthesize allowSecretKeyExport;
-@synthesize useASCIIForExport;
 
-//TODO: Photo hinzufügen.
-//TODO: Photo widerrufen.
-//TODO: Primäres Foto wählbar machen.
-//TODO: Fotos die auf mehrere Subpackets aufgeteilt sind.
+
+//TODO: Fotos die auf mehrere Subpakete aufgeteilt sind.
+//TODO: Schlüsselsäuberung und -minimierung.
 
 
 - (IBAction)addPhoto:(NSButton *)sender {
-	NotImplementedAlert;
+	if ([[keysController selectedObjects] count] == 1) {
+		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		SheetController *sheetController = [SheetController sharedInstance];
+		
+		[sheetController addPhoto:keyInfo];
+	}
 }
+- (void)addPhotoForKeyInfo:(KeyInfo *)keyInfo photoPath:(NSString *)path {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
+	
+	NSString *cmdText = [NSString stringWithFormat:@"addphoto\n%@\n%@save\n", path, filesize > 6144 ? @"y\n" : @""];
+	if (runGPGCommand(cmdText, nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
+		NSLog(@"addPhotoForKeyInfo: --edit-key:adduid für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
+	}
+	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
+	
+	[pool drain];
+}
+
 - (IBAction)removePhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		NSString *fingerprint = [keyInfo fingerprint];
-		NSInteger uid = getIndexForUserID(fingerprint, [[[photosController selectedObjects] objectAtIndex:0] objectForKey:@"hash"]);
+		NSInteger uid = getIndexForUserID(fingerprint, [[[photosController selectedObjects] objectAtIndex:0] hashID]);
 		if (uid > 0) {
 			NSString *cmdText = [NSString stringWithFormat:@"%i\ndeluid\ny\nsave\n", uid];
 			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, nil) != 0) {
@@ -49,56 +65,62 @@
 	}
 }
 - (IBAction)revokePhoto:(NSButton *)sender {
-	NotImplementedAlert;
+	if ([photosController selectionIndex] != NSNotFound) {
+		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		NSString *fingerprint = [keyInfo fingerprint];
+		NSInteger uid = getIndexForUserID(fingerprint, [[[photosController selectedObjects] objectAtIndex:0] hashID]);
+		if (uid > 0) {
+			NSString *cmdText = [NSString stringWithFormat:@"%i\nrevuid\ny\n0\n\ny\nsave\n", uid];
+			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, nil) != 0) {
+				NSLog(@"removePhoto: --edit-key:deluid für Schlüssel %@ fehlgeschlagen.", fingerprint);
+			}
+		}
+		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+	}
 }
+
+- (IBAction)setPrimaryPhoto:(NSButton *)sender {
+	if ([photosController selectionIndex] != NSNotFound) {
+		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		NSString *fingerprint = [keyInfo fingerprint];
+		
+		NSInteger uid = getIndexForUserID(fingerprint, [[[photosController selectedObjects] objectAtIndex:0] hashID]);
+		if (uid > 0) {
+			if (runGPGCommand(nil, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"primary", @"save", nil) != 0) {
+				NSLog(@"setPrimaryPhoto: --edit-key:primary für Schlüssel %@ fehlgeschlagen.", fingerprint);
+			}
+		}
+		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+	}
+}
+
 
 
 - (IBAction)importKey:(id)sender {
-	NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-	
-	[openPanel setAllowsMultipleSelection:YES];
-	[openPanel setTitle:localized(@"Import")];
-	
-	if ([openPanel runModalForTypes:[NSArray arrayWithObjects:@"gpgkey", @"key", @"asc", nil]] == NSOKButton) {
-		[self importFromFiles:[openPanel filenames]];
-	}
-	[keychainController asyncUpdateKeyInfos:nil];
+	SheetController *sheetController = [SheetController sharedInstance];
+	[sheetController importKey];
 }
-- (void)importFromFiles:(NSArray *)files {
+- (void)importFromURLs:(NSArray *)urls { //Bisher werden nur normale Dateien zum import unterstützt und keine "echten" URLs.
 	//TODO: Rückmeldung über importierte Schlüssel.
-	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:[files count] + 1];
+	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:[urls count] + 1];
 	[arguments addObject:@"--import"];
 
-	for (NSString *file in files) {
-		[arguments addObject:file];
+	for (NSURL *url in urls) {
+		[arguments addObject:[url path]];
 	}
 	
 	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
-		NSLog(@"importFromFiles: --import fehlgeschlagen.");
+		NSLog(@"importFromFiles: --import fehlgeschlagen."); //Tritt auch auf, wenn einer der zu importierenden Schlüssel bereits vorhanden ist. Muss also nichts besonderes bedeuten.
 	}
 }
 
 - (IBAction)exportKey:(id)sender {
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
-	NSSavePanel *savePanel = [NSSavePanel savePanel];
+	SheetController *sheetController = [SheetController sharedInstance];
 	
-	[savePanel setAccessoryView:exportKeyOptionsView];
-	[savePanel setTitle:localized(@"Export")];
-	
-	NSMutableString *filename = [NSMutableString string];
-	if ([keyInfos count] == 1) {
-		[filename appendString:[[keyInfos anyObject] shortKeyID]];
-	} else {
-		[filename appendString:localized(@"untitled")];
-	}
-	[filename appendString:@".gpgkey"];
-	
-	
-	if([savePanel runModalForDirectory:nil file:filename] == NSOKButton){
-		[self exportKeys:keyInfos toFile:[savePanel filename] armored:useASCIIForExport allowSecret:allowSecretKeyExport];
-	}
+	[sheetController exportKeys:keyInfos];
 }
-- (void)exportKeys:(NSSet *)keys toFile:(NSString *)path armored:(BOOL)armored allowSecret:(BOOL)allowSec {
+- (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec {
 	BOOL hasSecKeys = NO;
 	NSMutableArray *arguments;
 	NSData *exportedSecretData, *exportedData = nil;
@@ -124,7 +146,6 @@
 		}
 	}
 	
-	
 	arguments = [NSMutableArray array];
 	[arguments addObject:armored ? @"--armor" : @"--no-armor"];
 	[arguments addObject:@"--export"];
@@ -145,9 +166,12 @@
 			exportedData = exportedSecretData;
 		}
 	}
-	
-	[exportedData writeToFile:path atomically:NO];
+
+	return exportedData;
 }
+
+
+
 
 - (IBAction)addSignature:(id)sender {
 	if ([sender tag] != 1 || [userIDsController selectionIndex] != NSNotFound) {
@@ -171,14 +195,14 @@
 	
 	NSString *sigType = local ? @"lsign" : @"sign";
 	NSString *uid;
-	if (userID) {
+	if (!userID) {
 		uid = @"uid *";
 	} else {
 		int uidIndex = getIndexForUserID(fingerprint, userID);
 		if (uidIndex > 0) {
 			uid = [NSString stringWithFormat:@"%i", uidIndex];
 		} else {
-			//UserID konnte nicht gefunden werden. Der Schlüssel wird aktualisiert.
+			//UserID konnte nicht gefunden werden. Der Schlüssel wird aktualisiert, um wieder aktuell zu sein.
 			[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
 			[pool drain];
 			return;
@@ -230,7 +254,7 @@
 	
 	NSString *cmdText = [NSString stringWithFormat:@"adduid\n%@\n%@\n%@\nsave\n", name, email, comment];
 	if (runGPGCommand(cmdText, nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
-		NSLog(@"generateUserID: --edit-key:adduid für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
+		NSLog(@"addUserIDForKeyInfo: --edit-key:adduid für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
 	}
 	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
 
@@ -274,7 +298,7 @@
 
 	
 	if (runGPGCommand(cmdText, nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
-		NSLog(@"editExpirationDate: --edit-key:expire für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
+		NSLog(@"changeExpirationDateForKeyInfo: --edit-key:expire für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
 	}
 	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
 	
@@ -376,7 +400,7 @@
 	}
 	
 	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
-		NSLog(@"receiveKeys_Selector: --recv-keys für \"%@\" fehlgeschlagen.", pattern);
+		NSLog(@"receiveKeysWithPattern: --recv-keys für \"%@\" fehlgeschlagen.", pattern);
 	}
 	[keychainController updateKeyInfos:nil];
 	[pool drain];
@@ -487,40 +511,29 @@
 		if (uid > 0) {
 			NSMutableString *cmdText = [NSMutableString stringWithCapacity:9];
 			NSMutableArray *secKeyIDs = [NSMutableArray arrayWithCapacity:1];
-			NSEnumerator *keyEnum = [[keychainController keychain] objectEnumerator];
-			KeyInfo *keyInfo;
 			NSString *signerKeyID1 = [gpgKeySignature signerKeyID];
 			NSString *signerKeyID2;
-			BOOL isSigFromMe;
-			NSUInteger i, count;
 			
-			while (keyInfo = [keyEnum nextObject]) {
-				if ([keyInfo isSecret]) {
-					[secKeyIDs addObject:[keyInfo keyID]];
-				}
+			NSDictionary *keychain = [keychainController keychain];
+			NSSet *secKeyInfos = [keychainController secretKeys];
+			for (NSString *fingerprint in secKeyInfos) {
+				[secKeyIDs addObject:[[keychain objectForKey:fingerprint] keyID]];
 			}
-			count = [secKeyIDs count];
 			
 			for (GPGKeySignature *aSignature in signatures) {
 				if (![aSignature isRevocationSignature]) {
-					isSigFromMe = NO;
 					signerKeyID2 = [aSignature signerKeyID];
-					for (i = 0; i < count; i++) {
-						if ([signerKeyID2 isEqualToString:[secKeyIDs objectAtIndex:i]]) {
-							isSigFromMe = YES;
-							break;
-						}
-					}
-					if (isSigFromMe) {
+					if ([secKeyIDs containsObject:signerKeyID2]) {
 						if ([signerKeyID1 isEqualToString:signerKeyID2]) {
-							[cmdText appendString:@"y\ny\n0\n\ny\n"]; //Eigensignatur
+							[cmdText appendString:@"y\n"]; //Gesuchte Beglaubigung
 						} else {
-							[cmdText appendString:@"n\n"]; //Normale Signatur
+							[cmdText appendString:@"n\n"]; //Andere Beglaubigung
 						}
 					}
 				}
 			}
 			if ([cmdText length] > 0) {
+				[cmdText appendString:@"y\n0\n\ny\n"];
 				if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"revsig", @"save", nil) != 0) {
 					NSLog(@"revokeSignature: --edit-key:revsig für Schlüssel %@ fehlgeschlagen.", fingerprint);
 				}
@@ -543,6 +556,22 @@
 		}
 	}
 	
+}
+
+- (IBAction)revokeUserID:(NSButton *)sender {
+	if ([userIDsController selectionIndex] != NSNotFound) {
+		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		NSString *fingerprint = [keyInfo fingerprint];
+		NSInteger uid = getIndexForUserID(fingerprint, [[[userIDsController selectedObjects] objectAtIndex:0] userID]);
+		
+		if (uid > 0) {
+			NSString *cmdText = [NSString stringWithFormat:@"%i\nrevuid\ny\n0\n\ny\nsave\n", uid];
+			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, nil) != 0) {
+				NSLog(@"revokeUserID: --edit-key:revuid für Schlüssel %@ fehlgeschlagen.", fingerprint);
+			}
+		}
+		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+	}
 }
 
 - (IBAction)setDisabled:(NSButton *)sender {
@@ -804,11 +833,11 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 			argv[argPos] = (char*)[argument cStringUsingEncoding:NSUTF8StringEncoding];
 			argPos++;
 		}
-		argv[argPos] = NULL;
+		argv[argPos] = nil;
 		
 		
 		execv(argv[0], argv);
-		
+		//--command-fd 0 --no-greeting --with-colons --yes --batch --no-tty
 		
 		//Hier sollte das Programm NIE landen!
 		NSLog(@"runGPGCommandWithArray: execl fehlgeschlagen!");

@@ -144,12 +144,6 @@ typedef enum {
 @property (readonly) NSCalendarDate *expirationDate;
 
 
-/*
-- (GPGKey *)gpgkey;
-- (NSString *)keyID;
-- (NSString *)fingerprint;
-- (NSCalendarDate *)expirationDate;
-*/
 
 - (id)initWithGPGSubkey:(GPGSubkey *)gpgSubkey parentKeyInfo:(KeyInfo *)keyInfo;
 @end
@@ -189,6 +183,27 @@ typedef enum {
 @interface GPGSubkey (Extended)
 @property (readonly) NSInteger status;
 @end
+
+@interface GPGUserID (Extended)
+@property (readonly) NSInteger status;
+@end
+
+
+@interface GKPhotoID  : NSObject {
+	NSImage *image;
+	NSString *hashID;
+	NSInteger status;
+}
+@property (readonly) NSImage *image;
+@property (readonly) NSString *hashID;
+@property (readonly) NSInteger status;
+
+- (id)initWithImage:(NSImage *)aImage hashID:(NSString *)aHashID status:(NSInteger)aStatus;
+
+@end
+
+
+
 
 @interface GPGKeySignature (Extended)
 @property (readonly) NSString *type;

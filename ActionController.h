@@ -27,6 +27,13 @@ enum {
 	RunServerCommandGet
 } RunServerCommandType;
 
+enum {
+	GKOpenSavePanelExportKeyAction = 1,
+	GKOpenSavePanelImportKeyAction,
+	GKOpenSavePanelAddPhotoAction
+} GKOpenSavePanelAction;
+
+
 @class SheetController;
 @class KeyInfo;
 @class KeyInfo_Subkey;
@@ -37,18 +44,13 @@ enum {
     IBOutlet NSArrayController *subkeysController;
     IBOutlet NSArrayController *userIDsController;
 	IBOutlet NSArrayController *photosController;
-	IBOutlet NSView *exportKeyOptionsView;
 	
-	
-	BOOL allowSecretKeyExport;
-	BOOL useASCIIForExport;
 }
-@property BOOL allowSecretKeyExport;
-@property BOOL useASCIIForExport;
 
 - (IBAction)addPhoto:(NSButton *)sender;
 - (IBAction)removePhoto:(NSButton *)sender;
 - (IBAction)revokePhoto:(NSButton *)sender;
+- (IBAction)setPrimaryPhoto:(NSButton *)sender;
 - (IBAction)exportKey:(id)sender;
 - (IBAction)importKey:(id)sender;
 - (IBAction)addSignature:(id)sender;
@@ -61,19 +63,20 @@ enum {
 - (IBAction)removeUserID:(NSButton *)sender;
 - (IBAction)revokeSignature:(NSButton *)sender;
 - (IBAction)revokeSubkey:(NSButton *)sender;
+- (IBAction)revokeUserID:(NSButton *)sender;
 - (IBAction)setDisabled:(NSButton *)sender;
 - (IBAction)setPrimaryUserID:(NSButton *)sender;
 - (IBAction)setTrsut:(NSPopUpButton *)sender;
 - (IBAction)generateNewKey:(id)sender;
 - (IBAction)deleteKey:(id)sender;
 - (IBAction)refreshDisplayedKeys:(id)sender;
-- (void)exportKeys:(NSSet *)keys toFile:(NSString *)path armored:(BOOL)armored allowSecret:(BOOL)allowSec;
-- (void)importFromFiles:(NSArray *)files;
 - (IBAction)sendKeysToServer:(id)sender;
 - (IBAction)searchKeys:(id)sender;
 - (IBAction)receiveKeys:(id)sender;
 - (IBAction)refreshKeysFromServer:(id)sender;
 
+- (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec;
+- (void)importFromURLs:(NSArray *)urls;
 
 - (void)generateNewKeyWithName:(NSString *)name email:(NSString *)email comment:(NSString *)comment type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
 - (void)addSubkeyForKeyInfo:(KeyInfo *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
@@ -82,7 +85,7 @@ enum {
 - (void)changeExpirationDateForKeyInfo:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey daysToExpire:(NSInteger)daysToExpire;
 - (NSString *)searchKeysWithPattern:(NSString *)pattern;
 - (void)receiveKeysWithPattern:(NSString *)pattern;
-
+- (void)addPhotoForKeyInfo:(KeyInfo *)keyInfo photoPath:(NSString *)path;
 
 
 

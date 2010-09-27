@@ -52,6 +52,17 @@ typedef enum {
 	NSString *myString;
 	
 	
+	//Für Öffnen- und Speichern-Sheets.
+	IBOutlet NSView *exportKeyOptionsView;
+	
+	NSSavePanel *savePanel;
+	NSOpenPanel *openPanel;
+	
+	BOOL allowSecretKeyExport;
+	NSInteger exportFormat;
+	
+	
+	
 	IBOutlet KeyLengthFormatter *keyLengthFormatter;
 	IBOutlet NSWindow *sheetWindow;
 	IBOutlet NSView *sheetView;
@@ -94,6 +105,10 @@ typedef enum {
 	
 }
 
+@property BOOL allowSecretKeyExport;
+@property NSInteger exportFormat;
+
+
 @property (retain) KeyInfo *myKeyInfo;
 @property (retain) NSString *myString;
 @property (retain) KeyInfo_Subkey *mySubkey;
@@ -135,6 +150,10 @@ typedef enum {
 - (void)receiveKeys_Action;
 - (void)generateNewKey;
 
+- (void)addPhoto:(KeyInfo *)keyInfo;
+- (void)importKey;
+- (void)exportKeys:(NSSet *)keyInfos;
+
 
 
 - (void)runSheetForWindow:(NSWindow *)window;
@@ -152,11 +171,8 @@ typedef enum {
 - (BOOL)checkComment;
 
 
-/*- (void)sheetForWindow:(NSWindow *)window withViewNamed:(NSString *)viewName okSelector:(SEL)selector toTarget:(id)target withObject:(NSObject *)object;
-- (void)runOKSelector;
-
-- (IBAction)closeDialog:(id)sender;
-*/
+- (void)openSavePanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo;
+- (BOOL)panel:(NSOpenPanel *)sender validateURL:(NSURL *)url error:(NSError **)outError;
 
 @end
 
