@@ -785,7 +785,7 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 	
 	if (pid == 0) { //Kindprozess
 		int numArgs, argPos = 1;
-		numArgs = 7 + [args count];
+		numArgs = 8 + [args count];
 		
 		int nullDescriptor = open("/dev/null", O_WRONLY);
 		
@@ -848,7 +848,8 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 		argv[argPos + 2] = "--yes";
 		argv[argPos + 3] = "--batch";
 		argv[argPos + 4] = "--no-tty";
-		argPos += 5;
+		argv[argPos + 5] = "--fixed-list-mode"; //Für GPG 1.4
+		argPos += 6;
 		
 		
 		for (NSString *argument in args) {

@@ -279,17 +279,32 @@ NSLock *updateLock;
 - (BOOL)initGPG {
 	@try {
 		NSArray *engines = [GPGEngine availableEngines];
-		BOOL engineFound = NO;
+		BOOL engineFound = NO, gpg1Found = NO;
+		NSString *gpg1Path = nil;
 		for (GPGEngine *engine in engines) {
-			if ([[engine availableExecutablePaths] count] > 0 && [[engine version] hasPrefix:@"2."]) {
-				engineFound = YES;
-				GPG_PATH = [[engine executablePath] retain];
-				break;
+			if ([[engine availableExecutablePaths] count] > 0) {
+				if ([[engine version] hasPrefix:@"2."]) {
+					engineFound = YES;
+					GPG_PATH = [[engine executablePath] retain];
+					break;
+				} else if ([[engine version] hasPrefix:@"1.4."]) {
+					gpg1Path = [[engine executablePath] retain];
+					gpg1Found = YES;
+				}
 			}
 		}
 		if (!engineFound) {
-			NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotFound_Msg"), localized(@"Quit_Button"), nil, nil);
-			return NO;
+			if (gpg1Found) {
+				GPG_PATH = gpg1Path;
+				NSUserDefaults *defalts = [NSUserDefaults standardUserDefaults];
+				if (![defalts boolForKey:@"NotFirstRun"]) {
+					NSRunAlertPanel(localized(@"Warning"), localized(@"GPG1OnlyFound_Msg"), nil, nil, nil);
+					[defalts setBool:YES forKey:@"NotFirstRun"];
+				}
+			} else {
+				NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotFound_Msg"), localized(@"Quit_Button"), nil, nil);
+				return NO;
+			}
 		}
 		gpgContext = [[GPGContext alloc] init];
 		[gpgContext keyEnumeratorForSearchPattern:@"" secretKeysOnly:YES];
