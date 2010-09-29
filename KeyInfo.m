@@ -17,7 +17,6 @@
 
 #import "KeyInfo.h"
 #import "ActionController.h"
-#include <sys/stat.h>
 
 
 @implementation KeyInfo

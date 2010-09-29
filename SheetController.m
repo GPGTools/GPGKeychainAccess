@@ -49,7 +49,7 @@ static SheetController *_sharedInstance = nil;
 @synthesize secretKeyFingerprints;
 @synthesize secretKeyId;
 
-
+//TODO: Schlüsselsuche Datum formaieren.
 
 + (id)sharedInstance {
 	if (_sharedInstance == nil) {
@@ -177,7 +177,7 @@ static SheetController *_sharedInstance = nil;
 - (void)changeExpirationDate:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey {
 	NSDate *aDate;
 	if (subkey) {
-		self.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), [keyInfo userID], [keyInfo shortKeyID], [subkey shortKeyID]];
+		self.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), [subkey shortKeyID], [keyInfo userID], [keyInfo shortKeyID]];
 		aDate = [subkey expirationDate];
 	} else {
 		self.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
@@ -615,16 +615,49 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:extension]];
 }
 
+- (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 {
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert setMessageText:messageText];
+	[alert setInformativeText:infoText];
+	if (button1) {
+		[alert addButtonWithTitle:button1];
+	}
+	if (button2) {
+		[alert addButtonWithTitle:button2];
+	}
+	if (button2) {
+		[alert addButtonWithTitle:button3];
+	}
+	
+	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+	[NSApp runModalForWindow:window];
+	return lastReturnCode;
+}
+
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+	lastReturnCode = returnCode;
+	[NSApp stopModal];
+}
+
 - (BOOL)panel:(NSOpenPanel *)sender validateURL:(NSURL *)url error:(NSError **)outError {
 	NSString *path = [url path];
-	//TODO: Sheets statt der Panels verwenden.
 	unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
-	if (filesize > 1024 * 1024) {
-		NSRunAlertPanel(localized(@"Error"), localized(@"This picture is to large!"), nil, nil, nil);
+	if (filesize > 1024 * 1024) { //Bilder über 1 MiB sind zu gross. (Meiner Meinung nach.)
+		[self alertSheetForWindow:openPanel 
+					  messageText:localized(@"This picture is to large!") 
+						 infoText:localized(@"Please use a picature smaller than 1 MiB.") 
+					defaultButton:nil 
+				  alternateButton:nil 
+					  otherButton:nil];
 		return NO;
-	} else if (filesize > 15 * 1024) {
-		NSInteger retVal = NSRunAlertPanel(localized(@"Warning"), localized(@"This picture is really large!"), localized(@"Choose another"), localized(@"Use this photo"), nil);
-		if (retVal == NSAlertDefaultReturn) {
+	} else if (filesize > 15 * 1024) { //Bei Bildern über 15 KiB nachfragen.
+		NSInteger retVal =  [self alertSheetForWindow:openPanel 
+										  messageText:localized(@"This picture is really large!") 
+											 infoText:localized(@"You should use a smaller picture.") 
+										defaultButton:localized(@"Choose another…") 
+									  alternateButton:localized(@"Use this photo") 
+										  otherButton:nil];
+		if (retVal == NSAlertFirstButtonReturn) {
 			return NO;
 		}
 	}

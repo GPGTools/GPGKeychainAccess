@@ -47,6 +47,9 @@ enum {
 	
 }
 
+
+- (IBAction)cleanKey:(id)sender;
+- (IBAction)minimizeKey:(id)sender;
 - (IBAction)addPhoto:(NSButton *)sender;
 - (IBAction)removePhoto:(NSButton *)sender;
 - (IBAction)revokePhoto:(NSButton *)sender;

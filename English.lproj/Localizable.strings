@@ -1,34 +1,49 @@
+//
+// Momentan sind in dieser Datei noch einige Deutsche Texte, diese sind nur für den Moment, bis sie korrekt in Englisch geschrieben wurden.
+//
 
-"%i of %i keys listed" = "%i of %i keys listed";
+//Für den Schlüssel-Status
 "Invalid" = "Invalid";
 "Revoked" = "Revoked";
 "Expired" = "Expired";
 "Disabled" = "Disabled";
+Key_Is_OK = "OK";
 
+//Für die Lösch-Dialoge
 "Delete secret key only" = "Delete secret key only";
 "Delete both" = "Delete both";
 "Delete key" = "Delete key";
-
-
-"untitled" = "untitled";
-
-
-
-
 DeleteSecretKey_Title = "Delete secret key";
 DeleteSecretKey_Msg = "Attempting to delete key %@, %@.\n\nYou are about to delete a secret key.  Once it is gone, you will no longer be able to decrypt messages that were encrypted to this key.  Are you sure you want to do this?";
 DeleteKey_Title = "Delete key";
 DeleteKey_Msg = "Attempting to delete key %@, %@.\n\nAre you sure you want to delete this key?";
 
-GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel \"%@\", %@ anlegen.";
-GenerateUserID_Msg = "Zusätzliche Benutzer-ID für den Schlüssel \"%@\", %@ anlegen.";
-GenerateSignature_Msg = "Beglaubigung aller Benutzer-IDs von \"%@\", %@";
-GenerateUidSignature_Msg = "Beglaubigung der Benutzer-ID \"%@\", %@";
-ChangeExpirationDate_Msg = "Ändern der Gültigkeitsdauer von \"%@\", %@";
-ChangeSubkeyExpirationDate_Msg = "Ändern der Gültigkeitsdauer von \"%@\", %@\nUnterschlüssel: %@";
+
+//Für den Export, als standard Dateiname.
+"untitled" = "untitled";
 
 
+//Für die Schlüselsuche
+"No keys Found" = "No keys Found";
+"  %@ bit %@ key %@, created: %@\n\n" = "%@ bit %@ key %@, created: %@\n\n"; //Format für die gefundenen Schlüssel vom Server.
 
+
+GenerateSubkey_Msg = "Add subkey to the Key \"%@\", %@.";
+GenerateUserID_Msg = "Add user ID to the Key \"%@\", %@.";
+GenerateSignature_Msg = "Make signature for all user IDs of \"%@\", %@";
+GenerateUidSignature_Msg = "Make signature for user ID \"%@\", %@";
+ChangeExpirationDate_Msg = "Change expiration date of \"%@\", %@";
+ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%@\", %@\nSubkey: %@";
+
+GenerateSubkey_Msg = "Add subkey to Key \"%@\", %@.";
+GenerateUserID_Msg = "Add user ID to Key \"%@\", %@.";
+GenerateSignature_Msg = "Make signature for all user IDs of \"%@\", %@";
+GenerateUidSignature_Msg = "Make signature for user ID \"%@\", %@";
+ChangeExpirationDate_Msg = "Change expiration date of \"%@\", %@";
+ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%@\", %@\nSubkey: %@";
+
+
+//Meldungen wenn die Eingabe nicht korrekt war.
 CheckWarning_NameToShort = "Name must be at least 5 characters long!";
 CheckWarning_NameToLong = "Name is to long!";
 CheckWarning_InvalidCharInName = "Invalid character in name!\n\"<\" and \">\" not allowed.";
@@ -39,21 +54,20 @@ CheckWarning_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \"
 CheckWarning_CommentToLong = "Comment is to long!";
 
 
+//Meldungen beim Start, wenn es Probleme gibt. 
+GPGNotFound_Msg = "GPG2 not found!!";
+GPGNotValid_Msg = "No valid GPG found!";
+Quit_Button = "Quit";
 
 
-
-GPGNotFound_Msg = "GPG2 konnte nicht gefunden werden!";
-GPGNotValid_Msg = "Keine kompatible GPG Version gefunden!";
-
-
+//Sollte klar sein.
 No = "No";
 Error = "Error";
 Warning = "Warning";
 Cancle = "Cancle";
-Quit_Button = "Quit";
 
-Key_Is_OK = "OK";
 
+//Die verschiedenen Algorithmen
 GPG_RSAAlgorithm = "RSA";
 GPG_RSAEncryptOnlyAlgorithm = "RSA-E";
 GPG_RSASignOnlyAlgorithm = "RSA-S";
@@ -63,3 +77,9 @@ GPG_EllipticCurveAlgorithm = "EllipticCurve";
 GPG_ECDSAAlgorithm = "ECDSA";
 GPG_ElgamalAlgorithm = "ELG";
 GPG_DiffieHellmanAlgorithm = "DiffieHellman";
+
+
+//Im Hauptfenster.
+"%i of %i keys listed" = "%i of %i keys listed";
+
+

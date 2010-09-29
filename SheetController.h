@@ -61,6 +61,7 @@ typedef enum {
 	BOOL allowSecretKeyExport;
 	NSInteger exportFormat;
 	
+	NSInteger lastReturnCode;
 	
 	
 	IBOutlet KeyLengthFormatter *keyLengthFormatter;
@@ -170,6 +171,8 @@ typedef enum {
 - (BOOL)checkEmailMustSet:(BOOL)mustSet;
 - (BOOL)checkComment;
 
+- (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3;
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 
 - (void)openSavePanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo;
 - (BOOL)panel:(NSOpenPanel *)sender validateURL:(NSURL *)url error:(NSError **)outError;

@@ -25,7 +25,30 @@
 
 
 //TODO: Fotos die auf mehrere Subpakete aufgeteilt sind.
-//TODO: Schlüsselsäuberung und -minimierung.
+
+
+- (IBAction)cleanKey:(id)sender {
+	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	if ([keyInfos count] > 0) {
+		for (KeyInfo *keyInfo in keyInfos) {
+			if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], @"clean", @"save", nil) != 0) {
+				NSLog(@"cleanKey: --edit-key:clean für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
+			}
+		}
+		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+	}
+}
+- (IBAction)minimizeKey:(id)sender {
+	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	if ([keyInfos count] > 0) {
+		for (KeyInfo *keyInfo in keyInfos) {
+			if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], @"minimize", @"save", nil) != 0) {
+				NSLog(@"minimizeKey: --edit-key:minimize für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
+			}
+		}
+		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+	}
+}
 
 
 - (IBAction)addPhoto:(NSButton *)sender {
@@ -337,7 +360,7 @@
 						  [splitedLine objectAtIndex:1], 
 						  [splitedLine objectAtIndex:4]];
 		} else if (pubKeyText && [[splitedLine objectAtIndex:0] isEqualToString:@"uid"]) {
-			[foundText appendFormat:localized(@"%@\n"), 
+			[foundText appendFormat:@"%@\n", 
 			 [splitedLine objectAtIndex:1]];
 		}
 	}
@@ -682,37 +705,36 @@
 	if ([keyInfos count] > 0) {
 		NSInteger retVal;
 		NSString *cmd;
+		SheetController *sheetController = [SheetController sharedInstance];
 		
 		for (KeyInfo *keyInfo in keyInfos) {
 			
 			if (keyInfo.isSecret) {
-				retVal = NSRunAlertPanel(localized(@"DeleteSecretKey_Title"), 
-								localized(@"DeleteSecretKey_Msg"), 
-								localized(@"Delete secret key only"), 
-								localized(@"Delete both"), 
-								localized(@"Cancel"), 
-								[keyInfo userID], 
-								[keyInfo shortKeyID]);
+				retVal = [sheetController alertSheetForWindow:mainWindow 
+												  messageText:localized(@"DeleteSecretKey_Title") 
+													 infoText:[NSString stringWithFormat:localized(@"DeleteSecretKey_Msg"), [keyInfo userID], [keyInfo shortKeyID]] 
+												defaultButton:localized(@"Delete secret key only") 
+											  alternateButton:localized(@"Cancel") 
+												  otherButton:localized(@"Delete both")];
 				switch (retVal) {
-					case NSAlertDefaultReturn:
+					case NSAlertFirstButtonReturn:
 						cmd = @"--delete-secret-keys";
 						break;
-					case NSAlertAlternateReturn:
+					case NSAlertThirdButtonReturn:
 						cmd = @"--delete-secret-and-public-key";
 						break;
 					default:
 						cmd = nil;
 				}
 			} else {
-				retVal = NSRunAlertPanel(localized(@"DeleteKey_Title"), 
-										 localized(@"DeleteKey_Msg"), 
-										 localized(@"Delete key"), 
-										 localized(@"Cancel"), 
-										 nil, 
-										 [keyInfo userID], 
-										 [keyInfo shortKeyID]);
+				retVal = [sheetController alertSheetForWindow:mainWindow 
+												  messageText:localized(@"DeleteKey_Title") 
+													 infoText:[NSString stringWithFormat:localized(@"DeleteKey_Msg"), [keyInfo userID], [keyInfo shortKeyID]] 
+												defaultButton:localized(@"Delete key") 
+											  alternateButton:localized(@"Cancel") 
+												  otherButton:nil];
 				switch (retVal) {
-					case NSAlertDefaultReturn:
+					case NSAlertFirstButtonReturn:
 						cmd = @"--delete-keys";
 						break;
 					default:
