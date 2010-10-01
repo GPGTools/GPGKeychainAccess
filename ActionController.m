@@ -336,40 +336,64 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	NSString *outText;
-	searchKeysOnServer(pattern, &outText);
+	NSString *returnText;	
 	
-	
-	NSMutableString *foundText = [NSMutableString string];
-	NSString *returnText;
-	
-	NSArray *lines = [outText componentsSeparatedByString:@"\n"];
-	NSArray *splitedLine;
-	NSString *pubKeyText = nil;
-	KeyAlgorithmTransformer *algorithmTransformer = [[[KeyAlgorithmTransformer alloc] init] autorelease];
-	
-	NSUInteger i, count = [lines count];
-	for (i = 0; i < count; i++) {
-		splitedLine = [[lines objectAtIndex:i] componentsSeparatedByString:@":"];
-		if ([[splitedLine objectAtIndex:0] isEqualToString:@"pub"]) {
+	switch (searchKeysOnServer(pattern, &outText)) {
+		case 0: {
+			NSMutableString *foundText = [NSMutableString string];
+			
+			NSArray *lines = [outText componentsSeparatedByString:@"\n"];
+			NSArray *splitedLine;
+			NSString *pubKeyText = nil;
+			KeyAlgorithmTransformer *algorithmTransformer = [[[KeyAlgorithmTransformer alloc] init] autorelease];
+			NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+			[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+			[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+			
+			
+			NSUInteger i, count = [lines count];
+			for (i = 0; i < count; i++) {
+				splitedLine = [[lines objectAtIndex:i] componentsSeparatedByString:@":"];
+				if ([[splitedLine objectAtIndex:0] isEqualToString:@"pub"]) {
+					if (pubKeyText) {
+						[foundText appendString:pubKeyText];
+					}
+					NSDate *created = [NSDate dateWithTimeIntervalSince1970:[[splitedLine objectAtIndex:4] integerValue]];
+					pubKeyText = [NSString stringWithFormat:localized(@"  %@ bit %@ key %@, created: %@\n\n"), 
+								  [splitedLine objectAtIndex:3], 
+								  [algorithmTransformer transformedValue:[splitedLine objectAtIndex:2]], 
+								  [splitedLine objectAtIndex:1], 
+								  [dateFormatter stringFromDate:created]];
+				} else if (pubKeyText && [[splitedLine objectAtIndex:0] isEqualToString:@"uid"]) {
+					[foundText appendFormat:@"%@\n", 
+					 [splitedLine objectAtIndex:1]];
+				}
+			}
 			if (pubKeyText) {
 				[foundText appendString:pubKeyText];
-			}
-			pubKeyText = [NSString stringWithFormat:localized(@"  %@ bit %@ key %@, created: %@\n\n"), 
-						  [splitedLine objectAtIndex:3], 
-						  [algorithmTransformer transformedValue:[splitedLine objectAtIndex:2]], 
-						  [splitedLine objectAtIndex:1], 
-						  [splitedLine objectAtIndex:4]];
-		} else if (pubKeyText && [[splitedLine objectAtIndex:0] isEqualToString:@"uid"]) {
-			[foundText appendFormat:@"%@\n", 
-			 [splitedLine objectAtIndex:1]];
-		}
+				returnText = [foundText stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			} else {
+				returnText = localized(@"No keys Found!");
+			}			
+			break; }
+		case RunCmdNoKeyserverFound:
+			NSRunAlertPanel(localized(@"Error"), localized(@"No keyserver found!"), nil, nil, nil);
+			returnText = localized(@"Error!");
+			break;
+		case RunCmdIllegalProtocolType:
+			NSRunAlertPanel(localized(@"Error"), localized(@"Illegal protocol!"), nil, nil, nil);
+			returnText = localized(@"Error!");
+			break;
+		case RunCmdNoKeyserverHelperFound:
+			NSRunAlertPanel(localized(@"Error"), localized(@"No keyserver-helper found!"), nil, nil, nil);
+			returnText = localized(@"Error!");
+			break;
+		default:
+			NSLog(@"searchKeysOnServer für pattern: \"%@\" fehlgeschlagen!", pattern);
+			returnText = localized(@"Error!");
+			break;
 	}
-	if (pubKeyText) {
-		[foundText appendString:pubKeyText];
-		returnText = [foundText stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	} else {
-		returnText = localized(@"No keys Found!");
-	}
+	
 	[returnText retain];
 	
 	[pool drain];
@@ -983,8 +1007,6 @@ int runGPGCommand(NSString *inText, NSString **outText, NSString **errText, NSSt
 	
 	return exitcode;
 }
-
-
 int runCommandWithArray(NSString *command, NSString *inText, NSData **outData, NSData **errData, NSArray *arguments) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSTask *cmdTask = [[NSTask alloc] init];
@@ -1060,6 +1082,7 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 	tempArray = [gpgOptions activeOptionValuesForName:@"keyserver"];
 	if ([tempArray count] == 0) {
 		[pool drain];
+		NSLog(@"searchKeysOnServer RunCmdNoKeyserverFound");
 		return RunCmdNoKeyserverFound;
 	}
 	hostName = [tempArray objectAtIndex:0];
@@ -1095,6 +1118,7 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
         helperName = @"gpg2keys_finger";
     } else {
 		[pool drain];
+		NSLog(@"searchKeysOnServer RunCmdIllegalProtocolType");
 		return RunCmdIllegalProtocolType;
     }
     hostName = [hostName substringFromIndex:aRange.location + aRange.length];
@@ -1110,6 +1134,7 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 		helperPath = [[basePath stringByAppendingPathComponent:@"lib/gnupg"] stringByAppendingPathComponent:helperName];
 		if (![fileManager fileExistsAtPath:helperPath]) {
 			[pool drain];
+			NSLog(@"searchKeysOnServer RunCmdNoKeyserverHelperFound");
 			return RunCmdNoKeyserverHelperFound;
 		}
 	}
@@ -1146,7 +1171,8 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 	
 	int exitcode = runCommandWithArray(helperPath, cmdText, &outData, nil, [NSArray array]);
 
-	*outText = [[NSString alloc] initWithData:outData encoding:NSASCIIStringEncoding];
+	*outText = [dataToString(outData) retain];
+
 	
 	
 	[pool drain];

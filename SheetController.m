@@ -49,7 +49,7 @@ static SheetController *_sharedInstance = nil;
 @synthesize secretKeyFingerprints;
 @synthesize secretKeyId;
 
-//TODO: Schlüsselsuche Datum formaieren.
+
 
 + (id)sharedInstance {
 	if (_sharedInstance == nil) {

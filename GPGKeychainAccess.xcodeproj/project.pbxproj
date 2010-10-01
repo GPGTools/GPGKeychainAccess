@@ -10,6 +10,7 @@
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* GPGKeychainAccessAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* GPGKeychainAccessAppDelegate.m */; };
 		3000FEAA11F5B88800D6F5F8 /* KeychainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3000FEA911F5B88800D6F5F8 /* KeychainController.m */; };
+		3002B0B9125511FD00821F82 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3002B0B8125511FD00821F82 /* Icon.icns */; };
 		30139A5A12475A4A00B8AA01 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30139A5912475A4A00B8AA01 /* AddressBook.framework */; };
 		3016AE571243BF4A002206EE /* MacGPGME.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3016AE481243BEF7002206EE /* MacGPGME.framework */; };
 		3016AE581243BF50002206EE /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3016AE481243BEF7002206EE /* MacGPGME.framework */; };
@@ -23,7 +24,6 @@
 		30EB1CB2120C5F91003BD52F /* Export.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 30EB1CB0120C5F91003BD52F /* Export.tiff */; };
 		30EB1CB3120C5F91003BD52F /* Import.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 30EB1CB1120C5F91003BD52F /* Import.tiff */; };
 		30EB1CBB120C5FEF003BD52F /* Generate.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 30EB1CBA120C5FEF003BD52F /* Generate.tiff */; };
-		30EB1E5F120C95CD003BD52F /* GPGKeys.icns in Resources */ = {isa = PBXBuildFile; fileRef = 30EB1E5E120C95CD003BD52F /* GPGKeys.icns */; };
 		30ED341F1242461400C311B1 /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 30ED341E1242461400C311B1 /* COPYING */; };
 		30F87AFB125283A8009FE2CC /* MainMenu.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30F87AF9125283A8009FE2CC /* MainMenu.strings */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -85,6 +85,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3000FEA811F5B88800D6F5F8 /* KeychainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainController.h; sourceTree = "<group>"; };
 		3000FEA911F5B88800D6F5F8 /* KeychainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainController.m; sourceTree = "<group>"; };
+		3002B0B8125511FD00821F82 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		3005EFB2125137710052988E /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30139A5912475A4A00B8AA01 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3016AE3C1243BEF7002206EE /* MacGPGME.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MacGPGME.xcodeproj; path = Dependencies/MacGPGME/MacGPGME.xcodeproj; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		30EB1CB0120C5F91003BD52F /* Export.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Export.tiff; sourceTree = "<group>"; };
 		30EB1CB1120C5F91003BD52F /* Import.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Import.tiff; sourceTree = "<group>"; };
 		30EB1CBA120C5FEF003BD52F /* Generate.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Generate.tiff; sourceTree = "<group>"; };
-		30EB1E5E120C95CD003BD52F /* GPGKeys.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = GPGKeys.icns; sourceTree = "<group>"; };
 		30ED341E1242461400C311B1 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
 		30F87AFF125283C3009FE2CC /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		30F87B1112528415009FE2CC /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -230,7 +230,7 @@
 		30EB1CB5120C5F96003BD52F /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				30EB1E5E120C95CD003BD52F /* GPGKeys.icns */,
+				3002B0B8125511FD00821F82 /* Icon.icns */,
 				30EB1CB0120C5F91003BD52F /* Export.tiff */,
 				30EB1CBA120C5FEF003BD52F /* Generate.tiff */,
 				30EB1CB1120C5F91003BD52F /* Import.tiff */,
@@ -336,11 +336,11 @@
 				30EB1CB2120C5F91003BD52F /* Export.tiff in Resources */,
 				30EB1CB3120C5F91003BD52F /* Import.tiff in Resources */,
 				30EB1CBB120C5FEF003BD52F /* Generate.tiff in Resources */,
-				30EB1E5F120C95CD003BD52F /* GPGKeys.icns in Resources */,
 				30DAEFB8122819B600F1E98C /* Bekannte Fehler.rtf in Resources */,
 				3017440C124D5F6000A7DE77 /* ModalSheets.xib in Resources */,
 				30ED341F1242461400C311B1 /* COPYING in Resources */,
 				30F87AFB125283A8009FE2CC /* MainMenu.strings in Resources */,
+				3002B0B9125511FD00821F82 /* Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
