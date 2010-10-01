@@ -21,6 +21,7 @@
 #import "KeychainController.h"
 
 NSString *GPG_PATH;
+NSInteger GPG_VERSION;
 KeychainController *keychainController;
 ActionController *actionController;
 NSWindow *mainWindow;

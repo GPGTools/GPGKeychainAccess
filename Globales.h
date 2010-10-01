@@ -19,6 +19,7 @@
 @class ActionController;
 
 extern NSString *GPG_PATH;
+extern NSInteger GPG_VERSION;
 extern KeychainController *keychainController;
 extern ActionController *actionController;
 extern NSWindow *mainWindow;

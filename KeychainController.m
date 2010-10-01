@@ -286,6 +286,7 @@ NSLock *updateLock;
 				if ([[engine version] hasPrefix:@"2."]) {
 					engineFound = YES;
 					GPG_PATH = [[engine executablePath] retain];
+					GPG_VERSION = 2;
 					break;
 				} else if ([[engine version] hasPrefix:@"1.4."]) {
 					gpg1Path = [[engine executablePath] retain];
@@ -296,6 +297,7 @@ NSLock *updateLock;
 		if (!engineFound) {
 			if (gpg1Found) {
 				GPG_PATH = gpg1Path;
+				GPG_VERSION = 1;
 				NSUserDefaults *defalts = [NSUserDefaults standardUserDefaults];
 				if (![defalts boolForKey:@"NotFirstRun"]) {
 					NSRunAlertPanel(localized(@"Warning"), localized(@"GPG1OnlyFound_Msg"), nil, nil, nil);

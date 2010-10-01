@@ -809,7 +809,12 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 	
 	if (pid == 0) { //Kindprozess
 		int numArgs, argPos = 1;
-		numArgs = 8 + [args count];
+		if (GPG_VERSION == 2) {
+			numArgs = 7 + [args count];
+		} else {
+			numArgs = 11 + [args count]; //GPG 1.4 braucht mehr Parameter.
+		}
+
 		
 		int nullDescriptor = open("/dev/null", O_WRONLY);
 		
@@ -842,10 +847,7 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 			[[inPipe fileHandleForWriting] closeFile];
 			numArgs += 2;
 		}
-		
-		dup2(pipes[0][1], 1);
-		dup2(pipes[1][1], 2);
-		
+				
 		
 		char* argv[numArgs];
 		
@@ -872,8 +874,47 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 		argv[argPos + 2] = "--yes";
 		argv[argPos + 3] = "--batch";
 		argv[argPos + 4] = "--no-tty";
-		argv[argPos + 5] = "--fixed-list-mode"; //Für GPG 1.4
-		argPos += 6;
+		if (GPG_VERSION == 2) {
+			argPos += 5;
+		} else {
+			argv[argPos + 5] = "--fixed-list-mode";
+			argv[argPos + 6] = "--use-agent";
+			argv[argPos + 7] = "--gpg-agent-info";
+			
+			char *gpgAgentInfo;
+			gpgAgentInfo = getenv("GPG_AGENT_INFO");
+			if (gpgAgentInfo == NULL) { //Wenn die Umgebungsvariable GPG_AGENT_INFO nicht gesetzt ist, in der Datei ~/.gpg-agent-info nachsehen.
+				char *home = getenv("HOME");
+				int homeLen = strlen(home);
+				char gpgAgentInfoPath[homeLen + 20];
+				memcpy(gpgAgentInfoPath, home, homeLen);
+				memcpy(gpgAgentInfoPath+homeLen, "/.gpg-agent-info", 17);
+
+				FILE *gpgAgentInfoFile = fopen(gpgAgentInfoPath, "r");
+				if (gpgAgentInfoFile != NULL) {
+					char buffer[200];
+					int bufferLen;
+					while (fgets(buffer, 200, gpgAgentInfoFile)) {
+						if (strncmp(buffer, "GPG_AGENT_INFO=", 15) == 0) {
+							bufferLen = strlen(buffer);
+							gpgAgentInfo = malloc(bufferLen - 15);
+							memcpy(gpgAgentInfo, buffer+15, bufferLen-16);
+							gpgAgentInfo[bufferLen-16] = 0;
+							break;
+						}
+					}
+					fclose(gpgAgentInfoFile);
+				}
+				if (gpgAgentInfo == NULL) { //Wenn GPG_AGENT_INFO nicht gefunden werden konnte, wird der Standard-Socket verwendet.
+					gpgAgentInfo = malloc(homeLen + 24);
+					memcpy(gpgAgentInfo, home, homeLen);
+					memcpy(gpgAgentInfo+homeLen, "/.gnupg/S.gpg-agent:0:1", 24);
+				}
+			}
+			argv[argPos + 8] = gpgAgentInfo;
+			
+			argPos += 9;
+		}
 		
 		
 		for (NSString *argument in args) {
@@ -882,6 +923,9 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 		}
 		argv[argPos] = nil;
 		
+		
+		dup2(pipes[0][1], 1);
+		dup2(pipes[1][1], 2);
 		
 		execv(argv[0], argv);
 		//--command-fd 0 --no-greeting --with-colons --yes --batch --no-tty
@@ -1062,6 +1106,8 @@ int runCommandWithArray(NSString *command, NSString *inText, NSData **outData, N
 	return exitcode;
 }
 
+
+//Schlüsselsuche ist mit GPG 1.4 bisher nicht möglich.
 int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	GPGOptions *gpgOptions = [gpgContext options];
