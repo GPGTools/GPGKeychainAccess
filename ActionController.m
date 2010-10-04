@@ -23,7 +23,6 @@
 @implementation ActionController
 
 
-
 //TODO: Fotos die auf mehrere Subpakete aufgeteilt sind.
 
 
@@ -910,6 +909,7 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 					memcpy(gpgAgentInfo, home, homeLen);
 					memcpy(gpgAgentInfo+homeLen, "/.gnupg/S.gpg-agent:0:1", 24);
 				}
+				//TODO: Meldung, wenn gpg-agent nicht erreichbar ist.
 			}
 			argv[argPos + 8] = gpgAgentInfo;
 			
@@ -1107,7 +1107,6 @@ int runCommandWithArray(NSString *command, NSString *inText, NSData **outData, N
 }
 
 
-//Schlüsselsuche ist mit GPG 1.4 bisher nicht möglich.
 int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	GPGOptions *gpgOptions = [gpgContext options];
@@ -1147,21 +1146,21 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 	hostProtocol = [hostName substringToIndex:aRange.location];
 
 	if ([hostProtocol isEqualToString:@"ldap"]) {
-        helperName = @"gpg2keys_ldap";
+        helperName = (GPG_VERSION == 2) ? @"gpg2keys_ldap" : @"gpgkeys_ldap";
     } else if ([hostProtocol isEqualToString:@"x-hkp"]) {
-        helperName = @"gpg2keys_hkp";
+        helperName = (GPG_VERSION == 2) ? @"gpg2keys_hkp" : @"gpgkeys_hkp";
     } else if ([hostProtocol isEqualToString:@"hkp"]) {
-        helperName = @"gpg2keys_hkp";
+        helperName = (GPG_VERSION == 2) ? @"gpg2keys_hkp" : @"gpgkeys_hkp";
     } else if ([hostProtocol isEqualToString:@"http"]) {
-        helperName = @"gpg2keys_curl";
+        helperName = (GPG_VERSION == 2) ? @"gpg2keys_curl" : @"gpgkeys_curl";
     } else if ([hostProtocol isEqualToString:@"https"]) {
-        helperName = @"gpg2keys_curl";
+        helperName = (GPG_VERSION == 2) ? @"gpg2keys_curl" : @"gpgkeys_curl";
     } else if ([hostProtocol isEqualToString:@"ftp"]) {
-        helperName = @"gpg2keys_curl";
+        helperName = (GPG_VERSION == 2) ? @"gpg2keys_curl" : @"gpgkeys_curl";
     } else if ([hostProtocol isEqualToString:@"ftps"]) {
-        helperName = @"gpg2keys_curl";
+        helperName = (GPG_VERSION == 2) ? @"gpg2keys_curl" : @"gpgkeys_curl";
     } else if ([hostProtocol isEqualToString:@"finger"]) {
-        helperName = @"gpg2keys_finger";
+        helperName = (GPG_VERSION == 2) ? @"gpg2keys_finger" : @"gpgkeys_finger";
     } else {
 		[pool drain];
 		NSLog(@"searchKeysOnServer RunCmdIllegalProtocolType");
@@ -1175,15 +1174,23 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 	
 	fileManager = [NSFileManager defaultManager];
 	
-	helperPath = [[basePath stringByAppendingPathComponent:@"libexec"] stringByAppendingPathComponent:helperName];
-	if (![fileManager fileExistsAtPath:helperPath]) {
-		helperPath = [[basePath stringByAppendingPathComponent:@"lib/gnupg"] stringByAppendingPathComponent:helperName];
-		if (![fileManager fileExistsAtPath:helperPath]) {
-			[pool drain];
-			NSLog(@"searchKeysOnServer RunCmdNoKeyserverHelperFound");
-			return RunCmdNoKeyserverHelperFound;
+	NSArray *helperSubPaths = [NSArray arrayWithObjects:@"libexec", @"libexec/gnupg", @"lib/gnupg", nil];
+	
+	BOOL helperFound = NO;
+	for (NSString *subPath in helperSubPaths) {
+		helperPath = [[basePath stringByAppendingPathComponent:subPath] stringByAppendingPathComponent:helperName];
+		if ([fileManager fileExistsAtPath:helperPath]) {
+			helperFound = YES;
+			break;
 		}
 	}
+	
+	if (helperFound == NO) {
+		[pool drain];
+		NSLog(@"searchKeysOnServer RunCmdNoKeyserverHelperFound");
+		return RunCmdNoKeyserverHelperFound;
+	}
+	
 	
 	
 	
