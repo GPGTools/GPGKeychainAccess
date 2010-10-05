@@ -148,13 +148,14 @@ typedef enum {
 - (void)searchKeys_Action;
 - (void)showFoundKeysWithText:(NSString *)text;
 - (void)receiveKeys;
-- (void)receiveKeys_Action;
+- (void)receiveKeys_Action:(NSSet *)keyIDs;
 - (void)generateNewKey;
 
 - (void)addPhoto:(KeyInfo *)keyInfo;
 - (void)importKey;
 - (void)exportKeys:(NSSet *)keyInfos;
 
+- (void)showResult:(NSString *)text;
 
 
 - (void)runSheetForWindow:(NSWindow *)window;

@@ -26,6 +26,105 @@
 //TODO: Fotos die auf mehrere Subpakete aufgeteilt sind.
 
 
+- (BOOL)validateUserInterfaceItem:(id)anItem {
+    SEL selector = [anItem action];
+	
+    if (selector == @selector(copy:)) {
+		if ([[keysController selectedObjects] count] >= 1) {
+			return YES;
+		}
+		return NO;
+    } else if (selector == @selector(paste:)) {
+		NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+		if ([pboard availableTypeFromArray:[NSArray arrayWithObject:NSStringPboardType]] != nil) {
+			NSString *string = [pboard stringForType:NSStringPboardType];
+			if (containsPGPKeyBlock(string)) {
+				return YES;
+			} else {
+				return NO;
+			}
+		}
+    }
+	return YES;
+}
+- (IBAction)copy:(id)sender {
+	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	if ([keyInfos count] > 0) {
+		NSString *exportedKeys = dataToString([self exportKeys:keyInfos armored:YES allowSecret:NO]);
+		if ([exportedKeys length] > 0) {
+			NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+			[pboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
+			[pboard setString:exportedKeys forType:NSStringPboardType];
+		}
+	}
+}
+- (IBAction)paste:(id)sender {
+	NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+	NSData *data = [pboard dataForType:NSStringPboardType];
+	
+	if (data) {
+		[self importFromData:data];
+	}
+}
+
+
+
+- (void)showImportResultWithStatusData:(NSData *)data {
+	NSMutableString *retString = [NSMutableString string];
+	NSString *statusText = dataToString(data);
+	NSScanner *scanner = [NSScanner scannerWithString:statusText];
+	NSCharacterSet *hexCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEFabcdef"];
+	NSUInteger length = [statusText length];
+	
+	NSInteger flags;
+	NSString *fingerprint;
+	NSString *userID;
+	NSString *keyID;
+	
+	NSRange range = {0, length};
+	
+	
+	while ((range = [statusText rangeOfString:@"[GNUPG:] IMPORT_OK " options:NSLiteralSearch range:range]).length > 0) {
+		[scanner setScanLocation:range.location + 19];
+		[scanner scanInteger:&flags];
+		
+		if (flags > 0) {
+			[scanner scanCharactersFromSet:hexCharSet intoString:&fingerprint];
+			userID = [[[keychainController keychain] objectForKey:fingerprint] userID];
+			keyID = shortKeyID(fingerprint);
+
+			if (flags & 1) {
+				if (flags & 16) {
+					[retString appendFormat:localized(@"key %@: secret key imported\n"), keyID];
+				} else {
+					[retString appendFormat:localized(@"key %@: public key \"%@\" imported\n"), keyID, userID];
+				}
+			}
+			if (flags & 2) {
+				[retString appendFormat:localized(@"key %@: \"%@\" new user ID(s)\n"), keyID, userID];
+			}
+			if (flags & 4) {
+				[retString appendFormat:localized(@"key %@: \"%@\" new signature(s)\n"), keyID, userID];
+			}
+			if (flags & 8) {
+				[retString appendFormat:localized(@"key %@: \"%@\" new subkey(s)\n"), keyID, userID];
+			}
+		}
+		
+		range.location += range.length;
+		range.length = length - range.location;
+	}
+		
+	if ([retString length] == 0) {
+		[retString setString:localized(@"Nothing imported!")];
+	}
+	
+	SheetController *sheetController = [SheetController sharedInstance];
+	[sheetController showResult:retString];
+}
+
+
+
 - (IBAction)cleanKey:(id)sender {
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
@@ -123,18 +222,38 @@
 	[sheetController importKey];
 }
 - (void)importFromURLs:(NSArray *)urls { //Bisher werden nur normale Dateien zum import unterstützt und keine "echten" URLs.
-	//TODO: Rückmeldung über importierte Schlüssel.
+	NSData *statusData;
 	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:[urls count] + 1];
 	[arguments addObject:@"--import"];
 
-	for (NSURL *url in urls) {
-		[arguments addObject:[url path]];
+	for (NSObject *path in urls) {
+		if ([path isKindOfClass:[NSURL class]]) {
+			[arguments addObject:[(NSURL*)path path]];
+		} else if ([path isKindOfClass:[NSString class]]) {
+			[arguments addObject:path];
+		}
 	}
 	
-	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
-		NSLog(@"importFromFiles: --import fehlgeschlagen."); //Tritt auch auf, wenn einer der zu importierenden Schlüssel bereits vorhanden ist. Muss also nichts besonderes bedeuten.
+	if (runGPGCommandWithArray(nil, nil, nil, &statusData, nil, arguments) != 0) {
+		NSLog(@"importFromURLs: --import fehlgeschlagen."); //Tritt auch auf, wenn einer der zu importierenden Schlüssel bereits vorhanden ist. Muss also nichts besonderes bedeuten.
 	}
+	
+	[keychainController updateKeyInfos:nil];
+	
+	[self showImportResultWithStatusData:statusData];
 }
+- (void)importFromData:(NSData *)data {
+	NSData *statusData;
+	
+	if (runGPGCommandWithArray(data, nil, nil, &statusData, nil, [NSArray arrayWithObject:@"--import"]) != 0) {
+		NSLog(@"importFromData: --import fehlgeschlagen."); //Tritt auch auf, wenn einer der zu importierenden Schlüssel bereits vorhanden ist. Muss also nichts besonderes bedeuten.
+	}
+	
+	[keychainController updateKeyInfos:nil];
+	
+	[self showImportResultWithStatusData:statusData];
+}
+
 
 - (IBAction)exportKey:(id)sender {
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
@@ -234,7 +353,7 @@
 	NSString *cmdText = [NSString stringWithFormat:@"%@\n%@\n%i\ny\nsave\n", uid, sigType, daysToExpire];
 	NSArray *arguments = [NSArray arrayWithObjects:@"-u", signFingerprint, @"--no-ask-cert-level", @"--default-cert-level", [NSString stringWithFormat:@"%i", type], @"--ask-cert-expire", @"--edit-key", fingerprint, nil];
 	
-	if (runGPGCommandWithArray(cmdText, nil, nil, nil, nil, arguments) != 0) {
+	if (runGPGCommandWithArray(stringToData(cmdText), nil, nil, nil, nil, arguments) != 0) {
 		NSLog(@"addSignature: --edit-key:%@ für Schlüssel %@ fehlgeschlagen.", sigType, fingerprint);
 	}
 	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
@@ -403,52 +522,18 @@
 	SheetController *sheetController = [SheetController sharedInstance];
 	[sheetController receiveKeys];
 }
-- (void)receiveKeysWithPattern:(NSString *)pattern {
+- (void)receiveKeysWithIDs:(NSSet *)keyIDs {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	//TODO: Rückmeldung über empfangene Schlüssel.
 	
 	NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"--recv-keys"];
-	NSArray *keyIDs = [pattern componentsSeparatedByString:@" "];
-	
-	NSCharacterSet *hexCharSet = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEFabcdef"] invertedSet];
-	NSInteger stringLength;
-	NSString *stringToCheck;
-	
-	for (NSString *aKeyID in keyIDs) {
-		stringLength = [aKeyID length];
-		stringToCheck = nil;
-		switch (stringLength) {
-			case 8:
-			case 16:
-			case 32:
-			case 40:
-				stringToCheck = aKeyID;
-				break;
-			case 9:
-			case 17:
-			case 33:
-			case 41:
-				if ([aKeyID hasPrefix:@"0"]) {
-					stringToCheck = [aKeyID substringFromIndex:1];
-				}
-				break;
-			case 10:
-			case 18:
-			case 34:
-			case 42:
-				if ([aKeyID hasPrefix:@"0x"]) {
-					stringToCheck = [aKeyID substringFromIndex:2];
-				}
-				break;
-		}
-		if (stringToCheck && [stringToCheck rangeOfCharacterFromSet:hexCharSet].length == 0) {
-			[arguments addObject:stringToCheck];
-		}
-	}
+	[arguments addObjectsFromArray:[keyIDs allObjects]];
 	
 	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
-		NSLog(@"receiveKeysWithPattern: --recv-keys für \"%@\" fehlgeschlagen.", pattern);
+		NSLog(@"receiveKeysWithPattern: --recv-keys für \"%@\" fehlgeschlagen.", keyIDs);
 	}
 	[keychainController updateKeyInfos:nil];
+	
 	[pool drain];
 }
 
@@ -788,7 +873,7 @@
 //Wenn inText nicht nil ist, wird es gpg als stdin übergeben.
 //Wenn outData nicht nil ist, wird Stdout in diesem NSData zurückgegeben. Gleiches für errData.
 //Rückgabewert ist der Exitcode von GPG.
-int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData, NSData **statusData, NSData **attributeData, NSArray *args) {
+int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, NSData **statusData, NSData **attributeData, NSArray *args) {
 	int pipes[4][2];
 	int i;
 	NSData **datas[4];
@@ -827,6 +912,9 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 		} else {
 			pipes[1][1] = nullDescriptor;
 		}
+		dup2(pipes[0][1], 1);
+		dup2(pipes[1][1], 2);
+		
 		
 		if (statusData) {
 			close(pipes[2][0]);
@@ -839,10 +927,10 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 			numArgs += 2;
 		}
 		
-		if (inText) {
+		if (inData) {
 			NSPipe *inPipe = [NSPipe pipe];
 			dup2([[inPipe fileHandleForReading] fileDescriptor], 0);
-			[[inPipe fileHandleForWriting] writeData:[inText dataUsingEncoding:NSUTF8StringEncoding]];
+			[[inPipe fileHandleForWriting] writeData:inData];
 			[[inPipe fileHandleForWriting] closeFile];
 			numArgs += 2;
 		}
@@ -852,7 +940,7 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 		
 		argv[0] = (char*)[GPG_PATH cStringUsingEncoding:NSUTF8StringEncoding];
 		
-		if (inText) {
+		if (inData) {
 			argv[argPos] = "--command-fd";
 			argv[argPos + 1] = "0";
 			argPos += 2;
@@ -924,8 +1012,6 @@ int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData,
 		argv[argPos] = nil;
 		
 		
-		dup2(pipes[0][1], 1);
-		dup2(pipes[1][1], 2);
 		
 		execv(argv[0], argv);
 		//--command-fd 0 --no-greeting --with-colons --yes --batch --no-tty
@@ -1029,7 +1115,7 @@ int runGPGCommand(NSString *inText, NSString **outText, NSString **errText, NSSt
 	NSData *errData;
 	
 	
-	int exitcode = runGPGCommandWithArray(inText, outText ? &outData : nil, errText ? &errData : nil, nil, nil, arguments);
+	int exitcode = runGPGCommandWithArray(stringToData(inText), outText ? &outData : nil, errText ? &errData : nil, nil, nil, arguments);
 	
 	
 	if (outText) {

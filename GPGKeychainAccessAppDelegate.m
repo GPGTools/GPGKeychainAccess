@@ -17,6 +17,7 @@
 
 #import "GPGKeychainAccessAppDelegate.h"
 #import "KeychainController.h"
+#import "ActionController.h"
 
 @implementation GPGKeychainAccessAppDelegate
 
@@ -50,7 +51,63 @@
 	[self generateContextMenuForTable:subkeyTable];
 	[self generateContextMenuForTable:userIDTable];
 	[self generateContextMenuForTable:signatureTable];
+	
+	
+	NSArray *draggedTypes = [NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil];
+	[window registerForDraggedTypes:draggedTypes];
 }
+
+
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
+	NSPasteboard *pboard = [sender draggingPasteboard];
+	NSString *pboardType = [pboard availableTypeFromArray:[NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil]];
+	
+	if ([pboardType isEqualToString:NSFilenamesPboardType]) {
+		NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
+		for (NSString *fileName in fileNames) {
+			NSString *extension = [fileName pathExtension];
+			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"]) {
+				return NSDragOperationCopy;
+			}
+		}
+	} else if ([pboardType isEqualToString:NSStringPboardType]) {
+		NSString *string = [pboard stringForType:NSStringPboardType];
+		if (containsPGPKeyBlock(string)) {
+			return NSDragOperationCopy;
+		}
+	}
+	return NSDragOperationNone;
+}
+- (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender {
+	return YES;
+}
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
+	NSPasteboard *pboard = [sender draggingPasteboard];
+	NSString *pboardType = [pboard availableTypeFromArray:[NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil]];
+	
+	if ([pboardType isEqualToString:NSFilenamesPboardType]) {
+		NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
+		NSMutableArray *filesToImport = [NSMutableArray arrayWithCapacity:[fileNames count]];
+		for (NSString *fileName in fileNames) {
+			NSString *extension = [fileName pathExtension];
+			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"]) {
+				[filesToImport addObject:fileName];
+			}
+		}
+		if ([filesToImport count] > 0) {
+			[actionController importFromURLs:filesToImport];
+			return YES;
+		}
+	} else if ([pboardType isEqualToString:NSStringPboardType]) {
+		NSString *string = [pboard stringForType:NSStringPboardType];
+		if (containsPGPKeyBlock(string)) {
+			[actionController importFromData:stringToData(string)];
+			return YES;
+		}
+	}
+	return NO;
+}
+
 
 
 - (void)generateContextMenuForTable:(NSTableView *)table {
@@ -81,7 +138,9 @@
 	return YES;
 }
 
-
+- (void)application:(NSApplication *)sender openFiles:(NSArray *)filenames {
+	[actionController importFromURLs:filenames];
+}
 
 - (CGFloat) splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex {
 	return proposedMinimumPosition + 68;

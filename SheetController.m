@@ -224,6 +224,13 @@ static SheetController *_sharedInstance = nil;
 	self.displayedView = foundKeysView;
 }
 
+- (void)showResult:(NSString *)text {
+	self.msgText = text;
+	self.displayedView = foundKeysView;
+	
+	[self runSheetForWindow:mainWindow];
+}
+
 
 - (void)receiveKeys {
 	self.pattern = @"";
@@ -233,8 +240,8 @@ static SheetController *_sharedInstance = nil;
 	
 	[self runSheetForWindow:mainWindow];
 }
-- (void)receiveKeys_Action {
-	[actionController receiveKeysWithPattern:pattern];
+- (void)receiveKeys_Action:(NSSet *)keyIDs {
+	[actionController receiveKeysWithIDs:keyIDs];
 	[self closeSheet];
 }
 
@@ -300,11 +307,15 @@ static SheetController *_sharedInstance = nil;
 			self.displayedView = progressView;
 			[NSThread detachNewThreadSelector:@selector(searchKeys_Action) toTarget:self withObject:nil];
 			break;
-		case ReceiveKeysAction:
+		case ReceiveKeysAction: {
+			NSSet *keyIDs = keyIDsFromString(pattern);
+			if (!keyIDs) {
+				NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NoKeyID"), nil, nil, nil);
+				return;
+			}
 			self.displayedView = progressView;
-			[NSThread detachNewThreadSelector:@selector(receiveKeys_Action) toTarget:self withObject:nil];
-			break;
-			
+			[NSThread detachNewThreadSelector:@selector(receiveKeys_Action:) toTarget:self withObject:keyIDs];
+			break; }
 	}
 }
 - (IBAction)cancelButton:(id)sender {
@@ -385,19 +396,19 @@ static SheetController *_sharedInstance = nil;
 
 - (BOOL)checkName {
 	if ([name length] < 5) {
-		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_NameToShort"), nil, nil, nil);
+		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameToShort"), nil, nil, nil);
 		return NO;
 	}
 	if ([name length] > 500) {
-		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_NameToLong"), nil, nil, nil);
+		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameToLong"), nil, nil, nil);
 		return NO;
 	}
 	if ([name rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]].length != 0) {
-		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_InvalidCharInName"), nil, nil, nil);
+		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_InvalidCharInName"), nil, nil, nil);
 		return NO;
 	}
 	if ([name characterAtIndex:0] <= '9' && [name characterAtIndex:0] >= '0') {
-		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_NameStartWithDigit"), nil, nil, nil);
+		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameStartWithDigit"), nil, nil, nil);
 		return NO;
 	}
 	return YES;
@@ -412,7 +423,7 @@ static SheetController *_sharedInstance = nil;
 		return YES;
 	}
 	if ([email length] > 254) {
-		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_EmailToLong"), nil, nil, nil);
+		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_EmailToLong"), nil, nil, nil);
 		return NO;
 	}
 	if ([email length] < 4) {
@@ -444,7 +455,7 @@ static SheetController *_sharedInstance = nil;
 	return YES;
 	
 emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist und nicht eine spezielle Meldung ausgegeben werden soll.
-	NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_InvalidEmail"), nil, nil, nil);
+	NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_InvalidEmail"), nil, nil, nil);
 	return NO;
 }
 
@@ -457,11 +468,11 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		return YES;
 	}
 	if ([comment length] > 500) {
-		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_CommentToLong"), nil, nil, nil);
+		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_CommentToLong"), nil, nil, nil);
 		return NO;
 	}
 	if ([comment rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()"]].length != 0) {
-		NSRunAlertPanel(localized(@"Warning"), localized(@"CheckWarning_InvalidCharInComment"), nil, nil, nil);
+		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_InvalidCharInComment"), nil, nil, nil);
 		return NO;
 	}
 	return YES;
@@ -488,6 +499,9 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			[sheetWindow setFrame:newRect display:YES animate:YES];
 			[sheetWindow setContentSize:newRect.size];
 			
+			if ([value nextKeyView]) {
+				[sheetWindow makeFirstResponder:[value nextKeyView]];
+			}
 			[sheetView addSubview:value];
 			if (value == progressView) {
 				[progressIndicator startAnimation:nil];
@@ -587,7 +601,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 				break; }
 			case GKOpenSavePanelImportKeyAction:
 				[actionController importFromURLs:[sheet URLs]];
-				[keychainController asyncUpdateKeyInfos:nil];
 				break;
 			case GKOpenSavePanelAddPhotoAction: {
 				KeyInfo *keyInfo = [contextInfo objectForKey:@"keyInfo"];

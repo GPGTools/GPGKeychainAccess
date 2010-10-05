@@ -33,8 +33,55 @@
 @synthesize keyInfosSortDescriptors;
 @synthesize secretKeys;
 
-
 NSLock *updateLock;
+NSSet *draggedKeyInfos;
+
+
+
+- (BOOL)outlineView:(NSOutlineView*)outlineView writeItems:(NSArray*)items toPasteboard:(NSPasteboard *)pasteboard {
+	NSMutableSet *keyInfos = [NSMutableSet setWithCapacity:[items count]];
+	
+	for (NSTreeNode *node in items) {
+		[keyInfos addObject:[node representedObject]];
+	}
+	draggedKeyInfos = keyInfos;
+	
+	NSPoint point = [mainWindow mouseLocationOutsideOfEventStream];
+	NSRect rect;
+	rect.size.width = 0;
+	rect.size.height = 0;
+	rect.origin.x = point.x - 45;
+	rect.origin.y = [outlineView frame].size.height - point.y + 55;
+	
+	NSEvent *event = [NSEvent mouseEventWithType:NSLeftMouseDown location:point modifierFlags:0 timestamp:0 windowNumber:[mainWindow windowNumber] context:nil eventNumber:0 clickCount:0 pressure:1];
+	
+	[outlineView dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"asc"] fromRect:rect source:self slideBack:YES event:event];
+	
+	draggedKeyInfos = nil;
+	
+	return YES;
+}
+
+- (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
+	NSString *fileName;
+	if ([draggedKeyInfos count] == 1) {
+		fileName = [NSString stringWithFormat:@"%@.asc", [[draggedKeyInfos anyObject] shortKeyID]];
+	} else {
+		fileName = localized(@"Exported keys.asc");
+	}
+	
+	NSData *exportedData = [actionController exportKeys:draggedKeyInfos armored:YES allowSecret:NO];
+	if (exportedData && [exportedData length] > 0) {
+		[exportedData writeToFile:[[dropDestination path] stringByAppendingPathComponent:fileName] atomically:YES];
+		
+		return [NSArray arrayWithObject:fileName];
+	} else {
+		return nil;
+	}
+}
+
+
+
 
 - (void)initKeychains {
 	keychain = [[NSMutableDictionary alloc] initWithCapacity:10];
@@ -270,6 +317,7 @@ NSLock *updateLock;
 	
 	updateLock = [[NSLock alloc] init];
 	[self updateKeyInfos:nil];
+	
 	
     [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateThread) userInfo:nil repeats:YES];
 	

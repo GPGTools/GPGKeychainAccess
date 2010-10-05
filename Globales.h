@@ -29,7 +29,15 @@ extern GPGContext *gpgContext;
 
 NSSet* KeyInfoSet(NSArray *keyInfos);
 NSInteger getDaysToExpire(NSDate *expirationDate);
+
 NSString* dataToString(NSData *data);
-	
+NSData* stringToData(NSString *string);
+
+NSString* shortKeyID(NSString *keyID);
+
+NSSet* keyIDsFromString(NSString *string);
+
+BOOL containsPGPKeyBlock(NSString *string);
+
 #define NotImplementedAlert NSRunAlertPanel(@"Noch nicht implementiert", @"", @"OK", nil, nil)
 

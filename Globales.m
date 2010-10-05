@@ -29,6 +29,7 @@ NSWindow *inspectorWindow;
 GPGContext *gpgContext;
 
 
+
 NSSet* KeyInfoSet(NSArray *keyInfos) {
 	NSMutableSet *keyInfoSet = [NSMutableSet set];
 	for (KeyInfo *keyInfo in keyInfos) {
@@ -50,3 +51,65 @@ NSString* dataToString(NSData *data) {
 	return [retString autorelease];
 }
 
+NSData* stringToData(NSString *string) {
+	return [string dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+NSString* shortKeyID(NSString *keyID) {
+	return [keyID substringFromIndex:[keyID length] - 8];
+}
+
+
+NSSet* keyIDsFromString(NSString *string) {
+	NSArray *substrings = [string componentsSeparatedByString:@" "];
+	NSMutableSet *keyIDs = [NSMutableSet setWithCapacity:[substrings count]];
+	BOOL found = NO;
+	
+	NSCharacterSet *noHexCharSet = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEFabcdef"] invertedSet];
+	NSInteger stringLength;
+	NSString *stringToCheck;
+	
+	for (NSString *substring in substrings) {
+		stringLength = [substring length];
+		stringToCheck = nil;
+		switch (stringLength) {
+			case 8:
+			case 16:
+			case 32:
+			case 40:
+				stringToCheck = substring;
+				break;
+			case 9:
+			case 17:
+			case 33:
+			case 41:
+				if ([substring hasPrefix:@"0"]) {
+					stringToCheck = [substring substringFromIndex:1];
+				}
+				break;
+			case 10:
+			case 18:
+			case 34:
+			case 42:
+				if ([substring hasPrefix:@"0x"]) {
+					stringToCheck = [substring substringFromIndex:2];
+				}
+				break;
+		}
+		if (stringToCheck && [stringToCheck rangeOfCharacterFromSet:noHexCharSet].length == 0) {
+			[keyIDs addObject:stringToCheck];
+			found = YES;
+		}
+	}
+	
+	return found ? [[keyIDs copy] autorelease] : nil;
+}
+
+
+
+BOOL containsPGPKeyBlock(NSString *string) {
+	return ([string rangeOfString:@"-----BEGIN PGP PUBLIC KEY BLOCK-----"].length > 0 && 
+			[string rangeOfString:@"-----END PGP PUBLIC KEY BLOCK-----"].length > 0) || 
+		([string rangeOfString:@"-----BEGIN PGP PRIVATE KEY BLOCK-----"].length > 0 && 
+		 [string rangeOfString:@"-----END PGP PRIVATE KEY BLOCK-----"].length > 0);
+}

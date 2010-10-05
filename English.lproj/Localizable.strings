@@ -44,14 +44,15 @@ ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%@\", %@\nSubkey: 
 
 
 //Meldungen wenn die Eingabe nicht korrekt war.
-CheckWarning_NameToShort = "Name must be at least 5 characters long!";
-CheckWarning_NameToLong = "Name is to long!";
-CheckWarning_InvalidCharInName = "Invalid character in name!\n\"<\" and \">\" not allowed.";
-CheckWarning_NameStartWithDigit = "Name may not start with a digit!";
-CheckWarning_InvalidEmail = "Not a valid email address!";
-CheckWarning_EmailToLong = "E-Mail address is to long!\nMax length is 254.";
-CheckWarning_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\" not allowed.";
-CheckWarning_CommentToLong = "Comment is to long!";
+CheckError_NameToShort = "Name must be at least 5 characters long!";
+CheckError_NameToLong = "Name is to long!";
+CheckError_InvalidCharInName = "Invalid character in name!\n\"<\" and \">\" not allowed.";
+CheckError_NameStartWithDigit = "Name may not start with a digit!";
+CheckError_InvalidEmail = "Not a valid email address!";
+CheckError_EmailToLong = "E-Mail address is to long!\nMax length is 254.";
+CheckError_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\" not allowed.";
+CheckError_CommentToLong = "Comment is to long!";
+CheckError_NoKeyID = "Please enter a valid key ID!";
 
 
 //Meldungen beim Start, wenn es Probleme gibt. 
@@ -66,6 +67,15 @@ No = "No";
 Error = "Error";
 Warning = "Warning";
 Cancle = "Cancle";
+
+
+//Für die Importergebnis
+"key %@: secret key imported\n" = "key %@: secret key imported\n";
+"key %@: public key \"%@\" imported\n" = "key %@: public key \"%@\" imported\n";
+"key %@: \"%@\" new user ID(s)\n" = "key %@: \"%@\" new user ID(s)\n";
+"key %@: \"%@\" new signature(s)\n" = "key %@: \"%@\" new signature(s)\n";
+"key %@: \"%@\" new subkey(s)\n" = "key %@: \"%@\" new subkey(s)\n";
+"Nothing imported!" = "Nothing imported!";
 
 
 //Die verschiedenen Algorithmen

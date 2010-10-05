@@ -38,14 +38,15 @@ ChangeSubkeyExpirationDate_Msg = "Ändern des Verfalldatums des Unterschlüssels
 
 
 //Meldungen wenn die Eingabe nicht korrekt war.
-CheckWarning_NameToShort = "Der Name muss mindestens 5 Zeichen lang sein!!";
-CheckWarning_NameToLong = "Der Name ist zu lang!";
-CheckWarning_InvalidCharInName = "Ungültiges Zeichen im Namen!\n\"<\" und \">\" sind nicht erlaubt.";
-CheckWarning_NameStartWithDigit = "Der Name darf nicht mit einer Zahl beginnen!";
-CheckWarning_InvalidEmail = "Die E-Mail Adresse ist nicht gültig!";
-CheckWarning_EmailToLong = "Die E-Mail Adresse ist zu lang!\nDie E-Mail Adresse darf höchstens 254 Zeichen lang sein.";
-CheckWarning_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n\"(\" und \")\" sind nicht erlaubt.";
-CheckWarning_CommentToLong = "Der Kommentar ist zu lang!";
+CheckError_NameToShort = "Der Name muss mindestens 5 Zeichen lang sein!!";
+CheckError_NameToLong = "Der Name ist zu lang!";
+CheckError_InvalidCharInName = "Ungültiges Zeichen im Namen!\n\"<\" und \">\" sind nicht erlaubt.";
+CheckError_NameStartWithDigit = "Der Name darf nicht mit einer Zahl beginnen!";
+CheckError_InvalidEmail = "Die E-Mail Adresse ist nicht gültig!";
+CheckError_EmailToLong = "Die E-Mail Adresse ist zu lang!\nDie E-Mail Adresse darf höchstens 254 Zeichen lang sein.";
+CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n\"(\" und \")\" sind nicht erlaubt.";
+CheckError_CommentToLong = "Der Kommentar ist zu lang!";
+CheckError_NoKeyID = "Bitte geben Sie ein gültige Schlüssel-ID ein!";
 
 
 //Meldungen beim Start, wenn es Probleme gibt. 
@@ -60,6 +61,15 @@ No = "Nein";
 Error = "Fehler";
 Warning = "Warnung";
 Cancle = "Abbrechen";
+
+
+//Für die Importergebnis
+"key %@: secret key imported\n" = "Schlüssel %@: geheimer Schlüssel importiert\n";
+"key %@: public key \"%@\" imported\n" = "Schlüssel %@: öffentlicher Schlüssel \"%@\" importiert\n";
+"key %@: \"%@\" new user ID(s)\n" = "Schlüssel %@: \"%@\" neue Benutzer-ID(s)\n";
+"key %@: \"%@\" new signature(s)\n" = "Schlüssel %@: \"%@\" neue Beglaubigung(en)\n";
+"key %@: \"%@\" new subkey(s)\n" = "Schlüssel %@: \"%@\" neue(r) Unterschlüssel\n";
+"Nothing imported!" = "Nichts importiert!";
 
 
 //Die verschiedenen Algorithmen

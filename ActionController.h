@@ -46,7 +46,8 @@ enum {
 	IBOutlet NSArrayController *photosController;
 	
 }
-
+- (BOOL)validateUserInterfaceItem:(id)anItem;
+- (IBAction)copy:(id)sender;
 
 - (IBAction)cleanKey:(id)sender;
 - (IBAction)minimizeKey:(id)sender;
@@ -80,6 +81,8 @@ enum {
 
 - (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec;
 - (void)importFromURLs:(NSArray *)urls;
+- (void)importFromData:(NSData *)data;
+- (void)showImportResultWithStatusData:(NSData *)data;
 
 - (void)generateNewKeyWithName:(NSString *)name email:(NSString *)email comment:(NSString *)comment type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
 - (void)addSubkeyForKeyInfo:(KeyInfo *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
@@ -87,7 +90,7 @@ enum {
 - (void)addSignatureForKeyInfo:(KeyInfo *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
 - (void)changeExpirationDateForKeyInfo:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey daysToExpire:(NSInteger)daysToExpire;
 - (NSString *)searchKeysWithPattern:(NSString *)pattern;
-- (void)receiveKeysWithPattern:(NSString *)pattern;
+- (void)receiveKeysWithIDs:(NSSet *)keyIDs;
 - (void)addPhotoForKeyInfo:(KeyInfo *)keyInfo photoPath:(NSString *)path;
 
 
@@ -95,7 +98,7 @@ enum {
 
 
 int runCommandWithArray(NSString *command, NSString *inText, NSData **outData, NSData **errData, NSArray *arguments);
-int runGPGCommandWithArray(NSString *inText, NSData **outData, NSData **errData, NSData **statusData, NSData **attributeData, NSArray *args);
+int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, NSData **statusData, NSData **attributeData, NSArray *args);
 int runGPGCommand(NSString *inText, NSString **outText, NSString **errText, NSString *firstArg, ...) NS_REQUIRES_NIL_TERMINATION;
 int searchKeysOnServer(NSString *searchPattern, NSString **outText);
 
