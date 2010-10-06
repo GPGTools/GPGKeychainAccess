@@ -925,7 +925,7 @@
 					</object>
 				</object>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
-				<string key="NSWindowContentMinSize">{400, 200}</string>
+				<string key="NSWindowContentMinSize">{450, 200}</string>
 				<object class="NSView" key="NSWindowView" id="439893737">
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -1207,7 +1207,7 @@
 													<object class="NSTableHeaderCell" key="NSHeaderCell">
 														<int key="NSCellFlags">75628096</int>
 														<int key="NSCellFlags2">2048</int>
-														<string key="NSContents">ID</string>
+														<string key="NSContents">ID (lang)</string>
 														<reference key="NSSupport" ref="26"/>
 														<reference key="NSBackgroundColor" ref="445054506"/>
 														<reference key="NSTextColor" ref="260847414"/>
@@ -1395,7 +1395,7 @@
 								<reference key="NSControlView" ref="544588931"/>
 								<int key="NSButtonFlags">1211912703</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage" id="413531674">
+								<object class="NSCustomResource" key="NSNormalImage" id="108777654">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
 								</object>
@@ -1413,7 +1413,7 @@
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
-				<string key="NSMinSize">{400, 278}</string>
+				<string key="NSMinSize">{450, 278}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSFrameAutosaveName">MainWindow</string>
 			</object>
@@ -1566,7 +1566,7 @@
 										<characters key="NS.bytes">1</characters>
 									</object>
 									<object class="NSView" key="NSView" id="269795853">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="913833129"/>
 										<int key="NSvFlags">264</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1760,7 +1760,7 @@
 											</object>
 											<object class="NSButton" id="932085681">
 												<reference key="NSNextResponder" ref="269795853"/>
-												<int key="NSvFlags">265</int>
+												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{212, 10}, {141, 28}}</string>
 												<reference key="NSSuperview" ref="269795853"/>
 												<bool key="NSEnabled">YES</bool>
@@ -1952,7 +1952,7 @@
 													<reference key="NSControlView" ref="836028179"/>
 													<int key="NSButtonFlags">1211912703</int>
 													<int key="NSButtonFlags2">2</int>
-													<reference key="NSNormalImage" ref="413531674"/>
+													<reference key="NSNormalImage" ref="108777654"/>
 													<reference key="NSAlternateImage" ref="483159743"/>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
@@ -2260,6 +2260,7 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 25}, {434, 425}}</string>
+										<reference key="NSSuperview" ref="913833129"/>
 									</object>
 									<string key="NSLabel">Schlüssel</string>
 									<reference key="NSColor" ref="865339720"/>
@@ -2270,7 +2271,7 @@
 										<characters key="NS.bytes">2</characters>
 									</object>
 									<object class="NSView" key="NSView" id="225359926">
-										<reference key="NSNextResponder" ref="913833129"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2931,7 +2932,6 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 25}, {434, 425}}</string>
-										<reference key="NSSuperview" ref="913833129"/>
 									</object>
 									<string key="NSLabel">Benutzer IDs</string>
 									<reference key="NSColor" ref="865339720"/>
@@ -3447,7 +3447,7 @@
 											</object>
 											<object class="NSButton" id="68681061">
 												<reference key="NSNextResponder" ref="706909090"/>
-												<int key="NSvFlags">265</int>
+												<int key="NSvFlags">292</int>
 												<string key="NSFrame">{{144, 162}, {141, 28}}</string>
 												<reference key="NSSuperview" ref="706909090"/>
 												<int key="NSTag">1</int>
@@ -3613,7 +3613,7 @@
 											<object class="NSButton" id="187617664">
 												<reference key="NSNextResponder" ref="188550208"/>
 												<int key="NSvFlags">292</int>
-												<string key="NSFrame">{{61, 12}, {85, 28}}</string>
+												<string key="NSFrame">{{61, 13}, {85, 28}}</string>
 												<reference key="NSSuperview" ref="188550208"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="818565963">
@@ -3696,14 +3696,14 @@
 									<reference key="NSTabView" ref="913833129"/>
 								</object>
 							</object>
-							<reference key="NSSelectedTabViewItem" ref="694241304"/>
+							<reference key="NSSelectedTabViewItem" ref="134643434"/>
 							<reference key="NSFont" ref="26"/>
 							<int key="NSTvFlags">134217728</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<reference ref="225359926"/>
+								<reference ref="269795853"/>
 							</object>
 						</object>
 					</object>
@@ -9385,9 +9385,9 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{535, 546}, {480, 483}}</string>
+					<string>{{670, 540}, {480, 483}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{535, 546}, {480, 483}}</string>
+					<string>{{670, 540}, {480, 483}}</string>
 					<boolean value="YES"/>
 					<boolean value="NO"/>
 					<boolean value="YES"/>
@@ -9797,7 +9797,7 @@
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="YES"/>
 					<string>{3.40282e+38, 3.40282e+38}</string>
-					<string>{400, 200}</string>
+					<string>{450, 200}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{975, 1053}, {241, 23}}</string>
