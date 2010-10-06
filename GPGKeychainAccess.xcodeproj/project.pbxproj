@@ -397,7 +397,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "PATH=$PATH:/opt/local/bin\npushd $SRCROOT > /dev/null\nexitcode=1\n\nif which git >/dev/null ;then\n\tif commit=$(git log --abbrev-commit -1) ;then\n\t\trevNumber=${commit:7:7}\n\t\tif ! git diff --quiet ;then\n\t\t\trevNumber=\"${revNumber}+\"\n\t\tfi\n\tfi\nfi\nrevNumber=${revNumber:-????}\n\n\ninfoPlistPath=\"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\ntempInfoPlist=\"$TARGET_TEMP_DIR/Info.plist\"\n\nif sed \"s/_REVNUMBER_/$revNumber/g\" \"$infoPlistPath\" > \"$tempInfoPlist\" ;then\n\tif cp \"$tempInfoPlist\" \"$infoPlistPath\" ;then\n\t\texitcode=0\n\tfi\nfi\n\n\npopd > /dev/null\nexit $exitcode\n";
+			shellScript = "PATH=$PATH:/opt/local/bin\npushd $SRCROOT > /dev/null\nexitcode=1\n\nif which git >/dev/null ;then\n\tif commit=$(git log --abbrev-commit -1) ;then\n\t\trevNumber=${commit:7:7}\n\t\tif ! git diff --quiet ;then\n\t\t\trevNumber=\"${revNumber}+\"\n\t\tfi\n\tfi\nelse\n\techo \"git wurde nicht gefunden!\"\nfi\nif [ -n \"$revNumber\" ] ;then\n\techo $revNumber > old/revNumber\nelif [ -f \"old/revNumber\" ] ;then\n\trevNumber=\"$(<old/revNumber)?\"\nfi\nrevNumber=${revNumber:-????}\n\ninfoPlistPath=\"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n\nif /usr/libexec/PlistBuddy -c \"set :CFBundleVersion $revNumber\" \"$infoPlistPath\" ;then\n\texitcode=0\nfi\n\npopd > /dev/null\nexit $exitcode\n";
 		};
 		30EC2E3D1258A82900B89CFD /* ModalSheets.xib Lokalisieren */ = {
 			isa = PBXShellScriptBuildPhase;
