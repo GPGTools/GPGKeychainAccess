@@ -69,7 +69,8 @@
 
 
 
-- (void)showImportResultWithStatusData:(NSData *)data {
+
+- (NSString *)importResultWithStatusData:(NSData *)data {
 	NSMutableString *retString = [NSMutableString string];
 	NSString *statusText = dataToString(data);
 	NSScanner *scanner = [NSScanner scannerWithString:statusText];
@@ -119,8 +120,7 @@
 		[retString setString:localized(@"Nothing imported!")];
 	}
 	
-	SheetController *sheetController = [SheetController sharedInstance];
-	[sheetController showResult:retString];
+	return retString;
 }
 
 
@@ -222,6 +222,7 @@
 	[sheetController importKey];
 }
 - (void)importFromURLs:(NSArray *)urls { //Bisher werden nur normale Dateien zum import unterstützt und keine "echten" URLs.
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSData *statusData;
 	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:[urls count] + 1];
 	[arguments addObject:@"--import"];
@@ -240,9 +241,13 @@
 	
 	[keychainController updateKeyInfos:nil];
 	
-	[self showImportResultWithStatusData:statusData];
+	SheetController *sheetController = [SheetController sharedInstance];
+	[sheetController showResult:[self importResultWithStatusData:statusData]];
+	
+	[pool drain];
 }
 - (void)importFromData:(NSData *)data {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSData *statusData;
 	
 	if (runGPGCommandWithArray(data, nil, nil, &statusData, nil, [NSArray arrayWithObject:@"--import"]) != 0) {
@@ -251,7 +256,10 @@
 	
 	[keychainController updateKeyInfos:nil];
 	
-	[self showImportResultWithStatusData:statusData];
+	SheetController *sheetController = [SheetController sharedInstance];
+	[sheetController showResult:[self importResultWithStatusData:statusData]];
+	
+	[pool drain];
 }
 
 
@@ -522,19 +530,18 @@
 	SheetController *sheetController = [SheetController sharedInstance];
 	[sheetController receiveKeys];
 }
-- (void)receiveKeysWithIDs:(NSSet *)keyIDs {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	//TODO: Rückmeldung über empfangene Schlüssel.
-	
+- (NSString *)receiveKeysWithIDs:(NSSet *)keyIDs {
 	NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"--recv-keys"];
 	[arguments addObjectsFromArray:[keyIDs allObjects]];
 	
-	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
+	NSData *statusData;
+	
+	if (runGPGCommandWithArray(nil, nil, nil, &statusData, nil, arguments) != 0) {
 		NSLog(@"receiveKeysWithPattern: --recv-keys für \"%@\" fehlgeschlagen.", keyIDs);
 	}
 	[keychainController updateKeyInfos:nil];
 	
-	[pool drain];
+	return [self importResultWithStatusData:statusData];
 }
 
 - (IBAction)sendKeysToServer:(id)sender {

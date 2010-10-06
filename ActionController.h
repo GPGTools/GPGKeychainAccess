@@ -82,7 +82,7 @@ enum {
 - (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec;
 - (void)importFromURLs:(NSArray *)urls;
 - (void)importFromData:(NSData *)data;
-- (void)showImportResultWithStatusData:(NSData *)data;
+- (NSString *)importResultWithStatusData:(NSData *)data;
 
 - (void)generateNewKeyWithName:(NSString *)name email:(NSString *)email comment:(NSString *)comment type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
 - (void)addSubkeyForKeyInfo:(KeyInfo *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
@@ -90,7 +90,7 @@ enum {
 - (void)addSignatureForKeyInfo:(KeyInfo *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
 - (void)changeExpirationDateForKeyInfo:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey daysToExpire:(NSInteger)daysToExpire;
 - (NSString *)searchKeysWithPattern:(NSString *)pattern;
-- (void)receiveKeysWithIDs:(NSSet *)keyIDs;
+- (NSString *)receiveKeysWithIDs:(NSSet *)keyIDs;
 - (void)addPhotoForKeyInfo:(KeyInfo *)keyInfo photoPath:(NSString *)path;
 
 

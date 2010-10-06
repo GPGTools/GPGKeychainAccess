@@ -273,6 +273,7 @@
 				3061491912535F4A0045B1E1 /* MainMenu.xib Lokalisieren */,
 				30EC2E3D1258A82900B89CFD /* ModalSheets.xib Lokalisieren */,
 				8D1107290486CEB800E47090 /* Resources */,
+				30AA2FC9125CB36600F45B21 /* Revision number */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				3046143512427094000F1C04 /* Copy Frameworks */,
@@ -383,6 +384,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
 			shellScript = "# Erstellt die deutsche MainMenu.xib bassierend auf der englischen MainMenu.xib und der deutschen MainMenu.strings\n\nexitcode=1\npushd $SRCROOT > /dev/null\n\nif [ -f old/English.lproj/MainMenu.xib ] ;then\n\tcp German.lproj/MainMenu.xib old/German.lproj/MainMenu.xib\n\tincremental=\"--previous-file old/English.lproj/MainMenu.xib --incremental-file old/German.lproj/MainMenu.xib --localize-incremental\"\nfi\nif ibtool $incremental --strings-file German.lproj/MainMenu.strings --write German.lproj/MainMenu.xib English.lproj/MainMenu.xib ;then\n\tcp English.lproj/MainMenu.xib old/English.lproj/MainMenu.xib\n\texitcode=0\nfi\n\npopd > /dev/null\nexit $exitcode\n";
+		};
+		30AA2FC9125CB36600F45B21 /* Revision number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Revision number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "PATH=$PATH:/opt/local/bin\npushd $SRCROOT > /dev/null\nexitcode=1\n\nif which git >/dev/null ;then\n\tif commit=$(git log --abbrev-commit -1) ;then\n\t\trevNumber=${commit:7:7}\n\t\tif ! git diff --quiet ;then\n\t\t\trevNumber=\"${revNumber}+\"\n\t\tfi\n\tfi\nfi\nrevNumber=${revNumber:-????}\n\n\ninfoPlistPath=\"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\ntempInfoPlist=\"$TARGET_TEMP_DIR/Info.plist\"\n\nif sed \"s/_REVNUMBER_/$revNumber/g\" \"$infoPlistPath\" > \"$tempInfoPlist\" ;then\n\tif cp \"$tempInfoPlist\" \"$infoPlistPath\" ;then\n\t\texitcode=0\n\tfi\nfi\n\n\npopd > /dev/null\nexit $exitcode\n";
 		};
 		30EC2E3D1258A82900B89CFD /* ModalSheets.xib Lokalisieren */ = {
 			isa = PBXShellScriptBuildPhase;

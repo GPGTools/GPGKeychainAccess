@@ -241,8 +241,9 @@ static SheetController *_sharedInstance = nil;
 	[self runSheetForWindow:mainWindow];
 }
 - (void)receiveKeys_Action:(NSSet *)keyIDs {
-	[actionController receiveKeysWithIDs:keyIDs];
-	[self closeSheet];
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	[self performSelectorOnMainThread:@selector(showFoundKeysWithText:) withObject:[actionController receiveKeysWithIDs:keyIDs] waitUntilDone:NO];
+	[pool drain];
 }
 
 
@@ -499,10 +500,10 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			[sheetWindow setFrame:newRect display:YES animate:YES];
 			[sheetWindow setContentSize:newRect.size];
 			
+			[sheetView addSubview:value];
 			if ([value nextKeyView]) {
 				[sheetWindow makeFirstResponder:[value nextKeyView]];
 			}
-			[sheetView addSubview:value];
 			if (value == progressView) {
 				[progressIndicator startAnimation:nil];
 			}

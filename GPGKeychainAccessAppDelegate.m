@@ -95,13 +95,14 @@
 			}
 		}
 		if ([filesToImport count] > 0) {
-			[actionController importFromURLs:filesToImport];
+			[NSThread detachNewThreadSelector:@selector(importFromURLs:) toTarget:actionController withObject:filesToImport];
+			//[actionController importFromURLs:filesToImport];
 			return YES;
 		}
 	} else if ([pboardType isEqualToString:NSStringPboardType]) {
 		NSString *string = [pboard stringForType:NSStringPboardType];
 		if (containsPGPKeyBlock(string)) {
-			[actionController importFromData:stringToData(string)];
+			[NSThread detachNewThreadSelector:@selector(importFromData:) toTarget:actionController withObject:stringToData(string)];
 			return YES;
 		}
 	}
