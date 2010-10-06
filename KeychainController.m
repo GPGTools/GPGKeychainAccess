@@ -346,10 +346,19 @@ NSSet *draggedKeyInfos;
 			if (gpg1Found) {
 				GPG_PATH = gpg1Path;
 				GPG_VERSION = 1;
+				
 				NSUserDefaults *defalts = [NSUserDefaults standardUserDefaults];
-				if (![defalts boolForKey:@"NotFirstRun"]) {
-					NSRunAlertPanel(localized(@"Warning"), localized(@"GPG1OnlyFound_Msg"), nil, nil, nil);
-					[defalts setBool:YES forKey:@"NotFirstRun"];
+				if (![defalts boolForKey:@"Dont show GPG1 Warning"]) {
+					NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+					[alert setMessageText:localized(@"GPG1OnlyFound_Title")];
+					[alert setInformativeText:localized(@"GPG1OnlyFound_Msg")];
+					[alert setShowsSuppressionButton:YES];
+					
+					[alert runModal];
+					
+					if ([[alert suppressionButton] state] == NSOnState) {
+						[defalts setBool:YES forKey:@"Dont show GPG1 Warning"];
+					}
 				}
 			} else {
 				NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotFound_Msg"), localized(@"Quit_Button"), nil, nil);
