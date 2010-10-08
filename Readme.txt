@@ -1,7 +1,11 @@
-Dies ist eine noch in der Entwicklung befindliche Version, welche allerdings schon großteils funktionsfähig ist.
-Es wird mindestens Mac OS X 10.5 und GPG2 vorausgesetzt.
+Dies ist eine neue Version des GPG Schlüsselbundes für Mac OS X.
+
+Der GPG Schlüsselbund dient dazu GnuPG Schlüssel zu erstellen und zu verwalten.
 
 
-Momentan suche ich Tester, welche mir gefundene Fehler und Verbesserungsvorschläge zukommen lassen.
+Systemvoraussetzungen:
+Intel-Mac mit Mac OS X 10.5 oder neuer.
+GnuPG Version 2.0.x
 
-Hast du Interesse den GPG Schlüsselbund zu Testen? Dann melde dich bei mir Roman.Zechmeister(At)aon.at
+
+Hast du einen Fehler gefunden oder Vorschläge für Verbesserungen? Dann melde dich bei mir: Roman.Zechmeister(at)aon.at

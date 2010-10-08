@@ -96,7 +96,6 @@
 		}
 		if ([filesToImport count] > 0) {
 			[NSThread detachNewThreadSelector:@selector(importFromURLs:) toTarget:actionController withObject:filesToImport];
-			//[actionController importFromURLs:filesToImport];
 			return YES;
 		}
 	} else if ([pboardType isEqualToString:NSStringPboardType]) {

@@ -24,6 +24,7 @@
 
 
 //TODO: Fotos die auf mehrere Subpakete aufgeteilt sind.
+//TODO: Fehlermeldungen wenn eine Aktion fehlschlägt.
 
 
 - (BOOL)validateUserInterfaceItem:(id)anItem {
