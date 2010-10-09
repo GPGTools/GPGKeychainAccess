@@ -270,8 +270,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "GPG Keychain Access" */;
 			buildPhases = (
-				3061491912535F4A0045B1E1 /* MainMenu.xib Lokalisieren */,
-				30EC2E3D1258A82900B89CFD /* ModalSheets.xib Lokalisieren */,
+				3061491912535F4A0045B1E1 /* Localize MainMenu.xib */,
+				30EC2E3D1258A82900B89CFD /* Localize ModalSheets.xib */,
 				8D1107290486CEB800E47090 /* Resources */,
 				30AA2FC9125CB36600F45B21 /* Revision number */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -369,7 +369,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3061491912535F4A0045B1E1 /* MainMenu.xib Lokalisieren */ = {
+		3061491912535F4A0045B1E1 /* Localize MainMenu.xib */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -377,13 +377,13 @@
 			inputPaths = (
 				"$(SRCROOT)/English.lproj/MainMenu.xib",
 			);
-			name = "MainMenu.xib Lokalisieren";
+			name = "Localize MainMenu.xib";
 			outputPaths = (
 				"$(SRCROOT)/German.lproj/MainMenu.xib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Erstellt die deutsche MainMenu.xib bassierend auf der englischen MainMenu.xib und der deutschen MainMenu.strings\n\nexitcode=1\npushd $SRCROOT > /dev/null\n\nif [ -f old/English.lproj/MainMenu.xib ] ;then\n\tcp German.lproj/MainMenu.xib old/German.lproj/MainMenu.xib\n\tincremental=\"--previous-file old/English.lproj/MainMenu.xib --incremental-file old/German.lproj/MainMenu.xib --localize-incremental\"\nfi\nif ibtool $incremental --strings-file German.lproj/MainMenu.strings --write German.lproj/MainMenu.xib English.lproj/MainMenu.xib ;then\n\tcp English.lproj/MainMenu.xib old/English.lproj/MainMenu.xib\n\texitcode=0\nfi\n\npopd > /dev/null\nexit $exitcode\n";
+			shellScript = "# Erstellt die deutsche MainMenu.xib bassierend auf der englischen MainMenu.xib und der deutschen MainMenu.strings\n\nexitcode=1\npushd $SRCROOT > /dev/null\n\nif cp English.lproj/MainMenu.strings old/English.lproj/MainMenu.strings ;then\n\tibtool --generate-stringsfile English.lproj/MainMenu.strings English.lproj/MainMenu.xib\nfi\n\nif [ -f old/English.lproj/MainMenu.xib ] ;then\n\tcp German.lproj/MainMenu.xib old/German.lproj/MainMenu.xib\n\tincremental=\"--previous-file old/English.lproj/MainMenu.xib --incremental-file old/German.lproj/MainMenu.xib --localize-incremental\"\nfi\nif ibtool $incremental --strings-file German.lproj/MainMenu.strings --write German.lproj/MainMenu.xib English.lproj/MainMenu.xib ;then\n\tcp English.lproj/MainMenu.xib old/English.lproj/MainMenu.xib\n\texitcode=0\nfi\n\npopd > /dev/null\nexit $exitcode\n";
 		};
 		30AA2FC9125CB36600F45B21 /* Revision number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -399,7 +399,7 @@
 			shellPath = /bin/bash;
 			shellScript = "PATH=$PATH:/opt/local/bin\npushd $SRCROOT > /dev/null\nexitcode=1\n\nif which git >/dev/null ;then\n\tif commit=$(git log --abbrev-commit -1) ;then\n\t\trevNumber=${commit:7:7}\n\t\tif ! git diff --quiet ;then\n\t\t\trevNumber=\"${revNumber}+\"\n\t\tfi\n\tfi\nelse\n\techo \"git wurde nicht gefunden!\"\nfi\n\nrevNumber=${revNumber:-????}\n\ninfoPlistPath=\"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n\nif /usr/libexec/PlistBuddy -c \"set :CFBundleVersion $revNumber\" \"$infoPlistPath\" ;then\n\texitcode=0\nfi\n\npopd > /dev/null\nexit $exitcode\n";
 		};
-		30EC2E3D1258A82900B89CFD /* ModalSheets.xib Lokalisieren */ = {
+		30EC2E3D1258A82900B89CFD /* Localize ModalSheets.xib */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -407,13 +407,13 @@
 			inputPaths = (
 				"$(SRCROOT)/English.lproj/ModalSheets.xib",
 			);
-			name = "ModalSheets.xib Lokalisieren";
+			name = "Localize ModalSheets.xib";
 			outputPaths = (
 				"$(SRCROOT)/German.lproj/ModalSheets.xib",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "# Erstellt die deutsche ModalSheets.xib bassierend auf der englischen ModalSheets.xib und der deutschen ModalSheets.strings\n\nexitcode=1\npushd $SRCROOT > /dev/null\n\nif [ -f old/English.lproj/ModalSheets.xib ] ;then\n\tcp German.lproj/ModalSheets.xib old/German.lproj/ModalSheets.xib\n\tincremental=\"--previous-file old/English.lproj/ModalSheets.xib --incremental-file old/German.lproj/ModalSheets.xib --localize-incremental\"\nfi\nif ibtool $incremental --strings-file German.lproj/ModalSheets.strings --write German.lproj/ModalSheets.xib English.lproj/ModalSheets.xib ;then\n\tcp English.lproj/ModalSheets.xib old/English.lproj/ModalSheets.xib\n\texitcode=0\nfi\n\npopd > /dev/null\nexit $exitcode\n\n";
+			shellScript = "# Erstellt die deutsche ModalSheets.xib bassierend auf der englischen ModalSheets.xib und der deutschen ModalSheets.strings\n\nexitcode=1\npushd $SRCROOT > /dev/null\n\nif cp English.lproj/ModalSheets.strings old/English.lproj/ModalSheets.strings ;then\n\tibtool --generate-stringsfile English.lproj/ModalSheets.strings English.lproj/ModalSheets.xib\nfi\n\nif [ -f old/English.lproj/ModalSheets.xib ] ;then\n\tcp German.lproj/ModalSheets.xib old/German.lproj/ModalSheets.xib\n\tincremental=\"--previous-file old/English.lproj/ModalSheets.xib --incremental-file old/German.lproj/ModalSheets.xib --localize-incremental\"\nfi\nif ibtool $incremental --strings-file German.lproj/ModalSheets.strings --write German.lproj/ModalSheets.xib English.lproj/ModalSheets.xib ;then\n\tcp English.lproj/ModalSheets.xib old/English.lproj/ModalSheets.xib\n\texitcode=0\nfi\n\npopd > /dev/null\nexit $exitcode\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

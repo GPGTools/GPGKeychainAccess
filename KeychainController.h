@@ -55,6 +55,7 @@
 
 
 - (BOOL)initGPG;
+- (void)initAgent;
 - (void)initKeychains;
 - (BOOL)isKeyInfoPassingFilterTest:(KeyInfo *)keyInfo;
 - (void)updateThread;

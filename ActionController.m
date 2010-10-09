@@ -1005,7 +1005,6 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 					memcpy(gpgAgentInfo, home, homeLen);
 					memcpy(gpgAgentInfo+homeLen, "/.gnupg/S.gpg-agent:0:1", 24);
 				}
-				//TODO: Meldung, wenn gpg-agent nicht erreichbar ist.
 			}
 			argv[argPos + 8] = gpgAgentInfo;
 			

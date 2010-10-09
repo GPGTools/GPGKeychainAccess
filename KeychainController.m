@@ -301,6 +301,7 @@ NSSet *draggedKeyInfos;
 	if (![self initGPG]) {
 		[NSApp terminate:nil]; 
 	}
+	[self initAgent];
 
 	[self initKeychains];
 	
@@ -373,11 +374,109 @@ NSSet *draggedKeyInfos;
 			return NO;
 		}
 	}
-	@catch (NSException * e) {
+	@catch (NSException *e) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotValid_Msg"), localized(@"Quit_Button"), nil, nil);
 		return NO;
 	}
 	return YES;
+}
+
+
+- (void)initAgent {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	BOOL agentFound = NO;
+	
+	NSString *gpgAgentPath = [[GPG_PATH stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"gpg-agent"];
+	
+	if (![fileManager isExecutableFileAtPath:gpgAgentPath]) {
+		gpgAgentPath = @"/usr/local/bin/gpg-agent";
+		if (![fileManager isExecutableFileAtPath:gpgAgentPath]) {
+			NSString *path = [[[NSProcessInfo processInfo] environment] objectForKey:@"PATH"];
+			if (path) {
+				NSArray *paths = [path componentsSeparatedByString:@":"];
+				for (path in paths) {
+					gpgAgentPath = [path stringByAppendingPathComponent:@"gpg-agent"];
+					if ([fileManager isExecutableFileAtPath:gpgAgentPath]) {
+						agentFound = YES;
+						break;
+					}
+				}
+			}
+		} else {
+			agentFound = YES;
+		}
+	} else {
+		agentFound = YES;
+	}
+
+	if (agentFound) {
+		BOOL started = NO;
+		@try {
+			NSFileHandle *nullFileHandle = [NSFileHandle fileHandleWithNullDevice];
+			NSTask *agentTask = [[[NSTask alloc] init] autorelease];
+			[agentTask setLaunchPath:gpgAgentPath];
+			[agentTask setStandardOutput:nullFileHandle];
+			[agentTask launch];
+			[agentTask waitUntilExit];
+			started = [agentTask terminationStatus] == 0;
+		
+			if (!started) {
+				NSString *socketPath;
+				NSData *agentInfoData;
+				NSRange range;
+				
+				if (agentInfoData = [fileManager contentsAtPath:[@"~/.gpg-agent-info" stringByExpandingTildeInPath]]) {
+					socketPath = dataToString(agentInfoData);
+					if ((range = [socketPath rangeOfString:@"GPG_AGENT_INFO="]).length > 0) {
+						NSRange lineRange = [socketPath lineRangeForRange:range];
+						range.location = range.location + 15;
+						range.length = lineRange.length - 16;
+						socketPath = [socketPath substringWithRange:range];
+						setenv("GPG_AGENT_INFO", [socketPath cStringUsingEncoding:NSUTF8StringEncoding], 1);
+						
+						agentTask = [[[NSTask alloc] init] autorelease];
+						[agentTask setLaunchPath:gpgAgentPath];
+						[agentTask setStandardOutput:nullFileHandle];
+						[agentTask launch];
+						[agentTask waitUntilExit];
+						started = [agentTask terminationStatus] == 0;
+					}
+				}
+				
+				if (!started) {
+					agentTask = [[[NSTask alloc] init] autorelease];
+					[agentTask setLaunchPath:gpgAgentPath];
+					[agentTask setArguments:[NSArray arrayWithObjects:@"--pinentry-program", @"/usr/local/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac", @"--daemon", @"--write-env-file", nil]];
+					NSPipe *outPipe = [NSPipe pipe];
+					[agentTask setStandardOutput:outPipe];
+					[agentTask launch];
+					[agentTask waitUntilExit];
+					
+					if ([agentTask terminationStatus] == 0) {
+						socketPath = dataToString([[outPipe fileHandleForReading] readDataToEndOfFile]);
+						
+						if ((range = [socketPath rangeOfString:@":"]).length > 0) {
+							range.length = range.location - 15;
+							range.location = 15;
+							socketPath = [socketPath substringWithRange:range];
+							
+							NSString *standardSocket = [@"~/.gnupg/S.gpg-agent" stringByExpandingTildeInPath];
+							[fileManager removeItemAtPath:standardSocket error:nil];
+							[fileManager createSymbolicLinkAtPath:standardSocket withDestinationPath:socketPath error:nil];
+						}
+						started = YES;
+					}
+				}
+			}
+		}
+		@finally {
+			if (!started) {
+				NSRunAlertPanel(localized(@"GPGAgentNotStart_Title"), localized(@"GPGAgentNotStart_Msg"), nil, nil, nil);
+			}
+		}
+	} else {
+		NSRunAlertPanel(localized(@"GPGAgentNotFound_Title"), localized(@"GPGAgentNotFound_Msg"), nil, nil, nil);
+	}
 }
 
 
