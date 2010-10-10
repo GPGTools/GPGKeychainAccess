@@ -369,13 +369,16 @@ NSSet *draggedKeyInfos;
 		gpgContext = [[GPGContext alloc] init];
 		[gpgContext keyEnumeratorForSearchPattern:@"" secretKeysOnly:YES];
 		[gpgContext stopKeyEnumeration];
-		if (runGPGCommand(nil, nil, nil, @"--gpgconf-test", nil) != 0) {
+		NSString *errText;
+		if (runGPGCommand(nil, nil, &errText, @"--gpgconf-test", nil) != 0) {
 			NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotValid_Msg"), localized(@"Quit_Button"), nil, nil);
+			NSLog(@"initGPG: --gpgconf-test fehlgeschlagen: \"%@\"", errText);
 			return NO;
 		}
 	}
 	@catch (NSException *e) {
-		NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotValid_Msg"), localized(@"Quit_Button"), nil, nil);
+		NSRunAlertPanel(localized(@"Error"), localized(@"GPGInitError_Msg"), localized(@"Quit_Button"), nil, nil);
+		NSLog(@"initGPG: NSException - Reason: \"%@\"", [e reason]);
 		return NO;
 	}
 	return YES;

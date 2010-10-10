@@ -36,6 +36,8 @@ static SheetController *_sharedInstance = nil;
 @synthesize name;
 @synthesize email;
 @synthesize comment;
+@synthesize passphrase;
+@synthesize confirmPassphrase;
 @synthesize availableLengths;
 @synthesize length;
 @synthesize hasExpirationDate;
@@ -255,6 +257,8 @@ static SheetController *_sharedInstance = nil;
 	
 	[self setDataFromAddressBook];
 	self.comment = @"";
+	self.passphrase = @"";
+	self.confirmPassphrase = @"";
 	
 	currentAction = NewKeyAction;
 	self.displayedView = newKeyView;
@@ -264,7 +268,7 @@ static SheetController *_sharedInstance = nil;
 
 
 - (void)newKey_Action {
-	[actionController generateNewKeyWithName:name email:email comment:comment type:keyType length:length daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
+	[actionController generateNewKeyWithName:name email:email comment:comment passphrase:((GPG_VERSION == 1) ? passphrase : nil) type:keyType length:length daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
 	[self closeSheet];
 }
 
@@ -274,12 +278,17 @@ static SheetController *_sharedInstance = nil;
 }
 
 - (IBAction)okButton:(id)sender {
-	[sheetWindow endEditingFor:nil];
+	if (![sheetWindow makeFirstResponder:sheetWindow]) {
+		[sheetWindow endEditingFor:nil];
+	}
 	switch (currentAction) {
 		case NewKeyAction:
 			if (![self checkName]) return;
 			if (![self checkEmailMustSet:YES]) return;
 			if (![self checkComment]) return;
+			if (GPG_VERSION == 1) {
+				if (![self checkPassphrase]) return;
+			}
 
 			self.displayedView = progressView;
 			[NSThread detachNewThreadSelector:@selector(newKey_Action) toTarget:self withObject:nil];
@@ -479,6 +488,22 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	return YES;
 }
 
+- (BOOL)checkPassphrase {
+	if (!passphrase) {
+		passphrase = @"";
+	}
+	if (!confirmPassphrase) {
+		confirmPassphrase = @"";
+	}
+	if (![passphrase isEqualToString:confirmPassphrase]) {
+		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_PassphraseMissmatch"), nil, nil, nil);
+		return NO;
+	}
+	//TODO: Hinweis bei leerer, einfacher oder kurzer Passphrase.
+	
+	return YES;
+}
+
 
 - (NSView *)displayedView {
 	return displayedView;
@@ -491,11 +516,42 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		[displayedView removeFromSuperview];
 		displayedView = value;
 		if (value != nil) {
+			
+			if (value == newKeyView) { //Passphrase-Felder nur bei GPG 1.4.x anzeigen.
+				NSUInteger resizingMask;
+				NSSize newSize;
+				if (GPG_VERSION == 1) {
+					if ([newKey_passphraseSubview isHidden] == YES) {
+						[newKey_passphraseSubview setHidden:NO];
+						newSize = [newKeyView frame].size;
+						newSize.height += [newKey_passphraseSubview frame].size.height;
+						
+						resizingMask = [newKey_topSubview autoresizingMask];
+						[newKey_topSubview setAutoresizingMask:NSViewMinYMargin | NSViewWidthSizable];
+						[newKeyView setFrameSize:newSize];
+						[newKey_topSubview setAutoresizingMask:resizingMask];
+					}					
+				} else {
+					if ([newKey_passphraseSubview isHidden] == NO) {
+						[newKey_passphraseSubview setHidden:YES];
+						newSize = [newKeyView frame].size;
+						newSize.height -= [newKey_passphraseSubview frame].size.height;
+						
+						resizingMask = [newKey_topSubview autoresizingMask];
+						[newKey_topSubview setAutoresizingMask:NSViewMinYMargin | NSViewWidthSizable];
+						[newKeyView setFrameSize:newSize];
+						[newKey_topSubview setAutoresizingMask:resizingMask];
+					}
+				}
+			}
+			
+			
 			NSRect oldRect, newRect;
 			oldRect = [sheetWindow frame];
 			newRect.size = [value frame].size;
 			newRect.origin.x = oldRect.origin.x + (oldRect.size.width - newRect.size.width) / 2;
 			newRect.origin.y = oldRect.origin.y + oldRect.size.height - newRect.size.height;
+
 			
 			[sheetWindow setFrame:newRect display:YES animate:YES];
 			[sheetWindow setContentSize:newRect.size];

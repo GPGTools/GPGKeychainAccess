@@ -28,7 +28,6 @@ DeleteKey_Msg = "Möchten Sie den Schlüssel \"%@\", %@ wirklich löschen?";
 "  %@ bit %@ key %@, created: %@\n\n" = "%@ bit %@ Schlüssel %@, erstellt: %@\n\n"; //Format für die gefundenen Schlüssel vom Server.
 
 
-
 GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel \"%@\", %@ anlegen.";
 GenerateUserID_Msg = "Zusätzliche Benutzer-ID für den Schlüssel \"%@\", %@ anlegen.";
 GenerateSignature_Msg = "Beglaubigung aller Benutzer-IDs von \"%@\", %@";
@@ -47,6 +46,7 @@ CheckError_EmailToLong = "Die E-Mail Adresse ist zu lang!\nDie E-Mail Adresse da
 CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n\"(\" und \")\" sind nicht erlaubt.";
 CheckError_CommentToLong = "Der Kommentar ist zu lang!";
 CheckError_NoKeyID = "Bitte geben Sie ein gültige Schlüssel-ID ein!";
+CheckError_PassphraseMissmatch = "Die eingegebenen Passphrasen stimmen nicht überein!";
 
 
 //Meldungen beim Start, wenn es Probleme gibt. 
@@ -54,6 +54,7 @@ GPGNotFound_Msg = "GPG2 konnte nicht gefunden werden!";
 GPG1OnlyFound_Title = "GPG2 wurde nicht gefunden!";
 GPG1OnlyFound_Msg = "Da zumindest GPG 1.4 gefunden wurde, sollten die meisten Funktionen verfügbar sein.";
 GPGNotValid_Msg = "Keine kompatible GPG Version gefunden!";
+GPGInitError_Msg = "GPG konnte nicht initialisiert werden!";
 GPGAgentNotFound_Title = "gpg-agent wurde nicht gefunden!";
 GPGAgentNotFound_Msg = "Ohne den gpg-agent können sie keine Passphrase geschützte Schlüssel verwenden.";
 GPGAgentNotStart_Title = "gpg-agent konnte nicht gestartet werden!";

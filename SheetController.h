@@ -52,6 +52,7 @@ typedef enum {
 	NSString *myString;
 	
 	
+	
 	//Für Öffnen- und Speichern-Sheets.
 	IBOutlet NSView *exportKeyOptionsView;
 	
@@ -71,6 +72,8 @@ typedef enum {
 	//Views die im Fenster angezeigt werden können.
 	IBOutlet NSView *progressView;
 	IBOutlet NSView *newKeyView;
+		IBOutlet NSView *newKey_passphraseSubview;
+		IBOutlet NSView *newKey_topSubview;
 	IBOutlet NSView *generateSubkeyView;
 	IBOutlet NSView *generateUserIDView;
 	IBOutlet NSView *generateSignatureView;
@@ -94,6 +97,8 @@ typedef enum {
 	NSString *name;
 	NSString *email;
 	NSString *comment;
+	NSString *passphrase;
+	NSString *confirmPassphrase;	
 	NSInteger keyType;
 	NSInteger sigType;
 	BOOL hasExpirationDate;
@@ -125,6 +130,8 @@ typedef enum {
 @property (retain) NSString *name;
 @property (retain) NSString *email;
 @property (retain) NSString *comment;
+@property (retain) NSString *passphrase;
+@property (retain) NSString *confirmPassphrase;
 @property (retain) NSArray *availableLengths;
 @property NSInteger keyType;
 @property NSInteger sigType;
@@ -171,6 +178,7 @@ typedef enum {
 - (BOOL)checkName;
 - (BOOL)checkEmailMustSet:(BOOL)mustSet;
 - (BOOL)checkComment;
+- (BOOL)checkPassphrase;
 
 - (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3;
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;

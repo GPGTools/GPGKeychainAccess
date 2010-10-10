@@ -757,7 +757,7 @@
 	SheetController *sheetController = [SheetController sharedInstance];
 	[sheetController generateNewKey];
 }
-- (void)generateNewKeyWithName:(NSString *)name email:(NSString *)email comment:(NSString *)comment type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire {
+- (void)generateNewKeyWithName:(NSString *)name email:(NSString *)email comment:(NSString *)comment passphrase:(NSString *)passphrase type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSInteger keyType, subkeyType;
 	
@@ -784,7 +784,7 @@
 	
 	NSMutableString *cmdText = [NSMutableString string];
 	
-	[cmdText appendString:@"%ask-passphrase\n"];
+
 	
 	[cmdText appendFormat:@"Key-Type: %i\n", keyType];
 	[cmdText appendFormat:@"Key-Length: %i\n", length];
@@ -799,8 +799,13 @@
 	}
 	[cmdText appendFormat:@"Expire-Date: %i\n", daysToExpire];
 	
-	[cmdText appendString:@"%commit\n"];
+	if (passphrase) {
+		[cmdText appendFormat:@"Passphrase: %@\n", passphrase];
+	} else {
+		[cmdText appendString:@"%ask-passphrase\n"];
+	}
 	
+	[cmdText appendString:@"%commit\n"];
 	
 	if (runGPGCommand(cmdText, nil, nil, @"--gen-key", nil) != 0) {
 		NSLog(@"generateNewKeyWithName: --gen-key fehlgeschlagen.");
