@@ -800,7 +800,9 @@
 	[cmdText appendFormat:@"Expire-Date: %i\n", daysToExpire];
 	
 	if (passphrase) {
-		[cmdText appendFormat:@"Passphrase: %@\n", passphrase];
+		if (![passphrase isEqualToString:@""]) {
+			[cmdText appendFormat:@"Passphrase: %@\n", passphrase];
+		}
 	} else {
 		[cmdText appendString:@"%ask-passphrase\n"];
 	}
