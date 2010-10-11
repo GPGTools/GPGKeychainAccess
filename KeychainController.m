@@ -461,11 +461,13 @@ NSSet *draggedKeyInfos;
 						if ((range = [socketPath rangeOfString:@":"]).length > 0) {
 							range.length = range.location - 15;
 							range.location = 15;
-							socketPath = [socketPath substringWithRange:range];
+							socketPath = [[socketPath substringWithRange:range] stringByStandardizingPath];
 							
 							NSString *standardSocket = [@"~/.gnupg/S.gpg-agent" stringByExpandingTildeInPath];
-							[fileManager removeItemAtPath:standardSocket error:nil];
-							[fileManager createSymbolicLinkAtPath:standardSocket withDestinationPath:socketPath error:nil];
+							if (![standardSocket isEqualToString:socketPath]) {
+								[fileManager removeItemAtPath:standardSocket error:nil];
+								[fileManager createSymbolicLinkAtPath:standardSocket withDestinationPath:socketPath error:nil];
+							}
 						}
 						started = YES;
 					}
