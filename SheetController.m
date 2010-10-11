@@ -289,12 +289,14 @@ static SheetController *_sharedInstance = nil;
 			if (GPG_VERSION == 1) {
 				if (![self checkPassphrase]) return;
 			}
-
+			
+			self.msgText = localized(@"GenerateEntropy_Msg");
 			self.displayedView = progressView;
 			[NSThread detachNewThreadSelector:@selector(newKey_Action) toTarget:self withObject:nil];
 			break;
 		case AddSubkeyAction:
 			self.displayedView = progressView;
+			self.msgText = localized(@"GenerateEntropy_Msg");
 			[NSThread detachNewThreadSelector:@selector(addSubkey_Action) toTarget:self withObject:nil];
 			break;
 		case AddUserIDAction:
