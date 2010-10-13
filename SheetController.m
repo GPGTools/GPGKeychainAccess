@@ -290,8 +290,8 @@ static SheetController *_sharedInstance = nil;
 				if (![self checkPassphrase]) return;
 			}
 			
-			self.msgText = localized(@"GenerateEntropy_Msg");
 			self.displayedView = progressView;
+			self.msgText = localized(@"GenerateEntropy_Msg");
 			[NSThread detachNewThreadSelector:@selector(newKey_Action) toTarget:self withObject:nil];
 			break;
 		case AddSubkeyAction:
@@ -563,6 +563,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 				[sheetWindow makeFirstResponder:[value nextKeyView]];
 			}
 			if (value == progressView) {
+				self.msgText = @"";
 				[progressIndicator startAnimation:nil];
 			}
 		}

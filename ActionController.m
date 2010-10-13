@@ -1094,6 +1094,7 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		for (i = 0; i < 4; i++) {
 			if (datas[i]) {
 				*datas[i] = [NSData dataWithBytes:tempData[i] length:readPos[i]];
+				close(pipes[i][0]);
 				free(tempData[i]);
 			}
 		}
