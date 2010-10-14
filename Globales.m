@@ -21,6 +21,7 @@
 #import "KeychainController.h"
 
 NSString *GPG_PATH;
+NSString *GPG_AGENT_PATH;
 NSInteger GPG_VERSION;
 KeychainController *keychainController;
 ActionController *actionController;
@@ -113,3 +114,19 @@ BOOL containsPGPKeyBlock(NSString *string) {
 		([string rangeOfString:@"-----BEGIN PGP PRIVATE KEY BLOCK-----"].length > 0 && 
 		 [string rangeOfString:@"-----END PGP PRIVATE KEY BLOCK-----"].length > 0);
 }
+
+
+BOOL isGpgAgentRunning() {
+	if (!GPG_AGENT_PATH) {
+		return NO;
+	}
+	NSFileHandle *nullFileHandle = [NSFileHandle fileHandleWithNullDevice];
+	NSTask *agentTask = [[[NSTask alloc] init] autorelease];
+	[agentTask setLaunchPath:GPG_AGENT_PATH];
+	[agentTask setStandardOutput:nullFileHandle];
+	[agentTask launch];
+	[agentTask waitUntilExit];
+	return [agentTask terminationStatus] == 0;
+}
+
+

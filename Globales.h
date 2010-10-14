@@ -19,6 +19,7 @@
 @class ActionController;
 
 extern NSString *GPG_PATH;
+extern NSString *GPG_AGENT_PATH;
 extern NSInteger GPG_VERSION;
 extern KeychainController *keychainController;
 extern ActionController *actionController;
@@ -38,6 +39,8 @@ NSString* shortKeyID(NSString *keyID);
 NSSet* keyIDsFromString(NSString *string);
 
 BOOL containsPGPKeyBlock(NSString *string);
+
+BOOL isGpgAgentRunning();
 
 #define NotImplementedAlert NSRunAlertPanel(@"Noch nicht implementiert", @"", @"OK", nil, nil)
 

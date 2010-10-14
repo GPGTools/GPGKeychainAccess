@@ -44,6 +44,7 @@
 
 
 - (void)awakeFromNib {
+	NSLog(@"GPGKeychainAccessAppDelegate awakeFromNib");
 	[keyTable setDoubleAction:@selector(orderFront:)];
 	[keyTable setTarget:inspectorWindow];
 	

@@ -904,6 +904,42 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		}
 	}
 	
+	
+	NSString *gpgAgentInfo;
+	
+	if (GPG_VERSION == 1) {
+		NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+		NSLog(@"env: %@", [environment objectForKey:@"GPG_AGENT_INFO"]);
+		setenv("GPG_AGENT_INFO", "", 1);
+		
+		if (!isGpgAgentRunning()) {
+			BOOL isRunning = NO;
+			gpgAgentInfo = [environment objectForKey:@"GPG_AGENT_INFO"];
+			if (gpgAgentInfo) {
+				setenv("GPG_AGENT_INFO", [gpgAgentInfo cStringUsingEncoding:NSUTF8StringEncoding], 1);
+				isRunning = isGpgAgentRunning();
+			}
+			
+			if (!isRunning) {
+				NSString *gpgAgentInfoContent = [NSString stringWithContentsOfFile:[@"~/.gpg-agent-info" stringByExpandingTildeInPath] encoding:NSUTF8StringEncoding error:nil];
+				if (gpgAgentInfoContent) {
+					NSRange range = [gpgAgentInfoContent rangeOfString:@"GPG_AGENT_INFO="];
+					if (range.length > 0) {
+						range = [gpgAgentInfoContent lineRangeForRange:range];
+						range.location += 15;
+						range.length -= 16;
+						gpgAgentInfo = [gpgAgentInfoContent substringWithRange:range];
+					}
+				}
+			}
+		} else {
+			gpgAgentInfo = [@"~/.gnupg/S.gpg-agent:0:1" stringByExpandingTildeInPath];
+		}
+		
+	}
+	
+	
+
 	pid_t pid = fork();
 	
 	if (pid == 0) { //Kindprozess
@@ -956,72 +992,33 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		argv[0] = (char*)[GPG_PATH cStringUsingEncoding:NSUTF8StringEncoding];
 		
 		if (inData) {
-			argv[argPos] = "--command-fd";
-			argv[argPos + 1] = "0";
-			argPos += 2;
+			argv[argPos++] = "--command-fd";
+			argv[argPos++] = "0";
 		}
 		if (statusData) {
-			argv[argPos] = "--status-fd";
-			argv[argPos + 1] = "3";
-			argPos += 2;
+			argv[argPos++] = "--status-fd";
+			argv[argPos++] = "3";
 		}
 		if (attributeData) {
-			argv[argPos] = "--attribute-fd";
-			argv[argPos + 1] = "4";
-			argPos += 2;
+			argv[argPos++] = "--attribute-fd";
+			argv[argPos++] = "4";
 		}
 		
-		argv[argPos] = "--no-greeting";
-		argv[argPos + 1] = "--with-colons";
-		argv[argPos + 2] = "--yes";
-		argv[argPos + 3] = "--batch";
-		argv[argPos + 4] = "--no-tty";
-		if (GPG_VERSION == 2) {
-			argPos += 5;
-		} else {
-			argv[argPos + 5] = "--fixed-list-mode";
-			argv[argPos + 6] = "--use-agent";
-			argv[argPos + 7] = "--gpg-agent-info";
-			
-			char *gpgAgentInfo;
-			gpgAgentInfo = getenv("GPG_AGENT_INFO");
-			if (gpgAgentInfo == NULL) { //Wenn die Umgebungsvariable GPG_AGENT_INFO nicht gesetzt ist, in der Datei ~/.gpg-agent-info nachsehen.
-				char *home = getenv("HOME");
-				int homeLen = strlen(home);
-				char gpgAgentInfoPath[homeLen + 20];
-				memcpy(gpgAgentInfoPath, home, homeLen);
-				memcpy(gpgAgentInfoPath+homeLen, "/.gpg-agent-info", 17);
-
-				FILE *gpgAgentInfoFile = fopen(gpgAgentInfoPath, "r");
-				if (gpgAgentInfoFile != NULL) {
-					char buffer[200];
-					int bufferLen;
-					while (fgets(buffer, 200, gpgAgentInfoFile)) {
-						if (strncmp(buffer, "GPG_AGENT_INFO=", 15) == 0) {
-							bufferLen = strlen(buffer);
-							gpgAgentInfo = malloc(bufferLen - 15);
-							memcpy(gpgAgentInfo, buffer+15, bufferLen-16);
-							gpgAgentInfo[bufferLen-16] = 0;
-							break;
-						}
-					}
-					fclose(gpgAgentInfoFile);
-				}
-				if (gpgAgentInfo == NULL) { //Wenn GPG_AGENT_INFO nicht gefunden werden konnte, wird der Standard-Socket verwendet.
-					gpgAgentInfo = malloc(homeLen + 24);
-					memcpy(gpgAgentInfo, home, homeLen);
-					memcpy(gpgAgentInfo+homeLen, "/.gnupg/S.gpg-agent:0:1", 24);
-				}
-			}
-			argv[argPos + 8] = gpgAgentInfo;
-			
-			argPos += 9;
+		argv[argPos++] = "--no-greeting";
+		argv[argPos++] = "--with-colons";
+		argv[argPos++] = "--yes";
+		argv[argPos++] = "--batch";
+		argv[argPos++] = "--no-tty";
+		if (GPG_VERSION == 1) {
+			argv[argPos++] = "--fixed-list-mode";
+			argv[argPos++] = "--use-agent";
+			argv[argPos++] = "--gpg-agent-info";
+			argv[argPos++] = (char*)[gpgAgentInfo cStringUsingEncoding:NSUTF8StringEncoding];
 		}
 		
 		
 		for (NSString *argument in args) {
-			argv[argPos] = (char*)[argument cStringUsingEncoding:NSUTF8StringEncoding];
-			argPos++;
+			argv[argPos++] = (char*)[argument cStringUsingEncoding:NSUTF8StringEncoding];
 		}
 		argv[argPos] = nil;
 		
