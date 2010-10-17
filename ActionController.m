@@ -20,6 +20,7 @@
 #import "KeychainController.h"
 #import "SheetController.h"
 
+
 @implementation ActionController
 
 
@@ -875,6 +876,11 @@
 }
 
 
+- (IBAction)showInspector:(id)sender {
+	[inspectorWindow makeKeyAndOrderFront:sender];
+}
+
+
 - (id)init {
 	self = [super init];
 	actionController = self;
@@ -905,7 +911,7 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 	}
 	
 	
-	NSString *gpgAgentInfo;
+	NSString *gpgAgentInfo = nil;
 	
 	if (GPG_VERSION == 1) {
 		NSDictionary *environment = [[NSProcessInfo processInfo] environment];
@@ -932,7 +938,8 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 					}
 				}
 			}
-		} else {
+		} 
+		if (!gpgAgentInfo || [gpgAgentInfo length] < 5) {
 			gpgAgentInfo = [@"~/.gnupg/S.gpg-agent:0:1" stringByExpandingTildeInPath];
 		}
 		

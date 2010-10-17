@@ -124,6 +124,7 @@ BOOL isGpgAgentRunning() {
 	NSTask *agentTask = [[[NSTask alloc] init] autorelease];
 	[agentTask setLaunchPath:GPG_AGENT_PATH];
 	[agentTask setStandardOutput:nullFileHandle];
+	[agentTask setStandardError:nullFileHandle];
 	[agentTask launch];
 	[agentTask waitUntilExit];
 	return [agentTask terminationStatus] == 0;

@@ -33,5 +33,7 @@
 - (void)generateContextMenuForTable:(NSTableView *)table;
 
 - (IBAction)selectHeaderVisibility:(NSMenuItem *)sender;
+- (IBAction)showPreferences:(id)sender;
+
 
 @end

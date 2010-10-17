@@ -84,7 +84,7 @@ NSSet *draggedKeyInfos;
 
 
 - (void)initKeychains {
-	NSLog(@"Starte: initKeychains");
+	NSLog(@"initKeychains");
 	keychain = [[NSMutableDictionary alloc] initWithCapacity:10];
 	filteredKeyList = [[NSMutableArray alloc] initWithCapacity:10];
 }
@@ -114,6 +114,7 @@ NSSet *draggedKeyInfos;
 		[gpgContext setKeyListMode:(GPGKeyListModeLocal | GPGKeyListModeSignatures)];
 		
 		if (keyInfos && [keyInfos count] > 0) { // Nur die übergebenene Schlüssel aktualisieren.
+			NSLog(@"updateKeyInfos: Update selected keys");
 			NSMutableSet *processedKeyInfos = [NSMutableSet setWithCapacity:[keyInfos count]];
 			NSMutableArray *keyInfosToUpdate = [NSMutableArray array];
 			NSMutableArray *gpgKeysToUpdate = [NSMutableArray array];
@@ -159,6 +160,7 @@ NSSet *draggedKeyInfos;
 			}
 			
 		} else { // Den kompletten Schlüsselbund aktualisieren.
+			NSLog(@"updateKeyInfos: Update all keys");
 			NSArray *gpgKeyList;
 			NSMutableDictionary *secKeyDict = [NSMutableDictionary dictionaryWithCapacity:1];
 			
@@ -208,6 +210,7 @@ NSSet *draggedKeyInfos;
 
 
 - (void)updateKeychain:(NSDictionary *)aDict { //Darf nur im Main-Thread laufen!
+	NSLog(@"updateKeychain");
 	
 	NSArray *gpgKeyList = [aDict objectForKey:@"gpgKeyList"];
 	NSDictionary *secKeyDict = [aDict objectForKey:@"secKeyDict"];
@@ -331,7 +334,7 @@ NSSet *draggedKeyInfos;
 }
 
 - (BOOL)initGPG {
-	NSLog(@"Starte: initGPG");
+	NSLog(@"initGPG");
 	GPG_AGENT_PATH=nil;
 	@try {
 		NSArray *engines = [GPGEngine availableEngines];
@@ -373,12 +376,15 @@ NSSet *draggedKeyInfos;
 				return NO;
 			}
 		}
+		NSLog(@"GPG_VERSION: %i", GPG_VERSION);
+		NSLog(@"GPG_PATH: %@", GPG_PATH);
+		
 		gpgContext = [[GPGContext alloc] init];
 		[gpgContext keyEnumeratorForSearchPattern:@"" secretKeysOnly:YES];
 		[gpgContext stopKeyEnumeration];
 		NSString *errText;
 		if (runGPGCommand(nil, nil, &errText, @"--gpgconf-test", nil) != 0) {
-			NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotValid_Msg"), localized(@"Quit_Button"), nil, nil);
+			NSRunAlertPanel(localized(@"GPGNotStart_Title"), localized(@"GPGNotStart_Msg"), localized(@"Quit_Button"), nil, nil);
 			NSLog(@"initGPG: --gpgconf-test fehlgeschlagen: \"%@\"", errText);
 			return NO;
 		}
@@ -388,13 +394,12 @@ NSSet *draggedKeyInfos;
 		NSLog(@"initGPG: NSException - Reason: \"%@\"", [e reason]);
 		return NO;
 	}
-	NSLog(@"GPG Version: %i", GPG_VERSION);
 	return YES;
 }
 
 
 - (void)initAgent {
-	NSLog(@"Starte: initAgent");
+	NSLog(@"initAgent");
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	BOOL agentFound = NO;
 	
@@ -468,8 +473,8 @@ NSSet *draggedKeyInfos;
 							setenv("GPG_AGENT_INFO", [socketPath cStringUsingEncoding:NSUTF8StringEncoding], 1);
 							
 							if ((range = [socketPath rangeOfString:@":"]).length > 0) {
-								range.length = range.location - 15;
-								range.location = 15;
+								range.length = range.location;
+								range.location = 0;
 								socketPath = [[socketPath substringWithRange:range] stringByStandardizingPath];
 								
 								NSString *standardSocket = [@"~/.gnupg/S.gpg-agent" stringByExpandingTildeInPath];

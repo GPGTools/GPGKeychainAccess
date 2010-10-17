@@ -78,6 +78,8 @@ enum {
 - (IBAction)searchKeys:(id)sender;
 - (IBAction)receiveKeys:(id)sender;
 - (IBAction)refreshKeysFromServer:(id)sender;
+- (IBAction)showInspector:(id)sender;
+
 
 - (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec;
 - (void)importFromURLs:(NSArray *)urls;

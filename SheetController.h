@@ -15,8 +15,6 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-#import <Cocoa/Cocoa.h>
-
 @class KeyInfo;
 @class KeyInfo_Subkey;
 

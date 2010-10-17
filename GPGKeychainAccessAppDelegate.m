@@ -18,6 +18,8 @@
 #import "GPGKeychainAccessAppDelegate.h"
 #import "KeychainController.h"
 #import "ActionController.h"
+#import "PreferencesController.h"
+
 
 @implementation GPGKeychainAccessAppDelegate
 
@@ -45,7 +47,7 @@
 
 - (void)awakeFromNib {
 	NSLog(@"GPGKeychainAccessAppDelegate awakeFromNib");
-	[keyTable setDoubleAction:@selector(orderFront:)];
+	[keyTable setDoubleAction:@selector(makeKeyAndOrderFront:)];
 	[keyTable setTarget:inspectorWindow];
 	
 	[self generateContextMenuForTable:keyTable];
@@ -111,6 +113,7 @@
 
 
 
+
 - (void)generateContextMenuForTable:(NSTableView *)table {
 	NSMenuItem *menuItem;
 	NSString *title;
@@ -143,13 +146,16 @@
 	[actionController importFromURLs:filenames];
 }
 
-- (CGFloat) splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex {
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex {
 	return proposedMinimumPosition + 68;
 }
-- (CGFloat) splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex {
+- (CGFloat)splitView:(NSSplitView *)splitView constrainMaxCoordinate:(CGFloat)proposedMaximumPosition ofSubviewAt:(NSInteger)dividerIndex {
 	return proposedMaximumPosition - 108;
 }
 
+- (IBAction)showPreferences:(id)sender {
+	[[PreferencesController sharedInstance] showPreferences:sender];
+}
 
 
 @end
