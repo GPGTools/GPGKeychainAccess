@@ -28,7 +28,8 @@ ActionController *actionController;
 NSWindow *mainWindow;
 NSWindow *inspectorWindow;
 GPGContext *gpgContext;
-
+NSUndoManager *undoManager;
+BOOL useUndo;
 
 
 NSSet* KeyInfoSet(NSArray *keyInfos) {

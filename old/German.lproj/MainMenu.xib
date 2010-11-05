@@ -1395,7 +1395,7 @@
 								<reference key="NSControlView" ref="544588931"/>
 								<int key="NSButtonFlags">1211912703</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage" id="484933050">
+								<object class="NSCustomResource" key="NSNormalImage" id="158417445">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
 								</object>
@@ -1952,7 +1952,7 @@
 													<reference key="NSControlView" ref="836028179"/>
 													<int key="NSButtonFlags">1211912703</int>
 													<int key="NSButtonFlags2">2</int>
-													<reference key="NSNormalImage" ref="484933050"/>
+													<reference key="NSNormalImage" ref="158417445"/>
 													<reference key="NSAlternateImage" ref="483159743"/>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
@@ -4421,35 +4421,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.primaryKeyInfo.expirationDate</string>
-						<reference key="source" ref="318805371"/>
-						<reference key="destination" ref="995608647"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="318805371"/>
-							<reference key="NSDestination" ref="995608647"/>
-							<string key="NSLabel">value: selection.primaryKeyInfo.expirationDate</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.primaryKeyInfo.expirationDate</string>
-							<object class="NSDictionary" key="NSOptions">
-								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSArray" key="dict.sortedKeys">
-									<bool key="EncodedWithXMLCoder">YES</bool>
-									<string>NSAllowsEditingMultipleValuesSelection</string>
-									<string>NSMultipleValuesPlaceholder</string>
-								</object>
-								<object class="NSMutableArray" key="dict.values">
-									<bool key="EncodedWithXMLCoder">YES</bool>
-									<boolean value="NO"/>
-									<string type="base64-UTF8">IA</string>
-								</object>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1288</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.primaryKeyInfo.keyID</string>
 						<reference key="source" ref="121615261"/>
 						<reference key="destination" ref="995608647"/>
@@ -6584,19 +6555,58 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showPreferences:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="609285721"/>
-					</object>
-					<int key="connectionID">1900</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">showInspector:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="263664863"/>
 					</object>
 					<int key="connectionID">1902</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showPreferences:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="609285721"/>
+					</object>
+					<int key="connectionID">1903</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="944990906"/>
+						<reference key="destination" ref="976324537"/>
+					</object>
+					<int key="connectionID">1904</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.primaryKeyInfo.expirationDate</string>
+						<reference key="source" ref="318805371"/>
+						<reference key="destination" ref="995608647"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="318805371"/>
+							<reference key="NSDestination" ref="995608647"/>
+							<string key="NSLabel">value: selection.primaryKeyInfo.expirationDate</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.primaryKeyInfo.expirationDate</string>
+							<object class="NSDictionary" key="NSOptions">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="dict.sortedKeys">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSAllowsEditingMultipleValuesSelection</string>
+									<string>NSMultipleValuesPlaceholder</string>
+									<string>NSNullPlaceholder</string>
+								</object>
+								<object class="NSMutableArray" key="dict.values">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<boolean value="NO"/>
+									<string type="base64-UTF8">IA</string>
+									<string type="base64-UTF8">IA</string>
+								</object>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1905</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -9902,7 +9912,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1902</int>
+			<int key="maxID">1905</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9945,7 +9955,6 @@
 							<string>setPrimaryUserID:</string>
 							<string>setTrsut:</string>
 							<string>showInspector:</string>
-							<string>showPreferences:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -9979,7 +9988,6 @@
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSPopUpButton</string>
-							<string>id</string>
 							<string>id</string>
 						</object>
 					</object>
@@ -10018,7 +10026,6 @@
 							<string>setPrimaryUserID:</string>
 							<string>setTrsut:</string>
 							<string>showInspector:</string>
-							<string>showPreferences:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -10146,10 +10153,6 @@
 								<string key="name">showInspector:</string>
 								<string key="candidateClassName">id</string>
 							</object>
-							<object class="IBActionInfo">
-								<string key="name">showPreferences:</string>
-								<string key="candidateClassName">id</string>
-							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -10230,14 +10233,35 @@
 					<string key="className">GPGKeychainAccessAppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">selectHeaderVisibility:</string>
-						<string key="NS.object.0">NSMenuItem</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>selectHeaderVisibility:</string>
+							<string>showPreferences:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>NSMenuItem</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">selectHeaderVisibility:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">selectHeaderVisibility:</string>
-							<string key="candidateClassName">NSMenuItem</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>selectHeaderVisibility:</string>
+							<string>showPreferences:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">selectHeaderVisibility:</string>
+								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showPreferences:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
@@ -10333,78 +10357,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="926911960">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">KeychainController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">PreferencesController</string>
-					<string key="superclassName">NSWindowController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>copy:</string>
-							<string>showPreferences:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>copy:</string>
-							<string>showPreferences:</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">copy:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showPreferences:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>updater</string>
-							<string>window</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>SUUpdater</string>
-							<string>NSWindow</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>updater</string>
-							<string>window</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">updater</string>
-								<string key="candidateClassName">SUUpdater</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">window</string>
-								<string key="candidateClassName">NSWindow</string>
-							</object>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">PreferencesController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

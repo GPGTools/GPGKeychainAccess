@@ -46,13 +46,14 @@
 
 - (void)updateKeychain:(NSDictionary *)aDict;
 - (void)initKeychains;
-- (void)updateKeyInfos:(NSArray *)keyInfos;
-- (void)asyncUpdateKeyInfos:(NSArray *)keyInfos;
+- (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos;
+- (void)asyncUpdateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos;
 - (void)updateKeyInfosWithDict:(NSDictionary *)aDict;
 
 
 - (IBAction)updateFilteredKeyList:(id)sender;
 
+- (NSSet *)fingerprintsForKeyIDs:(NSSet *)keys;
 
 - (BOOL)initGPG;
 - (void)initAgent;

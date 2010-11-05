@@ -52,7 +52,7 @@
 - (IBAction)copy:(id)sender {
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
-		NSString *exportedKeys = dataToString([self exportKeys:keyInfos armored:YES allowSecret:NO]);
+		NSString *exportedKeys = dataToString([self exportKeys:keyInfos armored:YES allowSecret:NO fullExport:NO]);
 		if ([exportedKeys length] > 0) {
 			NSPasteboard *pboard = [NSPasteboard generalPasteboard];
 			[pboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
@@ -68,7 +68,6 @@
 		[self importFromData:data];
 	}
 }
-
 
 
 
@@ -130,6 +129,8 @@
 - (IBAction)cleanKey:(id)sender {
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
+		[self registerUndoForKeys:keyInfos withName:@"Undo_Clean"];
+		
 		for (KeyInfo *keyInfo in keyInfos) {
 			if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], @"clean", @"save", nil) != 0) {
 				NSLog(@"cleanKey: --edit-key:clean für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
@@ -141,6 +142,8 @@
 - (IBAction)minimizeKey:(id)sender {
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
+		[self registerUndoForKeys:keyInfos withName:@"Undo_Minimize"];
+
 		for (KeyInfo *keyInfo in keyInfos) {
 			if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], @"minimize", @"save", nil) != 0) {
 				NSLog(@"minimizeKey: --edit-key:minimize für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
@@ -162,6 +165,8 @@
 - (void)addPhotoForKeyInfo:(KeyInfo *)keyInfo photoPath:(NSString *)path {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+	[self registerUndoForKey:keyInfo withName:@"Undo_AddPhoto"];
+	
 	unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
 	
 	NSString *cmdText = [NSString stringWithFormat:@"addphoto\n%@\n%@save\n", path, filesize > 6144 ? @"y\n" : @""];
@@ -176,6 +181,9 @@
 - (IBAction)removePhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+
+		[self registerUndoForKey:keyInfo withName:@"Undo_RemovePhoto"];
+
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [[[photosController selectedObjects] objectAtIndex:0] hashID]);
 		if (uid > 0) {
@@ -190,6 +198,9 @@
 - (IBAction)revokePhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+
+		[self registerUndoForKey:keyInfo withName:@"Undo_RevokePhoto"];
+
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [[[photosController selectedObjects] objectAtIndex:0] hashID]);
 		if (uid > 0) {
@@ -205,8 +216,10 @@
 - (IBAction)setPrimaryPhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
-		NSString *fingerprint = [keyInfo fingerprint];
+
+		[self registerUndoForKey:keyInfo withName:@"Undo_PrimaryPhoto"];
 		
+		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [[[photosController selectedObjects] objectAtIndex:0] hashID]);
 		if (uid > 0) {
 			if (runGPGCommand(nil, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"primary", @"save", nil) != 0) {
@@ -223,45 +236,68 @@
 	SheetController *sheetController = [SheetController sharedInstance];
 	[sheetController importKey];
 }
-- (void)importFromURLs:(NSArray *)urls { //Bisher werden nur normale Dateien zum import unterstützt und keine "echten" URLs.
+- (void)importFromURLs:(NSArray *)urls {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSData *statusData;
-	NSMutableArray *arguments = [NSMutableArray arrayWithCapacity:[urls count] + 1];
-	[arguments addObject:@"--import"];
+	NSMutableData *dataToImport = [NSMutableData dataWithCapacity:100000];
 
-	for (NSObject *path in urls) {
-		if ([path isKindOfClass:[NSURL class]]) {
-			[arguments addObject:[(NSURL*)path path]];
-		} else if ([path isKindOfClass:[NSString class]]) {
-			[arguments addObject:path];
+	for (NSObject *url in urls) {
+		if ([url isKindOfClass:[NSURL class]]) {
+			[dataToImport appendData:[NSData dataWithContentsOfURL:(NSURL*)url]];
+		} else if ([url isKindOfClass:[NSString class]]) {
+			[dataToImport appendData:[NSData dataWithContentsOfFile:(NSString*)url]];
 		}
 	}
-	
-	if (runGPGCommandWithArray(nil, nil, nil, &statusData, nil, arguments) != 0) {
-		NSLog(@"importFromURLs: --import fehlgeschlagen."); //Tritt auch auf, wenn einer der zu importierenden Schlüssel bereits vorhanden ist. Muss also nichts besonderes bedeuten.
-	}
-	
-	[keychainController updateKeyInfos:nil];
-	
-	SheetController *sheetController = [SheetController sharedInstance];
-	[sheetController showResult:[self importResultWithStatusData:statusData]];
-	
+	[self importFromData:dataToImport];
 	[pool drain];
 }
 - (void)importFromData:(NSData *)data {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSData *statusData;
 	
+
+	NSSet *keys = [self keysInExportedData:data];
+	
+	[self registerUndoForKeys:keys withName:@"Undo_Import"];
+	
 	if (runGPGCommandWithArray(data, nil, nil, &statusData, nil, [NSArray arrayWithObject:@"--import"]) != 0) {
 		NSLog(@"importFromData: --import fehlgeschlagen."); //Tritt auch auf, wenn einer der zu importierenden Schlüssel bereits vorhanden ist. Muss also nichts besonderes bedeuten.
 	}
 	
-	[keychainController updateKeyInfos:nil];
+	[keychainController updateKeyInfos:keys];
 	
 	SheetController *sheetController = [SheetController sharedInstance];
 	[sheetController showResult:[self importResultWithStatusData:statusData]];
 	
 	[pool drain];
+}
+
+
+- (void)restoreKeys:(NSSet *)keys withData:(NSData *)data { //Löscht die übergebenen Schlüssel und importiert data.
+	//TODO: Auswahl der Schlüsselliste wiederherstellen.
+	[self registerUndoForKeys:keys withName:nil];
+	[undoManager disableUndoRegistration];
+	[self deleteKeys:keys withMode:GKDeletePublicAndSecretKey];
+	
+	if (data && [data length] > 0) {
+		NSArray *arguments = [NSArray arrayWithObjects:@"--import", @"--import-options", @"import-local-sigs", @"--allow-non-selfsigned-uid", nil];
+		if (runGPGCommandWithArray(data, nil, nil, nil, nil, arguments) != 0) {
+			NSLog(@"restoreKeys: --import fehlgeschlagen."); //Tritt auch auf, wenn einer der zu importierenden Schlüssel bereits vorhanden ist. Muss also nichts besonderes bedeuten.
+		}		
+	}
+	
+	[keychainController updateKeyInfos:keys];
+	[undoManager enableUndoRegistration];
+}
+- (void)registerUndoForKeys:(NSSet *)keys withName:(NSString *)actionName {
+	if (useUndo && [undoManager isUndoRegistrationEnabled]) {
+		[[undoManager prepareWithInvocationTarget:self] restoreKeys:keys withData:[self exportKeys:keys armored:NO allowSecret:YES fullExport:YES]];
+		if (actionName && ![undoManager isUndoing] && ![undoManager isRedoing]) {
+			[undoManager setActionName:localized(actionName)];
+		}
+	}
+}
+- (void)registerUndoForKey:(NSObject *)key withName:(NSString *)actionName { //key ist entweder KeyInfo oder NSString.
+	[self registerUndoForKeys:[NSSet setWithObject:key] withName:actionName];
 }
 
 
@@ -271,54 +307,56 @@
 	
 	[sheetController exportKeys:keyInfos];
 }
-- (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec {
-	BOOL hasSecKeys = NO;
-	NSMutableArray *arguments;
-	NSData *exportedSecretData, *exportedData = nil;
+- (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec fullExport:(BOOL)fullExport {
+	NSMutableArray *arguments = [NSMutableArray array];;
+	NSData *exportedSecretData = nil, *exportedData = nil;
 	KeyInfo *keyInfo;
 	
-	if (allowSec) {
-		arguments = [NSMutableArray array];
-		[arguments addObject:armored ? @"--armor" : @"--no-armor"];
-		[arguments addObject:@"--export-secret-keys"];
-		
-		for (keyInfo in keys) {
-			if ([keyInfo isSecret]) {
-				[arguments addObject:[keyInfo fingerprint]];
-				hasSecKeys = YES;
-			}
-		}
-		
-		if (hasSecKeys || [keys count] == 0) {
-			hasSecKeys = YES;
-			if (runGPGCommandWithArray(nil, &exportedSecretData, nil, nil, nil, arguments) != 0) {
-				NSLog(@"exportKeys: --export-secret-keys fehlgeschlagen.");
-			}
-		}
-	}
-	
-	arguments = [NSMutableArray array];
-	[arguments addObject:armored ? @"--armor" : @"--no-armor"];
 	[arguments addObject:@"--export"];
-	
+	[arguments addObject:armored ? @"--armor" : @"--no-armor"];
+	if (fullExport) {
+		[arguments addObject:@"--export-options"];
+		[arguments addObject:@"export-local-sigs,export-sensitive-revkeys"];
+	}
 	for (keyInfo in keys) {
-		[arguments addObject:[keyInfo fingerprint]];
+		[arguments addObject:[keyInfo description]];
 	}
 	
 	if (runGPGCommandWithArray(nil, &exportedData, nil, nil, nil, arguments) != 0) {
 		NSLog(@"exportKeys: --export fehlgeschlagen.");
+		return nil;
 	}
 	
-	if (hasSecKeys) {
-		if (exportedData) {
-			exportedData = [NSMutableData dataWithData:exportedData];
-			[(NSMutableData*)exportedData appendData:exportedSecretData];
-		} else {
-			exportedData = exportedSecretData;
+	if (allowSec) {
+		[arguments replaceObjectAtIndex:0 withObject:@"--export-secret-keys"];
+		if (runGPGCommandWithArray(nil, &exportedSecretData, nil, nil, nil, arguments) != 0) {
+			NSLog(@"exportKeys: --export-secret-keys fehlgeschlagen.");
+			return nil;
+		}
+		exportedData = [NSMutableData dataWithData:exportedData];
+		[(NSMutableData*)exportedData appendData:exportedSecretData];
+	}
+	
+	return exportedData;
+}
+
+- (NSSet *)keysInExportedData:(NSData *)data {
+	NSData *outData;
+	
+	
+	if (runGPGCommandWithArray(data, &outData, nil, nil, nil, [NSArray arrayWithObject:@"--with-fingerprint"]) != 0) {
+		NSLog(@"keysInExportedData fehlgeschlagen.");
+	}
+	NSArray *lines = [dataToString(outData) componentsSeparatedByString:@"\n"];
+	NSMutableSet *keys = [NSMutableSet setWithCapacity:[lines count] / 3];
+	
+	for (NSString *line in lines) {
+		NSArray *splitedLine = [line componentsSeparatedByString:@":"];
+		if ([[splitedLine objectAtIndex:0] isEqualToString:@"fpr"]) {
+			[keys addObject:[splitedLine objectAtIndex:9]];
 		}
 	}
-
-	return exportedData;
+	return keys;
 }
 
 
@@ -342,6 +380,8 @@
 - (void)addSignatureForKeyInfo:(KeyInfo *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+	[self registerUndoForKey:keyInfo withName:@"Undo_AddSignature"];
+
 	NSString *fingerprint = [keyInfo fingerprint];
 	
 	NSString *sigType = local ? @"lsign" : @"sign";
@@ -382,7 +422,8 @@
 - (void)addSubkeyForKeyInfo:(KeyInfo *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	
+	[self registerUndoForKey:keyInfo withName:@"Undo_AddSubkey"];
+
 	NSString *cmdText = [NSString stringWithFormat:@"addkey\n%i\n%i\n%i\nsave\n", type, length, daysToExpire];
 	if (runGPGCommand(cmdText, nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
 		NSLog(@"generateSubkey: --edit-key:addkey für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
@@ -403,6 +444,8 @@
 - (void)addUserIDForKeyInfo:(KeyInfo *)keyInfo name:(NSString *)name email:(NSString *)email comment:(NSString *)comment{
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+	[self registerUndoForKey:keyInfo withName:@"Undo_AddUserID"];
+
 	NSString *cmdText = [NSString stringWithFormat:@"adduid\n%@\n%@\n%@\nsave\n", name, email, comment];
 	if (runGPGCommand(cmdText, nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
 		NSLog(@"addUserIDForKeyInfo: --edit-key:adduid für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
@@ -435,8 +478,9 @@
 - (void)changeExpirationDateForKeyInfo:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	NSString *cmdText;
+	[self registerUndoForKey:keyInfo withName:@"Undo_ChangeExpirationDate"];
 	
+	NSString *cmdText;
 	if (subkey) {
 		NSInteger index = getIndexForSubkey([subkey fingerprint], [subkey keyID]);
 		if (index == 0) {
@@ -533,6 +577,17 @@
 	[sheetController receiveKeys];
 }
 - (NSString *)receiveKeysWithIDs:(NSSet *)keyIDs {
+	
+	BOOL undoNameNeeded = NO;
+	if (useUndo && [undoManager isUndoRegistrationEnabled]) {
+		NSSet *fingerprints = [keychainController fingerprintsForKeyIDs:keyIDs];
+		if ([fingerprints count] > 0) {
+			[undoManager beginUndoGrouping];
+			[self registerUndoForKeys:fingerprints withName:@"Undo_Receive"];
+			undoNameNeeded = YES;
+		}
+	}
+	
 	NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"--recv-keys"];
 	[arguments addObjectsFromArray:[keyIDs allObjects]];
 	
@@ -542,6 +597,22 @@
 		NSLog(@"receiveKeysWithPattern: --recv-keys für \"%@\" fehlgeschlagen.", keyIDs);
 	}
 	[keychainController updateKeyInfos:nil];
+	
+	if (useUndo && [undoManager isUndoRegistrationEnabled]) {
+		NSSet *fingerprints = [keychainController fingerprintsForKeyIDs:keyIDs];
+		if ([fingerprints count] > 0) {
+			if (!undoNameNeeded) {
+				[undoManager beginUndoGrouping];
+				undoNameNeeded = YES;
+			}
+			[[undoManager prepareWithInvocationTarget:self] restoreKeys:fingerprints withData:nil];
+		}
+		if (undoNameNeeded) {
+			[undoManager endUndoGrouping];
+			[undoManager setActionName:localized(@"Undo_Receive")];
+		}
+	}
+	
 	
 	return [self importResultWithStatusData:statusData];
 }
@@ -561,6 +632,9 @@
 
 - (IBAction)refreshKeysFromServer:(id)sender {
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	
+	[self registerUndoForKeys:keyInfos withName:@"Undo_Refresh"];
+	
 	NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"--refresh-keys"];
 	for (KeyInfo *keyInfo in keyInfos) {
 		[arguments addObject:[keyInfo fingerprint]];
@@ -575,6 +649,8 @@
 	if ([[keysController selectedObjects] count] == 1) {
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		
+		[self registerUndoForKey:keyInfo withName:@"Undo_ChangePassphrase"];
+		
 		if (runGPGCommand(@"passwd\ny\nsave\n", nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
 			NSLog(@"changePassphrase: --edit-key:passwd für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
 		}
@@ -588,6 +664,9 @@
 		KeyInfo_UserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		NSArray *signatures = [userID signatures];
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+
+		[self registerUndoForKey:keyInfo withName:@"Undo_RemoveSignature"];
+
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [userID userID]);
 		if (uid > 0) {
@@ -615,6 +694,9 @@
 - (IBAction)removeSubkey:(NSButton *)sender {
 	if ([[subkeysController selectedObjects] count] == 1) {
 		KeyInfo_Subkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
+		
+		[self registerUndoForKey:[subkey primaryKeyInfo] withName:@"Undo_RemoveSubkey"];
+
 		NSInteger index = getIndexForSubkey([subkey fingerprint], [subkey keyID]);
 		if (index > 0) {
 			NSString *cmdText = [NSString stringWithFormat:@"key %i\ndelkey\ny\nsave\n", index];
@@ -629,6 +711,9 @@
 - (IBAction)removeUserID:(NSButton *)sender {
 	if ([userIDsController selectionIndex] != NSNotFound) {
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+
+		[self registerUndoForKey:keyInfo withName:@"Undo_RemoveUserID"];
+		
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [[[userIDsController selectedObjects] objectAtIndex:0] userID]);
 		if (uid > 0) {
@@ -649,6 +734,8 @@
 		NSString *fingerprint = [[[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo] fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [userID userID]);
 		if (uid > 0) {
+			[self registerUndoForKey:fingerprint withName:@"Undo_RevokeSignature"];
+			
 			NSMutableString *cmdText = [NSMutableString stringWithCapacity:9];
 			NSMutableArray *secKeyIDs = [NSMutableArray arrayWithCapacity:1];
 			NSString *signerKeyID1 = [gpgKeySignature signerKeyID];
@@ -688,6 +775,8 @@
 		KeyInfo_Subkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 		NSInteger index = getIndexForSubkey([subkey fingerprint], [subkey keyID]);
 		if (index > 0) {
+			[self registerUndoForKey:[subkey primaryKeyInfo] withName:@"Undo_RevokeSubkey"];
+
 			NSString *cmdText = [NSString stringWithFormat:@"key %i\nrevkey\ny\n0\n\ny\nsave\n", index];
 			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", [subkey fingerprint], nil) != 0) {
 				NSLog(@"revokeSubkey: --edit-key:revkey für Schlüssel %@ fehlgeschlagen.", [subkey keyID]);
@@ -705,6 +794,8 @@
 		NSInteger uid = getIndexForUserID(fingerprint, [[[userIDsController selectedObjects] objectAtIndex:0] userID]);
 		
 		if (uid > 0) {
+			[self registerUndoForKey:keyInfo withName:@"Undo_RevokeUserID"];
+
 			NSString *cmdText = [NSString stringWithFormat:@"%i\nrevuid\ny\n0\n\ny\nsave\n", uid];
 			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, nil) != 0) {
 				NSLog(@"revokeUserID: --edit-key:revuid für Schlüssel %@ fehlgeschlagen.", fingerprint);
@@ -717,14 +808,32 @@
 - (IBAction)setDisabled:(NSButton *)sender {
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
-		NSString *enOrDisable = [sender state] == NSOnState ? @"disable" : @"enable";
-		for (KeyInfo *keyInfo in keyInfos) {
-			if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], enOrDisable, nil) != 0) {
-				NSLog(@"setDisabled: --edit-key:%@ für Schlüssel %@ fehlgeschlagen.", enOrDisable, [keyInfo keyID]);
+		[self setDisabled:[sender state] == NSOnState forKeyInfos:keyInfos];
+	}
+}
+- (void)setDisabled:(BOOL)disabled forKeyInfos:(NSSet *)keys {
+	if (useUndo && [undoManager isUndoRegistrationEnabled]) {
+		NSMutableSet *editedKeys = [NSMutableSet setWithCapacity:[keys count]];
+		for (KeyInfo *keyInfo in keys) {
+			if ([keyInfo isKeyDisabled] != disabled) {
+				[editedKeys addObject:keyInfo];
 			}
 		}
-		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+		if ([editedKeys count] > 0) {
+			[[undoManager prepareWithInvocationTarget:self] setDisabled:!disabled forKeyInfos:editedKeys];
+			if (![undoManager isUndoing] && ![undoManager isRedoing]) {
+				[undoManager setActionName:localized(disabled ? @"Undo_DisableKey" : @"Undo_EnableKey")];
+			}
+		}
 	}
+
+	NSString *enOrDisable = disabled ? @"disable" : @"enable";
+	for (KeyInfo *keyInfo in keys) {
+		if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], enOrDisable, nil) != 0) {
+			NSLog(@"setDisabled: --edit-key:%@ für Schlüssel %@ fehlgeschlagen.", enOrDisable, [keyInfo keyID]);
+		}
+	}
+	[keychainController updateKeyInfos:[keysController selectedObjects]];	
 }
 
 - (IBAction)setPrimaryUserID:(NSButton *)sender {
@@ -733,6 +842,8 @@
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [[[userIDsController selectedObjects] objectAtIndex:0] userID]);
 		if (uid > 0) {
+			[self registerUndoForKey:keyInfo withName:@"Undo_PrimaryUserID"];
+
 			if (runGPGCommand(nil, nil, nil, @"--edit-key", fingerprint, [NSString stringWithFormat:@"%i", uid], @"primary", @"save", nil) != 0) {
 				NSLog(@"setPrimaryUserID: --edit-key:primary für Schlüssel %@ fehlgeschlagen.", fingerprint);
 			}
@@ -744,6 +855,8 @@
 - (IBAction)setTrsut:(NSPopUpButton *)sender {
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
+		[self registerUndoForKeys:keyInfos withName:@"Undo_SetTrust"];
+		
 		NSString *cmdText = [NSString stringWithFormat:@"trust\n%i\ny\n", [sender selectedTag]];
 		for (KeyInfo *keyInfo in keyInfos) {
 			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
@@ -810,8 +923,23 @@
 	
 	[cmdText appendString:@"%commit\n"];
 	
-	if (runGPGCommand(cmdText, nil, nil, @"--gen-key", nil) != 0) {
+	
+	NSData *statusData;
+	if (runGPGCommandWithArray(stringToData(cmdText), nil, nil, &statusData, nil, [NSArray arrayWithObject:@"--gen-key"]) != 0) {
 		NSLog(@"generateNewKeyWithName: --gen-key fehlgeschlagen.");
+	}
+	
+	
+	if (useUndo) {
+		NSString *statusText = dataToString(statusData);
+		NSRange range = [statusText rangeOfString:@"[GNUPG:] KEY_CREATED "];
+		if (range.length > 0) {
+			range = [statusText lineRangeForRange:range];
+			range.length--;
+			NSString *fingerprint = [[[statusText substringWithRange:range] componentsSeparatedByString:@" "] objectAtIndex:3];
+			[[undoManager prepareWithInvocationTarget:self] deleteKeys:[NSSet setWithObject:fingerprint] withMode:GKDeletePublicAndSecretKey];
+			[undoManager setActionName:localized(@"Undo_NewKey")];
+		}
 	}
 	
 	
@@ -828,8 +956,11 @@
 	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
 		NSInteger retVal;
-		NSString *cmd;
 		SheetController *sheetController = [SheetController sharedInstance];
+		
+		if (useUndo) {
+			[undoManager beginUndoGrouping];
+		}
 		
 		for (KeyInfo *keyInfo in keyInfos) {
 			
@@ -842,13 +973,11 @@
 												  otherButton:localized(@"Delete both")];
 				switch (retVal) {
 					case NSAlertFirstButtonReturn:
-						cmd = @"--delete-secret-keys";
+						[self deleteKeys:[NSSet setWithObject:keyInfo] withMode:GKDeleteSecretKey];
 						break;
 					case NSAlertThirdButtonReturn:
-						cmd = @"--delete-secret-and-public-key";
+						[self deleteKeys:[NSSet setWithObject:keyInfo] withMode:GKDeletePublicAndSecretKey];
 						break;
-					default:
-						cmd = nil;
 				}
 			} else {
 				retVal = [sheetController alertSheetForWindow:mainWindow 
@@ -857,21 +986,47 @@
 												defaultButton:localized(@"Delete key") 
 											  alternateButton:localized(@"Cancel") 
 												  otherButton:nil];
-				switch (retVal) {
-					case NSAlertFirstButtonReturn:
-						cmd = @"--delete-keys";
-						break;
-					default:
-						cmd = nil;
-				}
-			}
-			if (cmd) {
-				if (runGPGCommand(nil, nil, nil, cmd, [keyInfo fingerprint], nil) != 0) {
-					NSLog(@"deleteKey: %@ für Schlüssel %@ fehlgeschlagen.", cmd, [keyInfo keyID]);
+				if (retVal == NSAlertFirstButtonReturn) {
+					[self deleteKeys:[NSSet setWithObject:keyInfo] withMode:GKDeletePublicKey];
 				}
 			}
 		}
-		[keychainController asyncUpdateKeyInfos:[keysController selectedObjects]];
+		
+		if (useUndo) {
+			[undoManager endUndoGrouping];
+			[undoManager setActionName:localized(@"Undo_Delete")];
+		}
+	}
+}
+
+- (void)deleteKeys:(NSSet *)keys withMode:(GKDeleteKeyAction)mode {
+	if ([keys count] == 0) {
+		return;
+	}
+	[self registerUndoForKeys:keys withName:@"Undo_Delete"];
+	
+	NSMutableArray *arguments = [NSMutableArray array];
+	switch (mode) {
+		case GKDeleteSecretKey:
+			[arguments addObject:@"--delete-secret-keys"];
+			break;
+		case GKDeletePublicAndSecretKey:
+			[arguments addObject:@"--delete-secret-and-public-key"];
+			break;
+		default:
+			[arguments addObject:@"--delete-keys"];
+			break;
+	}
+	
+	for (KeyInfo *keyInfo in keys) {
+		[arguments addObject:[keyInfo description]];
+	}
+	
+	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
+		NSLog(@"deleteTheKey: %@ fehlgeschlagen.", arguments);
+	}
+	if ([undoManager isUndoRegistrationEnabled]) {
+		[keychainController asyncUpdateKeyInfos:keys];
 	}
 }
 
@@ -889,13 +1044,15 @@
 
 
 
+//TODO runGPGCommandWithArray: Pipes asynchron ansprechen.
+
 
 //Führt GPG mit den übergebenen Argumenten, aus.
 //Wenn inText nicht nil ist, wird es gpg als stdin übergeben.
 //Wenn outData nicht nil ist, wird Stdout in diesem NSData zurückgegeben. Gleiches für errData.
 //Rückgabewert ist der Exitcode von GPG.
 int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, NSData **statusData, NSData **attributeData, NSArray *args) {
-	int pipes[4][2];
+	int pipes[5][2];
 	int i;
 	NSData **datas[4];
 	
@@ -909,7 +1066,9 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 			pipe(pipes[i]);
 		}
 	}
-	
+	if (inData) {
+		pipe(pipes[4]);
+	}
 	
 	NSString *gpgAgentInfo = nil;
 	
@@ -944,8 +1103,6 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		}
 		
 	}
-	
-	
 
 	pid_t pid = fork();
 	
@@ -956,7 +1113,6 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		} else {
 			numArgs = 11 + [args count]; //GPG 1.4 braucht mehr Parameter.
 		}
-
 		
 		int nullDescriptor = open("/dev/null", O_WRONLY);
 		
@@ -972,7 +1128,7 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		}
 		dup2(pipes[0][1], 1);
 		dup2(pipes[1][1], 2);
-		
+
 		
 		if (statusData) {
 			close(pipes[2][0]);
@@ -986,13 +1142,11 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		}
 		
 		if (inData) {
-			NSPipe *inPipe = [NSPipe pipe];
-			dup2([[inPipe fileHandleForReading] fileDescriptor], 0);
-			[[inPipe fileHandleForWriting] writeData:inData];
-			[[inPipe fileHandleForWriting] closeFile];
+			close(pipes[4][1]);
+			dup2(pipes[4][0], 0);
 			numArgs += 2;
 		}
-				
+	
 		
 		char* argv[numArgs];
 		
@@ -1029,13 +1183,12 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		}
 		argv[argPos] = nil;
 		
-		
-		
 		execv(argv[0], argv);
+		
 		//--command-fd 0 --no-greeting --with-colons --yes --batch --no-tty
 		
 		//Hier sollte das Programm NIE landen!
-		NSLog(@"runGPGCommandWithArray: execl fehlgeschlagen!");
+		NSLog(@"runGPGCommandWithArray: execv fehlgeschlagen!");
 		exit(255);
 	} else if (pid < 0) { //Fehler
 		NSLog(@"runGPGCommandWithArray: fork fehlgeschlagen!");
@@ -1069,6 +1222,10 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 			}
 		}
 		maxfd++;
+		if (inData) {
+			close(pipes[4][0]);
+			[NSThread detachNewThreadSelector:@selector(writeDataToFD:) toTarget:actionController withObject:[NSArray arrayWithObjects:inData, [NSNumber numberWithInt:pipes[4][1]], nil]];
+		}
 		
 		
 		int i;
@@ -1117,6 +1274,14 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		return exitcode;
 	}
 }
+
+- (void)writeDataToFD:(NSArray *)object {
+	NSData *data = [object objectAtIndex:0];
+	int fd = [[object objectAtIndex:1] intValue];
+	write(fd, [data bytes], [data length]);
+	close(fd);
+}
+
 
 int runGPGCommand(NSString *inText, NSString **outText, NSString **errText, NSString *firstArg, ...) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];

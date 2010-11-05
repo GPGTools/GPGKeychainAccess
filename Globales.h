@@ -26,6 +26,8 @@ extern ActionController *actionController;
 extern NSWindow *mainWindow;
 extern NSWindow *inspectorWindow;
 extern GPGContext *gpgContext;
+extern NSUndoManager *undoManager;
+extern BOOL useUndo;
 
 
 NSSet* KeyInfoSet(NSArray *keyInfos);
@@ -43,4 +45,18 @@ BOOL containsPGPKeyBlock(NSString *string);
 BOOL isGpgAgentRunning();
 
 #define NotImplementedAlert NSRunAlertPanel(@"Noch nicht implementiert", @"", @"OK", nil, nil)
+
+#define localized(key) [[NSBundle mainBundle] localizedStringForKey:(key) value:nil table:nil]
+
+
+
+@protocol GKEnumerationList <NSFastEnumeration>
+- (NSUInteger)count;
+@end
+@interface NSArray (KeyList) <GKEnumerationList>
+@end
+@interface NSSet (KeyList) <GKEnumerationList>
+@end
+
+
 

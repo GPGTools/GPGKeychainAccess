@@ -329,7 +329,7 @@
 - (void)setIsKeyDisabled:(BOOL)value {}
 
 
-- (NSString *)description {return [primaryUserID userID];}
+- (NSString *)description {return [primarySubkey fingerprint];}
 
 //
 //GPGKey Properties

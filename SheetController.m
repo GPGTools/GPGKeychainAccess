@@ -227,6 +227,7 @@ static SheetController *_sharedInstance = nil;
 }
 
 - (void)showResult:(NSString *)text {
+	self.msgText = @"";
 	self.msgText = text;
 	self.displayedView = foundKeysView;
 	
@@ -652,7 +653,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 				BOOL hideExtension = [sheet isExtensionHidden];
 				NSString *path = [[sheet URL] path];
 				
-				NSData *exportData = [actionController exportKeys:keyInfos armored:(exportFormat & 1) allowSecret:allowSecretKeyExport];
+				NSData *exportData = [actionController exportKeys:keyInfos armored:(exportFormat & 1) allowSecret:allowSecretKeyExport fullExport:NO];
 				if (exportData) {
 					[[NSFileManager defaultManager] createFileAtPath:path contents:exportData attributes:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:hideExtension] forKey:NSFileExtensionHidden]];
 				} else {

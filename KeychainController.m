@@ -70,7 +70,7 @@ NSSet *draggedKeyInfos;
 		fileName = localized(@"Exported keys.asc");
 	}
 	
-	NSData *exportedData = [actionController exportKeys:draggedKeyInfos armored:YES allowSecret:NO];
+	NSData *exportedData = [actionController exportKeys:draggedKeyInfos armored:YES allowSecret:NO fullExport:NO];
 	if (exportedData && [exportedData length] > 0) {
 		[exportedData writeToFile:[[dropDestination path] stringByAppendingPathComponent:fileName] atomically:YES];
 		
@@ -90,12 +90,11 @@ NSSet *draggedKeyInfos;
 }
 
 
-- (void)asyncUpdateKeyInfos:(NSArray *)keyInfos {
+- (void)asyncUpdateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos {
 	[NSThread detachNewThreadSelector:@selector(updateKeyInfos:) toTarget:self withObject:keyInfos];
 }
 
-
-- (void)updateKeyInfos:(NSArray *)keyInfos {
+- (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos {
 	NSLog(@"Starte: updateKeyInfos");
 	if (![updateLock tryLock]) {
 		NSLog(@"updateKeyInfos tryLock return");
@@ -130,14 +129,19 @@ NSSet *draggedKeyInfos;
 				
 				keyInfo = [keychain objectForKey:fingerprint];
 				
-				if (keyInfo && ![processedKeyInfos containsObject:keyInfo]) {
-					[processedKeyInfos addObject:keyInfo];
+				if (![processedKeyInfos containsObject:fingerprint]) {
+					[processedKeyInfos addObject:fingerprint];
 					
 					gpgKey = [gpgContext keyFromFingerprint:fingerprint secretKey:NO];
 					secKey = [gpgContext keyFromFingerprint:fingerprint secretKey:YES];
 					
 					if (gpgKey) {
-						[keyInfosToUpdate addObject:keyInfo];
+						if (keyInfo) {
+							[keyInfosToUpdate addObject:keyInfo];
+						} else {
+							[keyInfosToUpdate addObject:fingerprint];
+						}
+						
 						[gpgKeysToUpdate addObject:gpgKey];
 						[secKeysToUpdate addObject:secKey ? secKey : gpgKey];
 						if ([secKeys containsObject:fingerprint]) {
@@ -151,11 +155,9 @@ NSSet *draggedKeyInfos;
 						[keychain removeObjectForKey:fingerprint];
 						[secKeys removeObject:fingerprint];
 					}
-					if ([keyInfosToUpdate count] > 0) {
-						[self performSelectorOnMainThread:@selector(updateKeyInfosWithDict:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:keyInfosToUpdate, @"keyInfos", gpgKeysToUpdate, @"gpgKeys", secKeysToUpdate, @"secKeys", nil] waitUntilDone:YES];
-
-					}
-					[keyInfo updateFilterText];
+				}
+				if ([keyInfosToUpdate count] > 0) {
+					[self performSelectorOnMainThread:@selector(updateKeyInfosWithDict:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:keyInfosToUpdate, @"keyInfos", gpgKeysToUpdate, @"gpgKeys", secKeysToUpdate, @"secKeys", nil] waitUntilDone:YES];
 				}
 			}
 			
@@ -199,15 +201,24 @@ NSSet *draggedKeyInfos;
 	NSArray *gpgKeys = [aDict objectForKey:@"gpgKeys"];
 	NSArray *secKeys = [aDict objectForKey:@"secKeys"];
 	GPGKey *gpgKey, *secKey;
+	KeyInfo *keyInfo;
 	
 	NSUInteger i, count = [keyInfos count];
 	for (i = 0; i < count; i++) {
 		gpgKey = [gpgKeys objectAtIndex:i];
 		secKey = [secKeys objectAtIndex:i];
-		[[keyInfos objectAtIndex:i] updateWithGPGKey:gpgKey secretKey:gpgKey == secKey ? nil : secKey];
+		secKey = gpgKey == secKey ? nil : secKey;
+		keyInfo = [keyInfos objectAtIndex:i];
+		
+		if ([keyInfo isKindOfClass:[KeyInfo class]]) {
+			[keyInfo updateWithGPGKey:gpgKey secretKey:secKey];
+		} else {
+			keyInfo = [KeyInfo keyInfoWithGPGKey:gpgKey secretKey:secKey];
+			[keychain setObject:keyInfo forKey:[keyInfo description]];
+		}
+		[keyInfo updateFilterText];
 	}
 }
-
 
 - (void)updateKeychain:(NSDictionary *)aDict { //Darf nur im Main-Thread laufen!
 	NSLog(@"updateKeychain");
@@ -241,6 +252,7 @@ NSSet *draggedKeyInfos;
 	}
 	
 }
+
 
 - (IBAction)updateFilteredKeyList:(id)sender { //Darf nur im Main-Thread laufen!
 	static BOOL isUpdating = NO;
@@ -279,6 +291,7 @@ NSSet *draggedKeyInfos;
 	isUpdating = NO;
 }
 
+
 - (BOOL)isKeyInfoPassingFilterTest:(KeyInfo *)keyInfo {
 	if (showSecretKeysOnly && ![keyInfo isSecret]) {
 		return NO;
@@ -294,6 +307,33 @@ NSSet *draggedKeyInfos;
 	}
 	return YES;
 }
+
+- (NSSet *)fingerprintsForKeyIDs:(NSSet *)keys {
+	NSMutableSet *fingerprints = [NSMutableSet setWithCapacity:[keys count]];
+	NSMutableDictionary *keyIdToFingerprint = [NSMutableDictionary dictionaryWithCapacity:[keychain count] * 2];
+	NSString *fingerprint;
+	
+	for (KeyInfo *keyInfo in [[self keychain] allValues]) {
+		fingerprint = [keyInfo fingerprint];
+		[keyIdToFingerprint setObject:fingerprint forKey:[keyInfo shortKeyID]];
+		[keyIdToFingerprint setObject:fingerprint forKey:[keyInfo keyID]];
+	}
+	
+	for (NSObject *key in keys) {
+		NSString *keyID = [key description];
+		if ([keyID length] < 32) {
+			fingerprint = [keyIdToFingerprint objectForKey:keyID];
+			if (fingerprint) {
+				[fingerprints addObject:fingerprint];
+			}
+		} else {
+			[fingerprints addObject:keyID];
+		}
+
+	}
+	return fingerprints;
+}
+
 
 - (id)init {
 	self = [super init];

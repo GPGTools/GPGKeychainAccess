@@ -33,6 +33,13 @@ enum {
 	GKOpenSavePanelAddPhotoAction
 } GKOpenSavePanelAction;
 
+typedef enum {
+	GKDeletePublicKey,
+	GKDeleteSecretKey,
+	GKDeletePublicAndSecretKey
+} GKDeleteKeyAction;
+
+
 
 @class SheetController;
 @class KeyInfo;
@@ -44,7 +51,6 @@ enum {
     IBOutlet NSArrayController *subkeysController;
     IBOutlet NSArrayController *userIDsController;
 	IBOutlet NSArrayController *photosController;
-	
 }
 - (BOOL)validateUserInterfaceItem:(id)anItem;
 - (IBAction)copy:(id)sender;
@@ -81,7 +87,7 @@ enum {
 - (IBAction)showInspector:(id)sender;
 
 
-- (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec;
+- (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec fullExport:(BOOL)fullExport;
 - (void)importFromURLs:(NSArray *)urls;
 - (void)importFromData:(NSData *)data;
 - (NSString *)importResultWithStatusData:(NSData *)data;
@@ -94,7 +100,12 @@ enum {
 - (NSString *)searchKeysWithPattern:(NSString *)pattern;
 - (NSString *)receiveKeysWithIDs:(NSSet *)keyIDs;
 - (void)addPhotoForKeyInfo:(KeyInfo *)keyInfo photoPath:(NSString *)path;
-
+- (void)deleteKeys:(NSSet *)keys withMode:(GKDeleteKeyAction)mode;
+- (NSSet *)keysInExportedData:(NSData *)data;
+- (void)registerUndoForKeys:(NSSet *)keys withName:(NSString *)actionName;
+- (void)registerUndoForKey:(NSObject *)key withName:(NSString *)actionName;
+- (void)writeDataToFD:(NSArray *)object;
+- (void)setDisabled:(BOOL)disabled forKeyInfos:(NSSet *)keys;
 
 
 

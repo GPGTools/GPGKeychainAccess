@@ -15,12 +15,12 @@
 		3016AE571243BF4A002206EE /* MacGPGME.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3016AE481243BEF7002206EE /* MacGPGME.framework */; };
 		3016AE581243BF50002206EE /* MacGPGME.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3016AE481243BEF7002206EE /* MacGPGME.framework */; };
 		3017440C124D5F6000A7DE77 /* ModalSheets.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3017440B124D5F6000A7DE77 /* ModalSheets.xib */; };
-		30310DE41268B8AD0034E920 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30310DE31268B8AD0034E920 /* Sparkle.framework */; };
-		30310DED1268B8BA0034E920 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 30310DE31268B8AD0034E920 /* Sparkle.framework */; };
 		30310E091268B9D40034E920 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30310E081268B9D40034E920 /* PreferencesController.m */; };
 		30310F6A1268D0A60034E920 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30310F691268D0A60034E920 /* Preferences.xib */; };
 		30497DF11214353F00884D59 /* ActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30497DF01214353F00884D59 /* ActionController.m */; };
 		305268E41232A34C008540D9 /* SheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 305268E21232A34C008540D9 /* SheetController.m */; };
+		3057F2AA127AD46200205B69 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3057F29A127AD3A600205B69 /* Sparkle.framework */; };
+		3057F2AB127AD48400205B69 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3057F29A127AD3A600205B69 /* Sparkle.framework */; };
 		30617F4B121A96DF000198A9 /* KeyInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C947B51208B8E600A13440 /* KeyInfo.m */; };
 		30BC8134126B79C700F662C5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 30BC8133126B79C700F662C5 /* dsa_pub.pem */; };
 		30C949D21209E71300A13440 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30C949D11209E71300A13440 /* Localizable.strings */; };
@@ -68,6 +68,41 @@
 			remoteGlobalIDString = 554B558F069F0111005E1C92;
 			remoteInfo = MacGPGME;
 		};
+		3057F299127AD3A600205B69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
+		3057F29B127AD3A600205B69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 61B5F90209C4CEE200B25A18;
+			remoteInfo = "Sparkle Test App";
+		};
+		3057F29D127AD3A600205B69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAAEFC960DA571DF0051E0D0;
+			remoteInfo = "relaunch tool";
+		};
+		3057F29F127AD3A600205B69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 612279D90DB5470200AB99EA;
+			remoteInfo = "Sparkle Unit Tests";
+		};
+		3057F2B4127AD4D000205B69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = Sparkle;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,7 +113,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3016AE571243BF4A002206EE /* MacGPGME.framework in Copy Frameworks */,
-				30310DED1268B8BA0034E920 /* Sparkle.framework in Copy Frameworks */,
+				3057F2AB127AD48400205B69 /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,7 +136,7 @@
 		3016AE3C1243BEF7002206EE /* MacGPGME.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MacGPGME.xcodeproj; path = Dependencies/MacGPGME/MacGPGME.xcodeproj; sourceTree = "<group>"; };
 		3017440D124D5F6700A7DE77 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		301CB7E6125350B300CF7807 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
-		30310DE31268B8AD0034E920 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
+		30310DE31268B8AD0034E920 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Dependencies/Sparkle/build/Release/Sparkle.framework; sourceTree = "<group>"; };
 		30310E041268B9810034E920 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		30310E071268B9D40034E920 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		30310E081268B9D40034E920 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
@@ -112,6 +147,7 @@
 		30497DF01214353F00884D59 /* ActionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionController.m; sourceTree = "<group>"; };
 		305268E21232A34C008540D9 /* SheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetController.m; sourceTree = "<group>"; };
 		305268E31232A34C008540D9 /* SheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetController.h; sourceTree = "<group>"; };
+		3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = Dependencies/Sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
 		3092000212589ACF00D1489D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		3092000C12589D6600D1489D /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		3092000E12589D7400D1489D /* German */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
@@ -143,10 +179,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30139A5A12475A4A00B8AA01 /* AddressBook.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				3016AE581243BF50002206EE /* MacGPGME.framework in Frameworks */,
-				30139A5A12475A4A00B8AA01 /* AddressBook.framework in Frameworks */,
-				30310DE41268B8AD0034E920 /* Sparkle.framework in Frameworks */,
+				3057F2AA127AD46200205B69 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,10 +202,10 @@
 				3000FEA911F5B88800D6F5F8 /* KeychainController.m */,
 				30C947B41208B8E600A13440 /* KeyInfo.h */,
 				30C947B51208B8E600A13440 /* KeyInfo.m */,
-				305268E31232A34C008540D9 /* SheetController.h */,
-				305268E21232A34C008540D9 /* SheetController.m */,
 				30310E071268B9D40034E920 /* PreferencesController.h */,
 				30310E081268B9D40034E920 /* PreferencesController.m */,
+				305268E31232A34C008540D9 /* SheetController.h */,
+				305268E21232A34C008540D9 /* SheetController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -252,10 +288,22 @@
 			name = Strings;
 			sourceTree = "<group>";
 		};
+		3057F290127AD3A600205B69 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3057F29A127AD3A600205B69 /* Sparkle.framework */,
+				3057F29C127AD3A600205B69 /* Sparkle Test App.app */,
+				3057F29E127AD3A600205B69 /* relaunch */,
+				3057F2A0127AD3A600205B69 /* Sparkle Unit Tests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		30AE57391243B8E9009307CC /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
 				3016AE3C1243BEF7002206EE /* MacGPGME.xcodeproj */,
+				3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
@@ -301,6 +349,7 @@
 			);
 			dependencies = (
 				3016AFE51243C4AB002206EE /* PBXTargetDependency */,
+				3057F2B5127AD4D000205B69 /* PBXTargetDependency */,
 			);
 			name = "GPG Keychain Access";
 			productInstallPath = "$(HOME)/Applications";
@@ -331,6 +380,10 @@
 					ProductGroup = 3016AE3D1243BEF7002206EE /* Products */;
 					ProjectRef = 3016AE3C1243BEF7002206EE /* MacGPGME.xcodeproj */;
 				},
+				{
+					ProductGroup = 3057F290127AD3A600205B69 /* Products */;
+					ProjectRef = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -359,6 +412,34 @@
 			fileType = wrapper.cfbundle;
 			path = MacGPGMETesting.octest;
 			remoteRef = 3016AE4B1243BEF7002206EE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3057F29A127AD3A600205B69 /* Sparkle.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Sparkle.framework;
+			remoteRef = 3057F299127AD3A600205B69 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3057F29C127AD3A600205B69 /* Sparkle Test App.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Sparkle Test App.app";
+			remoteRef = 3057F29B127AD3A600205B69 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3057F29E127AD3A600205B69 /* relaunch */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = relaunch;
+			remoteRef = 3057F29D127AD3A600205B69 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3057F2A0127AD3A600205B69 /* Sparkle Unit Tests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Sparkle Unit Tests.octest";
+			remoteRef = 3057F29F127AD3A600205B69 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -429,6 +510,11 @@
 			isa = PBXTargetDependency;
 			name = MacGPGME;
 			targetProxy = 3016AFE41243C4AB002206EE /* PBXContainerItemProxy */;
+		};
+		3057F2B5127AD4D000205B69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Sparkle;
+			targetProxy = 3057F2B4127AD4D000205B69 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -515,7 +601,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Dependencies/MacGPGME/build/Debug\"",
-					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/Dependencies/Sparkle/build/Debug\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -537,7 +623,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Dependencies/MacGPGME/build/Release\"",
-					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/Dependencies/Sparkle/build/Release\"",
 				);
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
@@ -558,6 +644,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_LABEL = YES;

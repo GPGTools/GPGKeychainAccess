@@ -58,10 +58,18 @@
 	
 	NSArray *draggedTypes = [NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil];
 	[window registerForDraggedTypes:draggedTypes];
+	
+	
+	undoManager = [NSUndoManager new];
+	[undoManager setLevelsOfUndo:50];
+	useUndo = YES;
 }
 
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
+	if ([NSApp modalWindow]) {
+		return NSDragOperationNone;
+	}
 	NSPasteboard *pboard = [sender draggingPasteboard];
 	NSString *pboardType = [pboard availableTypeFromArray:[NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil]];
 	
@@ -112,6 +120,12 @@
 }
 
 
+- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)awindow {
+	return undoManager;
+}
+
+
+
 
 
 - (void)generateContextMenuForTable:(NSTableView *)table {
@@ -143,8 +157,11 @@
 }
 
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)filenames {
-	[actionController importFromURLs:filenames];
+	if (![NSApp modalWindow]) {
+		[actionController importFromURLs:filenames];
+	}
 }
+
 
 - (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex {
 	return proposedMinimumPosition + 68;
