@@ -12,8 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="29"/>
-			<integer value="1043"/>
+			<integer value="57"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -60,6 +59,14 @@
 								<object class="NSMenuItem" id="238522557">
 									<reference key="NSMenu" ref="110575045"/>
 									<string key="NSTitle">About GPG Keychain Access</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="677634044">
+									<reference key="NSMenu" ref="110575045"/>
+									<string key="NSTitle">Check for Updates…</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1552,7 +1559,7 @@
 				<string key="NSWindowContentMaxSize">{800, 483}</string>
 				<string key="NSWindowContentMinSize">{430, 483}</string>
 				<object class="NSView" key="NSWindowView" id="883704740">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3709,7 +3716,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{480, 483}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{430, 499}</string>
@@ -6608,6 +6614,14 @@
 					</object>
 					<int key="connectionID">1904</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">checkForUpdates:</string>
+						<reference key="source" ref="599528800"/>
+						<reference key="destination" ref="677634044"/>
+					</object>
+					<int key="connectionID">1907</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -6722,6 +6736,7 @@
 							<reference ref="1046388886"/>
 							<reference ref="1056857174"/>
 							<reference ref="342932134"/>
+							<reference ref="677634044"/>
 						</object>
 						<reference key="parent" ref="694149608"/>
 					</object>
@@ -8919,6 +8934,11 @@
 						<reference key="object" ref="599528800"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1906</int>
+						<reference key="object" ref="677634044"/>
+						<reference key="parent" ref="110575045"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -9292,6 +9312,7 @@
 					<string>1898.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>19.ImportedFromIB2</string>
+					<string>1906.IBPluginDependency</string>
 					<string>197.IBPluginDependency</string>
 					<string>197.ImportedFromIB2</string>
 					<string>198.IBPluginDependency</string>
@@ -9779,6 +9800,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -9808,7 +9830,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{381, 1046}, {494, 20}}</string>
+					<string>{{365, 1049}, {494, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -9835,7 +9857,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{393, 863}, {279, 183}}</string>
+					<string>{{377, 846}, {279, 203}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{23, 794}, {245, 183}}</string>
@@ -9912,7 +9934,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1905</int>
+			<int key="maxID">1907</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

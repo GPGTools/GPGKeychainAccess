@@ -63,6 +63,14 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="677634044">
+									<reference key="NSMenu" ref="110575045"/>
+									<string key="NSTitle">Auf Aktualisierung prüfen…</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="304266470">
 									<reference key="NSMenu" ref="110575045"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -1395,7 +1403,7 @@
 								<reference key="NSControlView" ref="544588931"/>
 								<int key="NSButtonFlags">1211912703</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage" id="531803692">
+								<object class="NSCustomResource" key="NSNormalImage" id="58598557">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
 								</object>
@@ -1952,7 +1960,7 @@
 													<reference key="NSControlView" ref="836028179"/>
 													<int key="NSButtonFlags">1211912703</int>
 													<int key="NSButtonFlags2">2</int>
-													<reference key="NSNormalImage" ref="531803692"/>
+													<reference key="NSNormalImage" ref="58598557"/>
 													<reference key="NSAlternateImage" ref="483159743"/>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
@@ -6606,6 +6614,14 @@
 					</object>
 					<int key="connectionID">1904</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">checkForUpdates:</string>
+						<reference key="source" ref="599528800"/>
+						<reference key="destination" ref="677634044"/>
+					</object>
+					<int key="connectionID">1907</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -6720,6 +6736,7 @@
 							<reference ref="1046388886"/>
 							<reference ref="1056857174"/>
 							<reference ref="342932134"/>
+							<reference ref="677634044"/>
 						</object>
 						<reference key="parent" ref="694149608"/>
 					</object>
@@ -8917,6 +8934,11 @@
 						<reference key="object" ref="599528800"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1906</int>
+						<reference key="object" ref="677634044"/>
+						<reference key="parent" ref="110575045"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -9290,6 +9312,7 @@
 					<string>1898.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>19.ImportedFromIB2</string>
+					<string>1906.IBPluginDependency</string>
 					<string>197.IBPluginDependency</string>
 					<string>197.ImportedFromIB2</string>
 					<string>198.IBPluginDependency</string>
@@ -9777,6 +9800,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -9806,7 +9830,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{525, 802}, {197, 73}}</string>
-					<string>{{381, 1046}, {494, 20}}</string>
+					<string>{{365, 1049}, {494, 20}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{74, 862}</string>
@@ -9833,7 +9857,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{393, 863}, {279, 183}}</string>
+					<string>{{377, 846}, {279, 203}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{23, 794}, {245, 183}}</string>
@@ -9910,7 +9934,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1905</int>
+			<int key="maxID">1907</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
