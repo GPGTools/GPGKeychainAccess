@@ -378,44 +378,26 @@ NSSet *draggedKeyInfos;
 	GPG_AGENT_PATH=nil;
 	@try {
 		NSArray *engines = [GPGEngine availableEngines];
-		BOOL engineFound = NO, gpg1Found = NO;
-		NSString *gpg1Path = nil;
+		GPG_PATH = nil;
+		
 		for (GPGEngine *engine in engines) {
 			if ([[engine availableExecutablePaths] count] > 0) {
 				if ([[engine version] hasPrefix:@"2."]) {
-					engineFound = YES;
-					GPG_PATH = [[engine executablePath] retain];
+					GPG_PATH = [engine executablePath];
 					GPG_VERSION = 2;
 					break;
 				} else if ([[engine version] hasPrefix:@"1.4."]) {
-					gpg1Path = [[engine executablePath] retain];
-					gpg1Found = YES;
+					GPG_PATH = [engine executablePath];
+					GPG_VERSION = 1;
 				}
 			}
 		}
-		if (!engineFound) {
-			if (gpg1Found) {
-				GPG_PATH = gpg1Path;
-				GPG_VERSION = 1;
-				
-				NSUserDefaults *defalts = [NSUserDefaults standardUserDefaults];
-				if (![defalts boolForKey:@"Dont show GPG1 Warning"]) {
-					NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-					[alert setMessageText:localized(@"GPG1OnlyFound_Title")];
-					[alert setInformativeText:localized(@"GPG1OnlyFound_Msg")];
-					[alert setShowsSuppressionButton:YES];
-					
-					[alert runModal];
-					
-					if ([[alert suppressionButton] state] == NSOnState) {
-						[defalts setBool:YES forKey:@"Dont show GPG1 Warning"];
-					}
-				}
-			} else {
-				NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotFound_Msg"), localized(@"Quit_Button"), nil, nil);
-				return NO;
-			}
+		if (GPG_PATH == nil) {
+			NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotFound_Msg"), localized(@"Quit_Button"), nil, nil);
+			return NO;
 		}
+		[GPG_PATH retain];
+		
 		NSLog(@"GPG_VERSION: %i", GPG_VERSION);
 		NSLog(@"GPG_PATH: %@", GPG_PATH);
 		

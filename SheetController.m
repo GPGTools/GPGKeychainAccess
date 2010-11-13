@@ -31,6 +31,7 @@ static SheetController *_sharedInstance = nil;
 @synthesize myString;
 @synthesize mySubkey;
 
+@synthesize foundKeys;
 @synthesize msgText;
 @synthesize pattern;
 @synthesize name;
@@ -218,20 +219,52 @@ static SheetController *_sharedInstance = nil;
 }
 - (void)searchKeys_Action {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[self performSelectorOnMainThread:@selector(showFoundKeysWithText:) withObject:[actionController searchKeysWithPattern:pattern] waitUntilDone:NO];
+	
+	NSString *errText;
+	NSMutableArray *keys = [actionController searchKeysWithPattern:pattern errorText:&errText];
+	
+	if (errText) {
+		[self performSelectorOnMainThread:@selector(showResultText:) withObject:errText waitUntilDone:NO];
+	} else {
+		[self performSelectorOnMainThread:@selector(showFoundKeys:) withObject:keys waitUntilDone:NO];
+	}
+
 	[pool drain];
 }
-- (void)showFoundKeysWithText:(NSString *)text {	
-	self.msgText = text;
+- (void)showFoundKeys:(NSArray *)keys {
+	self.foundKeys = keys;
+
+	currentAction = ShowFoundKeysAction;
 	self.displayedView = foundKeysView;
 }
 
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+	NSDictionary *foundKey = [[foundKeysController arrangedObjects] objectAtIndex:row];
+	return [[foundKey objectForKey:@"lines"] integerValue] * [tableView rowHeight] + 1;
+}
+- (BOOL)tableView:(NSTableView *)tableView shouldTypeSelectForEvent:(NSEvent *)event withCurrentSearchString:(NSString *)searchString {
+	if ([event type] == NSKeyDown && [event keyCode] == 49) { //Leertaste gedrückt
+		NSArray *selectedKeys = [foundKeysController selectedObjects];
+		if ([selectedKeys count] > 0) {
+			NSNumber *selected = [NSNumber numberWithBool:![[[selectedKeys objectAtIndex:0] objectForKey:@"selected"] boolValue]];
+			for (NSMutableDictionary *foundKey in [foundKeysController selectedObjects]) {
+				[foundKey setObject:selected forKey:@"selected"];
+			}
+		}
+	}
+	return NO;
+}
+
+
+
 - (void)showResult:(NSString *)text {
+	[self showResultText:text];
+	[self runSheetForWindow:mainWindow];
+}
+- (void)showResultText:(NSString *)text {
 	self.msgText = @"";
 	self.msgText = text;
-	self.displayedView = foundKeysView;
-	
-	[self runSheetForWindow:mainWindow];
+	self.displayedView = resultView;
 }
 
 
@@ -245,7 +278,7 @@ static SheetController *_sharedInstance = nil;
 }
 - (void)receiveKeys_Action:(NSSet *)keyIDs {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[self performSelectorOnMainThread:@selector(showFoundKeysWithText:) withObject:[actionController receiveKeysWithIDs:keyIDs] waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(showResultText:) withObject:[actionController receiveKeysWithIDs:keyIDs] waitUntilDone:NO];
 	[pool drain];
 }
 
@@ -328,6 +361,20 @@ static SheetController *_sharedInstance = nil;
 			}
 			self.displayedView = progressView;
 			[NSThread detachNewThreadSelector:@selector(receiveKeys_Action:) toTarget:self withObject:keyIDs];
+			break; }
+		case ShowFoundKeysAction: {
+			NSMutableSet *keyIDs = [NSMutableSet setWithCapacity:[foundKeys count]];
+			for (NSDictionary *foundKey in foundKeys) {
+				if ([[foundKey objectForKey:@"selected"] boolValue]) {
+					[keyIDs addObject:[foundKey objectForKey:@"keyID"]];
+				}
+			}
+			if ([keyIDs count] == 0) {
+				NSBeep();
+				return;
+			}
+			self.displayedView = progressView;
+			[NSThread detachNewThreadSelector:@selector(receiveKeys_Action:) toTarget:self withObject:keyIDs];			
 			break; }
 	}
 }

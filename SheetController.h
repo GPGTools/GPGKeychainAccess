@@ -25,7 +25,8 @@ typedef enum {
 	AddSignatureAction,
 	ChangeExpirationDateAction,
 	SearchKeysAction,
-	ReceiveKeysAction
+	ReceiveKeysAction,
+	ShowFoundKeysAction
 } SheetAction;
 
 @interface KeyLengthFormatter : NSFormatter {
@@ -70,8 +71,8 @@ typedef enum {
 	//Views die im Fenster angezeigt werden können.
 	IBOutlet NSView *progressView;
 	IBOutlet NSView *newKeyView;
-		IBOutlet NSView *newKey_passphraseSubview;
-		IBOutlet NSView *newKey_topSubview;
+	IBOutlet NSView *newKey_passphraseSubview;
+	IBOutlet NSView *newKey_topSubview;
 	IBOutlet NSView *generateSubkeyView;
 	IBOutlet NSView *generateUserIDView;
 	IBOutlet NSView *generateSignatureView;
@@ -79,11 +80,14 @@ typedef enum {
 	IBOutlet NSView *searchKeysView;
 	IBOutlet NSView *foundKeysView;
 	IBOutlet NSView *receiveKeysView;
+	IBOutlet NSView *resultView;
 	
 	
 	IBOutlet NSProgressIndicator *progressIndicator;
 	NSView *displayedView;
 	
+	NSArray *foundKeys;
+	IBOutlet NSArrayController *foundKeysController;
 	
 	NSString *msgText;
 	NSArray *emailAddresses;
@@ -116,6 +120,9 @@ typedef enum {
 @property (retain) KeyInfo *myKeyInfo;
 @property (retain) NSString *myString;
 @property (retain) KeyInfo_Subkey *mySubkey;
+
+
+@property (retain) NSArray *foundKeys;
 
 
 @property (retain) NSString *msgText;
@@ -151,7 +158,7 @@ typedef enum {
 - (void)changeExpirationDate:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey;
 - (void)searchKeys;
 - (void)searchKeys_Action;
-- (void)showFoundKeysWithText:(NSString *)text;
+- (void)showFoundKeys:(NSArray *)keys;
 - (void)receiveKeys;
 - (void)receiveKeys_Action:(NSSet *)keyIDs;
 - (void)generateNewKey;
@@ -161,6 +168,8 @@ typedef enum {
 - (void)exportKeys:(NSSet *)keyInfos;
 
 - (void)showResult:(NSString *)text;
+- (void)showResultText:(NSString *)text;
+
 
 
 - (void)runSheetForWindow:(NSWindow *)window;

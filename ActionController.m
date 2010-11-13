@@ -361,7 +361,6 @@
 
 
 
-
 - (IBAction)addSignature:(id)sender {
 	if ([sender tag] != 1 || [userIDsController selectionIndex] != NSNotFound) {
 		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
@@ -504,73 +503,118 @@
 	SheetController *sheetController = [SheetController sharedInstance];
 	[sheetController searchKeys];
 }
-- (NSString *)searchKeysWithPattern:(NSString *)pattern {
+- (NSMutableArray *)searchKeysWithPattern:(NSString *)pattern errorText:(NSString **)errText {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	NSString *outText;
-	NSString *returnText;	
+	NSArray *returnArray = nil;
+	*errText = nil;
 	
 	switch (searchKeysOnServer(pattern, &outText)) {
 		case 0: {
-			NSMutableString *foundText = [NSMutableString string];
-			
+			KeyAlgorithmTransformer *algorithmTransformer = [[[KeyAlgorithmTransformer alloc] init] autorelease];
 			NSArray *lines = [outText componentsSeparatedByString:@"\n"];
 			NSArray *splitedLine;
-			NSString *pubKeyText = nil;
-			KeyAlgorithmTransformer *algorithmTransformer = [[[KeyAlgorithmTransformer alloc] init] autorelease];
 			NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 			[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 			[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 			
-			
 			NSUInteger i, count = [lines count];
+	
+			
+			NSMutableArray *foundKeys = [NSMutableArray arrayWithCapacity:count / 2];
+			NSMutableDictionary *foundKey = nil;
+			NSMutableAttributedString *keyDescription = nil;
+			NSString *tempDescription;
+			NSInteger countTextLines;
+			NSDictionary *attrsDictionary;
+			
+			
 			for (i = 0; i < count; i++) {
 				splitedLine = [[lines objectAtIndex:i] componentsSeparatedByString:@":"];
-				if ([[splitedLine objectAtIndex:0] isEqualToString:@"pub"]) {
-					if (pubKeyText) {
-						[foundText appendString:pubKeyText];
+				NSString *lineType = [splitedLine objectAtIndex:0];
+				if ([lineType isEqualToString:@"pub"]) {
+					if (foundKey) {
+						[foundKey setObject:[NSNumber numberWithInteger:countTextLines] forKey:@"lines"];
 					}
+					countTextLines = 1;
+					
+					NSNumber *checkState;
+					NSString *keyState = [splitedLine objectAtIndex:6];
+					if (keyState && [keyState length] > 0) {
+						checkState = [NSNumber numberWithBool:NO];
+						attrsDictionary = [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
+					} else {
+						checkState = [NSNumber numberWithBool:YES];
+						attrsDictionary = nil;
+					}
+					
+					
 					NSDate *created = [NSDate dateWithTimeIntervalSince1970:[[splitedLine objectAtIndex:4] integerValue]];
-					pubKeyText = [NSString stringWithFormat:localized(@"  %@ bit %@ key %@, created: %@\n\n"), 
-								  [splitedLine objectAtIndex:3], 
-								  [algorithmTransformer transformedValue:[splitedLine objectAtIndex:2]], 
-								  [splitedLine objectAtIndex:1], 
-								  [dateFormatter stringFromDate:created]];
-				} else if (pubKeyText && [[splitedLine objectAtIndex:0] isEqualToString:@"uid"]) {
-					[foundText appendFormat:@"%@\n", 
-					 [splitedLine objectAtIndex:1]];
+					
+					NSString *keyID = [splitedLine objectAtIndex:1];
+					
+					
+					tempDescription = [NSString stringWithFormat:localized(@"%@, %@ (%@ bit), created: %@"), 
+									  keyID, //Schlüssel ID
+									  [algorithmTransformer transformedValue:[splitedLine objectAtIndex:2]], //Algorithmus
+									  [splitedLine objectAtIndex:3], //Länge
+									  [dateFormatter stringFromDate:created]]; //Erstellt
+					tempDescription = [tempDescription stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+					
+					
+					keyDescription = [[[NSMutableAttributedString alloc] initWithString:tempDescription attributes:attrsDictionary] autorelease];
+
+					
+					foundKey = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+								keyDescription, @"description",
+								checkState, @"selected",
+								keyID, @"keyID", nil];
+					[foundKeys addObject:foundKey];
+					
+				} else if (foundKey && [lineType isEqualToString:@"uid"]) {
+					tempDescription = [NSString stringWithFormat:@"\n	%@", [[splitedLine objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+					[keyDescription appendAttributedString:[[[NSAttributedString alloc] initWithString:tempDescription] autorelease]];
+					countTextLines++;
 				}
 			}
-			if (pubKeyText) {
-				[foundText appendString:pubKeyText];
-				returnText = [foundText stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			if (foundKey) {
+				[foundKey setObject:[NSNumber numberWithInteger:countTextLines] forKey:@"lines"];
+				returnArray = foundKeys;
 			} else {
-				returnText = localized(@"No keys Found!");
+				*errText = localized(@"No keys Found!");
 			}			
 			break; }
 		case RunCmdNoKeyserverFound:
 			NSRunAlertPanel(localized(@"Error"), localized(@"No keyserver found!"), nil, nil, nil);
-			returnText = localized(@"Error!");
+			*errText = [NSString stringWithFormat:@"%@\n\n%@", localized(@"Error!"), localized(@"No keyserver found!")];
 			break;
 		case RunCmdIllegalProtocolType:
 			NSRunAlertPanel(localized(@"Error"), localized(@"Illegal protocol!"), nil, nil, nil);
-			returnText = localized(@"Error!");
+			*errText = [NSString stringWithFormat:@"%@\n\n%@", localized(@"Error!"), localized(@"Illegal protocol!")];
 			break;
 		case RunCmdNoKeyserverHelperFound:
 			NSRunAlertPanel(localized(@"Error"), localized(@"No keyserver-helper found!"), nil, nil, nil);
-			returnText = localized(@"Error!");
+			*errText = [NSString stringWithFormat:@"%@\n\n%@", localized(@"Error!"), localized(@"No keyserver-helper found!")];
 			break;
 		default:
 			NSLog(@"searchKeysOnServer für pattern: \"%@\" fehlgeschlagen!", pattern);
-			returnText = localized(@"Error!");
+			*errText = localized(@"Error!");
 			break;
 	}
 	
-	[returnText retain];
+	
+	[returnArray retain];
+	[*errText retain];
 	
 	[pool drain];
-	return [returnText autorelease];
+	
+	[*errText autorelease];
+	return [returnArray autorelease];
 }
+
+
+
 
 - (IBAction)receiveKeys:(id)sender {
 	SheetController *sheetController = [SheetController sharedInstance];

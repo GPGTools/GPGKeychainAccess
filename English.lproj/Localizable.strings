@@ -25,8 +25,7 @@ DeleteKey_Msg = "Attempting to delete key %@, %@.\n\nAre you sure you want to de
 
 //Für die Schlüselsuche
 "No keys Found" = "No keys Found";
-"  %@ bit %@ key %@, created: %@\n\n" = "%@ bit %@ key %@, created: %@\n\n"; //Format für die gefundenen Schlüssel vom Server.
-
+"%@, %@ (%@ bit), created: %@" = "%@, %@ (%@ bit), created: %@"; //Format für die gefundenen Schlüssel vom Server.
 
 GenerateEntropy_Msg = "We need to generate a lot of random bytes. It is a good idea to perform some other action (type on the keyboard in an application, move the mouse, utilize the disks) during the prime generation; this gives the random number generator a better chance to gain enough entropy.";
 GenerateSubkey_Msg = "Add subkey to the Key \"%@\", %@.";
@@ -51,9 +50,7 @@ CheckError_PassphraseMissmatch = "Your passphrases did not match!";
 
 
 //Meldungen beim Start, wenn es Probleme gibt. 
-GPGNotFound_Msg = "GPG2 not found!";
-GPG1OnlyFound_Title = "GPG2 not found!";
-GPG1OnlyFound_Msg = "Since at least GPG was found 1.4, most features should be available.";
+GPGNotFound_Msg = "GPG not found!";
 GPGNotStart_Title = "GPG can't be started!";
 GPGNotStart_Msg = "Please check your gpg.conf";
 GPGInitError_Msg = "GPG could not be initialized!";
