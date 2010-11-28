@@ -4,7 +4,7 @@ Der GPG Schlüsselbund dient dazu GnuPG Schlüssel zu erstellen und zu verwalten
 
 
 Systemvoraussetzungen:
-Intel-Mac mit Mac OS X 10.5 oder neuer.
+Mac OS X 10.5 oder neuer.
 GnuPG
 
 

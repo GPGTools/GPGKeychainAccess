@@ -18,7 +18,8 @@
 #import "SheetController.h"
 #import "ActionController.h"
 #import "KeychainController.h"
-#import "KeyInfo.h";
+#import "GKKey.h";
+#import "GPGOptions.h"
 #import <AddressBook/AddressBook.h>
 
 @implementation SheetController
@@ -70,7 +71,7 @@ static SheetController *_sharedInstance = nil;
 }
 
 
-- (void)addSubkey:(KeyInfo *)keyInfo {
+- (void)addSubkey:(GKKey *)keyInfo {
 	self.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
 	self.length = 2048;
 	self.keyType = 3;
@@ -89,7 +90,7 @@ static SheetController *_sharedInstance = nil;
 	[self closeSheet];
 }
 
-- (void)addUserID:(KeyInfo *)keyInfo {
+- (void)addUserID:(GKKey *)keyInfo {
 	self.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
 	
 	[self setDataFromAddressBook];
@@ -107,7 +108,7 @@ static SheetController *_sharedInstance = nil;
 	[self closeSheet];
 }
 
-- (void)addSignature:(KeyInfo *)keyInfo userID:(NSString *)userID {
+- (void)addSignature:(GKKey *)keyInfo userID:(NSString *)userID {
 	self.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
 	self.sigType = 0;
 	self.localSig = NO;
@@ -115,7 +116,7 @@ static SheetController *_sharedInstance = nil;
 	self.hasExpirationDate = NO;
 	
 	
-	NSArray *defaultKeys = [[gpgContext options] activeOptionValuesForName:@"default-key"];
+	NSArray *defaultKeys = [[[[GPGOptions alloc] init] autorelease] activeOptionValuesForName:@"default-key"];
 	NSString *defaultKey;
 	if ([defaultKeys count] > 0) {
 		defaultKey = [defaultKeys objectAtIndex:0];
@@ -146,7 +147,7 @@ static SheetController *_sharedInstance = nil;
 	NSSet *secKeySet = [keychainController secretKeys];
 	NSMutableArray *secKeys = [NSMutableArray arrayWithCapacity:[secKeySet count]];
 	NSMutableArray *fingerprints = [NSMutableArray arrayWithCapacity:[secKeySet count]];
-	KeyInfo *aKeyInfo;
+	GKKey *aKeyInfo;
 	NSDictionary *keychain = [keychainController keychain];
 	int i = 0;
 	
@@ -177,7 +178,7 @@ static SheetController *_sharedInstance = nil;
 	[self closeSheet];
 }
 
-- (void)changeExpirationDate:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey {
+- (void)changeExpirationDate:(GKKey *)keyInfo subkey:(GKSubkey *)subkey {
 	NSDate *aDate;
 	if (subkey) {
 		self.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), [subkey shortKeyID], [keyInfo userID], [keyInfo shortKeyID]];
@@ -641,7 +642,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 
 //Für Öffnen- und Speichern-Sheets.
 
-- (void)addPhoto:(KeyInfo *)keyInfo {
+- (void)addPhoto:(GKKey *)keyInfo {
 	openPanel = [NSOpenPanel openPanel];
 	
 	[openPanel setAllowsMultipleSelection:NO];
@@ -687,7 +688,23 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	[NSApp runModalForWindow:mainWindow];
 }
 
-
+- (void)genRevokeCertificateForKey:(GKKey *)keyInfo {
+	savePanel = [NSSavePanel savePanel];
+	
+	
+	[savePanel setAllowsOtherFileTypes:YES];
+	[savePanel setCanSelectHiddenExtension:YES];
+	
+	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"asc"]];
+	
+	NSString *filename = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), [keyInfo shortKeyID]];
+	
+	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:keyInfo, @"keyInfo", [NSNumber numberWithInt:GKOpenSavePanelSaveRevokeCertificateAction], @"action", nil];
+	
+	[savePanel beginSheetForDirectory:nil file:filename modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
+	[NSApp runModalForWindow:mainWindow];
+	
+}
 
 
 - (void)openSavePanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo {
@@ -711,9 +728,21 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 				[actionController importFromURLs:[sheet URLs]];
 				break;
 			case GKOpenSavePanelAddPhotoAction: {
-				KeyInfo *keyInfo = [contextInfo objectForKey:@"keyInfo"];
+				GKKey *keyInfo = [contextInfo objectForKey:@"keyInfo"];
 				NSString *path = [[sheet URL] path];
 				[actionController addPhotoForKeyInfo:keyInfo photoPath:path];
+				break; }
+			case GKOpenSavePanelSaveRevokeCertificateAction: {
+				GKKey *keyInfo = [contextInfo objectForKey:@"keyInfo"];
+				BOOL hideExtension = [sheet isExtensionHidden];
+				NSString *path = [[sheet URL] path];
+				
+				NSData *exportData = [actionController genRevokeCertificateForKey:keyInfo];
+				if (exportData) {
+					[[NSFileManager defaultManager] createFileAtPath:path contents:exportData attributes:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:hideExtension] forKey:NSFileExtensionHidden]];
+				} else {
+					NSRunAlertPanel(localized(@"Error"), localized(@"Generate revoke certificate failed!"), nil, nil, nil);
+				}
 				break; }
 		}
 	}

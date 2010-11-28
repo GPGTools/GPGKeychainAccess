@@ -16,7 +16,7 @@
 */
 
 #import "KeychainController.h"
-#import "KeyInfo.h"
+#import "GKKey.h"
 #import "ActionController.h"
 
 //KeychainController kümmert sich um das anzeigen und Filtern der Schlüssel-Liste.
@@ -42,20 +42,31 @@ NSSet *draggedKeyInfos;
 	NSMutableSet *keyInfos = [NSMutableSet setWithCapacity:[items count]];
 	
 	for (NSTreeNode *node in items) {
-		[keyInfos addObject:[node representedObject]];
+		[keyInfos addObject:[[node representedObject] primaryKeyInfo]];
 	}
 	draggedKeyInfos = keyInfos;
 	
-	NSPoint point = [mainWindow mouseLocationOutsideOfEventStream];
-	NSRect rect;
-	rect.size.width = 0;
-	rect.size.height = 0;
-	rect.origin.x = point.x - 45;
-	rect.origin.y = [outlineView frame].size.height - point.y + 55;
+	NSPoint mousePoint = [mainWindow mouseLocationOutsideOfEventStream];
 	
-	NSEvent *event = [NSEvent mouseEventWithType:NSLeftMouseDown location:point modifierFlags:0 timestamp:0 windowNumber:[mainWindow windowNumber] context:nil eventNumber:0 clickCount:0 pressure:1];
+	NSScrollView *scrollView = [outlineView enclosingScrollView];
+	NSRect visibleRect = [scrollView documentVisibleRect];
+	NSRect scrollFrame = [scrollView frame];
 	
-	[outlineView dragPromisedFilesOfTypes:[NSArray arrayWithObject:@"asc"] fromRect:rect source:self slideBack:YES event:event];
+	
+	NSPoint imagePoint;
+	imagePoint.x = mousePoint.x - scrollFrame.origin.x + visibleRect.origin.x - 40;
+	imagePoint.y = scrollFrame.size.height - mousePoint.y + scrollFrame.origin.y + visibleRect.origin.y;
+
+	NSEvent *event = [NSEvent mouseEventWithType:NSLeftMouseDown location:mousePoint modifierFlags:0 timestamp:0 windowNumber:[mainWindow windowNumber] context:nil eventNumber:0 clickCount:0 pressure:1];
+	
+	NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+    [pboard declareTypes:[NSArray arrayWithObject:NSFilesPromisePboardType] owner:self];
+    [pboard setPropertyList:[NSArray arrayWithObject:@"asc"] forType:NSFilesPromisePboardType];
+	
+	NSImage *image = [NSImage imageNamed:@"asc"];
+	[image setSize:(NSSize){56, 56}];
+	
+	[outlineView dragImage:image at:imagePoint offset:(NSSize){0, 0} event:event pasteboard:pboard source:self slideBack:YES];
 	
 	draggedKeyInfos = nil;
 	
@@ -95,6 +106,11 @@ NSSet *draggedKeyInfos;
 }
 
 - (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos {
+	[self updateKeyInfos:keyInfos withSigs:NO];
+	
+}
+
+- (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos withSigs:(BOOL)withSigs {
 	NSLog(@"Starte: updateKeyInfos");
 	if (![updateLock tryLock]) {
 		NSLog(@"updateKeyInfos tryLock return");
@@ -102,155 +118,142 @@ NSSet *draggedKeyInfos;
 	}
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	KeyInfo *keyInfo;
-	GPGKey *gpgKey, *secKey;
-	NSString *fingerprint;
+	GKKey *keyInfo;
 	
-	NSMutableSet *secKeys;
+	NSSet *secKeyFingerprints;
+	NSArray *fingerprints;
+	NSArray *listings;
+	NSString *pubColonListing, *secColonListing;
+	
 	
 	@try {
-		
-		[gpgContext setKeyListMode:(GPGKeyListModeLocal | GPGKeyListModeSignatures)];
-		
 		if (keyInfos && [keyInfos count] > 0) { // Nur die übergebenene Schlüssel aktualisieren.
 			NSLog(@"updateKeyInfos: Update selected keys");
-			NSMutableSet *processedKeyInfos = [NSMutableSet setWithCapacity:[keyInfos count]];
-			NSMutableArray *keyInfosToUpdate = [NSMutableArray array];
-			NSMutableArray *gpgKeysToUpdate = [NSMutableArray array];
-			NSMutableArray *secKeysToUpdate = [NSMutableArray array];
-			secKeys = [secretKeys mutableCopy];
+			
+			NSData *outData;
+			NSMutableArray *arguments;
+			NSMutableSet *fingerprintSet = [NSMutableSet setWithCapacity:[keyInfos count]];
+			
 			
 			for (NSObject *aObject in keyInfos) {
-				if ([aObject isKindOfClass:[KeyInfo class]]) {
-					fingerprint = [[(KeyInfo *)aObject primaryKeyInfo] fingerprint];
+				if ([aObject isKindOfClass:[GKKey class]]) {
+					[fingerprintSet addObject:[[(GKKey *)aObject primaryKeyInfo] fingerprint]];
 				} else {
-					fingerprint = [aObject description];
-				}
-				
-				keyInfo = [keychain objectForKey:fingerprint];
-				
-				if (![processedKeyInfos containsObject:fingerprint]) {
-					[processedKeyInfos addObject:fingerprint];
-					
-					gpgKey = [gpgContext keyFromFingerprint:fingerprint secretKey:NO];
-					secKey = [gpgContext keyFromFingerprint:fingerprint secretKey:YES];
-					
-					if (gpgKey) {
-						if (keyInfo) {
-							[keyInfosToUpdate addObject:keyInfo];
-						} else {
-							[keyInfosToUpdate addObject:fingerprint];
-						}
-						
-						[gpgKeysToUpdate addObject:gpgKey];
-						[secKeysToUpdate addObject:secKey ? secKey : gpgKey];
-						if ([secKeys containsObject:fingerprint]) {
-							if (!secKey) {
-								[secKeys removeObject:fingerprint];
-							}
-						} else if (secKey) {
-							[secKeys addObject:fingerprint];
-						}
-					} else {
-						[keychain removeObjectForKey:fingerprint];
-						[secKeys removeObject:fingerprint];
-					}
-				}
-				if ([keyInfosToUpdate count] > 0) {
-					[self performSelectorOnMainThread:@selector(updateKeyInfosWithDict:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:keyInfosToUpdate, @"keyInfos", gpgKeysToUpdate, @"gpgKeys", secKeysToUpdate, @"secKeys", nil] waitUntilDone:YES];
+					[fingerprintSet addObject:[aObject description]];
 				}
 			}
+			NSArray *fingerprintsToUpdate = [fingerprintSet allObjects];
 			
+			arguments = [NSMutableArray arrayWithObjects:withSigs || [keyInfos count] < 5 ? @"--list-sigs" : @"--list-public-keys", @"--with-fingerprint", @"--with-fingerprint", nil];
+			[arguments addObjectsFromArray:fingerprintsToUpdate];
+			runGPGCommandWithArray(nil, &outData, nil, nil, nil, arguments);
+			pubColonListing = dataToString(outData);
+			
+			
+			arguments = [NSMutableArray arrayWithObjects:@"--list-secret-keys", @"--with-fingerprint", nil];
+			[arguments addObjectsFromArray:fingerprintsToUpdate];
+			runGPGCommandWithArray(nil, &outData, nil, nil, nil, arguments);
+			secColonListing = dataToString(outData);
+			
+			
+			[GKKey colonListing:pubColonListing toArray:&listings andFingerprints:&fingerprints];
+			secKeyFingerprints = [GKKey fingerprintsFromColonListing:secColonListing];
+			
+			
+			NSDictionary *argumentDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+												listings, @"listings", 
+												fingerprints, @"fingerprints", 
+												secKeyFingerprints, @"secKeyFingerprints", 
+												fingerprintSet, @"keysToUpdate",
+												[NSNumber numberWithBool:withSigs], @"withSigs", nil];
+			
+			
+			[self performSelectorOnMainThread:@selector(updateKeyInfosWithDict:) withObject:argumentDictionary waitUntilDone:YES];
+			
+			
+			NSString *fingerprint;
+			NSMutableSet *newSecretKeysSet = [NSMutableSet setWithSet:secretKeys];
+			for (fingerprint in secretKeys) {
+				if ([fingerprintSet containsObject:fingerprint] && ![secKeyFingerprints containsObject:fingerprint]) {
+					[newSecretKeysSet removeObject:fingerprint];
+				}
+			}
+			secKeyFingerprints = [newSecretKeysSet copy];
+			
+			for (fingerprint in fingerprintSet) {
+				keyInfo = [keychain objectForKey:fingerprint];
+				[keyInfo updateFilterText];
+			}
 		} else { // Den kompletten Schlüsselbund aktualisieren.
 			NSLog(@"updateKeyInfos: Update all keys");
-			NSArray *gpgKeyList;
-			NSMutableDictionary *secKeyDict = [NSMutableDictionary dictionaryWithCapacity:1];
 			
-			secKeys = [NSMutableSet setWithCapacity:1];
+			runGPGCommand(nil, &pubColonListing, nil, withSigs ? @"--list-sigs" : @"--list-public-keys", @"--with-fingerprint", @"--with-fingerprint", nil);
+			runGPGCommand(nil, &secColonListing, nil, @"--list-secret-keys", @"--with-fingerprint", nil);
 			
-			gpgKeyList = [[gpgContext keyEnumeratorForSearchPattern:nil secretKeysOnly:NO] allObjects]; //Liste aller GPGKeys.
-			NSEnumerator *secKeyEnum = [gpgContext keyEnumeratorForSearchPattern:nil secretKeysOnly:YES];
-			
-			while (secKey = [secKeyEnum nextObject]) {
-				[secKeyDict setObject:secKey forKey:[secKey fingerprint]];
-				[secKeys addObject:[secKey fingerprint]];
-			}
-			
-			[self performSelectorOnMainThread:@selector(updateKeychain:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:gpgKeyList, @"gpgKeyList", secKeyDict, @"secKeyDict", nil] waitUntilDone:YES];
+			[GKKey colonListing:pubColonListing toArray:&listings andFingerprints:&fingerprints];
+			secKeyFingerprints = [GKKey fingerprintsFromColonListing:secColonListing];
 			
 			
-			NSEnumerator *keychainEnumerator;
-			keychainEnumerator = [keychain objectEnumerator];
+			NSDictionary *argumentDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+												listings, @"listings", 
+												fingerprints, @"fingerprints", 
+												secKeyFingerprints, @"secKeyFingerprints",
+												[NSNumber numberWithBool:withSigs], @"withSigs", nil];
+			
+			
+			[self performSelectorOnMainThread:@selector(updateKeyInfosWithDict:) withObject:argumentDictionary waitUntilDone:YES];
+			
+			
+			
+			NSEnumerator *keychainEnumerator = [keychain objectEnumerator];
 			while (keyInfo = [keychainEnumerator nextObject]) {
 				[keyInfo updateFilterText];
 			}
 		}
-		self.secretKeys = secKeys;
+		self.secretKeys = secKeyFingerprints;
 		[self performSelectorOnMainThread:@selector(updateFilteredKeyList:) withObject:nil waitUntilDone:YES];
+		
 	} @catch (NSException * e) {
 		NSLog(@"Fehler in updateKeyInfos: %@", [e reason]);
 	} @finally {
 		[pool drain];
 		[updateLock unlock];
 	}
-	NSLog(@"Fartig: updateKeyInfos");
+	NSLog(@"Fertig: updateKeyInfos");
 }
+
 
 - (void)updateKeyInfosWithDict:(NSDictionary *)aDict {
-	NSArray *keyInfos = [aDict objectForKey:@"keyInfos"];
-	NSArray *gpgKeys = [aDict objectForKey:@"gpgKeys"];
-	NSArray *secKeys = [aDict objectForKey:@"secKeys"];
-	GPGKey *gpgKey, *secKey;
-	KeyInfo *keyInfo;
-	
-	NSUInteger i, count = [keyInfos count];
-	for (i = 0; i < count; i++) {
-		gpgKey = [gpgKeys objectAtIndex:i];
-		secKey = [secKeys objectAtIndex:i];
-		secKey = gpgKey == secKey ? nil : secKey;
-		keyInfo = [keyInfos objectAtIndex:i];
-		
-		if ([keyInfo isKindOfClass:[KeyInfo class]]) {
-			[keyInfo updateWithGPGKey:gpgKey secretKey:secKey];
-		} else {
-			keyInfo = [KeyInfo keyInfoWithGPGKey:gpgKey secretKey:secKey];
-			[keychain setObject:keyInfo forKey:[keyInfo description]];
-		}
-		[keyInfo updateFilterText];
-	}
-}
+	NSLog(@"updateKeyInfosWithDict");
 
-- (void)updateKeychain:(NSDictionary *)aDict { //Darf nur im Main-Thread laufen!
-	NSLog(@"updateKeychain");
-	
-	NSArray *gpgKeyList = [aDict objectForKey:@"gpgKeyList"];
-	NSDictionary *secKeyDict = [aDict objectForKey:@"secKeyDict"];
-	
-	KeyInfo *keyInfo;
-	GPGKey *gpgKey, *secKey;
-	NSArray *keysToRemove;
-	NSString *fingerprint;
-	NSMutableDictionary *oldKeys;
+	NSArray *fingerprints = [aDict objectForKey:@"fingerprints"];
+	NSArray *listings = [aDict objectForKey:@"listings"];	
+	NSSet *secKeyFingerprints = [aDict objectForKey:@"secKeyFingerprints"];
+	NSSet *keysToUpdate = [aDict objectForKey:@"keysToUpdate"];
+	BOOL withSigs = [[aDict objectForKey:@"withSigs"] boolValue];
 	
 	
-	oldKeys = [NSMutableDictionary dictionaryWithDictionary:keychain];
-	for (gpgKey in gpgKeyList) {
-		fingerprint = [gpgKey fingerprint];
-		secKey = [secKeyDict objectForKey:fingerprint];
-		if (keyInfo = [keychain objectForKey:fingerprint]) {
-			[keyInfo updateWithGPGKey:gpgKey secretKey:secKey];
-			[oldKeys removeObjectForKey:[gpgKey fingerprint]];
+	NSUInteger i, count = [fingerprints count];
+	for (i = 0; i < count; i++) {
+		NSString *fingerprint = [fingerprints objectAtIndex:i];
+		NSArray *listing = [listings objectAtIndex:i];
+		
+		GKKey *keyInfo = [keychain objectForKey:fingerprint];
+		BOOL secret = [secKeyFingerprints containsObject:fingerprint];
+		if (keyInfo) {
+			[keyInfo updateWithListing:listing isSecret:secret withSigs:withSigs];
 		} else {
-			keyInfo = [KeyInfo keyInfoWithGPGKey:gpgKey secretKey:secKey];
-			[keychain setObject:keyInfo forKey:[keyInfo fingerprint]];
+			keyInfo = [GKKey keyInfoWithListing:listing fingerprint:fingerprint isSecret:secret withSigs:withSigs];
+			[keychain setObject:keyInfo forKey:fingerprint];
 		}
-	}
+		
+	}	
 	
-	keysToRemove = [oldKeys allKeys];
-	for (fingerprint in keysToRemove) {
-		[keychain removeObjectForKey:fingerprint];
-	}
+	NSMutableArray *keysToRemove = [NSMutableArray arrayWithArray:keysToUpdate ? [keysToUpdate allObjects] : [keychain allKeys]];
+	[keysToRemove removeObjectsInArray:fingerprints];
 	
+	[keychain removeObjectsForKeys:keysToRemove];
+	NSLog(@"updateKeyInfosWithDict Fertig");
 }
 
 
@@ -261,7 +264,7 @@ NSSet *draggedKeyInfos;
 	
 	NSMutableArray *keysToRemove;
 	NSArray *myKeyList;
-	KeyInfo *keyInfo;
+	GKKey *keyInfo;
 	
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[self willChangeValueForKey:@"filteredKeyList"];
@@ -292,8 +295,8 @@ NSSet *draggedKeyInfos;
 }
 
 
-- (BOOL)isKeyInfoPassingFilterTest:(KeyInfo *)keyInfo {
-	if (showSecretKeysOnly && ![keyInfo isSecret]) {
+- (BOOL)isKeyInfoPassingFilterTest:(GKKey *)keyInfo {
+	if (showSecretKeysOnly && !keyInfo.secret) {
 		return NO;
 	}
 	if (filterStrings && [filterStrings count] > 0) {
@@ -313,7 +316,7 @@ NSSet *draggedKeyInfos;
 	NSMutableDictionary *keyIdToFingerprint = [NSMutableDictionary dictionaryWithCapacity:[keychain count] * 2];
 	NSString *fingerprint;
 	
-	for (KeyInfo *keyInfo in [[self keychain] allValues]) {
+	for (GKKey *keyInfo in [[self keychain] allValues]) {
 		fingerprint = [keyInfo fingerprint];
 		[keyIdToFingerprint setObject:fingerprint forKey:[keyInfo shortKeyID]];
 		[keyIdToFingerprint setObject:fingerprint forKey:[keyInfo keyID]];
@@ -368,42 +371,41 @@ NSSet *draggedKeyInfos;
 	[self updateKeyInfos:nil];
 	
 	
-    [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateThread) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(updateThread) userInfo:nil repeats:YES];
 	
 	[pool drain];
 }
 
 - (BOOL)initGPG {
 	NSLog(@"initGPG");
-	GPG_AGENT_PATH=nil;
 	@try {
-		NSArray *engines = [GPGEngine availableEngines];
-		GPG_PATH = nil;
 		
-		for (GPGEngine *engine in engines) {
-			if ([[engine availableExecutablePaths] count] > 0) {
-				if ([[engine version] hasPrefix:@"2."]) {
-					GPG_PATH = [engine executablePath];
-					GPG_VERSION = 2;
-					break;
-				} else if ([[engine version] hasPrefix:@"1.4."]) {
-					GPG_PATH = [engine executablePath];
-					GPG_VERSION = 1;
-				}
+		GPG_VERSION = 2;
+		NSString *gpgPath = [self findExecutableWithName:@"gpg2"];
+		if (!gpgPath) {
+			GPG_VERSION = 1;
+			gpgPath = [self findExecutableWithName:@"gpg"];
+			if (!gpgPath) {
+				NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotFound_Msg"), localized(@"Quit_Button"), nil, nil);
+				return NO;
 			}
 		}
-		if (GPG_PATH == nil) {
-			NSRunAlertPanel(localized(@"Error"), localized(@"GPGNotFound_Msg"), localized(@"Quit_Button"), nil, nil);
-			return NO;
-		}
-		[GPG_PATH retain];
-		
+		GPG_PATH = [gpgPath retain];
 		NSLog(@"GPG_VERSION: %i", GPG_VERSION);
 		NSLog(@"GPG_PATH: %@", GPG_PATH);
+
 		
-		gpgContext = [[GPGContext alloc] init];
-		[gpgContext keyEnumeratorForSearchPattern:@"" secretKeysOnly:YES];
-		[gpgContext stopKeyEnumeration];
+		NSString *gpgAgentPath = [self findExecutableWithName:@"gpg-agent"];
+		if (gpgAgentPath) {
+			GPG_AGENT_PATH = [gpgAgentPath retain];
+			NSLog(@"GPG_AGENT_PATH: %@", GPG_AGENT_PATH);
+		} else {
+			GPG_AGENT_PATH = nil;
+			NSRunAlertPanel(localized(@"GPGAgentNotFound_Title"), localized(@"GPGAgentNotFound_Msg"), nil, nil, nil);
+		}
+
+				
+		
 		NSString *errText;
 		if (runGPGCommand(nil, nil, &errText, @"--gpgconf-test", nil) != 0) {
 			NSRunAlertPanel(localized(@"GPGNotStart_Title"), localized(@"GPGNotStart_Msg"), localized(@"Quit_Button"), nil, nil);
@@ -419,38 +421,45 @@ NSSet *draggedKeyInfos;
 	return YES;
 }
 
+- (NSString *)findExecutableWithName:(NSString *)executable {
+	NSString *foundPath;
+	NSArray *searchPaths = [NSMutableArray arrayWithObjects:@"/usr/local/bin", @"/usr/bin/", @"/opt/local/bin", nil];
+	
+	foundPath = [self findExecutableWithName:executable atPaths:searchPaths];
+	if (foundPath) {
+		return foundPath;
+	}
+	
+	NSString *envPATH = [[[NSProcessInfo processInfo] environment] objectForKey:@"PATH"];
+	if (envPATH) {
+		NSArray *searchPaths = [envPATH componentsSeparatedByString:@":"];
+		foundPath = [self findExecutableWithName:executable atPaths:searchPaths];
+		if (foundPath) {
+			return foundPath;
+		}		
+	}
+	
+	return nil;
+}
+- (NSString *)findExecutableWithName:(NSString *)executable atPaths:(NSArray *)paths {
+	NSString *searchPath, *foundPath;
+	for (searchPath in paths) {
+		foundPath = [searchPath stringByAppendingPathComponent:executable];
+		if ([[NSFileManager defaultManager] isExecutableFileAtPath:foundPath]) {
+			return foundPath;
+		}
+	}
+	return nil;
+}
+
+
 
 - (void)initAgent {
 	NSLog(@"initAgent");
 	NSFileManager *fileManager = [NSFileManager defaultManager];
-	BOOL agentFound = NO;
 	
-	NSString *gpgAgentPath = [[GPG_PATH stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"gpg-agent"];
-	
-	if (![fileManager isExecutableFileAtPath:gpgAgentPath]) {
-		gpgAgentPath = @"/usr/local/bin/gpg-agent";
-		if (![fileManager isExecutableFileAtPath:gpgAgentPath]) {
-			NSString *path = [[[NSProcessInfo processInfo] environment] objectForKey:@"PATH"];
-			if (path) {
-				NSArray *paths = [path componentsSeparatedByString:@":"];
-				for (path in paths) {
-					gpgAgentPath = [path stringByAppendingPathComponent:@"gpg-agent"];
-					if ([fileManager isExecutableFileAtPath:gpgAgentPath]) {
-						agentFound = YES;
-						break;
-					}
-				}
-			}
-		} else {
-			agentFound = YES;
-		}
-	} else {
-		agentFound = YES;
-	}
 
-	if (agentFound) {
-		GPG_AGENT_PATH = [gpgAgentPath retain];
-		NSLog(@"GPG_AGENT_PATH: %@", GPG_AGENT_PATH);
+	if (GPG_AGENT_PATH) {
 		BOOL started = NO;
 		@try {
 			started = isGpgAgentRunning();
@@ -477,7 +486,7 @@ NSSet *draggedKeyInfos;
 					NSLog(@"Starte gpg-agent");
 					
 					NSTask *agentTask = [[[NSTask alloc] init] autorelease];
-					[agentTask setLaunchPath:gpgAgentPath];
+					[agentTask setLaunchPath:GPG_AGENT_PATH];
 					[agentTask setArguments:[NSArray arrayWithObjects:@"--pinentry-program", @"/usr/local/libexec/pinentry-mac.app/Contents/MacOS/pinentry-mac", @"--daemon", @"--write-env-file", nil]];
 					NSPipe *outPipe = [NSPipe pipe];
 					[agentTask setStandardOutput:outPipe];
@@ -510,14 +519,11 @@ NSSet *draggedKeyInfos;
 					}
 				}
 			}
-		}
-		@finally {
+		} @finally {
 			if (!started) {
 				NSRunAlertPanel(localized(@"GPGAgentNotStart_Title"), localized(@"GPGAgentNotStart_Msg"), nil, nil, nil);
 			}
 		}
-	} else {
-		NSRunAlertPanel(localized(@"GPGAgentNotFound_Title"), localized(@"GPGAgentNotFound_Msg"), nil, nil, nil);
 	}
 }
 

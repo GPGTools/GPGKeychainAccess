@@ -16,9 +16,10 @@
 */
 
 #import "ActionController.h"
-#import "KeyInfo.h"
+#import "GKKey.h"
 #import "KeychainController.h"
 #import "SheetController.h"
+#import "GPGOptions.h"
 
 
 @implementation ActionController
@@ -46,11 +47,19 @@
 				return NO;
 			}
 		}
-    }
+    } else if (selector == @selector(genRevokeCertificate:)) {
+		NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
+		if ([keyInfos count] == 1 && ((GKKey*)[keyInfos anyObject]).secret) {
+			return YES;
+		}
+		return NO;
+	}
 	return YES;
 }
+
+
 - (IBAction)copy:(id)sender {
-	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
 		NSString *exportedKeys = dataToString([self exportKeys:keyInfos armored:YES allowSecret:NO fullExport:NO]);
 		if ([exportedKeys length] > 0) {
@@ -93,7 +102,7 @@
 		if (flags > 0) {
 			[scanner scanCharactersFromSet:hexCharSet intoString:&fingerprint];
 			userID = [[[keychainController keychain] objectForKey:fingerprint] userID];
-			keyID = shortKeyID(fingerprint);
+			keyID = getShortKeyID(fingerprint);
 
 			if (flags & 1) {
 				if (flags & 16) {
@@ -127,11 +136,11 @@
 
 
 - (IBAction)cleanKey:(id)sender {
-	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
 		[self registerUndoForKeys:keyInfos withName:@"Undo_Clean"];
 		
-		for (KeyInfo *keyInfo in keyInfos) {
+		for (GKKey *keyInfo in keyInfos) {
 			if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], @"clean", @"save", nil) != 0) {
 				NSLog(@"cleanKey: --edit-key:clean für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
 			}
@@ -140,11 +149,11 @@
 	}
 }
 - (IBAction)minimizeKey:(id)sender {
-	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
 		[self registerUndoForKeys:keyInfos withName:@"Undo_Minimize"];
 
-		for (KeyInfo *keyInfo in keyInfos) {
+		for (GKKey *keyInfo in keyInfos) {
 			if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], @"minimize", @"save", nil) != 0) {
 				NSLog(@"minimizeKey: --edit-key:minimize für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
 			}
@@ -156,13 +165,13 @@
 
 - (IBAction)addPhoto:(NSButton *)sender {
 	if ([[keysController selectedObjects] count] == 1) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
 		[sheetController addPhoto:keyInfo];
 	}
 }
-- (void)addPhotoForKeyInfo:(KeyInfo *)keyInfo photoPath:(NSString *)path {
+- (void)addPhotoForKeyInfo:(GKKey *)keyInfo photoPath:(NSString *)path {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	[self registerUndoForKey:keyInfo withName:@"Undo_AddPhoto"];
@@ -180,7 +189,7 @@
 
 - (IBAction)removePhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 
 		[self registerUndoForKey:keyInfo withName:@"Undo_RemovePhoto"];
 
@@ -197,7 +206,7 @@
 }
 - (IBAction)revokePhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 
 		[self registerUndoForKey:keyInfo withName:@"Undo_RevokePhoto"];
 
@@ -215,7 +224,7 @@
 
 - (IBAction)setPrimaryPhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 
 		[self registerUndoForKey:keyInfo withName:@"Undo_PrimaryPhoto"];
 		
@@ -296,13 +305,13 @@
 		}
 	}
 }
-- (void)registerUndoForKey:(NSObject *)key withName:(NSString *)actionName { //key ist entweder KeyInfo oder NSString.
+- (void)registerUndoForKey:(NSObject *)key withName:(NSString *)actionName { //key ist entweder GKKey oder NSString.
 	[self registerUndoForKeys:[NSSet setWithObject:key] withName:actionName];
 }
 
 
 - (IBAction)exportKey:(id)sender {
-	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
 	SheetController *sheetController = [SheetController sharedInstance];
 	
 	[sheetController exportKeys:keyInfos];
@@ -310,7 +319,7 @@
 - (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec fullExport:(BOOL)fullExport {
 	NSMutableArray *arguments = [NSMutableArray array];;
 	NSData *exportedSecretData = nil, *exportedData = nil;
-	KeyInfo *keyInfo;
+	GKKey *keyInfo;
 	
 	[arguments addObject:@"--export"];
 	[arguments addObject:armored ? @"--armor" : @"--no-armor"];
@@ -360,10 +369,30 @@
 }
 
 
+- (IBAction)genRevokeCertificate:(id)sender {
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
+	if ([keyInfos count] == 1) {
+		SheetController *sheetController = [SheetController sharedInstance];
+		[sheetController genRevokeCertificateForKey:[keyInfos anyObject]];
+	}
+}
+- (NSData *)genRevokeCertificateForKey:(GKKey *)keyInfo {
+	NSData *exportedData = nil;
+	NSArray *arguments = [NSArray arrayWithObjects:@"--armor",@"--no-batch", @"--gen-revoke", [keyInfo description], nil];
+	
+	if (runGPGCommandWithArray(stringToData(@"y\n0\n\ny\n"), &exportedData, nil, nil, nil, arguments) != 0) {
+		NSLog(@"genRevokeCertificateForKey: --gen-revoke fehlgeschlagen.");
+		return nil;
+	}
+	
+	return exportedData;
+}
+
+
 
 - (IBAction)addSignature:(id)sender {
 	if ([sender tag] != 1 || [userIDsController selectionIndex] != NSNotFound) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
 		NSString *userID;
@@ -376,7 +405,7 @@
 		[sheetController addSignature:keyInfo userID:userID];
 	}
 }
-- (void)addSignatureForKeyInfo:(KeyInfo *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire {
+- (void)addSignatureForKeyInfo:(GKKey *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	[self registerUndoForKey:keyInfo withName:@"Undo_AddSignature"];
@@ -412,13 +441,13 @@
 
 - (IBAction)addSubkey:(NSButton *)sender {
 	if ([[keysController selectedObjects] count] == 1) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
 		[sheetController addSubkey:keyInfo];
 	}
 }
-- (void)addSubkeyForKeyInfo:(KeyInfo *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire {
+- (void)addSubkeyForKeyInfo:(GKKey *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	[self registerUndoForKey:keyInfo withName:@"Undo_AddSubkey"];
@@ -434,13 +463,13 @@
 
 - (IBAction)addUserID:(NSButton *)sender {
 	if ([[keysController selectedObjects] count] == 1) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
 		[sheetController addUserID:keyInfo];
 	}
 }
-- (void)addUserIDForKeyInfo:(KeyInfo *)keyInfo name:(NSString *)name email:(NSString *)email comment:(NSString *)comment{
+- (void)addUserIDForKeyInfo:(GKKey *)keyInfo name:(NSString *)name email:(NSString *)email comment:(NSString *)comment{
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	[self registerUndoForKey:keyInfo withName:@"Undo_AddUserID"];
@@ -456,7 +485,7 @@
 
 - (IBAction)changeExpirationDate:(NSButton *)sender {
 	BOOL aKeyIsSelected = NO;
-	KeyInfo_Subkey *subkey;
+	GKSubkey *subkey;
 	
 	if ([sender tag] == 1 && [[subkeysController selectedObjects] count] == 1) {
 		subkey = [[subkeysController selectedObjects] objectAtIndex:0];
@@ -467,14 +496,14 @@
 	}
 	
 	if (aKeyIsSelected) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
 		[sheetController changeExpirationDate:keyInfo subkey:subkey];
 	}
 	
 }
-- (void)changeExpirationDateForKeyInfo:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey daysToExpire:(NSInteger)daysToExpire {
+- (void)changeExpirationDateForKeyInfo:(GKKey *)keyInfo subkey:(GKSubkey *)subkey daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	[self registerUndoForKey:keyInfo withName:@"Undo_ChangeExpirationDate"];
@@ -662,10 +691,10 @@
 }
 
 - (IBAction)sendKeysToServer:(id)sender {
-	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
 		NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"--send-key"];
-		for (KeyInfo *keyInfo in keyInfos) {
+		for (GKKey *keyInfo in keyInfos) {
 			[arguments addObject:[keyInfo fingerprint]];
 		}
 		if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
@@ -675,12 +704,12 @@
 }
 
 - (IBAction)refreshKeysFromServer:(id)sender {
-	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
 	
 	[self registerUndoForKeys:keyInfos withName:@"Undo_Refresh"];
 	
 	NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"--refresh-keys"];
-	for (KeyInfo *keyInfo in keyInfos) {
+	for (GKKey *keyInfo in keyInfos) {
 		[arguments addObject:[keyInfo fingerprint]];
 	}
 	if (runGPGCommandWithArray(nil, nil, nil, nil, nil, arguments) != 0) {
@@ -691,7 +720,7 @@
 
 - (IBAction)changePassphrase:(NSButton *)sender {
 	if ([[keysController selectedObjects] count] == 1) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		
 		[self registerUndoForKey:keyInfo withName:@"Undo_ChangePassphrase"];
 		
@@ -704,10 +733,10 @@
 
 - (IBAction)removeSignature:(NSButton *)sender { //Diese Funktion ist äusserst ineffizient, mir ist allerdings kein besserer Weg bekannt.
 	if ([signaturesController selectionIndex] != NSNotFound) {
-		GPGKeySignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
-		KeyInfo_UserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
+		GKKeySignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
+		GKUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		NSArray *signatures = [userID signatures];
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 
 		[self registerUndoForKey:keyInfo withName:@"Undo_RemoveSignature"];
 
@@ -716,10 +745,10 @@
 		if (uid > 0) {
 			NSMutableString *cmdText = [NSMutableString stringWithCapacity:4];
 			
-			for (GPGKeySignature *aSignature in signatures) {
+			for (GKKeySignature *aSignature in signatures) {
 				if (aSignature == gpgKeySignature) {
 					[cmdText appendString:@"y\n"];
-					if ([[gpgKeySignature signerKeyID] isEqualToString:[keyInfo keyID]]) {
+					if ([[gpgKeySignature keyID] isEqualToString:[keyInfo keyID]]) {
 						[cmdText appendString:@"y\n"];
 					}
 				} else {
@@ -737,7 +766,7 @@
 
 - (IBAction)removeSubkey:(NSButton *)sender {
 	if ([[subkeysController selectedObjects] count] == 1) {
-		KeyInfo_Subkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
+		GKSubkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 		
 		[self registerUndoForKey:[subkey primaryKeyInfo] withName:@"Undo_RemoveSubkey"];
 
@@ -754,7 +783,7 @@
 
 - (IBAction)removeUserID:(NSButton *)sender {
 	if ([userIDsController selectionIndex] != NSNotFound) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 
 		[self registerUndoForKey:keyInfo withName:@"Undo_RemoveUserID"];
 		
@@ -772,8 +801,8 @@
 
 - (IBAction)revokeSignature:(NSButton *)sender { //Diese Funktion ist äusserst ineffizient, mir ist allerdings kein besserer Weg bekannt.
 	if ([signaturesController selectionIndex] != NSNotFound) {
-		GPGKeySignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
-		KeyInfo_UserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
+		GKKeySignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
+		GKUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		NSArray *signatures = [userID signatures];
 		NSString *fingerprint = [[[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo] fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [userID userID]);
@@ -782,7 +811,7 @@
 			
 			NSMutableString *cmdText = [NSMutableString stringWithCapacity:9];
 			NSMutableArray *secKeyIDs = [NSMutableArray arrayWithCapacity:1];
-			NSString *signerKeyID1 = [gpgKeySignature signerKeyID];
+			NSString *signerKeyID1 = [gpgKeySignature keyID];
 			NSString *signerKeyID2;
 			
 			NSDictionary *keychain = [keychainController keychain];
@@ -791,9 +820,9 @@
 				[secKeyIDs addObject:[[keychain objectForKey:fingerprint] keyID]];
 			}
 			
-			for (GPGKeySignature *aSignature in signatures) {
-				if (![aSignature isRevocationSignature]) {
-					signerKeyID2 = [aSignature signerKeyID];
+			for (GKKeySignature *aSignature in signatures) {
+				if (![aSignature revocationSignature]) {
+					signerKeyID2 = [aSignature keyID];
 					if ([secKeyIDs containsObject:signerKeyID2]) {
 						if ([signerKeyID1 isEqualToString:signerKeyID2]) {
 							[cmdText appendString:@"y\n"]; //Gesuchte Beglaubigung
@@ -816,7 +845,7 @@
 
 - (IBAction)revokeSubkey:(NSButton *)sender {
 	if ([[subkeysController selectedObjects] count] == 1) {
-		KeyInfo_Subkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
+		GKSubkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 		NSInteger index = getIndexForSubkey([subkey fingerprint], [subkey keyID]);
 		if (index > 0) {
 			[self registerUndoForKey:[subkey primaryKeyInfo] withName:@"Undo_RevokeSubkey"];
@@ -833,7 +862,7 @@
 
 - (IBAction)revokeUserID:(NSButton *)sender {
 	if ([userIDsController selectionIndex] != NSNotFound) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [[[userIDsController selectedObjects] objectAtIndex:0] userID]);
 		
@@ -850,7 +879,7 @@
 }
 
 - (IBAction)setDisabled:(NSButton *)sender {
-	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
 		[self setDisabled:[sender state] == NSOnState forKeyInfos:keyInfos];
 	}
@@ -858,8 +887,8 @@
 - (void)setDisabled:(BOOL)disabled forKeyInfos:(NSSet *)keys {
 	if (useUndo && [undoManager isUndoRegistrationEnabled]) {
 		NSMutableSet *editedKeys = [NSMutableSet setWithCapacity:[keys count]];
-		for (KeyInfo *keyInfo in keys) {
-			if ([keyInfo isKeyDisabled] != disabled) {
+		for (GKKey *keyInfo in keys) {
+			if (keyInfo.disabled != disabled) {
 				[editedKeys addObject:keyInfo];
 			}
 		}
@@ -872,7 +901,7 @@
 	}
 
 	NSString *enOrDisable = disabled ? @"disable" : @"enable";
-	for (KeyInfo *keyInfo in keys) {
+	for (GKKey *keyInfo in keys) {
 		if (runGPGCommand(nil, nil, nil, @"--edit-key", [keyInfo fingerprint], enOrDisable, nil) != 0) {
 			NSLog(@"setDisabled: --edit-key:%@ für Schlüssel %@ fehlgeschlagen.", enOrDisable, [keyInfo keyID]);
 		}
@@ -882,7 +911,7 @@
 
 - (IBAction)setPrimaryUserID:(NSButton *)sender {
 	if ([userIDsController selectionIndex] != NSNotFound) {
-		KeyInfo *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
+		GKKey *keyInfo = [[[keysController selectedObjects] objectAtIndex:0] primaryKeyInfo];
 		NSString *fingerprint = [keyInfo fingerprint];
 		NSInteger uid = getIndexForUserID(fingerprint, [[[userIDsController selectedObjects] objectAtIndex:0] userID]);
 		if (uid > 0) {
@@ -897,12 +926,12 @@
 }
 
 - (IBAction)setTrsut:(NSPopUpButton *)sender {
-	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
 		[self registerUndoForKeys:keyInfos withName:@"Undo_SetTrust"];
 		
 		NSString *cmdText = [NSString stringWithFormat:@"trust\n%i\ny\n", [sender selectedTag]];
-		for (KeyInfo *keyInfo in keyInfos) {
+		for (GKKey *keyInfo in keyInfos) {
 			if (runGPGCommand(cmdText, nil, nil, @"--edit-key", [keyInfo fingerprint], nil) != 0) {
 				NSLog(@"setTrsut: --edit-key:trust für Schlüssel %@ fehlgeschlagen.", [keyInfo keyID]);
 			}
@@ -997,7 +1026,7 @@
 
 - (IBAction)deleteKey:(id)sender { 	
 	//TODO: Bessere Dialoge mit der auswahl "Für alle".
-	NSSet *keyInfos = KeyInfoSet([keysController selectedObjects]);
+	NSSet *keyInfos = keyInfoSet([keysController selectedObjects]);
 	if ([keyInfos count] > 0) {
 		NSInteger retVal;
 		SheetController *sheetController = [SheetController sharedInstance];
@@ -1006,9 +1035,9 @@
 			[undoManager beginUndoGrouping];
 		}
 		
-		for (KeyInfo *keyInfo in keyInfos) {
+		for (GKKey *keyInfo in keyInfos) {
 			
-			if (keyInfo.isSecret) {
+			if (keyInfo.secret) {
 				retVal = [sheetController alertSheetForWindow:mainWindow 
 												  messageText:localized(@"DeleteSecretKey_Title") 
 													 infoText:[NSString stringWithFormat:localized(@"DeleteSecretKey_Msg"), [keyInfo userID], [keyInfo shortKeyID]] 
@@ -1062,7 +1091,7 @@
 			break;
 	}
 	
-	for (KeyInfo *keyInfo in keys) {
+	for (GKKey *keyInfo in keys) {
 		[arguments addObject:[keyInfo description]];
 	}
 	
@@ -1212,7 +1241,9 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		argv[argPos++] = "--no-greeting";
 		argv[argPos++] = "--with-colons";
 		argv[argPos++] = "--yes";
-		argv[argPos++] = "--batch";
+		if (![args containsObject:@"--no-batch"]) {
+			argv[argPos++] = "--batch";
+		}
 		argv[argPos++] = "--no-tty";
 		if (GPG_VERSION == 1) {
 			argv[argPos++] = "--fixed-list-mode";
@@ -1423,7 +1454,7 @@ int runCommandWithArray(NSString *command, NSString *inText, NSData **outData, N
 
 int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	GPGOptions *gpgOptions = [gpgContext options];
+	GPGOptions *gpgOptions = [[[GPGOptions alloc] init] autorelease];
 	
 	NSRange aRange;
 	NSArray *tempArray;

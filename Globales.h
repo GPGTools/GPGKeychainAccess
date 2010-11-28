@@ -25,24 +25,48 @@ extern KeychainController *keychainController;
 extern ActionController *actionController;
 extern NSWindow *mainWindow;
 extern NSWindow *inspectorWindow;
-extern GPGContext *gpgContext;
 extern NSUndoManager *undoManager;
 extern BOOL useUndo;
 
 
-NSSet* KeyInfoSet(NSArray *keyInfos);
+typedef enum {
+    GPGValidityUnknown   = 0,
+    GPGValidityUndefined = 1,
+    GPGValidityNever     = 2,
+    GPGValidityMarginal  = 3,
+    GPGValidityFull      = 4,
+    GPGValidityUltimate  = 5
+} GPGValidity;
+
+typedef enum {
+    GPG_RSAAlgorithm                =  1,
+    GPG_RSAEncryptOnlyAlgorithm     =  2,
+    GPG_RSASignOnlyAlgorithm        =  3,
+    GPG_ElgamalEncryptOnlyAlgorithm = 16,
+    GPG_DSAAlgorithm                = 17,
+    GPG_EllipticCurveAlgorithm      = 18,
+    GPG_ECDSAAlgorithm              = 19,
+    GPG_ElgamalAlgorithm            = 20,
+    GPG_DiffieHellmanAlgorithm      = 21
+} GPGPublicKeyAlgorithm;
+
+
+NSSet* keyInfoSet(NSArray *keyInfos);
 NSInteger getDaysToExpire(NSDate *expirationDate);
 
 NSString* dataToString(NSData *data);
 NSData* stringToData(NSString *string);
 
-NSString* shortKeyID(NSString *keyID);
+NSString* getShortKeyID(NSString *keyID);
 
 NSSet* keyIDsFromString(NSString *string);
 
 BOOL containsPGPKeyBlock(NSString *string);
 
 BOOL isGpgAgentRunning();
+
+int hexToByte (const char *text);
+NSString *unescapeString(NSString *string);
 
 #define NotImplementedAlert NSRunAlertPanel(@"Noch nicht implementiert", @"", @"OK", nil, nil)
 

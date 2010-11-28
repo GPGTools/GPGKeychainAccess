@@ -30,7 +30,8 @@ enum {
 enum {
 	GKOpenSavePanelExportKeyAction = 1,
 	GKOpenSavePanelImportKeyAction,
-	GKOpenSavePanelAddPhotoAction
+	GKOpenSavePanelAddPhotoAction,
+	GKOpenSavePanelSaveRevokeCertificateAction
 } GKOpenSavePanelAction;
 
 typedef enum {
@@ -42,8 +43,8 @@ typedef enum {
 
 
 @class SheetController;
-@class KeyInfo;
-@class KeyInfo_Subkey;
+@class GKKey;
+@class GKSubkey;
 
 @interface ActionController : NSWindowController {
     IBOutlet NSTreeController *keysController;
@@ -85,6 +86,7 @@ typedef enum {
 - (IBAction)receiveKeys:(id)sender;
 - (IBAction)refreshKeysFromServer:(id)sender;
 - (IBAction)showInspector:(id)sender;
+- (IBAction)genRevokeCertificate:(id)sender;
 
 
 - (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec fullExport:(BOOL)fullExport;
@@ -93,20 +95,20 @@ typedef enum {
 - (NSString *)importResultWithStatusData:(NSData *)data;
 
 - (void)generateNewKeyWithName:(NSString *)name email:(NSString *)email comment:(NSString *)comment passphrase:(NSString *)passphrase type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
-- (void)addSubkeyForKeyInfo:(KeyInfo *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
-- (void)addUserIDForKeyInfo:(KeyInfo *)keyInfo name:(NSString *)name email:(NSString *)email comment:(NSString *)comment;
-- (void)addSignatureForKeyInfo:(KeyInfo *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
-- (void)changeExpirationDateForKeyInfo:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey daysToExpire:(NSInteger)daysToExpire;
+- (void)addSubkeyForKeyInfo:(GKKey *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
+- (void)addUserIDForKeyInfo:(GKKey *)keyInfo name:(NSString *)name email:(NSString *)email comment:(NSString *)comment;
+- (void)addSignatureForKeyInfo:(GKKey *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
+- (void)changeExpirationDateForKeyInfo:(GKKey *)keyInfo subkey:(GKSubkey *)subkey daysToExpire:(NSInteger)daysToExpire;
 - (NSMutableArray *)searchKeysWithPattern:(NSString *)pattern errorText:(NSString **)errText;
 - (NSString *)receiveKeysWithIDs:(NSSet *)keyIDs;
-- (void)addPhotoForKeyInfo:(KeyInfo *)keyInfo photoPath:(NSString *)path;
+- (void)addPhotoForKeyInfo:(GKKey *)keyInfo photoPath:(NSString *)path;
 - (void)deleteKeys:(NSSet *)keys withMode:(GKDeleteKeyAction)mode;
 - (NSSet *)keysInExportedData:(NSData *)data;
 - (void)registerUndoForKeys:(NSSet *)keys withName:(NSString *)actionName;
 - (void)registerUndoForKey:(NSObject *)key withName:(NSString *)actionName;
 - (void)writeDataToFD:(NSArray *)object;
 - (void)setDisabled:(BOOL)disabled forKeyInfos:(NSSet *)keys;
-
+- (NSData *)genRevokeCertificateForKey:(GKKey *)keyInfo;
 
 
 

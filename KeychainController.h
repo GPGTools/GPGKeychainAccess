@@ -15,10 +15,11 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-@class KeyInfo;
+@class GKKey;
 
 @interface KeychainController : NSObject {
     IBOutlet NSTextField *numberOfKeysLabel;
+	IBOutlet NSOutlineView *keyTable;
 	
 	NSArray *keyInfosSortDescriptors;
 	NSArray *userIDsSortDescriptors;
@@ -33,6 +34,7 @@
 	
 	BOOL showSecretKeysOnly;
 }
+
 @property (readonly) NSMutableDictionary *keychain;
 @property (retain) NSMutableArray *filteredKeyList;
 @property (retain) NSArray *filterStrings;
@@ -44,8 +46,8 @@
 
 
 
-- (void)updateKeychain:(NSDictionary *)aDict;
 - (void)initKeychains;
+- (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos withSigs:(BOOL)withSigs;
 - (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos;
 - (void)asyncUpdateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos;
 - (void)updateKeyInfosWithDict:(NSDictionary *)aDict;
@@ -58,8 +60,12 @@
 - (BOOL)initGPG;
 - (void)initAgent;
 - (void)initKeychains;
-- (BOOL)isKeyInfoPassingFilterTest:(KeyInfo *)keyInfo;
+- (BOOL)isKeyInfoPassingFilterTest:(GKKey *)keyInfo;
 - (void)updateThread;
+
+- (NSString *)findExecutableWithName:(NSString *)executable;
+- (NSString *)findExecutableWithName:(NSString *)executable atPaths:(NSArray *)paths;
+
 
 @end
 

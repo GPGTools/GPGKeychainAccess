@@ -115,10 +115,14 @@ static NSString *SUUpdaterDefaultsObservationContext = @"SUUpdaterDefaultsObserv
         [SUUpdatePermissionPrompt promptWithHost:host systemProfile:profileInfo delegate:self];
         // We start the update checks and register as observer for changes after the prompt finishes
 	}
-    else 
+    else
     {
-        // We check if the user's said they want updates, or they haven't said anything, and the default is set to checking.
-        [self scheduleNextUpdateCheck];
+		if ([host boolForUserDefaultsKey:SUHasLaunchedBeforeKey] == NO) {
+            [host setBool:YES forUserDefaultsKey:SUHasLaunchedBeforeKey];
+		} else {
+			// We check if the user's said they want updates, or they haven't said anything, and the default is set to checking.
+			[self scheduleNextUpdateCheck];
+		}
     }
 }
 

@@ -16,7 +16,7 @@
 */
 
 #import "Globales.h"
-#import "KeyInfo.h"
+#import "GKKey.h"
 #import "ActionController.h"
 #import "KeychainController.h"
 
@@ -27,14 +27,13 @@ KeychainController *keychainController;
 ActionController *actionController;
 NSWindow *mainWindow;
 NSWindow *inspectorWindow;
-GPGContext *gpgContext;
 NSUndoManager *undoManager;
 BOOL useUndo;
 
 
-NSSet* KeyInfoSet(NSArray *keyInfos) {
+NSSet* keyInfoSet(NSArray *keyInfos) {
 	NSMutableSet *keyInfoSet = [NSMutableSet set];
-	for (KeyInfo *keyInfo in keyInfos) {
+	for (GKKey *keyInfo in keyInfos) {
 		[keyInfoSet addObject:[keyInfo primaryKeyInfo]];
 	}
 	return keyInfoSet;
@@ -46,18 +45,77 @@ NSInteger getDaysToExpire(NSDate *expirationDate) {
 
 
 NSString* dataToString(NSData *data) {
-	NSString *retString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+	NSString *retString;
+
+	// Löschen aller ungültigen Zeichen, damit die umwandlung nach UTF-8 funktioniert.
+	const unsigned char *inText = [data bytes];
+	if (!inText) {
+		return nil;
+	}
+	
+	NSUInteger i = 0, c = [data length];
+	
+	unsigned char *outText = malloc(c + 1);
+	if (outText) {
+		unsigned char *outPos = outText;
+		const unsigned char *startChar = nil;
+		int multiByte = 0;
+		
+		for (; i < c; i++) {
+			if (multiByte && (*inText & 0xC0) == 0x80) { // Fortsetzung eines Mehrbytezeichen
+				multiByte--;
+				if (multiByte == 0) {
+					while (startChar <= inText) {
+						*(outPos++) = *(startChar++);
+					}
+				}
+			} else if ((*inText & 0x80) == 0) { // Normales ASCII Zeichen.
+				*(outPos++) = *inText;
+				multiByte = 0;
+			} else if ((*inText & 0xC0) == 0xC0) { // Beginn eines Mehrbytezeichen.
+				if (multiByte) {
+					*(outPos++) = '?';
+				}
+				if (*inText <= 0xDF && *inText >= 0xC2) {
+					multiByte = 1;
+					startChar = inText;
+				} else if (*inText <= 0xEF && *inText >= 0xE0) {
+					multiByte = 2;
+					startChar = inText;
+				} else if (*inText <= 0xF4 && *inText >= 0xF0) {
+					multiByte = 3;
+					startChar = inText;
+				} else {
+					*(outPos++) = '?';
+					multiByte = 0;
+				}
+			} else {
+				*(outPos++) = '?';
+			}
+
+			inText++;
+		}
+		*outPos = 0;
+		
+		retString = [[NSString alloc] initWithUTF8String:(char*)outText];
+		
+		free(outText);
+	} else {
+		retString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+	}
+
+	
 	if (retString == nil) {
 		retString = [[NSString alloc] initWithData:data encoding:NSISOLatin1StringEncoding];
 	}
 	return [retString autorelease];
 }
-
 NSData* stringToData(NSString *string) {
 	return [string dataUsingEncoding:NSUTF8StringEncoding];
 }
 
-NSString* shortKeyID(NSString *keyID) {
+
+NSString* getShortKeyID(NSString *keyID) {
 	return [keyID substringFromIndex:[keyID length] - 8];
 }
 
@@ -131,4 +189,90 @@ BOOL isGpgAgentRunning() {
 	return [agentTask terminationStatus] == 0;
 }
 
+
+int hexToByte (const char *text) {
+	int retVal = 0;
+	int i;
+	
+	for (i = 0; i < 2; i++) {
+		if (*text >= '0' && *text <= '9') {
+			retVal += *text - '0';
+		} else if (*text >= 'A' && *text <= 'F') {
+			retVal += 10 + *text - 'A';
+		} else if (*text >= 'a' && *text <= 'f') {
+			retVal += 10 + *text - 'a';
+		} else {
+			return -1;
+		}
+		
+		if (i == 0) {
+			retVal *= 16;
+		}
+		text++;
+    }
+	return retVal;
+}
+
+//Wandelt "\\t" -> "\t", "\\x3a" -> ":" usw.
+NSString *unescapeString(NSString *string) {
+	const char *escapedText = [string UTF8String];
+	char *unescapedText = malloc(strlen(escapedText) + 1);
+	if (!unescapedText) {
+		return nil;
+	}
+	char *unescapedTextPos = unescapedText;
+	
+	while (*escapedText) {
+		if (*escapedText == '\\') {
+			escapedText++;
+			switch (*escapedText) {
+				#define DECODE_ONE(match, result) \
+				case match: \
+					escapedText++; \
+					*(unescapedTextPos++) = result; \
+					break;
+					
+				DECODE_ONE ('\'', '\'');
+				DECODE_ONE ('\"', '\"');
+				DECODE_ONE ('\?', '\?');
+				DECODE_ONE ('\\', '\\');
+				DECODE_ONE ('a', '\a');
+				DECODE_ONE ('b', '\b');
+				DECODE_ONE ('f', '\f');
+				DECODE_ONE ('n', '\n');
+				DECODE_ONE ('r', '\r');
+				DECODE_ONE ('t', '\t');
+				DECODE_ONE ('v', '\v');
+					
+				case 'x': {
+					escapedText++;
+					int byte = hexToByte(escapedText);
+					if (byte == -1) {
+						*(unescapedTextPos++) = '\\';
+						*(unescapedTextPos++) = 'x';
+					} else {
+						if (byte == 0) {
+							*(unescapedTextPos++) = '\\';
+							*(unescapedTextPos++) = '0';							
+						} else {
+							*(unescapedTextPos++) = byte;
+						}
+						escapedText += 2;
+					}
+					break; }
+				default:
+					*(unescapedTextPos++) = '\\';
+					*(unescapedTextPos++) = *(escapedText++);
+					break;
+			}
+		} else {
+			*(unescapedTextPos++) = *(escapedText++);
+		}
+	}
+	*unescapedTextPos = 0;
+	
+	NSString *retString = [NSString stringWithUTF8String:unescapedText];
+	free(unescapedText);
+	return retString;
+}
 

@@ -15,8 +15,8 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-@class KeyInfo;
-@class KeyInfo_Subkey;
+@class GKKey;
+@class GKSubkey;
 
 typedef enum {
 	NewKeyAction,
@@ -46,8 +46,8 @@ typedef enum {
 	SheetAction currentAction;
 	
 	//Objekte für die XXX_Action Methoden.
-	KeyInfo *myKeyInfo;
-	KeyInfo_Subkey *mySubkey;
+	GKKey *myKeyInfo;
+	GKSubkey *mySubkey;
 	NSString *myString;
 	
 	
@@ -117,9 +117,9 @@ typedef enum {
 @property NSInteger exportFormat;
 
 
-@property (retain) KeyInfo *myKeyInfo;
+@property (retain) GKKey *myKeyInfo;
 @property (retain) NSString *myString;
-@property (retain) KeyInfo_Subkey *mySubkey;
+@property (retain) GKSubkey *mySubkey;
 
 
 @property (retain) NSArray *foundKeys;
@@ -152,10 +152,10 @@ typedef enum {
 
 
 + (id)sharedInstance;
-- (void)addSubkey:(KeyInfo *)keyInfo;
-- (void)addUserID:(KeyInfo *)keyInfo;
-- (void)addSignature:(KeyInfo *)keyInfo userID:(NSString *)userID;
-- (void)changeExpirationDate:(KeyInfo *)keyInfo subkey:(KeyInfo_Subkey *)subkey;
+- (void)addSubkey:(GKKey *)keyInfo;
+- (void)addUserID:(GKKey *)keyInfo;
+- (void)addSignature:(GKKey *)keyInfo userID:(NSString *)userID;
+- (void)changeExpirationDate:(GKKey *)keyInfo subkey:(GKSubkey *)subkey;
 - (void)searchKeys;
 - (void)searchKeys_Action;
 - (void)showFoundKeys:(NSArray *)keys;
@@ -163,9 +163,12 @@ typedef enum {
 - (void)receiveKeys_Action:(NSSet *)keyIDs;
 - (void)generateNewKey;
 
-- (void)addPhoto:(KeyInfo *)keyInfo;
+- (void)addPhoto:(GKKey *)keyInfo;
 - (void)importKey;
 - (void)exportKeys:(NSSet *)keyInfos;
+
+- (void)genRevokeCertificateForKey:(GKKey *)keyInfo;
+
 
 - (void)showResult:(NSString *)text;
 - (void)showResultText:(NSString *)text;
