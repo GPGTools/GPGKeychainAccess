@@ -22,10 +22,10 @@
 
 
 typedef enum { 
-    GPGKeyStatus_Invalid = 1,
-    GPGKeyStatus_Revoked = 2,
-    GPGKeyStatus_Expired = 4,
-    GPGKeyStatus_Disabled = 8
+    GPGKeyStatus_Invalid = 8,
+    GPGKeyStatus_Revoked = GPGKeyStatus_Invalid << 1,
+    GPGKeyStatus_Expired = GPGKeyStatus_Revoked << 1,
+    GPGKeyStatus_Disabled = GPGKeyStatus_Expired << 1
 } GPGKeyStatus;
 
 
@@ -53,7 +53,6 @@ typedef enum {
 	NSCalendarDate *expirationDate;
 	
 	GPGValidity ownerTrust;
-	
 	GPGValidity validity;
 	BOOL expired;
 	BOOL disabled;
@@ -77,7 +76,7 @@ typedef enum {
 
 
 - (void)updatePhotos;
-
+- (void)updatePreferences;
 
 
 
@@ -101,6 +100,7 @@ typedef enum {
 @property BOOL revoked;
 @property (readonly) NSInteger status;
 @property BOOL secret;
+@property (readonly) BOOL safe; //Gibt an ob der Schlüssel sicher ist. (Länge > 1024 Bit, kein MD5 oder SHA-1)
 
 
 

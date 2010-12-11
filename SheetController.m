@@ -27,6 +27,7 @@
 static SheetController *_sharedInstance = nil;
 
 @synthesize allowSecretKeyExport;
+@synthesize allowEdit;
 
 @synthesize myKeyInfo;
 @synthesize myString;
@@ -52,6 +53,7 @@ static SheetController *_sharedInstance = nil;
 @synthesize secretKeys;
 @synthesize secretKeyFingerprints;
 @synthesize secretKeyId;
+@synthesize userIDs;
 
 
 
@@ -69,6 +71,47 @@ static SheetController *_sharedInstance = nil;
 	}
 	return self;
 }
+
+
+- (void)algorithmPreferences:(GKKey *)keyInfo editable:(BOOL)editable {
+	self.myKeyInfo = keyInfo;
+	
+	NSUInteger count = [[myKeyInfo userIDs] count], arrayCount = 0;
+	
+	NSMutableArray *userIDsArray = [NSMutableArray arrayWithCapacity:count];
+	
+	
+	for (GKUserID *userID in [myKeyInfo userIDs]) {
+		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[userID userID], @"userID", 
+									 [userID cipherPreferences], @"cipherPreferences", 
+									 [userID digestPreferences], @"digestPreferences", 
+									 [userID compressPreferences], @"compressPreferences", 
+									 [userID otherPreferences], @"otherPreferences", nil];
+		
+		NSUInteger i = 0, index = [userID index];
+		for (; i < arrayCount; i++) {
+			if ([[userIDsArray objectAtIndex:i] index] > index) {
+				break;
+			}
+		}	
+		[userIDsArray insertObject:dict atIndex:i];
+	}
+	self.userIDs = userIDsArray;
+	self.allowEdit = editable;
+	
+	currentAction = AlgorithmPreferencesAction;
+	self.displayedView = editAlgorithmPreferencesView;
+	
+	[self runSheetForWindow:mainWindow];
+}
+- (void)algorithmPreferences_Action {
+	if (allowEdit) {
+		[actionController editAlgorithmPreferencesForKey:myKeyInfo preferences:userIDs];
+	}
+	[self closeSheet];
+}
+
+
 
 
 - (void)addSubkey:(GKKey *)keyInfo {
@@ -377,6 +420,9 @@ static SheetController *_sharedInstance = nil;
 			self.displayedView = progressView;
 			[NSThread detachNewThreadSelector:@selector(receiveKeys_Action:) toTarget:self withObject:keyIDs];			
 			break; }
+		case AlgorithmPreferencesAction:
+			[self algorithmPreferences_Action];
+			break;
 	}
 }
 - (IBAction)cancelButton:(id)sender {
@@ -637,6 +683,108 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		self.availableLengths = [NSArray arrayWithObjects:@"1024", @"2048", @"3072", @"4096", nil];
 	}
 }
+
+
+
+
+
+//Für Algorithmus Präferenzen
+
+- (NSArray *)tokenField:(NSTokenField *)tokenField shouldAddObjects:(NSArray *)tokens atIndex:(NSUInteger)index {	
+	NSMutableArray *newTokens = [NSMutableArray arrayWithCapacity:[tokens count]];
+	
+	NSString *tokenPrefix;
+	switch ([tokenField tag]) {
+		case 1:
+			tokenPrefix = @"S";
+			break;
+		case 2:
+			tokenPrefix = @"H";
+			break;
+		case 3:
+			tokenPrefix = @"Z";
+			break;
+		default:
+			return newTokens;
+	}
+	
+	for (NSString *token in tokens) {
+		if ([token hasPrefix:tokenPrefix]) {
+			[newTokens addObject:token];
+		}
+	}
+	return newTokens;
+}
+
+- (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
+	static NSDictionary *algorithmIdentifiers = nil;
+	if (!algorithmIdentifiers) {
+		algorithmIdentifiers = [[NSDictionary alloc] initWithObjectsAndKeys:@"S0", localized(@"CIPHER_ALGO_NONE"), 
+								@"S1", localized(@"CIPHER_ALGO_IDEA"), 
+								@"S2", localized(@"CIPHER_ALGO_3DES"), 
+								@"S3", localized(@"CIPHER_ALGO_CAST5"), 
+								@"S4", localized(@"CIPHER_ALGO_BLOWFISH"), 
+								@"S7", localized(@"CIPHER_ALGO_AES"), 
+								@"S8", localized(@"CIPHER_ALGO_AES192"), 
+								@"S9", localized(@"CIPHER_ALGO_AES256"), 
+								@"S10", localized(@"CIPHER_ALGO_TWOFISH"), 
+								@"S11", localized(@"CIPHER_ALGO_CAMELLIA128"), 
+								@"S12", localized(@"CIPHER_ALGO_CAMELLIA192"), 
+								@"S13", localized(@"CIPHER_ALGO_CAMELLIA256"), 
+								@"H1", localized(@"DIGEST_ALGO_MD5"), 
+								@"H2", localized(@"DIGEST_ALGO_SHA1"), 
+								@"H3", localized(@"DIGEST_ALGO_RMD160"), 
+								@"H8", localized(@"DIGEST_ALGO_SHA256"), 
+								@"H9", localized(@"DIGEST_ALGO_SHA384"), 
+								@"H10", localized(@"DIGEST_ALGO_SHA512"), 
+								@"H11", localized(@"DIGEST_ALGO_SHA224"), 
+								@"Z0", localized(@"COMPRESS_ALGO_NONE"), 
+								@"Z1", localized(@"COMPRESS_ALGO_ZIP"), 
+								@"Z2", localized(@"COMPRESS_ALGO_ZLIB"), 
+								@"Z3", localized(@"COMPRESS_ALGO_BZIP2"), nil];
+	}
+	NSString *algorithmIdentifier = [algorithmIdentifiers objectForKey:[editingString uppercaseString]];
+	if (!algorithmIdentifier) {
+		algorithmIdentifier = editingString;
+	}
+	return [algorithmIdentifier uppercaseString];
+}
+
+- (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
+	static NSDictionary *algorithmNames = nil;
+	if (!algorithmNames) {
+		algorithmNames = [[NSDictionary alloc] initWithObjectsAndKeys:localized(@"CIPHER_ALGO_NONE"), @"S0", 
+						   localized(@"CIPHER_ALGO_IDEA"), @"S1", 
+						   localized(@"CIPHER_ALGO_3DES"), @"S2", 
+						   localized(@"CIPHER_ALGO_CAST5"), @"S3", 
+						   localized(@"CIPHER_ALGO_BLOWFISH"), @"S4", 
+						   localized(@"CIPHER_ALGO_AES"), @"S7", 
+						   localized(@"CIPHER_ALGO_AES192"), @"S8", 
+						   localized(@"CIPHER_ALGO_AES256"), @"S9", 
+						   localized(@"CIPHER_ALGO_TWOFISH"), @"S10", 
+						   localized(@"CIPHER_ALGO_CAMELLIA128"), @"S11", 
+						   localized(@"CIPHER_ALGO_CAMELLIA192"), @"S12", 
+						   localized(@"CIPHER_ALGO_CAMELLIA256"), @"S13", 
+						   localized(@"DIGEST_ALGO_MD5"), @"H1", 
+						   localized(@"DIGEST_ALGO_SHA1"), @"H2", 
+						   localized(@"DIGEST_ALGO_RMD160"), @"H3", 
+						   localized(@"DIGEST_ALGO_SHA256"), @"H8", 
+						   localized(@"DIGEST_ALGO_SHA384"), @"H9", 
+						   localized(@"DIGEST_ALGO_SHA512"), @"H10", 
+						   localized(@"DIGEST_ALGO_SHA224"), @"H11", 
+						   localized(@"COMPRESS_ALGO_NONE"), @"Z0", 
+						   localized(@"COMPRESS_ALGO_ZIP"), @"Z1", 
+						   localized(@"COMPRESS_ALGO_ZLIB"), @"Z2", 
+						   localized(@"COMPRESS_ALGO_BZIP2"), @"Z3", nil];
+	}
+	NSString *displayString = [algorithmNames objectForKey:[representedObject description]];
+	if (!displayString) {
+		displayString = [representedObject description];
+	}
+	return displayString;
+}
+
+
 
 
 

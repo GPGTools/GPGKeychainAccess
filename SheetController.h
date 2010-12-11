@@ -26,7 +26,8 @@ typedef enum {
 	ChangeExpirationDateAction,
 	SearchKeysAction,
 	ReceiveKeysAction,
-	ShowFoundKeysAction
+	ShowFoundKeysAction,
+	AlgorithmPreferencesAction
 } SheetAction;
 
 @interface KeyLengthFormatter : NSFormatter {
@@ -50,7 +51,10 @@ typedef enum {
 	GKSubkey *mySubkey;
 	NSString *myString;
 	
+	NSArray *userIDs;
 	
+	
+	BOOL allowEdit;
 	
 	//Für Öffnen- und Speichern-Sheets.
 	IBOutlet NSView *exportKeyOptionsView;
@@ -81,6 +85,7 @@ typedef enum {
 	IBOutlet NSView *foundKeysView;
 	IBOutlet NSView *receiveKeysView;
 	IBOutlet NSView *resultView;
+	IBOutlet NSView *editAlgorithmPreferencesView;
 	
 	
 	IBOutlet NSProgressIndicator *progressIndicator;
@@ -120,6 +125,8 @@ typedef enum {
 @property (retain) GKKey *myKeyInfo;
 @property (retain) NSString *myString;
 @property (retain) GKSubkey *mySubkey;
+@property (retain) NSArray *userIDs;
+@property BOOL allowEdit;
 
 
 @property (retain) NSArray *foundKeys;
@@ -162,6 +169,8 @@ typedef enum {
 - (void)receiveKeys;
 - (void)receiveKeys_Action:(NSSet *)keyIDs;
 - (void)generateNewKey;
+- (void)algorithmPreferences:(GKKey *)keyInfo editable:(BOOL)editable;
+- (void)algorithmPreferences_Action;
 
 - (void)addPhoto:(GKKey *)keyInfo;
 - (void)importKey;

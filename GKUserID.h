@@ -23,6 +23,12 @@
 	
 	NSArray *signatures;
 	
+	NSArray *cipherPreferences;
+	NSArray *digestPreferences;
+	NSArray *compressPreferences;
+	NSArray *otherPreferences;
+	
+	
 	NSString *hashID;
 	
 	NSString *userID;
@@ -47,6 +53,13 @@
 
 
 @property (readonly) NSArray *signatures;
+
+
+@property (readonly) NSArray *cipherPreferences;
+@property (readonly) NSArray *digestPreferences;
+@property (readonly) NSArray *compressPreferences;
+@property (readonly) NSArray *otherPreferences;
+
 
 
 @property (retain) NSString *hashID;
@@ -76,5 +89,6 @@
 
 - (id)initWithListing:(NSArray *)listing signatureListing:(NSArray *)sigListing parentKeyInfo:(GKKey *)keyInfo;
 - (void)updateWithListing:(NSArray *)listing signatureListing:(NSArray *)sigListing;
+- (void)updatePreferences:(NSString *)listing;
 
 @end

@@ -51,6 +51,8 @@
 - (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos;
 - (void)asyncUpdateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos;
 - (void)updateKeyInfosWithDict:(NSDictionary *)aDict;
+- (void)asyncUpdateKeyInfo:(GKKey *)keyInfo;
+- (void)updateKeyInfo:(GKKey *)keyInfo;
 
 
 - (IBAction)updateFilteredKeyList:(id)sender;
@@ -75,6 +77,7 @@
 
 @interface GPGKeyStatusTransformer : NSValueTransformer {}
 @end
+
 
 @interface SplitFormatter : NSFormatter {
 	NSInteger blockSize;

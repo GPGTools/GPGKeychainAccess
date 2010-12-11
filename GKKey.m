@@ -232,6 +232,29 @@
 }
 
 
+- (void)updatePreferences {
+	NSString *outText;
+	
+	if (runGPGCommand(nil, &outText, nil, @"--edit-key", fingerprint, @"quit", nil) != 0) {
+		NSLog(@"updatePreferences: --edit-key für Schlüssel %@ fehlgeschlagen.", fingerprint);
+		return;
+	}
+	NSArray *lines = [outText componentsSeparatedByString:@"\n"];
+	
+	NSInteger i = 0, c = [userIDs count];
+	for (NSString *line in lines) {
+		if ([line hasPrefix:@"uid:"]) {
+			if (i >= c) {
+				NSLog(@"updatePreferences: index >= count!");				
+				break;
+			}
+			[[userIDs objectAtIndex:i] updatePreferences:line];
+			i++;
+		}
+	}
+}
+
+
 
 
 + (void)colonListing:(NSString *)colonListing toArray:(NSArray **)array andFingerprints:(NSArray **)fingerprints {
@@ -449,7 +472,7 @@
 
 
 - (NSInteger)status {
-	NSInteger statusValue = 0;
+	NSInteger statusValue = validity;
 	
 	if (invalid) {
 		statusValue = GPGKeyStatus_Invalid;
@@ -466,7 +489,29 @@
 	return statusValue;
 }
 
-
+- (BOOL)safe {
+	if (length < 1536) { //Länge des Hauptschlüssels.
+		return NO;
+	}
+	
+	for (GKSubkey *aSubkey in subkeys) {
+		if (aSubkey.length < 1536 && aSubkey.status == 0) { //Länge der gültigen Unterschlüssel.
+			return NO;
+		}
+	}
+	
+	for (GKUserID *aUserID in userIDs) {
+		if ([[aUserID digestPreferences] count] > 0) { //Standard Hashalgorithmus der Benutzer IDs.
+			switch ([[[aUserID.digestPreferences objectAtIndex:0] substringFromIndex:1] integerValue]) {
+				case 1: //MD5
+				case 2: //SHA1
+					return NO;
+			}
+		}
+	}
+	
+	return YES;
+}
 
 
 

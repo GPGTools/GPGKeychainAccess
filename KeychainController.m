@@ -101,13 +101,18 @@ NSSet *draggedKeyInfos;
 }
 
 
+- (void)asyncUpdateKeyInfo:(GKKey *)keyInfo {
+	[NSThread detachNewThreadSelector:@selector(updateKeyInfos:) toTarget:self withObject:[NSSet setWithObject:keyInfo]];
+}
+- (void)updateKeyInfo:(GKKey *)keyInfo {
+	[self updateKeyInfos:[NSSet setWithObject:keyInfo] withSigs:NO];
+	
+}
 - (void)asyncUpdateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos {
 	[NSThread detachNewThreadSelector:@selector(updateKeyInfos:) toTarget:self withObject:keyInfos];
 }
-
 - (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos {
 	[self updateKeyInfos:keyInfos withSigs:NO];
-	
 }
 
 - (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos withSigs:(BOOL)withSigs {
@@ -221,6 +226,7 @@ NSSet *draggedKeyInfos;
 	}
 	NSLog(@"Fertig: updateKeyInfos");
 }
+
 
 
 - (void)updateKeyInfosWithDict:(NSDictionary *)aDict {
@@ -423,7 +429,7 @@ NSSet *draggedKeyInfos;
 
 - (NSString *)findExecutableWithName:(NSString *)executable {
 	NSString *foundPath;
-	NSArray *searchPaths = [NSMutableArray arrayWithObjects:@"/usr/local/bin", @"/usr/bin/", @"/opt/local/bin", nil];
+	NSArray *searchPaths = [NSMutableArray arrayWithObjects:@"/usr/local/bin", @"/usr/bin/", @"/bin/", @"/opt/local/bin", @"/sw/bin/", nil];
 	
 	foundPath = [self findExecutableWithName:executable atPaths:searchPaths];
 	if (foundPath) {
@@ -585,30 +591,43 @@ NSSet *draggedKeyInfos;
 - (id)transformedValue:(id)value {
 	NSMutableString *statusText = [NSMutableString stringWithCapacity:2];
 	NSInteger intValue = [value integerValue];
-	BOOL isOK = YES;
+	
+	switch (intValue & 7) {
+		case 2:
+			[statusText appendString:localized(@"?")]; //Was bedeutet 2? 
+			break;
+		case 3:
+			[statusText appendString:localized(@"Marginal")];
+			break;
+		case 4:
+			[statusText appendString:localized(@"Full")];
+			break;
+		case 5:
+			[statusText appendString:localized(@"Ultimate")];
+			break;
+		default:
+			[statusText appendString:localized(@"Unknown")];
+			break;
+	}
+	
 	if (intValue & GPGKeyStatus_Invalid) {
-		[statusText appendFormat:@"%@", localized(@"Invalid")];
-		isOK = NO;
+		[statusText appendFormat:@", %@", localized(@"Invalid")];
 	}
 	if (intValue & GPGKeyStatus_Revoked) {
-		[statusText appendFormat:@"%@%@", isOK ? @"" : @", ", localized(@"Revoked")];
-		isOK = NO;
+		[statusText appendFormat:@", %@", localized(@"Revoked")];
 	}
 	if (intValue & GPGKeyStatus_Expired) {
-		[statusText appendFormat:@"%@%@", isOK ? @"" : @", ", localized(@"Expired")];
-		isOK = NO;
+		[statusText appendFormat:@", %@", localized(@"Expired")];
 	}
 	if (intValue & GPGKeyStatus_Disabled) {
-		[statusText appendFormat:@"%@%@", isOK ? @"" : @", ", localized(@"Disabled")];
-		isOK = NO;
-	}
-	if (isOK) {
-		[statusText setString:localized(@"Key_Is_OK")];
+		[statusText appendFormat:@", %@", localized(@"Disabled")];
 	}
 	return [[statusText copy] autorelease];
 }
 
 @end
+
+
 
 @implementation SplitFormatter
 @synthesize blockSize;

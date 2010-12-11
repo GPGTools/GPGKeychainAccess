@@ -91,6 +91,13 @@
 - (id)initWithListing:(NSArray *)listing signatureListing:(NSArray *)sigListing parentKeyInfo:(GKKey *)keyInfo {
 	[self init];
 	primaryKeyInfo = keyInfo;
+	signatures = nil;
+	cipherPreferences = nil;
+	digestPreferences = nil;
+	compressPreferences = nil;
+	otherPreferences = nil;
+	
+	
 	[self updateWithListing:listing signatureListing:sigListing];
 	return self;	
 }
@@ -121,6 +128,22 @@
 		signatures = nil;
 	}
 	
+	if (cipherPreferences) {
+		[cipherPreferences release];
+		cipherPreferences = nil;
+	}
+	if (digestPreferences) {
+		[digestPreferences release];
+		digestPreferences = nil;
+	}
+	if (compressPreferences) {
+		[compressPreferences release];
+		compressPreferences = nil;
+	}
+	if (otherPreferences) {
+		[otherPreferences release];
+		otherPreferences = nil;
+	}
 }
 
 - (NSArray *)signatures {
@@ -142,8 +165,84 @@
 	return signatures;
 }
 
+
+- (void)updatePreferences:(NSString *)listing {
+	NSArray *split = [[[listing componentsSeparatedByString:@":"] objectAtIndex:12] componentsSeparatedByString:@","];
+	NSString *prefs = [split objectAtIndex:0];
+	
+	NSRange range, searchRange;
+	NSUInteger stringLength = [prefs length];
+	searchRange.location = 0;
+	searchRange.length = stringLength;
+	
+	
+	range = [prefs rangeOfString:@"Z" options:NSLiteralSearch range:searchRange];
+	if (range.length > 0) {
+		range.length = searchRange.length - range.location;
+		searchRange.length = range.location - 1;
+		compressPreferences = [[[prefs substringWithRange:range] componentsSeparatedByString:@" "] retain];
+	} else {
+		searchRange.length = stringLength;
+		compressPreferences = [[NSArray alloc] init];
+	}
+	
+	range = [prefs rangeOfString:@"H" options:NSLiteralSearch range:searchRange];
+	if (range.length > 0) {
+		range.length = searchRange.length - range.location;
+		searchRange.length = range.location - 1;
+		digestPreferences = [[[prefs substringWithRange:range] componentsSeparatedByString:@" "] retain];
+	} else {
+		searchRange.length = stringLength;
+		digestPreferences = [[NSArray alloc] init];
+	}
+	
+	range = [prefs rangeOfString:@"S" options:NSLiteralSearch range:searchRange];
+	if (range.length > 0) {
+		range.length = searchRange.length - range.location;
+		searchRange.length = range.location - 1;
+		cipherPreferences = [[[prefs substringWithRange:range] componentsSeparatedByString:@" "] retain];
+	} else {
+		searchRange.length = stringLength;
+		cipherPreferences = [[NSArray alloc] init];
+	}
+	
+	//TODO [mdc] [no-ks-modify]!
+}
+
+- (NSArray *)cipherPreferences {
+	if (!cipherPreferences) {
+		[primaryKeyInfo updatePreferences];
+	}
+	return cipherPreferences;
+}
+- (NSArray *)digestPreferences {
+	if (!digestPreferences) {
+		[primaryKeyInfo updatePreferences];
+	}
+	return digestPreferences;
+}
+- (NSArray *)compressPreferences {
+	if (!compressPreferences) {
+		[primaryKeyInfo updatePreferences];
+	}
+	return compressPreferences;
+}
+- (NSArray *)otherPreferences {
+	if (!otherPreferences) {
+		[primaryKeyInfo updatePreferences];
+	}
+	return otherPreferences;
+}
+
+
+
 - (void)dealloc {
 	[signatures release];
+	
+	[cipherPreferences release];
+	[digestPreferences release];
+	[compressPreferences release];
+	[otherPreferences release];
 	
 	self.hashID = nil;
 	self.userID = nil;
@@ -156,3 +255,4 @@
 
 
 @end
+

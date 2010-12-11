@@ -52,6 +52,7 @@ typedef enum {
     IBOutlet NSArrayController *subkeysController;
     IBOutlet NSArrayController *userIDsController;
 	IBOutlet NSArrayController *photosController;
+	IBOutlet NSOutlineView *keyTable;
 }
 - (BOOL)validateUserInterfaceItem:(id)anItem;
 - (IBAction)copy:(id)sender;
@@ -87,7 +88,10 @@ typedef enum {
 - (IBAction)refreshKeysFromServer:(id)sender;
 - (IBAction)showInspector:(id)sender;
 - (IBAction)genRevokeCertificate:(id)sender;
+- (IBAction)editAlgorithmPreferences:(id)sender;
 
+
+- (NSSet *)selectedKeyInfos;
 
 - (NSData *)exportKeys:(NSSet *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec fullExport:(BOOL)fullExport;
 - (void)importFromURLs:(NSArray *)urls;
@@ -109,6 +113,7 @@ typedef enum {
 - (void)writeDataToFD:(NSArray *)object;
 - (void)setDisabled:(BOOL)disabled forKeyInfos:(NSSet *)keys;
 - (NSData *)genRevokeCertificateForKey:(GKKey *)keyInfo;
+- (void)editAlgorithmPreferencesForKey:(GKKey *)keyInfo preferences:(NSArray *)userIDs;
 
 
 
