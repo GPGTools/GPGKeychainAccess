@@ -58,7 +58,7 @@ mountPoint=$(echo "$mountInfo" | tail -1 | sed -En 's/([^	]+[	]+){2}//p')
 echo "Set attributes"
 SetFile -a C "$mountPoint"
 
-osascript >/dev/null << EOF
+osascript >/dev/null << EOT1
 tell application "Finder"
 	tell disk "$volumeName"
 		open
@@ -78,7 +78,7 @@ tell application "Finder"
 		close
 	end tell
 end tell
-EOF
+EOT1
 
 chmod -Rf +r,go-w "$mountPoint"
 
@@ -107,6 +107,7 @@ rm -f "$dmgTempPath"
 echo -e "DMG created\n\n"
 
 
+
 read -p "Create Sparkle appcast entry? " input
 
 if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then 
@@ -123,7 +124,7 @@ if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
 
 	echo -e "\n"
 
-	cat <<EOT
+	cat <<EOT2
 <item>
 	<title>Version ${verison}</title>
 	<description>GPG Keychain Access Version ${verison}</description>
@@ -137,11 +138,17 @@ if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
 			   length="${size}"
 			   type="application/octet-stream" />
 </item>
-EOT
+EOT2
 
 	echo
 fi
 
+read -p "Create a detached signature? " input
+
+if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then 
+	gpg2 -bau "GPGTools Project Team" "$dmgPath"
+	
+fi
 
 
 
