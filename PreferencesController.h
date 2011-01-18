@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2010
+ Copyright © Roman Zechmeister, 2011
  
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
@@ -19,12 +19,18 @@
 
 @interface PreferencesController : NSWindowController {
 	NSWindow *window;
+	IBOutlet NSToolbar *toolbar;
+	IBOutlet NSView *keyserverPreferencesView;
+	IBOutlet NSView *updatesPreferencesView;
+	NSView *view;
 }
 
 @property (assign) IBOutlet NSWindow *window;
+@property (readonly) IBOutlet NSArray *keyservers;
 
 
 + (id)sharedInstance;
 - (IBAction)showPreferences:(id)sender;
+- (IBAction)selectTab:(NSToolbarItem *)sender;
 
 @end

@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2010
+ Copyright © Roman Zechmeister, 2011
  
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
@@ -429,7 +429,7 @@ NSSet *draggedKeyInfos;
 
 - (NSString *)findExecutableWithName:(NSString *)executable {
 	NSString *foundPath;
-	NSArray *searchPaths = [NSMutableArray arrayWithObjects:@"/usr/local/bin", @"/usr/bin/", @"/bin/", @"/opt/local/bin", @"/sw/bin/", nil];
+	NSArray *searchPaths = [NSMutableArray arrayWithObjects:@"/usr/local/MacGPG2/bin", @"/usr/local/bin", @"/usr/bin", @"/bin", @"/opt/local/bin", @"/sw/bin", nil];
 	
 	foundPath = [self findExecutableWithName:executable atPaths:searchPaths];
 	if (foundPath) {

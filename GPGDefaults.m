@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2010
+ Copyright © Roman Zechmeister, 2011
  
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
@@ -33,6 +33,15 @@ NSString *GPGDefaultsUpdatedNotification = @"org.gpgtools.GPGDefaultsUpdatedNoti
 @implementation GPGDefaults
 static NSMutableDictionary *_sharedInstances = nil;
 
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+	if (![key isEqualToString:@"refresh"]) {
+		return [NSSet setWithObject:@"refresh"];
+	}
+	return nil;
+}
+
+
 + (id)gpgDefaults {
 	return [self defaultsWithDomain:gpgDefaultsDomain];
 }
@@ -40,50 +49,39 @@ static NSMutableDictionary *_sharedInstances = nil;
 	return [self defaultsWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier]];
 }
 + (id)defaultsWithDomain:(NSString *)domain  {
+	return [[[self alloc] initWithDomain:domain] autorelease];
+}
+- (id)initWithDomain:(NSString *)domain {
 	if (!_sharedInstances) {
 		_sharedInstances = [[NSMutableDictionary alloc] initWithCapacity:2];
 	}
-	GPGDefaults *defaultsController = [_sharedInstances objectForKey:domain];
-	if (!defaultsController) {
-		defaultsController = [[self alloc] initWithDomain:domain];
-		[_sharedInstances setObject:defaultsController forKey:domain];
-		[defaultsController release];
+	id gpgDdefaults = [_sharedInstances objectForKey:domain];
+	if (gpgDdefaults) {
+		[self release];
+		self = [gpgDdefaults retain];
+	} else if (self = [super init]) {
+		_defaultsLock = [[NSLock alloc] init];
+		_domain = [domain retain];
+		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultsDidUpdated:) name:GPGDefaultsUpdatedNotification object:nil];			
+		
+		[_sharedInstances setObject:self forKey:domain];
 	}
-	return defaultsController;
-}
-- (id)initWithDomain:(NSString *)domain {
-	if ([self init]) {
-		self.domain = domain;
-	}
+
 	return self;
 }
 - (id)init {
-	if (self = [super init]) {
-		_defaults = nil;
-		_defaultDictionarys = nil;
-		_defaultsLock = [[NSLock alloc] init];
-		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultsDidUpdated:) name:GPGDefaultsUpdatedNotification object:nil];
-	}
-	return self;
+	return [self initWithDomain:gpgDefaultsDomain];
 }
 
-- (void)setDomain:(NSString *)value {
-	if (value != _domain) {
-		NSString *old = _domain;
-		_domain = [value retain];
-		[old release];
-	}
-}
-- (NSString *)domain {
-	return _domain;
-}
 
 - (void)setObject:(id)value forKey:(NSString *)defaultName {
+	[self willChangeValueForKey:defaultName];
 	[_defaultsLock lock];
 	[self.defaults setObject:value forKey:defaultName];
 	[_defaultsLock unlock];
 	[self writeToDisk];
 	[self setGPGConf:[value description] forKey:defaultName];
+	[self didChangeValueForKey:defaultName];
 }
 - (id)objectForKey:(NSString *)defaultName {
 	[_defaultsLock lock];
@@ -214,6 +212,7 @@ static NSMutableDictionary *_sharedInstances = nil;
 }
 
 - (void)refreshDefaults {
+	[self willChangeValueForKey:@"refresh"];
 	NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] persistentDomainForName:_domain];
 	NSMutableDictionary *old = _defaults;
 	if (dictionary) {
@@ -222,6 +221,7 @@ static NSMutableDictionary *_sharedInstances = nil;
 		_defaults = [[NSMutableDictionary alloc] initWithCapacity:1];
 	}
 	[old release];
+	[self didChangeValueForKey:@"refresh"];
 }
 
 - (NSMutableDictionary *)defaults {
@@ -252,11 +252,14 @@ static NSMutableDictionary *_sharedInstances = nil;
 - (void)dealloc {
 	[[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 	[_defaults release];
-	self.domain = nil;
+	[_domain release];
 	[_defaultsLock release];
 	[_defaultDictionarys release];
 	[super dealloc];
 }
+
+
+
 
 @end
 

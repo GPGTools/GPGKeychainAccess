@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2010
+ Copyright © Roman Zechmeister, 2011
  
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
@@ -38,7 +38,45 @@ static PreferencesController *_sharedInstance = nil;
 }
 
 - (IBAction)showPreferences:(id)sender {
+	if (!view) {
+		NSToolbarItem *item = [[toolbar items] objectAtIndex:0];
+		[toolbar setSelectedItemIdentifier:item.itemIdentifier];
+		[self selectTab:item];
+	}
 	[window makeKeyAndOrderFront:nil];
+}
+
+- (IBAction)selectTab:(NSToolbarItem *)sender {
+	static NSDictionary *views = nil;
+	if (!views) {
+		views = [[NSDictionary alloc] initWithObjectsAndKeys:
+					 keyserverPreferencesView, @"keyserver",
+					 updatesPreferencesView, @"updates", nil];		
+	}
+
+	[view removeFromSuperview];
+	view = [views objectForKey:sender.itemIdentifier];
+	
+	[[NSAnimationContext currentContext] setDuration:0.1];
+	
+	NSRect viewFrame = [window frameRectForContentRect:[view frame]];
+	NSRect windowFrame = [window frame];
+    windowFrame.origin.y -= viewFrame.size.height - windowFrame.size.height;
+	windowFrame.size = viewFrame.size;
+	
+	[window setFrame:windowFrame display:YES animate:YES];
+	
+	[[window contentView] addSubview:view];
+	[window setTitle:sender.label];
+}
+
+
+- (NSArray *)keyservers {
+	static NSArray *keyservers = nil;
+	if (!keyservers) {
+		keyservers = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Keyservers" ofType:@"plist"]];
+	}
+	return keyservers;
 }
 
 

@@ -1,0 +1,51 @@
+#!/bin/bash
+# 
+
+PRIVATE_KEY_NAME="Sparkle GPGKeychainAccess - Private key"
+
+pushd "$(dirname "$0")/.." > /dev/null
+
+releaseDir="build/Release"
+appPath="$releaseDir/GPG Keychain Access.app"
+
+if [[ ! -e "$appPath" ]] ;then
+	echo "No release found!" >&2
+	popd > /dev/null
+	exit 1
+fi
+
+verison=$(/usr/libexec/PlistBuddy -c "print CFBundleShortVersionString" "$appPath/Contents/Info.plist")
+dmgPath="build/GPGKeychainAccess-${verison}.dmg"
+
+
+# remove files from earlier execution
+rm -f "$dmgPath"
+rm -rf "build/dmgTemp"
+
+# Create temp folder
+mkdir build/dmgTemp
+
+
+# Copy dmg resources
+cp dmgResources/DS_Store build/dmgTemp/.DS_Store
+cp dmgResources/Background.png build/dmgTemp/.Background.png
+cp dmgResources/VolumeIcon.icns build/dmgTemp/.VolumeIcon.icns
+
+
+# Copy the relevant files
+cp -PR "$appPath" build/dmgTemp/
+ln -s /Applications build/dmgTemp/Applications
+
+
+# Create DMG
+hdiutil create -srcfolder build/dmgTemp -quiet -volname "GPG Keychain Access" "$dmgPath"
+
+
+# Remove temp
+rm -rf build/dmgTemp
+
+
+popd > /dev/null
+
+
+

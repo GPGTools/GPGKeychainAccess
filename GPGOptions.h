@@ -3,7 +3,7 @@
  Modified by Roman Zechmeister
  
  Copyright (C) 2002-2006 Mac GPG Project.
- Copyright © Roman Zechmeister, 2010
+ Copyright © Roman Zechmeister, 2011
  
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 

@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2010
+ Copyright © Roman Zechmeister, 2011
  
  Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
@@ -20,6 +20,7 @@
 #import "KeychainController.h"
 #import "SheetController.h"
 #import "GPGOptions.h"
+#import "GPGDefaults.h"
 
 
 @implementation ActionController
@@ -29,6 +30,7 @@
 //TODO: Fehlermeldungen wenn eine Aktion fehlschlägt.
 //TODO: Geschätzte Sicherheit - Genauere Informationen.
 //TODO: runGPGCommandWithArray - Pipes asynchron ansprechen.
+//TODO: Standard Schlüsselserver
 
 
 - (NSSet *)selectedKeyInfos {
@@ -122,6 +124,8 @@
 		}
 	}
 	if (doEdit) {
+		[self registerUndoForKey:keyInfo withName:@"Undo_AlgorithmPreferences"];
+		
 		[cmdText appendString:@"save\n"];
 		runGPGCommand(cmdText, nil, nil, @"--edit-key", fingerprint, nil);
 		
@@ -629,6 +633,7 @@
 					
 					NSNumber *checkState;
 					NSString *keyState = [splitedLine objectAtIndex:6];
+					//TODO: Expired keys.
 					if (keyState && [keyState length] > 0) {
 						checkState = [NSNumber numberWithBool:NO];
 						attrsDictionary = [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
@@ -1537,14 +1542,26 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 
 	
 	
-	tempArray = [gpgOptions activeOptionValuesForName:@"keyserver"];
-	if ([tempArray count] == 0) {
-		[pool drain];
-		NSLog(@"searchKeysOnServer RunCmdNoKeyserverFound");
-		return RunCmdNoKeyserverFound;
-	}
-	hostName = [tempArray objectAtIndex:0];
 	
+	hostName = [[GPGDefaults gpgDefaults] stringForKey:@"Keyserver"];
+	if (!hostName) {
+		tempArray = [gpgOptions activeOptionValuesForName:@"keyserver"];
+		
+		if ([tempArray count] > 0) {
+			hostName = [tempArray objectAtIndex:0];
+			[[GPGDefaults gpgDefaults] setObject:hostName forKey:@"Keyserver"];
+		} else {
+			tempArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Keyservers" ofType:@"plist"]];
+			
+			if ([tempArray count] > 0) {
+				hostName = [tempArray objectAtIndex:0];
+			} else {
+				[pool drain];
+				NSLog(@"searchKeysOnServer RunCmdNoKeyserverFound");
+				return RunCmdNoKeyserverFound;			
+			}
+		}
+	}	
 	
 	aRange = [hostName rangeOfString:@"://"];
     if (aRange.length == 0){
