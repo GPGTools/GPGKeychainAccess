@@ -19,7 +19,6 @@
 @class ActionController;
 
 extern NSString *GPG_PATH;
-extern NSString *GPG_AGENT_PATH;
 extern NSInteger GPG_VERSION;
 extern KeychainController *keychainController;
 extern ActionController *actionController;
@@ -63,7 +62,6 @@ NSSet* keyIDsFromString(NSString *string);
 
 BOOL containsPGPKeyBlock(NSString *string);
 
-BOOL isGpgAgentRunning();
 
 int hexToByte (const char *text);
 NSString *unescapeString(NSString *string);

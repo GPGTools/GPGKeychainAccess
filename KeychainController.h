@@ -60,7 +60,6 @@
 - (NSSet *)fingerprintsForKeyIDs:(NSSet *)keys;
 
 - (BOOL)initGPG;
-- (void)initAgent;
 - (void)initKeychains;
 - (BOOL)isKeyInfoPassingFilterTest:(GKKey *)keyInfo;
 - (void)updateThread;

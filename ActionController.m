@@ -1214,40 +1214,6 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		pipe(pipes[4]);
 	}
 	
-	NSString *gpgAgentInfo = nil;
-	
-	if (GPG_VERSION == 1) {
-		NSDictionary *environment = [[NSProcessInfo processInfo] environment];
-		NSLog(@"env: %@", [environment objectForKey:@"GPG_AGENT_INFO"]);
-		setenv("GPG_AGENT_INFO", "", 1);
-		
-		if (!isGpgAgentRunning()) {
-			NSLog(@"runGPGCommandWithArray: gpg-agent not running");
-			BOOL isRunning = NO;
-			gpgAgentInfo = [environment objectForKey:@"GPG_AGENT_INFO"];
-			if (gpgAgentInfo) {
-				setenv("GPG_AGENT_INFO", [gpgAgentInfo cStringUsingEncoding:NSUTF8StringEncoding], 1);
-				isRunning = isGpgAgentRunning();
-			}
-			
-			if (!isRunning) {
-				NSString *gpgAgentInfoContent = [NSString stringWithContentsOfFile:[@"~/.gpg-agent-info" stringByExpandingTildeInPath] encoding:NSUTF8StringEncoding error:nil];
-				if (gpgAgentInfoContent) {
-					NSRange range = [gpgAgentInfoContent rangeOfString:@"GPG_AGENT_INFO="];
-					if (range.length > 0) {
-						range = [gpgAgentInfoContent lineRangeForRange:range];
-						range.location += 15;
-						range.length -= 16;
-						gpgAgentInfo = [gpgAgentInfoContent substringWithRange:range];
-					}
-				}
-			}
-		} 
-		if (!gpgAgentInfo || [gpgAgentInfo length] < 5) {
-			gpgAgentInfo = [@"~/.gnupg/S.gpg-agent:0:1" stringByExpandingTildeInPath];
-		}
-		
-	}
 
 	pid_t pid = fork();
 	
@@ -1256,7 +1222,7 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		if (GPG_VERSION == 2) {
 			numArgs = 7 + [args count];
 		} else {
-			numArgs = 11 + [args count]; //GPG 1.4 braucht mehr Parameter.
+			numArgs = 9 + [args count]; //GPG 1.4 braucht mehr Parameter.
 		}
 		
 		int nullDescriptor = open("/dev/null", O_WRONLY);
@@ -1320,8 +1286,6 @@ int runGPGCommandWithArray(NSData *inData, NSData **outData, NSData **errData, N
 		if (GPG_VERSION == 1) {
 			argv[argPos++] = "--fixed-list-mode";
 			argv[argPos++] = "--use-agent";
-			argv[argPos++] = "--gpg-agent-info";
-			argv[argPos++] = (char*)[gpgAgentInfo cStringUsingEncoding:NSUTF8StringEncoding];
 		}
 		
 		

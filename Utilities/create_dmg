@@ -19,98 +19,101 @@ dmgTempPath="build/temp.dmg"
 volumeName="GPG Keychain Access.localized"
 
 
-# remove files from earlier execution
-echo "Remove old files"
-rm -f "$dmgTempPath"
-rm -f "$dmgPath"
-rm -rf "build/dmgTemp"
+read -p "Create DMG? " input
+
+if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then 
+	# remove files from earlier execution
+	echo "Remove old files"
+	rm -f "$dmgTempPath"
+	rm -f "$dmgPath"
+	rm -rf "build/dmgTemp"
 
 
-# Create temp folder
-echo "Create temp folder"
-mkdir build/dmgTemp
+	# Create temp folder
+	echo "Create temp folder"
+	mkdir build/dmgTemp
 
 
-# Copy files
-echo "Copy files"
-mkdir build/dmgTemp/.background
-cp dmgResources/Background.png build/dmgTemp/.background/Background.png
-cp dmgResources/VolumeIcon.icns build/dmgTemp/.VolumeIcon.icns
-cp -r dmgResources/localized build/dmgTemp/.localized
-ln -s /Applications build/dmgTemp/Applications
-cp -PR "$appPath" build/dmgTemp/
+	# Copy files
+	echo "Copy files"
+	mkdir build/dmgTemp/.background
+	cp dmgResources/Background.png build/dmgTemp/.background/Background.png
+	cp dmgResources/VolumeIcon.icns build/dmgTemp/.VolumeIcon.icns
+	cp -r dmgResources/localized build/dmgTemp/.localized
+	ln -s /Applications build/dmgTemp/Applications
+	cp -PR "$appPath" build/dmgTemp/
 
 
-# Create DMG
-echo "Create DMG"
-hdiutil create -scrub -quiet -fs HFS+ -fsargs "-c c=64,a=16,e=16" -format UDRW -srcfolder build/dmgTemp -volname "$volumeName" "$dmgTempPath"
+	# Create DMG
+	echo "Create DMG"
+	hdiutil create -scrub -quiet -fs HFS+ -fsargs "-c c=64,a=16,e=16" -format UDRW -srcfolder build/dmgTemp -volname "$volumeName" "$dmgTempPath"
 
 
-# Mount it
-echo "Mount"
-mountInfo=$(hdiutil attach -readwrite -noverify "$dmgTempPath")
+	# Mount it
+	echo "Mount"
+	mountInfo=$(hdiutil attach -readwrite -noverify "$dmgTempPath")
 
-device=$(echo "$mountInfo" | head -1 | cut -d " " -f 1)
-mountPoint=$(echo "$mountInfo" | tail -1 | sed -En 's/([^	]+[	]+){2}//p')
+	device=$(echo "$mountInfo" | head -1 | cut -d " " -f 1)
+	mountPoint=$(echo "$mountInfo" | tail -1 | sed -En 's/([^	]+[	]+){2}//p')
 
 
-# Set attributes
-echo "Set attributes"
-SetFile -a C "$mountPoint"
+	# Set attributes
+	echo "Set attributes"
+	SetFile -a C "$mountPoint"
 
-osascript >/dev/null << EOT1
-tell application "Finder"
-	tell disk "$volumeName"
-		open
-		set viewOptions to icon view options of container window
-		set current view of container window to icon view
-		set toolbar visible of container window to false
-		set statusbar visible of container window to false
-		set bounds of container window to {400, 200, 580 + 400, 320 + 200}
-		set arrangement of viewOptions to not arranged
-		set icon size of viewOptions to 128
-		set text size of viewOptions to 13
-		set background picture of viewOptions to file ".background:Background.png"
-		
-		set position of item "GPG Keychain Access.app" of container window to {160, 130}
-		set position of item "Applications" of container window to {410, 130}
-		update without registering applications
-		close
+	osascript >/dev/null << EOT1
+	tell application "Finder"
+		tell disk "$volumeName"
+			open
+			set viewOptions to icon view options of container window
+			set current view of container window to icon view
+			set toolbar visible of container window to false
+			set statusbar visible of container window to false
+			set bounds of container window to {400, 200, 580 + 400, 320 + 200}
+			set arrangement of viewOptions to not arranged
+			set icon size of viewOptions to 128
+			set text size of viewOptions to 13
+			set background picture of viewOptions to file ".background:Background.png"
+			
+			set position of item "GPG Keychain Access.app" of container window to {160, 130}
+			set position of item "Applications" of container window to {410, 130}
+			update without registering applications
+			close
+		end tell
 	end tell
-end tell
 EOT1
 
-chmod -Rf +r,go-w "$mountPoint"
+	chmod -Rf +r,go-w "$mountPoint"
 
 
-# Remove .Trashes and .fseventsd
-echo "Remove .Trashes and .fseventsd"
-rm -r "$mountPoint/.Trashes" "$mountPoint/.fseventsd"
+	# Remove .Trashes and .fseventsd
+	echo "Remove .Trashes and .fseventsd"
+	rm -r "$mountPoint/.Trashes" "$mountPoint/.fseventsd"
 
 
-# Unmount it
-echo "Unmount"
-hdiutil detach -quiet "$mountPoint"
+	# Unmount it
+	echo "Unmount"
+	hdiutil detach -quiet "$mountPoint"
 
 
-# Convert to readonly
-echo "Convert DMG"
-hdiutil convert "$dmgTempPath" -quiet -format UDZO -imagekey zlib-level=9 -o "$dmgPath"
+	# Convert to readonly
+	echo "Convert DMG"
+	hdiutil convert "$dmgTempPath" -quiet -format UDZO -imagekey zlib-level=9 -o "$dmgPath"
 
 
-# Remove temp
-echo "Cleanup"
-rm -rf build/dmgTemp
-rm -f "$dmgTempPath"
+	# Remove temp
+	echo "Cleanup"
+	rm -rf build/dmgTemp
+	rm -f "$dmgTempPath"
 
 
-echo -e "DMG created\n\n"
-
+	echo -e "DMG created\n\n"
+fi
 
 
 read -p "Create Sparkle appcast entry? " input
 
-if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then 
+if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
 	PRIVATE_KEY_NAME="Sparkle GPGKeychainAccess - Private key"
 
 
@@ -145,7 +148,7 @@ fi
 
 read -p "Create a detached signature? " input
 
-if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then 
+if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
 	gpg2 -bau "GPGTools Project Team" "$dmgPath"
 	
 fi
