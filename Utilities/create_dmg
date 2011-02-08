@@ -18,6 +18,7 @@ if [[ ! -e "$appPath" ]] ;then
 	exit 1
 fi
 
+
 read -p "Create DMG? " input
 
 if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
@@ -110,6 +111,17 @@ EOT1
 fi
 
 
+read -p "Create a detached signature? " input
+
+if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
+	echo "Removing old signature..."
+	rm -f "${dmgPath}.sig"
+
+	echo "Signing..."
+	gpg2 -bau 76D78F0500D026C4 -o "${dmgPath}.sig"  "$dmgPath"
+fi
+
+
 read -p "Create Sparkle appcast entry? " input
 
 if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
@@ -128,8 +140,8 @@ if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
 
 	cat <<EOT2
 <item>
-	<title>Version ${verison}</title>
-	<description>GPG Keychain Access Version ${verison}</description>
+	<title>Version ${version}</title>
+	<description>GPG Keychain Access Version ${version}</description>
 	<sparkle:releaseNotesLink>http://www.gpgtools.org/keychain_sparkle.html</sparkle:releaseNotesLink>
 	<pubDate>${date}</pubDate>
 	<enclosure url="https://github.com/downloads/GPGTools/GPGKeychainAccess/${dmgName}"
@@ -143,16 +155,7 @@ EOT2
 	echo
 fi
 
-read -p "Create a detached signature? " input
-
-if [ "x$input" == "xy" -o "x$input" == "xY" ] ;then
-	gpg2 -bau 76D78F0500D026C4 "$dmgPath"
-
-fi
-
 
 
 popd > /dev/null
-
-
 

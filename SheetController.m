@@ -54,6 +54,7 @@ static SheetController *_sharedInstance = nil;
 @synthesize secretKeyFingerprints;
 @synthesize secretKeyId;
 @synthesize userIDs;
+@synthesize exportFormat;
 
 
 
@@ -67,7 +68,7 @@ static SheetController *_sharedInstance = nil;
 - (id)init {
 	if (self = [super init]) {
 		[NSBundle loadNibNamed:@"ModalSheets" owner:self];
-		exportFormat = 1;
+		self.exportFormat = 1;
 	}
 	return self;
 }
@@ -808,7 +809,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	
 	[openPanel setAllowsMultipleSelection:YES];
 	
-	NSArray *fileTypes = [NSArray arrayWithObjects:@"gpgkey", @"key", @"asc", nil];
+	NSArray *fileTypes = [NSArray arrayWithObjects:@"gpgkey", @"asc", @"key", @"gpg", nil];
 	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:GKOpenSavePanelImportKeyAction], @"action", nil];
 	
 	[openPanel beginSheetForDirectory:nil file:nil types:fileTypes modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
@@ -821,7 +822,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	
 	[savePanel setAllowsOtherFileTypes:YES];
 	[savePanel setCanSelectHiddenExtension:YES];
-	self.exportFormat = exportFormat;
+	[savePanel setAllowedFileTypes:[NSArray arrayWithObjects:@"gpgkey", @"asc", @"key", @"gpg", nil]];
 	
 	
 	NSString *filename;
@@ -843,7 +844,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	[savePanel setAllowsOtherFileTypes:YES];
 	[savePanel setCanSelectHiddenExtension:YES];
 	
-	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"asc"]];
+	[savePanel setAllowedFileTypes:[NSArray arrayWithObjects:@"gpg", @"asc", nil]];
 	
 	NSString *filename = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), [keyInfo shortKeyID]];
 	
@@ -894,23 +895,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 				break; }
 		}
 	}
-}
-
-- (NSInteger)exportFormat {
-    return exportFormat;
-}
-- (void)setExportFormat:(NSInteger)value {
-	exportFormat = value;
-	NSString *extension;
-	switch (value) {
-		case 1:
-			extension = @"asc";
-			break;
-		default:
-			extension = @"gpgkey";
-			break;
-	}
-	[savePanel setAllowedFileTypes:[NSArray arrayWithObject:extension]];
 }
 
 - (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 {

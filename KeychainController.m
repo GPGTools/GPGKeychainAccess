@@ -61,9 +61,9 @@ NSSet *draggedKeyInfos;
 	
 	NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
     [pboard declareTypes:[NSArray arrayWithObject:NSFilesPromisePboardType] owner:self];
-    [pboard setPropertyList:[NSArray arrayWithObject:@"asc"] forType:NSFilesPromisePboardType];
+    [pboard setPropertyList:[NSArray arrayWithObject:@"gpgkey"] forType:NSFilesPromisePboardType];
 	
-	NSImage *image = [NSImage imageNamed:@"asc"];
+	NSImage *image = [NSImage imageNamed:@"gpgkey"];
 	[image setSize:(NSSize){56, 56}];
 	
 	[outlineView dragImage:image at:imagePoint offset:(NSSize){0, 0} event:event pasteboard:pboard source:self slideBack:YES];
@@ -76,9 +76,9 @@ NSSet *draggedKeyInfos;
 - (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
 	NSString *fileName;
 	if ([draggedKeyInfos count] == 1) {
-		fileName = [NSString stringWithFormat:@"%@.asc", [[draggedKeyInfos anyObject] shortKeyID]];
+		fileName = [NSString stringWithFormat:@"%@.gpgkey", [[draggedKeyInfos anyObject] shortKeyID]];
 	} else {
-		fileName = localized(@"Exported keys.asc");
+		fileName = localized(@"Exported keys.gpgkey");
 	}
 	
 	NSData *exportedData = [actionController exportKeys:draggedKeyInfos armored:YES allowSecret:NO fullExport:NO];
