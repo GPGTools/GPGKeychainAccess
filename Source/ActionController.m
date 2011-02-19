@@ -730,7 +730,7 @@
 	NSData *statusData;
 	
 	if (runGPGCommandWithArray(nil, nil, nil, &statusData, nil, arguments) != 0) {
-		NSLog(@"receiveKeysWithPattern: --recv-keys für \"%@\" fehlgeschlagen.", keyIDs);
+		NSLog(@"receiveKeysWithIDs: --recv-keys für \"%@\" fehlgeschlagen.", keyIDs);
 	}
 	[keychainController updateKeyInfos:nil];
 	
