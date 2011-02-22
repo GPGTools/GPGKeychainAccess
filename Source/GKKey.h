@@ -106,6 +106,7 @@ typedef enum {
 
 @property (readonly) GKKey *primaryKeyInfo;
 @property (readonly) NSString *type;
+@property (readonly) NSString *longType;
 @property (readonly) NSInteger index;
 
 @property (readonly) NSString *userID;

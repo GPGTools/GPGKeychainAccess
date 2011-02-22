@@ -463,6 +463,7 @@
 
 - (GKKey *)primaryKeyInfo { return self; }
 - (NSString *)type { return secret ? @"sec" : @"pub"; }
+- (NSString *)longType { return secret ? localized(@"Secret and public key") : localized(@"Public key"); }
 - (NSInteger)index { return 0; }
 
 - (NSString *)userID { return primaryUserID.userID; }

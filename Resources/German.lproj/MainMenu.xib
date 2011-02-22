@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
 		<string key="IBDocument.SystemVersion">10J567</string>
-		<string key="IBDocument.InterfaceBuilderVersion">823</string>
+		<string key="IBDocument.InterfaceBuilderVersion">789</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">462.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">823</string>
+			<string key="NS.object.0">789</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1481,7 +1481,7 @@
 								<reference key="NSControlView" ref="544588931"/>
 								<int key="NSButtonFlags">1211912703</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage" id="68507825">
+								<object class="NSCustomResource" key="NSNormalImage" id="50988105">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
 								</object>
@@ -1538,6 +1538,7 @@
 					<string>secret</string>
 					<string>expirationDate</string>
 					<string>safe</string>
+					<string>primaryKeyInfo.longType</string>
 				</object>
 				<string key="NSObjectClassName">GKKey</string>
 				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
@@ -2041,7 +2042,7 @@
 													<reference key="NSControlView" ref="836028179"/>
 													<int key="NSButtonFlags">1211912703</int>
 													<int key="NSButtonFlags2">2</int>
-													<reference key="NSNormalImage" ref="68507825"/>
+													<reference key="NSNormalImage" ref="50988105"/>
 													<reference key="NSAlternateImage" ref="483159743"/>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
@@ -2279,8 +2280,8 @@
 											</object>
 											<object class="NSTextField" id="1068158087">
 												<reference key="NSNextResponder" ref="269795853"/>
-												<int key="NSvFlags">266</int>
-												<string key="NSFrame">{{14, 232}, {206, 14}}</string>
+												<int key="NSvFlags">268</int>
+												<string key="NSFrame">{{14, 232}, {85, 14}}</string>
 												<reference key="NSSuperview" ref="269795853"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="952518290">
@@ -2295,8 +2296,8 @@
 											</object>
 											<object class="NSTextField" id="184211571">
 												<reference key="NSNextResponder" ref="269795853"/>
-												<int key="NSvFlags">265</int>
-												<string key="NSFrame">{{222, 232}, {198, 14}}</string>
+												<int key="NSvFlags">266</int>
+												<string key="NSFrame">{{101, 232}, {319, 14}}</string>
 												<reference key="NSSuperview" ref="269795853"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSTextFieldCell" key="NSCell" id="4692">
@@ -6359,35 +6360,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: selection.primaryKeyInfo.type</string>
-						<reference key="source" ref="184211571"/>
-						<reference key="destination" ref="995608647"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="184211571"/>
-							<reference key="NSDestination" ref="995608647"/>
-							<string key="NSLabel">value: selection.primaryKeyInfo.type</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">selection.primaryKeyInfo.type</string>
-							<object class="NSDictionary" key="NSOptions">
-								<bool key="EncodedWithXMLCoder">YES</bool>
-								<object class="NSArray" key="dict.sortedKeys">
-									<bool key="EncodedWithXMLCoder">YES</bool>
-									<string>NSAllowsEditingMultipleValuesSelection</string>
-									<string>NSMultipleValuesPlaceholder</string>
-								</object>
-								<object class="NSMutableArray" key="dict.values">
-									<bool key="EncodedWithXMLCoder">YES</bool>
-									<boolean value="NO"/>
-									<string type="base64-UTF8">IA</string>
-								</object>
-							</object>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1868</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.status</string>
 						<reference key="source" ref="571018766"/>
 						<reference key="destination" ref="460432262"/>
@@ -7009,6 +6981,35 @@
 						<reference key="destination" ref="68042744"/>
 					</object>
 					<int key="connectionID">1984</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.primaryKeyInfo.longType</string>
+						<reference key="source" ref="184211571"/>
+						<reference key="destination" ref="995608647"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="184211571"/>
+							<reference key="NSDestination" ref="995608647"/>
+							<string key="NSLabel">value: selection.primaryKeyInfo.longType</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.primaryKeyInfo.longType</string>
+							<object class="NSDictionary" key="NSOptions">
+								<bool key="EncodedWithXMLCoder">YES</bool>
+								<object class="NSArray" key="dict.sortedKeys">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<string>NSAllowsEditingMultipleValuesSelection</string>
+									<string>NSMultipleValuesPlaceholder</string>
+								</object>
+								<object class="NSMutableArray" key="dict.values">
+									<bool key="EncodedWithXMLCoder">YES</bool>
+									<boolean value="NO"/>
+									<string type="base64-UTF8">IA</string>
+								</object>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">1985</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -10583,7 +10584,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">1984</int>
+			<int key="maxID">1985</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -10902,7 +10903,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">ActionController.h</string>
+						<string key="minorKey">Source/ActionController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -11018,7 +11019,7 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">AppDelegate.h</string>
+						<string key="minorKey">Source/AppDelegate.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -11067,15 +11068,15 @@
 							</object>
 						</object>
 					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="926911960">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="334254827">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">KeychainController.h</string>
+						<string key="minorKey">Source/KeychainController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">SplitFormatter</string>
 					<string key="superclassName">NSFormatter</string>
-					<reference key="sourceIdentifier" ref="926911960"/>
+					<reference key="sourceIdentifier" ref="334254827"/>
 				</object>
 			</object>
 			<object class="NSMutableArray" key="referencedPartialClassDescriptionsV3.2+">
@@ -11086,47 +11087,6 @@
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">AddressBook.framework/Headers/ABActions.h</string>
 					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Sparkle.framework/Headers/SUAppcast.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="758777854">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">Sparkle.framework/Headers/SUUpdater.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">SUUpdater</string>
-					<string key="superclassName">NSObject</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">checkForUpdates:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">checkForUpdates:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">checkForUpdates:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">delegate</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">delegate</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">delegate</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<reference key="sourceIdentifier" ref="758777854"/>
 				</object>
 			</object>
 		</object>
@@ -11141,7 +11101,7 @@
 			<integer value="3000" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<string key="IBDocument.LastKnownRelativeProjectPath">../GPGKeychainAccess.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../../GPGKeychainAccess.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<bool key="EncodedWithXMLCoder">YES</bool>
