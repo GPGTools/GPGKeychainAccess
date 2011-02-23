@@ -1,0 +1,170 @@
+//For Key-Status
+"Invalid" = "Ogiltig";
+"Revoked" = "Återkallad";
+"Expired" = "Utgången";
+"Disabled" = "Avaktiverad";
+"Unknown" = "Okänd";
+"Marginal" = "Marginell";
+"Full" = "Full";
+"Ultimate" = "Ultimat";
+
+
+//For Delete-Dialogues
+"Delete secret key only" = "Radera endast hemlig nyckel";
+"Delete both" = "Radera båda";
+"Delete key" = "Radera nyckel";
+DeleteSecretKey_Title = "Radera hemlig nyckel";
+DeleteSecretKey_Msg = "Försöker radera nyckel %@, %@.\n\nDu kommer nu att radera en hemlig nyckel. När den är borta kommer du inte att kunna avkryptera brev som krypterats mot denna nyckel. Är du säker på att du vill göra detta?";
+DeleteKey_Title = "Radera nyckel";
+DeleteKey_Msg = "Försöker radera nyckel %@, %@.\n\nÄr du säker på att du vill radera denna nyckel?";
+
+
+//Long key types
+"Secret and public key" = "Hemlig och publik nyckel";
+"Public key" = "Publik nyckel";
+
+
+//For export, as standard File-Name.
+"untitled" = "namnlös";
+"%@ Revoke certificate" = "%@ Återkalla certifikat";
+"Exported keys.asc" = "Exporterade nycklar.asc";
+
+
+//For Key-Search
+"No keys Found" = "Inga nycklar hittades";
+"%@, %@ (%@ bit), created: %@" = "%@, %@ (%@ bit), skapad: %@"; //Format für die gefundenen Schlüssel vom Server.
+
+GenerateEntropy_Msg = "Nu behöver många slumpmässiga byte genereras. Det är en god idé att göra flera andra saker (skriva på tangentordet i annat program, röra musen, kopiera filer) medan detta pågår; det ger en slumptalsgenerator bättre möjlighet att uppnå tillräckligt med entropi";
+GenerateSubkey_Msg = "Lägg till undernyckel till nyckeln \"%@\", %@.";
+GenerateUserID_Msg = "Lägg till användar-ID till nyckeln \"%@\", %@.";
+GenerateSignature_Msg = "Gör signatur för alla användar-ID av \"%@\", %@";
+GenerateUidSignature_Msg = "Gör signatur av användar-ID \"%@\", %@";
+ChangeExpirationDate_Msg = "Ändra utgångsdatum för \"%@\", %@";
+ChangeSubkeyExpirationDate_Msg = "Ändra utgångsdatum för \"%@\", %@\nUndernyckel: %@";
+
+
+//Message for incorrect Entries
+CheckError_NameToShort = "Namnet måste vara åtminstone 5 tecken långt!";
+CheckError_NameToLong = "Namnet är för långt!";
+CheckError_InvalidCharInName = "Ogiltiga tecken i namnet!\n\"<\" och \">\" tillåts ej.";
+CheckError_NameStartWithDigit = "Namnet får inte börja med en siffra!";
+CheckError_InvalidEmail = "Ogiltig epostadress!";
+CheckError_EmailToLong = "Epostadressen är för lång!\nMax antal tecken är 254.";
+CheckError_InvalidCharInComment = "Ogiltiga tecken i kommentaren!\n\"(\" och \")\" tillåts ej.";
+CheckError_CommentToLong = "Kommentaren är för lång!";
+CheckError_NoKeyID = "Skriv ett giltigt nyckel-ID!";
+CheckError_PassphraseMissmatch = "Dina lösenordsfraser stämde inte överens!";
+
+
+//Message on start, if there are any Problems
+GPGNotFound_Msg = "GPG hittades inte!";
+GPGNotStart_Title = "GPG kan inte startas!";
+GPGNotStart_Msg = "Kontrollera din gpg.conf";
+GPGInitError_Msg = "GPG kunde inte initieras!";
+GPGAgentNotFound_Title = "gpg-agenten hittades inte!";
+GPGAgentNotFound_Msg = "Utan gpg-agent kan du inte komma åt nycklar som skyddats med lösenordsfras.";
+GPGAgentNotStart_Title = "gpg-agenten kunde inte startas!";
+GPGAgentNotStart_Msg = "Utan gpg-agent kan du inte komma åt nycklar som skyddats med lösenordsfras.";
+Quit_Button = "Avsluta";
+
+
+//Those are obvious
+No = "Nej";
+Error = "Fel";
+Warning = "Varning";
+Cancle = "Avbryt";
+
+
+//For Import-Results
+"key %@: secret key imported\n" = "nyckel %@: hemlig nyckel importerades\n";
+"key %@: public key \"%@\" imported\n" = "nyckel %@: publik nyckel \"%@\" importerades\n";
+"key %@: \"%@\" new user ID(s)\n" = "nyckel %@: \"%@\" nytt/nya användar-ID\n";
+"key %@: \"%@\" new signature(s)\n" = "nyckel %@: \"%@\" ny/nya signarur(er)\n";
+"key %@: \"%@\" new subkey(s)\n" = "nyckel %@: \"%@\" ny/nya undernyckel/nycklar\n";
+"Nothing imported!" = "Ingenting importerades!";
+
+
+//The Algorithms
+GPG_RSAAlgorithm = "RSA";
+GPG_RSAEncryptOnlyAlgorithm = "RSA-E";
+GPG_RSASignOnlyAlgorithm = "RSA-S";
+GPG_ElgamalEncryptOnlyAlgorithm = "ELG-E";
+GPG_DSAAlgorithm = "DSA";
+GPG_EllipticCurveAlgorithm = "EllipticCurve";
+GPG_ECDSAAlgorithm = "ECDSA";
+GPG_ElgamalAlgorithm = "ELG";
+GPG_DiffieHellmanAlgorithm = "DiffieHellman";
+
+
+//In Main Window
+"%i of %i keys listed" = "%i av %i nycklar listades";
+
+
+//For opening and saving dialogues
+"This picture is really large!" = "Denna bild är verkligen stor!";
+"You should use a smaller picture." = "Du borde använda en mindre bild.";
+"Choose another…" = "Välj en annan…";
+"Use this photo" = "Använd detta foto";
+"This picture is to large!" = "Denna bild är för stor!";
+"Please use a picature smaller than 1 MiB." = "Använd en bild som är mindre än 1 MiB.";
+"Export failed!" = "Exporten misslyckades!";
+
+"Generate revoke certificate failed!" = "Det gick inte att skapa ett återkallelse-certifikat!";
+
+
+//For Undo and Redo
+Undo_Clean = "Rensa";
+Undo_Minimize = "Minimera";
+Undo_Import = "Importera";
+Undo_Receive = "Ta emot";
+Undo_Refresh = "Uppdatera";
+Undo_SetTrust = "Sätt Trust-nivå";
+Undo_Delete = "Radera";
+Undo_AddPhoto = "Lägg till foto";
+Undo_RemovePhoto = "Ta bort foto";
+Undo_RevokePhoto = "Återkalla foto";
+Undo_PrimaryPhoto = "Primärt foto";
+Undo_AddSignature = "Lägg till signatur";
+Undo_AddSubkey = "Lägg till undernyckel";
+Undo_AddUserID = "Lägg till användar-ID";
+Undo_ChangeExpirationDate = "Ändra utgångsdatum";
+Undo_ChangePassphrase = "Ändra lösenordsfras";
+Undo_RemoveSignature = "Ta bort signatur";
+Undo_RemoveSubkey = "Ta bort undernyckel";
+Undo_RemoveUserID = "Ta bort användar-ID";
+Undo_RevokeSignature = "Återkalla signatur";
+Undo_RevokeSubkey = "Återkalla undernyckel";
+Undo_RevokeUserID = "Återkalla användar-ID";
+Undo_PrimaryUserID = "Återkalla användar-ID";
+Undo_DisableKey = "Inaktivera nyckel";
+Undo_EnableKey = "Aktivera nyckel";
+Undo_NewKey = "Ny nyckel";
+Undo_AlgorithmPreferences = "Ändra algoritm-inställningar";
+
+
+
+CIPHER_ALGO_NONE = "Ingen";
+CIPHER_ALGO_IDEA = "IDEA";
+CIPHER_ALGO_3DES = "3DES";
+CIPHER_ALGO_CAST5 = "CAST5";
+CIPHER_ALGO_BLOWFISH = "BLOWFISH";
+CIPHER_ALGO_AES = "AES";
+CIPHER_ALGO_AES192 = "AES192";
+CIPHER_ALGO_AES256 = "AES256";
+CIPHER_ALGO_TWOFISH = "TWOFISH";
+CIPHER_ALGO_CAMELLIA128 = "CAMELLIA128";
+CIPHER_ALGO_CAMELLIA192 = "CAMELLIA192";
+CIPHER_ALGO_CAMELLIA256 = "CAMELLIA256";
+DIGEST_ALGO_MD5 = "MD5";
+DIGEST_ALGO_SHA1 = "SHA1";
+DIGEST_ALGO_RMD160 = "RMD160";
+DIGEST_ALGO_SHA256 = "SHA256";
+DIGEST_ALGO_SHA384 = "SHA384";
+DIGEST_ALGO_SHA512 = "SHA512";
+DIGEST_ALGO_SHA224 = "SHA224";
+COMPRESS_ALGO_NONE = "Ingen";
+COMPRESS_ALGO_ZIP = "ZIP";
+COMPRESS_ALGO_ZLIB = "ZLIB";
+COMPRESS_ALGO_BZIP2 = "BZIP2";
+
+
