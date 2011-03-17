@@ -30,6 +30,7 @@
 //TODO: Fehlermeldungen wenn eine Aktion fehlschlägt.
 //TODO: Geschätzte Sicherheit - Genauere Informationen.
 //TODO: runGPGCommandWithArray - Pipes asynchron ansprechen.
+//TODO: Algorithmus Preferänzen
 
 
 - (NSSet *)selectedKeyInfos {

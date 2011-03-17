@@ -240,16 +240,15 @@
 		return;
 	}
 	NSArray *lines = [outText componentsSeparatedByString:@"\n"];
-	
-	NSInteger i = 0, c = [userIDs count];
 	for (NSString *line in lines) {
 		if ([line hasPrefix:@"uid:"]) {
-			if (i >= c) {
-				NSLog(@"updatePreferences: index >= count!");				
-				break;
+			
+			for (GKUserID *userID in userIDs) {
+				if ([[userID userID] isEqualToString:[[line componentsSeparatedByString:@":"] objectAtIndex:9]]) {
+					[userID updatePreferences:line];
+					break;
+				}
 			}
-			[[userIDs objectAtIndex:i] updatePreferences:line];
-			i++;
 		}
 	}
 }
