@@ -125,6 +125,15 @@
 		30310F6E1268D0D60034E920 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = Resources/German.lproj/Preferences.xib; sourceTree = "<group>"; };
 		30310F911268D1E40034E920 /* German */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = German; path = Resources/German.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
 		30310F931268D1F20034E920 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
+		3032FB4013337B0F00F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = French; path = Resources/French.lproj/Credits.rtf; sourceTree = "<group>"; };
+		3032FB5313337BD100F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = Resources/French.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		3032FB5413337BD100F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = Resources/French.lproj/ModalSheets.xib; sourceTree = "<group>"; };
+		3032FB5513337BD100F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = Resources/French.lproj/Preferences.xib; sourceTree = "<group>"; };
+		3032FB5613337BDC00F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3032FB5713337BDC00F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3032FB5813337BDC00F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
+		3032FB5913337BDC00F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
+		3032FB5A13337BDC00F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
 		303D128012840CC2003B5CBE /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
 		303FF12E12A16FF6008269E7 /* GKUserID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GKUserID.h; path = Source/GKUserID.h; sourceTree = "<group>"; };
 		303FF12F12A16FF6008269E7 /* GKUserID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GKUserID.m; path = Source/GKUserID.m; sourceTree = "<group>"; };
@@ -469,7 +478,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "pushd $SRCROOT > /dev/null\n\n\nUtilities/localizeXIB Resources/English.lproj/MainMenu.xib German Swedish\n\nUtilities/localizeXIB Resources/English.lproj/ModalSheets.xib German Swedish\n\nUtilities/localizeXIB Resources/English.lproj/Preferences.xib German Swedish\n\n\npopd > /dev/null\n";
+			shellScript = "pushd $SRCROOT > /dev/null\n\n\nUtilities/localizeXIB Resources/English.lproj/MainMenu.xib German Swedish French\n\nUtilities/localizeXIB Resources/English.lproj/ModalSheets.xib German Swedish French\n\nUtilities/localizeXIB Resources/English.lproj/Preferences.xib German Swedish French\n\n\npopd > /dev/null\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -512,6 +521,7 @@
 				089C165DFE840E0CC02AAC07 /* English */,
 				3005EFB2125137710052988E /* German */,
 				306273141315CCD600F4423F /* Swedish */,
+				3032FB5613337BDC00F9A7CF /* French */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -522,6 +532,7 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 				30F87B1112528415009FE2CC /* German */,
 				306272F71315CC5300F4423F /* Swedish */,
+				3032FB5313337BD100F9A7CF /* French */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -532,6 +543,7 @@
 				3092000212589ACF00D1489D /* English */,
 				3017440D124D5F6700A7DE77 /* German */,
 				306272F81315CC5400F4423F /* Swedish */,
+				3032FB5413337BD100F9A7CF /* French */,
 			);
 			name = ModalSheets.xib;
 			sourceTree = "<group>";
@@ -542,6 +554,7 @@
 				30310E041268B9810034E920 /* English */,
 				30310F6E1268D0D60034E920 /* German */,
 				306272F91315CC5400F4423F /* Swedish */,
+				3032FB5513337BD100F9A7CF /* French */,
 			);
 			name = Preferences.xib;
 			sourceTree = "<group>";
@@ -552,6 +565,7 @@
 				30310F931268D1F20034E920 /* English */,
 				30310F911268D1E40034E920 /* German */,
 				3062731C1315CD1C00F4423F /* Swedish */,
+				3032FB5A13337BDC00F9A7CF /* French */,
 			);
 			name = Preferences.xib.strings;
 			sourceTree = "<group>";
@@ -562,6 +576,7 @@
 				3092000C12589D6600D1489D /* English */,
 				3092000E12589D7400D1489D /* German */,
 				3062731B1315CD1C00F4423F /* Swedish */,
+				3032FB5913337BDC00F9A7CF /* French */,
 			);
 			name = ModalSheets.xib.strings;
 			sourceTree = "<group>";
@@ -572,6 +587,7 @@
 				30C949CF1209E70C00A13440 /* English */,
 				30B2C554125255A800F69126 /* German */,
 				306273151315CCD600F4423F /* Swedish */,
+				3032FB5713337BDC00F9A7CF /* French */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -582,6 +598,7 @@
 				30D9061A125B964500E53C01 /* English */,
 				30D3429212B3CACF000E619D /* German */,
 				3062730D1315CCBC00F4423F /* Swedish */,
+				3032FB4013337B0F00F9A7CF /* French */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -592,6 +609,7 @@
 				301CB7E6125350B300CF7807 /* English */,
 				30F87AFF125283C3009FE2CC /* German */,
 				3062731A1315CD1C00F4423F /* Swedish */,
+				3032FB5813337BDC00F9A7CF /* French */,
 			);
 			name = MainMenu.xib.strings;
 			sourceTree = "<group>";
