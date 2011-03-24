@@ -556,21 +556,30 @@ NSSet *draggedKeyInfos;
 	return self;
 }
 
-- (NSString*)stringForObjectValue:(id)obj {
-	char const* fingerprint = [[obj description] cStringUsingEncoding:NSASCIIStringEncoding];
-	int length = strlen(fingerprint),i = 0, pos = 0;
-	char formattedFingerprint[length + (length -1) / blockSize + 1];
-	
-	for (; i + blockSize < length; i += blockSize) {
-		memcpy(formattedFingerprint+pos, fingerprint+i, blockSize);
-		pos += blockSize + 1;
-		formattedFingerprint[pos-1] = ' ';
+- (NSString *)stringForObjectValue:(id)obj {
+	NSString *fingerprint = [obj description];
+	NSUInteger length = [fingerprint length];
+	if (length == 0) {
+		return @"";
 	}
-	memcpy(formattedFingerprint+pos, fingerprint+i, length - i);
-	formattedFingerprint[pos+length - i] = 0;
+	if (blockSize == 0) {
+		return fingerprint;
+	}
 	
-			
-	return [NSString stringWithCString:formattedFingerprint encoding:NSASCIIStringEncoding];
+	NSMutableString *formattedFingerprint = [NSMutableString stringWithCapacity:length + (length - 1) / blockSize];
+	
+	NSRange range;
+	range.location = 0;
+	range.length = blockSize;
+	
+	
+	for (; range.location + blockSize < length; range.location += blockSize) {
+		[formattedFingerprint appendFormat:@"%@ ", [fingerprint substringWithRange:range]];
+	}
+	range.length = length - range.location;
+	[formattedFingerprint appendString:[fingerprint substringWithRange:range]];
+
+	return formattedFingerprint;
 }
 
 - (BOOL)getObjectValue:(id*)obj forString:(NSString*)string errorDescription:(NSString**)error {

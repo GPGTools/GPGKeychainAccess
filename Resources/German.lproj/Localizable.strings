@@ -1,11 +1,7 @@
-//
-// Momentan sind in dieser Datei noch einige Deutsche Texte, diese sind nur für den Moment, bis sie korrekt in Englisch geschrieben wurden.
-//
-
 //Für den Schlüssel-Status
 "Invalid" = "Ungültig";
 "Revoked" = "Widerrufen";
-"Expired" = "Abgelaufen"; //Welches Wort währe passender?
+"Expired" = "Abgelaufen"; //Welches Wort wäre passender?
 "Disabled" = "Deaktiviert";
 "Unknown" = "Unbekannt";
 "Marginal" = "Marginal";
@@ -18,9 +14,9 @@
 "Delete both" = "Beide löschen";
 "Delete key" = "Schlüssel löschen";
 DeleteSecretKey_Title = "Geheimen Schlüssel löschen";
-DeleteSecretKey_Msg = "Möchten Sie den geheimen Schlüssel \"%@\", %@ wirklich löschen?\nWenn Sie dies tun, werden Sie nicht länger in der lage sein Nachrichten zu entschlüsseln, die für diesen Schlüssel verschlüsselt wurden!";
+DeleteSecretKey_Msg = "Möchten Sie den geheimen Schlüssel „%@“, %@ wirklich löschen?\nWenn Sie dies tun, sind Sie nicht länger in der Lage, Nachrichten zu entschlüsseln, die für diesen Schlüssel verschlüsselt wurden!";
 DeleteKey_Title = "Schlüssel löschen";
-DeleteKey_Msg = "Möchten Sie den Schlüssel \"%@\", %@ wirklich löschen?";
+DeleteKey_Msg = "Möchten Sie den Schlüssel „%@“, %@ wirklich löschen?";
 
 
 //Lange Schlüssel Typen
@@ -38,37 +34,37 @@ DeleteKey_Msg = "Möchten Sie den Schlüssel \"%@\", %@ wirklich löschen?";
 "No keys Found" = "Keine Schlüssel gefunden";
 "%@, %@ (%@ bit), created: %@" = "%@, %@ (%@ bit), erstellt: %@"; //Format für die gefundenen Schlüssel vom Server.
 
-GenerateEntropy_Msg = "Wir müssen eine ganze Menge Zufallswerte erzeugen.  Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
-GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel \"%@\", %@ anlegen.";
-GenerateUserID_Msg = "Zusätzliche Benutzer-ID für den Schlüssel \"%@\", %@ anlegen.";
-GenerateSignature_Msg = "Beglaubigung aller Benutzer-IDs von \"%@\", %@";
-GenerateUidSignature_Msg = "Beglaubigung der Benutzer-ID \"%@\", %@";
-ChangeExpirationDate_Msg = "Ändern des Verfalldatums von \"%@\", %@";
-ChangeSubkeyExpirationDate_Msg = "Ändern des Verfalldatums des Unterschlüssels: %@ von \"%@\", %@";
+GenerateEntropy_Msg = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
+GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel „%@“, %@ anlegen.";
+GenerateUserID_Msg = "Zusätzliche Benutzer-ID für den Schlüssel „%@“, %@ anlegen.";
+GenerateSignature_Msg = "Beglaubigung aller Benutzer-IDs von „%@“, %@";
+GenerateUidSignature_Msg = "Beglaubigung der Benutzer-ID „%@“, %@";
+ChangeExpirationDate_Msg = "Ändern des Verfalldatums von „%@“, %@";
+ChangeSubkeyExpirationDate_Msg = "Ändern des Verfalldatums des Unterschlüssels: %@ von „%@“, %@";
 
 
 //Meldungen wenn die Eingabe nicht korrekt war.
 CheckError_NameToShort = "Der Name muss mindestens 5 Zeichen lang sein!!";
 CheckError_NameToLong = "Der Name ist zu lang!";
-CheckError_InvalidCharInName = "Ungültiges Zeichen im Namen!\n\"<\" und \">\" sind nicht erlaubt.";
+CheckError_InvalidCharInName = "Ungültiges Zeichen im Namen!\n„<“ und „>“ sind nicht erlaubt.";
 CheckError_NameStartWithDigit = "Der Name darf nicht mit einer Zahl beginnen!";
-CheckError_InvalidEmail = "Die E-Mail Adresse ist nicht gültig!";
-CheckError_EmailToLong = "Die E-Mail Adresse ist zu lang!\nDie E-Mail Adresse darf höchstens 254 Zeichen lang sein.";
-CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n\"(\" und \")\" sind nicht erlaubt.";
+CheckError_InvalidEmail = "Die E-Mail-Adresse ist nicht gültig!";
+CheckError_EmailToLong = "Die E-Mail-Adresse ist zu lang!\nDie E-Mail-Adresse darf höchstens 254 Zeichen lang sein.";
+CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n„(“ und „)“ sind nicht erlaubt.";
 CheckError_CommentToLong = "Der Kommentar ist zu lang!";
-CheckError_NoKeyID = "Bitte geben Sie ein gültige Schlüssel-ID ein!";
+CheckError_NoKeyID = "Bitte geben Sie eine gültige Schlüssel-ID ein!";
 CheckError_PassphraseMissmatch = "Die eingegebenen Passphrasen stimmen nicht überein!";
 
 
 //Meldungen beim Start, wenn es Probleme gibt. 
 GPGNotFound_Msg = "GPG konnte nicht gefunden werden!";
 GPGNotStart_Title = "GPG konnte nicht gestartet werden!";
-GPGNotStart_Msg = "Bitte überprüfen sie ihre gpg.conf";
+GPGNotStart_Msg = "Bitte überprüfen Sie Ihre gpg.conf";
 GPGInitError_Msg = "GPG konnte nicht initialisiert werden!";
 GPGAgentNotFound_Title = "gpg-agent wurde nicht gefunden!";
-GPGAgentNotFound_Msg = "Ohne den gpg-agent können sie keine Passphrase geschützte Schlüssel verwenden.";
+GPGAgentNotFound_Msg = "Ohne den gpg-agent können Sie keine mit einer Passphrase geschützten Schlüssel verwenden.";
 GPGAgentNotStart_Title = "gpg-agent konnte nicht gestartet werden!";
-GPGAgentNotStart_Msg = "Ohne den gpg-agent können sie keine Passphrase geschützte Schlüssel verwenden.";
+GPGAgentNotStart_Msg = "Ohne den gpg-agent können Sie keine mit einer Passphrase geschützte Schlüssel verwenden.";
 Quit_Button = "Beenden";
 
 
@@ -81,10 +77,10 @@ Cancle = "Abbrechen";
 
 //Für die Importergebnis
 "key %@: secret key imported\n" = "Schlüssel %@: geheimer Schlüssel importiert\n";
-"key %@: public key \"%@\" imported\n" = "Schlüssel %@: öffentlicher Schlüssel \"%@\" importiert\n";
-"key %@: \"%@\" new user ID(s)\n" = "Schlüssel %@: \"%@\" neue Benutzer-ID(s)\n";
-"key %@: \"%@\" new signature(s)\n" = "Schlüssel %@: \"%@\" neue Beglaubigung(en)\n";
-"key %@: \"%@\" new subkey(s)\n" = "Schlüssel %@: \"%@\" neue(r) Unterschlüssel\n";
+"key %@: public key \"%@\" imported\n" = "Schlüssel %@: öffentlicher Schlüssel „%@“ importiert\n";
+"key %@: \"%@\" new user ID(s)\n" = "Schlüssel %@: „%@“ neue Benutzer-ID(s)\n";
+"key %@: \"%@\" new signature(s)\n" = "Schlüssel %@: „%@“ neue Beglaubigung(en)\n";
+"key %@: \"%@\" new subkey(s)\n" = "Schlüssel %@: „%@“ neue(r) Unterschlüssel\n";
 "Nothing imported!" = "Nichts importiert!";
 
 
@@ -105,12 +101,12 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 //Für öffnen und speichern Dialoge
-"This picture is really large!" = "Das Bild ist wirklich gross!";
-"You should use a smaller picture." = "Sie sollten eine kleineres Bild verwenden.";
-"Choose another…" = "Ein anderes wählen…";
-"Use this photo" = "Dieses verwenden";
-"This picture is to large!" = "Das Bild ist zu gross!";
-"Please use a picature smaller than 1 MiB." = "Bitte verwenden sie ein Bild, welches kleiner als 1 MiB ist.";
+"This picture is really large!" = "Das Bild ist wirklich groß!";
+"You should use a smaller picture." = "Sie sollten ein kleineres Bild verwenden.";
+"Choose another…" = "Ein anderes wählen …";
+"Use this Photo" = "Dieses verwenden";
+"This picture is to large!" = "Das Bild ist zu groß!";
+"Please use a picature smaller than 1 MiB." = "Bitte verwenden Sie ein Bild, welches kleiner als 1 MiB ist.";
 "Export failed!" = "Export fehlgeschlagen!";
 
 "Generate revoke certificate failed!" = "Erstellen des Widerrufszertifikates fehlgeschlagen!";
@@ -120,30 +116,30 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 Undo_Clean = "Säubern";
 Undo_Minimize = "Minimieren";
 Undo_Import = "Importieren";
-Undo_Receive = "Von Server Abfragen";
+Undo_Receive = "Von Server abfragen";
 Undo_Refresh = "Aktualisieren";
 Undo_SetTrust = "Vertrauen";
 Undo_Delete = "Löschen";
-Undo_AddPhoto = "Photo hinzufügen";
-Undo_RemovePhoto = "Photo entfernen";
-Undo_RevokePhoto = "Photo widerrufen";
-Undo_PrimaryPhoto = "Primäres Photo";
+Undo_AddFoto = "Foto hinzufügen";
+Undo_RemoveFoto = "Foto entfernen";
+Undo_RevokeFoto = "Foto widerrufen";
+Undo_PrimaryFoto = "Primäres Foto";
 Undo_AddSignature = "Beglaubigen";
 Undo_AddSubkey = "Unterschlüssel hinzufügen";
-Undo_AddUserID = "Benutzer ID hinzufügen";
+Undo_AddUserID = "Benutzer-ID hinzufügen";
 Undo_ChangeExpirationDate = "Verfallsdatum ändern";
 Undo_ChangePassphrase = "Passphrase ändern";
 Undo_RemoveSignature = "Beglaubigung entfernen";
 Undo_RemoveSubkey = "Unterschlüssel entfernen";
-Undo_RemoveUserID = "Benutzer ID entfernen";
+Undo_RemoveUserID = "Benutzer-ID entfernen";
 Undo_RevokeSignature = "Beglaubigung widerrufen";
 Undo_RevokeSubkey = "Unterschlüssel widerrufen";
-Undo_RevokeUserID = "Benutzer ID widerrufen";
-Undo_PrimaryUserID = "Primäre Benutzer ID";
+Undo_RevokeUserID = "Benutzer-ID widerrufen";
+Undo_PrimaryUserID = "Primäre Benutzer-ID";
 Undo_DisableKey = "Schlüssel deaktivieren";
 Undo_EnableKey = "Schlüssel aktivieren";
 Undo_NewKey = "Schlüssel erstellen";
-Undo_AlgorithmPreferences = "Algorithmus Präferenzen ändern";
+Undo_AlgorithmPreferences = "Bevorzugten Algorithmus ändern";
 
 
 
