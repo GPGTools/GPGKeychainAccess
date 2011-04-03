@@ -726,6 +726,13 @@
 	}
 	
 	NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"--recv-keys"];
+	
+	NSString *keyserver = [[GPGDefaults gpgDefaults] stringForKey:@"Keyserver"];
+	if (keyserver) {
+		[arguments addObject:@"--keyserver"];
+		[arguments addObject:keyserver];
+	}
+	
 	[arguments addObjectsFromArray:[keyIDs allObjects]];
 	
 	NSData *statusData;
@@ -758,6 +765,11 @@
 	NSSet *keyInfos = [self selectedKeyInfos];
 	if ([keyInfos count] > 0) {
 		NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"--send-key"];
+		NSString *keyserver = [[GPGDefaults gpgDefaults] stringForKey:@"Keyserver"];
+		if (keyserver) {
+			[arguments addObject:@"--keyserver"];
+			[arguments addObject:keyserver];
+		}
 		for (GKKey *keyInfo in keyInfos) {
 			[arguments addObject:[keyInfo fingerprint]];
 		}
@@ -773,6 +785,13 @@
 	[self registerUndoForKeys:keyInfos withName:@"Undo_Refresh"];
 	
 	NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"--refresh-keys"];
+	
+	NSString *keyserver = [[GPGDefaults gpgDefaults] stringForKey:@"Keyserver"];
+	if (keyserver) {
+		[arguments addObject:@"--keyserver"];
+		[arguments addObject:keyserver];
+	}
+	
 	for (GKKey *keyInfo in keyInfos) {
 		[arguments addObject:[keyInfo fingerprint]];
 	}
