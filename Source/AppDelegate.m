@@ -78,7 +78,7 @@
 		NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
 		for (NSString *fileName in fileNames) {
 			NSString *extension = [fileName pathExtension];
-			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"]) {
+			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"] || [extension isEqualToString:@"gpg"]) {
 				return NSDragOperationCopy;
 			}
 		}
@@ -102,7 +102,7 @@
 		NSMutableArray *filesToImport = [NSMutableArray arrayWithCapacity:[fileNames count]];
 		for (NSString *fileName in fileNames) {
 			NSString *extension = [fileName pathExtension];
-			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"]) {
+			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"] || [extension isEqualToString:@"gpg"]) {
 				[filesToImport addObject:fileName];
 			}
 		}
