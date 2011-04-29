@@ -57,6 +57,9 @@ typedef enum {
 - (BOOL)validateUserInterfaceItem:(id)anItem;
 - (IBAction)copy:(id)sender;
 
++ (NSString *)findExecutableWithName:(NSString *)executable;
++ (NSString *)findExecutableWithName:(NSString *)executable atPaths:(NSArray *)paths;
+
 - (IBAction)cleanKey:(id)sender;
 - (IBAction)minimizeKey:(id)sender;
 - (IBAction)addPhoto:(NSButton *)sender;

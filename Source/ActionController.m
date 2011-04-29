@@ -33,6 +33,38 @@
 //TODO: Algorithmus Preferänzen
 
 
++ (NSString *)findExecutableWithName:(NSString *)executable {
+	NSString *foundPath;
+	NSArray *searchPaths = [NSMutableArray arrayWithObjects:@"/usr/local/bin", @"/usr/local/MacGPG2/bin", @"/usr/local/MacGPG1/bin", @"/usr/bin", @"/bin", @"/opt/local/bin", @"/sw/bin", nil];
+	
+	foundPath = [self findExecutableWithName:executable atPaths:searchPaths];
+	if (foundPath) {
+		return foundPath;
+	}
+	
+	NSString *envPATH = [[[NSProcessInfo processInfo] environment] objectForKey:@"PATH"];
+	if (envPATH) {
+		NSArray *searchPaths = [envPATH componentsSeparatedByString:@":"];
+		foundPath = [self findExecutableWithName:executable atPaths:searchPaths];
+		if (foundPath) {
+			return foundPath;
+		}		
+	}
+	
+	return nil;
+}
++ (NSString *)findExecutableWithName:(NSString *)executable atPaths:(NSArray *)paths {
+	NSString *searchPath, *foundPath;
+	for (searchPath in paths) {
+		foundPath = [searchPath stringByAppendingPathComponent:executable];
+		if ([[NSFileManager defaultManager] isExecutableFileAtPath:foundPath]) {
+			return [foundPath stringByStandardizingPath];
+		}
+	}
+	return nil;
+}
+
+
 - (NSSet *)selectedKeyInfos {
 	NSInteger clickedRow = [keyTable clickedRow];
 	if (clickedRow != -1 && ![keyTable isRowSelected:clickedRow]) {
@@ -1514,12 +1546,11 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 	
 	NSRange aRange;
 	NSArray *tempArray;
-	NSFileManager *fileManager;
 	
 	NSData *outData;
 	NSMutableString *cmdText;
 	NSString *hostName, *hostProtocol, *hostPort = nil;
-	NSString *helperName, *basePath, *helperPath;
+	NSString *helperName, *helperPath;
 
 	BOOL passHostArgument = YES;
 
@@ -1583,16 +1614,16 @@ int searchKeysOnServer(NSString *searchPattern, NSString **outText) {
 	
 	
 	//Pfad zu gpg2keys_XXX ermitteln.
-	basePath = [[GPG_PATH stringByDeletingLastPathComponent] stringByDeletingLastPathComponent];
 	
-	fileManager = [NSFileManager defaultManager];
 	
-	NSArray *helperSubPaths = [NSArray arrayWithObjects:@"libexec", @"libexec/gnupg", @"lib/gnupg", nil];
+	
+	
+	NSArray *helperSubPaths = [NSArray arrayWithObjects:@"../libexec", @"../libexec/gnupg", @"../lib/gnupg", nil];
+	
 	
 	BOOL helperFound = NO;
 	for (NSString *subPath in helperSubPaths) {
-		helperPath = [[basePath stringByAppendingPathComponent:subPath] stringByAppendingPathComponent:helperName];
-		if ([fileManager fileExistsAtPath:helperPath]) {
+		if (helperPath = [ActionController findExecutableWithName:[subPath stringByAppendingPathComponent:helperName]]) {
 			helperFound = YES;
 			break;
 		}
