@@ -31,6 +31,7 @@
 //TODO: Geschätzte Sicherheit - Genauere Informationen.
 //TODO: runGPGCommandWithArray - Pipes asynchron ansprechen.
 //TODO: Algorithmus Preferänzen
+//TODO: "…" zu manchen Französischen Menüeinträgen hinzufügen.
 
 
 + (NSString *)findExecutableWithName:(NSString *)executable {
