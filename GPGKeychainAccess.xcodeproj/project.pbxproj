@@ -28,14 +28,14 @@
 		303FF13C12A17030008269E7 /* GKKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 303FF13B12A17030008269E7 /* GKKey.m */; };
 		30497DF11214353F00884D59 /* ActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30497DF01214353F00884D59 /* ActionController.m */; };
 		305268E41232A34C008540D9 /* SheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 305268E21232A34C008540D9 /* SheetController.m */; };
-		3057F2AA127AD46200205B69 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3057F29A127AD3A600205B69 /* Sparkle.framework */; };
-		3057F2AB127AD48400205B69 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3057F29A127AD3A600205B69 /* Sparkle.framework */; };
 		3059587812E49F4800DDFA03 /* Keyservers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3059587712E49F4800DDFA03 /* Keyservers.plist */; };
 		305959EE12E5076A00DDFA03 /* Updates.png in Resources */ = {isa = PBXBuildFile; fileRef = 305959ED12E5076A00DDFA03 /* Updates.png */; };
 		3079BCCF128FE27E00BDDE91 /* GPGDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3079BCCE128FE27E00BDDE91 /* GPGDefaults.m */; };
 		3099B53512EA543100317175 /* Keyserver.png in Resources */ = {isa = PBXBuildFile; fileRef = 3099B53412EA543100317175 /* Keyserver.png */; };
 		30BC8134126B79C700F662C5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 30BC8133126B79C700F662C5 /* dsa_pub.pem */; };
 		30C949D21209E71300A13440 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30C949D11209E71300A13440 /* Localizable.strings */; };
+		30D2589B136DADBC00274D9F /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30D2589A136DADBC00274D9F /* Sparkle.framework */; };
+		30D258A4136DADCC00274D9F /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 30D2589A136DADBC00274D9F /* Sparkle.framework */; };
 		30D3428712B3CAB1000E619D /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 30D3428612B3CAB1000E619D /* Credits.rtf */; };
 		30D90613125B956A00E53C01 /* asc.icns in Resources */ = {isa = PBXBuildFile; fileRef = 30D90611125B956A00E53C01 /* asc.icns */; };
 		30D90614125B956A00E53C01 /* gpgkey.icns in Resources */ = {isa = PBXBuildFile; fileRef = 30D90612125B956A00E53C01 /* gpgkey.icns */; };
@@ -46,44 +46,6 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3057F299127AD3A600205B69 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = Sparkle;
-		};
-		3057F29B127AD3A600205B69 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 61B5F90209C4CEE200B25A18;
-			remoteInfo = "Sparkle Test App";
-		};
-		3057F29D127AD3A600205B69 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DAAEFC960DA571DF0051E0D0;
-			remoteInfo = "relaunch tool";
-		};
-		3057F29F127AD3A600205B69 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 612279D90DB5470200AB99EA;
-			remoteInfo = "Sparkle Unit Tests";
-		};
-		3057F2B4127AD4D000205B69 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = Sparkle;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		3046143512427094000F1C04 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -91,7 +53,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3057F2AB127AD48400205B69 /* Sparkle.framework in Copy Frameworks */,
+				30D258A4136DADCC00274D9F /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,7 +111,6 @@
 		30497DF01214353F00884D59 /* ActionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionController.m; path = Source/ActionController.m; sourceTree = "<group>"; };
 		305268E21232A34C008540D9 /* SheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SheetController.m; path = Source/SheetController.m; sourceTree = "<group>"; };
 		305268E31232A34C008540D9 /* SheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SheetController.h; path = Source/SheetController.h; sourceTree = "<group>"; };
-		3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Sparkle.xcodeproj; path = Dependencies/Sparkle/Sparkle.xcodeproj; sourceTree = "<group>"; };
 		3059587712E49F4800DDFA03 /* Keyservers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Keyservers.plist; path = Resources/Keyservers.plist; sourceTree = "<group>"; };
 		305959ED12E5076A00DDFA03 /* Updates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Updates.png; path = Resources/Images/Updates.png; sourceTree = "<group>"; };
 		306272F71315CC5300F4423F /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Swedish; path = Resources/Swedish.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -170,6 +131,7 @@
 		30B2C554125255A800F69126 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = Resources/German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30BC8133126B79C700F662C5 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = Resources/dsa_pub.pem; sourceTree = "<group>"; };
 		30C949CF1209E70C00A13440 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		30D2589A136DADBC00274D9F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		30D3429212B3CACF000E619D /* German */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = German; path = Resources/German.lproj/Credits.rtf; sourceTree = "<group>"; };
 		30D90611125B956A00E53C01 /* asc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = asc.icns; path = Resources/Images/asc.icns; sourceTree = "<group>"; };
 		30D90612125B956A00E53C01 /* gpgkey.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = gpgkey.icns; path = Resources/Images/gpgkey.icns; sourceTree = "<group>"; };
@@ -190,7 +152,7 @@
 			files = (
 				30139A5A12475A4A00B8AA01 /* AddressBook.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
-				3057F2AA127AD46200205B69 /* Sparkle.framework in Frameworks */,
+				30D2589B136DADBC00274D9F /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,7 +197,6 @@
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
-				30AE57391243B8E9009307CC /* Dependencies */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -272,6 +233,7 @@
 			children = (
 				30139A5912475A4A00B8AA01 /* AddressBook.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				30D2589A136DADBC00274D9F /* Sparkle.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -286,25 +248,6 @@
 				30310F901268D1E40034E920 /* Preferences.xib.strings */,
 			);
 			name = Strings;
-			sourceTree = "<group>";
-		};
-		3057F290127AD3A600205B69 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3057F29A127AD3A600205B69 /* Sparkle.framework */,
-				3057F29C127AD3A600205B69 /* Sparkle Test App.app */,
-				3057F29E127AD3A600205B69 /* relaunch */,
-				3057F2A0127AD3A600205B69 /* Sparkle Unit Tests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		30AE57391243B8E9009307CC /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */,
-			);
-			name = Dependencies;
 			sourceTree = "<group>";
 		};
 		30E2316812A1D1D000D9D9DE /* GKKey */ = {
@@ -366,7 +309,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				3057F2B5127AD4D000205B69 /* PBXTargetDependency */,
 			);
 			name = "GPG Keychain Access";
 			productInstallPath = "$(HOME)/Applications";
@@ -379,8 +321,12 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = GPGTools;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GPGKeychainAccess" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -392,49 +338,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* GPGKeychainAccess */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 3057F290127AD3A600205B69 /* Products */;
-					ProjectRef = 3057F28F127AD3A600205B69 /* Sparkle.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* GPG Keychain Access */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		3057F29A127AD3A600205B69 /* Sparkle.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Sparkle.framework;
-			remoteRef = 3057F299127AD3A600205B69 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3057F29C127AD3A600205B69 /* Sparkle Test App.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "Sparkle Test App.app";
-			remoteRef = 3057F29B127AD3A600205B69 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3057F29E127AD3A600205B69 /* relaunch */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = relaunch;
-			remoteRef = 3057F29D127AD3A600205B69 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3057F2A0127AD3A600205B69 /* Sparkle Unit Tests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Sparkle Unit Tests.octest";
-			remoteRef = 3057F29F127AD3A600205B69 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -505,14 +414,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		3057F2B5127AD4D000205B69 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Sparkle;
-			targetProxy = 3057F2B4127AD4D000205B69 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -623,7 +524,7 @@
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Dependencies/Sparkle/build/Debug\"",
+					"\"$(SRCROOT)/Frameworks\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -644,7 +545,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Dependencies/Sparkle/build/Release\"",
+					"\"$(SRCROOT)/Frameworks\"",
 				);
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
