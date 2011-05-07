@@ -10,13 +10,13 @@
 
 
 //For Delete-Dialogues
-"Delete secret key only" = "Effacer seulement clef secrète";
-"Delete both" = "Effacer toutes deux";
-"Delete key" = "Effacer clef";
-DeleteSecretKey_Title = "Effacer clef secrète";
-DeleteSecretKey_Msg = "Tenter effacer clé %@, %@.\n\nVous êtes sur le point d'effacer une clef secrète.  Une fois qu'elle disparait, vous ne serez plus en mesure de déchiffrer les messages qui ont été chiffrés avec cette clef. Êtes-vous sûr de vouloir faire cela?";
-DeleteKey_Title = "Effacer clef";
-DeleteKey_Msg = "Tenter effacer clé %@, %@.\n\nÊtes-vous sûr de vouloir effacer cette clef?";
+"Delete secret key only" = "Effacer seulement la clé secrète";
+"Delete both" = "Effacer les deux";
+"Delete key" = "Effacer clé";
+DeleteSecretKey_Title = "Effacer clé secrète";
+DeleteSecretKey_Msg = "Tentative d'effacer la clé %@, %@.\n\nVous êtes sur le point d'effacer une paire de clés secrète et publique. Si vous effacez une clé secrète, vous ne serez plus en mesure de déchiffrer les messages qui ont été chiffrés avec la clé publique qui lui correspond. Le fait d'effacer la clé publique ne supprime pas pour autant celle-ci des serveurs de clé. Vérifiez que vous ne désirez pas plutôt révoquer votre paire de clés. Êtes-vous sûr de vouloir faire cela ?";
+DeleteKey_Title = "Effacer clé";
+DeleteKey_Msg = "Tenter effacer clé %@, %@.\n\nÊtes-vous sûr de vouloir effacer cette clé ?";
 
 
 //Long key types
@@ -31,17 +31,17 @@ DeleteKey_Msg = "Tenter effacer clé %@, %@.\n\nÊtes-vous sûr de vouloir effac
 
 
 //For Key-Search
-"No keys Found" = "Pas de clef trouvée";
+"No keys Found" = "Pas de clé trouvée";
 "%@, %@ (%@ bit), crée: %@" = "%@, %@ (%@ bit), crée: %@"; //Format für die gefundenen Schlüssel vom Server.
 SearchingKeys_Msg = "Nous recherchons la/les clés correspondante(s) sur le serveur de clés. La recherche peut prendre un certain temps, merci de patienter.";
 
 GenerateEntropy_Msg = "Nous avons besoin de générer un grand nombre d'octets aléatoires. C'est une bonne idée d'effectuer une autre action (taper sur le clavier dans une application, déplacer la souris, utiliser les disques) pendant la génération première, ce qui donne au générateur de nombres aléatoires une meilleure chance d'obtenir assez d'entropie.";
-GenerateSubkey_Msg = "Ajouter sous-clef à la clef \"%@\", %@.";
-GenerateUserID_Msg = "Ajouter identifiant d'usager à la clef \"%@\", %@.";
+GenerateSubkey_Msg = "Ajouter sous-clé à la clé \"%@\", %@.";
+GenerateUserID_Msg = "Ajouter identifiant d'usager à la clé \"%@\", %@.";
 GenerateSignature_Msg = "Signer tous les identifiants d'usager de \"%@\", %@";
 GenerateUidSignature_Msg = "Signer l'identifiant d'usager \"%@\", %@";
 ChangeExpirationDate_Msg = "Changer date d'expiration de \"%@\", %@";
-ChangeSubkeyExpirationDate_Msg = "Changer date d'expiration de \"%@\", %@\nsous-clef: %@";
+ChangeSubkeyExpirationDate_Msg = "Changer date d'expiration de \"%@\", %@\nsous-clé: %@";
 
 
 //Message for incorrect Entries
@@ -53,7 +53,7 @@ CheckError_InvalidEmail = "Ce n'est pas une adresse courriel valide!";
 CheckError_EmailToLong = "Adresse courriel trop longue!\nLongueur maximale 254.";
 CheckError_InvalidCharInComment = "Caractère invalide dans commentaire!\n\"(\" et \")\" non permis.";
 CheckError_CommentToLong = "Commentaire trop long!";
-CheckError_NoKeyID = "Prière entrer un identifiant de clef valide!";
+CheckError_NoKeyID = "Prière entrer un identifiant de clé valide!";
 CheckError_PassphraseMissmatch = "Vos mots de passe ne correspondent pas!";
 
 
@@ -78,9 +78,9 @@ Cancle = "Annuler";
 
 
 //For Import-Results
-"key %@: clef secrète importée\n" = "clef %@: clef secrète importée\n";
-"key %@: clef publique \"%@\" importée\n" = "clef %@: clef publique \"%@\" importée\n";
-"key %@: \"%@\" Nouvel/nouveaux identifiant(s) d'usager\n" = "clef %@: \"%@\" Nouvel/nouveaux identifiant(s) d'usager";
+"key %@: clé secrète importée\n" = "clé %@: clé secrète importée\n";
+"key %@: clé publique \"%@\" importée\n" = "clé %@: clé publique \"%@\" importée\n";
+"key %@: \"%@\" Nouvel/nouveaux identifiant(s) d'usager\n" = "clé %@: \"%@\" Nouvel/nouveaux identifiant(s) d'usager";
 "key %@: \"%@\" nouvelle(s) signature(s)\n" = "key %@: \"%@\" nouvelle(s) signature(s)\n";
 "key %@: \"%@\" nouvelle(s) sous-clés\n" = "key %@: \"%@\" nouvelle(s) sous-clés\n";
 "Nothing imported!" = "Rien n'a été importé!";
@@ -127,20 +127,20 @@ Undo_RemovePhoto = "Ôter photo";
 Undo_RevokePhoto = "Révoquer photo";
 Undo_PrimaryPhoto = "Photo principale";
 Undo_AddSignature = "Ajouter signature";
-Undo_AddSubkey = "Ajouter sous-clef";
+Undo_AddSubkey = "Ajouter sous-clé";
 Undo_AddUserID = "Ajouter identifiant d'usager";
 Undo_ChangeExpirationDate = "Changer date d'expiration";
 Undo_ChangePassphrase = "Changer mot de passe";
 Undo_RemoveSignature = "Ôter signature";
-Undo_RemoveSubkey = "Ôter sous-clef";
+Undo_RemoveSubkey = "Ôter sous-clé";
 Undo_RemoveUserID = "Ôter identifiant d'usager";
 Undo_RevokeSignature = "Révoquer signature";
-Undo_RevokeSubkey = "Révoquer sous-clef";
+Undo_RevokeSubkey = "Révoquer sous-clé";
 Undo_RevokeUserID = "Révoquer identifiant d'usager";
 Undo_PrimaryUserID = "Idenfiant d'usager principal";
-Undo_DisableKey = "Désactiver clef";
-Undo_EnableKey = "Activer clef";
-Undo_NewKey = "Nouvelle clef";
+Undo_DisableKey = "Désactiver clé";
+Undo_EnableKey = "Activer clé";
+Undo_NewKey = "Nouvelle clé";
 Undo_AlgorithmPreferences = "Changer préférences d'algorithmes";
 
 
