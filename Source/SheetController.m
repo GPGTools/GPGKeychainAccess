@@ -395,6 +395,7 @@ static SheetController *_sharedInstance = nil;
 			break;
 		case SearchKeysAction:
 			self.displayedView = progressView;
+			self.msgText = localized(@"SearchingKeys_Msg");
 			[NSThread detachNewThreadSelector:@selector(searchKeys_Action) toTarget:self withObject:nil];
 			break;
 		case ReceiveKeysAction: {
