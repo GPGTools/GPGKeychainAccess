@@ -173,5 +173,10 @@
 	[[PreferencesController sharedInstance] showPreferences:sender];
 }
 
+- (void)showHelp:(id)sender {
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/GPGTools/GPGKeychainAccess/wiki"]];
+}
+
+
 
 @end

@@ -1243,7 +1243,6 @@
 
 
 
-
 //Führt GPG mit den übergebenen Argumenten, aus.
 //Wenn inText nicht nil ist, wird es gpg als stdin übergeben.
 //Wenn outData nicht nil ist, wird Stdout in diesem NSData zurückgegeben. Gleiches für errData.
