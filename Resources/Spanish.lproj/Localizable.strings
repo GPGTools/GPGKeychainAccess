@@ -1,0 +1,171 @@
+//For Key-Status
+"Invalid" = "Vigencia";
+"Revoked" = "Revocada";
+"Expired" = "Expired";
+"Disabled" = "Desactivado";
+"Unknown" = "Desconocido";
+"Marginal" = "Marginal";
+"Full" = "Completo";
+"Ultimate" = "Máximo";
+
+
+//For Delete-Dialogues
+"Delete secret key only" = "Borrar clave secreta sólo";
+"Delete both" = "Borrar ambos";
+"Delete key" = "Borrar clave";
+DeleteSecretKey_Title = "Borrar clave secreta";
+DeleteSecretKey_Msg = "Tratando de borrar la clave %@, %@.\n\nUsted está a punto de borrar un par de claves (una clave secreta y una clave pública) de su computadora. Sin la clave secreta, usted no podrá descifrar los mensajes que fueron previamente cifrados con sus contraparte clave pública. (Tenga en cuenta que si ha copiado la clave pública a cualquier servidor de claves, ese clave pública se mantendrá activo en el servidor(es) de claves a menos que usted la revoque. La clave secreta es necesaria a fin de revocar la clave pública.) ¿Está seguro que desea borrar el par de claves?";
+DeleteKey_Title = "Borrar clave";
+DeleteKey_Msg = "Tratando de borrar la clave %@, %@.\n\n¿Está seguro que desea borrar esta clave?";
+
+
+//Long key types
+"Secret and public key" = "Clave secreta y clave pública";
+"Public key" = "Clave pública";
+
+
+//For export, as standard File-Name.
+"untitled" = "sin título";
+"%@ Revoke certificate" = "%@ Revocar el certificado";
+"Exported keys.asc" = "Exportado keys.asc";
+
+
+//For Key-Search
+"No keys Found" = "No encontró ninguna claves";
+"%@, %@ (%@ bit), created: %@" = "%@, %@ (%@ bit), creado: %@"; //Format für die gefundenen Schlüssel vom Server.
+SearchingKeys_Msg = "Estamos buscando para clave(s) que hace juego en el servidor de claves. Podría tomar algún tiempo, por favor espere.";
+
+GenerateEntropy_Msg = "Es necesario generar muchos bytes aleatorios. Es una buena idea para llevar a cabo alguna otra acción (escribir en el teclado en una aplicación, mueva el ratón (mouse), utilizar los discos) durante la generación de números primos; lo que da el generador de números al azar una mejor oportunidad para ganar suficiente entropía.";
+GenerateSubkey_Msg = "Añadir subclave a la Clave \"%@\", %@.";
+GenerateUserID_Msg = "Añadir ID de usuario a la clave \"%@\", %@.";
+GenerateSignature_Msg = "Realizar la firma de todos los IDs de usuario de \"%@\", %@";
+GenerateUidSignature_Msg = "Crear la firma de ID de usuario \"%@\", %@";
+ChangeExpirationDate_Msg = "Cambiar la fecha de vencimiento de \"%@\", %@";
+ChangeSubkeyExpirationDate_Msg = "Cambiar la fecha de vencimiento de \"%@\", %@\nSubclave: %@";
+
+
+//Message for incorrect Entries
+CheckError_NameToShort = "¡El nombre debe tener al menos 5 carácteres de largo!";
+CheckError_NameToLong = "¡El nombre es demasiado largo!";
+CheckError_InvalidCharInName = "¡Carácter no válido en el nombre!\n\"<\" y \">\" no se permite.";
+CheckError_NameStartWithDigit = "¡El nombre no puede empezar por un dígito!";
+CheckError_InvalidEmail = "¡No es una dirección de correo electrónico válida!";
+CheckError_EmailToLong = "¡Dirección de correo electrónico es demasiado largo!\nLa longitud máxima es de 254.";
+CheckError_InvalidCharInComment = "¡Carácter no válido en un comentario!\n\"(\" y \")\" no se permite.";
+CheckError_CommentToLong = "¡Comentario es demasiado largo!";
+CheckError_NoKeyID = "¡Por favor, introduzca un identificador de clave válido!";
+CheckError_PassphraseMissmatch = "¡Sus frases de contraseña no hacen juego!";
+
+
+//Message on start, if there are any Problems
+GPGNotFound_Msg = "¡GPG no encontrado!";
+GPGNotStart_Title = "¡GPG no se puede empezar!";
+GPGNotStart_Msg = "Por favor, compruebe su gpg.conf";
+GPGInitError_Msg = "¡GPG no se pudo inicializar!";
+GPGAgentNotFound_Title = "¡gpg-agent no encontrado!";
+GPGAgentNotFound_Msg = "Sin gpg-agent usted no puede acceder a las claves contraseña protegida.";
+GPGAgentNotStart_Title = "¡gpg-agent no se puede empezar!";
+GPGAgentNotStart_Msg = "Sin gpg-agent usted no puede acceder a las claves contraseña protegida.";
+Quit_Button = "Salir";
+
+
+//Those are abvious
+No = "No";
+Error = "Error";
+Warning = "Advertencia";
+Cancel = "Cancelar";
+
+
+//For Import-Results
+"key %@: secret key imported\n" = "clave %@: clave secreta importada\n";
+"key %@: public key \"%@\" imported\n" = "clave %@: clave pública \"%@\" importada\n";
+"key %@: \"%@\" new user ID(s)\n" = "clave %@: \"%@\" nueva ID(s) de usuario(s)\n";
+"key %@: \"%@\" new signature(s)\n" = "clave %@: \"%@\" nueva(s) firma(s)\n";
+"key %@: \"%@\" new subkey(s)\n" = "clave %@: \"%@\" nueva(s) subclave(s)\n";
+"Nothing imported!" = "¡Nada importada!";
+
+
+//The Algorithms
+GPG_RSAAlgorithm = "RSA";
+GPG_RSAEncryptOnlyAlgorithm = "RSA-E";
+GPG_RSASignOnlyAlgorithm = "RSA-S";
+GPG_ElgamalEncryptOnlyAlgorithm = "ELG-E";
+GPG_DSAAlgorithm = "DSA";
+GPG_EllipticCurveAlgorithm = "EllipticCurve";
+GPG_ECDSAAlgorithm = "ECDSA";
+GPG_ElgamalAlgorithm = "ELG";
+GPG_DiffieHellmanAlgorithm = "DiffieHellman";
+
+
+//In Main Window
+"%i of %i keys listed" = "%i de %i claves se listado";
+
+
+//For opening and saving dialogues
+"This picture is really large!" = "Esta foto es muy grande!";
+"You should use a smaller picture." = "Usted debe usar una foto más pequeña.";
+"Choose another…" = "Clegir otro…";
+"Use this photo" = "Use esta foto";
+"This picture is to large!" = "Esta foto es demasiado grande!";
+"Please use a picature smaller than 1 MiB." = "Por favor, use una foto más pequeño que 1 MB.";
+"Export failed!" = "¡Exportación fallado!";
+
+"Generate revoke certificate failed!" = "¡Generación del certificado de revocar fallado!";
+
+
+//For Undo and Redo
+Undo_Clean = "Limpiar";
+Undo_Minimize = "Minimizar";
+Undo_Import = "Importar";
+Undo_Receive = "Recibir";
+Undo_Refresh = "Refrescar";
+Undo_SetTrust = "Establecer La Confianza";
+Undo_Delete = "Borrar";
+Undo_AddPhoto = "Añadir Una Foto";
+Undo_RemovePhoto = "Quitar Una Foto";
+Undo_RevokePhoto = "Revocar Foto";
+Undo_PrimaryPhoto = "Foto Principal";
+Undo_AddSignature = "Añadir Firma";
+Undo_AddSubkey = "Añadir Subclave";
+Undo_AddUserID = "Añadir ID de Usuario";
+Undo_ChangeExpirationDate = "Cambiar La Fecha de Vencimiento";
+Undo_ChangePassphrase = "Cambiar Frase de Contraseña";
+Undo_RemoveSignature = "Quitar Firma";
+Undo_RemoveSubkey = "Quitar Subclave";
+Undo_RemoveUserID = "Quitar ID de Usuario";
+Undo_RevokeSignature = "Revocar Firma";
+Undo_RevokeSubkey = "Revocar Subclave";
+Undo_RevokeUserID = "Revocar ID de Usuario";
+Undo_PrimaryUserID = "ID de Usuario Principal";
+Undo_DisableKey = "Desactivar Clave";
+Undo_EnableKey = "Activar Clave";
+Undo_NewKey = "Clave Nueva";
+Undo_AlgorithmPreferences = "Cambiar Preferencias de Algoritmo";
+
+
+
+CIPHER_ALGO_NONE = "Ninguno";
+CIPHER_ALGO_IDEA = "IDEA";
+CIPHER_ALGO_3DES = "3DES";
+CIPHER_ALGO_CAST5 = "CAST5";
+CIPHER_ALGO_BLOWFISH = "BLOWFISH";
+CIPHER_ALGO_AES = "AES";
+CIPHER_ALGO_AES192 = "AES192";
+CIPHER_ALGO_AES256 = "AES256";
+CIPHER_ALGO_TWOFISH = "TWOFISH";
+CIPHER_ALGO_CAMELLIA128 = "CAMELLIA128";
+CIPHER_ALGO_CAMELLIA192 = "CAMELLIA192";
+CIPHER_ALGO_CAMELLIA256 = "CAMELLIA256";
+DIGEST_ALGO_MD5 = "MD5";
+DIGEST_ALGO_SHA1 = "SHA1";
+DIGEST_ALGO_RMD160 = "RMD160";
+DIGEST_ALGO_SHA256 = "SHA256";
+DIGEST_ALGO_SHA384 = "SHA384";
+DIGEST_ALGO_SHA512 = "SHA512";
+DIGEST_ALGO_SHA224 = "SHA224";
+COMPRESS_ALGO_NONE = "Ninguno";
+COMPRESS_ALGO_ZIP = "ZIP";
+COMPRESS_ALGO_ZLIB = "ZLIB";
+COMPRESS_ALGO_BZIP2 = "BZIP2";
+
+
