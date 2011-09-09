@@ -15,7 +15,8 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-@class GKKey;
+#import <Libmacgpg/Libmacgpg.h>
+
 
 @interface KeychainController : NSObject {
     IBOutlet NSTextField *numberOfKeysLabel;
@@ -26,8 +27,9 @@
 	NSArray *subkeysSortDescriptors;
 	
 	
-	NSMutableDictionary *keychain; //Liste der KeyInfos
-	NSSet *secretKeys;
+	//NSMutableDictionary *keychain; //Liste der KeyInfos
+	//NSSet *secretKeys;
+	NSMutableSet *allKeys;
 	
 	NSMutableArray *filteredKeyList; //Liste der momentan angezeigten KeyInfos.
 	NSArray *filterStrings;
@@ -35,24 +37,24 @@
 	BOOL showSecretKeysOnly;
 }
 
-@property (readonly) NSMutableDictionary *keychain;
+//@property (readonly) NSMutableDictionary *keychain;
 @property (retain) NSMutableArray *filteredKeyList;
 @property (retain) NSArray *filterStrings;
 @property BOOL showSecretKeysOnly;
 @property (retain) NSArray *keyInfosSortDescriptors;
 @property (retain) NSArray *userIDsSortDescriptors;
 @property (retain) NSArray *subkeysSortDescriptors;
-@property (copy) NSSet *secretKeys;
+//@property (copy) NSSet *secretKeys;
 
 
 
 - (void)initKeychains;
-- (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos withSigs:(BOOL)withSigs;
-- (void)updateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos;
-- (void)asyncUpdateKeyInfos:(NSObject <GKEnumerationList> *)keyInfos;
+- (void)updateKeyInfos:(NSObject <EnumerationList> *)keyInfos withSigs:(BOOL)withSigs;
+- (void)updateKeyInfos:(NSObject <EnumerationList> *)keyInfos;
+- (void)asyncUpdateKeyInfos:(NSObject <EnumerationList> *)keyInfos;
 - (void)updateKeyInfosWithDict:(NSDictionary *)aDict;
-- (void)asyncUpdateKeyInfo:(GKKey *)keyInfo;
-- (void)updateKeyInfo:(GKKey *)keyInfo;
+- (void)asyncUpdateKeyInfo:(GPGKey *)keyInfo;
+- (void)updateKeyInfo:(GPGKey *)keyInfo;
 
 
 - (IBAction)updateFilteredKeyList:(id)sender;
@@ -60,12 +62,8 @@
 - (NSSet *)fingerprintsForKeyIDs:(NSSet *)keys;
 
 - (BOOL)initGPG;
-- (void)initKeychains;
-- (BOOL)isKeyInfoPassingFilterTest:(GKKey *)keyInfo;
+- (BOOL)isKeyInfoPassingFilterTest:(GPGKey *)keyInfo;
 - (void)updateThread;
-
-- (NSString *)findExecutableWithName:(NSString *)executable;
-- (NSString *)findExecutableWithName:(NSString *)executable atPaths:(NSArray *)paths;
 
 
 @end
@@ -77,11 +75,9 @@
 @interface GPGKeyStatusTransformer : NSValueTransformer {}
 @end
 
-
-@interface SplitFormatter : NSFormatter {
-	NSInteger blockSize;
-}
-@property NSInteger blockSize;
+@interface GPGKey (GKAExtension)
+- (NSString *)type;
+- (NSString *)longType;
 @end
 
 

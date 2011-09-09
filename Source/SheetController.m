@@ -18,8 +18,6 @@
 #import "SheetController.h"
 #import "ActionController.h"
 #import "KeychainController.h"
-#import "GKKey.h";
-#import "GPGOptions.h"
 #import <AddressBook/AddressBook.h>
 
 @implementation SheetController
@@ -73,7 +71,7 @@ static SheetController *_sharedInstance = nil;
 }
 
 
-- (void)algorithmPreferences:(GKKey *)keyInfo editable:(BOOL)editable {
+- (void)algorithmPreferences:(GPGKey *)keyInfo editable:(BOOL)editable {
 	self.myKeyInfo = keyInfo;
 	
 	NSUInteger count = [[myKeyInfo userIDs] count], arrayCount = 0;
@@ -81,7 +79,7 @@ static SheetController *_sharedInstance = nil;
 	NSMutableArray *userIDsArray = [NSMutableArray arrayWithCapacity:count];
 	
 	
-	for (GKUserID *userID in [myKeyInfo userIDs]) {
+	for (GPGUserID *userID in [myKeyInfo userIDs]) {
 		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[userID userID], @"userID", 
 									 [userID cipherPreferences], @"cipherPreferences", 
 									 [userID digestPreferences], @"digestPreferences", 
@@ -114,7 +112,7 @@ static SheetController *_sharedInstance = nil;
 
 
 
-- (void)addSubkey:(GKKey *)keyInfo {
+- (void)addSubkey:(GPGKey *)keyInfo {
 	self.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
 	self.length = 2048;
 	self.keyType = 3;
@@ -133,7 +131,7 @@ static SheetController *_sharedInstance = nil;
 	[self closeSheet];
 }
 
-- (void)addUserID:(GKKey *)keyInfo {
+- (void)addUserID:(GPGKey *)keyInfo {
 	self.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
 	
 	[self setDataFromAddressBook];
@@ -151,7 +149,7 @@ static SheetController *_sharedInstance = nil;
 	[self closeSheet];
 }
 
-- (void)addSignature:(GKKey *)keyInfo userID:(NSString *)userID {
+- (void)addSignature:(GPGKey *)keyInfo userID:(NSString *)userID {
 	self.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
 	self.sigType = 0;
 	self.localSig = NO;
@@ -190,7 +188,7 @@ static SheetController *_sharedInstance = nil;
 	NSSet *secKeySet = [keychainController secretKeys];
 	NSMutableArray *secKeys = [NSMutableArray arrayWithCapacity:[secKeySet count]];
 	NSMutableArray *fingerprints = [NSMutableArray arrayWithCapacity:[secKeySet count]];
-	GKKey *aKeyInfo;
+	GPGKey *aKeyInfo;
 	NSDictionary *keychain = [keychainController keychain];
 	int i = 0;
 	
@@ -221,7 +219,7 @@ static SheetController *_sharedInstance = nil;
 	[self closeSheet];
 }
 
-- (void)changeExpirationDate:(GKKey *)keyInfo subkey:(GKSubkey *)subkey {
+- (void)changeExpirationDate:(GPGKey *)keyInfo subkey:(GPGSubkey *)subkey {
 	NSDate *aDate;
 	if (subkey) {
 		self.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), [subkey shortKeyID], [keyInfo userID], [keyInfo shortKeyID]];
@@ -265,7 +263,7 @@ static SheetController *_sharedInstance = nil;
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	NSString *errText;
-	NSMutableArray *keys = [actionController searchKeysWithPattern:pattern errorText:&errText];
+	NSArray *keys = [actionController searchKeysWithPattern:pattern errorText:&errText];
 	
 	if (errText) {
 		[self performSelectorOnMainThread:@selector(showResultText:) withObject:errText waitUntilDone:NO];
@@ -791,7 +789,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 
 //Für Öffnen- und Speichern-Sheets.
 
-- (void)addPhoto:(GKKey *)keyInfo {
+- (void)addPhoto:(GPGKey *)keyInfo {
 	openPanel = [NSOpenPanel openPanel];
 	
 	[openPanel setAllowsMultipleSelection:NO];
@@ -837,7 +835,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	[NSApp runModalForWindow:mainWindow];
 }
 
-- (void)genRevokeCertificateForKey:(GKKey *)keyInfo {
+- (void)genRevokeCertificateForKey:(GPGKey *)keyInfo {
 	savePanel = [NSSavePanel savePanel];
 	
 	
@@ -877,12 +875,12 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 				[actionController importFromURLs:[sheet URLs]];
 				break;
 			case GKOpenSavePanelAddPhotoAction: {
-				GKKey *keyInfo = [contextInfo objectForKey:@"keyInfo"];
+				GPGKey *keyInfo = [contextInfo objectForKey:@"keyInfo"];
 				NSString *path = [[sheet URL] path];
 				[actionController addPhotoForKeyInfo:keyInfo photoPath:path];
 				break; }
 			case GKOpenSavePanelSaveRevokeCertificateAction: {
-				GKKey *keyInfo = [contextInfo objectForKey:@"keyInfo"];
+				GPGKey *keyInfo = [contextInfo objectForKey:@"keyInfo"];
 				BOOL hideExtension = [sheet isExtensionHidden];
 				NSString *path = [[sheet URL] path];
 				

@@ -28,26 +28,6 @@ extern NSUndoManager *undoManager;
 extern BOOL useUndo;
 
 
-typedef enum {
-    GPGValidityUnknown   = 0,
-    GPGValidityUndefined = 1,
-    GPGValidityNever     = 2,
-    GPGValidityMarginal  = 3,
-    GPGValidityFull      = 4,
-    GPGValidityUltimate  = 5
-} GPGValidity;
-
-typedef enum {
-    GPG_RSAAlgorithm                =  1,
-    GPG_RSAEncryptOnlyAlgorithm     =  2,
-    GPG_RSASignOnlyAlgorithm        =  3,
-    GPG_ElgamalEncryptOnlyAlgorithm = 16,
-    GPG_DSAAlgorithm                = 17,
-    GPG_EllipticCurveAlgorithm      = 18,
-    GPG_ECDSAAlgorithm              = 19,
-    GPG_ElgamalAlgorithm            = 20,
-    GPG_DiffieHellmanAlgorithm      = 21
-} GPGPublicKeyAlgorithm;
 
 
 NSSet* keyInfoSet(NSArray *keyInfos);
@@ -70,15 +50,6 @@ NSString *unescapeString(NSString *string);
 
 #define localized(key) [[NSBundle mainBundle] localizedStringForKey:(key) value:nil table:nil]
 
-
-
-@protocol GKEnumerationList <NSFastEnumeration>
-- (NSUInteger)count;
-@end
-@interface NSArray (KeyList) <GKEnumerationList>
-@end
-@interface NSSet (KeyList) <GKEnumerationList>
-@end
 
 
 

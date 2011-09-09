@@ -16,9 +16,10 @@
 */
 
 #import "Globales.h"
-#import "GKKey.h"
 #import "ActionController.h"
 #import "KeychainController.h"
+#import <Libmacgpg/Libmacgpg.h>
+
 
 NSString *GPG_PATH;
 NSInteger GPG_VERSION;
@@ -32,8 +33,8 @@ BOOL useUndo;
 
 NSSet* keyInfoSet(NSArray *keyInfos) {
 	NSMutableSet *keyInfoSet = [NSMutableSet set];
-	for (GKKey *keyInfo in keyInfos) {
-		[keyInfoSet addObject:[keyInfo primaryKeyInfo]];
+	for (GPGKey *keyInfo in keyInfos) {
+		[keyInfoSet addObject:[keyInfo primaryKey]];
 	}
 	return keyInfoSet;
 }

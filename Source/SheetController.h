@@ -15,8 +15,8 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-@class GKKey;
-@class GKSubkey;
+#import <Libmacgpg/Libmacgpg.h>
+
 
 typedef enum {
 	NewKeyAction,
@@ -47,8 +47,8 @@ typedef enum {
 	SheetAction currentAction;
 	
 	//Objekte für die XXX_Action Methoden.
-	GKKey *myKeyInfo;
-	GKSubkey *mySubkey;
+	GPGKey *myKeyInfo;
+	GPGSubkey *mySubkey;
 	NSString *myString;
 	
 	NSArray *userIDs;
@@ -122,9 +122,9 @@ typedef enum {
 @property NSInteger exportFormat;
 
 
-@property (retain) GKKey *myKeyInfo;
+@property (retain) GPGKey *myKeyInfo;
 @property (retain) NSString *myString;
-@property (retain) GKSubkey *mySubkey;
+@property (retain) GPGSubkey *mySubkey;
 @property (retain) NSArray *userIDs;
 @property BOOL allowEdit;
 
@@ -159,24 +159,24 @@ typedef enum {
 
 
 + (id)sharedInstance;
-- (void)addSubkey:(GKKey *)keyInfo;
-- (void)addUserID:(GKKey *)keyInfo;
-- (void)addSignature:(GKKey *)keyInfo userID:(NSString *)userID;
-- (void)changeExpirationDate:(GKKey *)keyInfo subkey:(GKSubkey *)subkey;
+- (void)addSubkey:(GPGKey *)keyInfo;
+- (void)addUserID:(GPGKey *)keyInfo;
+- (void)addSignature:(GPGKey *)keyInfo userID:(NSString *)userID;
+- (void)changeExpirationDate:(GPGKey *)keyInfo subkey:(GPGSubkey *)subkey;
 - (void)searchKeys;
 - (void)searchKeys_Action;
 - (void)showFoundKeys:(NSArray *)keys;
 - (void)receiveKeys;
 - (void)receiveKeys_Action:(NSSet *)keyIDs;
 - (void)generateNewKey;
-- (void)algorithmPreferences:(GKKey *)keyInfo editable:(BOOL)editable;
+- (void)algorithmPreferences:(GPGKey *)keyInfo editable:(BOOL)editable;
 - (void)algorithmPreferences_Action;
 
-- (void)addPhoto:(GKKey *)keyInfo;
+- (void)addPhoto:(GPGKey *)keyInfo;
 - (void)importKey;
 - (void)exportKeys:(NSSet *)keyInfos;
 
-- (void)genRevokeCertificateForKey:(GKKey *)keyInfo;
+- (void)genRevokeCertificateForKey:(GPGKey *)keyInfo;
 
 
 - (void)showResult:(NSString *)text;

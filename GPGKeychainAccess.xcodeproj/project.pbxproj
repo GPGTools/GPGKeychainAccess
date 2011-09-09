@@ -17,20 +17,15 @@
 		3006933312B3D8870023D273 /* DeleteKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3006933212B3D8870023D273 /* DeleteKey.png */; };
 		30139A5A12475A4A00B8AA01 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30139A5912475A4A00B8AA01 /* AddressBook.framework */; };
 		3017440C124D5F6000A7DE77 /* ModalSheets.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3017440B124D5F6000A7DE77 /* ModalSheets.xib */; };
-		302D61E512A1BEAC00EF89E0 /* GPGOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D61E412A1BEAC00EF89E0 /* GPGOptions.m */; };
 		30310E091268B9D40034E920 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30310E081268B9D40034E920 /* PreferencesController.m */; };
 		30310F6A1268D0A60034E920 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30310F691268D0A60034E920 /* Preferences.xib */; };
+		303772C9141979570000F472 /* Libmacgpg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 303772C6141976FB0000F472 /* Libmacgpg.framework */; };
+		303772CB141979760000F472 /* Libmacgpg.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 303772CA141979760000F472 /* Libmacgpg.framework */; };
 		303D128112840CC2003B5CBE /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 303D128012840CC2003B5CBE /* Readme.txt */; };
-		303FF13012A16FF6008269E7 /* GKUserID.m in Sources */ = {isa = PBXBuildFile; fileRef = 303FF12F12A16FF6008269E7 /* GKUserID.m */; };
-		303FF13312A16FFF008269E7 /* GKSubkey.m in Sources */ = {isa = PBXBuildFile; fileRef = 303FF13212A16FFF008269E7 /* GKSubkey.m */; };
-		303FF13612A17018008269E7 /* GKKeySignature.m in Sources */ = {isa = PBXBuildFile; fileRef = 303FF13512A17018008269E7 /* GKKeySignature.m */; };
-		303FF13912A17024008269E7 /* GKPhotoID.m in Sources */ = {isa = PBXBuildFile; fileRef = 303FF13812A17024008269E7 /* GKPhotoID.m */; };
-		303FF13C12A17030008269E7 /* GKKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 303FF13B12A17030008269E7 /* GKKey.m */; };
 		30497DF11214353F00884D59 /* ActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30497DF01214353F00884D59 /* ActionController.m */; };
 		305268E41232A34C008540D9 /* SheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 305268E21232A34C008540D9 /* SheetController.m */; };
 		3059587812E49F4800DDFA03 /* Keyservers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3059587712E49F4800DDFA03 /* Keyservers.plist */; };
 		305959EE12E5076A00DDFA03 /* Updates.png in Resources */ = {isa = PBXBuildFile; fileRef = 305959ED12E5076A00DDFA03 /* Updates.png */; };
-		3079BCCF128FE27E00BDDE91 /* GPGDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 3079BCCE128FE27E00BDDE91 /* GPGDefaults.m */; };
 		3099B53512EA543100317175 /* Keyserver.png in Resources */ = {isa = PBXBuildFile; fileRef = 3099B53412EA543100317175 /* Keyserver.png */; };
 		30BC8134126B79C700F662C5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 30BC8133126B79C700F662C5 /* dsa_pub.pem */; };
 		30C949D21209E71300A13440 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30C949D11209E71300A13440 /* Localizable.strings */; };
@@ -46,6 +41,23 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		303772C5141976FB0000F472 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 303772BD141976FB0000F472 /* Libmacgpg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Libmacgpg;
+		};
+		303772C7141976FB0000F472 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 303772BD141976FB0000F472 /* Libmacgpg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 30C8B38E139503A800F49AA1;
+			remoteInfo = UnitTest;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		3046143512427094000F1C04 /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -54,6 +66,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				30D258A4136DADCC00274D9F /* Sparkle.framework in Copy Frameworks */,
+				303772CB141979760000F472 /* Libmacgpg.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,8 +93,6 @@
 		30139A5912475A4A00B8AA01 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3017440D124D5F6700A7DE77 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = Resources/German.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		301CB7E6125350B300CF7807 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
-		302D61E312A1BEAC00EF89E0 /* GPGOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPGOptions.h; path = Source/GPGOptions.h; sourceTree = "<group>"; };
-		302D61E412A1BEAC00EF89E0 /* GPGOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPGOptions.m; path = Source/GPGOptions.m; sourceTree = "<group>"; };
 		30310E041268B9810034E920 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		30310E071268B9D40034E920 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesController.h; path = Source/PreferencesController.h; sourceTree = "<group>"; };
 		30310E081268B9D40034E920 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesController.m; path = Source/PreferencesController.m; sourceTree = "<group>"; };
@@ -97,17 +108,9 @@
 		3032FB5813337BDC00F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		3032FB5913337BDC00F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		3032FB5A13337BDC00F9A7CF /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = Resources/French.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
+		303772BD141976FB0000F472 /* Libmacgpg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Libmacgpg.xcodeproj; path = Dependencies/Libmacgpg/Libmacgpg.xcodeproj; sourceTree = "<group>"; };
+		303772CA141979760000F472 /* Libmacgpg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Libmacgpg.framework; path = /Users/Roman/Documents/OpenSource/GPG/GPGKeychainAccess/Dependencies/Libmacgpg/build/Debug/Libmacgpg.framework; sourceTree = "<absolute>"; };
 		303D128012840CC2003B5CBE /* Readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Readme.txt; sourceTree = "<group>"; };
-		303FF12E12A16FF6008269E7 /* GKUserID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GKUserID.h; path = Source/GKUserID.h; sourceTree = "<group>"; };
-		303FF12F12A16FF6008269E7 /* GKUserID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GKUserID.m; path = Source/GKUserID.m; sourceTree = "<group>"; };
-		303FF13112A16FFF008269E7 /* GKSubkey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GKSubkey.h; path = Source/GKSubkey.h; sourceTree = "<group>"; };
-		303FF13212A16FFF008269E7 /* GKSubkey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GKSubkey.m; path = Source/GKSubkey.m; sourceTree = "<group>"; };
-		303FF13412A17018008269E7 /* GKKeySignature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GKKeySignature.h; path = Source/GKKeySignature.h; sourceTree = "<group>"; };
-		303FF13512A17018008269E7 /* GKKeySignature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GKKeySignature.m; path = Source/GKKeySignature.m; sourceTree = "<group>"; };
-		303FF13712A17024008269E7 /* GKPhotoID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GKPhotoID.h; path = Source/GKPhotoID.h; sourceTree = "<group>"; };
-		303FF13812A17024008269E7 /* GKPhotoID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GKPhotoID.m; path = Source/GKPhotoID.m; sourceTree = "<group>"; };
-		303FF13A12A17030008269E7 /* GKKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GKKey.h; path = Source/GKKey.h; sourceTree = "<group>"; };
-		303FF13B12A17030008269E7 /* GKKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GKKey.m; path = Source/GKKey.m; sourceTree = "<group>"; };
 		30497DEF1214353F00884D59 /* ActionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionController.h; path = Source/ActionController.h; sourceTree = "<group>"; };
 		30497DF01214353F00884D59 /* ActionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionController.m; path = Source/ActionController.m; sourceTree = "<group>"; };
 		305268E21232A34C008540D9 /* SheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SheetController.m; path = Source/SheetController.m; sourceTree = "<group>"; };
@@ -123,8 +126,6 @@
 		3062731A1315CD1C00F4423F /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Swedish; path = Resources/Swedish.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		3062731B1315CD1C00F4423F /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Swedish; path = Resources/Swedish.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		3062731C1315CD1C00F4423F /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Swedish; path = Resources/Swedish.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
-		3079BCCD128FE27E00BDDE91 /* GPGDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GPGDefaults.h; path = Source/GPGDefaults.h; sourceTree = "<group>"; };
-		3079BCCE128FE27E00BDDE91 /* GPGDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GPGDefaults.m; path = Source/GPGDefaults.m; sourceTree = "<group>"; };
 		3092000212589ACF00D1489D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = Resources/English.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		3092000C12589D6600D1489D /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = Resources/English.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		3092000E12589D7400D1489D /* German */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = German; path = Resources/German.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				303772C9141979570000F472 /* Libmacgpg.framework in Frameworks */,
 				30139A5A12475A4A00B8AA01 /* AddressBook.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				30D2589B136DADBC00274D9F /* Sparkle.framework in Frameworks */,
@@ -164,17 +166,12 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				30E2316812A1D1D000D9D9DE /* GKKey */,
 				30497DEF1214353F00884D59 /* ActionController.h */,
 				30497DF01214353F00884D59 /* ActionController.m */,
 				256AC3D80F4B6AC300CF3369 /* AppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* AppDelegate.m */,
 				30E36FF8122E710300529ED9 /* Globales.h */,
 				30E36FF9122E710300529ED9 /* Globales.m */,
-				3079BCCD128FE27E00BDDE91 /* GPGDefaults.h */,
-				3079BCCE128FE27E00BDDE91 /* GPGDefaults.m */,
-				302D61E312A1BEAC00EF89E0 /* GPGOptions.h */,
-				302D61E412A1BEAC00EF89E0 /* GPGOptions.m */,
 				3000FEA811F5B88800D6F5F8 /* KeychainController.h */,
 				3000FEA911F5B88800D6F5F8 /* KeychainController.m */,
 				30310E071268B9D40034E920 /* PreferencesController.h */,
@@ -201,6 +198,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				303772BD141976FB0000F472 /* Libmacgpg.xcodeproj */,
 			);
 			name = GPGKeychainAccess;
 			sourceTree = "<group>";
@@ -233,6 +231,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				303772CA141979760000F472 /* Libmacgpg.framework */,
 				30139A5912475A4A00B8AA01 /* AddressBook.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				30D2589A136DADBC00274D9F /* Sparkle.framework */,
@@ -252,21 +251,13 @@
 			name = Strings;
 			sourceTree = "<group>";
 		};
-		30E2316812A1D1D000D9D9DE /* GKKey */ = {
+		303772BE141976FB0000F472 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				303FF13A12A17030008269E7 /* GKKey.h */,
-				303FF13B12A17030008269E7 /* GKKey.m */,
-				303FF13412A17018008269E7 /* GKKeySignature.h */,
-				303FF13512A17018008269E7 /* GKKeySignature.m */,
-				303FF13712A17024008269E7 /* GKPhotoID.h */,
-				303FF13812A17024008269E7 /* GKPhotoID.m */,
-				303FF13112A16FFF008269E7 /* GKSubkey.h */,
-				303FF13212A16FFF008269E7 /* GKSubkey.m */,
-				303FF12E12A16FF6008269E7 /* GKUserID.h */,
-				303FF12F12A16FF6008269E7 /* GKUserID.m */,
+				303772C6141976FB0000F472 /* Libmacgpg.framework */,
+				303772C8141976FB0000F472 /* UnitTest.octest */,
 			);
-			name = GKKey;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		30EB1CB5120C5F96003BD52F /* Images */ = {
@@ -341,12 +332,35 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* GPGKeychainAccess */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 303772BE141976FB0000F472 /* Products */;
+					ProjectRef = 303772BD141976FB0000F472 /* Libmacgpg.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* GPG Keychain Access */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		303772C6141976FB0000F472 /* Libmacgpg.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Libmacgpg.framework;
+			remoteRef = 303772C5141976FB0000F472 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		303772C8141976FB0000F472 /* UnitTest.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTest.octest;
+			remoteRef = 303772C7141976FB0000F472 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {
@@ -401,15 +415,8 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				30497DF11214353F00884D59 /* ActionController.m in Sources */,
-				303FF13C12A17030008269E7 /* GKKey.m in Sources */,
-				303FF13612A17018008269E7 /* GKKeySignature.m in Sources */,
-				303FF13912A17024008269E7 /* GKPhotoID.m in Sources */,
-				303FF13312A16FFF008269E7 /* GKSubkey.m in Sources */,
-				303FF13012A16FF6008269E7 /* GKUserID.m in Sources */,
 				30E36FFA122E710300529ED9 /* Globales.m in Sources */,
-				3079BCCF128FE27E00BDDE91 /* GPGDefaults.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* AppDelegate.m in Sources */,
-				302D61E512A1BEAC00EF89E0 /* GPGOptions.m in Sources */,
 				3000FEAA11F5B88800D6F5F8 /* KeychainController.m in Sources */,
 				30310E091268B9D40034E920 /* PreferencesController.m in Sources */,
 				305268E41232A34C008540D9 /* SheetController.m in Sources */,
@@ -526,10 +533,15 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					x86_64,
+					i386,
+				);
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/${CONFIGURATION}\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -547,10 +559,15 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					x86_64,
+					i386,
+				);
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/${CONFIGURATION}\"",
 				);
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
@@ -579,7 +596,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.6;
 				WARNING_CFLAGS = "-Winvalid-pch";
 			};
 			name = Debug;
@@ -598,7 +615,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = macosx10.6;
 				WARNING_CFLAGS = "-Winvalid-pch";
 			};
 			name = Release;
