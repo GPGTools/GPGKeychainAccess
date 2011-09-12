@@ -1,12 +1,14 @@
 /*
  Copyright © Roman Zechmeister, 2011
  
- Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
+ Diese Datei ist Teil von GPG Keychain Access.
+ 
+ GPG Keychain Access ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
  veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß 
  Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
  
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen 
+ Die Veröffentlichung von GPG Keychain Access erfolgt in der Hoffnung, daß es Ihnen 
  von Nutzen sein wird, aber ohne irgendeine Garantie, sogar ohne die implizite 
  Garantie der Marktreife oder der Verwendbarkeit für einen bestimmten Zweck. 
  Details finden Sie in der GNU General Public License.
@@ -20,30 +22,47 @@
 
 //KeychainController kümmert sich um das anzeigen und Filtern der Schlüssel-Liste.
 
+@interface KeychainController ()
+@property (retain) NSMutableSet *allKeys;
+@property (retain) NSMutableArray *filteredKeyList;
+@property (retain) GPGController *gpgc;
+- (void)updateKeyList:(NSDictionary *)dict;
+@end
 
 
 @implementation KeychainController
-
-@synthesize filteredKeyList;
-@synthesize filterStrings;
-//@synthesize keychain;
-@synthesize userIDsSortDescriptors;
-@synthesize subkeysSortDescriptors;
-@synthesize keyInfosSortDescriptors;
-//@synthesize secretKeys;
-
+@synthesize filteredKeyList, filterStrings, userIDsSortDescriptors, subkeysSortDescriptors, keysSortDescriptors, allKeys, gpgc;
 NSLock *updateLock;
-NSSet *draggedKeyInfos;
+NSSet *draggedKeys;
 
 
+- (BOOL)showSecretKeysOnly {
+    return showSecretKeysOnly;
+}
+- (void)setShowSecretKeysOnly:(BOOL)value {
+    if (showSecretKeysOnly != value) {
+        showSecretKeysOnly = value;
+		[self updateFilteredKeyList:nil];
+    }
+}
 
+- (NSSet *)secretKeys {
+	if (!secretKeys) {
+		NSPredicate *secrectKeyPredicate = [NSPredicate predicateWithFormat:@"secret==YES"];
+		secretKeys = [[allKeys filteredSetUsingPredicate:secrectKeyPredicate] retain];
+	}
+	return [[secretKeys retain] autorelease];
+}
+
+
+// Für Drag & Drop.
 - (BOOL)outlineView:(NSOutlineView*)outlineView writeItems:(NSArray*)items toPasteboard:(NSPasteboard *)pasteboard {
-	NSMutableSet *keyInfos = [NSMutableSet setWithCapacity:[items count]];
+	NSMutableSet *keys = [NSMutableSet setWithCapacity:[items count]];
 	
 	for (NSTreeNode *node in items) {
-		[keyInfos addObject:[[node representedObject] primaryKey]];
+		[keys addObject:[[node representedObject] primaryKey]];
 	}
-	draggedKeyInfos = keyInfos;
+	draggedKeys = keys;
 	
 	NSPoint mousePoint = [mainWindow mouseLocationOutsideOfEventStream];
 	
@@ -67,20 +86,20 @@ NSSet *draggedKeyInfos;
 	
 	[outlineView dragImage:image at:imagePoint offset:(NSSize){0, 0} event:event pasteboard:pboard source:self slideBack:YES];
 	
-	draggedKeyInfos = nil;
+	draggedKeys = nil;
 	
 	return YES;
 }
 
 - (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
 	NSString *fileName;
-	if ([draggedKeyInfos count] == 1) {
-		fileName = [NSString stringWithFormat:@"%@.asc", [[draggedKeyInfos anyObject] shortKeyID]];
+	if ([draggedKeys count] == 1) {
+		fileName = [NSString stringWithFormat:@"%@.asc", [[draggedKeys anyObject] shortKeyID]];
 	} else {
 		fileName = localized(@"Exported keys.asc");
 	}
 	
-	NSData *exportedData = [actionController exportKeys:draggedKeyInfos armored:YES allowSecret:NO fullExport:NO];
+	NSData *exportedData = [actionController exportKeys:draggedKeys armored:YES allowSecret:NO fullExport:NO];
 	if (exportedData && [exportedData length] > 0) {
 		[exportedData writeToFile:[[dropDestination path] stringByAppendingPathComponent:fileName] atomically:YES];
 		
@@ -91,63 +110,76 @@ NSSet *draggedKeyInfos;
 }
 
 
-
-
-
-- (void)initKeychains {
-	NSLog(@"initKeychains");
-	allKeys = [[NSMutableSet alloc] init];
-	//keychain = [[NSMutableDictionary alloc] initWithCapacity:10];
-	filteredKeyList = [[NSMutableArray alloc] initWithCapacity:10];
+// Metoden zum aktualisieren der Schlüsselliste.
+- (void)asyncUpdateKey:(GPGKey *)key {
+	[NSThread detachNewThreadSelector:@selector(updateKeys:) toTarget:self withObject:[NSSet setWithObject:key]];
 }
-
-
-- (void)asyncUpdateKeyInfo:(GPGKey *)keyInfo {
-	[NSThread detachNewThreadSelector:@selector(updateKeyInfos:) toTarget:self withObject:[NSSet setWithObject:keyInfo]];
+- (void)updateKey:(GPGKey *)key {
+	[self updateKeys:[NSSet setWithObject:key] withSigs:NO];
 }
-- (void)updateKeyInfo:(GPGKey *)keyInfo {
-	[self updateKeyInfos:[NSSet setWithObject:keyInfo] withSigs:NO];
-	
+- (void)asyncUpdateKeys:(NSObject <EnumerationList> *)keys {
+	[NSThread detachNewThreadSelector:@selector(updateKeys:) toTarget:self withObject:keys];
 }
-- (void)asyncUpdateKeyInfos:(NSObject <EnumerationList> *)keyInfos {
-	[NSThread detachNewThreadSelector:@selector(updateKeyInfos:) toTarget:self withObject:keyInfos];
+- (void)updateKeys:(NSObject <EnumerationList> *)keys {
+	[self updateKeys:keys withSigs:NO];
 }
-- (void)updateKeyInfos:(NSObject <EnumerationList> *)keyInfos {
-	[self updateKeyInfos:keyInfos withSigs:NO];
-}
-
-- (void)updateKeyInfos:(NSObject <EnumerationList> *)keyInfos withSigs:(BOOL)withSigs {
-	NSLog(@"Starte: updateKeyInfos");
+- (void)updateKeys:(NSObject <EnumerationList> *)keys withSigs:(BOOL)withSigs {
+	NSLog(@"updateKeys:withSigs: start");
 	if (![updateLock tryLock]) {
-		NSLog(@"updateKeyInfos tryLock return");
+		NSLog(@"updateKeys:withSigs: tryLock return");
 		return;
 	}
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+	@try {
+		NSSet *updatedKeys = [gpgc updateKeys:keys withSigs:withSigs];
+		if (gpgc.error) {
+			@throw gpgc.error;
+		}
+		
+		NSMutableSet *keysToRemove = [keys mutableCopy];
+		[keysToRemove minusSet:updatedKeys];
+		
+		NSDictionary *updateInfos = [NSDictionary dictionaryWithObjectsAndKeys:updatedKeys, @"keysToAdd", keysToRemove, @"keysToRemove", nil];
+		
+		[self performSelectorOnMainThread:@selector(updateKeyList:) withObject:updateInfos waitUntilDone:YES];
+
+	} @catch (NSException *exception) {
+		NSLog(@"updateKeys:withSigs: failed – %@", exception);
+	} @finally {
+		[pool drain];
+		[updateLock unlock];
+	}
 	
-	GPGController *gpgc = [GPGController gpgController];
-	NSSet *updatedKeys = [gpgc updateKeys:keyInfos withSigs:withSigs];
-	
-	[allKeys addObjectsFromArray:[updatedKeys allObjects]];
-	
-	[self performSelectorOnMainThread:@selector(updateFilteredKeyList:) withObject:nil waitUntilDone:YES];
-	
-	[pool drain];
-	[updateLock unlock];
-	NSLog(@"Fertig: updateKeyInfos");
+	NSLog(@"updateKeys:withSigs: end");
 }
 
+- (void)updateKeyList:(NSDictionary *)dict {
+	NSAssert([NSThread isMainThread], @"updateKeyList must run in the main thread!");
+	
+	NSSet *keysToRemove = [dict objectForKey:@"keysToRemove"];
+	NSSet *keysToAdd = [dict objectForKey:@"keysToAdd"];
+	
+	[self.allKeys minusSet:keysToRemove];
+	[self.allKeys unionSet:keysToAdd];
+	
+	[secretKeys release];
+	secretKeys = nil;
+	
+	[self updateFilteredKeyList:nil];
+}
 
+- (IBAction)updateFilteredKeyList:(id)sender {
+	NSAssert([NSThread isMainThread], @"updateFilteredKeyList must run in the main thread!");
 
-- (IBAction)updateFilteredKeyList:(id)sender { //Darf nur im Main-Thread laufen!
 	static BOOL isUpdating = NO;
 	if (isUpdating) {return;}
 	isUpdating = YES;
 	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSMutableArray *keysToRemove;
 	GPGKey *key;
 	
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	[self willChangeValueForKey:@"filteredKeyList"];
 	
 	if ([sender isKindOfClass:[NSTextField class]]) {
@@ -156,8 +188,8 @@ NSSet *draggedKeyInfos;
 	
 	keysToRemove = [NSMutableArray arrayWithArray:filteredKeyList];
 	
-	for (key in allKeys) {
-		if ([self isKeyInfoPassingFilterTest:key]) {
+	for (key in self.allKeys) {
+		if ([self isKeyPassingFilterTest:key]) {
 			if ([keysToRemove containsObject:key]) {
 				[keysToRemove removeObject:key];
 			} else {
@@ -168,21 +200,21 @@ NSSet *draggedKeyInfos;
 	[filteredKeyList removeObjectsInArray:keysToRemove];
 	[self didChangeValueForKey:@"filteredKeyList"];
 	
-	[numberOfKeysLabel setStringValue:[NSString stringWithFormat:localized(@"%i of %i keys listed"), [filteredKeyList count], [allKeys count]]];
+	[numberOfKeysLabel setStringValue:[NSString stringWithFormat:localized(@"%i of %i keys listed"), [filteredKeyList count], [self.allKeys count]]];
 	
 	[pool drain];
 	isUpdating = NO;
 }
 
 
-- (BOOL)isKeyInfoPassingFilterTest:(GPGKey *)keyInfo {
-	if (showSecretKeysOnly && !keyInfo.secret) {
+- (BOOL)isKeyPassingFilterTest:(GPGKey *)key {
+	if (showSecretKeysOnly && !key.secret) {
 		return NO;
 	}
 	if (filterStrings && [filterStrings count] > 0) {
 		for (NSString *searchString in filterStrings) {
 			if ([searchString length] > 0) {
-				if ([[keyInfo textForFilter] rangeOfString:searchString options:NSCaseInsensitiveSearch].length == 0) {
+				if ([[key textForFilter] rangeOfString:searchString options:NSCaseInsensitiveSearch].length == 0) {
 					return NO;
 				}
 			}
@@ -191,36 +223,12 @@ NSSet *draggedKeyInfos;
 	return YES;
 }
 
-- (NSSet *)fingerprintsForKeyIDs:(NSSet *)keys {
-	NSMutableSet *fingerprints = [NSMutableSet setWithCapacity:[keys count]];
-	NSMutableDictionary *keyIdToFingerprint = [NSMutableDictionary dictionaryWithCapacity:[allKeys count] * 2];
-	NSString *fingerprint;
-	
-	for (GPGKey *keyInfo in allKeys) {
-		fingerprint = [keyInfo fingerprint];
-		[keyIdToFingerprint setObject:fingerprint forKey:[keyInfo shortKeyID]];
-		[keyIdToFingerprint setObject:fingerprint forKey:[keyInfo keyID]];
-	}
-	
-	for (NSObject *key in keys) {
-		NSString *keyID = [key description];
-		if ([keyID length] < 32) {
-			fingerprint = [keyIdToFingerprint objectForKey:keyID];
-			if (fingerprint) {
-				[fingerprints addObject:fingerprint];
-			}
-		} else {
-			[fingerprints addObject:keyID];
-		}
-
-	}
-	return fingerprints;
-}
-
 
 - (id)init {
-	self = [super init];
-	keychainController = self;
+	if ((self = [super init])) {
+		self.gpgc = [GPGController gpgController];
+		keychainController = self;
+	}
 	return self;
 }
 
@@ -228,56 +236,45 @@ NSSet *draggedKeyInfos;
 	NSLog(@"KeychainController awakeFromNib");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	if (![self initGPG]) {
+	
+	// Testen ob GPG vorhanden zbd funktionsfähig ist.
+	if ([gpgc testGPG]) {
+		//TODO: Fehlermeldung ausgeben.
 		NSLog(@"KeychainController awakeFromNib: NSApp terminate");
 		[NSApp terminate:nil]; 
 	}
 
-	[self initKeychains];
 	
+	// Schlüssellisten initialisieren.
+	self.allKeys = [NSMutableSet setWithCapacity:50];
+	self.filteredKeyList = [[NSMutableArray alloc] initWithCapacity:10];
+	
+	
+	// Sort Descriptoren anlegen.
 	NSSortDescriptor *indexSort = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
 	NSSortDescriptor *nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
 	NSArray *sortDesriptors = [NSArray arrayWithObject:indexSort];
 	self.subkeysSortDescriptors = sortDesriptors;
 	self.userIDsSortDescriptors = sortDesriptors;
-	self.keyInfosSortDescriptors = [NSArray arrayWithObjects:indexSort, nameSort, nil];
+	self.keysSortDescriptors = [NSArray arrayWithObjects:indexSort, nameSort, nil];
 	[indexSort release];
 	[nameSort release];
 	
 	
-	
+	// updateLock initialisieren und Schlüsselliste füllen.
 	updateLock = [[NSLock alloc] init];
-	[self updateKeyInfos:nil];
+	[self updateKeys:nil];
 	
 	
-    [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(updateThread) userInfo:nil repeats:YES];
+	// Alle 300 Sekunden die Schlüsselliste aktualisieren.
+	NSInvocation *updateInvocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:@selector(updateKeys:)]];
+	updateInvocation.target = self;
+	updateInvocation.selector = @selector(updateKeys:);
+	[NSTimer scheduledTimerWithTimeInterval:300 invocation:updateInvocation repeats:YES];
+	
 	
 	[pool drain];
 }
-
-- (BOOL)initGPG {
-	return YES;
-}
-
-
-
-
-- (BOOL)showSecretKeysOnly {
-    return showSecretKeysOnly;
-}
-- (void)setShowSecretKeysOnly:(BOOL)value {
-    if (showSecretKeysOnly != value) {
-        showSecretKeysOnly = value;
-		[self updateFilteredKeyList:nil];
-    }
-}
-
-
-- (void)updateThread {
-	[self updateKeyInfos:nil];
-}
-
-
 
 @end
 
@@ -309,7 +306,6 @@ NSSet *draggedKeyInfos;
 			return @"";
 	}
 }
-
 @end
 
 @implementation GPGKeyStatusTransformer
@@ -351,7 +347,6 @@ NSSet *draggedKeyInfos;
 	}
 	return [[statusText copy] autorelease];
 }
-
 @end
 
 @implementation GPGKey (GKAExtension)

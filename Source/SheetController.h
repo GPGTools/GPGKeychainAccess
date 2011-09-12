@@ -1,12 +1,14 @@
 /*
  Copyright © Roman Zechmeister, 2011
  
- Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
+ Diese Datei ist Teil von GPG Keychain Access.
+ 
+ GPG Keychain Access ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
  veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß 
  Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
  
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen 
+ Die Veröffentlichung von GPG Keychain Access erfolgt in der Hoffnung, daß es Ihnen 
  von Nutzen sein wird, aber ohne irgendeine Garantie, sogar ohne die implizite 
  Garantie der Marktreife oder der Verwendbarkeit für einen bestimmten Zweck. 
  Details finden Sie in der GNU General Public License.
@@ -42,12 +44,12 @@ typedef enum {
 
 
 
-@interface SheetController : NSObject {
+@interface SheetController : NSObject <NSOpenSavePanelDelegate> {
 
 	SheetAction currentAction;
 	
 	//Objekte für die XXX_Action Methoden.
-	GPGKey *myKeyInfo;
+	GPGKey *myKey;
 	GPGSubkey *mySubkey;
 	NSString *myString;
 	
@@ -122,7 +124,7 @@ typedef enum {
 @property NSInteger exportFormat;
 
 
-@property (retain) GPGKey *myKeyInfo;
+@property (retain) GPGKey *myKey;
 @property (retain) NSString *myString;
 @property (retain) GPGSubkey *mySubkey;
 @property (retain) NSArray *userIDs;
@@ -159,24 +161,24 @@ typedef enum {
 
 
 + (id)sharedInstance;
-- (void)addSubkey:(GPGKey *)keyInfo;
-- (void)addUserID:(GPGKey *)keyInfo;
-- (void)addSignature:(GPGKey *)keyInfo userID:(NSString *)userID;
-- (void)changeExpirationDate:(GPGKey *)keyInfo subkey:(GPGSubkey *)subkey;
+- (void)addSubkey:(GPGKey *)key;
+- (void)addUserID:(GPGKey *)key;
+- (void)addSignature:(GPGKey *)key userID:(NSString *)userID;
+- (void)changeExpirationDate:(GPGKey *)key subkey:(GPGSubkey *)subkey;
 - (void)searchKeys;
 - (void)searchKeys_Action;
 - (void)showFoundKeys:(NSArray *)keys;
 - (void)receiveKeys;
 - (void)receiveKeys_Action:(NSSet *)keyIDs;
 - (void)generateNewKey;
-- (void)algorithmPreferences:(GPGKey *)keyInfo editable:(BOOL)editable;
+- (void)algorithmPreferences:(GPGKey *)key editable:(BOOL)editable;
 - (void)algorithmPreferences_Action;
 
-- (void)addPhoto:(GPGKey *)keyInfo;
+- (void)addPhoto:(GPGKey *)key;
 - (void)importKey;
-- (void)exportKeys:(NSSet *)keyInfos;
+- (void)exportKeys:(NSSet *)keys;
 
-- (void)genRevokeCertificateForKey:(GPGKey *)keyInfo;
+- (void)genRevokeCertificateForKey:(GPGKey *)key;
 
 
 - (void)showResult:(NSString *)text;
@@ -192,7 +194,6 @@ typedef enum {
 
 - (IBAction)okButton:(id)sender;
 - (IBAction)cancelButton:(id)sender;
-- (IBAction)backButton:(id)sender;
 
 - (BOOL)checkName;
 - (BOOL)checkEmailMustSet:(BOOL)mustSet;

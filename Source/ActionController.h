@@ -1,12 +1,14 @@
 /*
  Copyright © Roman Zechmeister, 2011
  
- Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
+ Diese Datei ist Teil von GPG Keychain Access.
+ 
+ GPG Keychain Access ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
  veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß 
  Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
  
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen 
+ Die Veröffentlichung von GPG Keychain Access erfolgt in der Hoffnung, daß es Ihnen 
  von Nutzen sein wird, aber ohne irgendeine Garantie, sogar ohne die implizite 
  Garantie der Marktreife oder der Verwendbarkeit für einen bestimmten Zweck. 
  Details finden Sie in der GNU General Public License.
@@ -17,17 +19,7 @@
 
 #import <Libmacgpg/Libmacgpg.h>
 
-enum {
-	RunCmdNoKeyserverFound = 501, //Es wurde kein Schlüsselserver festgelegt.
-	RunCmdIllegalProtocolType = 502,
-	RunCmdNoKeyserverHelperFound = 503
-} RunCmdReturnValue;
-
-enum {
-	RunServerCommandSearch,
-	RunServerCommandSend,
-	RunServerCommandGet
-} RunServerCommandType;
+@class SheetController;
 
 enum {
 	GKOpenSavePanelExportKeyAction = 1,
@@ -36,9 +28,6 @@ enum {
 	GKOpenSavePanelSaveRevokeCertificateAction
 } GKOpenSavePanelAction;
 
-
-
-@class SheetController;
 
 @interface ActionController : NSWindowController {
     IBOutlet NSTreeController *keysController;
@@ -87,7 +76,7 @@ enum {
 - (IBAction)editAlgorithmPreferences:(id)sender;
 
 
-- (NSSet *)selectedKeyInfos;
+- (NSSet *)selectedKeys;
 
 - (NSData *)exportKeys:(NSObject <EnumerationList> *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec fullExport:(BOOL)fullExport;
 - (void)importFromURLs:(NSArray *)urls;
@@ -95,20 +84,20 @@ enum {
 - (NSString *)importResultWithStatusText:(NSString *)statusText;
 
 - (void)generateNewKeyWithName:(NSString *)name email:(NSString *)email comment:(NSString *)comment passphrase:(NSString *)passphrase type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
-- (void)addSubkeyForKeyInfo:(GPGKey *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
-- (void)addUserIDForKeyInfo:(GPGKey *)keyInfo name:(NSString *)name email:(NSString *)email comment:(NSString *)comment;
-- (void)addSignatureForKeyInfo:(GPGKey *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
-- (void)changeExpirationDateForKeyInfo:(GPGKey *)keyInfo subkey:(GPGSubkey *)subkey daysToExpire:(NSInteger)daysToExpire;
+- (void)addSubkeyForKey:(GPGKey *)key type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
+- (void)addUserIDForKey:(GPGKey *)key name:(NSString *)name email:(NSString *)email comment:(NSString *)comment;
+- (void)addSignatureForKey:(GPGKey *)key andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
+- (void)changeExpirationDateForKey:(GPGKey *)key subkey:(GPGSubkey *)subkey daysToExpire:(NSInteger)daysToExpire;
 - (NSMutableArray *)searchKeysWithPattern:(NSString *)pattern errorText:(NSString **)errText;
 - (NSString *)receiveKeysWithIDs:(NSSet *)keyIDs;
-- (void)addPhotoForKeyInfo:(GPGKey *)keyInfo photoPath:(NSString *)path;
+- (void)addPhotoForKey:(GPGKey *)key photoPath:(NSString *)path;
 - (void)deleteKeys:(NSObject <EnumerationList> *)keys withMode:(GPGDeleteKeyMode)mode;
 - (NSSet *)keysInExportedData:(NSData *)data;
 - (void)registerUndoForKeys:(NSObject <EnumerationList> *)keys withName:(NSString *)actionName;
 - (void)registerUndoForKey:(NSObject *)key withName:(NSString *)actionName;
-- (void)setDisabled:(BOOL)disabled forKeyInfos:(NSObject <EnumerationList> *)keys;
-- (NSData *)genRevokeCertificateForKey:(GPGKey *)keyInfo;
-- (void)editAlgorithmPreferencesForKey:(GPGKey *)keyInfo preferences:(NSArray *)userIDs;
+- (void)setDisabled:(BOOL)disabled forKeys:(NSObject <EnumerationList> *)keys;
+- (NSData *)genRevokeCertificateForKey:(GPGKey *)key;
+- (void)editAlgorithmPreferencesForKey:(GPGKey *)key preferences:(NSArray *)userIDs;
 
 
 @end

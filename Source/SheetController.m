@@ -1,12 +1,14 @@
 /*
  Copyright © Roman Zechmeister, 2011
  
- Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
+ Diese Datei ist Teil von GPG Keychain Access.
+ 
+ GPG Keychain Access ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
  veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß 
  Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
  
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen 
+ Die Veröffentlichung von GPG Keychain Access erfolgt in der Hoffnung, daß es Ihnen 
  von Nutzen sein wird, aber ohne irgendeine Garantie, sogar ohne die implizite 
  Garantie der Marktreife oder der Verwendbarkeit für einen bestimmten Zweck. 
  Details finden Sie in der GNU General Public License.
@@ -21,37 +23,13 @@
 #import <AddressBook/AddressBook.h>
 
 @implementation SheetController
+@synthesize allowSecretKeyExport, allowEdit, myKey, myString, mySubkey, foundKeys, msgText, 
+	pattern, name, email, comment, passphrase, confirmPassphrase, availableLengths, length, 
+	hasExpirationDate, expirationDate, minExpirationDate, maxExpirationDate, sigType, 
+	localSig, emailAddresses, secretKeys, secretKeyFingerprints, secretKeyId, userIDs;
 
 static SheetController *_sharedInstance = nil;
 
-@synthesize allowSecretKeyExport;
-@synthesize allowEdit;
-
-@synthesize myKeyInfo;
-@synthesize myString;
-@synthesize mySubkey;
-
-@synthesize foundKeys;
-@synthesize msgText;
-@synthesize pattern;
-@synthesize name;
-@synthesize email;
-@synthesize comment;
-@synthesize passphrase;
-@synthesize confirmPassphrase;
-@synthesize availableLengths;
-@synthesize length;
-@synthesize hasExpirationDate;
-@synthesize expirationDate;
-@synthesize minExpirationDate;
-@synthesize maxExpirationDate;
-@synthesize sigType;
-@synthesize localSig;
-@synthesize emailAddresses;
-@synthesize secretKeys;
-@synthesize secretKeyFingerprints;
-@synthesize secretKeyId;
-@synthesize userIDs;
 
 
 
@@ -71,15 +49,15 @@ static SheetController *_sharedInstance = nil;
 }
 
 
-- (void)algorithmPreferences:(GPGKey *)keyInfo editable:(BOOL)editable {
-	self.myKeyInfo = keyInfo;
+- (void)algorithmPreferences:(GPGKey *)key editable:(BOOL)editable {
+	self.myKey = key;
 	
-	NSUInteger count = [[myKeyInfo userIDs] count], arrayCount = 0;
+	NSUInteger count = [[myKey userIDs] count], arrayCount = 0;
 	
 	NSMutableArray *userIDsArray = [NSMutableArray arrayWithCapacity:count];
 	
 	
-	for (GPGUserID *userID in [myKeyInfo userIDs]) {
+	for (GPGUserID *userID in [myKey userIDs]) {
 		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[userID userID], @"userID", 
 									 [userID cipherPreferences], @"cipherPreferences", 
 									 [userID digestPreferences], @"digestPreferences", 
@@ -104,7 +82,7 @@ static SheetController *_sharedInstance = nil;
 }
 - (void)algorithmPreferences_Action {
 	if (allowEdit) {
-		[actionController editAlgorithmPreferencesForKey:myKeyInfo preferences:userIDs];
+		[actionController editAlgorithmPreferencesForKey:myKey preferences:userIDs];
 	}
 	[self closeSheet];
 }
@@ -112,75 +90,69 @@ static SheetController *_sharedInstance = nil;
 
 
 
-- (void)addSubkey:(GPGKey *)keyInfo {
-	self.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
+- (void)addSubkey:(GPGKey *)key {
+	self.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userID], [key shortKeyID]];
 	self.length = 2048;
 	self.keyType = 3;
 	[self setStandardExpirationDates];
 	self.hasExpirationDate = NO;
 
 	
-	self.myKeyInfo = keyInfo;
+	self.myKey = key;
 	currentAction = AddSubkeyAction;
 	self.displayedView = generateSubkeyView;
 	
 	[self runSheetForWindow:inspectorWindow];
 }
 - (void)addSubkey_Action {
-	[actionController addSubkeyForKeyInfo:myKeyInfo type:keyType length:length daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
+	[actionController addSubkeyForKey:myKey type:keyType length:length daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
 	[self closeSheet];
 }
 
-- (void)addUserID:(GPGKey *)keyInfo {
-	self.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
+- (void)addUserID:(GPGKey *)key {
+	self.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [key userID], [key shortKeyID]];
 	
 	[self setDataFromAddressBook];
 	self.comment = @"";
 
 	
-	self.myKeyInfo = keyInfo;
+	self.myKey = key;
 	currentAction = AddUserIDAction;
 	self.displayedView = generateUserIDView;
 	
 	[self runSheetForWindow:inspectorWindow];
 }
 - (void)addUserID_Action {
-	[actionController addUserIDForKeyInfo:myKeyInfo name:name email:email comment:comment];
+	[actionController addUserIDForKey:myKey name:name email:email comment:comment];
 	[self closeSheet];
 }
 
-- (void)addSignature:(GPGKey *)keyInfo userID:(NSString *)userID {
-	self.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
+- (void)addSignature:(GPGKey *)key userID:(NSString *)userID {
+	self.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), [key userID], [key shortKeyID]];
 	self.sigType = 0;
 	self.localSig = NO;
 	[self setStandardExpirationDates];
 	self.hasExpirationDate = NO;
 	
-	
-	NSArray *defaultKeys = [[[[GPGOptions alloc] init] autorelease] activeOptionValuesForName:@"default-key"];
-	NSString *defaultKey;
-	if ([defaultKeys count] > 0) {
-		defaultKey = [defaultKeys objectAtIndex:0];
-		switch ([defaultKey length]) {
-			case 9:
-			case 17:
-			case 33:
-			case 41:
-				if ([defaultKey hasPrefix:@"0"]) {
-					defaultKey = [defaultKey substringFromIndex:1];
-				}
-				break;
-			case 10:
-			case 18:
-			case 34:
-			case 42:
-				if ([defaultKey hasPrefix:@"0x"]) {
-					defaultKey = [defaultKey substringFromIndex:2];
-				}
-				break;
-		}
-	} else {
-		defaultKey = nil;
+		
+	NSString *defaultKey = [[GPGOptions sharedOptions] valueForKey:@"default-key"];
+	switch ([defaultKey length]) {
+		case 9:
+		case 17:
+		case 33:
+		case 41:
+			if ([defaultKey hasPrefix:@"0"]) {
+				defaultKey = [defaultKey substringFromIndex:1];
+			}
+			break;
+		case 10:
+		case 18:
+		case 34:
+		case 42:
+			if ([defaultKey hasPrefix:@"0x"]) {
+				defaultKey = [defaultKey substringFromIndex:2];
+			}
+			break;
 	}
 
 	self.secretKeyId = 0;
@@ -188,17 +160,17 @@ static SheetController *_sharedInstance = nil;
 	NSSet *secKeySet = [keychainController secretKeys];
 	NSMutableArray *secKeys = [NSMutableArray arrayWithCapacity:[secKeySet count]];
 	NSMutableArray *fingerprints = [NSMutableArray arrayWithCapacity:[secKeySet count]];
-	GPGKey *aKeyInfo;
-	NSDictionary *keychain = [keychainController keychain];
+	GPGKey *aKey;
+	NSSet *allKeys = [keychainController allKeys];
 	int i = 0;
 	
 	for (NSString *fingerprint in secKeySet) {
-		aKeyInfo = [keychain objectForKey:fingerprint];
-		if (defaultKey && [aKeyInfo.textForFilter rangeOfString:defaultKey].length != 0) {
+		aKey = [allKeys member:fingerprint];
+		if (defaultKey && [aKey.textForFilter rangeOfString:defaultKey].length != 0) {
 			self.secretKeyId = i;
 			defaultKey = nil;
 		}
-		[secKeys addObject:[NSString stringWithFormat:@"%@, %@", aKeyInfo.shortKeyID, aKeyInfo.userID]];
+		[secKeys addObject:[NSString stringWithFormat:@"%@, %@", aKey.shortKeyID, aKey.userID]];
 		[fingerprints addObject:fingerprint];
 		i++;
 	}
@@ -207,7 +179,7 @@ static SheetController *_sharedInstance = nil;
 
 	
 	
-	self.myKeyInfo = keyInfo;
+	self.myKey = key;
 	self.myString = userID;
 	currentAction = AddSignatureAction;
 	self.displayedView = generateSignatureView;
@@ -215,18 +187,18 @@ static SheetController *_sharedInstance = nil;
 	[self runSheetForWindow:userID ? inspectorWindow : mainWindow];
 }
 - (void)addSignature_Action {
-	[actionController addSignatureForKeyInfo:myKeyInfo andUserID:myString signKey:[secretKeyFingerprints objectAtIndex:secretKeyId] type:sigType local:localSig daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
+	[actionController addSignatureForKey:myKey andUserID:myString signKey:[secretKeyFingerprints objectAtIndex:secretKeyId] type:sigType local:localSig daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
 	[self closeSheet];
 }
 
-- (void)changeExpirationDate:(GPGKey *)keyInfo subkey:(GPGSubkey *)subkey {
+- (void)changeExpirationDate:(GPGKey *)key subkey:(GPGSubkey *)subkey {
 	NSDate *aDate;
 	if (subkey) {
-		self.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), [subkey shortKeyID], [keyInfo userID], [keyInfo shortKeyID]];
+		self.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), [subkey shortKeyID], [key userID], [key shortKeyID]];
 		aDate = [subkey expirationDate];
 	} else {
-		self.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [keyInfo userID], [keyInfo shortKeyID]];
-		aDate = [keyInfo expirationDate];
+		self.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [key userID], [key shortKeyID]];
+		aDate = [key expirationDate];
 	}
 
 	[self setStandardExpirationDates];
@@ -239,7 +211,7 @@ static SheetController *_sharedInstance = nil;
 	}
 	
 	
-	self.myKeyInfo = keyInfo;
+	self.myKey = key;
 	self.mySubkey = subkey;
 	currentAction = ChangeExpirationDateAction;
 	self.displayedView = changeExpirationDateView;
@@ -247,7 +219,7 @@ static SheetController *_sharedInstance = nil;
 	[self runSheetForWindow:inspectorWindow];
 }
 - (void)changeExpirationDate_Action {
-	[actionController changeExpirationDateForKeyInfo:myKeyInfo subkey:mySubkey daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
+	[actionController changeExpirationDateForKey:myKey subkey:mySubkey daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
 	[self closeSheet];
 }
 
@@ -425,15 +397,11 @@ static SheetController *_sharedInstance = nil;
 	}
 }
 - (IBAction)cancelButton:(id)sender {
-	self.myKeyInfo = nil;
+	self.myKey = nil;
 	self.mySubkey = nil;
 	self.myString = nil;
 	[sheetWindow orderOut:self];
 	[NSApp stopModal];
-}
-- (IBAction)backButton:(id)sender {
-	switch (currentAction) {
-	}
 }
 
 - (void)runSheetForWindow:(NSWindow *)window {
@@ -789,14 +757,14 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 
 //Für Öffnen- und Speichern-Sheets.
 
-- (void)addPhoto:(GPGKey *)keyInfo {
+- (void)addPhoto:(GPGKey *)key {
 	openPanel = [NSOpenPanel openPanel];
 	
 	[openPanel setAllowsMultipleSelection:NO];
 	[openPanel setDelegate:self];
 	
 	NSArray *fileTypes = [NSArray arrayWithObjects:@"jpg", @"jpeg", nil];
-	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:keyInfo, @"keyInfo",[NSNumber numberWithInt:GKOpenSavePanelAddPhotoAction], @"action", nil];
+	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:key, @"key",[NSNumber numberWithInt:GKOpenSavePanelAddPhotoAction], @"action", nil];
 
 	[openPanel beginSheetForDirectory:nil file:nil types:fileTypes modalForWindow:inspectorWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];			
 	[NSApp runModalForWindow:inspectorWindow];
@@ -813,7 +781,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	[openPanel beginSheetForDirectory:nil file:nil types:fileTypes modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
 	[NSApp runModalForWindow:mainWindow];
 }
-- (void)exportKeys:(NSSet *)keyInfos {
+- (void)exportKeys:(NSSet *)keys {
 	savePanel = [NSSavePanel savePanel];
 	
 	[savePanel setAccessoryView:exportKeyOptionsView];
@@ -824,18 +792,18 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	
 	
 	NSString *filename;
-	if ([keyInfos count] == 1) {
-		filename = [[keyInfos anyObject] shortKeyID];
+	if ([keys count] == 1) {
+		filename = [[keys anyObject] shortKeyID];
 	} else {
 		filename = localized(@"untitled");
 	}
-	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:keyInfos, @"keyInfos", [NSNumber numberWithInt:GKOpenSavePanelExportKeyAction], @"action", nil];
+	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:keys, @"keys", [NSNumber numberWithInt:GKOpenSavePanelExportKeyAction], @"action", nil];
 	
 	[savePanel beginSheetForDirectory:nil file:filename modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
 	[NSApp runModalForWindow:mainWindow];
 }
 
-- (void)genRevokeCertificateForKey:(GPGKey *)keyInfo {
+- (void)genRevokeCertificateForKey:(GPGKey *)key {
 	savePanel = [NSSavePanel savePanel];
 	
 	
@@ -844,9 +812,9 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	
 	[savePanel setAllowedFileTypes:[NSArray arrayWithObjects:@"gpg", @"asc", @"pgp", nil]];
 	
-	NSString *filename = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), [keyInfo shortKeyID]];
+	NSString *filename = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), [key shortKeyID]];
 	
-	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:keyInfo, @"keyInfo", [NSNumber numberWithInt:GKOpenSavePanelSaveRevokeCertificateAction], @"action", nil];
+	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:key, @"key", [NSNumber numberWithInt:GKOpenSavePanelSaveRevokeCertificateAction], @"action", nil];
 	
 	[savePanel beginSheetForDirectory:nil file:filename modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
 	[NSApp runModalForWindow:mainWindow];
@@ -860,11 +828,11 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		[sheet orderOut:self];
 		switch ([[contextInfo objectForKey:@"action"] integerValue]) {
 			case GKOpenSavePanelExportKeyAction: {
-				NSSet *keyInfos = [contextInfo objectForKey:@"keyInfos"];
+				NSSet *keys = [contextInfo objectForKey:@"keys"];
 				BOOL hideExtension = [sheet isExtensionHidden];
 				NSString *path = [[sheet URL] path];
 				
-				NSData *exportData = [actionController exportKeys:keyInfos armored:(exportFormat & 1) allowSecret:allowSecretKeyExport fullExport:NO];
+				NSData *exportData = [actionController exportKeys:keys armored:(exportFormat & 1) allowSecret:allowSecretKeyExport fullExport:NO];
 				if (exportData) {
 					[[NSFileManager defaultManager] createFileAtPath:path contents:exportData attributes:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:hideExtension] forKey:NSFileExtensionHidden]];
 				} else {
@@ -875,16 +843,16 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 				[actionController importFromURLs:[sheet URLs]];
 				break;
 			case GKOpenSavePanelAddPhotoAction: {
-				GPGKey *keyInfo = [contextInfo objectForKey:@"keyInfo"];
+				GPGKey *key = [contextInfo objectForKey:@"key"];
 				NSString *path = [[sheet URL] path];
-				[actionController addPhotoForKeyInfo:keyInfo photoPath:path];
+				[actionController addPhotoForKey:key photoPath:path];
 				break; }
 			case GKOpenSavePanelSaveRevokeCertificateAction: {
-				GPGKey *keyInfo = [contextInfo objectForKey:@"keyInfo"];
+				GPGKey *key = [contextInfo objectForKey:@"key"];
 				BOOL hideExtension = [sheet isExtensionHidden];
 				NSString *path = [[sheet URL] path];
 				
-				NSData *exportData = [actionController genRevokeCertificateForKey:keyInfo];
+				NSData *exportData = [actionController genRevokeCertificateForKey:key];
 				if (exportData) {
 					[[NSFileManager defaultManager] createFileAtPath:path contents:exportData attributes:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:hideExtension] forKey:NSFileExtensionHidden]];
 				} else {
@@ -971,8 +939,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 
 
 @implementation KeyLengthFormatter
-@synthesize minKeyLength;
-@synthesize maxKeyLength;
+@synthesize minKeyLength, maxKeyLength;
 
 - (NSString*)stringForObjectValue:(id)obj {
 	return [obj description];

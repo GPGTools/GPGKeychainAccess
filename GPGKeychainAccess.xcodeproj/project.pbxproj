@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,7 +24,6 @@
 		303D128112840CC2003B5CBE /* Readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = 303D128012840CC2003B5CBE /* Readme.txt */; };
 		30497DF11214353F00884D59 /* ActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30497DF01214353F00884D59 /* ActionController.m */; };
 		305268E41232A34C008540D9 /* SheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 305268E21232A34C008540D9 /* SheetController.m */; };
-		3059587812E49F4800DDFA03 /* Keyservers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3059587712E49F4800DDFA03 /* Keyservers.plist */; };
 		305959EE12E5076A00DDFA03 /* Updates.png in Resources */ = {isa = PBXBuildFile; fileRef = 305959ED12E5076A00DDFA03 /* Updates.png */; };
 		3099B53512EA543100317175 /* Keyserver.png in Resources */ = {isa = PBXBuildFile; fileRef = 3099B53412EA543100317175 /* Keyserver.png */; };
 		30BC8134126B79C700F662C5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 30BC8133126B79C700F662C5 /* dsa_pub.pem */; };
@@ -115,7 +114,6 @@
 		30497DF01214353F00884D59 /* ActionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ActionController.m; path = Source/ActionController.m; sourceTree = "<group>"; };
 		305268E21232A34C008540D9 /* SheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SheetController.m; path = Source/SheetController.m; sourceTree = "<group>"; };
 		305268E31232A34C008540D9 /* SheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SheetController.h; path = Source/SheetController.h; sourceTree = "<group>"; };
-		3059587712E49F4800DDFA03 /* Keyservers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Keyservers.plist; path = Resources/Keyservers.plist; sourceTree = "<group>"; };
 		305959ED12E5076A00DDFA03 /* Updates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Updates.png; path = Resources/Images/Updates.png; sourceTree = "<group>"; };
 		306272F71315CC5300F4423F /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Swedish; path = Resources/Swedish.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		306272F81315CC5400F4423F /* Swedish */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Swedish; path = Resources/Swedish.lproj/ModalSheets.xib; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 				30ED3446124247BB00C311B1 /* XIB Files */,
 				30D3428612B3CAB1000E619D /* Credits.rtf */,
 				303D128012840CC2003B5CBE /* Readme.txt */,
-				3059587712E49F4800DDFA03 /* Keyservers.plist */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				30ED341E1242461400C311B1 /* LICENSE.txt */,
 				30BC8133126B79C700F662C5 /* dsa_pub.pem */,
@@ -315,10 +312,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = GPGTools;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "GPGKeychainAccess" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -383,7 +381,6 @@
 				3006930712B3D7CE0023D273 /* Generate.png in Resources */,
 				3006930812B3D7CE0023D273 /* Import.png in Resources */,
 				3006933312B3D8870023D273 /* DeleteKey.png in Resources */,
-				3059587812E49F4800DDFA03 /* Keyservers.plist in Resources */,
 				305959EE12E5076A00DDFA03 /* Updates.png in Resources */,
 				3099B53512EA543100317175 /* Keyserver.png in Resources */,
 			);
@@ -544,7 +541,6 @@
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/${CONFIGURATION}\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -590,12 +586,12 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx10.6;
 				WARNING_CFLAGS = "-Winvalid-pch";
 			};
@@ -610,11 +606,11 @@
 					ppc,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
 				SDKROOT = macosx10.6;
 				WARNING_CFLAGS = "-Winvalid-pch";
 			};

@@ -2,16 +2,17 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
-		<string key="IBDocument.InterfaceBuilderVersion">823</string>
-		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.InterfaceBuilderVersion">851</string>
+		<string key="IBDocument.AppKitVersion">1038.36</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">823</string>
+			<string key="NS.object.0">851</string>
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="367"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -272,7 +273,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="528348706">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71304192</int>
-							<string key="NSContents">E-Mail Adresse:</string>
+							<string key="NSContents">E-Mail-Adresse:</string>
 							<reference key="NSSupport" ref="797041949"/>
 							<reference key="NSControlView" ref="122280529"/>
 							<reference key="NSBackgroundColor" ref="99937297"/>
@@ -696,7 +697,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="595093346">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -709,7 +710,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="1049274918">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Geheimer Schlüssel zum beglaubigen:</string>
+							<string key="NSContents">Zu beglaubigender geheimer Schlüssel:</string>
 							<reference key="NSSupport" ref="372579162"/>
 							<reference key="NSControlView" ref="1032540786"/>
 							<reference key="NSBackgroundColor" ref="99937297"/>
@@ -752,13 +753,13 @@
 					<object class="NSButton" id="610326709">
 						<reference key="NSNextResponder" ref="595093346"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{140, 46}, {177, 18}}</string>
+						<string key="NSFrame">{{140, 46}, {212, 18}}</string>
 						<reference key="NSSuperview" ref="595093346"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="37066528">
 							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Lokale signatur erstellen</string>
+							<string key="NSContents">Lokale Beglaubigung erstellen</string>
 							<reference key="NSSupport" ref="797041949"/>
 							<reference key="NSControlView" ref="610326709"/>
 							<int key="NSButtonFlags">1211912703</int>
@@ -920,7 +921,7 @@
 							<int key="NSPeriodicInterval">75</int>
 							<object class="NSMenuItem" key="NSMenuItem" id="487142578">
 								<reference key="NSMenu" ref="814729897"/>
-								<string key="NSTitle">Ich Antworte nicht.</string>
+								<string key="NSTitle">Ich antworte nicht.</string>
 								<string key="NSKeyEquiv"/>
 								<int key="NSKeyEquivModMask">1048576</int>
 								<int key="NSMnemonicLoc">2147483647</int>
@@ -983,6 +984,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{450, 319}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="911317379">
@@ -1719,7 +1721,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="627371513">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">71304192</int>
-							<string key="NSContents">Schlüssel ID:</string>
+							<string key="NSContents">Schlüssel-ID:</string>
 							<reference key="NSSupport" ref="797041949"/>
 							<reference key="NSControlView" ref="167740815"/>
 							<reference key="NSBackgroundColor" ref="99937297"/>
@@ -2145,7 +2147,7 @@
 								<object class="NSTextFieldCell" key="NSCell" id="575449058">
 									<int key="NSCellFlags">68288064</int>
 									<int key="NSCellFlags2">71304192</int>
-									<string key="NSContents">E-Mail Adresse:</string>
+									<string key="NSContents">E-Mail-Adresse:</string>
 									<reference key="NSSupport" ref="797041949"/>
 									<reference key="NSControlView" ref="224767281"/>
 									<reference key="NSBackgroundColor" ref="99937297"/>
@@ -2177,7 +2179,7 @@
 								<object class="NSTextFieldCell" key="NSCell" id="634517919">
 									<int key="NSCellFlags">67239424</int>
 									<int key="NSCellFlags2">272629760</int>
-									<string key="NSContents">Ein neues Schlüsselpaar erstellen, das zum Verschlüsseln und Signieren verwendet werden kann.</string>
+									<string key="NSContents">Ein neues Schlüsselpaar erstellen, das zum Verschlüsseln, Signieren und Beglaubigen verwendet werden kann.</string>
 									<reference key="NSSupport" ref="372579162"/>
 									<reference key="NSControlView" ref="744204595"/>
 									<reference key="NSBackgroundColor" ref="99937297"/>
@@ -6784,9 +6786,9 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">KeyLengthFormatter</string>
 					<string key="superclassName">NSFormatter</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="901080267">
+					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="741678707">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">SheetController.h</string>
+						<string key="minorKey">Source/SheetController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -6982,7 +6984,7 @@
 							</object>
 						</object>
 					</object>
-					<reference key="sourceIdentifier" ref="901080267"/>
+					<reference key="sourceIdentifier" ref="741678707"/>
 				</object>
 			</object>
 			<object class="NSMutableArray" key="referencedPartialClassDescriptionsV3.2+">
@@ -7025,7 +7027,7 @@
 			<integer value="3000" key="NS.object.0"/>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
-		<string key="IBDocument.LastKnownRelativeProjectPath">../GPGKeychainAccess.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../../GPGKeychainAccess.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<bool key="EncodedWithXMLCoder">YES</bool>

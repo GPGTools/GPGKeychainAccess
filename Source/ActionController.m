@@ -1,12 +1,14 @@
 /*
  Copyright © Roman Zechmeister, 2011
  
- Dieses Programm ist freie Software. Sie können es unter den Bedingungen 
+ Diese Datei ist Teil von GPG Keychain Access.
+ 
+ GPG Keychain Access ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
  veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß 
  Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
  
- Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, daß es Ihnen 
+ Die Veröffentlichung von GPG Keychain Access erfolgt in der Hoffnung, daß es Ihnen 
  von Nutzen sein wird, aber ohne irgendeine Garantie, sogar ohne die implizite 
  Garantie der Marktreife oder der Verwendbarkeit für einen bestimmten Zweck. 
  Details finden Sie in der GNU General Public License.
@@ -25,18 +27,18 @@
 
 //TODO: Fotos die auf mehrere Subpakete aufgeteilt sind.
 //TODO: Fehlermeldungen wenn eine Aktion fehlschlägt.
-//TODO: Geschätzte Sicherheit - Genauere Informationen.
-//TODO: Algorithmus Preferänzen
-//TODO: "…" zu manchen Französischen Menüeinträgen hinzufügen.
 
 
-
-- (NSSet *)selectedKeyInfos {
+- (NSSet *)selectedKeys {
 	NSInteger clickedRow = [keyTable clickedRow];
 	if (clickedRow != -1 && ![keyTable isRowSelected:clickedRow]) {
 		return [NSSet setWithObject:[[keyTable itemAtRow:clickedRow] representedObject]];
 	} else {
-		return keyInfoSet([keysController selectedObjects]);
+		NSMutableSet *keySet = [NSMutableSet set];
+		for (GPGKey *key in [keysController selectedObjects]) {
+			[keySet addObject:[key primaryKey]];
+		}
+		return keySet;
 	}
 }
 
@@ -45,7 +47,7 @@
     SEL selector = [anItem action];
 	
     if (selector == @selector(copy:)) {
-		if ([[self selectedKeyInfos] count] >= 1) {
+		if ([[self selectedKeys] count] >= 1) {
 			return YES;
 		}
 		return NO;
@@ -60,14 +62,14 @@
 			}
 		}
     } else if (selector == @selector(genRevokeCertificate:)) {
-		NSSet *keyInfos = [self selectedKeyInfos];
-		if ([keyInfos count] == 1 && ((GPGKey*)[keyInfos anyObject]).secret) {
+		NSSet *keys = [self selectedKeys];
+		if ([keys count] == 1 && ((GPGKey*)[keys anyObject]).secret) {
 			return YES;
 		}
 		return NO;
     } else if (selector == @selector(editAlgorithmPreferences:)) {
-		NSSet *keyInfos = [self selectedKeyInfos];
-		if ([keyInfos count] == 1) {
+		NSSet *keys = [self selectedKeys];
+		if ([keys count] == 1) {
 			return YES;
 		}
 		return NO;
@@ -77,9 +79,9 @@
 
 
 - (IBAction)copy:(id)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] > 0) {
-		NSString *exportedKeys = dataToString([self exportKeys:keyInfos armored:YES allowSecret:NO fullExport:NO]);
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] > 0) {
+		NSString *exportedKeys = dataToString([self exportKeys:keys armored:YES allowSecret:NO fullExport:NO]);
 		if ([exportedKeys length] > 0) {
 			NSPasteboard *pboard = [NSPasteboard generalPasteboard];
 			[pboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
@@ -99,15 +101,15 @@
 
 
 - (IBAction)editAlgorithmPreferences:(id)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] == 1) {
-		GPGKey *keyInfo = [keyInfos anyObject];
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] == 1) {
+		GPGKey *key = [keys anyObject];
 		SheetController *sheetController = [SheetController sharedInstance];
-		[sheetController algorithmPreferences:keyInfo editable:[keyInfo secret]];
+		[sheetController algorithmPreferences:key editable:[key secret]];
 	}	
 }
-- (void)editAlgorithmPreferencesForKey:(GPGKey *)keyInfo preferences:(NSArray *)preferencesList {
-	[self registerUndoForKey:keyInfo withName:@"Undo_AlgorithmPreferences"];
+- (void)editAlgorithmPreferencesForKey:(GPGKey *)key preferences:(NSArray *)preferencesList {
+	[self registerUndoForKey:key withName:@"Undo_AlgorithmPreferences"];
 
 	for (NSDictionary *preferences in preferencesList) {
 		GPGUserID *userID = [preferences objectForKey:@"userID"];
@@ -115,10 +117,10 @@
 		NSString *digestPreferences = [[preferences objectForKey:@"digestPreferences"] componentsJoinedByString:@" "];
 		NSString *compressPreferences = [[preferences objectForKey:@"compressPreferences"] componentsJoinedByString:@" "];
 		
-		[gpgc setAlgorithmPreferences:[NSString stringWithFormat:@"%@ %@ %@", cipherPreferences, digestPreferences, compressPreferences] forUserID:[userID hashID] ofKey:keyInfo];
+		[gpgc setAlgorithmPreferences:[NSString stringWithFormat:@"%@ %@ %@", cipherPreferences, digestPreferences, compressPreferences] forUserID:[userID hashID] ofKey:key];
 	}
 	
-	[keychainController asyncUpdateKeyInfo:keyInfo];
+	[keychainController asyncUpdateKey:key];
 }
 
 
@@ -143,7 +145,7 @@
 		
 		if (flags > 0) {
 			[scanner scanCharactersFromSet:hexCharSet intoString:&fingerprint];
-			userID = [[[keychainController keychain] objectForKey:fingerprint] userID];
+			userID = [[[keychainController allKeys] member:fingerprint] userID];
 			keyID = getShortKeyID(fingerprint);
 
 			if (flags & 1) {
@@ -178,80 +180,80 @@
 
 
 - (IBAction)cleanKey:(id)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] > 0) {
-		[self registerUndoForKeys:keyInfos withName:@"Undo_Clean"];
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] > 0) {
+		[self registerUndoForKeys:keys withName:@"Undo_Clean"];
 		
-		for (GPGKey *keyInfo in keyInfos) {
-			[gpgc cleanKey:keyInfo];
+		for (GPGKey *key in keys) {
+			[gpgc cleanKey:key];
 		}
-		[keychainController asyncUpdateKeyInfos:keyInfos];
+		[keychainController asyncUpdateKeys:keys];
 	}
 }
 - (IBAction)minimizeKey:(id)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] > 0) {
-		[self registerUndoForKeys:keyInfos withName:@"Undo_Minimize"];
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] > 0) {
+		[self registerUndoForKeys:keys withName:@"Undo_Minimize"];
 
-		for (GPGKey *keyInfo in keyInfos) {
-			[gpgc minimizeKey:keyInfo];
+		for (GPGKey *key in keys) {
+			[gpgc minimizeKey:key];
 		}
-		[keychainController asyncUpdateKeyInfos:keyInfos];
+		[keychainController asyncUpdateKeys:keys];
 	}
 }
 
 
 - (IBAction)addPhoto:(NSButton *)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] == 1) {
-		GPGKey *keyInfo = [[keyInfos anyObject] primaryKey];
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] == 1) {
+		GPGKey *key = [[keys anyObject] primaryKey];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
-		[sheetController addPhoto:keyInfo];
+		[sheetController addPhoto:key];
 	}
 }
-- (void)addPhotoForKeyInfo:(GPGKey *)keyInfo photoPath:(NSString *)path {
+- (void)addPhotoForKey:(GPGKey *)key photoPath:(NSString *)path {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[self registerUndoForKey:keyInfo withName:@"Undo_AddPhoto"];
+	[self registerUndoForKey:key withName:@"Undo_AddPhoto"];
 	
-	[gpgc addPhotoFromPath:path toKey:keyInfo];
+	[gpgc addPhotoFromPath:path toKey:key];
 	
-	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
+	[keychainController updateKeys:[NSArray arrayWithObject:key]];
 	[pool drain];
 }
 
 - (IBAction)removePhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
-		NSSet *keyInfos = [self selectedKeyInfos];		
-		GPGKey *keyInfo = [[keyInfos anyObject] primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_RemovePhoto"];
+		NSSet *keys = [self selectedKeys];		
+		GPGKey *key = [[keys anyObject] primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_RemovePhoto"];
 		
-		[gpgc removeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:keyInfo];
+		[gpgc removeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key];
 
-		[keychainController asyncUpdateKeyInfos:keyInfos];
+		[keychainController asyncUpdateKeys:keys];
 	}
 }
 - (IBAction)revokePhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
-		NSSet *keyInfos = [self selectedKeyInfos];		
-		GPGKey *keyInfo = [[keyInfos anyObject] primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_RevokePhoto"];
+		NSSet *keys = [self selectedKeys];		
+		GPGKey *key = [[keys anyObject] primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_RevokePhoto"];
 
-		[gpgc revokeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:keyInfo reason:0 description:nil];
+		[gpgc revokeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key reason:0 description:nil];
 		
-		[keychainController asyncUpdateKeyInfos:keyInfos];
+		[keychainController asyncUpdateKeys:keys];
 	}
 }
 
 - (IBAction)setPrimaryPhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
-		NSSet *keyInfos = [self selectedKeyInfos];		
-		GPGKey *keyInfo = [[keyInfos anyObject] primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_PrimaryPhoto"];
+		NSSet *keys = [self selectedKeys];		
+		GPGKey *key = [[keys anyObject] primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_PrimaryPhoto"];
 		
-		[gpgc setPrimaryUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] ofKey:keyInfo];
+		[gpgc setPrimaryUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] ofKey:key];
 
-		[keychainController asyncUpdateKeyInfos:keyInfos];
+		[keychainController asyncUpdateKeys:keys];
 	}
 }
 
@@ -284,7 +286,7 @@
 	
 	NSString *statusText = [gpgc importFromData:data fullImport:NO];
 	
-	[keychainController updateKeyInfos:keys];
+	[keychainController updateKeys:keys];
 	
 	SheetController *sheetController = [SheetController sharedInstance];
 	[sheetController showResult:[self importResultWithStatusText:statusText]];
@@ -303,7 +305,7 @@
 		[gpgc importFromData:data fullImport:YES];
 	}
 	
-	[keychainController updateKeyInfos:keys];
+	[keychainController updateKeys:keys];
 	[undoManager enableUndoRegistration];
 }
 - (void)registerUndoForKeys:(NSObject <EnumerationList> *)keys withName:(NSString *)actionName {
@@ -320,10 +322,10 @@
 
 
 - (IBAction)exportKey:(id)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
+	NSSet *keys = [self selectedKeys];
 	SheetController *sheetController = [SheetController sharedInstance];
 	
-	[sheetController exportKeys:keyInfos];
+	[sheetController exportKeys:keys];
 }
 - (NSData *)exportKeys:(NSObject <EnumerationList> *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec fullExport:(BOOL)fullExport {
 	gpgc.useArmor = armored;
@@ -352,22 +354,22 @@
 
 
 - (IBAction)genRevokeCertificate:(id)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] == 1) {
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] == 1) {
 		SheetController *sheetController = [SheetController sharedInstance];
-		[sheetController genRevokeCertificateForKey:[keyInfos anyObject]];
+		[sheetController genRevokeCertificateForKey:[keys anyObject]];
 	}
 }
-- (NSData *)genRevokeCertificateForKey:(GPGKey *)keyInfo {
-	return [gpgc generateRevokeCertificateForKey:keyInfo reason:0 description:nil];
+- (NSData *)genRevokeCertificateForKey:(GPGKey *)key {
+	return [gpgc generateRevokeCertificateForKey:key reason:0 description:nil];
 }
 
 
 
 - (IBAction)addSignature:(id)sender {
 	if ([sender tag] != 1 || [userIDsController selectionIndex] != NSNotFound) {
-		NSSet *keyInfos = [self selectedKeyInfos];		
-		GPGKey *keyInfo = [[keyInfos anyObject] primaryKey];
+		NSSet *keys = [self selectedKeys];		
+		GPGKey *key = [[keys anyObject] primaryKey];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
 		NSString *userID;
@@ -377,54 +379,54 @@
 			userID = nil;
 		}
 		
-		[sheetController addSignature:keyInfo userID:userID];
+		[sheetController addSignature:key userID:userID];
 	}
 }
-- (void)addSignatureForKeyInfo:(GPGKey *)keyInfo andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire {
+- (void)addSignatureForKey:(GPGKey *)key andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[self registerUndoForKey:keyInfo withName:@"Undo_AddSignature"];
+	[self registerUndoForKey:key withName:@"Undo_AddSignature"];
 	
-	[gpgc signUserID:userID ofKey:keyInfo signKey:signFingerprint type:type local:local daysToExpire:daysToExpire];
+	[gpgc signUserID:userID ofKey:key signKey:signFingerprint type:type local:local daysToExpire:daysToExpire];
 	
-	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
+	[keychainController updateKeys:[NSArray arrayWithObject:key]];
 	[pool drain];
 }
 
 - (IBAction)addSubkey:(NSButton *)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];		
-	if ([keyInfos count] == 1) {
-		GPGKey *keyInfo = [[keyInfos anyObject] primaryKey];
+	NSSet *keys = [self selectedKeys];		
+	if ([keys count] == 1) {
+		GPGKey *key = [[keys anyObject] primaryKey];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
-		[sheetController addSubkey:keyInfo];
+		[sheetController addSubkey:key];
 	}
 }
-- (void)addSubkeyForKeyInfo:(GPGKey *)keyInfo type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire {
+- (void)addSubkeyForKey:(GPGKey *)key type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[self registerUndoForKey:keyInfo withName:@"Undo_AddSubkey"];
+	[self registerUndoForKey:key withName:@"Undo_AddSubkey"];
 
-	[gpgc addSubkeyToKey:keyInfo type:type length:length daysToExpire:daysToExpire];
+	[gpgc addSubkeyToKey:key type:type length:length daysToExpire:daysToExpire];
 
-	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
+	[keychainController updateKeys:[NSArray arrayWithObject:key]];
 	[pool drain];
 }
 
 - (IBAction)addUserID:(NSButton *)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];		
-	if ([keyInfos count] == 1) {
-		GPGKey *keyInfo = [[keyInfos anyObject] primaryKey];
+	NSSet *keys = [self selectedKeys];		
+	if ([keys count] == 1) {
+		GPGKey *key = [[keys anyObject] primaryKey];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
-		[sheetController addUserID:keyInfo];
+		[sheetController addUserID:key];
 	}
 }
-- (void)addUserIDForKeyInfo:(GPGKey *)keyInfo name:(NSString *)name email:(NSString *)email comment:(NSString *)comment{
+- (void)addUserIDForKey:(GPGKey *)key name:(NSString *)name email:(NSString *)email comment:(NSString *)comment{
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[self registerUndoForKey:keyInfo withName:@"Undo_AddUserID"];
+	[self registerUndoForKey:key withName:@"Undo_AddUserID"];
 
-	[gpgc addUserIDToKey:keyInfo name:name email:email comment:comment];
+	[gpgc addUserIDToKey:key name:name email:email comment:comment];
 	
-	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
+	[keychainController updateKeys:[NSArray arrayWithObject:key]];
 	[pool drain];
 }
 
@@ -432,30 +434,30 @@
 	BOOL aKeyIsSelected = NO;
 	GPGSubkey *subkey;
 	
-	NSSet *keyInfos = [self selectedKeyInfos];			
+	NSSet *keys = [self selectedKeys];			
 	if ([sender tag] == 1 && [[subkeysController selectedObjects] count] == 1) {
 		subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 		aKeyIsSelected = YES;
-	} else if ([sender tag] == 0 && [keyInfos count] == 1) {
+	} else if ([sender tag] == 0 && [keys count] == 1) {
 		subkey = nil;
 		aKeyIsSelected = YES;
 	}
 	
 	if (aKeyIsSelected) {
-		GPGKey *keyInfo = [[keyInfos anyObject] primaryKey];
+		GPGKey *key = [[keys anyObject] primaryKey];
 		SheetController *sheetController = [SheetController sharedInstance];
 		
-		[sheetController changeExpirationDate:keyInfo subkey:subkey];
+		[sheetController changeExpirationDate:key subkey:subkey];
 	}
 	
 }
-- (void)changeExpirationDateForKeyInfo:(GPGKey *)keyInfo subkey:(GPGSubkey *)subkey daysToExpire:(NSInteger)daysToExpire {
+- (void)changeExpirationDateForKey:(GPGKey *)key subkey:(GPGSubkey *)subkey daysToExpire:(NSInteger)daysToExpire {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[self registerUndoForKey:keyInfo withName:@"Undo_ChangeExpirationDate"];
+	[self registerUndoForKey:key withName:@"Undo_ChangeExpirationDate"];
 	
-	[gpgc setExpirationDateForSubkey:subkey fromKey:keyInfo daysToExpire:daysToExpire];
+	[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:daysToExpire];
 	
-	[keychainController updateKeyInfos:[NSArray arrayWithObject:keyInfo]];
+	[keychainController updateKeys:[NSArray arrayWithObject:key]];
 	[pool drain];
 }
 
@@ -485,32 +487,32 @@
 }
 
 - (IBAction)sendKeysToServer:(id)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] > 0) {
-		[gpgc sendKeysToServer:keyInfos];
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] > 0) {
+		[gpgc sendKeysToServer:keys];
 	}
 }
 
 - (IBAction)refreshKeysFromServer:(id)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] > 0) {
-		[self registerUndoForKeys:keyInfos withName:@"Undo_Refresh"];
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] > 0) {
+		[self registerUndoForKeys:keys withName:@"Undo_Refresh"];
 	
-		[gpgc refreshKeysFromServer:keyInfos];
+		[gpgc refreshKeysFromServer:keys];
 
-		[keychainController asyncUpdateKeyInfos:keyInfos];
+		[keychainController asyncUpdateKeys:keys];
 	}
 }
 
 - (IBAction)changePassphrase:(NSButton *)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];	
-	if ([keyInfos count] == 1) {
-		GPGKey *keyInfo = [[keyInfos anyObject] primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_ChangePassphrase"];
+	NSSet *keys = [self selectedKeys];	
+	if ([keys count] == 1) {
+		GPGKey *key = [[keys anyObject] primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_ChangePassphrase"];
 		
-		[gpgc changePassphraseForKey:keyInfo];
+		[gpgc changePassphraseForKey:key];
 		
-		[keychainController asyncUpdateKeyInfos:keyInfos];
+		[keychainController asyncUpdateKeys:keys];
 	}
 }
 
@@ -518,36 +520,36 @@
 	if ([signaturesController selectionIndex] != NSNotFound) {
 		GPGKeySignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *keyInfo = [userID primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_RemoveSignature"];
+		GPGKey *key = [userID primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_RemoveSignature"];
 
-		[gpgc removeSignature:gpgKeySignature fromUserID:userID ofKey:keyInfo];
+		[gpgc removeSignature:gpgKeySignature fromUserID:userID ofKey:key];
 
-		[keychainController asyncUpdateKeyInfo:keyInfo];
+		[keychainController asyncUpdateKey:key];
 	}
 }
 
 - (IBAction)removeSubkey:(NSButton *)sender {
 	if ([[subkeysController selectedObjects] count] == 1) {
 		GPGSubkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
-		GPGKey *keyInfo = [subkey primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_RemoveSubkey"];
+		GPGKey *key = [subkey primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_RemoveSubkey"];
 
-		[gpgc removeSubkey:subkey fromKey:keyInfo];
+		[gpgc removeSubkey:subkey fromKey:key];
 			
-		[keychainController asyncUpdateKeyInfo:keyInfo];
+		[keychainController asyncUpdateKey:key];
 	}
 }
 
 - (IBAction)removeUserID:(NSButton *)sender {
 	if ([userIDsController selectionIndex] != NSNotFound) {
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *keyInfo = [userID primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_RemoveUserID"];
+		GPGKey *key = [userID primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_RemoveUserID"];
 		
-		[gpgc removeUserID:[userID hashID] fromKey:keyInfo];
+		[gpgc removeUserID:[userID hashID] fromKey:key];
 		
-		[keychainController asyncUpdateKeyInfo:keyInfo];
+		[keychainController asyncUpdateKey:key];
 	}
 }
 
@@ -555,88 +557,88 @@
 	if ([signaturesController selectionIndex] != NSNotFound) {
 		GPGKeySignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *keyInfo = [userID primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_RevokeSignature"];
+		GPGKey *key = [userID primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_RevokeSignature"];
 		
-		[gpgc revokeSignature:gpgKeySignature fromUserID:userID ofKey:keyInfo reason:0 description:nil];
+		[gpgc revokeSignature:gpgKeySignature fromUserID:userID ofKey:key reason:0 description:nil];
 		
-		[keychainController asyncUpdateKeyInfo:keyInfo];
+		[keychainController asyncUpdateKey:key];
 	}
 }
 
 - (IBAction)revokeSubkey:(NSButton *)sender {
 	if ([[subkeysController selectedObjects] count] == 1) {
 		GPGSubkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
-		GPGKey *keyInfo = [subkey primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_RevokeSubkey"];
+		GPGKey *key = [subkey primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_RevokeSubkey"];
 
-		[gpgc revokeSubkey:subkey fromKey:keyInfo reason:0 description:nil];		
+		[gpgc revokeSubkey:subkey fromKey:key reason:0 description:nil];		
 
-		[keychainController asyncUpdateKeyInfo:keyInfo];
+		[keychainController asyncUpdateKey:key];
 	}
 }
 
 - (IBAction)revokeUserID:(NSButton *)sender {
 	if ([userIDsController selectionIndex] != NSNotFound) {
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *keyInfo = [userID primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_RevokeUserID"];
+		GPGKey *key = [userID primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_RevokeUserID"];
 
-		[gpgc revokeUserID:[userID hashID] fromKey:keyInfo reason:0 description:nil]; 
+		[gpgc revokeUserID:[userID hashID] fromKey:key reason:0 description:nil]; 
 
-		[keychainController asyncUpdateKeyInfo:keyInfo];
+		[keychainController asyncUpdateKey:key];
 	}
 }
 
 - (IBAction)setDisabled:(NSButton *)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] > 0) {
-		[self setDisabled:[sender state] == NSOnState forKeyInfos:keyInfos];
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] > 0) {
+		[self setDisabled:[sender state] == NSOnState forKeys:keys];
 	}
 }
-- (void)setDisabled:(BOOL)disabled forKeyInfos:(NSSet *)keys {
+- (void)setDisabled:(BOOL)disabled forKeys:(NSSet *)keys {
 	if (useUndo && [undoManager isUndoRegistrationEnabled]) {
 		NSMutableSet *editedKeys = [NSMutableSet setWithCapacity:[keys count]];
-		for (GPGKey *keyInfo in keys) {
-			if (keyInfo.disabled != disabled) {
-				[editedKeys addObject:keyInfo];
+		for (GPGKey *key in keys) {
+			if (key.disabled != disabled) {
+				[editedKeys addObject:key];
 			}
 		}
 		if ([editedKeys count] > 0) {
-			[[undoManager prepareWithInvocationTarget:self] setDisabled:!disabled forKeyInfos:editedKeys];
+			[[undoManager prepareWithInvocationTarget:self] setDisabled:!disabled forKeys:editedKeys];
 			if (![undoManager isUndoing] && ![undoManager isRedoing]) {
 				[undoManager setActionName:localized(disabled ? @"Undo_DisableKey" : @"Undo_EnableKey")];
 			}
 		}
 	}
 
-	for (GPGKey *keyInfo in keys) {
-		[gpgc key:keyInfo setDisabled:disabled];
+	for (GPGKey *key in keys) {
+		[gpgc key:key setDisabled:disabled];
 	}
-	[keychainController updateKeyInfos:keys];	
+	[keychainController updateKeys:keys];	
 }
 
 - (IBAction)setPrimaryUserID:(NSButton *)sender {
 	if ([userIDsController selectionIndex] != NSNotFound) {
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *keyInfo = [userID primaryKey];
-		[self registerUndoForKey:keyInfo withName:@"Undo_PrimaryUserID"];
+		GPGKey *key = [userID primaryKey];
+		[self registerUndoForKey:key withName:@"Undo_PrimaryUserID"];
 	
-		[gpgc setPrimaryUserID:[userID hashID] ofKey:keyInfo];
+		[gpgc setPrimaryUserID:[userID hashID] ofKey:key];
 
-		[keychainController asyncUpdateKeyInfo:keyInfo];
+		[keychainController asyncUpdateKey:key];
 	}
 }
 
 - (IBAction)setTrsut:(NSPopUpButton *)sender {
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] > 0) {
-		[self registerUndoForKeys:keyInfos withName:@"Undo_SetTrust"];
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] > 0) {
+		[self registerUndoForKeys:keys withName:@"Undo_SetTrust"];
 		
-		for (GPGKey *keyInfo in keyInfos) {
-			[gpgc key:keyInfo setOwnerTrsut:[sender selectedTag]];
+		for (GPGKey *key in keys) {
+			[gpgc key:key setOwnerTrsut:[sender selectedTag]];
 		}
-		[keychainController asyncUpdateKeyInfos:keyInfos];
+		[keychainController asyncUpdateKeys:keys];
 	}
 }
 
@@ -679,18 +681,18 @@
 	}
 	
 	
-	[keychainController updateKeyInfos:nil];
+	[keychainController updateKeys:nil];
 	[pool drain];
 }
 
 - (IBAction)refreshDisplayedKeys:(id)sender {
-	[keychainController asyncUpdateKeyInfos:nil];
+	[keychainController asyncUpdateKeys:nil];
 }
 
 - (IBAction)deleteKey:(id)sender { 	
 	//TODO: Bessere Dialoge mit der auswahl "Für alle".
-	NSSet *keyInfos = [self selectedKeyInfos];
-	if ([keyInfos count] > 0) {
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] > 0) {
 		NSInteger retVal;
 		SheetController *sheetController = [SheetController sharedInstance];
 		
@@ -698,32 +700,32 @@
 			[undoManager beginUndoGrouping];
 		}
 		
-		for (GPGKey *keyInfo in keyInfos) {
+		for (GPGKey *key in keys) {
 			
-			if (keyInfo.secret) {
+			if (key.secret) {
 				retVal = [sheetController alertSheetForWindow:mainWindow 
 												  messageText:localized(@"DeleteSecretKey_Title") 
-													 infoText:[NSString stringWithFormat:localized(@"DeleteSecretKey_Msg"), [keyInfo userID], [keyInfo shortKeyID]] 
+													 infoText:[NSString stringWithFormat:localized(@"DeleteSecretKey_Msg"), [key userID], [key shortKeyID]] 
 												defaultButton:localized(@"Delete secret key only") 
 											  alternateButton:localized(@"Cancel") 
 												  otherButton:localized(@"Delete both")];
 				switch (retVal) {
 					case NSAlertFirstButtonReturn:
-						[self deleteKeys:[NSSet setWithObject:keyInfo] withMode:GPGDeleteSecretKey];
+						[self deleteKeys:[NSSet setWithObject:key] withMode:GPGDeleteSecretKey];
 						break;
 					case NSAlertThirdButtonReturn:
-						[self deleteKeys:[NSSet setWithObject:keyInfo] withMode:GPGDeletePublicAndSecretKey];
+						[self deleteKeys:[NSSet setWithObject:key] withMode:GPGDeletePublicAndSecretKey];
 						break;
 				}
 			} else {
 				retVal = [sheetController alertSheetForWindow:mainWindow 
 												  messageText:localized(@"DeleteKey_Title") 
-													 infoText:[NSString stringWithFormat:localized(@"DeleteKey_Msg"), [keyInfo userID], [keyInfo shortKeyID]] 
+													 infoText:[NSString stringWithFormat:localized(@"DeleteKey_Msg"), [key userID], [key shortKeyID]] 
 												defaultButton:localized(@"Delete key") 
 											  alternateButton:localized(@"Cancel") 
 												  otherButton:nil];
 				if (retVal == NSAlertFirstButtonReturn) {
-					[self deleteKeys:[NSSet setWithObject:keyInfo] withMode:GPGDeletePublicKey];
+					[self deleteKeys:[NSSet setWithObject:key] withMode:GPGDeletePublicKey];
 				}
 			}
 		}
@@ -743,7 +745,7 @@
 	[gpgc deleteKeys:keys withMode:mode];
 
 	if ([undoManager isUndoRegistrationEnabled]) {
-		[keychainController asyncUpdateKeyInfos:keys];
+		[keychainController asyncUpdateKeys:keys];
 	}
 }
 
