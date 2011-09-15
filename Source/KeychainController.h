@@ -65,13 +65,6 @@
 
 @end
 
-
-@interface KeyAlgorithmTransformer : NSValueTransformer {}
-@end
-
-@interface GPGKeyStatusTransformer : NSValueTransformer {}
-@end
-
 @interface GPGKey (GKAExtension)
 - (NSString *)type;
 - (NSString *)longType;

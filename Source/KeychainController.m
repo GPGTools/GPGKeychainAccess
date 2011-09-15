@@ -137,6 +137,9 @@ NSSet *draggedKeys;
 			@throw gpgc.error;
 		}
 		
+		if ([keys count] == 0) {
+			keys = self.allKeys;
+		}
 		NSMutableSet *keysToRemove = [keys mutableCopy];
 		[keysToRemove minusSet:updatedKeys];
 		
@@ -278,76 +281,6 @@ NSSet *draggedKeys;
 
 @end
 
-
-@implementation KeyAlgorithmTransformer
-+ (Class)transformedValueClass { return [NSString class]; }
-+ (BOOL)allowsReverseTransformation { return NO; }
-- (id)transformedValue:(id)value {
-	switch ([value integerValue]) {
-		case GPG_RSAAlgorithm:
-			return localized(@"GPG_RSAAlgorithm");
-		case GPG_RSAEncryptOnlyAlgorithm:
-			return localized(@"GPG_RSAEncryptOnlyAlgorithm");
-		case GPG_RSASignOnlyAlgorithm:
-			return localized(@"GPG_RSASignOnlyAlgorithm");
-		case GPG_ElgamalEncryptOnlyAlgorithm:
-			return localized(@"GPG_ElgamalEncryptOnlyAlgorithm");
-		case GPG_DSAAlgorithm:
-			return localized(@"GPG_DSAAlgorithm");
-		case GPG_EllipticCurveAlgorithm:
-			return localized(@"GPG_EllipticCurveAlgorithm");
-		case GPG_ECDSAAlgorithm:
-			return localized(@"GPG_ECDSAAlgorithm");
-		case GPG_ElgamalAlgorithm:
-			return localized(@"GPG_ElgamalAlgorithm");
-		case GPG_DiffieHellmanAlgorithm:
-			return localized(@"GPG_DiffieHellmanAlgorithm");
-		default:
-			return @"";
-	}
-}
-@end
-
-@implementation GPGKeyStatusTransformer
-+ (Class)transformedValueClass { return [NSString class]; }
-+ (BOOL)allowsReverseTransformation { return NO; }
-- (id)transformedValue:(id)value {
-	NSMutableString *statusText = [NSMutableString stringWithCapacity:2];
-	NSInteger intValue = [value integerValue];
-	
-	switch (intValue & 7) {
-		case 2:
-			[statusText appendString:localized(@"?")]; //Was bedeutet 2? 
-			break;
-		case 3:
-			[statusText appendString:localized(@"Marginal")];
-			break;
-		case 4:
-			[statusText appendString:localized(@"Full")];
-			break;
-		case 5:
-			[statusText appendString:localized(@"Ultimate")];
-			break;
-		default:
-			[statusText appendString:localized(@"Unknown")];
-			break;
-	}
-	
-	if (intValue & GPGKeyStatus_Invalid) {
-		[statusText appendFormat:@", %@", localized(@"Invalid")];
-	}
-	if (intValue & GPGKeyStatus_Revoked) {
-		[statusText appendFormat:@", %@", localized(@"Revoked")];
-	}
-	if (intValue & GPGKeyStatus_Expired) {
-		[statusText appendFormat:@", %@", localized(@"Expired")];
-	}
-	if (intValue & GPGKeyStatus_Disabled) {
-		[statusText appendFormat:@", %@", localized(@"Disabled")];
-	}
-	return [[statusText copy] autorelease];
-}
-@end
 
 @implementation GPGKey (GKAExtension)
 - (NSString *)type { return secret ? @"sec" : @"pub"; }

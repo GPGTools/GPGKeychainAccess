@@ -332,7 +332,7 @@ static SheetController *_sharedInstance = nil;
 	switch (currentAction) {
 		case NewKeyAction:
 			if (![self checkName]) return;
-			if (![self checkEmailMustSet:YES]) return;
+			if (![self checkEmailMustSet:NO]) return;
 			if (![self checkComment]) return;
 			if (GPG_VERSION == 1) {
 				if (![self checkPassphrase]) return;

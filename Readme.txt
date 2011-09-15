@@ -5,7 +5,7 @@ This is a new version of GPG Keychain Access for Mac OS X.
 GPG Keychain Access is used to create and manage GnuPG keys.
 
 System Requirements:
-Mac OS X 10.5 or above.
+Mac OS X 10.6 or above.
 GnuPG
 
 If you find an error or have a feature request please open a ticket in our ticket-system:
@@ -29,7 +29,7 @@ Dies ist eine neue Version des GPG Schlüsselbundes für Mac OS X.
 Der GPG Schlüsselbund dient dazu GnuPG Schlüssel zu erstellen und zu verwalten.
 
 Systemvoraussetzungen:
-Mac OS X 10.5 oder neuer.
+Mac OS X 10.6 oder neuer.
 GnuPG
 
 Habt ihr einen Fehler gefunden oder Vorschläge für Verbesserungen, dann könnt ihr ein Ticket auf unserem Ticket-System erstellen:

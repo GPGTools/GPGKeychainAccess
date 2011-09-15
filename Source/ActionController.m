@@ -745,7 +745,7 @@
 	[gpgc deleteKeys:keys withMode:mode];
 
 	if ([undoManager isUndoRegistrationEnabled]) {
-		[keychainController asyncUpdateKeys:keys];
+		[keychainController asyncUpdateKeys:nil];
 	}
 }
 
