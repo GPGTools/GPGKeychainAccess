@@ -29,7 +29,7 @@ enum {
 } GKOpenSavePanelAction;
 
 
-@interface ActionController : NSWindowController {
+@interface ActionController : NSWindowController <GPGControllerDelegate> {
     IBOutlet NSTreeController *keysController;
     IBOutlet NSArrayController *signaturesController;
     IBOutlet NSArrayController *subkeysController;
@@ -38,7 +38,14 @@ enum {
 	IBOutlet NSOutlineView *keyTable;
 	
 	GPGController *gpgc;
+	SheetController *sheetController;
+	NSUndoManager *undoManager;
 }
+@property (readonly) NSUndoManager *undoManager;
+
++ (id)sharedInstance;
+
+
 - (BOOL)validateUserInterfaceItem:(id)anItem;
 - (IBAction)copy:(id)sender;
 
@@ -83,21 +90,17 @@ enum {
 - (void)importFromData:(NSData *)data;
 - (NSString *)importResultWithStatusText:(NSString *)statusText;
 
-- (void)generateNewKeyWithName:(NSString *)name email:(NSString *)email comment:(NSString *)comment passphrase:(NSString *)passphrase type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
 - (void)addSubkeyForKey:(GPGKey *)key type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
 - (void)addUserIDForKey:(GPGKey *)key name:(NSString *)name email:(NSString *)email comment:(NSString *)comment;
 - (void)addSignatureForKey:(GPGKey *)key andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
 - (void)changeExpirationDateForKey:(GPGKey *)key subkey:(GPGSubkey *)subkey daysToExpire:(NSInteger)daysToExpire;
-- (NSMutableArray *)searchKeysWithPattern:(NSString *)pattern errorText:(NSString **)errText;
+- (NSMutableArray *)searchKeysWithPattern:(NSString *)pattern;
 - (NSString *)receiveKeysWithIDs:(NSSet *)keyIDs;
 - (void)addPhotoForKey:(GPGKey *)key photoPath:(NSString *)path;
-- (void)deleteKeys:(NSObject <EnumerationList> *)keys withMode:(GPGDeleteKeyMode)mode;
 - (NSSet *)keysInExportedData:(NSData *)data;
-- (void)registerUndoForKeys:(NSObject <EnumerationList> *)keys withName:(NSString *)actionName;
-- (void)registerUndoForKey:(NSObject *)key withName:(NSString *)actionName;
-- (void)setDisabled:(BOOL)disabled forKeys:(NSObject <EnumerationList> *)keys;
 - (NSData *)genRevokeCertificateForKey:(GPGKey *)key;
 - (void)editAlgorithmPreferencesForKey:(GPGKey *)key preferences:(NSArray *)userIDs;
 
+- (void)cancelOperation:(id)sender;
 
 @end

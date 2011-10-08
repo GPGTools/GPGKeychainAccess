@@ -17,20 +17,10 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-@interface GPGKeychainAccessAppDelegate : NSObject {
-    NSWindow *window;
-	NSOutlineView *keyTable;
-	NSTableView *userIDTable;
-	NSTableView *subkeyTable;
-	NSTableView *signatureTable;
-}
+@interface GPGKeychainAccessAppDelegate : NSObject {}
+@property (assign) IBOutlet NSWindow *window, *inspectorWindow;
+@property (assign) IBOutlet NSOutlineView *keyTable, *userIDTable, *subkeyTable, *signatureTable;
 
-@property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSWindow *inspectorWindow;
-@property (assign) IBOutlet NSOutlineView *keyTable;
-@property (assign) IBOutlet NSTableView *userIDTable;
-@property (assign) IBOutlet NSTableView *subkeyTable;
-@property (assign) IBOutlet NSTableView *signatureTable;
 
 - (void)generateContextMenuForTable:(NSTableView *)table;
 

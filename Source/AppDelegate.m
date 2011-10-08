@@ -26,12 +26,10 @@
 @implementation GPGKeychainAccessAppDelegate
 @synthesize keyTable, userIDTable, subkeyTable, signatureTable;
 
-
 - (NSWindow *)window {
-    return window;
+    return mainWindow;
 }
 - (void)setWindow:(NSWindow *)value {
-	window = value;
 	mainWindow = value;
 }
 
@@ -45,8 +43,8 @@
 
 - (void)awakeFromNib {
 	NSLog(@"GPGKeychainAccessAppDelegate awakeFromNib");
-	[keyTable setDoubleAction:@selector(makeKeyAndOrderFront:)];
-	[keyTable setTarget:inspectorWindow];
+	[keyTable setDoubleAction:@selector(showInspector:)];
+	[keyTable setTarget:[ActionController sharedInstance]];
 	
 	[self generateContextMenuForTable:keyTable];
 	[self generateContextMenuForTable:subkeyTable];
@@ -56,12 +54,7 @@
 	
 	
 	NSArray *draggedTypes = [NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil];
-	[window registerForDraggedTypes:draggedTypes];
-	
-	
-	undoManager = [NSUndoManager new];
-	[undoManager setLevelsOfUndo:50];
-	useUndo = YES;
+	[mainWindow registerForDraggedTypes:draggedTypes];
 }
 
 
@@ -105,13 +98,13 @@
 			}
 		}
 		if ([filesToImport count] > 0) {
-			[NSThread detachNewThreadSelector:@selector(importFromURLs:) toTarget:actionController withObject:filesToImport];
+			[NSThread detachNewThreadSelector:@selector(importFromURLs:) toTarget:[ActionController sharedInstance] withObject:filesToImport];
 			return YES;
 		}
 	} else if ([pboardType isEqualToString:NSStringPboardType]) {
 		NSString *string = [pboard stringForType:NSStringPboardType];
 		if (containsPGPKeyBlock(string)) {
-			[NSThread detachNewThreadSelector:@selector(importFromData:) toTarget:actionController withObject:stringToData(string)];
+			[NSThread detachNewThreadSelector:@selector(importFromData:) toTarget:[ActionController sharedInstance] withObject:[string UTF8Data]];
 			return YES;
 		}
 	}
@@ -120,7 +113,7 @@
 
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)awindow {
-	return undoManager;
+	return [[ActionController sharedInstance] undoManager];
 }
 
 
@@ -149,13 +142,13 @@
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
-	[window makeKeyAndOrderFront:nil];
+	[mainWindow makeKeyAndOrderFront:nil];
 	return YES;
 }
 
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)filenames {
 	if (![NSApp modalWindow]) {
-		[actionController importFromURLs:filenames];
+		[[ActionController sharedInstance] importFromURLs:filenames];
 	}
 }
 

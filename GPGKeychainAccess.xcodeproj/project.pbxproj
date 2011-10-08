@@ -131,6 +131,8 @@
 		3051654714227FD40038AAF0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		3051654814227FD40038AAF0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		3051654914227FD40038AAF0 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
+		305165631422856D0038AAF0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
+		30516564142285990038AAF0 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		305268E21232A34C008540D9 /* SheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SheetController.m; path = Source/SheetController.m; sourceTree = "<group>"; };
 		305268E31232A34C008540D9 /* SheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SheetController.h; path = Source/SheetController.h; sourceTree = "<group>"; };
 		305959ED12E5076A00DDFA03 /* Updates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Updates.png; sourceTree = "<group>"; };
@@ -139,6 +141,8 @@
 		30D2589A136DADBC00274D9F /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		30D90611125B956A00E53C01 /* asc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = asc.icns; sourceTree = "<group>"; };
 		30D90612125B956A00E53C01 /* gpgkey.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gpgkey.icns; sourceTree = "<group>"; };
+		30DB11CE1433497D002877F3 /* SheetController old.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SheetController old.h"; path = "Source/SheetController old.h"; sourceTree = "<group>"; };
+		30DB11CF1433497D002877F3 /* SheetController old.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "SheetController old.m"; path = "Source/SheetController old.m"; sourceTree = "<group>"; };
 		30E36FF8122E710300529ED9 /* Globales.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Globales.h; path = Source/Globales.h; sourceTree = "<group>"; };
 		30E36FF9122E710300529ED9 /* Globales.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Globales.m; path = Source/Globales.m; sourceTree = "<group>"; };
 		30ED341E1242461400C311B1 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -176,6 +180,8 @@
 				30310E081268B9D40034E920 /* PreferencesController.m */,
 				305268E31232A34C008540D9 /* SheetController.h */,
 				305268E21232A34C008540D9 /* SheetController.m */,
+				30DB11CE1433497D002877F3 /* SheetController old.h */,
+				30DB11CF1433497D002877F3 /* SheetController old.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -406,7 +412,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "pushd $SRCROOT > /dev/null\n\n\nDependencies/GPGTools_Core/bin/localizeXIB Resources/en.lproj/MainMenu.xib de sv fr\n\nDependencies/GPGTools_Core/bin/localizeXIB Resources/en.lproj/ModalSheets.xib de sv fr\n\nDependencies/GPGTools_Core/bin/localizeXIB Resources/en.lproj/Preferences.xib de sv fr es\n\n\npopd > /dev/null\n";
+			shellScript = "pushd $SRCROOT > /dev/null\n\n\nDependencies/GPGTools_Core/bin/localizeXIB Resources/en.lproj/MainMenu.xib de sv fr es\n\nDependencies/GPGTools_Core/bin/localizeXIB Resources/en.lproj/ModalSheets.xib de sv fr\n\nDependencies/GPGTools_Core/bin/localizeXIB Resources/en.lproj/Preferences.xib de sv fr es\n\n\npopd > /dev/null\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -435,6 +441,7 @@
 				3051650A14227D090038AAF0 /* de */,
 				3051650B14227D0C0038AAF0 /* fr */,
 				3051650C14227D140038AAF0 /* sv */,
+				30516564142285990038AAF0 /* es */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -502,6 +509,7 @@
 				3051653914227FC00038AAF0 /* en */,
 				3051654114227FCE0038AAF0 /* fr */,
 				3051654714227FD40038AAF0 /* sv */,
+				305165631422856D0038AAF0 /* es */,
 			);
 			name = MainMenu.xib.strings;
 			sourceTree = "<group>";

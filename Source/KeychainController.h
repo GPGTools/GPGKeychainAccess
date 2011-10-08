@@ -48,6 +48,7 @@
 @property (retain) NSArray *subkeysSortDescriptors;
 @property BOOL showSecretKeysOnly;
 
++ (id)sharedInstance;
 
 
 - (void)updateKeys:(NSObject <EnumerationList> *)keys withSigs:(BOOL)withSigs;

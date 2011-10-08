@@ -17,40 +17,27 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-@class KeychainController;
-@class ActionController;
 
-extern NSString *GPG_PATH;
-extern NSInteger GPG_VERSION;
-extern KeychainController *keychainController;
-extern ActionController *actionController;
 extern NSWindow *mainWindow;
 extern NSWindow *inspectorWindow;
-extern NSUndoManager *undoManager;
-extern BOOL useUndo;
 
 
 
-
-NSInteger getDaysToExpire(NSDate *expirationDate);
-
-NSString* dataToString(NSData *data);
-NSData* stringToData(NSString *string);
-
-NSString* getShortKeyID(NSString *keyID);
-
-NSSet* keyIDsFromString(NSString *string);
 
 BOOL containsPGPKeyBlock(NSString *string);
 
 
-int hexToByte (const char *text);
-NSString *unescapeString(NSString *string);
 
 #define NotImplementedAlert NSRunAlertPanel(@"Noch nicht implementiert", @"", @"OK", nil, nil)
 
 #define localized(key) [[NSBundle mainBundle] localizedStringForKey:(key) value:nil table:nil]
 
 
+@interface NSDate (GKA_Extension)
+- (NSInteger)daysSinceNow;
+@end
 
-
+@interface NSString (GKA_Extension)
+- (NSSet *)keyIDs;
+- (NSString *)shortKeyID;
+@end

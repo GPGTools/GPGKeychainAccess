@@ -99,7 +99,7 @@ NSSet *draggedKeys;
 		fileName = localized(@"Exported keys.asc");
 	}
 	
-	NSData *exportedData = [actionController exportKeys:draggedKeys armored:YES allowSecret:NO fullExport:NO];
+	NSData *exportedData = [[ActionController sharedInstance] exportKeys:draggedKeys armored:YES allowSecret:NO fullExport:NO];
 	if (exportedData && [exportedData length] > 0) {
 		[exportedData writeToFile:[[dropDestination path] stringByAppendingPathComponent:fileName] atomically:YES];
 		
@@ -227,26 +227,21 @@ NSSet *draggedKeys;
 }
 
 
-- (id)init {
-	if ((self = [super init])) {
-		self.gpgc = [GPGController gpgController];
-		keychainController = self;
-	}
-	return self;
-}
+
+
 
 - (void)awakeFromNib {
 	NSLog(@"KeychainController awakeFromNib");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	
-	// Testen ob GPG vorhanden zbd funktionsfähig ist.
-	if ([gpgc testGPG]) {
+	// Testen ob GPG vorhanden und funktionsfähig ist.
+	if (![GPGController gpgVersion]) {
 		//TODO: Fehlermeldung ausgeben.
 		NSLog(@"KeychainController awakeFromNib: NSApp terminate");
 		[NSApp terminate:nil]; 
 	}
-
+	
 	
 	// Schlüssellisten initialisieren.
 	self.allKeys = [NSMutableSet setWithCapacity:50];
@@ -254,14 +249,13 @@ NSSet *draggedKeys;
 	
 	
 	// Sort Descriptoren anlegen.
-	NSSortDescriptor *indexSort = [[NSSortDescriptor alloc] initWithKey:@"index" ascending:YES];
-	NSSortDescriptor *nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+	NSSortDescriptor *indexSort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+	NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+
 	NSArray *sortDesriptors = [NSArray arrayWithObject:indexSort];
 	self.subkeysSortDescriptors = sortDesriptors;
 	self.userIDsSortDescriptors = sortDesriptors;
 	self.keysSortDescriptors = [NSArray arrayWithObjects:indexSort, nameSort, nil];
-	[indexSort release];
-	[nameSort release];
 	
 	
 	// updateLock initialisieren und Schlüsselliste füllen.
@@ -278,6 +272,51 @@ NSSet *draggedKeys;
 	
 	[pool drain];
 }
+
+
+
+
+
+// Singleton: alloc, init etc.
++ (id)sharedInstance {
+	static id sharedInstance = nil;
+    if (!sharedInstance) {
+        sharedInstance = [[super allocWithZone:nil] init];
+    }
+    return sharedInstance;	
+}
+- (id)init {
+	static BOOL initialized = NO;
+	if (!initialized) {
+		initialized = YES;
+		self = [super init];
+		
+		self.gpgc = [GPGController gpgController];
+	}
+	return self;
+}
++ (id)allocWithZone:(NSZone *)zone {
+    return [[self sharedInstance] retain];	
+}
+- (id)copyWithZone:(NSZone *)zone {
+    return self;
+}
+- (id)retain {
+    return self;
+}
+- (NSUInteger)retainCount {
+    return NSUIntegerMax;
+}
+- (oneway void)release {
+}
+- (id)autorelease {
+    return self;
+}
+
+
+
+
+
 
 @end
 

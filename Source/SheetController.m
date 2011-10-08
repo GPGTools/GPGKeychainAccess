@@ -1,416 +1,167 @@
-/*
- Copyright © Roman Zechmeister, 2011
- 
- Diese Datei ist Teil von GPG Keychain Access.
- 
- GPG Keychain Access ist freie Software. Sie können es unter den Bedingungen 
- der GNU General Public License, wie von der Free Software Foundation 
- veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß 
- Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
- 
- Die Veröffentlichung von GPG Keychain Access erfolgt in der Hoffnung, daß es Ihnen 
- von Nutzen sein wird, aber ohne irgendeine Garantie, sogar ohne die implizite 
- Garantie der Marktreife oder der Verwendbarkeit für einen bestimmten Zweck. 
- Details finden Sie in der GNU General Public License.
- 
- Sie sollten ein Exemplar der GNU General Public License zusammen mit diesem 
- Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
-*/
-
 #import "SheetController.h"
-#import "ActionController.h"
-#import "KeychainController.h"
 #import <AddressBook/AddressBook.h>
+#import "Globales.h"
+#import "ActionController.h"
+
+
+@interface SheetController ()
+@property (assign) NSView *displayedView;
+@property (assign) NSWindow *modalWindow;
+- (void)runAndWait;
+- (void)setStandardExpirationDates;
+- (void)setDataFromAddressBook;
+- (BOOL)checkName;
+- (BOOL)checkEmailMustSet:(BOOL)mustSet;
+- (BOOL)checkComment;
+- (BOOL)checkPassphrase;
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+@end
+
 
 @implementation SheetController
-@synthesize allowSecretKeyExport, allowEdit, myKey, myString, mySubkey, foundKeys, msgText, 
-	pattern, name, email, comment, passphrase, confirmPassphrase, availableLengths, length, 
-	hasExpirationDate, expirationDate, minExpirationDate, maxExpirationDate, sigType, 
-	localSig, emailAddresses, secretKeys, secretKeyFingerprints, secretKeyId, userIDs;
-
-static SheetController *_sharedInstance = nil;
-
-
+@synthesize progressText, errorText, msgText, name, email, comment, passphrase, confirmPassphrase, pattern, 
+	hasExpirationDate, allowSecretKeyExport, localSig, allowEdit,
+	expirationDate, minExpirationDate, maxExpirationDate,
+	userIDs, foundKeys, emailAddresses, secretKeys, availableLengths,
+	exportFormat, secretKeyId, sigType, length, sheetType,
+	modalWindow;
 
 
-+ (id)sharedInstance {
-	if (_sharedInstance == nil) {
-		_sharedInstance = [[self alloc] init];
+- (void)showProgressSheet {
+	if (self.displayedView == errorView) {
+		return;
 	}
-	return _sharedInstance;
-}
-
-- (id)init {
-	if (self = [super init]) {
-		[NSBundle loadNibNamed:@"ModalSheets" owner:self];
-		exportFormat = 1;
-	}
-	return self;
-}
-
-
-- (void)algorithmPreferences:(GPGKey *)key editable:(BOOL)editable {
-	self.myKey = key;
-	
-	NSUInteger count = [[myKey userIDs] count], arrayCount = 0;
-	
-	NSMutableArray *userIDsArray = [NSMutableArray arrayWithCapacity:count];
-	
-	
-	for (GPGUserID *userID in [myKey userIDs]) {
-		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[userID userID], @"userID", 
-									 [userID cipherPreferences], @"cipherPreferences", 
-									 [userID digestPreferences], @"digestPreferences", 
-									 [userID compressPreferences], @"compressPreferences", 
-									 [userID otherPreferences], @"otherPreferences", nil];
-		
-		NSUInteger i = 0, index = [userID index];
-		for (; i < arrayCount; i++) {
-			if ([[userIDsArray objectAtIndex:i] index] > index) {
-				break;
-			}
-		}	
-		[userIDsArray insertObject:dict atIndex:i];
-	}
-	self.userIDs = userIDsArray;
-	self.allowEdit = editable;
-	
-	currentAction = AlgorithmPreferencesAction;
-	self.displayedView = editAlgorithmPreferencesView;
-	
-	[self runSheetForWindow:mainWindow];
-}
-- (void)algorithmPreferences_Action {
-	if (allowEdit) {
-		[actionController editAlgorithmPreferencesForKey:myKey preferences:userIDs];
-	}
-	[self closeSheet];
-}
-
-
-
-
-- (void)addSubkey:(GPGKey *)key {
-	self.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userID], [key shortKeyID]];
-	self.length = 2048;
-	self.keyType = 3;
-	[self setStandardExpirationDates];
-	self.hasExpirationDate = NO;
-
-	
-	self.myKey = key;
-	currentAction = AddSubkeyAction;
-	self.displayedView = generateSubkeyView;
-	
-	[self runSheetForWindow:inspectorWindow];
-}
-- (void)addSubkey_Action {
-	[actionController addSubkeyForKey:myKey type:keyType length:length daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
-	[self closeSheet];
-}
-
-- (void)addUserID:(GPGKey *)key {
-	self.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [key userID], [key shortKeyID]];
-	
-	[self setDataFromAddressBook];
-	self.comment = @"";
-
-	
-	self.myKey = key;
-	currentAction = AddUserIDAction;
-	self.displayedView = generateUserIDView;
-	
-	[self runSheetForWindow:inspectorWindow];
-}
-- (void)addUserID_Action {
-	[actionController addUserIDForKey:myKey name:name email:email comment:comment];
-	[self closeSheet];
-}
-
-- (void)addSignature:(GPGKey *)key userID:(NSString *)userID {
-	self.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), [key userID], [key shortKeyID]];
-	self.sigType = 0;
-	self.localSig = NO;
-	[self setStandardExpirationDates];
-	self.hasExpirationDate = NO;
-	
-		
-	NSString *defaultKey = [[GPGOptions sharedOptions] valueForKey:@"default-key"];
-	switch ([defaultKey length]) {
-		case 9:
-		case 17:
-		case 33:
-		case 41:
-			if ([defaultKey hasPrefix:@"0"]) {
-				defaultKey = [defaultKey substringFromIndex:1];
-			}
-			break;
-		case 10:
-		case 18:
-		case 34:
-		case 42:
-			if ([defaultKey hasPrefix:@"0x"]) {
-				defaultKey = [defaultKey substringFromIndex:2];
-			}
-			break;
-	}
-
-	self.secretKeyId = 0;
-	
-	NSSet *secKeySet = [keychainController secretKeys];
-	NSMutableArray *secKeys = [NSMutableArray arrayWithCapacity:[secKeySet count]];
-	NSMutableArray *fingerprints = [NSMutableArray arrayWithCapacity:[secKeySet count]];
-	GPGKey *aKey;
-	NSSet *allKeys = [keychainController allKeys];
-	int i = 0;
-	
-	for (NSString *fingerprint in secKeySet) {
-		aKey = [allKeys member:fingerprint];
-		if (defaultKey && [aKey.textForFilter rangeOfString:defaultKey].length != 0) {
-			self.secretKeyId = i;
-			defaultKey = nil;
-		}
-		[secKeys addObject:[NSString stringWithFormat:@"%@, %@", aKey.shortKeyID, aKey.userID]];
-		[fingerprints addObject:fingerprint];
-		i++;
-	}
-	self.secretKeys = secKeys;
-	self.secretKeyFingerprints = fingerprints;
-
-	
-	
-	self.myKey = key;
-	self.myString = userID;
-	currentAction = AddSignatureAction;
-	self.displayedView = generateSignatureView;
-	
-	[self runSheetForWindow:userID ? inspectorWindow : mainWindow];
-}
-- (void)addSignature_Action {
-	[actionController addSignatureForKey:myKey andUserID:myString signKey:[secretKeyFingerprints objectAtIndex:secretKeyId] type:sigType local:localSig daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
-	[self closeSheet];
-}
-
-- (void)changeExpirationDate:(GPGKey *)key subkey:(GPGSubkey *)subkey {
-	NSDate *aDate;
-	if (subkey) {
-		self.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), [subkey shortKeyID], [key userID], [key shortKeyID]];
-		aDate = [subkey expirationDate];
-	} else {
-		self.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [key userID], [key shortKeyID]];
-		aDate = [key expirationDate];
-	}
-
-	[self setStandardExpirationDates];
-	if (aDate) {
-		self.hasExpirationDate = YES;
-		self.expirationDate = aDate;
-		self.minExpirationDate = [self.minExpirationDate earlierDate:aDate];
-	} else {
-		self.hasExpirationDate = NO;
-	}
-	
-	
-	self.myKey = key;
-	self.mySubkey = subkey;
-	currentAction = ChangeExpirationDateAction;
-	self.displayedView = changeExpirationDateView;
-	
-	[self runSheetForWindow:inspectorWindow];
-}
-- (void)changeExpirationDate_Action {
-	[actionController changeExpirationDateForKey:myKey subkey:mySubkey daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
-	[self closeSheet];
-}
-
-- (void)searchKeys {
-	self.pattern = @"";
-	
-	currentAction = SearchKeysAction;
-	self.displayedView = searchKeysView;
-	
-	[self runSheetForWindow:mainWindow];
-}
-- (void)searchKeys_Action {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	NSString *errText;
-	NSArray *keys = [actionController searchKeysWithPattern:pattern errorText:&errText];
-	
-	if (errText) {
-		[self performSelectorOnMainThread:@selector(showResultText:) withObject:errText waitUntilDone:NO];
-	} else {
-		[self performSelectorOnMainThread:@selector(showFoundKeys:) withObject:keys waitUntilDone:NO];
-	}
-
-	[pool drain];
-}
-- (void)showFoundKeys:(NSArray *)keys {
-	self.foundKeys = keys;
-
-	currentAction = ShowFoundKeysAction;
-	self.displayedView = foundKeysView;
-}
-
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-	NSDictionary *foundKey = [[foundKeysController arrangedObjects] objectAtIndex:row];
-	return [[foundKey objectForKey:@"lines"] integerValue] * [tableView rowHeight] + 1;
-}
-- (BOOL)tableView:(NSTableView *)tableView shouldTypeSelectForEvent:(NSEvent *)event withCurrentSearchString:(NSString *)searchString {
-	if ([event type] == NSKeyDown && [event keyCode] == 49) { //Leertaste gedrückt
-		NSArray *selectedKeys = [foundKeysController selectedObjects];
-		if ([selectedKeys count] > 0) {
-			NSNumber *selected = [NSNumber numberWithBool:![[[selectedKeys objectAtIndex:0] objectForKey:@"selected"] boolValue]];
-			for (NSMutableDictionary *foundKey in [foundKeysController selectedObjects]) {
-				[foundKey setObject:selected forKey:@"selected"];
-			}
+	[progressSheetLock lock];
+	if (numberOfProgressSheets == 0) { //Nur anzeigen wenn das progressSheet nicht bereits angezeigt wird.
+		oldDisplayedView = displayedView; //displayedView sichern.
+		self.displayedView = progressView; //progressView anzeigen.
+		if ([sheetLock tryLock]) { //Es wird kein anderes Sheet angezeigt.
+			oldDisplayedView = nil;
+			[NSApp beginSheet:sheetWindow modalForWindow:mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
 		}
 	}
-	return NO;
+	numberOfProgressSheets++;
+	[progressSheetLock unlock];
 }
-
-
-
-- (void)showResult:(NSString *)text {
-	[self showResultText:text];
-	[self runSheetForWindow:mainWindow];
-}
-- (void)showResultText:(NSString *)text {
-	self.msgText = @"";
-	self.msgText = text;
-	self.displayedView = resultView;
-}
-
-
-- (void)receiveKeys {
-	self.pattern = @"";
-	
-	currentAction = ReceiveKeysAction;
-	self.displayedView = receiveKeysView;
-	
-	[self runSheetForWindow:mainWindow];
-}
-- (void)receiveKeys_Action:(NSSet *)keyIDs {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	[self performSelectorOnMainThread:@selector(showResultText:) withObject:[actionController receiveKeysWithIDs:keyIDs] waitUntilDone:NO];
-	[pool drain];
-}
-
-
-- (void)generateNewKey {
-	self.length = 2048;
-	self.keyType = 1;
-	[self setStandardExpirationDates];
-	self.hasExpirationDate = NO;
-	
-	[self setDataFromAddressBook];
-	self.comment = @"";
-	self.passphrase = @"";
-	self.confirmPassphrase = @"";
-	
-	currentAction = NewKeyAction;
-	self.displayedView = newKeyView;
-	
-	[self runSheetForWindow:mainWindow];
-}
-
-
-- (void)newKey_Action {
-	[actionController generateNewKeyWithName:name email:email comment:comment passphrase:((GPG_VERSION == 1) ? passphrase : nil) type:keyType length:length daysToExpire:hasExpirationDate ? getDaysToExpire (expirationDate) : 0];
-	[self closeSheet];
-}
-
-
-- (void)closeSheet {
-	[self performSelectorOnMainThread:@selector(cancelButton:) withObject:nil waitUntilDone:NO];
-}
-
-- (IBAction)okButton:(id)sender {
-	if (![sheetWindow makeFirstResponder:sheetWindow]) {
-		[sheetWindow endEditingFor:nil];
+- (void)endProgressSheet {
+	if (self.displayedView == errorView) {
+		return;
 	}
-	switch (currentAction) {
-		case NewKeyAction:
-			if (![self checkName]) return;
-			if (![self checkEmailMustSet:NO]) return;
-			if (![self checkComment]) return;
-			if (GPG_VERSION == 1) {
-				if (![self checkPassphrase]) return;
-			}
+	[progressSheetLock lock];
+	numberOfProgressSheets--;
+	if (numberOfProgressSheets == 0) { //Nur ausführen wenn das progressSheet angezeigt wird.
+		if (oldDisplayedView) { //Soll ein zuvor angezeigtes Sheet wieder angezeigt werden?
+			self.displayedView = oldDisplayedView; //Altes Sheet wieder anzeigen.
+		} else {
+			[NSApp endSheet:sheetWindow]; //Sheet beenden...
+			[sheetWindow orderOut:self]; // und ausblenden.
+			[sheetLock unlock];
+		}
+	}
+	[progressSheetLock unlock];
+}
+
+- (void)showErrorSheet {
+	[self performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
+	self.displayedView = errorView;
+	self.sheetType = SheetTypeNoSheet;
+	if (!self.modalWindow) {
+		self.modalWindow = mainWindow;
+	}
+	[self runAndWait];
+}
+
+
+- (NSInteger)runModal {
+	return [self runModalForWindow:mainWindow];
+}
+- (NSInteger)runModalForWindow:(NSWindow *)window {
+	clickedButton = 0;
+	self.modalWindow = window;
+	
+	switch (self.sheetType) {
+		case SheetTypeNewKey:
+			self.length = 2048;
+			self.keyType = 1;
+			[self setStandardExpirationDates];
+			[self setDataFromAddressBook];
+			self.comment = @"";
+			self.passphrase = @"";
+			self.confirmPassphrase = @"";
 			
-			self.displayedView = progressView;
-			self.msgText = localized(@"GenerateEntropy_Msg");
-			[NSThread detachNewThreadSelector:@selector(newKey_Action) toTarget:self withObject:nil];
+			self.displayedView = newKeyView;
+			[self runAndWait];
 			break;
-		case AddSubkeyAction:
-			self.displayedView = progressView;
-			self.msgText = localized(@"GenerateEntropy_Msg");
-			[NSThread detachNewThreadSelector:@selector(addSubkey_Action) toTarget:self withObject:nil];
+		case SheetTypeSearchKeys:
+			self.pattern = @"";
+			
+			self.displayedView = searchKeysView;
+			[self runAndWait];
 			break;
-		case AddUserIDAction:
-			if (![self checkName]) return;
-			if (![self checkEmailMustSet:NO]) return;
-			if (![self checkComment]) return;
-	
-			self.displayedView = progressView;
-			[NSThread detachNewThreadSelector:@selector(addUserID_Action) toTarget:self withObject:nil];
+		case SheetTypeReceiveKeys:
+			self.pattern = @"";
+			
+			self.displayedView = receiveKeysView;
+			[self runAndWait];
 			break;
-		case AddSignatureAction:
-			self.displayedView = progressView;
-			[NSThread detachNewThreadSelector:@selector(addSignature_Action) toTarget:self withObject:nil];
-			break;
-		case ChangeExpirationDateAction:
-			self.displayedView = progressView;
-			[NSThread detachNewThreadSelector:@selector(changeExpirationDate_Action) toTarget:self withObject:nil];
-			break;
-		case SearchKeysAction:
-			self.displayedView = progressView;
-			self.msgText = localized(@"SearchingKeys_Msg");
-			[NSThread detachNewThreadSelector:@selector(searchKeys_Action) toTarget:self withObject:nil];
-			break;
-		case ReceiveKeysAction: {
-			NSSet *keyIDs = keyIDsFromString(pattern);
-			if (!keyIDs) {
-				NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NoKeyID"), nil, nil, nil);
-				return;
-			}
-			self.displayedView = progressView;
-			[NSThread detachNewThreadSelector:@selector(receiveKeys_Action:) toTarget:self withObject:keyIDs];
-			break; }
-		case ShowFoundKeysAction: {
-			NSMutableSet *keyIDs = [NSMutableSet setWithCapacity:[foundKeys count]];
-			for (NSDictionary *foundKey in foundKeys) {
-				if ([[foundKey objectForKey:@"selected"] boolValue]) {
-					[keyIDs addObject:[foundKey objectForKey:@"keyID"]];
-				}
-			}
-			if ([keyIDs count] == 0) {
-				NSBeep();
-				return;
-			}
-			self.displayedView = progressView;
-			[NSThread detachNewThreadSelector:@selector(receiveKeys_Action:) toTarget:self withObject:keyIDs];			
-			break; }
-		case AlgorithmPreferencesAction:
-			[self algorithmPreferences_Action];
-			break;
+		default:
+			return -1;
 	}
+	self.displayedView = nil;
+	return clickedButton;
 }
-- (IBAction)cancelButton:(id)sender {
-	self.myKey = nil;
-	self.mySubkey = nil;
-	self.myString = nil;
-	[sheetWindow orderOut:self];
+
+
+
+- (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton {
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert setMessageText:messageText];
+	[alert setInformativeText:infoText];
+	if (button1) {
+		[alert addButtonWithTitle:button1];
+	}
+	if (button2) {
+		[alert addButtonWithTitle:button2];
+	}
+	if (button2) {
+		[alert addButtonWithTitle:button3];
+	}
+	if (suppressionButton) {
+		alert.showsSuppressionButton = YES;
+		if ([suppressionButton length] > 0) {
+			alert.suppressionButton.title = suppressionButton;
+		}
+	}
+	
+	[sheetLock lock];
+	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+	[NSApp runModalForWindow:window];
+	[sheetLock unlock];
+	
+	if (alert.suppressionButton.state == NSOnState) {
+		clickedButton = clickedButton | SheetSuppressionButton;
+	}
+
+	
+	return clickedButton;
+}
+
+
+
+
+
+
+
+
+
+
+
+//Internal methods.
+- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+	clickedButton = returnCode;
 	[NSApp stopModal];
 }
 
-- (void)runSheetForWindow:(NSWindow *)window {
-	[NSApp beginSheet:sheetWindow modalForWindow:window modalDelegate:nil didEndSelector:nil contextInfo:nil];
-	[NSApp runModalForWindow:sheetWindow];
-	[NSApp endSheet:sheetWindow];
-	
-	self.displayedView = nil;
-}
 
 
 - (void)setStandardExpirationDates {
@@ -428,6 +179,8 @@ static SheetController *_sharedInstance = nil;
 	self.expirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0]; 	
 	[dateComponents setYear:500];
 	self.maxExpirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0]; 	
+
+	self.hasExpirationDate = NO;
 }
 - (void)setDataFromAddressBook {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -463,9 +216,60 @@ static SheetController *_sharedInstance = nil;
 	} else {
 		self.name = @"";
 		self.email = @"";
+		self.emailAddresses = nil;
 	}
 	[pool drain];
 }
+
+
+- (void)runAndWait {
+	[sheetLock lock];
+	[NSApp beginSheet:sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+	[NSApp runModalForWindow:sheetWindow];
+	[NSApp endSheet:sheetWindow];
+	[sheetWindow orderOut:self];
+	[sheetLock unlock];
+}
+
+
+
+- (IBAction)buttonClicked:(NSButton *)sender {
+	clickedButton = sender.tag;
+	
+	if (numberOfProgressSheets > 0) {
+		[[ActionController sharedInstance] cancelOperation:self];
+	} else {
+		if (clickedButton == NSOKButton) {
+			switch (self.sheetType) {
+				case SheetTypeNewKey:
+					if (![self checkName]) return;
+					if (![self checkEmailMustSet:NO]) return;
+					if (![self checkComment]) return;
+					
+					if ([[GPGController gpgVersion] hasPrefix:@"1"]) {
+						if (![self checkPassphrase]) return;
+					} else {
+						self.passphrase = nil;
+					}
+					break;
+				case SheetTypeSearchKeys:
+					break;
+				case SheetTypeReceiveKeys: {
+					NSSet *keyIDs = [pattern keyIDs];
+					if (!keyIDs) {
+						NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NoKeyID"), nil, nil, nil);
+						return;
+					}
+
+					break; 
+				}
+			}
+		}
+		
+		[NSApp stopModal];
+	}
+}
+
 
 
 - (BOOL)checkName {
@@ -487,7 +291,6 @@ static SheetController *_sharedInstance = nil;
 	}
 	return YES;
 }
-
 - (BOOL)checkEmailMustSet:(BOOL)mustSet {
 	if (!email) {
 		email = @"";
@@ -532,7 +335,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_InvalidEmail"), nil, nil, nil);
 	return NO;
 }
-
 - (BOOL)checkComment {
 	if (!comment) {
 		comment = @"";
@@ -551,7 +353,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	}
 	return YES;
 }
-
 - (BOOL)checkPassphrase {
 	if (!passphrase) {
 		passphrase = @"";
@@ -569,6 +370,25 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 }
 
 
+- (NSInteger)keyType {
+	return keyType;
+}
+- (void)setKeyType:(NSInteger)value {
+	keyType = value;
+	if (value == 2 || value == 3) {
+		keyLengthFormatter.minKeyLength = 1024;
+		keyLengthFormatter.maxKeyLength = 3072;
+		self.length = [keyLengthFormatter checkedValue:length];
+		self.availableLengths = [NSArray arrayWithObjects:@"1024", @"2048", @"3072", nil];
+	} else {
+		keyLengthFormatter.minKeyLength = 1024;
+		keyLengthFormatter.maxKeyLength = 4096;
+		self.length = [keyLengthFormatter checkedValue:length];
+		self.availableLengths = [NSArray arrayWithObjects:@"1024", @"2048", @"3072", @"4096", nil];
+	}
+}
+
+
 - (NSView *)displayedView {
 	return displayedView;
 }
@@ -577,14 +397,14 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		if (displayedView == progressView) {
 			[progressIndicator stopAnimation:nil];
 		}
+		
 		[displayedView removeFromSuperview];
 		displayedView = value;
 		if (value != nil) {
-			
 			if (value == newKeyView) { //Passphrase-Felder nur bei GPG 1.4.x anzeigen.
 				NSUInteger resizingMask;
 				NSSize newSize;
-				if (GPG_VERSION == 1) {
+				if ([[GPGController gpgVersion] hasPrefix:@"1"]) {
 					if ([newKey_passphraseSubview isHidden] == YES) {
 						[newKey_passphraseSubview setHidden:NO];
 						newSize = [newKeyView frame].size;
@@ -608,14 +428,12 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 					}
 				}
 			}
-			
-			
+
 			NSRect oldRect, newRect;
 			oldRect = [sheetWindow frame];
 			newRect.size = [value frame].size;
 			newRect.origin.x = oldRect.origin.x + (oldRect.size.width - newRect.size.width) / 2;
 			newRect.origin.y = oldRect.origin.y + oldRect.size.height - newRect.size.height;
-
 			
 			[sheetWindow setFrame:newRect display:YES animate:YES];
 			[sheetWindow setContentSize:newRect.size];
@@ -624,318 +442,60 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			if ([value nextKeyView]) {
 				[sheetWindow makeFirstResponder:[value nextKeyView]];
 			}
+			
 			if (value == progressView) {
-				self.msgText = @"";
 				[progressIndicator startAnimation:nil];
+				//[progressIndicator display];
+				//[progressIndicator setNeedsDisplay:YES];
 			}
 		}
 	}
 }
 
 
-- (NSInteger)keyType {
-	return keyType;
+
+// Singleton: alloc, init etc.
++ (id)sharedInstance {
+	static id sharedInstance = nil;
+    if (!sharedInstance) {
+        sharedInstance = [[super allocWithZone:nil] init];
+    }
+    return sharedInstance;	
 }
-- (void)setKeyType:(NSInteger)value {
-	keyType = value;
-	if (value == 2 || value == 3) {
-		keyLengthFormatter.minKeyLength = 1024;
-		keyLengthFormatter.maxKeyLength = 3072;
-		self.length = [keyLengthFormatter checkedValue:length];
-		self.availableLengths = [NSArray arrayWithObjects:@"1024", @"2048", @"3072", nil];
-	} else {
-		keyLengthFormatter.minKeyLength = 1024;
-		keyLengthFormatter.maxKeyLength = 4096;
-		self.length = [keyLengthFormatter checkedValue:length];
-		self.availableLengths = [NSArray arrayWithObjects:@"1024", @"2048", @"3072", @"4096", nil];
+- (id)init {
+	static BOOL initialized = NO;
+	if (!initialized) {
+		initialized = YES;
+		self = [super init];
+		
+		sheetLock = [NSLock new];
+		progressSheetLock = [NSLock new];
+		[NSBundle loadNibNamed:@"ModalSheets" owner:self];
 	}
+	return self;
 }
-
-
-
-
-
-//Für Algorithmus Präferenzen
-
-- (NSArray *)tokenField:(NSTokenField *)tokenField shouldAddObjects:(NSArray *)tokens atIndex:(NSUInteger)index {	
-	NSMutableArray *newTokens = [NSMutableArray arrayWithCapacity:[tokens count]];
-	
-	NSString *tokenPrefix;
-	switch ([tokenField tag]) {
-		case 1:
-			tokenPrefix = @"S";
-			break;
-		case 2:
-			tokenPrefix = @"H";
-			break;
-		case 3:
-			tokenPrefix = @"Z";
-			break;
-		default:
-			return newTokens;
-	}
-	
-	for (NSString *token in tokens) {
-		if ([token hasPrefix:tokenPrefix]) {
-			[newTokens addObject:token];
-		}
-	}
-	return newTokens;
++ (id)allocWithZone:(NSZone *)zone {
+    return [[self sharedInstance] retain];	
 }
-
-- (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
-	static NSDictionary *algorithmIdentifiers = nil;
-	if (!algorithmIdentifiers) {
-		algorithmIdentifiers = [[NSDictionary alloc] initWithObjectsAndKeys:@"S0", localized(@"CIPHER_ALGO_NONE"), 
-								@"S1", localized(@"CIPHER_ALGO_IDEA"), 
-								@"S2", localized(@"CIPHER_ALGO_3DES"), 
-								@"S3", localized(@"CIPHER_ALGO_CAST5"), 
-								@"S4", localized(@"CIPHER_ALGO_BLOWFISH"), 
-								@"S7", localized(@"CIPHER_ALGO_AES"), 
-								@"S8", localized(@"CIPHER_ALGO_AES192"), 
-								@"S9", localized(@"CIPHER_ALGO_AES256"), 
-								@"S10", localized(@"CIPHER_ALGO_TWOFISH"), 
-								@"S11", localized(@"CIPHER_ALGO_CAMELLIA128"), 
-								@"S12", localized(@"CIPHER_ALGO_CAMELLIA192"), 
-								@"S13", localized(@"CIPHER_ALGO_CAMELLIA256"), 
-								@"H1", localized(@"DIGEST_ALGO_MD5"), 
-								@"H2", localized(@"DIGEST_ALGO_SHA1"), 
-								@"H3", localized(@"DIGEST_ALGO_RMD160"), 
-								@"H8", localized(@"DIGEST_ALGO_SHA256"), 
-								@"H9", localized(@"DIGEST_ALGO_SHA384"), 
-								@"H10", localized(@"DIGEST_ALGO_SHA512"), 
-								@"H11", localized(@"DIGEST_ALGO_SHA224"), 
-								@"Z0", localized(@"COMPRESS_ALGO_NONE"), 
-								@"Z1", localized(@"COMPRESS_ALGO_ZIP"), 
-								@"Z2", localized(@"COMPRESS_ALGO_ZLIB"), 
-								@"Z3", localized(@"COMPRESS_ALGO_BZIP2"), nil];
-	}
-	NSString *algorithmIdentifier = [algorithmIdentifiers objectForKey:[editingString uppercaseString]];
-	if (!algorithmIdentifier) {
-		algorithmIdentifier = editingString;
-	}
-	return [algorithmIdentifier uppercaseString];
+- (id)copyWithZone:(NSZone *)zone {
+    return self;
 }
-
-- (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
-	static NSDictionary *algorithmNames = nil;
-	if (!algorithmNames) {
-		algorithmNames = [[NSDictionary alloc] initWithObjectsAndKeys:localized(@"CIPHER_ALGO_NONE"), @"S0", 
-						   localized(@"CIPHER_ALGO_IDEA"), @"S1", 
-						   localized(@"CIPHER_ALGO_3DES"), @"S2", 
-						   localized(@"CIPHER_ALGO_CAST5"), @"S3", 
-						   localized(@"CIPHER_ALGO_BLOWFISH"), @"S4", 
-						   localized(@"CIPHER_ALGO_AES"), @"S7", 
-						   localized(@"CIPHER_ALGO_AES192"), @"S8", 
-						   localized(@"CIPHER_ALGO_AES256"), @"S9", 
-						   localized(@"CIPHER_ALGO_TWOFISH"), @"S10", 
-						   localized(@"CIPHER_ALGO_CAMELLIA128"), @"S11", 
-						   localized(@"CIPHER_ALGO_CAMELLIA192"), @"S12", 
-						   localized(@"CIPHER_ALGO_CAMELLIA256"), @"S13", 
-						   localized(@"DIGEST_ALGO_MD5"), @"H1", 
-						   localized(@"DIGEST_ALGO_SHA1"), @"H2", 
-						   localized(@"DIGEST_ALGO_RMD160"), @"H3", 
-						   localized(@"DIGEST_ALGO_SHA256"), @"H8", 
-						   localized(@"DIGEST_ALGO_SHA384"), @"H9", 
-						   localized(@"DIGEST_ALGO_SHA512"), @"H10", 
-						   localized(@"DIGEST_ALGO_SHA224"), @"H11", 
-						   localized(@"COMPRESS_ALGO_NONE"), @"Z0", 
-						   localized(@"COMPRESS_ALGO_ZIP"), @"Z1", 
-						   localized(@"COMPRESS_ALGO_ZLIB"), @"Z2", 
-						   localized(@"COMPRESS_ALGO_BZIP2"), @"Z3", nil];
-	}
-	NSString *displayString = [algorithmNames objectForKey:[representedObject description]];
-	if (!displayString) {
-		displayString = [representedObject description];
-	}
-	return displayString;
+- (id)retain {
+    return self;
 }
-
-
-
-
-
-//Für Öffnen- und Speichern-Sheets.
-
-- (void)addPhoto:(GPGKey *)key {
-	openPanel = [NSOpenPanel openPanel];
-	
-	[openPanel setAllowsMultipleSelection:NO];
-	[openPanel setDelegate:self];
-	
-	NSArray *fileTypes = [NSArray arrayWithObjects:@"jpg", @"jpeg", nil];
-	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:key, @"key",[NSNumber numberWithInt:GKOpenSavePanelAddPhotoAction], @"action", nil];
-
-	[openPanel beginSheetForDirectory:nil file:nil types:fileTypes modalForWindow:inspectorWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];			
-	[NSApp runModalForWindow:inspectorWindow];
+- (NSUInteger)retainCount {
+    return NSUIntegerMax;
 }
-
-- (void)importKey {
-	openPanel = [NSOpenPanel openPanel];
-	
-	[openPanel setAllowsMultipleSelection:YES];
-	
-	NSArray *fileTypes = [NSArray arrayWithObjects:@"gpgkey", @"asc", @"key", @"gpg", @"pgp", nil];
-	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:GKOpenSavePanelImportKeyAction], @"action", nil];
-	
-	[openPanel beginSheetForDirectory:nil file:nil types:fileTypes modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
-	[NSApp runModalForWindow:mainWindow];
+- (oneway void)release {
 }
-- (void)exportKeys:(NSSet *)keys {
-	savePanel = [NSSavePanel savePanel];
-	
-	[savePanel setAccessoryView:exportKeyOptionsView];
-	
-	[savePanel setAllowsOtherFileTypes:YES];
-	[savePanel setCanSelectHiddenExtension:YES];
-	self.exportFormat = exportFormat;
-	
-	
-	NSString *filename;
-	if ([keys count] == 1) {
-		filename = [[keys anyObject] shortKeyID];
-	} else {
-		filename = localized(@"untitled");
-	}
-	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:keys, @"keys", [NSNumber numberWithInt:GKOpenSavePanelExportKeyAction], @"action", nil];
-	
-	[savePanel beginSheetForDirectory:nil file:filename modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
-	[NSApp runModalForWindow:mainWindow];
+- (id)autorelease {
+    return self;
 }
-
-- (void)genRevokeCertificateForKey:(GPGKey *)key {
-	savePanel = [NSSavePanel savePanel];
-	
-	
-	[savePanel setAllowsOtherFileTypes:YES];
-	[savePanel setCanSelectHiddenExtension:YES];
-	
-	[savePanel setAllowedFileTypes:[NSArray arrayWithObjects:@"gpg", @"asc", @"pgp", nil]];
-	
-	NSString *filename = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), [key shortKeyID]];
-	
-	NSDictionary *contextInfo = [[NSDictionary alloc] initWithObjectsAndKeys:key, @"key", [NSNumber numberWithInt:GKOpenSavePanelSaveRevokeCertificateAction], @"action", nil];
-	
-	[savePanel beginSheetForDirectory:nil file:filename modalForWindow:mainWindow modalDelegate:self didEndSelector:@selector(openSavePanelDidEnd:returnCode:contextInfo:) contextInfo:contextInfo];
-	[NSApp runModalForWindow:mainWindow];
-	
-}
-
-
-- (void)openSavePanelDidEnd:(NSOpenPanel *)sheet returnCode:(int)returnCode contextInfo:(NSDictionary *)contextInfo {
-	[NSApp stopModal];
-	if (returnCode == NSOKButton) {
-		[sheet orderOut:self];
-		switch ([[contextInfo objectForKey:@"action"] integerValue]) {
-			case GKOpenSavePanelExportKeyAction: {
-				NSSet *keys = [contextInfo objectForKey:@"keys"];
-				BOOL hideExtension = [sheet isExtensionHidden];
-				NSString *path = [[sheet URL] path];
-				
-				NSData *exportData = [actionController exportKeys:keys armored:(exportFormat & 1) allowSecret:allowSecretKeyExport fullExport:NO];
-				if (exportData) {
-					[[NSFileManager defaultManager] createFileAtPath:path contents:exportData attributes:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:hideExtension] forKey:NSFileExtensionHidden]];
-				} else {
-					NSRunAlertPanel(localized(@"Error"), localized(@"Export failed!"), nil, nil, nil);
-				}
-				break; }
-			case GKOpenSavePanelImportKeyAction:
-				[actionController importFromURLs:[sheet URLs]];
-				break;
-			case GKOpenSavePanelAddPhotoAction: {
-				GPGKey *key = [contextInfo objectForKey:@"key"];
-				NSString *path = [[sheet URL] path];
-				[actionController addPhotoForKey:key photoPath:path];
-				break; }
-			case GKOpenSavePanelSaveRevokeCertificateAction: {
-				GPGKey *key = [contextInfo objectForKey:@"key"];
-				BOOL hideExtension = [sheet isExtensionHidden];
-				NSString *path = [[sheet URL] path];
-				
-				NSData *exportData = [actionController genRevokeCertificateForKey:key];
-				if (exportData) {
-					[[NSFileManager defaultManager] createFileAtPath:path contents:exportData attributes:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:hideExtension] forKey:NSFileExtensionHidden]];
-				} else {
-					NSRunAlertPanel(localized(@"Error"), localized(@"Generate revoke certificate failed!"), nil, nil, nil);
-				}
-				break; }
-		}
-	}
-}
-
-- (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 {
-	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-	[alert setMessageText:messageText];
-	[alert setInformativeText:infoText];
-	if (button1) {
-		[alert addButtonWithTitle:button1];
-	}
-	if (button2) {
-		[alert addButtonWithTitle:button2];
-	}
-	if (button2) {
-		[alert addButtonWithTitle:button3];
-	}
-	
-	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
-	[NSApp runModalForWindow:window];
-	return lastReturnCode;
-}
-
-- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-	lastReturnCode = returnCode;
-	[NSApp stopModal];
-}
-
-- (BOOL)panel:(NSOpenPanel *)sender validateURL:(NSURL *)url error:(NSError **)outError {
-	NSString *path = [url path];
-	unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
-	if (filesize > 1024 * 1024) { //Bilder über 1 MiB sind zu gross. (Meiner Meinung nach.)
-		[self alertSheetForWindow:openPanel 
-					  messageText:localized(@"This picture is to large!") 
-						 infoText:localized(@"Please use a picature smaller than 1 MiB.") 
-					defaultButton:nil 
-				  alternateButton:nil 
-					  otherButton:nil];
-		return NO;
-	} else if (filesize > 15 * 1024) { //Bei Bildern über 15 KiB nachfragen.
-		NSInteger retVal =  [self alertSheetForWindow:openPanel 
-										  messageText:localized(@"This picture is really large!") 
-											 infoText:localized(@"You should use a smaller picture.") 
-										defaultButton:localized(@"Choose another…") 
-									  alternateButton:localized(@"Use this photo") 
-										  otherButton:nil];
-		if (retVal == NSAlertFirstButtonReturn) {
-			return NO;
-		}
-	}
-	return YES;
-}
-
-
-
-
-- (NSInteger)exportFormat {
-	return exportFormat;
-}
-- (void)setExportFormat:(NSInteger)value {
-	exportFormat = value;
-	NSArray *extensions;
-	switch (value) {
-		case 1:
-			extensions = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", nil];
-			break;
-		default:
-			extensions = [NSArray arrayWithObjects:@"gpg", @"asc", @"pgp", @"key", @"gpgkey", nil];
-			break;
-	}
-	[savePanel setAllowedFileTypes:extensions];
-}
-
-
 
 
 @end
+
+
 
 
 @implementation KeyLengthFormatter
