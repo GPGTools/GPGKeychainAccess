@@ -20,7 +20,7 @@
 #import <Libmacgpg/Libmacgpg.h>
 
 
-@interface KeychainController : NSObject {
+@interface KeychainController : NSObject <NSOutlineViewDelegate> {
     IBOutlet NSTextField *numberOfKeysLabel;
 	IBOutlet NSOutlineView *keyTable;
 	

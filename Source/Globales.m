@@ -89,7 +89,7 @@ BOOL containsPGPKeyBlock(NSString *string) {
 		}
 	}
 	
-	return found ? [[keyIDs copy] autorelease] : nil;
+	return found ? keyIDs : nil;
 }
 - (NSString *)shortKeyID {
 	return [self substringFromIndex:[self length] - 8];
