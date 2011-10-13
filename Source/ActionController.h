@@ -95,7 +95,6 @@ enum {
 - (void)addSignatureForKey:(GPGKey *)key andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
 - (void)changeExpirationDateForKey:(GPGKey *)key subkey:(GPGSubkey *)subkey daysToExpire:(NSInteger)daysToExpire;
 - (NSMutableArray *)searchKeysWithPattern:(NSString *)pattern;
-- (NSString *)receiveKeysWithIDs:(NSSet *)keyIDs;
 - (void)addPhotoForKey:(GPGKey *)key photoPath:(NSString *)path;
 - (NSSet *)keysInExportedData:(NSData *)data;
 - (NSData *)genRevokeCertificateForKey:(GPGKey *)key;

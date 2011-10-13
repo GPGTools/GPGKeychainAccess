@@ -24,7 +24,15 @@
 @interface ActionController ()
 @property (retain) NSString *progressText, *errorText;
 
+- (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
+
 @end
+
+enum {
+	NoAction = 0,
+	ShowResultAction,
+	ShowFoundKeysAction
+};
 
 
 @implementation ActionController
@@ -129,8 +137,6 @@
 		
 		[gpgc setAlgorithmPreferences:[NSString stringWithFormat:@"%@ %@ %@", cipherPreferences, digestPreferences, compressPreferences] forUserID:[userID hashID] ofKey:key];
 	}
-	
-	[[KeychainController sharedInstance] asyncUpdateKey:key];
 }
 
 
@@ -153,14 +159,14 @@
 		[scanner setScanLocation:range.location + 19];
 		[scanner scanInteger:&flags];
 		
-		if (flags > 0) {
-			[scanner scanCharactersFromSet:hexCharSet intoString:&fingerprint];
-			userID = [[[[KeychainController sharedInstance] allKeys] member:fingerprint] userID];
-			keyID = [fingerprint shortKeyID];
+		[scanner scanCharactersFromSet:hexCharSet intoString:&fingerprint];
+		userID = [[[(KeychainController *)[KeychainController sharedInstance] allKeys] member:fingerprint] userID];
+		keyID = [fingerprint shortKeyID];
 
+		if (flags > 0) {
 			if (flags & 1) {
 				if (flags & 16) {
-					[retString appendFormat:localized(@"key %@: secret key imported\n"), keyID];
+					[retString appendFormat:localized(@"key %@: secret key \"%@\" imported\n"), keyID, userID];
 				} else {
 					[retString appendFormat:localized(@"key %@: public key \"%@\" imported\n"), keyID, userID];
 				}
@@ -174,6 +180,8 @@
 			if (flags & 8) {
 				[retString appendFormat:localized(@"key %@: \"%@\" new subkey(s)\n"), keyID, userID];
 			}
+		} else {
+			[retString appendFormat:localized(@"key %@: \"%@\" no changes\n"), keyID, userID];
 		}
 		
 		range.location += range.length;
@@ -400,28 +408,10 @@
 	[pool drain];
 }
 
-- (IBAction)searchKeys:(id)sender {
-	[sheetController searchKeys];
-}
-- (NSArray *)searchKeysWithPattern:(NSString *)pattern {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	NSArray *keys = [[gpgc searchKeysOnServer:pattern] retain];
-	
-	[pool drain];
-	return [keys autorelease];
-}
 
 
 
 
-- (IBAction)receiveKeys:(id)sender {
-	[sheetController receiveKeys];
-}
-- (NSString *)receiveKeysWithIDs:(NSSet *)keyIDs {
-	NSString *statusText = [gpgc receiveKeysFromServer:keyIDs];
-	return [self importResultWithStatusText:statusText];
-}
 
 
 
@@ -435,6 +425,34 @@
 
 
 // Für Libmacgpg überarbeitet //
+- (IBAction)searchKeys:(id)sender {
+	sheetController.sheetType = SheetTypeSearchKeys;
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
+	}
+	
+	gpgc.userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:ShowFoundKeysAction] forKey:@"action"];
+	
+	[gpgc searchKeysOnServer:sheetController.pattern];
+}
+
+- (IBAction)receiveKeys:(id)sender {
+	sheetController.sheetType = SheetTypeReceiveKeys;
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
+	}
+	
+	NSSet *keyIDs = [sheetController.pattern keyIDs];
+
+	[self receiveKeysFromServer:keyIDs];
+}
+
+- (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys {
+	gpgc.userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:ShowResultAction] forKey:@"action"];
+	
+	[gpgc receiveKeysFromServer:keys];
+}
+
 - (IBAction)sendKeysToServer:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] > 0) {
@@ -465,8 +483,6 @@
 		GPGKey *key = [userID primaryKey];
 		
 		[gpgc removeSignature:gpgKeySignature fromUserID:userID ofKey:key];
-		
-		[[KeychainController sharedInstance] asyncUpdateKey:key];
 	}
 }
 
@@ -476,8 +492,6 @@
 		GPGKey *key = [subkey primaryKey];
 		
 		[gpgc removeSubkey:subkey fromKey:key];
-		
-		[[KeychainController sharedInstance] asyncUpdateKey:key];
 	}
 }
 
@@ -487,8 +501,6 @@
 		GPGKey *key = [userID primaryKey];
 		
 		[gpgc removeUserID:[userID hashID] fromKey:key];
-		
-		[[KeychainController sharedInstance] asyncUpdateKey:key];
 	}
 }
 
@@ -499,8 +511,6 @@
 		GPGKey *key = [userID primaryKey];
 		
 		[gpgc revokeSignature:gpgKeySignature fromUserID:userID ofKey:key reason:0 description:nil];
-		
-		[[KeychainController sharedInstance] asyncUpdateKey:key];
 	}
 }
 
@@ -510,8 +520,6 @@
 		GPGKey *key = [subkey primaryKey];
 		
 		[gpgc revokeSubkey:subkey fromKey:key reason:0 description:nil];		
-		
-		[[KeychainController sharedInstance] asyncUpdateKey:key];
 	}
 }
 
@@ -521,8 +529,6 @@
 		GPGKey *key = [userID primaryKey];
 		
 		[gpgc revokeUserID:[userID hashID] fromKey:key reason:0 description:nil]; 
-		
-		[[KeychainController sharedInstance] asyncUpdateKey:key];
 	}
 }
 
@@ -547,8 +553,6 @@
 		GPGKey *key = [userID primaryKey];
 	
 		[gpgc setPrimaryUserID:[userID hashID] ofKey:key];
-
-		[[KeychainController sharedInstance] asyncUpdateKey:key];
 	}
 }
 
@@ -666,43 +670,42 @@
 - (IBAction)generateNewKey:(id)sender {
 	sheetController.sheetType = SheetTypeNewKey;
 	if ([sheetController runModalForWindow:mainWindow] == NSOKButton) {
-		NSInteger keyType, subkeyType;
-		
-		switch (sheetController.keyType) {
-			default:
-			case 1: //RSA und RSA
-				keyType = GPG_RSAAlgorithm;
-				subkeyType = GPG_RSAAlgorithm;
-				break;
-			case 2: //DSA und Elgamal
-				keyType = GPG_DSAAlgorithm;
-				subkeyType = GPG_ElgamalEncryptOnlyAlgorithm;
-				break;
-			case 3: //DSA
-				keyType = GPG_DSAAlgorithm;
-				subkeyType = 0;
-				break;
-			case 4: //RSA
-				keyType = GPG_RSAAlgorithm;
-				subkeyType = 0;
-				break;
-		}
-		self.progressText = localized(@"GenerateEntropy_Msg");
-		self.errorText = localized(@"GenerateKey_Error");
-		
-		[gpgc generateNewKeyWithName:sheetController.name 
-							   email:sheetController.email 
-							 comment:sheetController.comment 
-							 keyType:keyType 
-						   keyLength:sheetController.length 
-						  subkeyType:subkeyType 
-						subkeyLength:sheetController.length 
-						daysToExpire:[sheetController.expirationDate daysSinceNow]
-						 preferences:nil 
-						  passphrase:sheetController.passphrase];
-
+		return;
 	}
+	NSInteger keyType, subkeyType;
 	
+	switch (sheetController.keyType) {
+		default:
+		case 1: //RSA und RSA
+			keyType = GPG_RSAAlgorithm;
+			subkeyType = GPG_RSAAlgorithm;
+			break;
+		case 2: //DSA und Elgamal
+			keyType = GPG_DSAAlgorithm;
+			subkeyType = GPG_ElgamalEncryptOnlyAlgorithm;
+			break;
+		case 3: //DSA
+			keyType = GPG_DSAAlgorithm;
+			subkeyType = 0;
+			break;
+		case 4: //RSA
+			keyType = GPG_RSAAlgorithm;
+			subkeyType = 0;
+			break;
+	}
+	self.progressText = localized(@"GenerateEntropy_Msg");
+	self.errorText = localized(@"GenerateKey_Error");
+	
+	[gpgc generateNewKeyWithName:sheetController.name 
+						   email:sheetController.email 
+						 comment:sheetController.comment 
+						 keyType:keyType 
+					   keyLength:sheetController.length 
+					  subkeyType:subkeyType 
+					subkeyLength:sheetController.length 
+					daysToExpire:[sheetController.expirationDate daysSinceNow]
+					 preferences:nil 
+					  passphrase:sheetController.passphrase];
 }
 
 
@@ -719,21 +722,58 @@
 	[gpgc cancel];
 }
 
-- (void)gpgControllerOperationDidStart:(GPGController *)gpgc {
+- (void)gpgControllerOperationDidStart:(GPGController *)gc {
 	sheetController.progressText = self.progressText;
 	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:NO];
 }
-- (void)gpgController:(GPGController *)gpgc operationThrownException:(NSException *)e {
+- (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
 	if ([e isKindOfClass:[GPGException class]]) {
 		if ([(GPGException *)e errorCode] == GPGErrorCancelled) {
 			return;
 		}
 	}
-	sheetController.errorText = [NSString stringWithFormat:self.errorText, e.name /*TODO: Add description from errorCode*/];
+	sheetController.errorText = [NSString stringWithFormat:self.errorText ? self.errorText : @"%@", e.reason /*TODO: Add description from errorCode*/];
 	[sheetController showErrorSheet];
 }
-- (void)gpgController:(GPGController *)gpgc operationDidFinishWithReturnValue:(id)value {
-	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:NO];
+- (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
+	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
+	
+	NSInteger action = [[gc.userInfo objectForKey:@"action"] integerValue];
+	gc.userInfo = nil;
+	
+	switch (action) {
+		case ShowResultAction: {
+			if (gc.error) break;
+
+			NSString *statusText = gc.lastReturnValue;
+			if ([statusText length] > 0) {
+				sheetController.msgText = [self importResultWithStatusText:statusText];
+				
+				sheetController.sheetType = SheetTypeShowResult;
+				[sheetController runModalForWindow:mainWindow];
+			}
+			break;
+		}
+		case ShowFoundKeysAction: {
+			if (gc.error) break;
+			NSArray *keys = gc.lastReturnValue;
+			if ([keys count] == 0) break;
+			
+			sheetController.keys = keys;
+			
+			sheetController.sheetType = SheetTypeShowFoundKeys;
+			if ([sheetController runModalForWindow:mainWindow] != NSOKButton) break;
+			
+			[self receiveKeysFromServer:sheetController.keys];
+			
+			break;
+		}
+		default:
+			break;
+	}
+	
+
+	
 }
 - (void)gpgController:(GPGController *)gpgc keysDidChanged:(NSObject<EnumerationList> *)keys external:(BOOL)external {
 	[(KeychainController *)[KeychainController sharedInstance] updateKeys:keys];

@@ -7,6 +7,7 @@
 @interface SheetController ()
 @property (assign) NSView *displayedView;
 @property (assign) NSWindow *modalWindow;
+@property (retain) NSArray *foundKeyDicts;
 - (void)runAndWait;
 - (void)setStandardExpirationDates;
 - (void)setDataFromAddressBook;
@@ -15,6 +16,7 @@
 - (BOOL)checkComment;
 - (BOOL)checkPassphrase;
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+- (void)generateFoundKeyDicts;
 @end
 
 
@@ -22,9 +24,9 @@
 @synthesize progressText, errorText, msgText, name, email, comment, passphrase, confirmPassphrase, pattern, 
 	hasExpirationDate, allowSecretKeyExport, localSig, allowEdit,
 	expirationDate, minExpirationDate, maxExpirationDate,
-	userIDs, foundKeys, emailAddresses, secretKeys, availableLengths,
+	userIDs, keys, emailAddresses, secretKeys, availableLengths,
 	exportFormat, secretKeyId, sigType, length, sheetType,
-	modalWindow;
+	modalWindow, foundKeyDicts;
 
 
 - (void)showProgressSheet {
@@ -104,6 +106,16 @@
 			self.displayedView = receiveKeysView;
 			[self runAndWait];
 			break;
+		case SheetTypeShowResult:
+			self.displayedView = resultView;
+			[self runAndWait];
+			break;
+		case SheetTypeShowFoundKeys:
+			[self generateFoundKeyDicts];
+			
+			self.displayedView = foundKeysView;
+			[self runAndWait];
+			break;
 		default:
 			return -1;
 	}
@@ -148,6 +160,46 @@
 
 
 
+
+- (void)generateFoundKeyDicts {
+	NSMutableArray *dicts = [NSMutableArray arrayWithCapacity:[keys count]];
+	
+	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+	
+	GPGKeyAlgorithmNameTransformer *algorithmNameTransformer = [[GPGKeyAlgorithmNameTransformer new] autorelease];
+	
+	for (GPGRemoteKey *key in keys) {
+		NSNumber *selected;
+		NSDictionary *stringAttributes;
+		NSMutableAttributedString *description;
+		
+		if (key.expired || key.revoked) {
+			selected = [NSNumber numberWithBool:NO];
+			stringAttributes = [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
+		} else {
+			selected = [NSNumber numberWithBool:YES];
+			stringAttributes = nil;
+		}
+		
+		NSString *tempDescription = [NSString stringWithFormat:localized(@"%@, %@ (%lu bit), created: %@"), 
+									 key.keyID, //Schlüssel ID
+									 [algorithmNameTransformer transformedIntegerValue:key.algorithm], //Algorithmus
+									 key.length, //Länge
+									 [dateFormatter stringFromDate:key.creationDate]]; //Erstellt
+		
+		description = [[[NSMutableAttributedString alloc] initWithString:tempDescription attributes:stringAttributes] autorelease];
+		
+		for (GPGRemoteUserID *userID in key.userIDs) {
+			[description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n	%@", userID.userID]]];
+		}
+		
+		[dicts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:description, @"description", selected, @"selected", [NSNumber numberWithUnsignedInteger:[key.userIDs count] + 1], @"lines", key, @"key", nil]];
+	}
+	
+	self.foundKeyDicts = dicts;
+}
 
 
 
@@ -235,6 +287,7 @@
 
 - (IBAction)buttonClicked:(NSButton *)sender {
 	clickedButton = sender.tag;
+	[sheetWindow endEditingFor:nil];
 	
 	if (numberOfProgressSheets > 0) {
 		[[ActionController sharedInstance] cancelOperation:self];
@@ -252,16 +305,24 @@
 						self.passphrase = nil;
 					}
 					break;
-				case SheetTypeSearchKeys:
-					break;
 				case SheetTypeReceiveKeys: {
-					NSSet *keyIDs = [pattern keyIDs];
-					if (!keyIDs) {
+					NSSet *keyIDs = [self.pattern keyIDs];
+					if (keyIDs.count == 0) {
 						NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NoKeyID"), nil, nil, nil);
 						return;
 					}
 
 					break; 
+				}
+				case SheetTypeShowFoundKeys: {
+					NSMutableArray *selectedKeys = [NSMutableArray arrayWithCapacity:[keys count]];
+					for (NSDictionary *keyDict in self.foundKeyDicts) {
+						if ([[keyDict objectForKey:@"selected"] boolValue]) {
+							[selectedKeys addObject:[keyDict objectForKey:@"key"]];
+						}
+					}
+					self.keys = selectedKeys;
+					break;
 				}
 			}
 		}
@@ -451,6 +512,27 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		}
 	}
 }
+
+
+// NSTableView delegate.
+- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
+	NSDictionary *foundKey = [[foundKeysController arrangedObjects] objectAtIndex:row];
+	return [[foundKey objectForKey:@"lines"] integerValue] * [tableView rowHeight] + 1;
+}
+- (BOOL)tableView:(NSTableView *)tableView shouldTypeSelectForEvent:(NSEvent *)event withCurrentSearchString:(NSString *)searchString {
+	if ([event type] == NSKeyDown && [event keyCode] == 49) { //Leertaste gedrückt
+		NSArray *selectedKeys = [foundKeysController selectedObjects];
+		if ([selectedKeys count] > 0) {
+			NSNumber *selected = [NSNumber numberWithBool:![[[selectedKeys objectAtIndex:0] objectForKey:@"selected"] boolValue]];
+			for (NSMutableDictionary *foundKey in [foundKeysController selectedObjects]) {
+				[foundKey setObject:selected forKey:@"selected"];
+			}
+		}
+	}
+	return NO;
+}
+
+
 
 
 

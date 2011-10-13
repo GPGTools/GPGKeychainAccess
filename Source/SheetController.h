@@ -5,9 +5,11 @@
 
 typedef enum {
 	SheetTypeNoSheet = 0,
+	SheetTypeShowResult,
 	SheetTypeNewKey,
 	SheetTypeSearchKeys,
-	SheetTypeReceiveKeys
+	SheetTypeReceiveKeys,
+	SheetTypeShowFoundKeys
 } SheetType;
 
 enum {
@@ -15,7 +17,7 @@ enum {
 };
 
 
-@interface SheetController : NSObject <NSOpenSavePanelDelegate> {
+@interface SheetController : NSObject <NSOpenSavePanelDelegate, NSTabViewDelegate> {
 	IBOutlet NSWindow *sheetWindow;
 	IBOutlet NSView *sheetView;
 	
@@ -55,8 +57,9 @@ enum {
 @property (retain) NSString *progressText, *errorText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern;
 @property BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit;
 @property (retain) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
-@property (retain) NSArray *userIDs, *foundKeys, *emailAddresses, *secretKeys, *availableLengths;
+@property (retain) NSArray *userIDs, *keys, *emailAddresses, *secretKeys, *availableLengths;
 @property NSInteger exportFormat, secretKeyId, keyType, sigType, length, sheetType;
+@property (readonly, retain) NSArray *foundKeyDicts;
 
 
 - (NSInteger)runModal;

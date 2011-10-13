@@ -55,7 +55,14 @@ NSSet *draggedKeys;
 }
 
 
-// Für Drag & Drop.
+
+
+// NSOutlineView delegate.
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldReorderColumn:(NSInteger)columnIndex toColumn:(NSInteger)newColumnIndex {
+	return columnIndex != 0 && newColumnIndex != 0;
+}
+
+//Für Drag & Drop.
 - (BOOL)outlineView:(NSOutlineView*)outlineView writeItems:(NSArray*)items toPasteboard:(NSPasteboard *)pasteboard {
 	NSMutableSet *keys = [NSMutableSet setWithCapacity:[items count]];
 	
@@ -110,6 +117,10 @@ NSSet *draggedKeys;
 }
 
 
+
+
+
+
 // Metoden zum aktualisieren der Schlüsselliste.
 - (void)asyncUpdateKey:(GPGKey *)key {
 	[NSThread detachNewThreadSelector:@selector(updateKeys:) toTarget:self withObject:[NSSet setWithObject:key]];
@@ -132,6 +143,23 @@ NSSet *draggedKeys;
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	@try {
+		NSMutableSet *realKeys = [NSMutableSet setWithCapacity:[keys count]];
+		
+		//Fingerabdrücke wenn möglich durch die entsprechenden Schlüssel ersetzen.
+		Class keyClass = [GPGKey class];
+		for (GPGKey *key in keys) {
+			if (![key isKindOfClass:keyClass]) {
+				GPGKey *tempKey = [allKeys member:key];
+				if (tempKey) {
+					key = tempKey;
+				}
+			}
+			[realKeys addObject:key];
+		}
+		keys = realKeys;
+		
+		
+		
 		NSSet *updatedKeys = [gpgc updateKeys:keys withSigs:withSigs];
 		if (gpgc.error) {
 			@throw gpgc.error;
@@ -225,6 +253,12 @@ NSSet *draggedKeys;
 	}
 	return YES;
 }
+
+
+
+
+
+
 
 
 

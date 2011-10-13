@@ -34,7 +34,12 @@ static PreferencesController *_sharedInstance = nil;
 
 - (id)init {
 	if (self = [super init]) {
-		[NSBundle loadNibNamed:@"Preferences" owner:self];
+		@try {
+			[NSBundle loadNibNamed:@"Preferences" owner:self];
+		}
+		@catch (NSException *exception) {
+			NSLog(@"%@", exception);
+		}
 	}
 	return self;
 }
