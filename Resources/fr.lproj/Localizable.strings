@@ -78,12 +78,13 @@ Cancel = "Annuler";
 
 
 //For Import-Results
-"key %@: clé secrète importée\n" = "clé %@: clé secrète importée\n";
-"key %@: clé publique \"%@\" importée\n" = "clé %@: clé publique \"%@\" importée\n";
-"key %@: \"%@\" Nouvel/nouveaux identifiant(s) d'usager\n" = "clé %@: \"%@\" Nouvel/nouveaux identifiant(s) d'usager";
-"key %@: \"%@\" nouvelle(s) signature(s)\n" = "key %@: \"%@\" nouvelle(s) signature(s)\n";
-"key %@: \"%@\" nouvelle(s) sous-clés\n" = "key %@: \"%@\" nouvelle(s) sous-clés\n";
-"Nothing imported!" = "Rien n'a été importé!";
+ImportResult_Secret = "clé %@: clé secrète \"%@\" importée\n";
+ImportResult_Public = "clé %@: clé publique \"%@\" importée\n";
+ImportResult_UserID = "clé %@: \"%@\" Nouvel/nouveaux identifiant(s) d'usager";
+ImportResult_Signature = "key %@: \"%@\" nouvelle(s) signature(s)\n";
+ImportResult_Subkey = "key %@: \"%@\" nouvelle(s) sous-clés\n";
+ImportResult_NoChanges = "key %@: \"%@\" no changes."; //TODO
+ImportResult_Nothing = "Rien n'a été importé!";
 
 
 //The Algorithms
@@ -103,12 +104,13 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 //For opening and saving dialogues
-"This picture is really large!" = "Cette image est vraiment grande!";
-"You should use a smaller picture." = "Vous devriez utiliser une image plus petite.";
-"Choose another…" = "Choisissez un(e) autre…";
-"Use this photo" = "Utilisez cette photo";
-"This picture is to large!" = "Cette image est trop grande!";
-"Please use a picature smaller than 1 MiB." = "Prière utiliser une image de moins de 1 MiO.";
+ChoosePhoto_Large_Message = "Cette image est vraiment grande!";
+ChoosePhoto_Large_Info = "Vous devriez utiliser une image plus petite.";
+ChoosePhoto_Large_Button1 = "Choisissez un(e) autre…";
+ChoosePhoto_Large_Button2 = "Utilisez cette photo";
+ChoosePhoto_ToLarge_Message = "Cette image est trop grande!";
+ChoosePhoto_ToLarge_Info = "Prière utiliser une image de moins de 500 KiO.";
+
 "Export failed!" = "L'exportation a échoué!";
 
 "Generate revoke certificate failed!" = "Génération d'un certificat de revocation a échoué!";

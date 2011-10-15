@@ -91,13 +91,11 @@ enum {
 - (NSString *)importResultWithStatusText:(NSString *)statusText;
 
 - (void)addSubkeyForKey:(GPGKey *)key type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
-- (void)addUserIDForKey:(GPGKey *)key name:(NSString *)name email:(NSString *)email comment:(NSString *)comment;
 - (void)addSignatureForKey:(GPGKey *)key andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
 - (void)changeExpirationDateForKey:(GPGKey *)key subkey:(GPGSubkey *)subkey daysToExpire:(NSInteger)daysToExpire;
 - (NSMutableArray *)searchKeysWithPattern:(NSString *)pattern;
 - (void)addPhotoForKey:(GPGKey *)key photoPath:(NSString *)path;
 - (NSSet *)keysInExportedData:(NSData *)data;
-- (NSData *)genRevokeCertificateForKey:(GPGKey *)key;
 - (void)editAlgorithmPreferencesForKey:(GPGKey *)key preferences:(NSArray *)userIDs;
 
 - (void)cancelOperation:(id)sender;

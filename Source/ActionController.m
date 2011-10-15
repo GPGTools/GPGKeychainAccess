@@ -15,7 +15,7 @@
  
  Sie sollten ein Exemplar der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
-*/
+ */
 
 #import "ActionController.h"
 #import "KeychainController.h"
@@ -31,7 +31,8 @@
 enum {
 	NoAction = 0,
 	ShowResultAction,
-	ShowFoundKeysAction
+	ShowFoundKeysAction,
+	SaveDataToURLAction
 };
 
 
@@ -102,7 +103,10 @@ enum {
 - (IBAction)copy:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] > 0) {
-		NSString *exportedKeys = [[self exportKeys:keys armored:YES allowSecret:NO fullExport:NO] gpgString];
+		gpgc.async = NO;
+		gpgc.useArmor = YES;
+		NSString *exportedKeys = [[gpgc exportKeys:keys allowSecret:NO fullExport:NO] gpgString];
+		gpgc.async = YES;
 		if ([exportedKeys length] > 0) {
 			NSPasteboard *pboard = [NSPasteboard generalPasteboard];
 			[pboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
@@ -121,15 +125,41 @@ enum {
 
 
 
+
+
+
+
+
+
 - (IBAction)editAlgorithmPreferences:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] == 1) {
-		GPGKey *key = [keys anyObject];
-		[sheetController algorithmPreferences:key editable:[key secret]];
-	}	
-}
-- (void)editAlgorithmPreferencesForKey:(GPGKey *)key preferences:(NSArray *)preferencesList {
-	for (NSDictionary *preferences in preferencesList) {
+	NSSet *keys = [self selectedKeys];		
+	if ([keys count] != 1) {
+		return;
+	}
+	GPGKey *key = [keys anyObject];
+	
+	NSMutableArray *algorithmPreferences = [NSMutableArray array];
+	
+	
+	for (GPGUserID *userID in [key userIDs]) {
+		[algorithmPreferences addObject:
+		 [NSMutableDictionary dictionaryWithObjectsAndKeys:
+		  userID, @"userID", 
+		  [userID cipherPreferences], @"cipherPreferences", 
+		  [userID digestPreferences], @"digestPreferences", 
+		  [userID compressPreferences], @"compressPreferences", 
+		  [userID otherPreferences], @"otherPreferences", nil]];
+	}
+	
+	sheetController.allowEdit = key.secret;
+	sheetController.algorithmPreferences = algorithmPreferences; 
+	sheetController.sheetType = SheetTypeAlgorithmPreferences;
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
+	}
+	
+	
+	for (NSDictionary *preferences in sheetController.algorithmPreferences) {
 		GPGUserID *userID = [preferences objectForKey:@"userID"];
 		NSString *cipherPreferences = [[preferences objectForKey:@"cipherPreferences"] componentsJoinedByString:@" "];
 		NSString *digestPreferences = [[preferences objectForKey:@"digestPreferences"] componentsJoinedByString:@" "];
@@ -137,276 +167,20 @@ enum {
 		
 		[gpgc setAlgorithmPreferences:[NSString stringWithFormat:@"%@ %@ %@", cipherPreferences, digestPreferences, compressPreferences] forUserID:[userID hashID] ofKey:key];
 	}
-}
-
-
-
-- (NSString *)importResultWithStatusText:(NSString *)statusText {
-	NSMutableString *retString = [NSMutableString string];
-	NSScanner *scanner = [NSScanner scannerWithString:statusText];
-	NSCharacterSet *hexCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEFabcdef"];
-	NSUInteger length = [statusText length];
 	
-	NSInteger flags;
-	NSString *fingerprint;
-	NSString *userID;
-	NSString *keyID;
-	
-	NSRange range = {0, length};
-	
-	
-	while ((range = [statusText rangeOfString:@"[GNUPG:] IMPORT_OK " options:NSLiteralSearch range:range]).length > 0) {
-		[scanner setScanLocation:range.location + 19];
-		[scanner scanInteger:&flags];
-		
-		[scanner scanCharactersFromSet:hexCharSet intoString:&fingerprint];
-		userID = [[[(KeychainController *)[KeychainController sharedInstance] allKeys] member:fingerprint] userID];
-		keyID = [fingerprint shortKeyID];
 
-		if (flags > 0) {
-			if (flags & 1) {
-				if (flags & 16) {
-					[retString appendFormat:localized(@"key %@: secret key \"%@\" imported\n"), keyID, userID];
-				} else {
-					[retString appendFormat:localized(@"key %@: public key \"%@\" imported\n"), keyID, userID];
-				}
-			}
-			if (flags & 2) {
-				[retString appendFormat:localized(@"key %@: \"%@\" new user ID(s)\n"), keyID, userID];
-			}
-			if (flags & 4) {
-				[retString appendFormat:localized(@"key %@: \"%@\" new signature(s)\n"), keyID, userID];
-			}
-			if (flags & 8) {
-				[retString appendFormat:localized(@"key %@: \"%@\" new subkey(s)\n"), keyID, userID];
-			}
-		} else {
-			[retString appendFormat:localized(@"key %@: \"%@\" no changes\n"), keyID, userID];
-		}
-		
-		range.location += range.length;
-		range.length = length - range.location;
-	}
-		
-	if ([retString length] == 0) {
-		[retString setString:localized(@"Nothing imported!")];
-	}
-	
-	return retString;
 }
 
 
 
-- (IBAction)cleanKey:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] > 0) {		
-		for (GPGKey *key in keys) {
-			[gpgc cleanKey:key];
-		}
-	}
-}
-- (IBAction)minimizeKey:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] > 0) {
-		for (GPGKey *key in keys) {
-			[gpgc minimizeKey:key];
-		}
-	}
-}
-
-
-- (IBAction)addPhoto:(NSButton *)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] == 1) {
-		GPGKey *key = [[keys anyObject] primaryKey];
-		
-		[sheetController addPhoto:key];
-	}
-}
-- (void)addPhotoForKey:(GPGKey *)key photoPath:(NSString *)path {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	[gpgc addPhotoFromPath:path toKey:key];
-	
-	[pool drain];
-}
-
-- (IBAction)removePhoto:(NSButton *)sender {
-	if ([photosController selectionIndex] != NSNotFound) {
-		NSSet *keys = [self selectedKeys];		
-		GPGKey *key = [[keys anyObject] primaryKey];
-		
-		[gpgc removeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key];
-	}
-}
-- (IBAction)revokePhoto:(NSButton *)sender {
-	if ([photosController selectionIndex] != NSNotFound) {
-		NSSet *keys = [self selectedKeys];		
-		GPGKey *key = [[keys anyObject] primaryKey];
-
-		[gpgc revokeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key reason:0 description:nil];
-	}
-}
-
-- (IBAction)setPrimaryPhoto:(NSButton *)sender {
-	if ([photosController selectionIndex] != NSNotFound) {
-		NSSet *keys = [self selectedKeys];		
-		GPGKey *key = [[keys anyObject] primaryKey];
-		
-		[gpgc setPrimaryUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] ofKey:key];
-	}
-}
 
 
 
-- (IBAction)importKey:(id)sender {
-	[sheetController importKey];
-}
-- (void)importFromURLs:(NSArray *)urls {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSMutableData *dataToImport = [NSMutableData dataWithCapacity:100000];
-
-	for (NSObject *url in urls) {
-		if ([url isKindOfClass:[NSURL class]]) {
-			[dataToImport appendData:[NSData dataWithContentsOfURL:(NSURL*)url]];
-		} else if ([url isKindOfClass:[NSString class]]) {
-			[dataToImport appendData:[NSData dataWithContentsOfFile:(NSString*)url]];
-		}
-	}
-	[self importFromData:dataToImport];
-	[pool drain];
-}
-- (void)importFromData:(NSData *)data {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	NSString *statusText = [gpgc importFromData:data fullImport:NO];
-	
-	[sheetController showResult:[self importResultWithStatusText:statusText]];
-	
-	[pool drain];
-}
 
 
 
-- (IBAction)exportKey:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	
-	[sheetController exportKeys:keys];
-}
-- (NSData *)exportKeys:(NSObject <EnumerationList> *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec fullExport:(BOOL)fullExport {
-	gpgc.useArmor = armored;
-	return [gpgc exportKeys:keys allowSecret:allowSec fullExport:fullExport];
-}
-
-- (NSSet *)keysInExportedData:(NSData *)data {
-	NSMutableSet *keys = [NSMutableSet set];
-	GPGPacket *packet = [GPGPacket packetWithData:data];
-	
-	while (packet) {
-		if (packet.type == GPGPublicKeyPacket || packet.type == GPGSecretKeyPacket) {
-			[keys addObject:packet.fingerprint];
-		}
-		packet = packet.nextPacket;
-	}
-	
-	return keys;
-}
 
 
-- (IBAction)genRevokeCertificate:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] == 1) {
-		[sheetController genRevokeCertificateForKey:[keys anyObject]];
-	}
-}
-- (NSData *)genRevokeCertificateForKey:(GPGKey *)key {
-	return [gpgc generateRevokeCertificateForKey:key reason:0 description:nil];
-}
-
-
-
-- (IBAction)addSignature:(id)sender {
-	if ([sender tag] != 1 || [userIDsController selectionIndex] != NSNotFound) {
-		NSSet *keys = [self selectedKeys];		
-		GPGKey *key = [[keys anyObject] primaryKey];
-		
-		NSString *userID;
-		if ([sender tag] == 1) {
-			userID = [[[userIDsController selectedObjects] objectAtIndex:0] userID];
-		} else {
-			userID = nil;
-		}
-		
-		[sheetController addSignature:key userID:userID];
-	}
-}
-- (void)addSignatureForKey:(GPGKey *)key andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	[gpgc signUserID:userID ofKey:key signKey:signFingerprint type:type local:local daysToExpire:daysToExpire];
-	
-	[pool drain];
-}
-
-- (IBAction)addSubkey:(NSButton *)sender {
-	NSSet *keys = [self selectedKeys];		
-	if ([keys count] == 1) {
-		GPGKey *key = [[keys anyObject] primaryKey];
-		
-		[sheetController addSubkey:key];
-	}
-}
-- (void)addSubkeyForKey:(GPGKey *)key type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-	[gpgc addSubkeyToKey:key type:type length:length daysToExpire:daysToExpire];
-
-	[pool drain];
-}
-
-- (IBAction)addUserID:(NSButton *)sender {
-	NSSet *keys = [self selectedKeys];		
-	if ([keys count] == 1) {
-		GPGKey *key = [[keys anyObject] primaryKey];
-		
-		[sheetController addUserID:key];
-	}
-}
-- (void)addUserIDForKey:(GPGKey *)key name:(NSString *)name email:(NSString *)email comment:(NSString *)comment{
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-
-	[gpgc addUserIDToKey:key name:name email:email comment:comment];
-	
-	[pool drain];
-}
-
-- (IBAction)changeExpirationDate:(NSButton *)sender {
-	BOOL aKeyIsSelected = NO;
-	GPGSubkey *subkey;
-	
-	NSSet *keys = [self selectedKeys];			
-	if ([sender tag] == 1 && [[subkeysController selectedObjects] count] == 1) {
-		subkey = [[subkeysController selectedObjects] objectAtIndex:0];
-		aKeyIsSelected = YES;
-	} else if ([sender tag] == 0 && [keys count] == 1) {
-		subkey = nil;
-		aKeyIsSelected = YES;
-	}
-	
-	if (aKeyIsSelected) {
-		GPGKey *key = [[keys anyObject] primaryKey];
-		
-		[sheetController changeExpirationDate:key subkey:subkey];
-	}
-	
-}
-- (void)changeExpirationDateForKey:(GPGKey *)key subkey:(GPGSubkey *)subkey daysToExpire:(NSInteger)daysToExpire {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:daysToExpire];
-	
-	[pool drain];
-}
 
 
 
@@ -425,6 +199,318 @@ enum {
 
 
 // Für Libmacgpg überarbeitet //
+- (IBAction)addPhoto:(NSButton *)sender {
+	NSSet *keys = [self selectedKeys];		
+	if ([keys count] != 1) {
+		return;
+	}
+	GPGKey *key = [[keys anyObject] primaryKey];
+	
+	sheetController.title = nil; //TODO
+	sheetController.msgText = nil; //TODO
+	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"jpg", @"jpeg", nil];;
+	
+	sheetController.sheetType = SheetTypeOpenPhotoPanel;
+	if ([sheetController runModalForWindow:inspectorWindow] != NSOKButton) {
+		return;
+	}
+	
+	[gpgc addPhotoFromPath:[sheetController.URL path] toKey:key];
+}
+
+
+- (IBAction)revokePhoto:(NSButton *)sender {
+	if ([photosController selectionIndex] != NSNotFound) {
+		GPGKey *key = [[[self selectedKeys] anyObject] primaryKey];		
+		
+		[gpgc revokeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key reason:0 description:nil];
+	}
+}
+
+- (IBAction)setPrimaryPhoto:(NSButton *)sender {
+	if ([photosController selectionIndex] != NSNotFound) {
+		GPGKey *key = [[[self selectedKeys] anyObject] primaryKey];		
+		
+		[gpgc setPrimaryUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] ofKey:key];
+	}
+}
+
+
+- (IBAction)importKey:(id)sender {
+	sheetController.title = nil; //TODO
+	sheetController.msgText = nil; //TODO
+	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", nil];
+	
+	sheetController.sheetType = SheetTypeOpenPanel;
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
+	}
+	
+	[self importFromURLs:sheetController.URLs];
+}
+- (void)importFromURLs:(NSArray *)urls {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSMutableData *dataToImport = [NSMutableData data];
+	
+	for (NSObject *url in urls) {
+		if ([url isKindOfClass:[NSURL class]]) {
+			[dataToImport appendData:[NSData dataWithContentsOfURL:(NSURL *)url]];
+		} else if ([url isKindOfClass:[NSString class]]) {
+			[dataToImport appendData:[NSData dataWithContentsOfFile:(NSString *)url]];
+		}
+	}
+	[self importFromData:dataToImport];
+	[pool drain];
+}
+- (void)importFromData:(NSData *)data {
+	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:ShowResultAction], @"action", nil];
+	[gpgc importFromData:data fullImport:NO];
+}
+
+
+- (NSString *)importResultWithStatusText:(NSString *)statusText {
+	NSInteger flags;
+	NSString *fingerprint, *keyID, *userID;
+	NSNumber *no = [NSNumber numberWithBool:0], *yes = [NSNumber numberWithBool:1];
+	NSCharacterSet *hexCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEFabcdef"];
+	NSMutableArray *lines = [NSMutableArray array];
+	NSMutableDictionary *changedKeys = [NSMutableDictionary dictionary];
+	
+	NSScanner *scanner = [NSScanner scannerWithString:statusText];
+	NSUInteger length = [statusText length];
+	NSRange range = {0, length};
+	
+	
+	while ((range = [statusText rangeOfString:@"[GNUPG:] IMPORT_OK " options:NSLiteralSearch range:range]).length > 0) {
+		[scanner setScanLocation:range.location + 19];
+		[scanner scanInteger:&flags];
+		
+		[scanner scanCharactersFromSet:hexCharSet intoString:&fingerprint];
+		userID = [[[(KeychainController *)[KeychainController sharedInstance] allKeys] member:fingerprint] userID];
+		keyID = [fingerprint shortKeyID];
+		
+		if (flags > 0) {
+			if (flags & 1) {
+				if (flags & 16) {
+					[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_Secret"), keyID, userID]];
+				} else {
+					[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_Public"), keyID, userID]];
+				}
+			}
+			if (flags & 2) {
+				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_UserID"), keyID, userID]];
+			}
+			if (flags & 4) {
+				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_Signature"), keyID, userID]];
+			}
+			if (flags & 8) {
+				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_Subkey"), keyID, userID]];
+			}
+			[changedKeys setObject:yes forKey:fingerprint];
+		} else {
+			if ([changedKeys objectForKey:fingerprint] == nil) {
+				[changedKeys setObject:no forKey:fingerprint];
+			}
+		}
+		
+		range.location += range.length;
+		range.length = length - range.location;
+	}
+	
+	for (fingerprint in [changedKeys allKeysForObject:no]) {
+		userID = [[[(KeychainController *)[KeychainController sharedInstance] allKeys] member:fingerprint] userID];
+		keyID = [fingerprint shortKeyID];
+		
+		[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_NoChanges"), keyID, userID]];
+	}
+	
+	if ([lines count] == 0) {
+		return localized(@"ImportResult_Nothing");
+	}
+	
+	return [lines componentsJoinedByString:@"\n"];
+}
+
+- (IBAction)exportKey:(id)sender {
+	NSSet *keys = [self selectedKeys];
+	if (keys.count == 0) {
+		return;
+	}
+	
+	sheetController.title = nil; //TODO
+	sheetController.msgText = nil; //TODO
+	
+	if ([keys count] == 1) {
+		sheetController.pattern = [[keys anyObject] shortKeyID];
+	} else {
+		sheetController.pattern = localized(@"untitled");
+	}
+	
+	
+	sheetController.sheetType = SheetTypeExportKey;
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
+	}
+	
+	gpgc.useArmor = sheetController.exportFormat != 0;
+	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:SaveDataToURLAction], @"action", sheetController.URL, @"URL", nil];
+	[gpgc exportKeys:keys allowSecret:sheetController.allowSecretKeyExport fullExport:NO];
+}
+
+- (IBAction)genRevokeCertificate:(id)sender {
+	NSSet *keys = [self selectedKeys];		
+	if ([keys count] != 1) {
+		return;
+	}
+	GPGKey *key = [[keys anyObject] primaryKey];
+	
+	
+	sheetController.title = nil; //TODO
+	sheetController.msgText = nil; //TODO
+	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", nil];
+	sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), [key shortKeyID]];
+	
+	sheetController.sheetType = SheetTypeSavePanel;
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
+	}
+	
+	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:SaveDataToURLAction], @"action", sheetController.URL, @"URL", nil];
+	[gpgc generateRevokeCertificateForKey:key reason:0 description:nil];			   
+}
+
+
+- (NSSet *)keysInExportedData:(NSData *)data {
+	NSMutableSet *keys = [NSMutableSet set];
+	GPGPacket *packet = [GPGPacket packetWithData:data];
+	
+	while (packet) {
+		if (packet.type == GPGPublicKeyPacket || packet.type == GPGSecretKeyPacket) {
+			[keys addObject:packet.fingerprint];
+		}
+		packet = packet.nextPacket;
+	}
+	
+	return keys;
+}
+
+- (IBAction)addSignature:(id)sender {
+	NSSet *keys = [self selectedKeys];		
+	if ([keys count] != 1) {
+		return;
+	}
+	
+	GPGUserID *userID = nil;
+	if ([sender tag] == 1) {
+		if ([userIDsController selectionIndex] == NSNotFound) {
+			return;
+		}
+		userID = [[userIDsController selectedObjects] objectAtIndex:0];
+	}
+	
+	GPGKey *key = [[keys anyObject] primaryKey];
+	
+	NSSet *secretKeys = [[KeychainController sharedInstance] secretKeys];
+	
+	sheetController.secretKeys = [secretKeys allObjects];
+	sheetController.secretKey = [[KeychainController sharedInstance] defaultKey];
+	sheetController.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), userID ? userID.userID : key.userID, key.shortKeyID];
+	
+	sheetController.sheetType = SheetTypeAddSignature;
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
+	}
+	
+	[gpgc signUserID:[userID hashID] ofKey:key signKey:sheetController.secretKey type:sheetController.sigType local:sheetController.localSig daysToExpire:sheetController.daysToExpire];
+}
+
+
+- (IBAction)addSubkey:(NSButton *)sender {
+	NSSet *keys = [self selectedKeys];		
+	if ([keys count] != 1) {
+		return;
+	}
+	GPGKey *key = [[keys anyObject] primaryKey];
+	
+	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userID], [key shortKeyID]];
+	
+	sheetController.sheetType = SheetTypeAddSubkey;
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
+	}
+	
+	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
+}
+
+- (IBAction)addUserID:(NSButton *)sender {
+	NSSet *keys = [self selectedKeys];		
+	if ([keys count] != 1) {
+		return;
+	}
+	GPGKey *key = [[keys anyObject] primaryKey];
+	
+	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [key userID], [key shortKeyID]];
+	
+	sheetController.sheetType = SheetTypeAddUserID;
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
+	}
+	
+	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
+}
+
+
+- (IBAction)removePhoto:(NSButton *)sender {
+	if ([photosController selectionIndex] != NSNotFound) {
+		NSSet *keys = [self selectedKeys];		
+		GPGKey *key = [[keys anyObject] primaryKey];
+		
+		[gpgc removeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key];
+	}
+}
+
+
+- (IBAction)cleanKey:(id)sender {
+	NSSet *keys = [self selectedKeys];
+	for (GPGKey *key in keys) {
+		[gpgc cleanKey:key];
+	}
+}
+- (IBAction)minimizeKey:(id)sender {
+	NSSet *keys = [self selectedKeys];
+	for (GPGKey *key in keys) {
+		[gpgc minimizeKey:key];
+	}
+}
+
+
+- (IBAction)changeExpirationDate:(NSButton *)sender {
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] != 1) {
+		return;
+	}
+	GPGSubkey *subkey = nil;
+	GPGKey *key = [[keys anyObject] primaryKey];
+	
+	if ([sender tag] == 1 && [[subkeysController selectedObjects] count] == 1) {
+		subkey = [[subkeysController selectedObjects] objectAtIndex:0];
+	}
+	
+	if (subkey) {
+		sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), [subkey shortKeyID], [key userID], [key shortKeyID]];
+		sheetController.expirationDate = [subkey expirationDate];
+	} else {
+		sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [key userID], [key shortKeyID]];
+		sheetController.expirationDate = [key expirationDate];
+	}
+	
+	sheetController.sheetType = SheetTypeExpirationDate;
+	if ([sheetController runModalForWindow:mainWindow] == NSOKButton) {
+		[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:sheetController.daysToExpire];
+	}
+}
+
+
 - (IBAction)searchKeys:(id)sender {
 	sheetController.sheetType = SheetTypeSearchKeys;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
@@ -443,7 +529,7 @@ enum {
 	}
 	
 	NSSet *keyIDs = [sheetController.pattern keyIDs];
-
+	
 	[self receiveKeysFromServer:keyIDs];
 }
 
@@ -551,7 +637,7 @@ enum {
 	if ([userIDsController selectionIndex] != NSNotFound) {
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [userID primaryKey];
-	
+		
 		[gpgc setPrimaryUserID:[userID hashID] ofKey:key];
 	}
 }
@@ -703,7 +789,7 @@ enum {
 					   keyLength:sheetController.length 
 					  subkeyType:subkeyType 
 					subkeyLength:sheetController.length 
-					daysToExpire:[sheetController.expirationDate daysSinceNow]
+					daysToExpire:sheetController.daysToExpire
 					 preferences:nil 
 					  passphrase:sheetController.passphrase];
 }
@@ -724,7 +810,7 @@ enum {
 
 - (void)gpgControllerOperationDidStart:(GPGController *)gc {
 	sheetController.progressText = self.progressText;
-	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:NO];
+	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:YES];
 }
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
 	if ([e isKindOfClass:[GPGException class]]) {
@@ -739,12 +825,11 @@ enum {
 	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
 	
 	NSInteger action = [[gc.userInfo objectForKey:@"action"] integerValue];
-	gc.userInfo = nil;
 	
 	switch (action) {
 		case ShowResultAction: {
 			if (gc.error) break;
-
+			
 			NSString *statusText = gc.lastReturnValue;
 			if ([statusText length] > 0) {
 				sheetController.msgText = [self importResultWithStatusText:statusText];
@@ -768,12 +853,19 @@ enum {
 			
 			break;
 		}
+		case SaveDataToURLAction: {
+			if (gc.error) break;
+			
+			NSURL *URL = [gc.userInfo objectForKey:@"URL"];
+			[(NSData *)value writeToURL:URL atomically:YES];
+			
+			break;
+		}
 		default:
 			break;
 	}
 	
-
-	
+	gc.userInfo = nil;
 }
 - (void)gpgController:(GPGController *)gpgc keysDidChanged:(NSObject<EnumerationList> *)keys external:(BOOL)external {
 	[(KeychainController *)[KeychainController sharedInstance] updateKeys:keys];

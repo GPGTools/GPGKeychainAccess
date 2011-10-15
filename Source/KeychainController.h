@@ -47,6 +47,7 @@
 @property (retain) NSArray *userIDsSortDescriptors;
 @property (retain) NSArray *subkeysSortDescriptors;
 @property BOOL showSecretKeysOnly;
+@property (readonly) GPGKey *defaultKey;
 
 + (id)sharedInstance;
 

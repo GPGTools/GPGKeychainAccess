@@ -77,12 +77,13 @@ Cancel = "Abbrechen";
 
 
 //Für die Importergebnis
-"key %@: secret key imported\n" = "Schlüssel %@: geheimer Schlüssel importiert\n";
-"key %@: public key \"%@\" imported\n" = "Schlüssel %@: öffentlicher Schlüssel „%@“ importiert\n";
-"key %@: \"%@\" new user ID(s)\n" = "Schlüssel %@: „%@“ neue Benutzer-ID(s)\n";
-"key %@: \"%@\" new signature(s)\n" = "Schlüssel %@: „%@“ neue Beglaubigung(en)\n";
-"key %@: \"%@\" new subkey(s)\n" = "Schlüssel %@: „%@“ neue(r) Unterschlüssel\n";
-"Nothing imported!" = "Nichts importiert!";
+ImportResult_Secret = "Schlüssel %@: geheimer Schlüssel „%@“ importiert\n";
+ImportResult_Public = "Schlüssel %@: öffentlicher Schlüssel „%@“ importiert\n";
+ImportResult_UserID = "Schlüssel %@: „%@“ neue Benutzer-ID(s)\n";
+ImportResult_Signature = "Schlüssel %@: „%@“ neue Beglaubigung(en)\n";
+ImportResult_Subkey = "Schlüssel %@: „%@“ neue(r) Unterschlüssel\n";
+ImportResult_NoChanges = "Schlüssel %@: „%@“ keine Änderungen.";
+ImportResult_Nothing = "Nichts importiert!";
 
 
 //Die verschiedenen Algorithmen
@@ -102,12 +103,13 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 //Für öffnen und speichern Dialoge
-"This picture is really large!" = "Das Bild ist wirklich groß!";
-"You should use a smaller picture." = "Sie sollten ein kleineres Bild verwenden.";
-"Choose another…" = "Ein anderes wählen …";
-"Use this Photo" = "Dieses verwenden";
-"This picture is to large!" = "Das Bild ist zu groß!";
-"Please use a picature smaller than 1 MiB." = "Bitte verwenden Sie ein Bild, welches kleiner als 1 MiB ist.";
+ChoosePhoto_Large_Message = "Das Bild ist wirklich groß!";
+ChoosePhoto_Large_Info = "Sie sollten ein kleineres Bild verwenden.";
+ChoosePhoto_Large_Button1 = "Ein anderes wählen …";
+ChoosePhoto_Large_Button2 = "Dieses verwenden";
+ChoosePhoto_ToLarge_Message = "Das Bild ist zu groß!";
+ChoosePhoto_ToLarge_Info = "Bitte verwenden Sie ein Bild, welches kleiner als 500 KiB ist.";
+
 "Export failed!" = "Export fehlgeschlagen!";
 
 "Generate revoke certificate failed!" = "Erstellen des Widerrufszertifikates fehlgeschlagen!";

@@ -77,12 +77,13 @@ Cancel = "Cancel";
 
 
 //For Import-Results
-"key %@: secret key imported\n" = "key %@: secret key imported\n";
-"key %@: public key \"%@\" imported\n" = "key %@: public key \"%@\" imported\n";
-"key %@: \"%@\" new user ID(s)\n" = "key %@: \"%@\" new user ID(s)\n";
-"key %@: \"%@\" new signature(s)\n" = "key %@: \"%@\" new signature(s)\n";
-"key %@: \"%@\" new subkey(s)\n" = "key %@: \"%@\" new subkey(s)\n";
-"Nothing imported!" = "Nothing imported!";
+ImportResult_Secret = "key %@: secret key \"%@\" imported.";
+ImportResult_Public = "key %@: public key \"%@\" imported.";
+ImportResult_UserID = "key %@: \"%@\" new user ID(s).";
+ImportResult_Signature = "key %@: \"%@\" new signature(s).";
+ImportResult_Subkey = "key %@: \"%@\" new subkey(s).";
+ImportResult_NoChanges = "key %@: \"%@\" no changes.";
+ImportResult_Nothing = "Nothing imported!";
 
 
 //The Algorithms
@@ -102,12 +103,13 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 //For opening and saving dialogues
-"This picture is really large!" = "This picture is really large!";
-"You should use a smaller picture." = "You should use a smaller picture.";
-"Choose another…" = "Choose another…";
-"Use this photo" = "Use this photo";
-"This picture is to large!" = "This picture is to large!";
-"Please use a picature smaller than 1 MiB." = "Please use a picature smaller than 1 MiB.";
+ChoosePhoto_Large_Message = "This picture is really large!";
+ChoosePhoto_Large_Info = "You should use a smaller picture.";
+ChoosePhoto_Large_Button1 = "Choose another…";
+ChoosePhoto_Large_Button2 = "Use this photo";
+ChoosePhoto_ToLarge_Message = "This picture is to large!";
+ChoosePhoto_ToLarge_Info = "Please use a picature smaller than 500 KiB.";
+
 "Export failed!" = "Export failed!";
 
 "Generate revoke certificate failed!" = "Failed to generate revoke certificate!";

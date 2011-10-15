@@ -76,12 +76,13 @@ Cancel = "Avbryt";
 
 
 //For Import-Results
-"key %@: secret key imported\n" = "nyckel %@: hemlig nyckel importerades\n";
-"key %@: public key \"%@\" imported\n" = "nyckel %@: publik nyckel \"%@\" importerades\n";
-"key %@: \"%@\" new user ID(s)\n" = "nyckel %@: \"%@\" nytt/nya användar-ID\n";
-"key %@: \"%@\" new signature(s)\n" = "nyckel %@: \"%@\" ny/nya signarur(er)\n";
-"key %@: \"%@\" new subkey(s)\n" = "nyckel %@: \"%@\" ny/nya undernyckel/nycklar\n";
-"Nothing imported!" = "Ingenting importerades!";
+ImportResult_Secret = "nyckel %@: hemlig nyckel \"%@\" importerades\n";
+ImportResult_Public = "nyckel %@: publik nyckel \"%@\" importerades\n";
+ImportResult_UserID = "nyckel %@: \"%@\" nytt/nya användar-ID\n";
+ImportResult_Signature = "nyckel %@: \"%@\" ny/nya signarur(er)\n";
+ImportResult_Subkey = "nyckel %@: \"%@\" ny/nya undernyckel/nycklar\n";
+ImportResult_NoChanges = "key %@: \"%@\" no changes.";
+ImportResult_Nothing = "Ingenting importerades!";
 
 
 //The Algorithms
@@ -101,12 +102,13 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 //For opening and saving dialogues
-"This picture is really large!" = "Denna bild är verkligen stor!";
-"You should use a smaller picture." = "Du borde använda en mindre bild.";
-"Choose another…" = "Välj en annan…";
-"Use this photo" = "Använd detta foto";
-"This picture is to large!" = "Denna bild är för stor!";
-"Please use a picature smaller than 1 MiB." = "Använd en bild som är mindre än 1 MiB.";
+ChoosePhoto_Large_Message = "Denna bild är verkligen stor!";
+ChoosePhoto_Large_Info = "Du borde använda en mindre bild.";
+ChoosePhoto_Large_Button1 = "Välj en annan…";
+ChoosePhoto_Large_Button2 = "Använd detta foto";
+ChoosePhoto_ToLarge_Message = "Denna bild är för stor!";
+ChoosePhoto_ToLarge_Info = "Använd en bild som är mindre än 500 KiB.";
+
 "Export failed!" = "Exporten misslyckades!";
 
 "Generate revoke certificate failed!" = "Det gick inte att skapa ett återkallelse-certifikat!";

@@ -9,7 +9,16 @@ typedef enum {
 	SheetTypeNewKey,
 	SheetTypeSearchKeys,
 	SheetTypeReceiveKeys,
-	SheetTypeShowFoundKeys
+	SheetTypeShowFoundKeys,
+	SheetTypeExpirationDate,
+	SheetTypeAddUserID,
+	SheetTypeAddSubkey,
+	SheetTypeAddSignature,
+	SheetTypeSavePanel,
+	SheetTypeOpenPanel,
+	SheetTypeExportKey,
+	SheetTypeOpenPhotoPanel,
+	SheetTypeAlgorithmPreferences
 } SheetType;
 
 enum {
@@ -24,6 +33,7 @@ enum {
 	IBOutlet KeyLengthFormatter *keyLengthFormatter;
 	IBOutlet NSProgressIndicator *progressIndicator;
 	IBOutlet NSArrayController *foundKeysController;
+	IBOutlet NSArrayController *secretKeysController;
 	
 	IBOutlet NSView *exportKeyOptionsView;
 
@@ -45,6 +55,7 @@ enum {
 
 	
 	NSInteger keyType;
+	NSInteger exportFormat;
 	
 	
 	NSView *displayedView;
@@ -54,12 +65,16 @@ enum {
 	NSInteger numberOfProgressSheets; //Anzahl der angeforderten progressSheets.
 }
 
-@property (retain) NSString *progressText, *errorText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern;
+@property (retain) NSString *progressText, *errorText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
 @property BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit;
 @property (retain) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
-@property (retain) NSArray *userIDs, *keys, *emailAddresses, *secretKeys, *availableLengths;
-@property NSInteger exportFormat, secretKeyId, keyType, sigType, length, sheetType;
+@property (retain) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
+@property NSInteger exportFormat, keyType, sigType, length, sheetType;
 @property (readonly, retain) NSArray *foundKeyDicts;
+@property (readonly) NSInteger daysToExpire;
+@property (retain) GPGKey *secretKey;
+@property (readonly, retain) NSURL *URL;
+@property (readonly, retain) NSArray *URLs;
 
 
 - (NSInteger)runModal;

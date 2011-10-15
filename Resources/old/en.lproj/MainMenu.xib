@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1070</int>
-		<string key="IBDocument.SystemVersion">11B26</string>
+		<string key="IBDocument.SystemVersion">11C74</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1864</string>
-		<string key="IBDocument.AppKitVersion">1138</string>
-		<string key="IBDocument.HIToolboxVersion">566.00</string>
+		<string key="IBDocument.AppKitVersion">1138.23</string>
+		<string key="IBDocument.HIToolboxVersion">567.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">1864</string>
@@ -984,7 +984,7 @@
 											<string key="NSFrameSize">{967, 535}</string>
 											<reference key="NSSuperview" ref="992399197"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="518671847"/>
+											<reference key="NSNextKeyView" ref="705521352"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="737071251">
@@ -1442,7 +1442,7 @@
 							<string key="NSFrame">{{20, 44}, {969, 553}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="705521352"/>
+							<reference key="NSNextKeyView" ref="992399197"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="518671847"/>
@@ -1481,7 +1481,6 @@
 							<string key="NSFrame">{{830, 18}, {161, 18}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="640408840">
 								<int key="NSCellFlags">67239424</int>
@@ -1656,7 +1655,7 @@
 				<string key="NSWindowContentMaxSize">{800, 483}</string>
 				<string key="NSWindowContentMinSize">{430, 483}</string>
 				<object class="NSView" key="NSWindowView" id="883704740">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1665,6 +1664,7 @@
 							<int key="NSvFlags">274</int>
 							<string key="NSFrame">{{13, 10}, {454, 463}}</string>
 							<reference key="NSSuperview" ref="883704740"/>
+							<reference key="NSNextKeyView" ref="269795853"/>
 							<object class="NSMutableArray" key="NSTabViewItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSTabViewItem" id="134643434">
@@ -1672,7 +1672,7 @@
 										<characters key="NS.bytes">1</characters>
 									</object>
 									<object class="NSView" key="NSView" id="269795853">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="913833129"/>
 										<int key="NSvFlags">264</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1880,6 +1880,7 @@
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{212, 10}, {131, 28}}</string>
 												<reference key="NSSuperview" ref="269795853"/>
+												<reference key="NSNextKeyView" ref="913833129"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="220668053">
 													<int key="NSCellFlags">-2080244224</int>
@@ -2398,6 +2399,7 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 25}, {434, 425}}</string>
+										<reference key="NSSuperview" ref="913833129"/>
 										<reference key="NSNextKeyView" ref="706823425"/>
 									</object>
 									<string key="NSLabel">Key</string>
@@ -3650,7 +3652,7 @@
 								</object>
 								<object class="NSTabViewItem" id="1008504286">
 									<object class="NSView" key="NSView" id="188550208">
-										<reference key="NSNextResponder" ref="913833129"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3868,7 +3870,6 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 25}, {434, 425}}</string>
-										<reference key="NSSuperview" ref="913833129"/>
 										<reference key="NSNextKeyView" ref="554162433"/>
 									</object>
 									<string key="NSLabel">Photos</string>
@@ -3876,18 +3877,19 @@
 									<reference key="NSTabView" ref="913833129"/>
 								</object>
 							</object>
-							<reference key="NSSelectedTabViewItem" ref="1008504286"/>
+							<reference key="NSSelectedTabViewItem" ref="134643434"/>
 							<reference key="NSFont" ref="26"/>
 							<int key="NSTvFlags">134217728</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<bool key="NSDrawsBackground">YES</bool>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<reference ref="188550208"/>
+								<reference ref="269795853"/>
 							</object>
 						</object>
 					</object>
 					<string key="NSFrameSize">{480, 483}</string>
+					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="913833129"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>

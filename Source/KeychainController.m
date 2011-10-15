@@ -54,6 +54,23 @@ NSSet *draggedKeys;
 	return [[secretKeys retain] autorelease];
 }
 
+- (GPGKey *)defaultKey {
+	if ([self.secretKeys count] == 0) {
+		return nil;
+	}
+	NSString *defaultKey = [[GPGOptions sharedOptions] valueForKey:@"default-key"];
+	
+	if (defaultKey.length == 0) {
+		return nil;
+	}
+	
+	for (GPGKey *key in self.secretKeys) {
+		if ([key.textForFilter rangeOfString:defaultKey].length > 0) {
+			return key;
+		}
+	}
+	return nil;
+}
 
 
 
@@ -158,9 +175,13 @@ NSSet *draggedKeys;
 		}
 		keys = realKeys;
 		
-		
-		
-		NSSet *updatedKeys = [gpgc updateKeys:keys withSigs:withSigs];
+		NSSet *updatedKeys;
+		if ([keys count] == 0) {
+			updatedKeys = [gpgc updateKeys:self.allKeys searchFor:nil withSigs:withSigs];
+		} else {
+			updatedKeys = [gpgc updateKeys:keys withSigs:withSigs];
+		}
+	
 		if (gpgc.error) {
 			@throw gpgc.error;
 		}
@@ -203,10 +224,13 @@ NSSet *draggedKeys;
 - (IBAction)updateFilteredKeyList:(id)sender {
 	NSAssert([NSThread isMainThread], @"updateFilteredKeyList must run in the main thread!");
 
-	static BOOL isUpdating = NO;
-	if (isUpdating) {return;}
-	isUpdating = YES;
-	
+	static NSLock *lock = nil;
+	if (!lock) {
+		lock = [NSLock new];
+	}
+	if (![lock tryLock]) {
+		return;
+	}
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSMutableArray *keysToRemove;
 	GPGKey *key;
@@ -234,7 +258,7 @@ NSSet *draggedKeys;
 	[numberOfKeysLabel setStringValue:[NSString stringWithFormat:localized(@"%i of %i keys listed"), [filteredKeyList count], [self.allKeys count]]];
 	
 	[pool drain];
-	isUpdating = NO;
+	[lock unlock];
 }
 
 
