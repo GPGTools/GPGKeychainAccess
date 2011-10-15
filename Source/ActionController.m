@@ -39,8 +39,6 @@ enum {
 @implementation ActionController
 @synthesize progressText, errorText;
 
-//TODO: Fotos die auf mehrere Subpakete aufgeteilt sind.
-//TODO: Fehlermeldungen wenn eine Aktion fehlschlägt.
 
 - (NSUndoManager *)undoManager {
 	if (!undoManager) {
@@ -172,33 +170,6 @@ enum {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Für Libmacgpg überarbeitet //
 - (IBAction)addPhoto:(NSButton *)sender {
 	NSSet *keys = [self selectedKeys];		
 	if ([keys count] != 1) {

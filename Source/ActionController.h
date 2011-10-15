@@ -85,18 +85,11 @@ enum {
 
 - (NSSet *)selectedKeys;
 
-- (NSData *)exportKeys:(NSObject <EnumerationList> *)keys armored:(BOOL)armored allowSecret:(BOOL)allowSec fullExport:(BOOL)fullExport;
 - (void)importFromURLs:(NSArray *)urls;
 - (void)importFromData:(NSData *)data;
 - (NSString *)importResultWithStatusText:(NSString *)statusText;
 
-- (void)addSubkeyForKey:(GPGKey *)key type:(NSInteger)type length:(NSInteger)length daysToExpire:(NSInteger)daysToExpire;
-- (void)addSignatureForKey:(GPGKey *)key andUserID:(NSString *)userID signKey:(NSString *)signFingerprint type:(NSInteger)type local:(BOOL)local daysToExpire:(NSInteger)daysToExpire;
-- (void)changeExpirationDateForKey:(GPGKey *)key subkey:(GPGSubkey *)subkey daysToExpire:(NSInteger)daysToExpire;
-- (NSMutableArray *)searchKeysWithPattern:(NSString *)pattern;
-- (void)addPhotoForKey:(GPGKey *)key photoPath:(NSString *)path;
 - (NSSet *)keysInExportedData:(NSData *)data;
-- (void)editAlgorithmPreferencesForKey:(GPGKey *)key preferences:(NSArray *)userIDs;
 
 - (void)cancelOperation:(id)sender;
 

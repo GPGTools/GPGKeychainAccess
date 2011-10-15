@@ -123,8 +123,11 @@ NSSet *draggedKeys;
 		fileName = localized(@"Exported keys.asc");
 	}
 	
-	NSData *exportedData = [[ActionController sharedInstance] exportKeys:draggedKeys armored:YES allowSecret:NO fullExport:NO];
-	if (exportedData && [exportedData length] > 0) {
+	GPGController *gc = [GPGController gpgController];
+	gc.async = NO;
+	gc.useArmor = YES;
+	NSData *exportedData = [gc exportKeys:draggedKeys allowSecret:NO fullExport:NO];
+	if ([exportedData length] > 0) {
 		[exportedData writeToFile:[[dropDestination path] stringByAppendingPathComponent:fileName] atomically:YES];
 		
 		return [NSArray arrayWithObject:fileName];
