@@ -15,7 +15,7 @@
  
  Sie sollten ein Exemplar der GNU General Public License zusammen mit diesem 
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
- */
+*/
 
 #import "ActionController.h"
 #import "KeychainController.h"

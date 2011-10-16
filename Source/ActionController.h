@@ -40,6 +40,8 @@ enum {
 	GPGController *gpgc;
 	SheetController *sheetController;
 	NSUndoManager *undoManager;
+	
+	NSString *progressText, *errorText;
 }
 @property (readonly) NSUndoManager *undoManager;
 

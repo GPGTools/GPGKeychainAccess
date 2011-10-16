@@ -54,8 +54,6 @@ enum {
 	IBOutlet NSView *editAlgorithmPreferencesView;
 
 	
-	NSInteger keyType;
-	NSInteger exportFormat;
 	
 	
 	NSView *displayedView;
@@ -63,6 +61,17 @@ enum {
 	NSView *oldDisplayedView;
 	NSLock *sheetLock, *progressSheetLock;
 	NSInteger numberOfProgressSheets; //Anzahl der angeforderten progressSheets.
+	
+	NSString *progressText, *errorText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
+	BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit;
+	NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
+	NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
+	NSInteger exportFormat, keyType, sigType, length, sheetType;
+	NSArray *foundKeyDicts;
+	GPGKey *secretKey;
+	NSURL *URL;
+	NSArray *URLs;
+	NSWindow *modalWindow;
 }
 
 @property (retain) NSString *progressText, *errorText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;

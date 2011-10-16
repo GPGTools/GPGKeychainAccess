@@ -342,8 +342,8 @@
 - (GPGKey *)secretKey {
 	return [[secretKeysController selectedObjects] objectAtIndex:0];
 }
-- (void)setSecretKey:(GPGKey *)secretKey {
-	[secretKeysController setSelectedObjects:[NSArray arrayWithObject:secretKey]];
+- (void)setSecretKey:(GPGKey *)value {
+	[secretKeysController setSelectedObjects:[NSArray arrayWithObject:value]];
 }
 
 
