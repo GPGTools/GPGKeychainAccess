@@ -18,7 +18,6 @@
 */
 
 #import "PreferencesController.h"
-#import <Libmacgpg/Libmacgpg.h>
 
 @implementation PreferencesController
 @synthesize window;

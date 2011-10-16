@@ -33,55 +33,8 @@
 	modalWindow, foundKeyDicts;
 
 
-- (void)showProgressSheet {
-	if (self.displayedView == errorView) {
-		return;
-	}
-	NSLog(@"showProgressSheet START");
-	[progressSheetLock lock];
-	if (numberOfProgressSheets == 0) { //Nur anzeigen wenn das progressSheet nicht bereits angezeigt wird.
-		oldDisplayedView = displayedView; //displayedView sichern.
-		self.displayedView = progressView; //progressView anzeigen.
-		if ([sheetLock tryLock]) { //Es wird kein anderes Sheet angezeigt.
-			oldDisplayedView = nil;
-			[NSApp beginSheet:sheetWindow modalForWindow:mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
-		}
-	}
-	numberOfProgressSheets++;
-	[progressSheetLock unlock];
-	NSLog(@"showProgressSheet ENDE");
-}
-- (void)endProgressSheet {
-	if (self.displayedView == errorView) {
-		return;
-	}
-	NSLog(@"endProgressSheet START");
-	[progressSheetLock lock];
-	numberOfProgressSheets--;
-	if (numberOfProgressSheets == 0) { //Nur ausführen wenn das progressSheet angezeigt wird.
-		if (oldDisplayedView) { //Soll ein zuvor angezeigtes Sheet wieder angezeigt werden?
-			self.displayedView = oldDisplayedView; //Altes Sheet wieder anzeigen.
-		} else {
-			[NSApp endSheet:sheetWindow]; //Sheet beenden...
-			[sheetWindow orderOut:self]; // und ausblenden.
-			[sheetLock unlock];
-		}
-	}
-	[progressSheetLock unlock];
-	NSLog(@"endProgressSheet ENDE");
-}
 
-- (void)showErrorSheet {
-	[self performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
-	self.displayedView = errorView;
-	self.sheetType = SheetTypeNoSheet;
-	if (!self.modalWindow) {
-		self.modalWindow = mainWindow;
-	}
-	[self runAndWait];
-}
-
-
+// Running sheets //
 - (NSInteger)runModal {
 	return [self runModalForWindow:mainWindow];
 }
@@ -171,8 +124,6 @@
 	return clickedButton;
 }
 
-
-
 - (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton {
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert setMessageText:messageText];
@@ -204,6 +155,53 @@
 	return clickedButton;
 }
 
+- (void)showProgressSheet {
+	if (self.displayedView == errorView) {
+		return;
+	}
+	NSLog(@"showProgressSheet START");
+	[progressSheetLock lock];
+	if (numberOfProgressSheets == 0) { //Nur anzeigen wenn das progressSheet nicht bereits angezeigt wird.
+		oldDisplayedView = displayedView; //displayedView sichern.
+		self.displayedView = progressView; //progressView anzeigen.
+		if ([sheetLock tryLock]) { //Es wird kein anderes Sheet angezeigt.
+			oldDisplayedView = nil;
+			[NSApp beginSheet:sheetWindow modalForWindow:mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+		}
+	}
+	numberOfProgressSheets++;
+	[progressSheetLock unlock];
+	NSLog(@"showProgressSheet ENDE");
+}
+- (void)endProgressSheet {
+	if (self.displayedView == errorView) {
+		return;
+	}
+	NSLog(@"endProgressSheet START");
+	[progressSheetLock lock];
+	numberOfProgressSheets--;
+	if (numberOfProgressSheets == 0) { //Nur ausführen wenn das progressSheet angezeigt wird.
+		if (oldDisplayedView) { //Soll ein zuvor angezeigtes Sheet wieder angezeigt werden?
+			self.displayedView = oldDisplayedView; //Altes Sheet wieder anzeigen.
+		} else {
+			[NSApp endSheet:sheetWindow]; //Sheet beenden...
+			[sheetWindow orderOut:self]; // und ausblenden.
+			[sheetLock unlock];
+		}
+	}
+	[progressSheetLock unlock];
+	NSLog(@"endProgressSheet ENDE");
+}
+
+- (void)showErrorSheet {
+	[self performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
+	self.displayedView = errorView;
+	self.sheetType = SheetTypeNoSheet;
+	if (!self.modalWindow) {
+		self.modalWindow = mainWindow;
+	}
+	[self runAndWait];
+}
 
 - (void)runSavePanelWithaccessoryView:(NSView *)accessoryView {
 	NSSavePanel *panel = [NSSavePanel savePanel];
@@ -263,8 +261,7 @@
 
 
 
-
-
+// buttonClicked //
 - (IBAction)buttonClicked:(NSButton *)sender {
 	clickedButton = sender.tag;
 	[sheetWindow endEditingFor:nil];
@@ -317,7 +314,8 @@
 }
 
 
-// Setter & Getter
+
+// Propertys //
 - (NSInteger)keyType {
 	return keyType;
 }
@@ -347,7 +345,7 @@
 }
 
 
-// Internal methods.
+// Internal methods //
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	clickedButton = returnCode;
 	[NSApp stopModal];
@@ -392,7 +390,6 @@
 	
 	self.foundKeyDicts = dicts;
 }
-
 
 - (void)setStandardExpirationDates {
 	//Setzt minExpirationDate einen Tag in die Zukunft.
@@ -459,7 +456,6 @@
 	[pool drain];
 }
 
-
 - (void)runAndWait {
 	[sheetLock lock];
 	[NSApp beginSheet:sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
@@ -472,8 +468,7 @@
 
 
 
-
-
+// Checks //
 - (BOOL)checkName {
 	if ([name length] < 5) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameToShort"), nil, nil, nil);
@@ -706,6 +701,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	}
 	return YES;
 }
+
 
 // NSTokenFieldDelegate
 - (NSArray *)tokenField:(NSTokenField *)tokenField shouldAddObjects:(NSArray *)tokens atIndex:(NSUInteger)index {	

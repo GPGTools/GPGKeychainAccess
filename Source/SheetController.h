@@ -1,4 +1,3 @@
-#import <Libmacgpg/Libmacgpg.h>
 
 @class KeyLengthFormatter;
 

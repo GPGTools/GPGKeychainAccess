@@ -20,7 +20,6 @@
 #import "Globales.h"
 #import "ActionController.h"
 #import "KeychainController.h"
-#import <Libmacgpg/Libmacgpg.h>
 
 
 NSWindow *mainWindow;

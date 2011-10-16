@@ -17,16 +17,7 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-#import <Libmacgpg/Libmacgpg.h>
-
 @class SheetController;
-
-enum {
-	GKOpenSavePanelExportKeyAction = 1,
-	GKOpenSavePanelImportKeyAction,
-	GKOpenSavePanelAddPhotoAction,
-	GKOpenSavePanelSaveRevokeCertificateAction
-} GKOpenSavePanelAction;
 
 
 @interface ActionController : NSWindowController <GPGControllerDelegate> {
@@ -50,7 +41,7 @@ enum {
 
 - (BOOL)validateUserInterfaceItem:(id)anItem;
 - (IBAction)copy:(id)sender;
-
+- (IBAction)paste:(id)sender;
 - (IBAction)cleanKey:(id)sender;
 - (IBAction)minimizeKey:(id)sender;
 - (IBAction)addPhoto:(NSButton *)sender;
@@ -85,13 +76,9 @@ enum {
 - (IBAction)editAlgorithmPreferences:(id)sender;
 
 
-- (NSSet *)selectedKeys;
 
 - (void)importFromURLs:(NSArray *)urls;
 - (void)importFromData:(NSData *)data;
-- (NSString *)importResultWithStatusText:(NSString *)statusText;
-
-- (NSSet *)keysInExportedData:(NSData *)data;
 
 - (void)cancelOperation:(id)sender;
 
