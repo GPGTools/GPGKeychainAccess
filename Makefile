@@ -1,3 +1,10 @@
+update-core:
+	@cd Dependencies/GPGTools_Core; git pull origin master; cd -
+update-me:
+	@git pull
+
+update: update-core update-me
+
 all: compile
 
 compile:
