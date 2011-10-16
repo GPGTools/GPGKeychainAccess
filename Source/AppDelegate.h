@@ -18,7 +18,6 @@
 */
 
 @interface GPGKeychainAccessAppDelegate : NSObject {
-	NSWindow *window, *inspectorWindow;
 	NSOutlineView *keyTable, *userIDTable, *subkeyTable, *signatureTable;
 }
 @property (assign) IBOutlet NSWindow *window, *inspectorWindow;
