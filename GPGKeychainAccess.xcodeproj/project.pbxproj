@@ -39,20 +39,6 @@
 		3052E3C4144B112000D6716A /* Libmacgpg.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3052E3C3144B112000D6716A /* Libmacgpg.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildRule section */
-		30DDBE2C144B7D9E001B7BB9 /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*";
-			fileType = file.xib;
-			isEditable = 1;
-			outputFiles = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/${INPUT_FILE_REGION_PATH_COMPONENT}/${INPUT_FILE_BASE}.nib",
-			);
-			script = "OUTPUT=\"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/${INPUT_FILE_REGION_PATH_COMPONENT}/${INPUT_FILE_BASE}.nib\"\n\n${DEVELOPER_BIN_DIR}/ibtool --errors --warnings --notices --output-format human-readable-text --sdk \"$SDKROOT\" --compile \"$OUTPUT\" \"$INPUT_FILE_PATH\"\n";
-		};
-/* End PBXBuildRule section */
-
 /* Begin PBXContainerItemProxy section */
 		3052E1FB144B033200D6716A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -320,7 +306,6 @@
 				3052E210144B05EE00D6716A /* Localize XIBs */,
 			);
 			buildRules = (
-				30DDBE2C144B7D9E001B7BB9 /* PBXBuildRule */,
 			);
 			dependencies = (
 				3052E3C2144B110F00D6716A /* PBXTargetDependency */,

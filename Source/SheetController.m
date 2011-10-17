@@ -159,7 +159,6 @@
 	if (self.displayedView == errorView) {
 		return;
 	}
-	NSLog(@"showProgressSheet START");
 	[progressSheetLock lock];
 	if (numberOfProgressSheets == 0) { //Nur anzeigen wenn das progressSheet nicht bereits angezeigt wird.
 		oldDisplayedView = displayedView; //displayedView sichern.
@@ -171,13 +170,11 @@
 	}
 	numberOfProgressSheets++;
 	[progressSheetLock unlock];
-	NSLog(@"showProgressSheet ENDE");
 }
 - (void)endProgressSheet {
 	if (self.displayedView == errorView) {
 		return;
 	}
-	NSLog(@"endProgressSheet START");
 	[progressSheetLock lock];
 	numberOfProgressSheets--;
 	if (numberOfProgressSheets == 0) { //Nur ausführen wenn das progressSheet angezeigt wird.
@@ -190,7 +187,6 @@
 		}
 	}
 	[progressSheetLock unlock];
-	NSLog(@"endProgressSheet ENDE");
 }
 
 - (void)showErrorSheet {

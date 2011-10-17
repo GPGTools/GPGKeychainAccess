@@ -120,7 +120,7 @@
 #pragma mark "Keys"
 - (IBAction)generateNewKey:(id)sender {
 	sheetController.sheetType = SheetTypeNewKey;
-	if ([sheetController runModalForWindow:mainWindow] == NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	NSInteger keyType, subkeyType;
@@ -730,7 +730,13 @@
 			return;
 		}
 	}
-	sheetController.errorText = [NSString stringWithFormat:self.errorText ? self.errorText : @"%@", e.reason /*TODO: Add description from errorCode*/];
+	
+	if (self.errorText) {
+		sheetController.errorText = [NSString stringWithFormat:@"%@\n%@", self.errorText, e.description];
+	} else {
+		sheetController.errorText = [NSString stringWithFormat:@"%@", e.description];
+	}
+
 	[sheetController showErrorSheet];
 }
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
