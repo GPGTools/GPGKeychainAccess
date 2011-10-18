@@ -19,6 +19,7 @@
 
 #import "KeychainController.h"
 #import "ActionController.h"
+#import "SheetController.h"
 
 //KeychainController kümmert sich um das anzeigen und Filtern der Schlüssel-Liste.
 
@@ -199,8 +200,12 @@ NSSet *draggedKeys;
 		
 		[self performSelectorOnMainThread:@selector(updateKeyList:) withObject:updateInfos waitUntilDone:YES];
 
-	} @catch (NSException *exception) {
-		NSLog(@"updateKeys:withSigs: failed – %@", exception);
+	} @catch (GPGException *e) {
+		NSLog(@"updateKeys:withSigs: failed – %@ (ErrorText: %@)", e, e.gpgTask.errText);
+		SheetController *sheetController = [SheetController sharedInstance];
+		[sheetController errorSheetWithmessageText:@"Listings keys failed!" infoText:[NSString stringWithFormat:@"%@\n%@", e.description, e.gpgTask.errText]];
+	} @catch (NSException *e) {
+		NSLog(@"updateKeys:withSigs: failed – %@", e);
 	} @finally {
 		[pool drain];
 		[updateLock unlock];

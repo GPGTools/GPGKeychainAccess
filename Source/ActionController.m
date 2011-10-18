@@ -730,14 +730,8 @@
 			return;
 		}
 	}
-	
-	if (self.errorText) {
-		sheetController.errorText = [NSString stringWithFormat:@"%@\n%@", self.errorText, e.description];
-	} else {
-		sheetController.errorText = [NSString stringWithFormat:@"%@", e.description];
-	}
 
-	[sheetController showErrorSheet];
+	[sheetController errorSheetWithmessageText:self.errorText infoText:[NSString stringWithFormat:@"%@", e.description]];
 }
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];

@@ -25,7 +25,7 @@
 
 
 @implementation SheetController
-@synthesize progressText, errorText, msgText, name, email, comment, passphrase, confirmPassphrase, pattern, title,
+@synthesize progressText, msgText, name, email, comment, passphrase, confirmPassphrase, pattern, title,
 	hasExpirationDate, allowSecretKeyExport, localSig, allowEdit,
 	expirationDate, minExpirationDate, maxExpirationDate,
 	algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
@@ -124,10 +124,35 @@
 	return clickedButton;
 }
 
+- (void)errorSheetWithmessageText:(NSString *)messageText infoText:(NSString *)infoText {
+	[self alertSheetForWindow:nil messageText:messageText infoText:infoText defaultButton:nil alternateButton:nil otherButton:nil suppressionButton:nil];
+}
+
 - (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton {
+	if (![NSThread isMainThread]) {
+		NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:_cmd]];
+		invocation.selector = _cmd;
+		invocation.target = self;
+		[invocation setArgument:&window atIndex:2];
+		[invocation setArgument:&messageText atIndex:3];
+		[invocation setArgument:&infoText atIndex:4];
+		[invocation setArgument:&button1 atIndex:5];
+		[invocation setArgument:&button2 atIndex:6];
+		[invocation setArgument:&button3 atIndex:7];
+		[invocation setArgument:&suppressionButton atIndex:8];
+		[invocation performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:YES];
+		NSInteger returnValue;
+		[invocation getReturnValue:&returnValue];
+		return returnValue;
+	}
+	
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
-	[alert setMessageText:messageText];
-	[alert setInformativeText:infoText];
+	if (messageText) {
+		[alert setMessageText:messageText];
+	}
+	if (infoText) {
+		[alert setInformativeText:infoText];
+	}
 	if (button1) {
 		[alert addButtonWithTitle:button1];
 	}
@@ -143,9 +168,17 @@
 			alert.suppressionButton.title = suppressionButton;
 		}
 	}
+	if (!window) {
+		window = mainWindow;
+	}
 	
-	[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
-	[NSApp runModalForWindow:window];
+	if (window.isVisible && [sheetLock tryLock]) {
+		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+		[NSApp runModalForWindow:window];
+		[sheetLock unlock];
+	} else {
+		[alert runModal];
+	}
 	
 	if (alert.suppressionButton.state == NSOnState) {
 		clickedButton = clickedButton | SheetSuppressionButton;
@@ -156,9 +189,6 @@
 }
 
 - (void)showProgressSheet {
-	if (self.displayedView == errorView) {
-		return;
-	}
 	[progressSheetLock lock];
 	if (numberOfProgressSheets == 0) { //Nur anzeigen wenn das progressSheet nicht bereits angezeigt wird.
 		oldDisplayedView = displayedView; //displayedView sichern.
@@ -172,9 +202,6 @@
 	[progressSheetLock unlock];
 }
 - (void)endProgressSheet {
-	if (self.displayedView == errorView) {
-		return;
-	}
 	[progressSheetLock lock];
 	numberOfProgressSheets--;
 	if (numberOfProgressSheets == 0) { //Nur ausführen wenn das progressSheet angezeigt wird.
@@ -187,16 +214,6 @@
 		}
 	}
 	[progressSheetLock unlock];
-}
-
-- (void)showErrorSheet {
-	[self performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
-	self.displayedView = errorView;
-	self.sheetType = SheetTypeNoSheet;
-	if (!self.modalWindow) {
-		self.modalWindow = mainWindow;
-	}
-	[self runAndWait];
 }
 
 - (void)runSavePanelWithaccessoryView:(NSView *)accessoryView {
@@ -454,9 +471,14 @@
 
 - (void)runAndWait {
 	[sheetLock lock];
-	[NSApp beginSheet:sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
-	[NSApp runModalForWindow:sheetWindow];
-	[NSApp endSheet:sheetWindow];
+	if (modalWindow.isVisible) {
+		[NSApp beginSheet:sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+		[NSApp runModalForWindow:sheetWindow];
+		[NSApp endSheet:sheetWindow];
+	} else {
+		[sheetWindow makeKeyAndOrderFront:self];	
+		[NSApp runModalForWindow:sheetWindow];
+	}
 	[sheetWindow orderOut:self];
 	[sheetLock unlock];
 }

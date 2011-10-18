@@ -38,7 +38,6 @@ enum {
 
 	//Views die im Sheet angezeigt werden können.
 	IBOutlet NSView *progressView;
-	IBOutlet NSView *errorView;
 	IBOutlet NSView *newKeyView;
 	IBOutlet NSView *newKey_passphraseSubview;
 	IBOutlet NSView *newKey_topSubview;
@@ -61,7 +60,7 @@ enum {
 	NSLock *sheetLock, *progressSheetLock;
 	NSInteger numberOfProgressSheets; //Anzahl der angeforderten progressSheets.
 	
-	NSString *progressText, *errorText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
+	NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
 	BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit;
 	NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 	NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
@@ -73,7 +72,7 @@ enum {
 	NSWindow *modalWindow;
 }
 
-@property (retain) NSString *progressText, *errorText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
+@property (retain) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
 @property BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit;
 @property (retain) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 @property (retain) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
@@ -87,6 +86,7 @@ enum {
 
 - (NSInteger)runModal;
 - (NSInteger)runModalForWindow:(NSWindow *)window;
+- (void)errorSheetWithmessageText:(NSString *)messageText infoText:(NSString *)infoText;
 - (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton;
 
 + (id)sharedInstance;
@@ -94,7 +94,6 @@ enum {
 
 - (void)showProgressSheet;
 - (void)endProgressSheet;
-- (void)showErrorSheet;
 
 - (IBAction)buttonClicked:(NSButton *)sender;
 
