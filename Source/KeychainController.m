@@ -302,12 +302,22 @@ NSSet *draggedKeys;
 	
 	
 	// Testen ob GPG vorhanden und funktionsfähig ist.
-	if (![GPGController gpgVersion]) {
-		//TODO: Fehlermeldung ausgeben.
-		NSLog(@"KeychainController awakeFromNib: NSApp terminate");
-		[NSApp terminate:nil]; 
+	GPGErrorCode errorCode = [GPGController testGPG];
+	NSLog(@"KeychainController awakeFromNib: testGPG: %i", errorCode);
+
+	switch (errorCode) {
+		case GPGErrorNotFound:
+            NSRunCriticalAlertPanel(localized(@"GPG_NOT_FOUND_TITLE"), localized(@"GPG_NOT_FOUND_MESSAGE"), nil, nil, nil);
+			[NSApp terminate:nil]; 
+            break;
+        case GPGErrorConfigurationError:
+            NSRunCriticalAlertPanel(localized(@"GPG_CONFIG_ERROR_TITLE"), localized(@"GPG_CONFIG_ERROR_MESSAGE"), nil, nil, nil);
+			[NSApp terminate:nil]; 
+			break;
+		default:
+			break;
 	}
-	
+
 	
 	// Schlüssellisten initialisieren.
 	self.allKeys = [NSMutableSet setWithCapacity:50];

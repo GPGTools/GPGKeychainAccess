@@ -735,7 +735,7 @@
 }
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
-	
+
 	NSInteger action = [[gc.userInfo objectForKey:@"action"] integerValue];
 	
 	switch (action) {

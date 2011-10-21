@@ -277,7 +277,9 @@
 // buttonClicked //
 - (IBAction)buttonClicked:(NSButton *)sender {
 	clickedButton = sender.tag;
-	[sheetWindow endEditingFor:nil];
+	if (![sheetWindow makeFirstResponder:sheetWindow]) {
+		[sheetWindow endEditingFor:nil];
+	}
 	
 	if (numberOfProgressSheets > 0) {
 		[[ActionController sharedInstance] cancelOperation:self];
@@ -488,43 +490,43 @@
 
 // Checks //
 - (BOOL)checkName {
-	if ([name length] < 5) {
+	if ([self.name length] < 5) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameToShort"), nil, nil, nil);
 		return NO;
 	}
-	if ([name length] > 500) {
+	if ([self.name length] > 500) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameToLong"), nil, nil, nil);
 		return NO;
 	}
-	if ([name rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]].length != 0) {
+	if ([self.name rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]].length != 0) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_InvalidCharInName"), nil, nil, nil);
 		return NO;
 	}
-	if ([name characterAtIndex:0] <= '9' && [name characterAtIndex:0] >= '0') {
+	if ([self.name characterAtIndex:0] <= '9' && [self.name characterAtIndex:0] >= '0') {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameStartWithDigit"), nil, nil, nil);
 		return NO;
 	}
 	return YES;
 }
 - (BOOL)checkEmailMustSet:(BOOL)mustSet {
-	if (!email) {
-		email = @"";
+	if (!self.email) {
+		self.email = @"";
 	}
 	
-	if (!mustSet && [email length] == 0) {
+	if (!mustSet && [self.email length] == 0) {
 		return YES;
 	}
-	if ([email length] > 254) {
+	if ([self.email length] > 254) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_EmailToLong"), nil, nil, nil);
 		return NO;
 	}
-	if ([email length] < 4) {
+	if ([self.email length] < 4) {
 		goto emailIsInvalid;
 	}
-	if ([email hasPrefix:@"@"] || [email hasSuffix:@"@"] || [email hasSuffix:@"."]) {
+	if ([self.email hasPrefix:@"@"] || [self.email hasSuffix:@"@"] || [self.email hasSuffix:@"."]) {
 		goto emailIsInvalid;
 	}
-	NSArray *components = [email componentsSeparatedByString:@"@"];
+	NSArray *components = [self.email componentsSeparatedByString:@"@"];
 	if ([components count] != 2) {
 		goto emailIsInvalid;
 	} 
@@ -551,35 +553,62 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	return NO;
 }
 - (BOOL)checkComment {
-	if (!comment) {
-		comment = @"";
+	if (!self.comment) {
+		self.comment = @"";
 		return YES;
 	}
-	if ([comment length] == 0) {
+	if ([self.comment length] == 0) {
 		return YES;
 	}
-	if ([comment length] > 500) {
+	if ([self.comment length] > 500) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_CommentToLong"), nil, nil, nil);
 		return NO;
 	}
-	if ([comment rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()"]].length != 0) {
+	if ([self.comment rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"()"]].length != 0) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_InvalidCharInComment"), nil, nil, nil);
 		return NO;
 	}
 	return YES;
 }
 - (BOOL)checkPassphrase {
-	if (!passphrase) {
-		passphrase = @"";
+	if (!self.passphrase) {
+		self.passphrase = @"";
 	}
-	if (!confirmPassphrase) {
-		confirmPassphrase = @"";
+	if (!self.confirmPassphrase) {
+		self.confirmPassphrase = @"";
 	}
-	if (![passphrase isEqualToString:confirmPassphrase]) {
+	if (![self.passphrase isEqualToString:self.confirmPassphrase]) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_PassphraseMissmatch"), nil, nil, nil);
 		return NO;
 	}
-	//TODO: Hinweis bei leerer, einfacher oder kurzer Passphrase.
+	
+	if ([self.passphrase length] == 0) {
+		if (NSRunAlertPanel(localized(@"CheckAlert_NoPassphrase_Title"), 
+							localized(@"CheckAlert_NoPassphrase_Message"), 
+							localized(@"CheckAlert_NoPassphrase_Button1"), 
+							localized(@"CheckAlert_NoPassphrase_Button2"), nil) != NSAlertDefaultReturn) {
+			return NO;
+		}
+	} else {
+		if ([self.passphrase length] < 8) {
+			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseShort_Title"), 
+								localized(@"CheckAlert_PassphraseShort_Message"), 
+								localized(@"CheckAlert_PassphraseShort_Button1"), 
+								localized(@"CheckAlert_PassphraseShort_Button2"), nil) != NSAlertDefaultReturn) {
+				return NO;
+			}
+		}
+		if ([self.passphrase rangeOfCharacterFromSet:[NSCharacterSet letterCharacterSet]].length == 0 ||
+			[self.passphrase rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].length == 0 ||
+			[self.passphrase rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].length == 0 ) {
+			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseSimple_Title"), 
+								localized(@"CheckAlert_PassphraseSimple_Message"), 
+								localized(@"CheckAlert_PassphraseSimple_Button1"), 
+								localized(@"CheckAlert_PassphraseSimple_Button2"), nil) != NSAlertDefaultReturn) {
+				return NO;
+			}
+		}
+	}
 	
 	return YES;
 }
@@ -599,7 +628,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		[displayedView removeFromSuperview];
 		displayedView = value;
 		if (value != nil) {
-			if (value == newKeyView) { //Passphrase-Felder nur bei GPG 1.4.x anzeigen.
+			if (value == newKeyView) { //Passphrase-Felder nur bei GPG 1.x anzeigen.
 				NSUInteger resizingMask;
 				NSSize newSize;
 				if ([[GPGController gpgVersion] hasPrefix:@"1"]) {
