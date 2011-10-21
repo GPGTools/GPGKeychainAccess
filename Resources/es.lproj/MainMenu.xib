@@ -1479,7 +1479,7 @@
 								<reference key="NSControlView" ref="544588931"/>
 								<int key="NSButtonFlags">1211912703</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage" id="438011620">
+								<object class="NSCustomResource" key="NSNormalImage" id="13156492">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
 								</object>
@@ -1866,7 +1866,6 @@
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{212, 10}, {131, 28}}</string>
 												<reference key="NSSuperview" ref="269795853"/>
-												<reference key="NSNextKeyView" ref="913833129"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSButtonCell" key="NSCell" id="220668053">
 													<int key="NSCellFlags">-2080244224</int>
@@ -2067,7 +2066,7 @@
 													<reference key="NSControlView" ref="836028179"/>
 													<int key="NSButtonFlags">1211912703</int>
 													<int key="NSButtonFlags2">2</int>
-													<reference key="NSNormalImage" ref="438011620"/>
+													<reference key="NSNormalImage" ref="13156492"/>
 													<reference key="NSAlternateImage" ref="483159743"/>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
@@ -4425,14 +4424,6 @@
 						</object>
 					</object>
 					<int key="connectionID">1173</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">setTrsut:</string>
-						<reference key="source" ref="508921759"/>
-						<reference key="destination" ref="1073664946"/>
-					</object>
-					<int key="connectionID">1179</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -7036,6 +7027,14 @@
 						</object>
 					</object>
 					<int key="connectionID">1987</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">setTrust:</string>
+						<reference key="source" ref="508921759"/>
+						<reference key="destination" ref="1073664946"/>
+					</object>
+					<int key="connectionID">2002</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -10242,7 +10241,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">2001</int>
+			<int key="maxID">2002</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -10269,6 +10268,7 @@
 							<string>generateNewKey:</string>
 							<string>importKey:</string>
 							<string>minimizeKey:</string>
+							<string>paste:</string>
 							<string>receiveKeys:</string>
 							<string>refreshDisplayedKeys:</string>
 							<string>refreshKeysFromServer:</string>
@@ -10285,7 +10285,7 @@
 							<string>setDisabled:</string>
 							<string>setPrimaryPhoto:</string>
 							<string>setPrimaryUserID:</string>
-							<string>setTrsut:</string>
+							<string>setTrust:</string>
 							<string>showInspector:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -10296,6 +10296,7 @@
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -10344,6 +10345,7 @@
 							<string>generateNewKey:</string>
 							<string>importKey:</string>
 							<string>minimizeKey:</string>
+							<string>paste:</string>
 							<string>receiveKeys:</string>
 							<string>refreshDisplayedKeys:</string>
 							<string>refreshKeysFromServer:</string>
@@ -10360,7 +10362,7 @@
 							<string>setDisabled:</string>
 							<string>setPrimaryPhoto:</string>
 							<string>setPrimaryUserID:</string>
-							<string>setTrsut:</string>
+							<string>setTrust:</string>
 							<string>showInspector:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -10423,6 +10425,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">minimizeKey:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">paste:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -10490,7 +10496,7 @@
 								<string key="candidateClassName">NSButton</string>
 							</object>
 							<object class="IBActionInfo">
-								<string key="name">setTrsut:</string>
+								<string key="name">setTrust:</string>
 								<string key="candidateClassName">NSPopUpButton</string>
 							</object>
 							<object class="IBActionInfo">

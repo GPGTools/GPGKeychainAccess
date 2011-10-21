@@ -63,7 +63,7 @@
 - (IBAction)revokeUserID:(NSButton *)sender;
 - (IBAction)setDisabled:(NSButton *)sender;
 - (IBAction)setPrimaryUserID:(NSButton *)sender;
-- (IBAction)setTrsut:(NSPopUpButton *)sender;
+- (IBAction)setTrust:(NSPopUpButton *)sender;
 - (IBAction)generateNewKey:(id)sender;
 - (IBAction)deleteKey:(id)sender;
 - (IBAction)refreshDisplayedKeys:(id)sender;

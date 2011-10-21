@@ -121,7 +121,7 @@
 - (void)generateContextMenuForTable:(NSTableView *)table {
 	NSMenuItem *menuItem;
 	NSString *title;
-	NSMenu *contextMenu = [[NSMenu alloc] initWithTitle:@""];
+	NSMenu *contextMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
 	[[table headerView] setMenu:contextMenu];
 	
 	NSArray *columns = [table tableColumns];

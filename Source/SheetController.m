@@ -397,7 +397,7 @@
 		description = [[[NSMutableAttributedString alloc] initWithString:tempDescription attributes:stringAttributes] autorelease];
 		
 		for (GPGRemoteUserID *userID in key.userIDs) {
-			[description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n	%@", userID.userID]]];
+			[description appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n	%@", userID.userID]] autorelease]];
 		}
 		
 		[dicts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:description, @"description", selected, @"selected", [NSNumber numberWithUnsignedInteger:[key.userIDs count] + 1], @"lines", key, @"key", nil]];
@@ -457,7 +457,7 @@
 			for (NSUInteger i = 0; i < count; i++) {
 				[newEmailAddresses addObject:[abEmailAddresses valueAtIndex:i]];
 			}
-			self.emailAddresses = [newEmailAddresses copy];
+			self.emailAddresses = newEmailAddresses;
 			self.email = [emailAddresses objectAtIndex:0];
 		} else {
 			self.emailAddresses = nil;

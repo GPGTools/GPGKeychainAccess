@@ -321,7 +321,7 @@ NSSet *draggedKeys;
 	
 	// Schlüssellisten initialisieren.
 	self.allKeys = [NSMutableSet setWithCapacity:50];
-	self.filteredKeyList = [[NSMutableArray alloc] initWithCapacity:10];
+	self.filteredKeyList = [NSMutableArray arrayWithCapacity:10];
 	
 	
 	// Sort Descriptoren anlegen.

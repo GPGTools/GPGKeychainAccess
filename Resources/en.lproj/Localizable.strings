@@ -30,12 +30,27 @@ DeleteKey_Msg = "Attempting to delete key %@, %@.\n\nAre you sure you want to de
 "Exported keys.asc" = "Exported keys.asc";
 
 
+//For key creation
+CheckAlert_NoPassphrase_Title = "No Passphrase";
+CheckAlert_NoPassphrase_Message = "You have entered no passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Button1= "Continue without a passphrase";
+CheckAlert_NoPassphrase_Button2 = "Enter new passphrase";
+CheckAlert_PassphraseShort_Title = "Short Passphrase";
+CheckAlert_PassphraseShort_Message = "You have entered a short passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
+CheckAlert_PassphraseShort_Button1= "Continue with short passphrase";
+CheckAlert_PassphraseShort_Button2 = "Enter new passphrase";
+CheckAlert_PassphraseSimple_Title = "Simple Passphrase";
+CheckAlert_PassphraseSimple_Message = "The passphrase you have entered is too simple. A good passphrase should be alphanumeric and contain at least one special character.";
+CheckAlert_PassphraseSimple_Button1 = "Continue with simple passphrase";
+CheckAlert_PassphraseSimple_Button2 = "Enter new passphrase";
+
+
 //For Key-Search
 "No keys Found" = "No keys Found";
-"%@, %@ (%@ bit), created: %@" = "%@, %@ (%@ bit), created: %@"; //Format für die gefundenen Schlüssel vom Server.
+"FOUND_KEY_DESCRIPTION_FORMAT" = "%@, %@ (%lu bit), created: %@"; //Format für die gefundenen Schlüssel vom Server.
 SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It might take some time, please wait.";
 
-GenerateEntropy_Msg = "We need to generate a lot of random bytes. It is a good idea to perform some other action (type on the keyboard in an application, move the mouse, utilize the disks) during the prime generation; this gives the random number generator a better chance to gain enough entropy.";
+GenerateKey_Progress = "We need to generate a lot of random bytes. It is a good idea to perform some other action (type on the keyboard in an application, move the mouse, utilize the disks) during the prime generation. This gives the random number generator a better chance to gain enough entropy.";
 GenerateSubkey_Msg = "Add subkey to the Key \"%@\", %@.";
 GenerateUserID_Msg = "Add user ID to the Key \"%@\", %@.";
 GenerateSignature_Msg = "Make signature for all user IDs of \"%@\", %@";
@@ -43,6 +58,7 @@ GenerateUidSignature_Msg = "Make signature for user ID \"%@\", %@";
 ChangeExpirationDate_Msg = "Change expiration date of \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%@\", %@\nSubkey: %@";
 
+GenerateKey_Error = "Ups, something went wrong. There was a problem creating your key.";
 
 //Message for incorrect Entries
 CheckError_NameToShort = "Name must be at least 5 characters long!";
@@ -69,12 +85,19 @@ GPGAgentNotStart_Msg = "Without gpg-agent you can’t access passphrase protecte
 Quit_Button = "Quit";
 
 
+//GPG
+GPG_NOT_FOUND_TITLE = "GPG Not Found";
+GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong here. It seems GPG is missing on your system. Please install it. Find it e.g. in the GPGTools Installer on http://www.gpgtools.org.";
+GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact the GPGTools team http://www.gpgtools.org/about.html.";
+
+
 //Those are abvious
 No = "No";
 Error = "Error";
 Warning = "Warning";
 Cancel = "Cancel";
-
+"Apply to all" = "Apply to all";
 
 //For Import-Results
 ImportResult_Secret = "key %@: secret key \"%@\" imported.";
@@ -109,10 +132,6 @@ ChoosePhoto_Large_Button1 = "Choose another…";
 ChoosePhoto_Large_Button2 = "Use this photo";
 ChoosePhoto_ToLarge_Message = "This picture is to large!";
 ChoosePhoto_ToLarge_Info = "Please use a picature smaller than 500 KiB.";
-
-"Export failed!" = "Export failed!";
-
-"Generate revoke certificate failed!" = "Failed to generate revoke certificate!";
 
 
 //For Undo and Redo
@@ -170,4 +189,66 @@ COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
 
+
+
+
+ExportKey_Progress = "Exporting key.";
+ExportKey_Error = "Key export failed.";
+ImportKey_Progress  = "Importing key.";
+ImportKey_Error = "Key import failed.";
+DeleteSecretKey_Progress = "Deleting secret key.";
+DeleteKeys_Progress = "Deleting keys.";
+DeleteKeys_Error = "Deleting keys failed.";
+ChangePassphrase_Progress = "Changing Passphrase.";
+ChangePassphrase_Error = "Changing passphrase failed.";
+SetDisabled_Progress = "Disabling key.";
+SetDisabled_Error = "Disabling key failed.";
+SetOwnerTrust_Progress = "Setting owner trust.";
+SetOwnerTrust_Error = "Setting owner trust failed.";
+ChangeExpirationDate_Progress = "Changing expiration date.";
+ChangeExpirationDate_Error = "Changing expiration date failed.";
+SetAlgorithmPreferences_Progress = "Setting algorithm preferences.";
+SetAlgorithmPreferences_Error = "Setting algorithm preferences.";
+CleanKey_Progress = "Cleaning key.";
+CleanKey_Error = "Cleaning key failed.";
+MinimizeKey_Progress = "Minimizing key.";
+MinimizeKey_Error = "Minimizing key failed.";
+GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate.";
+GenerateRevokeCertificateForKey_Error = "Generating revoke certificate failed.";
+SearchKeysOnServer_Progress = "Searching keys.";
+SearchKeysOnServer_Error = "Searching keys failed.";
+SendKeysToServer_Progress = "Sending keys.";
+SendKeysToServer_Error = "Sending keys failed.";
+RefreshKeysFromServer_Progress = "Refreshing keys.";
+RefreshKeysFromServer_Error = "Refreshing keys failed.";
+AddSubkey_Progress = "Adding subkey.";
+AddSubkey_Error = "Adding subkey failed.";
+RemoveSubkey_Progress = "Removing subkey.";
+RemoveSubkey_Error = "Removing subkey failed.";
+RevokeSubkey_Progress = "Revoking subkey.";
+RevokeSubkey_Error = "Revoking subkey failed.";
+AddUserID_Progress = "Adding userID.";
+AddUserID_Error = "Adding userID failed.";
+RemoveUserID_Progress = "Removing user ID.";
+RemoveUserID_Error = "Removing user ID failed.";
+SetPrimaryUserID_Progress = "Setting primary userID.";
+SetPrimaryUserID_Error = "Setting primary userID failed.";
+RevokeUserID_Progress = "Revoking userID.";
+RevokeUserID_Error = "Revoking userID failed.";
+AddPhoto_Progress = "Adding photo.";
+AddPhoto_Error = "Adding photo failed.";
+RemovePhoto_Progress = "Removing photo.";
+RemovePhoto_Error = "Removing photo failed.";
+SetPrimaryPhoto_Progress = "Setting primary photo.";
+SetPrimaryPhoto_Error = "Setting primary photo failed.";
+RevokePhoto_Progress = "Revoking photo.";
+RevokePhoto_Error = "Revoking photo failed.";
+AddSignature_Progress = "Adding Signature.";
+AddSignature_Error = "Adding Signature failed.";
+RemoveSignature_Progress = "Removing signature.";
+RemoveSignature_Error = "Removing signature failed.";
+RevokeSignature_Progress = "Revoking signature.";
+RevokeSignature_Error = "Revoking signature failed.";
+ReceiveKeysFromServer_Progress = "Receiving keys.";
+ReceiveKeysFromServer_Error = "Receiving keys failed.";
 
