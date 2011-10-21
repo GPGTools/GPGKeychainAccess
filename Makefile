@@ -1,3 +1,9 @@
+PROJECT = GPGKeychainAccess
+TARGET = "GPG Keychain Access"
+CONFIG = Release
+
+include Dependencies/GPGTools_Core/make/default
+
 all: compile
 
 update-core:
@@ -20,4 +26,4 @@ dmg: compile
 
 test: compile
 	@./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto
-	@./Dependencies/GPGTools_Core/scripts/upload.sh 
+	@./Dependencies/GPGTools_Core/scripts/upload.sh
