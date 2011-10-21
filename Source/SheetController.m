@@ -388,7 +388,7 @@
 			stringAttributes = nil;
 		}
 		
-		NSString *tempDescription = [NSString stringWithFormat:localized(@"%@, %@ (%lu bit), created: %@"), 
+		NSString *tempDescription = [NSString stringWithFormat:localized(@"FOUND_KEY_DESCRIPTION_FORMAT"), 
 									 key.keyID, //Schlüssel ID
 									 [algorithmNameTransformer transformedIntegerValue:key.algorithm], //Algorithmus
 									 key.length, //Länge

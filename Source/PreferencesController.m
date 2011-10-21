@@ -77,6 +77,5 @@ static PreferencesController *_sharedInstance = nil;
 }
 
 
-
 @end
 

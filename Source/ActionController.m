@@ -49,6 +49,8 @@
 		return;
 	}
 	
+	self.progressText = localized(@"ExportKey_Msg");
+	self.errorText = localized(@"ExportKey_Error");
 	gpgc.useArmor = sheetController.exportFormat != 0;
 	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:SaveDataToURLAction], @"action", sheetController.URL, @"URL", nil];
 	[gpgc exportKeys:keys allowSecret:sheetController.allowSecretKeyExport fullExport:NO];
@@ -80,6 +82,8 @@
 	[pool drain];
 }
 - (void)importFromData:(NSData *)data {
+	self.progressText = localized(@"ImportKey_Msg");
+	self.errorText = localized(@"ImportKey_Error");
 	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:ShowResultAction], @"action", nil];
 	[gpgc importFromData:data fullImport:NO];
 }
@@ -240,12 +244,16 @@
 		}
 	}
 	
-	
+
 	if (secretKeysToDelete.count > 0) {
+		self.progressText = localized(@"DeleteKeys_Msg");
+		self.errorText = localized(@"DeleteKeys_Error");
 		[gpgc deleteKeys:secretKeysToDelete withMode:GPGDeleteSecretKey];
 	}
 	
 	if (keysToDelete.count > 0) {
+		self.progressText = localized(@"DeleteKeys_Msg");
+		self.errorText = localized(@"DeleteKeys_Error");
 		[gpgc deleteKeys:keysToDelete withMode:GPGDeletePublicAndSecretKey];
 	}
 	
@@ -261,6 +269,8 @@
 	if ([keys count] == 1) {
 		GPGKey *key = [[keys anyObject] primaryKey];
 		
+		self.progressText = localized(@"ChangePassphrase_Msg");
+		self.errorText = localized(@"ChangePassphrase_Error");
 		[gpgc changePassphraseForKey:key];
 	}
 }
@@ -270,6 +280,8 @@
 		BOOL disabled = [sender state] == NSOnState;
 		[self.undoManager beginUndoGrouping];
 		for (GPGKey *key in keys) {
+			self.progressText = localized(@"SetDisabled_Msg");
+			self.errorText = localized(@"SetDisabled_Error");
 			[gpgc key:key setDisabled:disabled];
 		}
 		[self.undoManager endUndoGrouping];
@@ -280,6 +292,8 @@
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] > 0) {
 		for (GPGKey *key in keys) {
+			self.progressText = localized(@"SetOwnerTrsut_Msg");
+			self.errorText = localized(@"SetOwnerTrsut_Error");
 			[gpgc key:key setOwnerTrsut:[sender selectedTag]];
 		}
 	}
@@ -306,6 +320,8 @@
 	
 	sheetController.sheetType = SheetTypeExpirationDate;
 	if ([sheetController runModalForWindow:mainWindow] == NSOKButton) {
+		self.progressText = localized(@"ChangeExpirationDate_Msg");
+		self.errorText = localized(@"ChangeExpirationDate_Error");
 		[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:sheetController.daysToExpire];
 	}
 }
@@ -343,6 +359,8 @@
 		NSString *digestPreferences = [[preferences objectForKey:@"digestPreferences"] componentsJoinedByString:@" "];
 		NSString *compressPreferences = [[preferences objectForKey:@"compressPreferences"] componentsJoinedByString:@" "];
 		
+		self.progressText = localized(@"SetAlgorithmPreferences_Msg");
+		self.errorText = localized(@"SetAlgorithmPreferences_Error");
 		[gpgc setAlgorithmPreferences:[NSString stringWithFormat:@"%@ %@ %@", cipherPreferences, digestPreferences, compressPreferences] forUserID:[userID hashID] ofKey:key];
 	}
 	
@@ -353,12 +371,16 @@
 - (IBAction)cleanKey:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	for (GPGKey *key in keys) {
+		self.progressText = localized(@"CleanKey_Msg");
+		self.errorText = localized(@"CleanKey_Error");
 		[gpgc cleanKey:key];
 	}
 }
 - (IBAction)minimizeKey:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	for (GPGKey *key in keys) {
+		self.progressText = localized(@"MinimizeKey_Msg");
+		self.errorText = localized(@"MinimizeKey_Error");
 		[gpgc minimizeKey:key];
 	}
 }
@@ -380,6 +402,8 @@
 		return;
 	}
 	
+	self.progressText = localized(@"GenerateRevokeCertificateForKey_Msg");
+	self.errorText = localized(@"GenerateRevokeCertificateForKey_Error");
 	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:SaveDataToURLAction], @"action", sheetController.URL, @"URL", nil];
 	[gpgc generateRevokeCertificateForKey:key reason:0 description:nil];			   
 }
@@ -393,6 +417,8 @@
 	
 	gpgc.userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:ShowFoundKeysAction] forKey:@"action"];
 	
+	self.progressText = localized(@"SearchKeysOnServer_Msg");
+	self.errorText = localized(@"SearchKeysOnServer_Error");
 	[gpgc searchKeysOnServer:sheetController.pattern];
 }
 - (IBAction)receiveKeys:(id)sender {
@@ -408,12 +434,16 @@
 - (IBAction)sendKeysToServer:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] > 0) {
+		self.progressText = localized(@"SendKeysToServer_Msg");
+		self.errorText = localized(@"SendKeysToServer_Error");
 		[gpgc sendKeysToServer:keys];
 	}
 }
 - (IBAction)refreshKeysFromServer:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] > 0) {	
+		self.progressText = localized(@"RefreshKeysFromServer_Msg");
+		self.errorText = localized(@"RefreshKeysFromServer_Error");
 		[gpgc refreshKeysFromServer:keys];
 	}
 }
@@ -433,6 +463,8 @@
 		return;
 	}
 	
+	self.progressText = localized(@"AddSubkey_Msg");
+	self.errorText = localized(@"AddSubkey_Error");
 	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)removeSubkey:(NSButton *)sender {
@@ -440,6 +472,8 @@
 		GPGSubkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [subkey primaryKey];
 		
+		self.progressText = localized(@"RemoveSubkey_Msg");
+		self.errorText = localized(@"RemoveSubkey_Error");
 		[gpgc removeSubkey:subkey fromKey:key];
 	}
 }
@@ -448,6 +482,8 @@
 		GPGSubkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [subkey primaryKey];
 		
+		self.progressText = localized(@"RevokeSubkey_Msg");
+		self.errorText = localized(@"RevokeSubkey_Error");
 		[gpgc revokeSubkey:subkey fromKey:key reason:0 description:nil];		
 	}
 }
@@ -467,6 +503,8 @@
 		return;
 	}
 	
+	self.progressText = localized(@"AddUserID_Msg");
+	self.errorText = localized(@"AddUserID_Error");
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
 - (IBAction)removeUserID:(NSButton *)sender {
@@ -474,6 +512,8 @@
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [userID primaryKey];
 		
+		self.progressText = localized(@"RemoveUserID_Msg");
+		self.errorText = localized(@"RemoveUserID_Error");
 		[gpgc removeUserID:[userID hashID] fromKey:key];
 	}
 }
@@ -482,6 +522,8 @@
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [userID primaryKey];
 		
+		self.progressText = localized(@"SetPrimaryUserID_Msg");
+		self.errorText = localized(@"SetPrimaryUserID_Error");
 		[gpgc setPrimaryUserID:[userID hashID] ofKey:key];
 	}
 }
@@ -490,6 +532,8 @@
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [userID primaryKey];
 		
+		self.progressText = localized(@"RevokeUserID_Msg");
+		self.errorText = localized(@"RevokeUserID_Error");
 		[gpgc revokeUserID:[userID hashID] fromKey:key reason:0 description:nil]; 
 	}
 }
@@ -511,6 +555,8 @@
 		return;
 	}
 	
+	self.progressText = localized(@"AddPhoto_Msg");
+	self.errorText = localized(@"AddPhoto_Error");
 	[gpgc addPhotoFromPath:[sheetController.URL path] toKey:key];
 }
 - (IBAction)removePhoto:(NSButton *)sender {
@@ -518,6 +564,8 @@
 		NSSet *keys = [self selectedKeys];		
 		GPGKey *key = [[keys anyObject] primaryKey];
 		
+		self.progressText = localized(@"RemovePhoto_Msg");
+		self.errorText = localized(@"RemovePhoto_Error");
 		[gpgc removeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key];
 	}
 }
@@ -525,6 +573,8 @@
 	if ([photosController selectionIndex] != NSNotFound) {
 		GPGKey *key = [[[self selectedKeys] anyObject] primaryKey];		
 		
+		self.progressText = localized(@"SetPrimaryPhoto_Msg");
+		self.errorText = localized(@"SetPrimaryPhoto_Error");
 		[gpgc setPrimaryUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] ofKey:key];
 	}
 }
@@ -532,6 +582,8 @@
 	if ([photosController selectionIndex] != NSNotFound) {
 		GPGKey *key = [[[self selectedKeys] anyObject] primaryKey];		
 		
+		self.progressText = localized(@"RevokePhoto_Msg");
+		self.errorText = localized(@"RevokePhoto_Error");
 		[gpgc revokeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key reason:0 description:nil];
 	}
 }
@@ -564,6 +616,8 @@
 		return;
 	}
 	
+	self.progressText = localized(@"AddSignature_Msg");
+	self.errorText = localized(@"AddSignature_Error");
 	[gpgc signUserID:[userID hashID] ofKey:key signKey:sheetController.secretKey type:sheetController.sigType local:sheetController.localSig daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)removeSignature:(NSButton *)sender {
@@ -572,6 +626,8 @@
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [userID primaryKey];
 		
+		self.progressText = localized(@"RemoveSignature_Msg");
+		self.errorText = localized(@"RemoveSignature_Error");
 		[gpgc removeSignature:gpgKeySignature fromUserID:userID ofKey:key];
 	}
 }
@@ -581,6 +637,8 @@
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [userID primaryKey];
 		
+		self.progressText = localized(@"RevokeSignature_Msg");
+		self.errorText = localized(@"RevokeSignature_Error");
 		[gpgc revokeSignature:gpgKeySignature fromUserID:userID ofKey:key reason:0 description:nil];
 	}
 }
@@ -596,6 +654,8 @@
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys {
 	gpgc.userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:ShowResultAction] forKey:@"action"];
 	
+	self.progressText = localized(@"ReceiveKeysFromServer_Msg");
+	self.errorText = localized(@"ReceiveKeysFromServer_Error");
 	[gpgc receiveKeysFromServer:keys];
 }
 
@@ -725,6 +785,7 @@
 	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:YES];
 }
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
+	NSLog(@"Exception: %@", e.description);
 	if ([e isKindOfClass:[GPGException class]]) {
 		if ([(GPGException *)e errorCode] == GPGErrorCancelled) {
 			return;
@@ -754,15 +815,18 @@
 		case ShowFoundKeysAction: {
 			if (gc.error) break;
 			NSArray *keys = gc.lastReturnValue;
-			if ([keys count] == 0) break;
-			
-			sheetController.keys = keys;
-			
-			sheetController.sheetType = SheetTypeShowFoundKeys;
-			if ([sheetController runModalForWindow:mainWindow] != NSOKButton) break;
-			
-			[self receiveKeysFromServer:sheetController.keys];
-			
+			if ([keys count] == 0) {
+				sheetController.msgText = localized(@"No keys Found");
+				sheetController.sheetType = SheetTypeShowResult;
+				[sheetController runModalForWindow:mainWindow];
+			} else {
+				sheetController.keys = keys;
+				
+				sheetController.sheetType = SheetTypeShowFoundKeys;
+				if ([sheetController runModalForWindow:mainWindow] != NSOKButton) break;
+				
+				[self receiveKeysFromServer:sheetController.keys];
+			}
 			break;
 		}
 		case SaveDataToURLAction: {
@@ -776,7 +840,8 @@
 		default:
 			break;
 	}
-	
+	self.progressText = nil;
+	self.errorText = nil;
 	gc.userInfo = nil;
 }
 - (void)gpgController:(GPGController *)gpgc keysDidChanged:(NSObject<EnumerationList> *)keys external:(BOOL)external {
