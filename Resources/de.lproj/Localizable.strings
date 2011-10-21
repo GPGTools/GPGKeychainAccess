@@ -30,12 +30,15 @@ DeleteKey_Msg = "Möchten Sie den Schlüssel „%@“, %@ wirklich löschen?";
 "Exported keys.asc" = "Exportierte Schlüssel.asc";
 
 
+
+
+
 //Für die Schlüselsuche
 "No keys Found" = "Keine Schlüssel gefunden";
 "%@, %@ (%@ bit), created: %@" = "%@, %@ (%@ bit), erstellt: %@"; //Format für die gefundenen Schlüssel vom Server.
 SearchingKeys_Msg = "Es wird, auf dem Schlüsselserver, nach passenden Schlüsseln gesucht. Die kann einige Zeit in anspruch nehmen.";
 
-GenerateEntropy_Msg = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
+GenerateKey_Progress = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
 GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel „%@“, %@ anlegen.";
 GenerateUserID_Msg = "Zusätzliche Benutzer-ID für den Schlüssel „%@“, %@ anlegen.";
 GenerateSignature_Msg = "Beglaubigung aller Benutzer-IDs von „%@“, %@";
@@ -44,7 +47,7 @@ ChangeExpirationDate_Msg = "Ändern des Verfalldatums von „%@“, %@";
 ChangeSubkeyExpirationDate_Msg = "Ändern des Verfalldatums des Unterschlüssels: %@ von „%@“, %@";
 
 
-//Meldungen wenn die Eingabe nicht korrekt war.
+//Meldungen der Eingabenprüfung.
 CheckError_NameToShort = "Der Name muss mindestens 5 Zeichen lang sein!!";
 CheckError_NameToLong = "Der Name ist zu lang!";
 CheckError_InvalidCharInName = "Ungültiges Zeichen im Namen!\n„<“ und „>“ sind nicht erlaubt.";
@@ -55,18 +58,25 @@ CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n„(“ un
 CheckError_CommentToLong = "Der Kommentar ist zu lang!";
 CheckError_NoKeyID = "Bitte geben Sie eine gültige Schlüssel-ID ein!";
 CheckError_PassphraseMissmatch = "Die eingegebenen Passphrasen stimmen nicht überein!";
+CheckAlert_NoPassphrase_Title = "Keine Passphrase";
+CheckAlert_NoPassphrase_Message = "Du hast keine Passphrase eingegeben. Das ist nicht zu empfehlen. Eine Passphrase sollte mindestens 8 Zeichen lang sein.";
+CheckAlert_NoPassphrase_Button1= "Weiter ohne Passphrase";
+CheckAlert_NoPassphrase_Button2 = "Neue Passphrase eingeben";
+CheckAlert_PassphraseShort_Title = "Passphrase zu kurz";
+CheckAlert_PassphraseShort_Message = "Du hast eine kurze Passphrase eingegeben. Das ist nicht zu empfehlen. Eine Passphrase sollte mindestens 8 Zeichen lang sein.";
+CheckAlert_PassphraseShort_Button1= "Weiter mit kurzer Passphrase";
+CheckAlert_PassphraseShort_Button2 = "Neue Passphrase eingeben";
+CheckAlert_PassphraseSimple_Title = "Passphrase zu einfach";
+CheckAlert_PassphraseSimple_Message = "Die Passphrase ist zu einfach. Eine gute Passphrase sollte alphanumerisch sein und mindestens ein Sonderzeichen enthalten.";
+CheckAlert_PassphraseSimple_Button1 = "Weiter mit einfacher Passphrase";
+CheckAlert_PassphraseSimple_Button2 = "Neue Passphrase eingeben";
 
 
 //Meldungen beim Start, wenn es Probleme gibt. 
-GPGNotFound_Msg = "GPG konnte nicht gefunden werden!";
-GPGNotStart_Title = "GPG konnte nicht gestartet werden!";
-GPGNotStart_Msg = "Bitte überprüfen Sie Ihre gpg.conf";
-GPGInitError_Msg = "GPG konnte nicht initialisiert werden!";
-GPGAgentNotFound_Title = "gpg-agent wurde nicht gefunden!";
-GPGAgentNotFound_Msg = "Ohne den gpg-agent können Sie keine mit einer Passphrase geschützten Schlüssel verwenden.";
-GPGAgentNotStart_Title = "gpg-agent konnte nicht gestartet werden!";
-GPGAgentNotStart_Msg = "Ohne den gpg-agent können Sie keine mit einer Passphrase geschützte Schlüssel verwenden.";
-Quit_Button = "Beenden";
+GPG_NOT_FOUND_TITLE = "GPG nicht gefunden";
+GPG_NOT_FOUND_MESSAGE = "Ups, irgendwas läuft schief. Anscheinend fehlt auf deinem System GPG. Bitte installiere GPG, z.B. mit dem GPGTools Installer auf http://www.gpgtools.org.";
+GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, irgendwas läuft schief. GPG wurde auf deinem System gefunden aber es gibt ein Problem mit der config-Datei. Bitte kontaktiere das GPGTools team http://www.gpgtools.org/about.html.";
 
 
 //Sollte klar sein.
@@ -74,6 +84,7 @@ No = "Nein";
 Error = "Fehler";
 Warning = "Warnung";
 Cancel = "Abbrechen";
+"Apply to all" = "Auf alle anwenden";
 
 
 //Für die Importergebnis
@@ -171,3 +182,63 @@ COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
+
+ExportKey_Progress = "Exportiere Schlüssel.";
+ExportKey_Error = "Schlüsselexport fehlgeschlagen.";
+ImportKey_Progress  = "Importiere Schlüssel.";
+ImportKey_Error = "Schlüsselimport fehlgeschlagen.";
+DeleteSecretKey_Progress = "Lösche geheimen Schlüssel.";
+DeleteKeys_Progress = "Lösche Schlüssel.";
+DeleteKeys_Error = "Löschen des Schlüssels fehlgeschlagen.";
+ChangePassphrase_Progress = "Ändere Passphrase.";
+ChangePassphrase_Error = "Ändern der Passphrase fehlgeschlagen.";
+SetDisabled_Progress = "Aktiviere/Deaktiviere Schlüssel.";
+SetDisabled_Error = "Aktivieren/Deaktivieren des Schlüssels fehlgeschlagen.";
+SetOwnerTrust_Progress = "Ändere Benutzervertrauen.";
+SetOwnerTrust_Error = "Ändern des Benutzervertrauens fehlgeschlagen.";
+ChangeExpirationDate_Progress = "Ändere Verfallsdatum.";
+ChangeExpirationDate_Error = "Ändern des Verfallsdatums fehlgeschlagen.";
+SetAlgorithmPreferences_Progress = "Ändere die bevorzugten Algorithmen.";
+SetAlgorithmPreferences_Error = "Ändern der bevorzugten Algorithmen fehlgeschlagen";
+CleanKey_Progress = "Schlüssel säubern.";
+CleanKey_Error = "Säubern des Schlüssels fehlgeschlagen.";
+MinimizeKey_Progress = "Minimiere Schlüssel.";
+MinimizeKey_Error = "Minimieren des Schlüssels fehlgeschlagen.";
+GenerateRevokeCertificateForKey_Progress = "Erstelle Widerrufszertifikat.";
+GenerateRevokeCertificateForKey_Error = "Erstellen des Widerrufszertifikats fehlgeschlagen.";
+SearchKeysOnServer_Progress = "Suche Schlüssel.";
+SearchKeysOnServer_Error = "Schlüsselsuche fehlgeschlagen.";
+SendKeysToServer_Progress = "Sende Schlüssel.";
+SendKeysToServer_Error = "Senden des Schlüssels fehlgeschlagen.";
+RefreshKeysFromServer_Progress = "Aktualisiere Schlüssel.";
+RefreshKeysFromServer_Error = "Aktualisieren des Schlüssels fehlgeschlagen.";
+AddSubkey_Progress = "Erstelle Unterschlüssel.";
+AddSubkey_Error = "Erstellen des Unterschlüssels fehlgeschlagen.";
+RemoveSubkey_Progress = "Löschen Unterschlüssel.";
+RemoveSubkey_Error = "Löschen des Unterschlüssels fehlgeschlagen.";
+RevokeSubkey_Progress = "Widerrufe Unterschlüssel.";
+RevokeSubkey_Error = "Widerrufen des Unterschlüssels fehlgeschlagen.";
+AddUserID_Progress = "Erstelle BenutzerID.";
+AddUserID_Error = "Erstellen der BenutzerID fehlgeschlagen.";
+RemoveUserID_Progress = "Lösche BenutzerID.";
+RemoveUserID_Error = "Löschen der BenutzerID fehlgeschlagen.";
+SetPrimaryUserID_Progress = "Setze primäre BenutzerID.";
+SetPrimaryUserID_Error = "Setzen der  primäre BenutzerID fehlgeschlagen.";
+RevokeUserID_Progress = "Widerrufe BenutzerID.";
+RevokeUserID_Error = "Widerrufen der BenutzerID fehlgeschlagen.";
+AddPhoto_Progress = "Füge Foto zu Schlüssel hinzu.";
+AddPhoto_Error = "Hinzufügen des Fotos fehlgeschlagen.";
+RemovePhoto_Progress = "Lösche Foto.";
+RemovePhoto_Error = "Löschen des Fotos fehlgeschlagen.";
+SetPrimaryPhoto_Progress = "Setze primäres Foto.";
+SetPrimaryPhoto_Error = "Setzen des primären Fotos fehlgeschlagen.";
+RevokePhoto_Progress = "Widerrufe Foto.";
+RevokePhoto_Error = "Widerrufen des Fotos fehlgeschlagen.";
+AddSignature_Progress = "Erstelle Signatur.";
+AddSignature_Error = "Erstellen der Signatur fehlgeschlagen.";
+RemoveSignature_Progress = "Lösche Signatur.";
+RemoveSignature_Error = "Löschen der Signatur fehlgeschlagen.";
+RevokeSignature_Progress = "Widerrufe Signatur.";
+RevokeSignature_Error = "Widerrufen der Signatur fehlgeschlagen.";
+ReceiveKeysFromServer_Progress = "Hole Schlüssel von Server.";
+ReceiveKeysFromServer_Error = "Holen des Schlüssels vom Server fehlgeschlagen.";
