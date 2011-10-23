@@ -16,13 +16,10 @@ update-me:
 update: update-core update-libmac update-me
 
 compile:
-	xcodebuild -project GPGKeychainAccess.xcodeproj -target "GPG Keychain Access" -configuration Release build
+	@xcodebuild -project $(PROJECT).xcodeproj -target $(TARGET) -configuration $(CONFIG) build
 
 clean:
-	xcodebuild -project GPGKeychainAccess.xcodeproj -target "GPG Keychain Access" -configuration Release clean
-
-dmg: compile
-	@./Dependencies/GPGTools_Core/scripts/create_dmg.sh
+	@xcodebuild -project $(PROJECT).xcodeproj -target $(TARGET) -configuration $(CONFIG) clean > /dev/null
 
 test: compile
 	@./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto
