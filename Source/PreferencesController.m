@@ -76,6 +76,5 @@ static PreferencesController *_sharedInstance = nil;
 	[window setTitle:sender.label];
 }
 
-
 @end
 
