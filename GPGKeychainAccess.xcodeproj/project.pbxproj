@@ -407,7 +407,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "pushd $SRCROOT > /dev/null\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\n\nlocalizeXIB Resources/en.lproj/MainMenu.xib de sv fr es\nlocalizeXIB Resources/en.lproj/ModalSheets.xib de sv fr\nlocalizeXIB Resources/en.lproj/Preferences.xib de sv fr es\n\npopd > /dev/null\n";
+			shellScript = "pushd \"$SRCROOT\" > /dev/null\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\n\nlocalizeXIB Resources/en.lproj/MainMenu.xib de sv fr es\nlocalizeXIB Resources/en.lproj/ModalSheets.xib de sv fr\nlocalizeXIB Resources/en.lproj/Preferences.xib de sv fr es\n\npopd > /dev/null\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
