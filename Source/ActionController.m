@@ -867,6 +867,7 @@
 		gpgc = [[GPGController gpgController] retain];
 		gpgc.delegate = self;
 		gpgc.undoManager = self.undoManager;
+		gpgc.printVersion = YES;
 		gpgc.async = YES;
 		sheetController = [[SheetController sharedInstance] retain];
 	}
