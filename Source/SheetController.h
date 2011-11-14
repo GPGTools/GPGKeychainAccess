@@ -40,6 +40,7 @@ enum {
 	IBOutlet NSView *progressView;
 	IBOutlet NSView *newKeyView;
 	IBOutlet NSView *newKey_passphraseSubview;
+	IBOutlet NSView *newKey_advancedSubview;
 	IBOutlet NSView *newKey_topSubview;
 	IBOutlet NSView *generateSubkeyView;
 	IBOutlet NSView *generateUserIDView;
@@ -96,6 +97,7 @@ enum {
 - (void)endProgressSheet;
 
 - (IBAction)buttonClicked:(NSButton *)sender;
+- (IBAction)advancedButton:(NSButton *)sender;
 
 @end
 
@@ -110,4 +112,7 @@ enum {
 @property NSInteger minKeyLength;
 @property NSInteger maxKeyLength;
 - (NSInteger)checkedValue:(NSInteger)value;
+@end
+
+@interface GKSheetWindow : NSPanel
 @end

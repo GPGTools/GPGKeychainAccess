@@ -329,6 +329,18 @@
 }
 
 
+- (IBAction)advancedButton:(NSButton *)sender {
+	BOOL hide = sender.state == NSOffState;
+	NSRect newFrame = sheetWindow.frame;
+	
+	CGFloat height = [newKey_advancedSubview frame].size.height;
+	newFrame.size.height += hide ? -height : height;
+	
+	if (hide) [newKey_advancedSubview setHidden:YES];
+	[sheetWindow setFrame:newFrame display:YES animate:YES];
+	if (!hide) [newKey_advancedSubview setHidden:NO];
+}
+
 
 // Propertys //
 - (NSInteger)keyType {
@@ -429,7 +441,7 @@
 	} else {
 		[dateComponents setYear:4];
 		self.expirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0]; 
-		self.hasExpirationDate = NO;
+		self.hasExpirationDate = YES;
 	}
 }
 - (void)setDataFromAddressBook {
@@ -625,55 +637,30 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			[progressIndicator stopAnimation:nil];
 		}
 		
-		[displayedView removeFromSuperview];
-		displayedView = value;
+		//[displayedView removeFromSuperview];
+		//displayedView = value;
 		if (value != nil) {
-			if (value == newKeyView) { //Passphrase-Felder nur bei GPG 1.x anzeigen.
-				NSUInteger resizingMask;
-				NSSize newSize;
-				if ([[GPGController gpgVersion] hasPrefix:@"1"]) {
-					if ([newKey_passphraseSubview isHidden] == YES) {
-						[newKey_passphraseSubview setHidden:NO];
-						newSize = [newKeyView frame].size;
-						newSize.height += [newKey_passphraseSubview frame].size.height;
-						
-						resizingMask = [newKey_topSubview autoresizingMask];
-						[newKey_topSubview setAutoresizingMask:NSViewMinYMargin | NSViewWidthSizable];
-						[newKeyView setFrameSize:newSize];
-						[newKey_topSubview setAutoresizingMask:resizingMask];
-					}					
-				} else {
-					if ([newKey_passphraseSubview isHidden] == NO) {
-						[newKey_passphraseSubview setHidden:YES];
-						newSize = [newKeyView frame].size;
-						newSize.height -= [newKey_passphraseSubview frame].size.height;
-						
-						resizingMask = [newKey_topSubview autoresizingMask];
-						[newKey_topSubview setAutoresizingMask:NSViewMinYMargin | NSViewWidthSizable];
-						[newKeyView setFrameSize:newSize];
-						[newKey_topSubview setAutoresizingMask:resizingMask];
-					}
+			static BOOL	newKeyViewInitialized = NO;
+			if (!newKeyViewInitialized && value == newKeyView) {
+				newKeyViewInitialized = YES;
+				if (![[GPGController gpgVersion] hasPrefix:@"1"]) { //Passphrase-Felder nur bei GPG 1.x anzeigen.
+					[newKey_passphraseSubview setHidden:YES];
+					NSSize newSize = [newKeyView frame].size;
+					newSize.height -= [newKey_passphraseSubview frame].size.height;
+					
+					[newKeyView setFrameSize:newSize];
 				}
 			}
+			
 
-			NSRect oldRect, newRect;
-			oldRect = [sheetWindow frame];
-			newRect.size = [value frame].size;
-			newRect.origin.x = oldRect.origin.x + (oldRect.size.width - newRect.size.width) / 2;
-			newRect.origin.y = oldRect.origin.y + oldRect.size.height - newRect.size.height;
+			[sheetWindow setContentView:value];
 			
-			[sheetWindow setFrame:newRect display:YES animate:YES];
-			[sheetWindow setContentSize:newRect.size];
-			
-			[sheetView addSubview:value];
 			if ([value nextKeyView]) {
 				[sheetWindow makeFirstResponder:[value nextKeyView]];
 			}
 			
 			if (value == progressView) {
 				[progressIndicator startAnimation:nil];
-				//[progressIndicator display];
-				//[progressIndicator setNeedsDisplay:YES];
 			}
 		}
 	}
@@ -920,5 +907,29 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 }
 
 @end
+
+
+@implementation GKSheetWindow
+- (void)setContentView:(NSView *)aView {
+	if (aView != self.contentView || YES) {
+		[super setContentView:nil];
+		
+		NSRect oldRect, newRect;
+		oldRect = [self contentRectForFrameRect:[self frame]];
+		
+		newRect.size = [aView frame].size;
+		newRect.origin.x = oldRect.origin.x + (oldRect.size.width - newRect.size.width) / 2;
+		newRect.origin.y = oldRect.origin.y + oldRect.size.height - newRect.size.height;
+		
+		newRect = [self frameRectForContentRect:newRect];
+		[self setFrame:newRect display:YES animate:YES];
+		
+		[super setContentView:aView];
+	}
+}
+@end
+
+
+
 
 
