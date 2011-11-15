@@ -58,7 +58,7 @@
 - (IBAction)importKey:(id)sender {
 	sheetController.title = nil; //TODO
 	sheetController.msgText = nil; //TODO
-	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", nil];
+	//sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", nil];
 	
 	sheetController.sheetType = SheetTypeOpenPanel;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {

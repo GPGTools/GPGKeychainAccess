@@ -68,10 +68,13 @@
 	if ([pboardType isEqualToString:NSFilenamesPboardType]) {
 		NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
 		for (NSString *fileName in fileNames) {
-			NSString *extension = [fileName pathExtension];
-			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"] || [extension isEqualToString:@"gpg"]) {
-				return NSDragOperationCopy;
-			}
+			
+			//TODO: Check if any key to import are available.
+			
+			/*NSString *extension = [fileName pathExtension];
+			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"] || [extension isEqualToString:@"gpg"]) {*/
+			return NSDragOperationCopy;
+			/*}*/
 		}
 	} else if ([pboardType isEqualToString:NSStringPboardType]) {
 		NSString *string = [pboard stringForType:NSStringPboardType];
@@ -92,10 +95,12 @@
 		NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
 		NSMutableArray *filesToImport = [NSMutableArray arrayWithCapacity:[fileNames count]];
 		for (NSString *fileName in fileNames) {
-			NSString *extension = [fileName pathExtension];
-			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"] || [extension isEqualToString:@"gpg"]) {
-				[filesToImport addObject:fileName];
-			}
+			
+			/*NSString *extension = [fileName pathExtension];
+			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"] || [extension isEqualToString:@"gpg"]) {*/
+			[filesToImport addObject:fileName];
+			/*}*/
+			
 		}
 		if ([filesToImport count] > 0) {
 			[NSThread detachNewThreadSelector:@selector(importFromURLs:) toTarget:[ActionController sharedInstance] withObject:filesToImport];
