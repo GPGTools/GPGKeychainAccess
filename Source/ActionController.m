@@ -608,7 +608,12 @@
 	NSSet *secretKeys = [[KeychainController sharedInstance] secretKeys];
 	
 	sheetController.secretKeys = [secretKeys allObjects];
-	sheetController.secretKey = [[KeychainController sharedInstance] defaultKey];
+	GPGKey *defaultKey = [[KeychainController sharedInstance] defaultKey];
+	if (!defaultKey) {
+		[sheetController alertSheetForWindow:mainWindow messageText:localized(@"NO_SECRET_KEY_TITLE") infoText:localized(@"NO_SECRET_KEY_MESSAGE") defaultButton:nil alternateButton:nil otherButton:nil suppressionButton:nil];
+		return;
+	}
+	sheetController.secretKey = defaultKey;
 	sheetController.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), userID ? userID.userID : key.userID, key.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeAddSignature;

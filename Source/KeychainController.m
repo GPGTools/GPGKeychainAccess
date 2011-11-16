@@ -62,7 +62,7 @@ NSSet *draggedKeys;
 	NSString *defaultKey = [[GPGOptions sharedOptions] valueForKey:@"default-key"];
 	
 	if (defaultKey.length == 0) {
-		return nil;
+		return [self.secretKeys anyObject];
 	}
 	
 	for (GPGKey *key in self.secretKeys) {
