@@ -301,6 +301,9 @@ NSSet *draggedKeys;
 	NSLog(@"KeychainController awakeFromNib");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+	NSString *gkaVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]; 
+	NSLog(@"GPG Keychain Access version: %@", gkaVersion);
+	
 	
 	// Testen ob GPG vorhanden und funktionsfähig ist.
 	GPGErrorCode errorCode = [GPGController testGPG];
