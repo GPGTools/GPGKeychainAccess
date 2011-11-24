@@ -57,6 +57,14 @@
 	[mainWindow registerForDraggedTypes:draggedTypes];
 }
 
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+	// Process command line arguments
+	NSArray *arguments = [[NSProcessInfo processInfo] arguments];
+	if ([arguments containsObject:@"--gen-key"]) {
+		[[ActionController sharedInstance] generateNewKey:self];
+	}
+}
+
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
 	if ([NSApp modalWindow]) {

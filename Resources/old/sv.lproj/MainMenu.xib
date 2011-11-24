@@ -764,7 +764,7 @@
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
-							<object class="NSToolbarItem" id="736005144">
+							<object class="NSToolbarItem" id="11539879">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">90F117A0-890E-4B00-8C94-EA87F9911776</characters>
 								</object>
@@ -772,7 +772,10 @@
 								<string key="NSToolbarItemPaletteLabel">Ångra</string>
 								<string key="NSToolbarItemToolTip"/>
 								<nil key="NSToolbarItemView"/>
-								<nil key="NSToolbarItemImage"/>
+								<object class="NSCustomResource" key="NSToolbarItemImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">Undo</string>
+								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
 								<string key="NSToolbarItemMinSize">{0, 0}</string>
@@ -965,7 +968,7 @@
 						<reference ref="444126566"/>
 						<reference ref="887764724"/>
 						<reference ref="957592130"/>
-						<reference ref="736005144"/>
+						<reference ref="11539879"/>
 						<reference ref="329743636"/>
 						<reference ref="686368284"/>
 						<reference ref="1064215060"/>
@@ -975,6 +978,8 @@
 						<reference ref="792939036"/>
 						<reference ref="444126566"/>
 						<reference ref="887764724"/>
+						<reference ref="686368284"/>
+						<reference ref="11539879"/>
 						<reference ref="1064215060"/>
 						<reference ref="329743636"/>
 					</object>
@@ -1500,7 +1505,7 @@
 								<reference key="NSControlView" ref="544588931"/>
 								<int key="NSButtonFlags">1211912703</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage" id="450305693">
+								<object class="NSCustomResource" key="NSNormalImage" id="282660508">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
 								</object>
@@ -1518,7 +1523,7 @@
 					<reference key="NSNextKeyView" ref="188550338"/>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMinSize">{470, 278}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<string key="NSFrameAutosaveName">MainWindow</string>
@@ -2087,7 +2092,7 @@
 													<reference key="NSControlView" ref="836028179"/>
 													<int key="NSButtonFlags">1211912703</int>
 													<int key="NSButtonFlags2">2</int>
-													<reference key="NSNormalImage" ref="450305693"/>
+													<reference key="NSNormalImage" ref="282660508"/>
 													<reference key="NSAlternateImage" ref="483159743"/>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
@@ -3896,7 +3901,7 @@
 					<string key="NSFrameSize">{480, 483}</string>
 					<reference key="NSNextKeyView" ref="913833129"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMinSize">{430, 499}</string>
 				<string key="NSMaxSize">{800, 499}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -7061,7 +7066,7 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">undo:</string>
 						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="736005144"/>
+						<reference key="destination" ref="11539879"/>
 					</object>
 					<int key="connectionID">2004</int>
 				</object>
@@ -9443,7 +9448,7 @@
 							<reference ref="887764724"/>
 							<reference ref="444126566"/>
 							<reference ref="957592130"/>
-							<reference ref="736005144"/>
+							<reference ref="11539879"/>
 						</object>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -9502,7 +9507,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">2003</int>
-						<reference key="object" ref="736005144"/>
+						<reference key="object" ref="11539879"/>
 						<reference key="parent" ref="1011643227"/>
 					</object>
 				</object>
@@ -10821,6 +10826,7 @@
 				<string>NSRemoveTemplate</string>
 				<string>NSRightFacingTriangleTemplate</string>
 				<string>NSSwitch</string>
+				<string>Undo</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
@@ -10835,6 +10841,7 @@
 				<string>{8, 8}</string>
 				<string>{9, 9}</string>
 				<string>{15, 15}</string>
+				<string>{32, 32}</string>
 			</object>
 		</object>
 	</data>
