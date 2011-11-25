@@ -720,6 +720,26 @@
 		[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_NoChanges"), keyID, userID]];
 	}
 	
+	
+	//TODO: Present summary in a human readable form.
+	range = [statusText rangeOfString:@"[GNUPG:] IMPORT_RES "];
+	if (range.length > 0) {
+		NSInteger values[14];
+		[scanner setScanLocation:range.location + 20];
+		
+		NSInteger total = 0;
+		for (int i = 0; i < 14; i++) {
+			[scanner scanInteger:&values[i]];
+			total += values[i];
+		}
+		if (total >  values[0]) {
+			[lines addObject:[NSString stringWithFormat:@"%ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11], values[12], values[13]]];
+		}
+	}
+	
+	
+	
+	
 	if ([lines count] == 0) {
 		return localized(@"ImportResult_Nothing");
 	}
