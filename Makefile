@@ -6,6 +6,10 @@ include Dependencies/GPGTools_Core/make/default
 
 all: compile
 
+deploy: clean compile
+	@./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto no-force-tag
+	@./Dependencies/GPGTools_Core/scripts/upload.sh
+
 update-core:
 	@cd Dependencies/GPGTools_Core; git pull origin master; cd -
 update-libmac:

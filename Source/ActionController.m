@@ -102,11 +102,17 @@
 	}
 }
 - (IBAction)paste:(id)sender {
-	NSPasteboard *pboard = [NSPasteboard generalPasteboard];
-	NSData *data = [pboard dataForType:NSStringPboardType];
 	
-	if (data) {
-		[self importFromData:data];
+	NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+	NSArray *types = [pboard types];
+	if ([types containsObject:NSFilenamesPboardType]) {
+		NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+		[self importFromURLs:files];
+	} else if ([types containsObject:NSStringPboardType]) {
+		NSData *data = [pboard dataForType:NSStringPboardType];
+		if (data) {
+			[self importFromData:data];
+		}
 	}
 }
 
@@ -778,7 +784,10 @@
 		return NO;
     } else if (selector == @selector(paste:)) {
 		NSPasteboard *pboard = [NSPasteboard generalPasteboard];
-		if ([pboard availableTypeFromArray:[NSArray arrayWithObject:NSStringPboardType]] != nil) {
+		NSArray *types = [pboard types];
+		if ([types containsObject:NSFilenamesPboardType]) {
+			return YES;
+		} else if ([types containsObject:NSStringPboardType]) {
 			NSString *string = [pboard stringForType:NSStringPboardType];
 			if (containsPGPKeyBlock(string)) {
 				return YES;
