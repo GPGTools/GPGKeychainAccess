@@ -38,6 +38,11 @@
 		3052E383144B083100D6716A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2DC144B07A600D6716A /* dsa_pub.pem */; };
 		3052E385144B083100D6716A /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2E0144B07AC00D6716A /* LICENSE.txt */; };
 		3052E3C4144B112000D6716A /* Libmacgpg.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3052E3C3144B112000D6716A /* Libmacgpg.framework */; };
+		307B0080148EE19400182622 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3052E318144B07D200D6716A /* InfoPlist.strings */; };
+		307B0082148EE19E00182622 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3052E31C144B07D200D6716A /* MainMenu.xib */; };
+		307B0085148EE1F200182622 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 307B0083148EE1F200182622 /* Credits.rtf */; };
+		307B0087148EE20100182622 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3052E318144B07D200D6716A /* InfoPlist.strings */; };
+		307B0089148EE20C00182622 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3052E316144B07D200D6716A /* Credits.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +159,11 @@
 		3052E366144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/Preferences.xib; sourceTree = "<group>"; };
 		3052E367144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
 		3052E3C3144B112000D6716A /* Libmacgpg.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Libmacgpg.framework; path = "Dependencies/Libmacgpg/build/${CONFIGURATION}/Libmacgpg.framework"; sourceTree = SOURCE_ROOT; };
+		307B007F148EE19400182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
+		307B0081148EE19E00182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/ModalSheets.xib; sourceTree = "<group>"; };
+		307B0084148EE1F200182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = es; path = Resources/es.lproj/Credits.rtf; sourceTree = SOURCE_ROOT; };
+		307B0086148EE20100182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		307B0088148EE20C00182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = es; path = es.lproj/Credits.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +250,7 @@
 		3052E18A144B027000D6716A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				307B0083148EE1F200182622 /* Credits.rtf */,
 				3052E2CA144B079F00D6716A /* asc.icns */,
 				3052E2CB144B079F00D6716A /* DeleteKey.png */,
 				3052E2CC144B079F00D6716A /* Export.png */,
@@ -393,6 +404,11 @@
 				3052E383144B083100D6716A /* dsa_pub.pem in Resources */,
 				3052E385144B083100D6716A /* LICENSE.txt in Resources */,
 				3050FB781475B0FB00E589AA /* Undo.png in Resources */,
+				307B0080148EE19400182622 /* InfoPlist.strings in Resources */,
+				307B0082148EE19E00182622 /* MainMenu.xib in Resources */,
+				307B0085148EE1F200182622 /* Credits.rtf in Resources */,
+				307B0087148EE20100182622 /* InfoPlist.strings in Resources */,
+				307B0089148EE20C00182622 /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,7 +427,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "pushd \"$SRCROOT\" > /dev/null\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\n\nlocalizeXIB Resources/en.lproj/MainMenu.xib de sv fr es\nlocalizeXIB Resources/en.lproj/ModalSheets.xib de sv fr\nlocalizeXIB Resources/en.lproj/Preferences.xib de sv fr es\n\npopd > /dev/null\n";
+			shellScript = "pushd \"$SRCROOT\" > /dev/null\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\n\nlocalizeXIB Resources/en.lproj/MainMenu.xib     de sv fr es\nlocalizeXIB Resources/en.lproj/ModalSheets.xib  de sv fr es\nlocalizeXIB Resources/en.lproj/Preferences.xib  de sv fr es\n\npopd > /dev/null\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -448,6 +464,7 @@
 				3052E331144B07D900D6716A /* de */,
 				3052E34D144B07E400D6716A /* fr */,
 				3052E35F144B07E900D6716A /* sv */,
+				307B0088148EE20C00182622 /* es */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -459,6 +476,7 @@
 				3052E332144B07D900D6716A /* de */,
 				3052E34E144B07E400D6716A /* fr */,
 				3052E360144B07E900D6716A /* sv */,
+				307B0086148EE20100182622 /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -506,6 +524,7 @@
 				3052E336144B07D900D6716A /* de */,
 				3052E352144B07E400D6716A /* fr */,
 				3052E364144B07E900D6716A /* sv */,
+				307B0081148EE19E00182622 /* es */,
 			);
 			name = ModalSheets.xib;
 			sourceTree = "<group>";
@@ -517,6 +536,7 @@
 				3052E337144B07D900D6716A /* de */,
 				3052E353144B07E400D6716A /* fr */,
 				3052E365144B07E900D6716A /* sv */,
+				307B007F148EE19400182622 /* es */,
 			);
 			name = ModalSheets.xib.strings;
 			sourceTree = "<group>";
@@ -543,6 +563,14 @@
 				3052E367144B07E900D6716A /* sv */,
 			);
 			name = Preferences.xib.strings;
+			sourceTree = "<group>";
+		};
+		307B0083148EE1F200182622 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				307B0084148EE1F200182622 /* es */,
+			);
+			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
