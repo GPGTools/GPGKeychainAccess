@@ -262,6 +262,7 @@ NSSet *draggedKeys;
 		}
 	}
 	[filteredKeyList removeObjectsInArray:keysToRemove];
+		
 	[self didChangeValueForKey:@"filteredKeyList"];
 	
 	[numberOfKeysLabel setStringValue:[NSString stringWithFormat:localized(@"%i of %i keys listed"), [filteredKeyList count], [self.allKeys count]]];

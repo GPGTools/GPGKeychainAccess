@@ -1505,7 +1505,7 @@
 								<reference key="NSControlView" ref="544588931"/>
 								<int key="NSButtonFlags">1211912703</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage" id="793511841">
+								<object class="NSCustomResource" key="NSNormalImage" id="114051801">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
 								</object>
@@ -2092,7 +2092,7 @@
 													<reference key="NSControlView" ref="836028179"/>
 													<int key="NSButtonFlags">1211912703</int>
 													<int key="NSButtonFlags2">2</int>
-													<reference key="NSNormalImage" ref="793511841"/>
+													<reference key="NSNormalImage" ref="114051801"/>
 													<reference key="NSAlternateImage" ref="483159743"/>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
@@ -4846,22 +4846,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: filteredKeyList</string>
-						<reference key="source" ref="995608647"/>
-						<reference key="destination" ref="540902797"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="995608647"/>
-							<reference key="NSDestination" ref="540902797"/>
-							<string key="NSLabel">contentArray: filteredKeyList</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">filteredKeyList</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">1340</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.primaryKey.disabled</string>
 						<reference key="source" ref="836028179"/>
 						<reference key="destination" ref="995608647"/>
@@ -7071,6 +7055,14 @@
 						<reference key="destination" ref="11539879"/>
 					</object>
 					<int key="connectionID">2004</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="1050"/>
+						<reference key="destination" ref="976324537"/>
+					</object>
+					<int key="connectionID">2005</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -10285,7 +10277,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">2004</int>
+			<int key="maxID">2005</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

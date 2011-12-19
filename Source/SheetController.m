@@ -220,7 +220,7 @@
 	NSSavePanel *panel = [NSSavePanel savePanel];
 	
 	panel.delegate = self;
-	panel.allowsOtherFileTypes = NO;
+	panel.allowsOtherFileTypes = YES;
 	panel.canSelectHiddenExtension = YES;
 	panel.allowedFileTypes = self.allowedFileTypes;
 	panel.nameFieldStringValue = self.pattern ? self.pattern : @"";
@@ -675,10 +675,10 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	NSArray *extensions;
 	switch (value) {
 		case 1:
-			extensions = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", nil];
+			extensions = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", @"txt", nil];
 			break;
 		default:
-			extensions = [NSArray arrayWithObjects:@"gpg", @"asc", @"pgp", @"key", @"gpgkey", nil];
+			extensions = [NSArray arrayWithObjects:@"gpg", @"asc", @"pgp", @"key", @"gpgkey", @"txt", nil];
 			break;
 	}
 	[(NSSavePanel *)[exportKeyOptionsView window] setAllowedFileTypes:extensions];

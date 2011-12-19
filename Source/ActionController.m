@@ -743,8 +743,10 @@
 		}
 	}
 	
-	
-	
+	//IMPORT_RES <count> <no_user_id> <imported> <imported_rsa> <unchanged> <n_uids> <n_subk> <n_sigs> <n_revoc> <sec_read> <sec_imported> <sec_dups> <not_imported>
+	//1 0 1 0 0 0 0 0 0 0 0 0 0 0 Public OK
+	//1 0 0 0 1 0 0 0 0 1 1 0 0 0 Secret OK
+	//2 0 0 0 1 0 0 0 0 1 0 1 0 0 Public & Secret NO
 	
 	if ([lines count] == 0) {
 		return localized(@"ImportResult_Nothing");
@@ -821,6 +823,7 @@
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
 	NSLog(@"Exception: %@", e.description);
 	if ([e isKindOfClass:[GPGException class]]) {
+		NSLog(@"Error text: %@\nStatus text: %@", [(GPGException *)e gpgTask].errText, [(GPGException *)e gpgTask].statusText);
 		if ([(GPGException *)e errorCode] == GPGErrorCancelled) {
 			return;
 		}
