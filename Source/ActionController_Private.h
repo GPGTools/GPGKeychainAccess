@@ -22,7 +22,7 @@
 @property (retain) NSString *progressText, *errorText;
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
 - (NSSet *)selectedKeys;
-- (NSString *)importResultWithStatusText:(NSString *)statusText;
+- (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict;
 @end
 
 enum {

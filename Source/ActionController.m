@@ -670,26 +670,27 @@
 	[gpgc receiveKeysFromServer:keys];
 }
 
-- (NSString *)importResultWithStatusText:(NSString *)statusText {
-	NSInteger flags;
+- (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict {
+	int publicKeysCount, publicKeysOk, publicKeysNoChange, secretKeysCount, secretKeysOk, userIDCount, subkeyCount, signatureCount, revocationCount;
+	int flags;
 	NSString *fingerprint, *keyID, *userID;
-	NSNumber *no = [NSNumber numberWithBool:0], *yes = [NSNumber numberWithBool:1];
-	NSCharacterSet *hexCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEFabcdef"];
+	NSArray *importRes = nil;
 	NSMutableArray *lines = [NSMutableArray array];
 	NSMutableDictionary *changedKeys = [NSMutableDictionary dictionary];
+	NSNumber *no = [NSNumber numberWithBool:NO], *yes = [NSNumber numberWithBool:YES];
+	NSSet *allKeys = [(KeychainController *)[KeychainController sharedInstance] allKeys];
 	
-	NSScanner *scanner = [NSScanner scannerWithString:statusText];
-	NSUInteger length = [statusText length];
-	NSRange range = {0, length};
+	NSArray *importResList = [statusDict objectForKey:@"IMPORT_RES"];
+	NSArray *importOkList = [statusDict objectForKey:@"IMPORT_OK"];
 	
-	
-	while ((range = [statusText rangeOfString:@"[GNUPG:] IMPORT_OK " options:NSLiteralSearch range:range]).length > 0) {
-		[scanner setScanLocation:range.location + 19];
-		[scanner scanInteger:&flags];
+	for (NSArray *importOk in importOkList) {
+		flags = [[importOk objectAtIndex:0] intValue];
+		fingerprint = [importOk objectAtIndex:1];
 		
-		[scanner scanCharactersFromSet:hexCharSet intoString:&fingerprint];
-		userID = [[[(KeychainController *)[KeychainController sharedInstance] allKeys] member:fingerprint] userID];
+		userID = [[allKeys member:fingerprint] userID];
+		if (!userID) userID = @"";
 		keyID = [fingerprint shortKeyID];
+		
 		
 		if (flags > 0) {
 			if (flags & 1) {
@@ -714,43 +715,57 @@
 				[changedKeys setObject:no forKey:fingerprint];
 			}
 		}
-		
-		range.location += range.length;
-		range.length = length - range.location;
 	}
+	
+	
 	
 	for (fingerprint in [changedKeys allKeysForObject:no]) {
-		userID = [[[(KeychainController *)[KeychainController sharedInstance] allKeys] member:fingerprint] userID];
+		userID = [[allKeys member:fingerprint] userID];
+		if (!userID) userID = @"";
 		keyID = [fingerprint shortKeyID];
 		
-		[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_NoChanges"), keyID, userID]];
+		[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_KeyNoChanges"), keyID, userID]];
 	}
+
 	
 	
-	//TODO: Present summary in a human readable form.
-	range = [statusText rangeOfString:@"[GNUPG:] IMPORT_RES "];
-	if (range.length > 0) {
-		NSInteger values[14];
-		[scanner setScanLocation:range.location + 20];
+	if ([importResList count] > 0) {
+		importRes = [importResList objectAtIndex:0];
 		
-		NSInteger total = 0;
-		for (int i = 0; i < 14; i++) {
-			[scanner scanInteger:&values[i]];
-			total += values[i];
+		publicKeysCount = [[importRes objectAtIndex:0] intValue];
+		publicKeysOk = [[importRes objectAtIndex:2] intValue];
+		publicKeysNoChange = [[importRes objectAtIndex:4] intValue];
+		userIDCount = [[importRes objectAtIndex:5] intValue];
+		subkeyCount = [[importRes objectAtIndex:6] intValue];
+		signatureCount = [[importRes objectAtIndex:7] intValue];
+		revocationCount = [[importRes objectAtIndex:8] intValue];
+		secretKeysCount = [[importRes objectAtIndex:9] intValue];
+		secretKeysOk = [[importRes objectAtIndex:10] intValue];
+		
+		
+		//TODO: More infos.
+		
+		if (revocationCount > 0) {
+			if (revocationCount == 1) {
+				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_OneRevocationCertificate")]];
+			} else {
+				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountRevocationCertificate"), revocationCount]];
+			}
 		}
-		if (total >  values[0]) {
-			[lines addObject:[NSString stringWithFormat:@"%ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld %ld", values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10], values[11], values[12], values[13]]];
+		
+		if ([lines count] > 0) {
+			[lines addObject:@""];
+		}
+
+		[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountProcessed"), publicKeysCount]];
+		if (publicKeysOk > 0) {
+			[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountImported"), publicKeysOk]];
+		}
+		if (publicKeysNoChange > 0) {
+			[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountUnchanged"), publicKeysNoChange]];
 		}
 	}
-	
-	//IMPORT_RES <count> <no_user_id> <imported> <imported_rsa> <unchanged> <n_uids> <n_subk> <n_sigs> <n_revoc> <sec_read> <sec_imported> <sec_dups> <not_imported>
-	//1 0 1 0 0 0 0 0 0 0 0 0 0 0 Public OK
-	//1 0 0 0 1 0 0 0 0 1 1 0 0 0 Secret OK
-	//2 0 0 0 1 0 0 0 0 1 0 1 0 0 Public & Secret NO
-	
-	if ([lines count] == 0) {
-		return localized(@"ImportResult_Nothing");
-	}
+
 	
 	return [lines componentsJoinedByString:@"\n"];
 }
@@ -840,9 +855,9 @@
 		case ShowResultAction: {
 			if (gc.error) break;
 			
-			NSString *statusText = gc.lastReturnValue;
-			if ([statusText length] > 0) {
-				sheetController.msgText = [self importResultWithStatusText:statusText];
+			NSDictionary *statusDict = gc.statusDict;
+			if (statusDict) {
+				sheetController.msgText = [self importResultWithStatusDict:statusDict];
 				
 				sheetController.sheetType = SheetTypeShowResult;
 				[sheetController runModalForWindow:mainWindow];
