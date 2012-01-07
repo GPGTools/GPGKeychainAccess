@@ -41,3 +41,7 @@ BOOL containsPGPKeyBlock(NSString *string);
 - (NSSet *)keyIDs;
 - (NSString *)shortKeyID;
 @end
+
+@interface GKAKeyColorTransformer : NSValueTransformer {}
+@end
+

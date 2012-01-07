@@ -97,5 +97,20 @@ BOOL containsPGPKeyBlock(NSString *string) {
 
 
 
+@implementation GKAKeyColorTransformer
++ (Class)transformedValueClass { return [NSColor class]; }
++ (BOOL)allowsReverseTransformation { return NO; }
+- (id)transformedValue:(id)value {
+	
+	if ([value isKindOfClass:[GPGSuper_Template class]]) {
+		if ([(GPGSuper_Template *)value status] >= GPGKeyStatus_Invalid) {
+			return [NSColor darkGrayColor];
+		}
+	}
+	
+	return [NSColor blackColor];
+}
+
+@end
 
 
