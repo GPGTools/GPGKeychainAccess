@@ -130,6 +130,7 @@
 #pragma mark "Keys"
 - (IBAction)generateNewKey:(id)sender {
 	sheetController.sheetType = SheetTypeNewKey;
+	sheetController.autoUpload = YES;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
@@ -156,6 +157,11 @@
 	}
 	self.progressText = localized(@"GenerateKey_Progress");
 	self.errorText = localized(@"GenerateKey_Error");
+	
+	if (sheetController.autoUpload) {
+		gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:UploadKeyAction], @"action", nil];
+	}
+	
 	
 	[gpgc generateNewKeyWithName:sheetController.name 
 						   email:sheetController.email 
@@ -889,6 +895,15 @@
 			
 			break;
 		}
+		case UploadKeyAction:
+			if (gc.error || !value) break;
+			
+			self.progressText = localized(@"SendKeysToServer_Progress");
+			self.errorText = localized(@"SendKeysToServer_Error");
+			
+			[gpgc sendKeysToServer:[NSSet setWithObject:value]];
+			
+			break;
 		default:
 			break;
 	}

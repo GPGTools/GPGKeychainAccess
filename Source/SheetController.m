@@ -26,7 +26,7 @@
 
 @implementation SheetController
 @synthesize progressText, msgText, name, email, comment, passphrase, confirmPassphrase, pattern, title,
-	hasExpirationDate, allowSecretKeyExport, localSig, allowEdit,
+	hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload,
 	expirationDate, minExpirationDate, maxExpirationDate,
 	algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
 	sigType, length, sheetType, URL, URLs,

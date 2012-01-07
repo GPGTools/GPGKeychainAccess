@@ -29,5 +29,6 @@ enum {
 	NoAction = 0,
 	ShowResultAction,
 	ShowFoundKeysAction,
-	SaveDataToURLAction
+	SaveDataToURLAction,
+	UploadKeyAction
 };
