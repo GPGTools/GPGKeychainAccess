@@ -1,0 +1,216 @@
+//For Key-Status
+"Invalid" = "Ongeldig";
+"Revoked" = "Ingetrokken";
+"Expired" = "Verlopen";
+"Disabled" = "Inactief";
+"Unknown" = "Onbekend";
+"Marginal" = "Marginaal";
+"Full" = "Volledig";
+"Ultimate" = "Ultiem";
+
+
+//For Delete-Dialogues
+"Delete secret key only" = "Verwijder alleen de geheime sleutel";
+"Delete both" = "Verwijder beide";
+"Delete key" = "Verwijder sleutel";
+DeleteSecretKey_Title = "Verwijder geheime sleutel";
+DeleteSecretKey_Msg = "Probeert sleutel %@, %@ te verwijderen.\n\nJe staat op het punt een set sleutels (een geheime en een publieke sleutel) te verwijderen van je computer. Zonder de geheime sleutel zal je niet langer in staat zijn berichten te ontsleutelen die zijn versleutelt met de bijbehorende publieke sleutel. (N.B. Wanneer je de publieke sleutel op een keyserver hebt staan blijft deze daar staan totdat je deze zelf intrekt. Voor het intrekken van deze sleutel heb je de geheime sleutel nodig.) Zeker weten dat je deze sleutelset wilt verwijderen?";
+DeleteKey_Title = "Verwijder sleutel";
+DeleteKey_Msg = "Probeert de sleutel %@, %@ te verwijderen.\n\nWeet je zeker dat je deze sleutel wilt verwijderen?";
+
+
+//Long key types
+"Secret and public key" = "Geheime en publieke sleutel";
+"Public key" = "Publieke sleutel";
+
+
+//For export, as standard File-Name.
+"untitled" = "geen naam";
+"%@ Revoke certificate" = "%@ Trek certificaat in";
+"Exported keys.asc" = "Export sleutels.asc";
+
+
+//For key creation
+CheckAlert_NoPassphrase_Title = "Geen wachtwoord";
+CheckAlert_NoPassphrase_Message = "Je hebt geen wachtwoord ingevuld. Dit is niet aanbevolen. Een wachtwoord dient minimaal 8 karakters lang te zijn.";
+CheckAlert_NoPassphrase_Button1= "Doorgaan zonder een wachtwoord";
+CheckAlert_NoPassphrase_Button2 = "Vul een nieuw wachtwoord in";
+CheckAlert_PassphraseShort_Title = "Kort Wachtwoord";
+CheckAlert_PassphraseShort_Message = "Je hebt een kort wachtwoord ingevuld. Dit is niet aanbevolen. Een wachtwoord dient minimaal 8 karakters lang te zijn.";
+CheckAlert_PassphraseShort_Button1= "Doorgaan met een kort wachtwoord";
+CheckAlert_PassphraseShort_Button2 = "Vul een nieuw wachtwoord in";
+CheckAlert_PassphraseSimple_Title = "Simpel wachtwoord";
+CheckAlert_PassphraseSimple_Message = "Het wachtwoord wat je in hebt gevuld is te simpel. Een goed wachtwoord dient alfanummeriek te zijn en in ieder geval 1 speciaal karakter te bevatten.";
+CheckAlert_PassphraseSimple_Button1 = "Doorgaan met simpel wachtwoord";
+CheckAlert_PassphraseSimple_Button2 = "Vul een nieuw wachtwoord in";
+
+
+//For Key-Search
+"No keys Found" = "Geen Sleutels Gevonden";
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), aangemaakt: %@"; //Format für die gefundenen Schlüssel vom Server.
+SearchingKeys_Msg = "We zoeken naar bijpassende sleutel(s) op de keys server. Dit kan even duren, even geduld.";
+
+GenerateKey_Progress = "We moeten veel willekeurige bytes genereren. Het is aan te bevelen om iets anders uit te voeren (Typ op het toetsenbord in een applicatie, het bewegen van de muis, of de harde schijf benaderen) tijdens deze eerste generatie. Dit is nodig om het systeem betere willekeurige data te laten genereren.";
+GenerateSubkey_Msg = "Voeg subsleutel toe aan de sleutel \"%@\", %@.";
+GenerateUserID_Msg = "Voeg gebruikers ID toe aan de sleutel \"%@\", %@.";
+GenerateSignature_Msg = "Maak handtekening voor alle gebruiker ID's van \"%@\", %@";
+GenerateUidSignature_Msg = "Maak handtekening voor gebruikers ID \"%@\", %@";
+ChangeExpirationDate_Msg = "Verander vervaldatum van \"%@\", %@";
+ChangeSubkeyExpirationDate_Msg = "Verander vervaldatum van \"%@\", %@\nSubsleutel: %@";
+
+GenerateKey_Error = "Oeps, iets ging verkeerd. Er was een probleem met het genereren van je sleutel.";
+
+//Message for incorrect Entries
+CheckError_NameToShort = "Naam moet minimaal 5 karakters lang zijn!";
+CheckError_NameToLong = "Naam is te lang!";
+CheckError_InvalidCharInName = "Ongeldig karakter in naam!\n\"<\" en \">\" niet toegestaan.";
+CheckError_NameStartWithDigit = "Naam mag niet met een nummer beginnen!";
+CheckError_InvalidEmail = "Geen valide email adres!";
+CheckError_EmailToLong = "E-Mail adres is te lang!\nMaximale lengte is 254.";
+CheckError_InvalidCharInComment = "Ongeldig karakter in opmerking!\n\"(\" en \")\" niet toegestaan.";
+CheckError_CommentToLong = "Opmerking is te lang!";
+CheckError_NoKeyID = "Vul een valide sleutel ID in!";
+CheckError_PassphraseMissmatch = "Je wachtwoorden zijn niet gelijk!";
+
+
+//Message on start, if there are any Problems
+GPG_NOT_FOUND_TITLE = "GPG Niet gevonden";
+GPG_NOT_FOUND_MESSAGE = "Oeps, er is iets fout gegaan. Het lijkt erop dat GPG niet op je systeem staat. Installeer dit a.u.b.. Je kan het vinden in bijvoorbeeld de 'GPGTools Installer' op http://www.gpgtools.org.";
+GPG_CONFIG_ERROR_TITLE = "GPG Configuratie fout";
+GPG_CONFIG_ERROR_MESSAGE = "Oeps, er is iets fout gegaan. GPG is op je systeem gevonden maar het lijkt erop dat er een probleem is met het configuratie bestand. Neem a.u.b. contact op met het GPGTools team http://www.gpgtools.org/about.html.";
+
+
+//Those are abvious
+No = "Nee";
+Error = "Fout";
+Warning = "Waarschuwing";
+Cancel = "Annuleer";
+"Apply to all" = "Pas toe op alle";
+
+//For Import-Results
+ImportResult_Secret = "sleutel %@: geheime sleutel \"%@\" geïmporteerd.";
+ImportResult_Public = "sleutel %@: publieke sleutel \"%@\" geïmporteerd.";
+ImportResult_UserID = "sleutel %@: \"%@\" nieuwe gebruiker ID(s).";
+ImportResult_Signature = "sleutel %@: \"%@\" nieuwe handtekening(en).";
+ImportResult_Subkey = "sleutel %@: \"%@\" nieuwe subsleutel(s).";
+ImportResult_KeyNoChanges = "sleutel %@: \"%@\" geen wijzigingen.";
+ImportResult_OneRevocationCertificate = "1 terugtrek certificaat geïmporteerd.";
+ImportResult_CountRevocationCertificate = "%i terugtrek certificaten geïmporteerd.";
+ImportResult_CountProcessed = "Aantal verwerkte sleutels: %i";
+ImportResult_CountImported = "Aantal geïmporteerde sleutels: %i";
+ImportResult_CountUnchanged = "Aantal onveranderde sleutels: %i";
+
+//The Algorithms
+GPG_RSAAlgorithm = "RSA";
+GPG_RSAEncryptOnlyAlgorithm = "RSA-E";
+GPG_RSASignOnlyAlgorithm = "RSA-S";
+GPG_ElgamalEncryptOnlyAlgorithm = "ELG-E";
+GPG_DSAAlgorithm = "DSA";
+GPG_EllipticCurveAlgorithm = "EllipticCurve";
+GPG_ECDSAAlgorithm = "ECDSA";
+GPG_ElgamalAlgorithm = "ELG";
+GPG_DiffieHellmanAlgorithm = "DiffieHellman";
+
+
+//In Main Window
+"%i of %i keys listed" = "Toont %i van de %i sleutels";
+
+
+//For opening and saving dialogues
+ChoosePhoto_Large_Message = "Deze afbeelding is erg groot!";
+ChoosePhoto_Large_Info = "Je dient een kleinere afbeelding te gebruiken.";
+ChoosePhoto_Large_Button1 = "Kies andere afbeelding…";
+ChoosePhoto_Large_Button2 = "Gebruik deze afbeelding";
+ChoosePhoto_ToLarge_Message = "Deze afbeelding is te groot!";
+ChoosePhoto_ToLarge_Info = "Gebruik a.u.b. een afbeelding kleinder dan 500 KiB.";
+
+
+
+
+CIPHER_ALGO_NONE = "Geen";
+CIPHER_ALGO_IDEA = "IDEA";
+CIPHER_ALGO_3DES = "3DES";
+CIPHER_ALGO_CAST5 = "CAST5";
+CIPHER_ALGO_BLOWFISH = "BLOWFISH";
+CIPHER_ALGO_AES = "AES";
+CIPHER_ALGO_AES192 = "AES192";
+CIPHER_ALGO_AES256 = "AES256";
+CIPHER_ALGO_TWOFISH = "TWOFISH";
+CIPHER_ALGO_CAMELLIA128 = "CAMELLIA128";
+CIPHER_ALGO_CAMELLIA192 = "CAMELLIA192";
+CIPHER_ALGO_CAMELLIA256 = "CAMELLIA256";
+DIGEST_ALGO_MD5 = "MD5";
+DIGEST_ALGO_SHA1 = "SHA1";
+DIGEST_ALGO_RMD160 = "RMD160";
+DIGEST_ALGO_SHA256 = "SHA256";
+DIGEST_ALGO_SHA384 = "SHA384";
+DIGEST_ALGO_SHA512 = "SHA512";
+DIGEST_ALGO_SHA224 = "SHA224";
+COMPRESS_ALGO_NONE = "Geen";
+COMPRESS_ALGO_ZIP = "ZIP";
+COMPRESS_ALGO_ZLIB = "ZLIB";
+COMPRESS_ALGO_BZIP2 = "BZIP2";
+
+
+
+
+ExportKey_Progress = "Bezig met exporteren van sleutel.";
+ExportKey_Error = "Exporteren van sleutel mislukt.";
+ImportKey_Progress  = "Bezig met importeren van sleutel.";
+ImportKey_Error = "Importeren mislukt.";
+DeleteSecretKey_Progress = "Bezig verwijderd geheime sleutel.";
+DeleteKeys_Progress = "Bezig met verwijderen sleutel.";
+DeleteKeys_Error = "Verwijderen sleutel mislukt.";
+ChangePassphrase_Progress = "Bezig met veranderen wachtwoord.";
+ChangePassphrase_Error = "Veranderen van wachtwoord mislukt.";
+SetDisabled_Progress = "Inschakelen/Uitschakelen van sleutel.";
+SetDisabled_Error = "Het Inschakelen/Uitschakelen van sleutel is mislukt.";
+SetOwnerTrust_Progress = "Bezig met het zetten van de \"owner trust\".";
+SetOwnerTrust_Error = "Het zetten van de \"owner trust\" is mislukt.";
+ChangeExpirationDate_Progress = "Veranderen van de vervaldatum van de subsleutel is mislukt.";
+ChangeExpirationDate_Error = "Bezig met veranderen van de vervaldatum.";
+SetAlgorithmPreferences_Progress = "Bezig met het toepassen van de algoritme voorkeuren.";
+SetAlgorithmPreferences_Error = "Het zetten van de algoritme voorkeuren is mislukt.";
+CleanKey_Progress = "Bezig met het schoonmaken van de sleutel.";
+CleanKey_Error = "Schoonmaken van de sleutel is mislukt.";
+MinimizeKey_Progress = "Bezig met het minimaliseren van de sleutel.";
+MinimizeKey_Error = "Minimaliseren van de sleutel is mislukt.";
+GenerateRevokeCertificateForKey_Progress = "Bezig met genereren van intrek certificaat.";
+GenerateRevokeCertificateForKey_Error = "Genereren van het intrek certificaat is mislukt.";
+SearchKeysOnServer_Progress = "Zoekt naar sleutel.";
+SearchKeysOnServer_Error = "Zoeken naar sleutel is mislukt.";
+SendKeysToServer_Progress = "Sleutel aan het versturen.";
+SendKeysToServer_Error = "Versturen van sleutel is mislukt.";
+RefreshKeysFromServer_Progress = "Bezig met verversen van sleutel.";
+RefreshKeysFromServer_Error = "Verversen van sleutel is mislukt.";
+AddSubkey_Progress = "Bezig met toevoegen van subsleutel.";
+AddSubkey_Error = "Toevoegen van sleutel is mislukt.";
+RemoveSubkey_Progress = "Bezig met verwijderen van subsleutel.";
+RemoveSubkey_Error = "Verwijderen van subsleutel is mislukt.";
+RevokeSubkey_Progress = "Bezig met terugtrekken subsleutel.";
+RevokeSubkey_Error = "Terugtrekken van subsleutel mislukt.";
+AddUserID_Progress = "Bezig met toevoegen van GebruikerID.";
+AddUserID_Error = "Toevoegen van gebruikerID mislukt";
+RemoveUserID_Progress = "Bezig met verwijderen gebruikerID.";
+RemoveUserID_Error = "Verwijderen gebruikerID mislukt.";
+SetPrimaryUserID_Progress = "Bezig met het zetten van primaire gebruikerID.";
+SetPrimaryUserID_Error = "Zetten van primaire gebruikerID mislukt.";
+RevokeUserID_Progress = "Bezig met terugtrekken gebruikerID.";
+RevokeUserID_Error = "Terugtrekken gebruikerID mislukt.";
+AddPhoto_Progress = "Bezig met toevoegen van afbeelding.";
+AddPhoto_Error = "Toevoegen afbeelding mislukt.";
+RemovePhoto_Progress = "Bezig met verwijderen afbeelding.";
+RemovePhoto_Error = "Verwijderen afbeelding mislukt.";
+SetPrimaryPhoto_Progress = "Bezig met zetten primaire afbeelding.";
+SetPrimaryPhoto_Error = "Het zetten van primaire afbeelding mislukt.";
+RevokePhoto_Progress = "Bezig met intrekken afbeelding.";
+RevokePhoto_Error = "Intrekken afbeelding mislukt.";
+AddSignature_Progress = "Bezig met toevoegen handtekening.";
+AddSignature_Error = "Het toevoegen van de handtekening is mislukt.";
+RemoveSignature_Progress = "Bezig met verwijderen handtekening.";
+RemoveSignature_Error = "Het verwijderen van de handtekening is mislukt.";
+RevokeSignature_Progress = "Bezig met terugtrekken handtekening.";
+RevokeSignature_Error = "Het terugtrekken van de handtekening is mislukt.";
+ReceiveKeysFromServer_Progress = "Bezig met ontvangen van sleutels.";
+ReceiveKeysFromServer_Error = "Het ontvangen van de sleutels is mislukt.";
+
