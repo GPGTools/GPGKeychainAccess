@@ -229,40 +229,12 @@
 							<int key="NSPeriodicInterval">25</int>
 						</object>
 					</object>
-					<object class="NSButton" id="722478750">
-						<reference key="NSNextResponder" ref="242141073"/>
-						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{18, 101}, {239, 18}}</string>
-						<reference key="NSSuperview" ref="242141073"/>
-						<reference key="NSNextKeyView" ref="603298739"/>
-						<bool key="NSEnabled">YES</bool>
-						<object class="NSButtonCell" key="NSCell" id="991515094">
-							<int key="NSCellFlags">-2080244224</int>
-							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Met anoniem systeem profiel</string>
-							<reference key="NSSupport" ref="646510455"/>
-							<reference key="NSControlView" ref="722478750"/>
-							<int key="NSButtonFlags">1211912703</int>
-							<int key="NSButtonFlags2">2</int>
-							<object class="NSCustomResource" key="NSNormalImage" id="787370762">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">NSSwitch</string>
-							</object>
-							<object class="NSButtonImageSource" key="NSAlternateImage" id="726881376">
-								<string key="NSImageName">NSSwitch</string>
-							</object>
-							<string key="NSAlternateContents"/>
-							<string key="NSKeyEquivalent"/>
-							<int key="NSPeriodicDelay">200</int>
-							<int key="NSPeriodicInterval">25</int>
-						</object>
-					</object>
 					<object class="NSButton" id="1029940963">
 						<reference key="NSNextResponder" ref="242141073"/>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 123}, {228, 18}}</string>
 						<reference key="NSSuperview" ref="242141073"/>
-						<reference key="NSNextKeyView" ref="722478750"/>
+						<reference key="NSNextKeyView" ref="603298739"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="573551487">
 							<int key="NSCellFlags">-2080244224</int>
@@ -272,8 +244,13 @@
 							<reference key="NSControlView" ref="1029940963"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="787370762"/>
-							<reference key="NSAlternateImage" ref="726881376"/>
+							<object class="NSCustomResource" key="NSNormalImage" id="804345719">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">NSSwitch</string>
+							</object>
+							<object class="NSButtonImageSource" key="NSAlternateImage" id="726881376">
+								<string key="NSImageName">NSSwitch</string>
+							</object>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">200</int>
@@ -305,7 +282,7 @@
 						<reference key="NSNextKeyView" ref="1029940963"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="861103872">
-							<int key="NSCellFlags">-2076049856</int>
+							<int key="NSCellFlags">-2080244160</int>
 							<int key="NSCellFlags2">2048</int>
 							<reference key="NSSupport" ref="646510455"/>
 							<reference key="NSControlView" ref="706068551"/>
@@ -399,7 +376,7 @@
 							<reference key="NSControlView" ref="59531303"/>
 							<int key="NSButtonFlags">1211912703</int>
 							<int key="NSButtonFlags2">2</int>
-							<reference key="NSNormalImage" ref="787370762"/>
+							<reference key="NSNormalImage" ref="804345719"/>
 							<reference key="NSAlternateImage" ref="726881376"/>
 							<string key="NSAlternateContents"/>
 							<string key="NSKeyEquivalent"/>
@@ -644,22 +621,6 @@
 					<int key="connectionID">131</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: sendsSystemProfile</string>
-						<reference key="source" ref="722478750"/>
-						<reference key="destination" ref="1015708332"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="722478750"/>
-							<reference key="NSDestination" ref="1015708332"/>
-							<string key="NSLabel">value: sendsSystemProfile</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">sendsSystemProfile</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">132</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">checkForUpdates:</string>
 						<reference key="source" ref="1015708332"/>
@@ -813,7 +774,6 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="59531303"/>
 							<reference ref="1029940963"/>
-							<reference ref="722478750"/>
 							<reference ref="603298739"/>
 							<reference ref="128193133"/>
 							<reference ref="32639192"/>
@@ -852,14 +812,6 @@
 						<reference key="object" ref="1029940963"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="573551487"/>
-						</array>
-						<reference key="parent" ref="242141073"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">109</int>
-						<reference key="object" ref="722478750"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="991515094"/>
 						</array>
 						<reference key="parent" ref="242141073"/>
 					</object>
@@ -909,11 +861,6 @@
 						<int key="objectID">116</int>
 						<reference key="object" ref="106747090"/>
 						<reference key="parent" ref="603298739"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">117</int>
-						<reference key="object" ref="991515094"/>
-						<reference key="parent" ref="722478750"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">118</int>
@@ -1034,10 +981,6 @@
 				<object class="NSAffineTransform" key="108.IBViewBoundsToFrameTransform">
 					<bytes key="NSTransformStruct">P4AAAL+AAADClAAAwq4AAA</bytes>
 				</object>
-				<string key="109.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<object class="NSAffineTransform" key="109.IBViewBoundsToFrameTransform">
-					<bytes key="NSTransformStruct">P4AAAL+AAADClAAAwoIAAA</bytes>
-				</object>
 				<string key="110.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<object class="NSAffineTransform" key="110.IBViewBoundsToFrameTransform">
 					<bytes key="NSTransformStruct">P4AAAL+AAADCnAAAQOAAAA</bytes>
@@ -1055,7 +998,6 @@
 				<string key="114.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="115.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="116.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="117.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="118.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="119.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="120.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
