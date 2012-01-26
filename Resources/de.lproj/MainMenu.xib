@@ -687,6 +687,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>11282D49-D87E-41A7-AC0C-917ED4247CC0</string>
 							<string>1A0B15F5-75A8-4E80-8E77-03BF8E63698A</string>
 							<string>3CCC742F-CF77-46AF-A709-505EF15F1073</string>
 							<string>5F3CC3A1-943F-4F0C-9913-6B9930B965DC</string>
@@ -698,6 +699,28 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="NSToolbarItem" id="202554640">
+								<object class="NSMutableString" key="NSToolbarItemIdentifier">
+									<characters key="NS.bytes">11282D49-D87E-41A7-AC0C-917ED4247CC0</characters>
+								</object>
+								<string key="NSToolbarItemLabel">Informationen</string>
+								<string key="NSToolbarItemPaletteLabel">Informationen</string>
+								<string key="NSToolbarItemToolTip"/>
+								<nil key="NSToolbarItemView"/>
+								<object class="NSCustomResource" key="NSToolbarItemImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">Info</string>
+								</object>
+								<nil key="NSToolbarItemTarget"/>
+								<nil key="NSToolbarItemAction"/>
+								<string key="NSToolbarItemMinSize">{0, 0}</string>
+								<string key="NSToolbarItemMaxSize">{0, 0}</string>
+								<bool key="NSToolbarItemEnabled">YES</bool>
+								<bool key="NSToolbarItemAutovalidates">YES</bool>
+								<int key="NSToolbarItemTag">-1</int>
+								<bool key="NSToolbarIsUserRemovable">YES</bool>
+								<int key="NSToolbarItemVisibilityPriority">0</int>
+							</object>
 							<object class="NSToolbarItem" id="957592130">
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">1A0B15F5-75A8-4E80-8E77-03BF8E63698A</characters>
@@ -972,6 +995,7 @@
 						<reference ref="329743636"/>
 						<reference ref="686368284"/>
 						<reference ref="1064215060"/>
+						<reference ref="202554640"/>
 					</object>
 					<object class="NSArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -981,6 +1005,7 @@
 						<reference ref="686368284"/>
 						<reference ref="11539879"/>
 						<reference ref="1064215060"/>
+						<reference ref="202554640"/>
 						<reference ref="329743636"/>
 					</object>
 					<object class="NSArray" key="NSToolbarIBSelectableItems" id="0">
@@ -1536,7 +1561,7 @@
 								<reference key="NSControlView" ref="544588931"/>
 								<int key="NSButtonFlags">1211912703</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage" id="79169219">
+								<object class="NSCustomResource" key="NSNormalImage" id="371161687">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
 								</object>
@@ -2157,7 +2182,7 @@
 													<reference key="NSControlView" ref="836028179"/>
 													<int key="NSButtonFlags">1211912703</int>
 													<int key="NSButtonFlags2">2</int>
-													<reference key="NSNormalImage" ref="79169219"/>
+													<reference key="NSNormalImage" ref="371161687"/>
 													<reference key="NSAlternateImage" ref="483159743"/>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
@@ -7736,6 +7761,14 @@
 					</object>
 					<int key="connectionID">2114</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showInspector:</string>
+						<reference key="source" ref="1014"/>
+						<reference key="destination" ref="202554640"/>
+					</object>
+					<int key="connectionID">2116</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -10121,6 +10154,7 @@
 							<reference ref="444126566"/>
 							<reference ref="957592130"/>
 							<reference ref="11539879"/>
+							<reference ref="202554640"/>
 						</object>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -10265,6 +10299,11 @@
 						<int key="objectID">2026</int>
 						<reference key="object" ref="43477419"/>
 						<reference key="parent" ref="797542886"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2115</int>
+						<reference key="object" ref="202554640"/>
+						<reference key="parent" ref="1011643227"/>
 					</object>
 				</object>
 			</object>
@@ -10577,6 +10616,7 @@
 					<string>205.IBPluginDependency</string>
 					<string>206.IBPluginDependency</string>
 					<string>207.IBPluginDependency</string>
+					<string>2115.IBPluginDependency</string>
 					<string>215.IBPluginDependency</string>
 					<string>217.IBPluginDependency</string>
 					<string>23.IBPluginDependency</string>
@@ -10987,6 +11027,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{295, 374}, {1009, 617}}</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -11063,7 +11104,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">2114</int>
+			<int key="maxID">2116</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -11599,6 +11640,7 @@
 				<string>Export</string>
 				<string>Generate</string>
 				<string>Import</string>
+				<string>Info</string>
 				<string>NSAddTemplate</string>
 				<string>NSLeftFacingTriangleTemplate</string>
 				<string>NSMenuCheckmark</string>
@@ -11610,6 +11652,7 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{32, 32}</string>
 				<string>{32, 32}</string>
 				<string>{32, 32}</string>
 				<string>{32, 32}</string>
