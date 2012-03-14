@@ -14,7 +14,7 @@
 "Delete both" = "Verwijder beide";
 "Delete key" = "Verwijder sleutel";
 DeleteSecretKey_Title = "Verwijder geheime sleutel";
-DeleteSecretKey_Msg = "Probeert sleutel %@, %@ te verwijderen.\n\nJe staat op het punt een set sleutels (een geheime en een publieke sleutel) te verwijderen van je computer. Zonder de geheime sleutel zal je niet langer in staat zijn berichten te ontsleutelen die zijn versleutelt met de bijbehorende publieke sleutel. (N.B. Wanneer je de publieke sleutel op een keyserver hebt staan blijft deze daar staan totdat je deze zelf intrekt. Voor het intrekken van deze sleutel heb je de geheime sleutel nodig.) Zeker weten dat je deze sleutelset wilt verwijderen?";
+DeleteSecretKey_Msg = "Probeert sleutel %@, %@ te verwijderen.\n\nJe staat op het punt een set sleutels (een geheime en een publieke sleutel) te verwijderen van je computer. Zonder de geheime sleutel zal je niet langer in staat zijn berichten te ontsleutelen die zijn versleuteld met de bijbehorende publieke sleutel. (N.B. Wanneer je de publieke sleutel op een keyserver hebt staan, blijft deze daar staan totdat je deze zelf intrekt. Voor het intrekken van deze sleutel heb je de geheime sleutel nodig.) Weet je zeker dat je deze sleutelset wilt verwijderen?";
 DeleteKey_Title = "Verwijder sleutel";
 DeleteKey_Msg = "Probeert de sleutel %@, %@ te verwijderen.\n\nWeet je zeker dat je deze sleutel wilt verwijderen?";
 
@@ -35,7 +35,7 @@ CheckAlert_NoPassphrase_Title = "Geen wachtwoord";
 CheckAlert_NoPassphrase_Message = "Je hebt geen wachtwoord ingevuld. Dit is niet aanbevolen. Een wachtwoord dient minimaal 8 karakters lang te zijn.";
 CheckAlert_NoPassphrase_Button1= "Doorgaan zonder een wachtwoord";
 CheckAlert_NoPassphrase_Button2 = "Vul een nieuw wachtwoord in";
-CheckAlert_PassphraseShort_Title = "Kort Wachtwoord";
+CheckAlert_PassphraseShort_Title = "Kort wachtwoord";
 CheckAlert_PassphraseShort_Message = "Je hebt een kort wachtwoord ingevuld. Dit is niet aanbevolen. Een wachtwoord dient minimaal 8 karakters lang te zijn.";
 CheckAlert_PassphraseShort_Button1= "Doorgaan met een kort wachtwoord";
 CheckAlert_PassphraseShort_Button2 = "Vul een nieuw wachtwoord in";
@@ -46,9 +46,9 @@ CheckAlert_PassphraseSimple_Button2 = "Vul een nieuw wachtwoord in";
 
 
 //For Key-Search
-"No keys Found" = "Geen Sleutels Gevonden";
+"No keys Found" = "Geen sleutels gevonden";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), aangemaakt: %@"; //Format für die gefundenen Schlüssel vom Server.
-SearchingKeys_Msg = "We zoeken naar bijpassende sleutel(s) op de keys server. Dit kan even duren, even geduld.";
+SearchingKeys_Msg = "We zoeken naar bijpassende sleutel(s) op de keyserver. Dit kan even duren, even geduld.";
 
 GenerateKey_Progress = "We moeten veel willekeurige bytes genereren. Het is aan te bevelen om iets anders uit te voeren (Typ op het toetsenbord in een applicatie, het bewegen van de muis, of de harde schijf benaderen) tijdens deze eerste generatie. Dit is nodig om het systeem betere willekeurige data te laten genereren.";
 GenerateSubkey_Msg = "Voeg subsleutel toe aan de sleutel \"%@\", %@.";
@@ -65,8 +65,8 @@ CheckError_NameToShort = "Naam moet minimaal 5 karakters lang zijn!";
 CheckError_NameToLong = "Naam is te lang!";
 CheckError_InvalidCharInName = "Ongeldig karakter in naam!\n\"<\" en \">\" niet toegestaan.";
 CheckError_NameStartWithDigit = "Naam mag niet met een nummer beginnen!";
-CheckError_InvalidEmail = "Geen valide email adres!";
-CheckError_EmailToLong = "E-Mail adres is te lang!\nMaximale lengte is 254.";
+CheckError_InvalidEmail = "Geen valide e-mail adres!";
+CheckError_EmailToLong = "E-mail adres is te lang!\nMaximale lengte is 254.";
 CheckError_InvalidCharInComment = "Ongeldig karakter in opmerking!\n\"(\" en \")\" niet toegestaan.";
 CheckError_CommentToLong = "Opmerking is te lang!";
 CheckError_NoKeyID = "Vul een valide sleutel ID in!";
@@ -77,7 +77,7 @@ CheckError_PassphraseMissmatch = "Je wachtwoorden zijn niet gelijk!";
 GPG_NOT_FOUND_TITLE = "GPG Niet gevonden";
 GPG_NOT_FOUND_MESSAGE = "Oeps, er is iets fout gegaan. Het lijkt erop dat GPG niet op je systeem staat. Installeer dit a.u.b.. Je kan het vinden in bijvoorbeeld de 'GPGTools Installer' op http://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG Configuratie fout";
-GPG_CONFIG_ERROR_MESSAGE = "Oeps, er is iets fout gegaan. GPG is op je systeem gevonden maar het lijkt erop dat er een probleem is met het configuratie bestand. Neem a.u.b. contact op met het GPGTools team http://www.gpgtools.org/about.html.";
+GPG_CONFIG_ERROR_MESSAGE = "Oeps, er is iets fout gegaan. GPG is op je systeem gevonden maar het lijkt erop dat er een probleem is met het configuratiebestand. Neem a.u.b. contact op met het GPGTools team http://www.gpgtools.org/about.html.";
 
 
 //Those are abvious
@@ -158,7 +158,7 @@ ExportKey_Progress = "Bezig met exporteren van sleutel.";
 ExportKey_Error = "Exporteren van sleutel mislukt.";
 ImportKey_Progress  = "Bezig met importeren van sleutel.";
 ImportKey_Error = "Importeren mislukt.";
-DeleteSecretKey_Progress = "Bezig verwijderd geheime sleutel.";
+DeleteSecretKey_Progress = "Bezig met verwijderen geheime sleutel.";
 DeleteKeys_Progress = "Bezig met verwijderen sleutel.";
 DeleteKeys_Error = "Verwijderen sleutel mislukt.";
 ChangePassphrase_Progress = "Bezig met veranderen wachtwoord.";
@@ -175,8 +175,8 @@ CleanKey_Progress = "Bezig met het schoonmaken van de sleutel.";
 CleanKey_Error = "Schoonmaken van de sleutel is mislukt.";
 MinimizeKey_Progress = "Bezig met het minimaliseren van de sleutel.";
 MinimizeKey_Error = "Minimaliseren van de sleutel is mislukt.";
-GenerateRevokeCertificateForKey_Progress = "Bezig met genereren van intrek certificaat.";
-GenerateRevokeCertificateForKey_Error = "Genereren van het intrek certificaat is mislukt.";
+GenerateRevokeCertificateForKey_Progress = "Bezig met genereren van intrekcertificaat.";
+GenerateRevokeCertificateForKey_Error = "Genereren van het intrekcertificaat is mislukt.";
 SearchKeysOnServer_Progress = "Zoekt naar sleutel.";
 SearchKeysOnServer_Error = "Zoeken naar sleutel is mislukt.";
 SendKeysToServer_Progress = "Sleutel aan het versturen.";
