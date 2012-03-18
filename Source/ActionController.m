@@ -936,7 +936,6 @@
 		gpgc.undoManager = self.undoManager;
 		gpgc.printVersion = YES;
 		gpgc.async = YES;
-		gpgc.verbose = YES;
 		sheetController = [[SheetController sharedInstance] retain];
 	}
 	return self;

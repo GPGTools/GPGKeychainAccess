@@ -19,6 +19,8 @@
 
 #import <Sparkle/Sparkle.h>
 
+@class GPGOptions;
+
 @interface PreferencesController : NSWindowController {
 	NSWindow *window;
 	IBOutlet NSToolbar *toolbar;
@@ -29,6 +31,13 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
+@property (readonly) GPGOptions *options;
+
+// Get a list of keyservers from GPGOptions
+@property (readonly) NSArray *keyservers;
+
+// To set keyserver and also coordinate auto-key-locate
+@property (assign) NSString *keyserver;
 
 + (id)sharedInstance;
 - (IBAction)showPreferences:(id)sender;

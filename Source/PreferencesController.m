@@ -76,5 +76,23 @@ static PreferencesController *_sharedInstance = nil;
 	[window setTitle:sender.label];
 }
 
+- (GPGOptions *)options {
+    return [GPGOptions sharedOptions];
+}
+
+- (NSArray*)keyservers {
+    return [self.options keyservers];
+}
+
+static NSString * const kKeyserver = @"keyserver";
+
+- (NSString*)keyserver {
+    return [self.options valueForKey:kKeyserver];
+}
+
+- (void)setKeyserver:(NSString *)keyserver {
+    [self.options setValue:keyserver forKey:kKeyserver];
+}
+
 @end
 
