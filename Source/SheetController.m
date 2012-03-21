@@ -485,7 +485,7 @@
 
 - (void)runAndWait {
 	[sheetLock lock];
-	NSLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", modalWindow, sheetWindow);
+	GPGDebugLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", modalWindow, sheetWindow);
 	if (modalWindow.isVisible) {
 		[NSApp beginSheet:sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
 		[NSApp runModalForWindow:sheetWindow];
