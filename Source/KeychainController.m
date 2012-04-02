@@ -157,9 +157,9 @@ NSSet *draggedKeys;
 	[self updateKeys:keys withSigs:NO];
 }
 - (void)updateKeys:(NSObject <EnumerationList> *)keys withSigs:(BOOL)withSigs {
-	NSLog(@"updateKeys:withSigs: start");
+	GPGDebugLog(@"updateKeys:withSigs: start");
 	if (![updateLock tryLock]) {
-		NSLog(@"updateKeys:withSigs: tryLock return");
+		GPGDebugLog(@"updateKeys:withSigs: tryLock return");
 		return;
 	}
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -202,17 +202,17 @@ NSSet *draggedKeys;
 		[self performSelectorOnMainThread:@selector(updateKeyList:) withObject:updateInfos waitUntilDone:YES];
 
 	} @catch (GPGException *e) {
-		NSLog(@"updateKeys:withSigs: failed – %@ (ErrorText: %@)", e, e.gpgTask.errText);
+		GPGDebugLog(@"updateKeys:withSigs: failed – %@ (ErrorText: %@)", e, e.gpgTask.errText);
 		SheetController *sheetController = [SheetController sharedInstance];
 		[sheetController errorSheetWithmessageText:@"Listings keys failed!" infoText:[NSString stringWithFormat:@"%@\n%@", e.description, e.gpgTask.errText]];
 	} @catch (NSException *e) {
-		NSLog(@"updateKeys:withSigs: failed – %@", e);
+		GPGDebugLog(@"updateKeys:withSigs: failed – %@", e);
 	} @finally {
 		[pool drain];
 		[updateLock unlock];
 	}
 	
-	NSLog(@"updateKeys:withSigs: end");
+	GPGDebugLog(@"updateKeys:withSigs: end");
 }
 
 - (void)updateKeyList:(NSDictionary *)dict {
@@ -299,7 +299,7 @@ NSSet *draggedKeys;
 
 
 - (void)awakeFromNib {
-	NSLog(@"KeychainController awakeFromNib");
+	GPGDebugLog(@"KeychainController awakeFromNib");
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	NSString *gkaVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]; 
@@ -308,7 +308,7 @@ NSSet *draggedKeys;
 	
 	// Testen ob GPG vorhanden und funktionsfähig ist.
 	GPGErrorCode errorCode = [GPGController testGPG];
-	NSLog(@"KeychainController awakeFromNib: testGPG: %i", errorCode);
+	GPGDebugLog(@"KeychainController awakeFromNib: testGPG: %i", errorCode);
 
 	switch (errorCode) {
 		case GPGErrorNotFound:

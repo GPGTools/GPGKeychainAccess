@@ -842,15 +842,20 @@
 	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:YES];
 }
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
+	NSString *infoText;
+	
 	NSLog(@"Exception: %@", e.description);
 	if ([e isKindOfClass:[GPGException class]]) {
 		NSLog(@"Error text: %@\nStatus text: %@", [(GPGException *)e gpgTask].errText, [(GPGException *)e gpgTask].statusText);
 		if ([(GPGException *)e errorCode] == GPGErrorCancelled) {
 			return;
 		}
+		infoText = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, [(GPGException *)e gpgTask].errText];
+	} else {
+		infoText = [NSString stringWithFormat:@"%@", e.description];
 	}
 
-	[sheetController errorSheetWithmessageText:self.errorText infoText:[NSString stringWithFormat:@"%@", e.description]];
+	[sheetController errorSheetWithmessageText:self.errorText infoText:infoText];
 }
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
@@ -936,6 +941,7 @@
 		gpgc.undoManager = self.undoManager;
 		gpgc.printVersion = YES;
 		gpgc.async = YES;
+		gpgc.keyserverTimeout = 20;
 		sheetController = [[SheetController sharedInstance] retain];
 	}
 	return self;

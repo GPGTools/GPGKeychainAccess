@@ -42,7 +42,7 @@
 
 
 - (void)awakeFromNib {
-	NSLog(@"GPGKeychainAccessAppDelegate awakeFromNib");
+	GPGDebugLog(@"GPGKeychainAccessAppDelegate awakeFromNib");
 	[keyTable setDoubleAction:@selector(showInspector:)];
 	[keyTable setTarget:[ActionController sharedInstance]];
 	
@@ -152,9 +152,6 @@
 - (IBAction)selectHeaderVisibility:(NSMenuItem *)sender {
 	[[sender representedObject] setHidden:sender.state];
 	sender.state = !sender.state;
-	
-	NSTableColumn *a = sender.representedObject;
-	NSLog(@"%f", a.width);
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag {
