@@ -868,8 +868,9 @@
 			
 			NSDictionary *statusDict = gc.statusDict;
 			if (statusDict) {
-				sheetController.msgText = [self importResultWithStatusDict:statusDict];
-				
+				[self refreshDisplayedKeys:self];
+
+				sheetController.msgText = [self importResultWithStatusDict:statusDict];				
 				sheetController.sheetType = SheetTypeShowResult;
 				[sheetController runModalForWindow:mainWindow];
 			}
