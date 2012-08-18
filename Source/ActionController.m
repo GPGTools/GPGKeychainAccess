@@ -45,7 +45,7 @@
 	
 	
 	sheetController.sheetType = SheetTypeExportKey;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -61,7 +61,7 @@
 	//sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", nil];
 	
 	sheetController.sheetType = SheetTypeOpenPanel;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -131,7 +131,7 @@
 - (IBAction)generateNewKey:(id)sender {
 	sheetController.sheetType = SheetTypeNewKey;
 	sheetController.autoUpload = YES;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	NSInteger keyType, subkeyType;
@@ -331,7 +331,7 @@
 	}
 	
 	sheetController.sheetType = SheetTypeExpirationDate;
-	if ([sheetController runModalForWindow:mainWindow] == NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] == NSOKButton) {
 		self.progressText = localized(@"ChangeExpirationDate_Progress");
 		self.errorText = localized(@"ChangeExpirationDate_Error");
 		[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:sheetController.daysToExpire];
@@ -360,7 +360,7 @@
 	sheetController.allowEdit = key.secret;
 	sheetController.algorithmPreferences = algorithmPreferences; 
 	sheetController.sheetType = SheetTypeAlgorithmPreferences;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -410,7 +410,7 @@
 	sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), [key shortKeyID]];
 	
 	sheetController.sheetType = SheetTypeSavePanel;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -423,7 +423,7 @@
 #pragma mark "Keyserver"
 - (IBAction)searchKeys:(id)sender {
 	sheetController.sheetType = SheetTypeSearchKeys;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -435,7 +435,7 @@
 }
 - (IBAction)receiveKeys:(id)sender {
 	sheetController.sheetType = SheetTypeReceiveKeys;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -471,7 +471,7 @@
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userID], [key shortKeyID]];
 	
 	sheetController.sheetType = SheetTypeAddSubkey;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -511,7 +511,7 @@
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [key userID], [key shortKeyID]];
 	
 	sheetController.sheetType = SheetTypeAddUserID;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -563,7 +563,7 @@
 	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"jpg", @"jpeg", nil];;
 	
 	sheetController.sheetType = SheetTypeOpenPhotoPanel;
-	if ([sheetController runModalForWindow:inspectorWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -629,7 +629,7 @@
 	sheetController.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), userID ? userID.userID : key.userID, key.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeAddSignature;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -872,7 +872,7 @@
 
 				sheetController.msgText = [self importResultWithStatusDict:statusDict];				
 				sheetController.sheetType = SheetTypeShowResult;
-				[sheetController runModalForWindow:mainWindow];
+				[sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow];
 			}
 			break;
 		}
@@ -882,12 +882,12 @@
 			if ([keys count] == 0) {
 				sheetController.msgText = localized(@"No keys Found");
 				sheetController.sheetType = SheetTypeShowResult;
-				[sheetController runModalForWindow:mainWindow];
+				[sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow];
 			} else {
 				sheetController.keys = keys;
 				
 				sheetController.sheetType = SheetTypeShowFoundKeys;
-				if ([sheetController runModalForWindow:mainWindow] != NSOKButton) break;
+				if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) break;
 				
 				[self receiveKeysFromServer:sheetController.keys];
 			}
