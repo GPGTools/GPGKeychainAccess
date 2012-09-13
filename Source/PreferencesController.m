@@ -76,18 +76,31 @@ static PreferencesController *_sharedInstance = nil;
 	[window setTitle:sender.label];
 }
 
+- (IBAction)removeKeyserver:(NSButton *)sender {
+	NSString *oldServer = self.keyserver;
+	[self.options removeKeyserver:oldServer];
+	NSArray *servers = self.keyservers;
+	if (servers.count > 0) {
+		if (![servers containsObject:oldServer]) {
+			self.keyserver = [self.keyservers objectAtIndex:0];
+		}
+	} else {
+		self.keyserver = @"";
+	}
+}
+
 - (GPGOptions *)options {
     return [GPGOptions sharedOptions];
 }
 
-- (NSArray*)keyservers {
+- (NSArray *)keyservers {
     return [self.options keyservers];
 }
 
 static NSString * const kKeyserver = @"keyserver";
 static NSString * const kAutoKeyLocate = @"auto-key-locate";
 
-- (NSString*)keyserver {
+- (NSString *)keyserver {
     return [self.options valueForKey:kKeyserver];
 }
 
@@ -104,6 +117,15 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
         [self.options setValue:newOptions forKey:kAutoKeyLocate];
     }
 }
+
++ (NSSet *)keyPathsForValuesAffectingKeyservers {
+	return [NSSet setWithObject:@"options.keyservers"];
+}
++ (NSSet *)keyPathsForValuesAffectingKeyserver {
+	return [NSSet setWithObject:@"options.keyserver"];
+}
+
+
 
 @end
 

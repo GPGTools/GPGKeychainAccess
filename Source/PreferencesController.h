@@ -42,5 +42,6 @@
 + (id)sharedInstance;
 - (IBAction)showPreferences:(id)sender;
 - (IBAction)selectTab:(NSToolbarItem *)sender;
+- (IBAction)removeKeyserver:(NSButton *)sender;
 
 @end
