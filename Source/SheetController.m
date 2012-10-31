@@ -177,7 +177,7 @@
 		[NSApp runModalForWindow:window];
 		[sheetLock unlock];
 	} else {
-		[alert runModal];
+		clickedButton = [alert runModal];
 	}
 	
 	if (alert.suppressionButton.state == NSOnState) {
