@@ -20,10 +20,11 @@
 #import "Globales.h"
 #import "ActionController.h"
 #import "KeychainController.h"
+#import "AppDelegate.h"
 
 
-NSWindow *mainWindow;
-NSWindow *inspectorWindow;
+NSWindow *mainWindow, *inspectorWindow;
+GPGKeychainAccessAppDelegate *appDelegate;
 
 
 

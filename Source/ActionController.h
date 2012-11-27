@@ -27,6 +27,7 @@
     IBOutlet NSArrayController *userIDsController;
 	IBOutlet NSArrayController *photosController;
 	IBOutlet NSOutlineView *keyTable;
+	IBOutlet NSWindow *inspectorWindow;
 	
 	GPGController *gpgc;
 	SheetController *sheetController;
@@ -35,6 +36,7 @@
 	NSString *progressText, *errorText;
 }
 @property (readonly) NSUndoManager *undoManager;
+@property (assign) NSWindow *inspectorWindow;
 
 + (id)sharedInstance;
 

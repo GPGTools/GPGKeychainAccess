@@ -17,10 +17,10 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
+@class GPGKeychainAccessAppDelegate;
 
-extern NSWindow *mainWindow;
-extern NSWindow *inspectorWindow;
-
+extern NSWindow *mainWindow, *inspectorWindow;
+extern GPGKeychainAccessAppDelegate *appDelegate;
 
 
 

@@ -895,7 +895,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 }
 
 - (BOOL)getObjectValue:(id*)obj forString:(NSString*)string errorDescription:(NSString**)error {
-	*obj = [NSString stringWithFormat:@"%i", [self checkedValue:[string integerValue]]];
+	*obj = [NSString stringWithFormat:@"%li", (long)[self checkedValue:[string integerValue]]];
 	return YES;
 }
 

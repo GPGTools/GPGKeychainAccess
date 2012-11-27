@@ -41,6 +41,12 @@
 }
 
 
+- (id)init {
+	self = [super init];
+	appDelegate = self;
+	return self;
+}
+
 - (void)awakeFromNib {
 	GPGDebugLog(@"GPGKeychainAccessAppDelegate awakeFromNib");
 	[keyTable setDoubleAction:@selector(showInspector:)];
