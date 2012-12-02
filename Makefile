@@ -36,5 +36,4 @@ test: compile
 	@./Dependencies/GPGTools_Core/scripts/upload.sh
 
 pkg-core:
-	@echo "To be moved to the core later on."
-	@source Makefile.config && packagesbuild "${pkgProj}"
+	@./pkg-core.sh
