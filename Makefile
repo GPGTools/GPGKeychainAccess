@@ -34,3 +34,7 @@ clean:
 test: compile
 	@./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto
 	@./Dependencies/GPGTools_Core/scripts/upload.sh
+
+pkg-core:
+	@echo "To be moved to the core later on."
+	@source Makefile.config && packagesbuild "${pkgProj}"
