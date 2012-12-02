@@ -35,5 +35,5 @@ test: compile
 	@./Dependencies/GPGTools_Core/scripts/create_dmg.sh auto
 	@./Dependencies/GPGTools_Core/scripts/upload.sh
 
-pkg-core:
+pkg-core: compile
 	@./pkg-core.sh
