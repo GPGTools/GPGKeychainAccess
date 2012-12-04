@@ -41,12 +41,12 @@ source "${_cfFile}"
 	errExit "I require environment variable 'build_dir' to be set but it's not.  Aborting."
 [ -d "${build_dir}" ] ||
 	errExit "I require directory '${build_dir}' but it does not exit.  Aborting."
-[ -n "${build_version}" ] ||
-	errExit "I require environment variable 'build_version' to be set but it's not.  Aborting."
+[ -n "${commitHash}" ] ||
+	errExit "I require environment variable 'commitHash' to be set but it's not.  Aborting."
 
 cp "${pkgProj_dir}"/* "${build_dir}"
 sed -i "" "s/${_verString}/${version}/g" "${build_dir}/${pkgProj_corename}"
-sed -i "" "s/${_buildString}/${build_version}/g" "${build_dir}/${pkgProj_corename}"
+sed -i "" "s/${_buildString}/${commitHash}/g" "${build_dir}/${pkgProj_corename}"
 
 "$_pkgBin" "${build_dir}/${pkgProj_corename}"
 
