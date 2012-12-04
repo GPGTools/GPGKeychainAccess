@@ -21,22 +21,6 @@
 								<key>GID</key>
 								<integer>80</integer>
 								<key>PATH</key>
-								<string>../build/Release/GPG Keychain Access.app</string>
-								<key>PATH_TYPE</key>
-								<integer>1</integer>
-								<key>PERMISSIONS</key>
-								<integer>493</integer>
-								<key>TYPE</key>
-								<integer>3</integer>
-								<key>UID</key>
-								<integer>501</integer>
-							</dict>
-							<dict>
-								<key>CHILDREN</key>
-								<array/>
-								<key>GID</key>
-								<integer>80</integer>
-								<key>PATH</key>
 								<string>Utilities</string>
 								<key>PATH_TYPE</key>
 								<integer>0</integer>
@@ -342,6 +326,73 @@
 								<array>
 									<dict>
 										<key>CHILDREN</key>
+										<array>
+											<dict>
+												<key>CHILDREN</key>
+												<array/>
+												<key>GID</key>
+												<integer>80</integer>
+												<key>PATH</key>
+												<string>../build/Release/GPG Keychain Access.app</string>
+												<key>PATH_TYPE</key>
+												<integer>1</integer>
+												<key>PERMISSIONS</key>
+												<integer>493</integer>
+												<key>TYPE</key>
+												<integer>3</integer>
+												<key>UID</key>
+												<integer>501</integer>
+											</dict>
+										</array>
+										<key>GID</key>
+										<integer>0</integer>
+										<key>PATH</key>
+										<string>GKA_Installation</string>
+										<key>PATH_TYPE</key>
+										<integer>0</integer>
+										<key>PERMISSIONS</key>
+										<integer>493</integer>
+										<key>TYPE</key>
+										<integer>2</integer>
+										<key>UID</key>
+										<integer>0</integer>
+									</dict>
+								</array>
+								<key>GID</key>
+								<integer>0</integer>
+								<key>PATH</key>
+								<string>tmp</string>
+								<key>PATH_TYPE</key>
+								<integer>0</integer>
+								<key>PERMISSIONS</key>
+								<integer>493</integer>
+								<key>TYPE</key>
+								<integer>2</integer>
+								<key>UID</key>
+								<integer>0</integer>
+							</dict>
+						</array>
+						<key>GID</key>
+						<integer>0</integer>
+						<key>PATH</key>
+						<string>private</string>
+						<key>PATH_TYPE</key>
+						<integer>0</integer>
+						<key>PERMISSIONS</key>
+						<integer>493</integer>
+						<key>TYPE</key>
+						<integer>2</integer>
+						<key>UID</key>
+						<integer>0</integer>
+					</dict>
+					<dict>
+						<key>CHILDREN</key>
+						<array>
+							<dict>
+								<key>CHILDREN</key>
+								<array>
+									<dict>
+										<key>CHILDREN</key>
 										<array/>
 										<key>GID</key>
 										<integer>0</integer>
@@ -438,6 +489,13 @@
 		</dict>
 		<key>PACKAGE_SCRIPTS</key>
 		<dict>
+			<key>POSTINSTALL_PATH</key>
+			<dict>
+				<key>PATH</key>
+				<string>postinstall.sh</string>
+				<key>PATH_TYPE</key>
+				<integer>1</integer>
+			</dict>
 			<key>RESOURCES</key>
 			<array/>
 		</dict>
@@ -452,7 +510,7 @@
 			<key>OVERWRITE_PERMISSIONS</key>
 			<false/>
 			<key>VERSION</key>
-			<string>__VERSION__</string>
+			<string>__VERSION__ (__BUILD__)</string>
 		</dict>
 		<key>PROJECT_COMMENTS</key>
 		<dict>
@@ -633,7 +691,7 @@
 				</dict>
 			</array>
 			<key>NAME</key>
-			<string>GPGKeychainAccess</string>
+			<string>GPGKeychainAccess_Core</string>
 		</dict>
 	</dict>
 	<key>TYPE</key>
