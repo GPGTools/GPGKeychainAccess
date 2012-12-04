@@ -482,7 +482,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT\"\nsource \"Makefile.config\"\n\nBuildNumber=\"$(($(date +\"%s\") / 3600 - 262968))\"\nCommitHash=\"$(git rev-parse --short HEAD)\"\nCFBundleVersion=\"$BuildNumber${PRERELEASE_VERSION:+ ($PRERELEASE_VERSION)}\"\nCFBundleShortVersionString=\"${version}\"\n\ncd \"$BUILT_PRODUCTS_DIR\"\nPLIST=\"$PWD/${INFOPLIST_PATH%.plist}\"\n\ndefaults write \"$PLIST\" CommitHash \"\\\"$CommitHash\\\"\"\ndefaults write \"$PLIST\" BuildNumber \"\\\"$BuildNumber\\\"\"\ndefaults write \"$PLIST\" CFBundleVersion \"\\\"$CFBundleVersion\\\"\"\ndefaults write \"$PLIST\" CFBundleShortVersionString \"\\\"$CFBundleShortVersionString\\\"\"\n";
+			shellScript = "source \"$SRCROOT/Makefile.config\" || exit 1\n\nPLIST=\"$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH\"\n\n/usr/libexec/PlistBuddy -c \"Set CommitHash \\\"$commitHash\\\"\" -c \"Set BuildNumber \\\"$buildNumber\\\"\" -c \"Set CFBundleVersion \\\"$version_build\\\"\" -c \"Set CFBundleShortVersionString \\\"$version\\\"\" \"$PLIST\" || exit 2\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
