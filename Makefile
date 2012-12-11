@@ -36,4 +36,4 @@ test: compile
 	@./Dependencies/GPGTools_Core/scripts/upload.sh
 
 pkg-core: compile
-	@./pkg-core.sh
+	@./Dependencies/GPGTools_Core/scripts/pkg-core.sh

@@ -7,7 +7,7 @@
 		<key>PACKAGE_FILES</key>
 		<dict>
 			<key>DEFAULT_INSTALL_LOCATION</key>
-			<string>/</string>
+			<string>/Applications</string>
 			<key>HIERARCHY</key>
 			<dict>
 				<key>CHILDREN</key>
@@ -15,6 +15,44 @@
 					<dict>
 						<key>CHILDREN</key>
 						<array>
+							<dict>
+								<key>BUNDLE_CAN_DOWNGRADE</key>
+								<true/>
+								<key>CHILDREN</key>
+								<array/>
+								<key>GID</key>
+								<integer>80</integer>
+								<key>LOCATORS</key>
+								<array>
+									<dict>
+										<key>DICTIONARY</key>
+										<dict>
+											<key>BUNDLE_IDENTIFIER</key>
+											<string>org.gpgtools.GPGKeychainAccess</string>
+											<key>DEFAULT_PATH</key>
+											<string>/Applications/GPG Keychain Access.app</string>
+											<key>PREFER_DEFAULT_PATH</key>
+											<true/>
+										</dict>
+										<key>IDENTIFIER</key>
+										<string>fr.whitebox.Packages.locator.standard</string>
+										<key>NAME</key>
+										<string>Standard</string>
+										<key>STATE</key>
+										<true/>
+									</dict>
+								</array>
+								<key>PATH</key>
+								<string>../build/Release/GPG Keychain Access.app</string>
+								<key>PATH_TYPE</key>
+								<integer>1</integer>
+								<key>PERMISSIONS</key>
+								<integer>493</integer>
+								<key>TYPE</key>
+								<integer>3</integer>
+								<key>UID</key>
+								<integer>501</integer>
+							</dict>
 							<dict>
 								<key>CHILDREN</key>
 								<array/>
@@ -326,73 +364,6 @@
 								<array>
 									<dict>
 										<key>CHILDREN</key>
-										<array>
-											<dict>
-												<key>CHILDREN</key>
-												<array/>
-												<key>GID</key>
-												<integer>80</integer>
-												<key>PATH</key>
-												<string>../build/Release/GPG Keychain Access.app</string>
-												<key>PATH_TYPE</key>
-												<integer>1</integer>
-												<key>PERMISSIONS</key>
-												<integer>493</integer>
-												<key>TYPE</key>
-												<integer>3</integer>
-												<key>UID</key>
-												<integer>501</integer>
-											</dict>
-										</array>
-										<key>GID</key>
-										<integer>0</integer>
-										<key>PATH</key>
-										<string>GKA_Installation</string>
-										<key>PATH_TYPE</key>
-										<integer>0</integer>
-										<key>PERMISSIONS</key>
-										<integer>493</integer>
-										<key>TYPE</key>
-										<integer>2</integer>
-										<key>UID</key>
-										<integer>0</integer>
-									</dict>
-								</array>
-								<key>GID</key>
-								<integer>0</integer>
-								<key>PATH</key>
-								<string>tmp</string>
-								<key>PATH_TYPE</key>
-								<integer>0</integer>
-								<key>PERMISSIONS</key>
-								<integer>493</integer>
-								<key>TYPE</key>
-								<integer>2</integer>
-								<key>UID</key>
-								<integer>0</integer>
-							</dict>
-						</array>
-						<key>GID</key>
-						<integer>0</integer>
-						<key>PATH</key>
-						<string>private</string>
-						<key>PATH_TYPE</key>
-						<integer>0</integer>
-						<key>PERMISSIONS</key>
-						<integer>493</integer>
-						<key>TYPE</key>
-						<integer>2</integer>
-						<key>UID</key>
-						<integer>0</integer>
-					</dict>
-					<dict>
-						<key>CHILDREN</key>
-						<array>
-							<dict>
-								<key>CHILDREN</key>
-								<array>
-									<dict>
-										<key>CHILDREN</key>
 										<array/>
 										<key>GID</key>
 										<integer>0</integer>
@@ -489,13 +460,6 @@
 		</dict>
 		<key>PACKAGE_SCRIPTS</key>
 		<dict>
-			<key>POSTINSTALL_PATH</key>
-			<dict>
-				<key>PATH</key>
-				<string>postinstall.sh</string>
-				<key>PATH_TYPE</key>
-				<integer>1</integer>
-			</dict>
 			<key>RESOURCES</key>
 			<array/>
 		</dict>
@@ -506,7 +470,7 @@
 			<key>CONCLUSION_ACTION</key>
 			<integer>0</integer>
 			<key>IDENTIFIER</key>
-			<string>org.gpgtools.gpgkeychainaccess</string>
+			<string>org.gpgtools.GPGKeychainAccess</string>
 			<key>OVERWRITE_PERMISSIONS</key>
 			<false/>
 			<key>VERSION</key>
