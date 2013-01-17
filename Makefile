@@ -9,8 +9,7 @@ update: update-libmacgpg
 
 pkg: pkg-libmacgpg
 
-clean-all::
-	$(MAKE) -C Dependencies/Libmacgpg clean-all
+clean-all: clean-libmacgpg
 
 $(PRODUCT): Source/* Resources/* Resources/*/* GPGKeychainAccess.xcodeproj
 	@xcodebuild -project $(PROJECT).xcodeproj -target $(TARGET) -configuration $(CONFIG) build $(XCCONFIG)
