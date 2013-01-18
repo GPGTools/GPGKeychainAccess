@@ -403,7 +403,7 @@ NSSet *draggedKeys;
 
 
 @implementation GPGKey (GKAExtension)
-- (NSString *)type { return secret ? @"sec" : @"pub"; }
+- (NSString *)type { return secret ? @"sec/pub" : @"pub"; }
 - (NSString *)longType { return secret ? localized(@"Secret and public key") : localized(@"Public key"); }
 @end
 
