@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2011
+ Copyright © Roman Zechmeister, 2013
  
  Diese Datei ist Teil von GPG Keychain Access.
  
@@ -183,8 +183,11 @@
 	[[PreferencesController sharedInstance] showPreferences:sender];
 }
 
-- (void)showHelp:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://github.com/GPGTools/GPGKeychainAccess/wiki"]];
+- (IBAction)showHelp:(id)sender {
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://support.gpgtools.org/kb/faq-gpg-keychain-access"]];
+}
+- (IBAction)showSupport:(id)sender {
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://support.gpgtools.org/home"]];
 }
 
 

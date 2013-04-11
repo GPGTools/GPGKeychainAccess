@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2011
+ Copyright © Roman Zechmeister, 2013
  
  Diese Datei ist Teil von GPG Keychain Access.
  
@@ -29,5 +29,6 @@
 - (IBAction)selectHeaderVisibility:(NSMenuItem *)sender;
 - (IBAction)showPreferences:(id)sender;
 
+- (IBAction)showSupport:(id)sender;
 
 @end
