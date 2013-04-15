@@ -17,6 +17,8 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
+#import <Sparkle/Sparkle.h>
+
 @interface GPGKeychainAccessAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate> {
 	NSOutlineView *keyTable, *userIDTable, *subkeyTable, *signatureTable;
 }

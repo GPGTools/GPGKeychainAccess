@@ -1056,7 +1056,7 @@
 												<reference key="NSNextKeyView" ref="992399197"/>
 												<reference key="NSTableView" ref="1009099"/>
 											</object>
-											<object class="_NSCornerView" key="NSCornerView" id="41123803">
+											<object class="_NSCornerView" key="NSCornerView" id="757792373">
 												<reference key="NSNextResponder" ref="188550338"/>
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{953, 0}, {16, 17}}</string>
@@ -1518,7 +1518,7 @@
 									<reference key="NSBGColor" ref="999294210"/>
 									<int key="NScvFlags">4</int>
 								</object>
-								<reference ref="41123803"/>
+								<reference ref="757792373"/>
 							</object>
 							<string key="NSFrame">{{20, 44}, {969, 553}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
@@ -1528,7 +1528,7 @@
 							<reference key="NSHScroller" ref="290498855"/>
 							<reference key="NSContentView" ref="992399197"/>
 							<reference key="NSHeaderClipView" ref="705521352"/>
-							<reference key="NSCornerView" ref="41123803"/>
+							<reference key="NSCornerView" ref="757792373"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 							<double key="NSMinMagnification">0.25</double>
 							<double key="NSMaxMagnification">4</double>
@@ -1571,7 +1571,7 @@
 								<reference key="NSControlView" ref="544588931"/>
 								<int key="NSButtonFlags">1211912448</int>
 								<int key="NSButtonFlags2">2</int>
-								<object class="NSCustomResource" key="NSNormalImage" id="66584939">
+								<object class="NSCustomResource" key="NSNormalImage" id="687305650">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSSwitch</string>
 								</object>
@@ -2218,7 +2218,7 @@
 													<reference key="NSControlView" ref="836028179"/>
 													<int key="NSButtonFlags">1211912448</int>
 													<int key="NSButtonFlags2">2</int>
-													<reference key="NSNormalImage" ref="66584939"/>
+													<reference key="NSNormalImage" ref="687305650"/>
 													<reference key="NSAlternateImage" ref="483159743"/>
 													<string key="NSAlternateContents"/>
 													<string key="NSKeyEquivalent"/>
@@ -7696,6 +7696,14 @@
 					<int key="connectionID">1907</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="599528800"/>
+						<reference key="destination" ref="976324537"/>
+					</object>
+					<int key="connectionID">2126</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">fontBold: arrangedObjects.primaryKey.secret</string>
 						<reference key="source" ref="306194799"/>
@@ -11212,7 +11220,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">2125</int>
+			<int key="maxID">2126</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -11556,12 +11564,14 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>selectHeaderVisibility:</string>
+							<string>showHelp:</string>
 							<string>showPreferences:</string>
 							<string>showSupport:</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSMenuItem</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -11571,6 +11581,7 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>selectHeaderVisibility:</string>
+							<string>showHelp:</string>
 							<string>showPreferences:</string>
 							<string>showSupport:</string>
 						</object>
@@ -11579,6 +11590,10 @@
 							<object class="IBActionInfo">
 								<string key="name">selectHeaderVisibility:</string>
 								<string key="candidateClassName">NSMenuItem</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">showHelp:</string>
+								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">showPreferences:</string>
