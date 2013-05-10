@@ -2,6 +2,7 @@ PROJECT = GPGKeychainAccess
 TARGET = GPG\ Keychain\ Access
 PRODUCT = GPG\ Keychain\ Access.app
 MAKE_DEFAULT = Dependencies/GPGTools_Core/newBuildSystem/Makefile.default
+NEED_LIBMACGPG = 1
 
 
 -include $(MAKE_DEFAULT)
