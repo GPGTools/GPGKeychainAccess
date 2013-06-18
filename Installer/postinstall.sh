@@ -49,6 +49,7 @@ rm -d "$tempdir"
 ################################################################################
 
 echo "[gka] Changing permissions..."
-chown -Rh "$USER" "$_target/$appname"
+chown -Rh root:admin "$_target/$appname"
+chmod go-w "$_target/$appname" 
 
 exit 0
