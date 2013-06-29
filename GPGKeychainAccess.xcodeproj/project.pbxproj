@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3045A758173D0623006E7FDE /* Libmacgpg.framework */; };
+		3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3045A758173D0623006E7FDE /* Libmacgpg.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		3050FB781475B0FB00E589AA /* Undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3050FB771475B0FB00E589AA /* Undo.png */; };
 		3052E10F144B016400D6716A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3052E10E144B016400D6716A /* Cocoa.framework */; };
 		3052E173144B021D00D6716A /* ActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3052E160144B021D00D6716A /* ActionController.m */; };
@@ -40,6 +40,44 @@
 		3096C91B14D167FC00246400 /* Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 3096C91A14D167FC00246400 /* Info.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3014397217732F800088B59F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3014396917732F800088B59F /* Libmacgpg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
+			remoteInfo = Libmacgpg;
+		};
+		3014397417732F800088B59F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3014396917732F800088B59F /* Libmacgpg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 30C8B38E139503A800F49AA1;
+			remoteInfo = UnitTest;
+		};
+		3014397617732F800088B59F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3014396917732F800088B59F /* Libmacgpg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B46CFCC161555DF00CF9C5F;
+			remoteInfo = org.gpgtools.Libmacgpg.xpc;
+		};
+		3014397817732F800088B59F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3014396917732F800088B59F /* Libmacgpg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 30DF7CB816D39EAA00C8225C;
+			remoteInfo = installerHelper;
+		};
+		3014397A17732F800088B59F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3014396917732F800088B59F /* Libmacgpg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1BD78B9F1726B2820005F251;
+			remoteInfo = LeakFinder;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		3052E20C144B059300D6716A /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -55,6 +93,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3014396917732F800088B59F /* Libmacgpg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Libmacgpg.xcodeproj; path = Dependencies/Libmacgpg/Libmacgpg.xcodeproj; sourceTree = "<group>"; };
 		301FBB7C17026BC500618850 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		301FBB8017026BCD00618850 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		301FBB8117026BCD00618850 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
@@ -251,9 +290,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3014396A17732F800088B59F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3014397317732F800088B59F /* Libmacgpg.framework */,
+				3014397517732F800088B59F /* UnitTest.octest */,
+				3014397717732F800088B59F /* org.gpgtools.Libmacgpg.xpc */,
+				3014397917732F800088B59F /* installerHelper */,
+				3014397B17732F800088B59F /* LeakFinder.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3052E0FF144B016300D6716A = {
 			isa = PBXGroup;
 			children = (
+				3014396917732F800088B59F /* Libmacgpg.xcodeproj */,
 				3052E15E144B01EC00D6716A /* Classes */,
 				3052E201144B04EB00D6716A /* Other Sources */,
 				3052E185144B025000D6716A /* Resources */,
@@ -424,12 +476,56 @@
 			mainGroup = 3052E0FF144B016300D6716A;
 			productRefGroup = 3052E10B144B016400D6716A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3014396A17732F800088B59F /* Products */;
+					ProjectRef = 3014396917732F800088B59F /* Libmacgpg.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3052E109144B016400D6716A /* GPG Keychain Access */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3014397317732F800088B59F /* Libmacgpg.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Libmacgpg.framework;
+			remoteRef = 3014397217732F800088B59F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3014397517732F800088B59F /* UnitTest.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTest.octest;
+			remoteRef = 3014397417732F800088B59F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3014397717732F800088B59F /* org.gpgtools.Libmacgpg.xpc */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = org.gpgtools.Libmacgpg.xpc;
+			remoteRef = 3014397617732F800088B59F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3014397917732F800088B59F /* installerHelper */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = installerHelper;
+			remoteRef = 3014397817732F800088B59F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3014397B17732F800088B59F /* LeakFinder.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = LeakFinder.app;
+			remoteRef = 3014397A17732F800088B59F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3052E108144B016400D6716A /* Resources */ = {
@@ -474,6 +570,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\nlocalizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     de sv fr es ru nl it ca cs da id_ID no pl pt_BR sk zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  de sv fr es ru nl it ca cs da id_ID no pl pt_BR sk zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  de sv fr es ru nl it ca cs da id_ID no pl pt_BR sk zh_CN\n";
+			showEnvVarsInLog = 0;
 		};
 		30D69FC115D6D2E1005B7854 /* Fill Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -488,6 +585,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "source \"$SRCROOT/Makefile.config\" || exit 1\n\nPLIST=\"$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH\"\n\n/usr/libexec/PlistBuddy -c \"Set CommitHash \\\"$commitHash\\\"\" -c \"Set BuildNumber \\\"$buildNumber\\\"\" -c \"Set CFBundleVersion \\\"$build_version\\\"\" -c \"Set CFBundleShortVersionString \\\"$version\\\"\" \"$PLIST\" || exit 2\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -761,6 +859,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -774,11 +873,12 @@
 		3052E129144B016400D6716A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application: Lukas Pitschl";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					/Library/Frameworks,
+					"\"$(HOME)/Library/Frameworks\"",
+					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
@@ -793,16 +893,18 @@
 		3052E12A144B016400D6716A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Developer ID Application: Lukas Pitschl";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					/Library/Frameworks,
+					"\"$(HOME)/Library/Frameworks\"",
+					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks /Library/Frameworks";
+				LLVM_LTO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
