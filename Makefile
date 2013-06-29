@@ -13,11 +13,12 @@ $(MAKE_DEFAULT):
 
 init: $(MAKE_DEFAULT)
 
-update: update-libmacgpg
-
-pkg: pkg-libmacgpg
-
-clean-all: clean-libmacgpg
-
 $(PRODUCT): Source/* Resources/* Resources/*/* GPGKeychainAccess.xcodeproj
 	@xcodebuild -project $(PROJECT).xcodeproj -target $(TARGET) -configuration $(CONFIG) build $(XCCONFIG)
+
+install: $(PRODUCT)
+	@echo Installing GPG Keychain Access...
+	@rsync -rltD "build/Release/GPG Keychain Access.app" /Applications
+	@echo Done
+	@echo "In order to use GPG Keychain Access, please don't forget to install MacGPG2 and Libmacgpg."
+
