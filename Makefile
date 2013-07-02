@@ -18,7 +18,7 @@ $(PRODUCT): Source/* Resources/* Resources/*/* GPGKeychainAccess.xcodeproj
 
 install: $(PRODUCT)
 	@echo Installing GPG Keychain Access...
-	@rsync -rltD "build/Release/GPG Keychain Access.app" /Applications
+	@rsync -rltDE "build/$(CONFIG)/GPG Keychain Access.app" /Applications
 	@echo Done
 	@echo "In order to use GPG Keychain Access, please don't forget to install MacGPG2 and Libmacgpg."
 
