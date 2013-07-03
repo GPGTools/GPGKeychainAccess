@@ -1,5 +1,6 @@
 Read-Me [ENG]
 
+
 This is a new version of GPG Keychain Access for Mac OS X.
 
 GPG Keychain Access is used to create and manage GnuPG keys.
@@ -22,15 +23,21 @@ http://twitter.com/gpgtools
 
 
 
-Read-Me [DE]
+
+
+## Read-Me [DE]
+
 
 Dies ist eine neue Version des GPG Schlüsselbundes für Mac OS X.
 
 Der GPG Schlüsselbund dient dazu GnuPG Schlüssel zu erstellen und zu verwalten.
 
 Systemvoraussetzungen:
-Mac OS X >= 10.6.
-GnuPG
+
+* Mac OS X >= 10.6
+* Libmacgpg
+* GnuPG
+
 
 Besuch unsere Support-Seite, falls du Fragen hast oder Hilfe bei der Einrichtung und Verwendung von GPG Schlüsselbund benötigst:
 http://support.gpgtools.org
@@ -40,3 +47,23 @@ http://gpgtools.lighthouseapp.com/projects/65684-gpg-keychain-access/overview
 
 Folge uns auf Twitter:
 http://twitter.com/gpgtools
+
+
+
+### Anleitung zum selbst kompilieren:
+
+
+Auschecken und kompilieren:
+```bash
+git clone https://github.com/GPGTools/GPGKeychainAccess.git
+cd GPGKeychainAccess
+make
+```
+
+Installieren:
+```bash
+make install
+```
+
+Bitte vergiss nicht [MacGPG2](https://github.com/GPGTools/MacGPG2) und
+[Libmacgpg](https://github.com/GPGTools/Libmacgpg) zu installieren.
