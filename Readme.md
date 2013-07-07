@@ -1,69 +1,54 @@
-Read-Me [ENG]
-
-
-This is a new version of GPG Keychain Access for Mac OS X.
+GPG Keychain Access
+===================
 
 GPG Keychain Access is used to create and manage GnuPG keys.
 
-System Requirements:
-Mac OS X >= 10.6
-GnuPG
+Updates
+-------
 
-Visit our support page, if you have questions or need help setting up your system and using GPG Keychain Access:
-http://support.gpgtools.org
+The latest releases of GPG Keychain Access can be found on our [official website](https://gpgtools.org/keychain/).
 
-If you are a developer feel free to have a look at the open issues:
-http://gpgtools.lighthouseapp.com/projects/65684-gpg-keychain-access/overview
-
-Follow us on Twitter:
-http://twitter.com/gpgtools
+For the latest news and updates check our [Twitter](https://twitter.com/gpgtools).
 
 
+Visit our [support page](http://support.gpgtools.org) if you have questions or need help setting up your system and using GPG Keychain Access.
+
+If you are a developer, feel free to have a look at the [open issues](https://gpgtools.lighthouseapp.com/projects/65684).
 
 
+Build
+-----
 
-
-
-
-## Read-Me [DE]
-
-
-Dies ist eine neue Version des GPG Schlüsselbundes für Mac OS X.
-
-Der GPG Schlüsselbund dient dazu GnuPG Schlüssel zu erstellen und zu verwalten.
-
-Systemvoraussetzungen:
-
-* Mac OS X >= 10.6
-* Libmacgpg
-* GnuPG
-
-
-Besuch unsere Support-Seite, falls du Fragen hast oder Hilfe bei der Einrichtung und Verwendung von GPG Schlüsselbund benötigst:
-http://support.gpgtools.org
-
-Wenn du Entwickler bist, kannst du dir die offenen Tickets für GPG Schlüsselbund anschauen:
-http://gpgtools.lighthouseapp.com/projects/65684-gpg-keychain-access/overview
-
-Folge uns auf Twitter:
-http://twitter.com/gpgtools
-
-
-
-### Anleitung zum selbst kompilieren:
-
-
-Auschecken und kompilieren:
+### Clone the repository
 ```bash
 git clone https://github.com/GPGTools/GPGKeychainAccess.git
 cd GPGKeychainAccess
+```
+
+### Build
+```bash
 make
 ```
 
-Installieren:
+### Install
+To copy GPG Keychain Access into the Applications folder.
 ```bash
 make install
 ```
 
-Bitte vergiss nicht [MacGPG2](https://github.com/GPGTools/MacGPG2) und
-[Libmacgpg](https://github.com/GPGTools/Libmacgpg) zu installieren.
+### More build commands
+```bash
+make help
+```
+
+Don't forget to install [MacGPG2](https://github.com/GPGTools/MacGPG2)
+and [Libmacgpg](https://github.com/GPGTools/Libmacgpg).  
+Enjoy your custom GPG Keychain Access.
+
+
+System Requirements
+-------------------
+
+* Mac OS X >= 10.6
+* Libmacgpg
+* GnuPG
