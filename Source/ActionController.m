@@ -157,7 +157,7 @@
 #pragma mark "Keys"
 - (IBAction)generateNewKey:(id)sender {
 	sheetController.sheetType = SheetTypeNewKey;
-	sheetController.autoUpload = YES;
+	sheetController.autoUpload = NO;
 	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
