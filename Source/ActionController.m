@@ -909,22 +909,28 @@
 	NSString *infoText;
 	
 	NSLog(@"Exception: %@", e.description);
+	
+	infoText = [NSString stringWithFormat:@"%@", e.description];
+
 	if ([e isKindOfClass:[GPGException class]]) {
-		NSLog(@"Error text: %@\nStatus text: %@", [(GPGException *)e gpgTask].errText, [(GPGException *)e gpgTask].statusText);
 		if ([(GPGException *)e errorCode] == GPGErrorCancelled) {
 			return;
 		}
-		infoText = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, [(GPGException *)e gpgTask].errText];
-	} else {
-		infoText = [NSString stringWithFormat:@"%@", e.description];
+		if ([(GPGException *)e gpgTask]) {
+			NSLog(@"Error text: %@\nStatus text: %@", [(GPGException *)e gpgTask].errText, [(GPGException *)e gpgTask].statusText);
+			infoText = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, [(GPGException *)e gpgTask].errText];
+		}
 	}
-	
 	[sheetController errorSheetWithmessageText:self.errorText infoText:infoText];
 }
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
 	
-	NSInteger action = [[gc.userInfo objectForKey:@"action"] integerValue];
+	NSDictionary *oldUserInfo = gc.userInfo;
+	NSString *oldProgressText = self.progressText;
+	NSString *oldErrorText = self.errorText;
+	
+	NSInteger action = [[oldUserInfo objectForKey:@"action"] integerValue];
 	
 	switch (action) {
 		case ShowResultAction: {
@@ -960,7 +966,7 @@
 		case SaveDataToURLAction: {
 			if (gc.error) break;
 			
-			NSURL *URL = [gc.userInfo objectForKey:@"URL"];
+			NSURL *URL = [oldUserInfo objectForKey:@"URL"];
 			[(NSData *)value writeToURL:URL atomically:YES];
 			
 			break;
@@ -977,9 +983,15 @@
 		default:
 			break;
 	}
-	self.progressText = nil;
-	self.errorText = nil;
-	gc.userInfo = nil;
+	if (oldProgressText == self.progressText) {
+		self.progressText = nil;
+	}
+	if (oldErrorText == self.errorText) {
+		self.errorText = nil;
+	}
+	if (oldUserInfo == gc.userInfo) {
+		gc.userInfo = nil;
+	}
 }
 - (void)gpgController:(GPGController *)gpgc keysDidChanged:(NSObject<EnumerationList> *)keys external:(BOOL)external {
 	[(KeychainController *)[KeychainController sharedInstance] updateKeys:keys];
