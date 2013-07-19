@@ -17,6 +17,8 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
+#import <Libmacgpg/Libmacgpg.h>
+
 @class GPGKeychainAccessAppDelegate;
 
 extern NSWindow *mainWindow, *inspectorWindow;

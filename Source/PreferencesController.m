@@ -17,6 +17,7 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
+#import "Globales.h"
 #import "PreferencesController.h"
 
 @implementation PreferencesController
