@@ -483,7 +483,7 @@
 	if ([keys count] > 0) {
 		self.progressText = localized(@"RefreshKeysFromServer_Progress");
 		self.errorText = localized(@"RefreshKeysFromServer_Error");
-		[gpgc refreshKeysFromServer:keys];
+		[gpgc receiveKeysFromServer:keys];
 	}
 }
 
