@@ -22,45 +22,41 @@
 @interface KeychainController : NSObject <NSOutlineViewDelegate> {
     IBOutlet NSTextField *numberOfKeysLabel;
 	IBOutlet NSOutlineView *keyTable;
+	IBOutlet NSTreeController *treeController;
 	
 	NSArray *keysSortDescriptors;
 	NSArray *userIDsSortDescriptors;
 	NSArray *subkeysSortDescriptors;
 	
 	
-	NSMutableSet *allKeys; // Liste aller Schlüssel.
 	NSSet *secretKeys;
-	NSMutableArray *filteredKeyList; // Liste der momentan angezeigten Schlüssel.
+	NSArray *filteredKeyList; // Liste der momentan angezeigten Schlüssel.
 	NSArray *filterStrings;
+	
+	NSArray *_selectionIndexPaths;
 	
 	BOOL showSecretKeysOnly;
 	
-	GPGController *gpgc;
+	NSSet *oldAllKeys;
 }
 
 @property (readonly) NSSet *secretKeys;
-@property (readonly, retain) NSMutableArray *filteredKeyList;
-@property (readonly, retain) NSMutableSet *allKeys;
+@property (readonly) NSArray *filteredKeyList;
+@property (readonly) NSSet *allKeys;
 @property (retain) NSArray *filterStrings;
 @property (retain) NSArray *keysSortDescriptors;
 @property (retain) NSArray *userIDsSortDescriptors;
 @property (retain) NSArray *subkeysSortDescriptors;
+@property (nonatomic, retain) NSArray *selectionIndexPaths;
 @property BOOL showSecretKeysOnly;
 @property (readonly) GPGKey *defaultKey;
 
 + (id)sharedInstance;
 
 
-- (void)updateKeys:(NSObject <EnumerationList> *)keys withSigs:(BOOL)withSigs;
-- (void)updateKeys:(NSObject <EnumerationList> *)keys;
-- (void)asyncUpdateKeys:(NSObject <EnumerationList> *)keys;
-- (void)asyncUpdateKey:(GPGKey *)key;
-- (void)updateKey:(GPGKey *)key;
-
 
 - (IBAction)updateFilteredKeyList:(id)sender;
 
-- (BOOL)isKeyPassingFilterTest:(GPGKey *)key;
 
 
 
@@ -69,6 +65,8 @@
 @interface GPGKey (GKAExtension)
 - (NSString *)type;
 - (NSString *)longType;
+@end
+@interface GPGUserID (GKAExtension)
 @end
 
 

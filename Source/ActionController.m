@@ -97,16 +97,16 @@
 		if (responder == appDelegate.userIDTable) {
 			if (userIDsController.selectedObjects.count == 1) {
 				GPGUserID *userID = [userIDsController.selectedObjects objectAtIndex:0];
-				stringForPasteboard = userID.userID;
+				stringForPasteboard = userID.userIDDescription;
 			}
 		} else if (responder == appDelegate.signatureTable) {
 			if (signaturesController.selectedObjects.count == 1) {
-				GPGKeySignature *signature = [signaturesController.selectedObjects objectAtIndex:0];
+				GPGUserIDSignature *signature = [signaturesController.selectedObjects objectAtIndex:0];
 				stringForPasteboard = signature.keyID;
 			}
 		} else if (responder == appDelegate.subkeyTable) {
 			if (subkeysController.selectedObjects.count == 1) {
-				GPGSubkey *subkey = [subkeysController.selectedObjects objectAtIndex:0];
+				GPGKey *subkey = [subkeysController.selectedObjects objectAtIndex:0];
 				stringForPasteboard = subkey.keyID;
 			}
 		}
@@ -151,7 +151,7 @@
 	}
 }
 - (IBAction)refreshDisplayedKeys:(id)sender {
-	[[KeychainController sharedInstance] asyncUpdateKeys:nil];
+	[[GPGKeyManager sharedInstance] loadAllKeys];
 }
 
 #pragma mark "Keys"
@@ -231,7 +231,7 @@
 		if (!applyToAll) {
 			returnCode = [sheetController alertSheetForWindow:mainWindow
 												  messageText:localized(@"DeleteSecretKey_Title")
-													 infoText:[NSString stringWithFormat:localized(@"DeleteSecretKey_Msg"), [key userID], [key shortKeyID]]
+													 infoText:[NSString stringWithFormat:localized(@"DeleteSecretKey_Msg"), [key userIDDescription], key.keyID.shortKeyID]
 												defaultButton:localized(@"Delete secret key only")
 											  alternateButton:localized(@"Cancel")
 												  otherButton:localized(@"Delete both")
@@ -265,7 +265,7 @@
 		if (!applyToAll) {
 			returnCode = [sheetController alertSheetForWindow:mainWindow
 												  messageText:localized(@"DeleteKey_Title")
-													 infoText:[NSString stringWithFormat:localized(@"DeleteKey_Msg"), [key userID], [key shortKeyID]]
+													 infoText:[NSString stringWithFormat:localized(@"DeleteKey_Msg"), [key userIDDescription], key.keyID.shortKeyID]
 												defaultButton:localized(@"Delete key")
 											  alternateButton:localized(@"Cancel")
 												  otherButton:nil
@@ -342,7 +342,7 @@
 	if ([keys count] != 1) {
 		return;
 	}
-	GPGSubkey *subkey = nil;
+	GPGKey *subkey = nil;
 	GPGKey *key = [[keys anyObject] primaryKey];
 	
 	if ([sender tag] == 1 && [[subkeysController selectedObjects] count] == 1) {
@@ -350,10 +350,10 @@
 	}
 	
 	if (subkey) {
-		sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), [subkey shortKeyID], [key userID], [key shortKeyID]];
+		sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), subkey.keyID.shortKeyID, [key userIDDescription], key.keyID.shortKeyID];
 		sheetController.expirationDate = [subkey expirationDate];
 	} else {
-		sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [key userID], [key shortKeyID]];
+		sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 		sheetController.expirationDate = [key expirationDate];
 	}
 	
@@ -365,7 +365,8 @@
 	}
 }
 - (IBAction)editAlgorithmPreferences:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSRunAlertPanel(@"Not Implemented", @"THis method is not implemented at the moment!", nil, nil, nil);
+	/*NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
 		return;
 	}
@@ -402,7 +403,7 @@
 		self.errorText = localized(@"SetAlgorithmPreferences_Error");
 		[gpgc setAlgorithmPreferences:[NSString stringWithFormat:@"%@ %@ %@", cipherPreferences, digestPreferences, compressPreferences] forUserID:[userID hashID] ofKey:key];
 	}
-	
+	*/
 	
 }
 
@@ -434,7 +435,7 @@
 	sheetController.title = nil; //TODO
 	sheetController.msgText = nil; //TODO
 	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", nil];
-	sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), [key shortKeyID]];
+	sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), key.keyID.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeSavePanel;
 	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
@@ -495,7 +496,7 @@
 	}
 	GPGKey *key = [[keys anyObject] primaryKey];
 	
-	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userID], [key shortKeyID]];
+	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeAddSubkey;
 	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
@@ -508,7 +509,7 @@
 }
 - (IBAction)removeSubkey:(NSButton *)sender {
 	if ([[subkeysController selectedObjects] count] == 1) {
-		GPGSubkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
+		GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [subkey primaryKey];
 		
 		self.progressText = localized(@"RemoveSubkey_Progress");
@@ -518,7 +519,7 @@
 }
 - (IBAction)revokeSubkey:(NSButton *)sender {
 	if ([[subkeysController selectedObjects] count] == 1) {
-		GPGSubkey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
+		GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [subkey primaryKey];
 		
 		self.progressText = localized(@"RevokeSubkey_Progress");
@@ -535,7 +536,7 @@
 	}
 	GPGKey *key = [[keys anyObject] primaryKey];
 	
-	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [key userID], [key shortKeyID]];
+	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeAddUserID;
 	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
@@ -653,7 +654,7 @@
 		return;
 	}
 	sheetController.secretKey = defaultKey;
-	sheetController.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), userID ? userID.userID : key.userID, key.shortKeyID];
+	sheetController.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), userID ? userID.userIDDescription : key.userIDDescription, key.keyID.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeAddSignature;
 	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
@@ -666,7 +667,7 @@
 }
 - (IBAction)removeSignature:(NSButton *)sender {
 	if ([signaturesController selectionIndex] != NSNotFound) {
-		GPGKeySignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
+		GPGUserIDSignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [userID primaryKey];
 		
@@ -677,7 +678,7 @@
 }
 - (IBAction)revokeSignature:(NSButton *)sender {
 	if ([signaturesController selectionIndex] != NSNotFound) {
-		GPGKeySignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
+		GPGUserIDSignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [userID primaryKey];
 		
@@ -720,7 +721,7 @@
 		flags = [[importOk objectAtIndex:0] intValue];
 		fingerprint = [importOk objectAtIndex:1];
 		
-		userID = [[allKeys member:fingerprint] userID];
+		userID = [[allKeys member:fingerprint] userIDDescription];
 		if (!userID) userID = @"";
 		keyID = [fingerprint shortKeyID];
 		
@@ -753,7 +754,7 @@
 	
 	
 	for (fingerprint in [changedKeys allKeysForObject:no]) {
-		userID = [[allKeys member:fingerprint] userID];
+		userID = [[allKeys member:fingerprint] userIDDescription];
 		if (!userID) userID = @"";
 		keyID = [fingerprint shortKeyID];
 		
@@ -780,7 +781,7 @@
 		
 		if (revocationCount > 0) {
 			if (revocationCount == 1) {
-				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_OneRevocationCertificate")]];
+				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_OneRevocationCertificate"), @""]];
 			} else {
 				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountRevocationCertificate"), revocationCount]];
 			}
@@ -992,9 +993,6 @@
 	if (oldUserInfo == gc.userInfo) {
 		gc.userInfo = nil;
 	}
-}
-- (void)gpgController:(GPGController *)gpgc keysDidChanged:(NSObject<EnumerationList> *)keys external:(BOOL)external {
-	[(KeychainController *)[KeychainController sharedInstance] updateKeys:keys];
 }
 
 

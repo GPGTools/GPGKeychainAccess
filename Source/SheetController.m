@@ -428,7 +428,7 @@
 		description = [[[NSMutableAttributedString alloc] initWithString:tempDescription attributes:stringAttributes] autorelease];
 		
 		for (GPGRemoteUserID *userID in key.userIDs) {
-			[description appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n	%@", userID.userID]] autorelease]];
+			[description appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n	%@", userID.userIDDescription]] autorelease]];
 		}
 		
 		[dicts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:description, @"description", selected, @"selected", [NSNumber numberWithUnsignedInteger:[key.userIDs count] + 1], @"lines", key, @"key", nil]];

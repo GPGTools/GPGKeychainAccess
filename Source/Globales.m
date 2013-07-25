@@ -103,8 +103,8 @@ BOOL containsPGPKeyBlock(NSString *string) {
 + (BOOL)allowsReverseTransformation { return NO; }
 - (id)transformedValue:(id)value {
 	
-	if ([value isKindOfClass:[GPGSuper_Template class]]) {
-		if ([(GPGSuper_Template *)value status] >= GPGKeyStatus_Invalid) {
+	if ([value respondsToSelector:@selector(validity)]) {
+		if ([value validity] >= GPGValidityInvalid) {
 			return [NSColor darkGrayColor];
 		}
 	}

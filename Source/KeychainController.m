@@ -23,34 +23,18 @@
 
 //KeychainController kümmert sich um das anzeigen und Filtern der Schlüssel-Liste.
 
-@interface KeychainController ()
-@property (retain) NSMutableSet *allKeys;
-@property (retain) NSMutableArray *filteredKeyList;
-@property (retain) GPGController *gpgc;
-- (void)updateKeyList:(NSDictionary *)dict;
-@end
-
 
 @implementation KeychainController
-@synthesize filteredKeyList, filterStrings, userIDsSortDescriptors, subkeysSortDescriptors, keysSortDescriptors, allKeys, gpgc;
+@synthesize filterStrings, userIDsSortDescriptors, subkeysSortDescriptors, keysSortDescriptors, showSecretKeysOnly;
 NSLock *updateLock;
 NSSet *draggedKeys;
 
 
-- (BOOL)showSecretKeysOnly {
-    return showSecretKeysOnly;
-}
-- (void)setShowSecretKeysOnly:(BOOL)value {
-    if (showSecretKeysOnly != value) {
-        showSecretKeysOnly = value;
-		[self updateFilteredKeyList:nil];
-    }
-}
 
 - (NSSet *)secretKeys {
 	if (!secretKeys) {
 		NSPredicate *secrectKeyPredicate = [NSPredicate predicateWithFormat:@"secret==YES"];
-		secretKeys = [[allKeys filteredSetUsingPredicate:secrectKeyPredicate] retain];
+		secretKeys = [[self.allKeys filteredSetUsingPredicate:secrectKeyPredicate] retain];
 	}
 	return [[secretKeys retain] autorelease];
 }
@@ -74,6 +58,26 @@ NSSet *draggedKeys;
 }
 
 
+- (NSArray *)selectionIndexPaths {
+	return [[_selectionIndexPaths retain] autorelease];
+}
+- (void)setSelectionIndexPaths:(NSArray *)value {
+	if (_selectionIndexPaths != value) {
+		id old = _selectionIndexPaths;
+		_selectionIndexPaths = [value retain];
+		[old release];
+		
+		if (_selectionIndexPaths.count == 1) {
+			NSUInteger index = [[_selectionIndexPaths objectAtIndex:0] indexAtPosition:0];
+			if (index != NSNotFound) {
+				GPGKey *key = [[[[treeController.arrangedObjects childNodes] objectAtIndex:index] representedObject] primaryKey];
+				if (key && !key.primaryUserID.signatures) {
+					[[GPGKeyManager sharedInstance] loadSignaturesAndAttributesForKeys:[NSSet setWithObject:key] completionHandler:nil];
+				}
+			}
+		}
+	}
+}
 
 // NSOutlineView delegate.
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldReorderColumn:(NSInteger)columnIndex toColumn:(NSInteger)newColumnIndex {
@@ -143,156 +147,56 @@ NSSet *draggedKeys;
 
 
 
-// Metoden zum aktualisieren der Schlüsselliste.
-- (void)asyncUpdateKey:(GPGKey *)key {
-	[NSThread detachNewThreadSelector:@selector(updateKeys:) toTarget:self withObject:[NSSet setWithObject:key]];
-}
-- (void)updateKey:(GPGKey *)key {
-	[self updateKeys:[NSSet setWithObject:key] withSigs:NO];
-}
-- (void)asyncUpdateKeys:(NSObject <EnumerationList> *)keys {
-	[NSThread detachNewThreadSelector:@selector(updateKeys:) toTarget:self withObject:keys];
-}
-- (void)updateKeys:(NSObject <EnumerationList> *)keys {
-	[self updateKeys:keys withSigs:NO];
-}
-- (void)updateKeys:(NSObject <EnumerationList> *)keys withSigs:(BOOL)withSigs {
-	GPGDebugLog(@"updateKeys:withSigs: start");
-	if (![updateLock tryLock]) {
-		GPGDebugLog(@"updateKeys:withSigs: tryLock return");
-		return;
-	}
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	@try {
-		NSMutableSet *realKeys = [NSMutableSet setWithCapacity:[keys count]];
-		
-		//Fingerabdrücke wenn möglich durch die entsprechenden Schlüssel ersetzen.
-		Class keyClass = [GPGKey class];
-		for (GPGKey *key in keys) {
-			if (![key isKindOfClass:keyClass]) {
-				GPGKey *tempKey = [allKeys member:key];
-				if (tempKey) {
-					key = tempKey;
-				}
-			}
-			[realKeys addObject:key];
-		}
-		keys = realKeys;
-		
-		NSSet *updatedKeys;
-		if ([keys count] == 0) {
-			updatedKeys = [gpgc updateKeys:self.allKeys searchFor:nil withSigs:withSigs];
-		} else {
-			updatedKeys = [gpgc updateKeys:keys withSigs:withSigs];
-		}
-	
-		if (gpgc.error) {
-			@throw gpgc.error;
-		}
-		
-		if ([keys count] == 0) {
-			keys = self.allKeys;
-		}
-		NSMutableSet *keysToRemove = [keys mutableCopy];
-		[keysToRemove minusSet:updatedKeys];
-		
-		NSDictionary *updateInfos = [NSDictionary dictionaryWithObjectsAndKeys:updatedKeys, @"keysToAdd", keysToRemove, @"keysToRemove", nil];
-		
-		[self performSelectorOnMainThread:@selector(updateKeyList:) withObject:updateInfos waitUntilDone:YES];
-
-	} @catch (GPGException *e) {
-		GPGDebugLog(@"updateKeys:withSigs: failed – %@ (ErrorText: %@)", e, e.gpgTask.errText);
-		SheetController *sheetController = [SheetController sharedInstance];
-		[sheetController errorSheetWithmessageText:@"Listings keys failed!" infoText:[NSString stringWithFormat:@"%@\n%@", e.description, e.gpgTask.errText]];
-	} @catch (NSException *e) {
-		GPGDebugLog(@"updateKeys:withSigs: failed – %@", e);
-	} @finally {
-		[pool drain];
-		[updateLock unlock];
-	}
-	
-	GPGDebugLog(@"updateKeys:withSigs: end");
-}
-
-- (void)updateKeyList:(NSDictionary *)dict {
-	NSAssert([NSThread isMainThread], @"updateKeyList must run in the main thread!");
-	
-	NSSet *keysToRemove = [dict objectForKey:@"keysToRemove"];
-	NSSet *keysToAdd = [dict objectForKey:@"keysToAdd"];
-	
-	[self.allKeys minusSet:keysToRemove];
-	[self.allKeys unionSet:keysToAdd];
-	
-	[secretKeys release];
-	secretKeys = nil;
-	
-	[self updateFilteredKeyList:nil];
-}
-
 - (IBAction)updateFilteredKeyList:(id)sender {
-	NSAssert([NSThread isMainThread], @"updateFilteredKeyList must run in the main thread!");
-
-	static NSLock *lock = nil;
-	if (!lock) {
-		lock = [NSLock new];
-	}
-	if (![lock tryLock]) {
-		return;
-	}
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSMutableArray *keysToRemove;
-	GPGKey *key;
-	
-	[self willChangeValueForKey:@"filteredKeyList"];
-	
 	if ([sender isKindOfClass:[NSTextField class]]) {
 		self.filterStrings = [[sender stringValue] componentsSeparatedByString:@" "];
 	}
-	
-	keysToRemove = [NSMutableArray arrayWithArray:filteredKeyList];
-	
-	for (key in self.allKeys) {
-		if ([self isKeyPassingFilterTest:key]) {
-			if ([keysToRemove containsObject:key]) {
-				[keysToRemove removeObject:key];
-			} else {
-				[filteredKeyList addObject:key];
-			}
-		}
-	}
-	[filteredKeyList removeObjectsInArray:keysToRemove];
-		
-	[self didChangeValueForKey:@"filteredKeyList"];
-	
-	[numberOfKeysLabel setStringValue:[NSString stringWithFormat:localized(@"%i of %i keys listed"), [filteredKeyList count], [self.allKeys count]]];
-	
-	[pool drain];
-	[lock unlock];
 }
 
 
-- (BOOL)isKeyPassingFilterTest:(GPGKey *)key {
-	if (showSecretKeysOnly && !key.secret) {
-		return NO;
-	}
-	if (filterStrings && [filterStrings count] > 0) {
-		for (NSString *searchString in filterStrings) {
-			if ([searchString length] > 0) {
-				if ([[key textForFilter] rangeOfString:searchString options:NSCaseInsensitiveSearch].length == 0) {
-					return NO;
+
+- (void)keysDidChange:(NSNotification *)notification {
+    [self willChangeValueForKey:@"allKeys"];
+    [self didChangeValueForKey:@"allKeys"];
+}
+
+
+- (NSSet *)allKeys {
+	return [GPGKeyManager sharedInstance].allKeys;
+}
+
+
+- (NSArray *)filteredKeyList {
+	NSSet *filteredKeys = [self.allKeys objectsPassingTest:^BOOL(GPGKey *key, BOOL *stop) {
+		if (showSecretKeysOnly && !key.secret) {
+			return NO;
+		}
+		if (filterStrings.count > 0) {
+			for (NSString *searchString in filterStrings) {
+				if ([searchString length] > 0) {
+					if ([[key textForFilter] rangeOfString:searchString options:NSCaseInsensitiveSearch].length == 0) {
+						return NO;
+					}
 				}
 			}
 		}
-	}
-	return YES;
+		return YES;
+	}];
+	
+	
+	NSArray *old = filteredKeyList;
+	filteredKeyList = [[filteredKeys allObjects] retain];
+	[old release];
+	
+	[numberOfKeysLabel setStringValue:[NSString stringWithFormat:localized(@"%i of %i keys listed"), filteredKeyList.count, self.allKeys.count]];
+	
+	return [[filteredKeyList retain] autorelease];
 }
 
 
-
-
-
-
++ (NSSet*)keyPathsForValuesAffectingFilteredKeyList {
+	return [NSSet setWithObjects:@"allKeys", @"filterStrings", @"showSecretKeysOnly", nil];
+}
 
 
 
@@ -324,32 +228,13 @@ NSSet *draggedKeys;
 	}
 
 	
-	// Schlüssellisten initialisieren.
-	self.allKeys = [NSMutableSet setWithCapacity:50];
-	self.filteredKeyList = [NSMutableArray arrayWithCapacity:10];
-	
 	
 	// Sort Descriptoren anlegen.
-	NSSortDescriptor *indexSort = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
 	NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
 
-	NSArray *sortDesriptors = [NSArray arrayWithObject:indexSort];
-	self.subkeysSortDescriptors = sortDesriptors;
-	self.userIDsSortDescriptors = sortDesriptors;
-	self.keysSortDescriptors = [NSArray arrayWithObjects:indexSort, nameSort, nil];
+	self.keysSortDescriptors = [NSArray arrayWithObject:nameSort];
 	
-	
-	// updateLock initialisieren und Schlüsselliste füllen.
-	updateLock = [[NSLock alloc] init];
-	[self updateKeys:nil];
-	
-	
-	// Alle 300 Sekunden die Schlüsselliste aktualisieren.
-	NSInvocation *updateInvocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:@selector(updateKeys:)]];
-	updateInvocation.target = self;
-	updateInvocation.selector = @selector(updateKeys:);
-	[NSTimer scheduledTimerWithTimeInterval:300 invocation:updateInvocation repeats:YES];
-	
+	[keyTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 	
 	[pool drain];
 }
@@ -370,9 +255,9 @@ NSSet *draggedKeys;
 	static BOOL initialized = NO;
 	if (!initialized) {
 		initialized = YES;
+		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(keysDidChange:) name:GPGKeyManagerKeysDidChangeNotification object:nil];
+		[[GPGKeyManager sharedInstance] loadAllKeys];
 		self = [super init];
-		
-		self.gpgc = [GPGController gpgController];
 	}
 	return self;
 }
@@ -403,7 +288,74 @@ NSSet *draggedKeys;
 
 
 @implementation GPGKey (GKAExtension)
-- (NSString *)type { return secret ? @"sec/pub" : @"pub"; }
-- (NSString *)longType { return secret ? localized(@"Secret and public key") : localized(@"Public key"); }
+- (NSString *)type {
+	if (_primaryKey == self) {
+		return self.secret ? @"sec/pub" : @"pub";
+	} else {
+		return @"sub";
+	}
+}
+- (NSString *)longType {
+	if (_primaryKey == self) {
+		return self.secret ? localized(@"Secret and public key") : localized(@"Public key");
+	} else {
+		return nil;
+	}
+}
+- (NSString *)capabilities {
+	return @"";
+}
+- (id)photos {
+	return nil;
+}
+- (id)children {
+	return [self.userIDs arrayByAddingObjectsFromArray:self.subkeys];
+}
+
 @end
 
+@implementation GPGUserID (GKAExtension)
+- (NSInteger)status {
+	return 0;
+}
+- (NSString *)type {
+	return _name ? @"uid" : @"uat";
+}
+- (id)shortKeyID {
+	return nil;
+}
+- (id)length {
+	return nil;
+}
+- (id)algorithm {
+	return nil;
+}
+- (id)children {
+	return nil;
+}
+- (NSString *)userIDDescription {
+	if (_userIDDescription) {
+		return [[_userIDDescription retain] autorelease];
+	} else {
+		return localized(@"PhotoID");
+	}
+}
+- (NSString *)name {
+	if (_name) {
+		return [[_name retain] autorelease];
+	} else {
+		return localized(@"PhotoID");
+	}
+}
+
+@end
+
+@implementation GPGUserIDSignature (GKAExtension)
+- (NSString *)type {
+	NSString *classString = (self.signatureClass & 3) ? [NSString stringWithFormat:@" %i", (self.signatureClass & 3)] : @"";
+	NSString *typeString = self.revocation ? @"rev" : @"sig";
+	NSString *localString = self.local ? @" L" : @"";
+	
+	return [NSString stringWithFormat:@"%@%@%@", typeString, classString, localString];
+}
+@end
