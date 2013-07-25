@@ -69,17 +69,26 @@ NSSet *draggedKeys;
 		_selectionIndexPaths = [value retain];
 		[old release];
 		
-		if (_selectionIndexPaths.count == 1) {
-			NSUInteger index = [[_selectionIndexPaths objectAtIndex:0] indexAtPosition:0];
-			if (index != NSNotFound) {
-				GPGKey *key = [[[[treeController.arrangedObjects childNodes] objectAtIndex:index] representedObject] primaryKey];
-				if (key && !key.primaryUserID.signatures) {
-					[[GPGKeyManager sharedInstance] loadSignaturesAndAttributesForKeys:[NSSet setWithObject:key] completionHandler:nil];
-				}
+		[self fetchDetailsForSelectedKey];
+	}
+}
+- (BOOL)fetchDetailsForSelectedKey { // Returns YES if the details will be fetched.
+	if (_selectionIndexPaths.count == 1) {
+		NSUInteger index = [[_selectionIndexPaths objectAtIndex:0] indexAtPosition:0];
+		if (index != NSNotFound) {
+			GPGKey *key = [[[[treeController.arrangedObjects childNodes] objectAtIndex:index] representedObject] primaryKey];
+			key = [self.allKeys member:key];
+			if (key && !key.primaryUserID.signatures) {
+				[[GPGKeyManager sharedInstance] loadSignaturesAndAttributesForKeys:[NSSet setWithObject:key] completionHandler:nil];
+				return YES;
 			}
 		}
 	}
+	return NO;
 }
+
+
+
 
 // NSOutlineView delegate.
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldReorderColumn:(NSInteger)columnIndex toColumn:(NSInteger)newColumnIndex {
@@ -158,8 +167,10 @@ NSSet *draggedKeys;
 
 
 - (void)keysDidChange:(NSNotification *)notification {
-    [self willChangeValueForKey:@"allKeys"];
-    [self didChangeValueForKey:@"allKeys"];
+	if (![self fetchDetailsForSelectedKey]) {
+		[self willChangeValueForKey:@"allKeys"];
+		[self didChangeValueForKey:@"allKeys"];
+	}
 }
 
 
@@ -340,6 +351,8 @@ NSSet *draggedKeys;
 	
 	
 	return photoIDs;
+}
+- (void)setDisabled:(BOOL)value {
 }
 
 @end
