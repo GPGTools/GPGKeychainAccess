@@ -333,7 +333,7 @@
 		for (GPGKey *key in keys) {
 			self.progressText = localized(@"SetOwnerTrust_Progress");
 			self.errorText = localized(@"SetOwnerTrust_Error");
-			[gpgc key:key setOwnerTrsut:[sender selectedTag]];
+			[gpgc key:key setOwnerTrust:[sender selectedTag]];
 		}
 	}
 }

@@ -20,6 +20,8 @@
 #import "KeychainController.h"
 #import "ActionController.h"
 #import "SheetController.h"
+#include <sys/time.h>
+
 
 //KeychainController kümmert sich um das anzeigen und Filtern der Schlüssel-Liste.
 
@@ -303,13 +305,41 @@ NSSet *draggedKeys;
 	}
 }
 - (NSString *)capabilities {
-	return @"";
-}
-- (id)photos {
-	return nil;
+	
+	NSString *e = @"", *s = @"", *c = @"", *a = @"";
+	if (self.canEncrypt) {
+		e = @"e";
+	} else if (self.canAnyEncrypt) {
+		e = @"E";
+	}
+	if (self.canSign) {
+		s = @"s";
+	} else if (self.canAnySign) {
+		s = @"S";
+	}
+	if (self.canCertify) {
+		c = @"c";
+	} else if (self.canAnyCertify) {
+		c = @"C";
+	}
+	if (self.canAuthenticate) {
+		a = @"a";
+	} else if (self.canAnyAuthenticate) {
+		a = @"A";
+	}
+	
+	return [NSString stringWithFormat:@"%@%@%@%@", e, s, c, a];
 }
 - (id)children {
-	return [self.userIDs arrayByAddingObjectsFromArray:self.subkeys];
+	return nil;
+}
+- (NSArray *)photos {
+	NSArray *photoIDs = [self.userIDs objectsAtIndexes:[self.userIDs indexesOfObjectsPassingTest:^BOOL(GPGUserID *uid, NSUInteger idx, BOOL *stop) {
+		return uid.isUat;
+	}]];
+	
+	
+	return photoIDs;
 }
 
 @end
@@ -346,6 +376,9 @@ NSSet *draggedKeys;
 	} else {
 		return localized(@"PhotoID");
 	}
+}
+- (BOOL)isUat {
+	return !_name;
 }
 
 @end

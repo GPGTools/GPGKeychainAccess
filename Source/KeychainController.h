@@ -67,6 +67,7 @@
 - (NSString *)longType;
 @end
 @interface GPGUserID (GKAExtension)
+- (BOOL)isUat;
 @end
 
 
