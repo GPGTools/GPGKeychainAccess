@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B4942CB17A7EBF500E189CF /* NSBundle+Sandbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4942CA17A7EBF500E189CF /* NSBundle+Sandbox.m */; };
+		1B4942D217A7ECBB00E189CF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B4942D117A7ECBB00E189CF /* Security.framework */; };
 		3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3045A758173D0623006E7FDE /* Libmacgpg.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3050FB781475B0FB00E589AA /* Undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3050FB771475B0FB00E589AA /* Undo.png */; };
 		3052E10F144B016400D6716A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3052E10E144B016400D6716A /* Cocoa.framework */; };
@@ -93,6 +95,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1B4942C917A7EBF500E189CF /* NSBundle+Sandbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+Sandbox.h"; sourceTree = "<group>"; };
+		1B4942CA17A7EBF500E189CF /* NSBundle+Sandbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+Sandbox.m"; sourceTree = "<group>"; };
+		1B4942D117A7ECBB00E189CF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3014396917732F800088B59F /* Libmacgpg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Libmacgpg.xcodeproj; path = Dependencies/Libmacgpg/Libmacgpg.xcodeproj; sourceTree = "<group>"; };
 		301FBB7C17026BC500618850 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		301FBB8017026BCD00618850 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
@@ -280,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B4942D217A7ECBB00E189CF /* Security.framework in Frameworks */,
 				3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */,
 				3052E20B144B056700D6716A /* AddressBook.framework in Frameworks */,
 				3052E10F144B016400D6716A /* Cocoa.framework in Frameworks */,
@@ -325,6 +331,7 @@
 		3052E10D144B016400D6716A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B4942D117A7ECBB00E189CF /* Security.framework */,
 				3052E20A144B056700D6716A /* AddressBook.framework */,
 				3052E10E144B016400D6716A /* Cocoa.framework */,
 				3052E1ED144B02FD00D6716A /* Sparkle.framework */,
@@ -336,6 +343,8 @@
 		3052E15E144B01EC00D6716A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1B4942C917A7EBF500E189CF /* NSBundle+Sandbox.h */,
+				1B4942CA17A7EBF500E189CF /* NSBundle+Sandbox.m */,
 				3052E15F144B021D00D6716A /* ActionController.h */,
 				3052E160144B021D00D6716A /* ActionController.m */,
 				3023EABB144B77EC00AC13D9 /* ActionController_Private.h */,
@@ -596,6 +605,7 @@
 			files = (
 				3052E173144B021D00D6716A /* ActionController.m in Sources */,
 				3052E174144B021D00D6716A /* AppDelegate.m in Sources */,
+				1B4942CB17A7EBF500E189CF /* NSBundle+Sandbox.m in Sources */,
 				3052E175144B021D00D6716A /* Globales.m in Sources */,
 				3052E177144B021D00D6716A /* KeychainController.m in Sources */,
 				3052E178144B021D00D6716A /* main.m in Sources */,
