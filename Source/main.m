@@ -1,22 +1,19 @@
 
 #import <Libmacgpg/Libmacgpg.h>
 #import "Globales.h"
-#import "NSBundle+Sandbox.h"
 
-int main(int argc, char *argv[]) {
-#ifndef DEBUGGING
-	/* Perform signature validation, to check if the app bundle has been tampered with. */
-    OBCodeSignState codeSignState = [NSBundle mainBundle].ob_codeSignState;
-    if(codeSignState != OBCodeSignStateSignatureValid && codeSignState != OBCodeSignStateUnsigned) {
-        NSRunAlertPanel(@"Someone tampered with your installation of GPG Keychain Access!", @"To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!", @"", nil, nil, nil);
-        exit(1);
-    }
-#endif
-
+int main(int argc, const char *argv[]) {
 	if (![GPGController class]) {
 		NSRunAlertPanel(localized(@"LIBMACGPG_NOT_FOUND_TITLE"), localized(@"LIBMACGPG_NOT_FOUND_MESSAGE"), nil, nil, nil);
 		return 1;
 	}
+#ifdef CODE_SIGN_CHECK
+	/* Check the validity of the code signature. */
+    if (![NSBundle mainBundle].isValidSigned) {
+		NSRunAlertPanel(localized(@"CODE_SIGN_ERROR_TITLE"), localized(@"CODE_SIGN_ERROR_MESSAGE"), nil, nil, nil);
+        return 1;
+    }
+#endif
 
-    return NSApplicationMain(argc,  (const char **) argv);
+    return NSApplicationMain(argc, argv);
 }
