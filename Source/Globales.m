@@ -37,6 +37,21 @@ BOOL containsPGPKeyBlock(NSString *string) {
 }
 
 
+NSString *localized(NSString *key) {
+	static NSBundle *bundle = nil, *englishBundle = nil;
+	if (!bundle) {
+		bundle = [[NSBundle mainBundle] retain];
+		englishBundle = [[NSBundle bundleWithPath:[bundle pathForResource:@"en" ofType:@"lproj"]] retain];
+	}
+	
+	NSString *notFoundValue = @"~#*?*#~";
+	NSString *localized = [bundle localizedStringForKey:key value:notFoundValue table:nil];
+	if (localized == notFoundValue) {
+		localized = [englishBundle localizedStringForKey:key value:nil table:nil];
+	}
+	
+	return localized;
+}
 
 
 
