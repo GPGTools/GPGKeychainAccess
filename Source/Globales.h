@@ -27,12 +27,7 @@ extern GPGKeychainAccessAppDelegate *appDelegate;
 
 
 BOOL containsPGPKeyBlock(NSString *string);
-
-
-
-#define NotImplementedAlert NSRunAlertPanel(@"Noch nicht implementiert", @"", @"OK", nil, nil)
-
-#define localized(key) [[NSBundle mainBundle] localizedStringForKey:(key) value:nil table:nil]
+NSString *localized(NSString *key);
 
 
 @interface NSDate (GKA_Extension)

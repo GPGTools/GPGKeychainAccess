@@ -214,48 +214,6 @@ NSSet *draggedKeys;
 
 
 
-
-- (void)awakeFromNib {
-	GPGDebugLog(@"KeychainController awakeFromNib");
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-	NSString *gkaVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]; 
-	NSLog(@"GPG Keychain Access version: %@", gkaVersion);
-	
-	
-	// Testen ob GPG vorhanden und funktionsfähig ist.
-	GPGErrorCode errorCode = [GPGController testGPG];
-	GPGDebugLog(@"KeychainController awakeFromNib: testGPG: %i", errorCode);
-
-	switch (errorCode) {
-		case GPGErrorNotFound:
-            NSRunCriticalAlertPanel(localized(@"GPG_NOT_FOUND_TITLE"), localized(@"GPG_NOT_FOUND_MESSAGE"), nil, nil, nil);
-			[NSApp terminate:nil]; 
-            break;
-        case GPGErrorConfigurationError:
-            NSRunCriticalAlertPanel(localized(@"GPG_CONFIG_ERROR_TITLE"), localized(@"GPG_CONFIG_ERROR_MESSAGE"), nil, nil, nil);
-			[NSApp terminate:nil]; 
-			break;
-		default:
-			break;
-	}
-
-	
-	
-	// Sort Descriptoren anlegen.
-	NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-
-	self.keysSortDescriptors = [NSArray arrayWithObject:nameSort];
-	
-	[keyTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-	
-	[pool drain];
-}
-
-
-
-
-
 // Singleton: alloc, init etc.
 + (id)sharedInstance {
 	static id sharedInstance = nil;
@@ -268,8 +226,44 @@ NSSet *draggedKeys;
 	static BOOL initialized = NO;
 	if (!initialized) {
 		initialized = YES;
+		
+		NSLog(@"GPG Keychain Access version: %@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]);
+		
+		
+		// Testen ob GPG vorhanden und funktionsfähig ist.
+		GPGErrorCode errorCode = [GPGController testGPG];
+		GPGDebugLog(@"KeychainController init testGPG: %i", errorCode);
+		
+		switch (errorCode) {
+			case GPGErrorNotFound:
+				NSRunCriticalAlertPanel(localized(@"GPG_NOT_FOUND_TITLE"), localized(@"GPG_NOT_FOUND_MESSAGE"), nil, nil, nil);
+				[NSApp terminate:nil];
+				break;
+			case GPGErrorConfigurationError:
+				NSRunCriticalAlertPanel(localized(@"GPG_CONFIG_ERROR_TITLE"), localized(@"GPG_CONFIG_ERROR_MESSAGE"), nil, nil, nil);
+				[NSApp terminate:nil];
+				break;
+			default:
+				break;
+		}
+
 		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(keysDidChange:) name:GPGKeyManagerKeysDidChangeNotification object:nil];
-		[[GPGKeyManager sharedInstance] loadAllKeys];
+		@try {
+			[[GPGKeyManager sharedInstance] loadAllKeys];
+		}
+		@catch (NSException *exception) {
+			NSLog(@"loadAllKeys threw exception: %@", exception);
+		}
+		
+		
+		// Sort Descriptoren anlegen.
+		NSSortDescriptor *nameSort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+		
+		self.keysSortDescriptors = [NSArray arrayWithObject:nameSort];
+		
+		[keyTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+
+		
 		self = [super init];
 	}
 	return self;

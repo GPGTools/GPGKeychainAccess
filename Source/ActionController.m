@@ -365,7 +365,7 @@
 	}
 }
 - (IBAction)editAlgorithmPreferences:(id)sender {
-	NSRunAlertPanel(@"Not Implemented", @"THis method is not implemented at the moment!", nil, nil, nil);
+	NSRunAlertPanel(@"Not Implemented", @"This method is not implemented at the moment!", nil, nil, nil);
 	/*NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
 		return;
