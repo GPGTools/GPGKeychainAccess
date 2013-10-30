@@ -410,19 +410,18 @@
 #pragma mark "Keys (other)"
 - (IBAction)cleanKey:(id)sender {
 	NSSet *keys = [self selectedKeys];
-	for (GPGKey *key in keys) {
-		self.progressText = localized(@"CleanKey_Progress");
-		self.errorText = localized(@"CleanKey_Error");
-		[gpgc cleanKey:key];
-	}
+	
+	self.progressText = localized(@"CleanKey_Progress");
+	self.errorText = localized(@"CleanKey_Error");
+
+	[gpgc cleanKeys:keys];
 }
 - (IBAction)minimizeKey:(id)sender {
 	NSSet *keys = [self selectedKeys];
-	for (GPGKey *key in keys) {
-		self.progressText = localized(@"MinimizeKey_Progress");
-		self.errorText = localized(@"MinimizeKey_Error");
-		[gpgc minimizeKey:key];
-	}
+	
+	self.progressText = localized(@"MinimizeKey_Progress");
+	self.errorText = localized(@"MinimizeKey_Error");
+	[gpgc minimizeKeys:keys];
 }
 - (IBAction)genRevokeCertificate:(id)sender {
 	NSSet *keys = [self selectedKeys];
