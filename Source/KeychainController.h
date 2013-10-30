@@ -65,6 +65,7 @@
 @interface GPGKey (GKAExtension)
 - (NSString *)type;
 - (NSString *)longType;
+- (NSString *)userIDAndKeyID;
 @end
 @interface GPGUserID (GKAExtension)
 - (BOOL)isUat;

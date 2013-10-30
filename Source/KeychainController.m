@@ -349,6 +349,11 @@ NSSet *draggedKeys;
 - (void)setDisabled:(BOOL)value {
 }
 
+- (NSString *)userIDAndKeyID {
+	return [NSString stringWithFormat:@"%@ (%@)", self.userIDDescription, self.keyID.shortKeyID];
+}
+
+
 @end
 
 @implementation GPGUserID (GKAExtension)
