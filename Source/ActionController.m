@@ -458,7 +458,19 @@
 	
 	self.progressText = localized(@"SearchKeysOnServer_Progress");
 	self.errorText = localized(@"SearchKeysOnServer_Error");
-	[gpgc searchKeysOnServer:sheetController.pattern];
+	
+	
+	
+	NSString *pattern = sheetController.pattern;
+	
+	// Is the pattern a keyID or a fingerprint: Remove all spaces.
+	NSCharacterSet *charSet = [[NSCharacterSet characterSetWithCharactersInString:@"x0123456789abcdefABCDEF "] invertedSet];
+	if ([pattern rangeOfCharacterFromSet:charSet].length == 0) {
+		pattern = [pattern stringByReplacingOccurrencesOfString:@" " withString:@""];
+	}
+	
+	
+	[gpgc searchKeysOnServer:pattern];
 }
 - (IBAction)receiveKeys:(id)sender {
 	sheetController.sheetType = SheetTypeReceiveKeys;
