@@ -22,3 +22,4 @@ install: $(PRODUCT)
 	@echo Done
 	@echo "In order to use GPG Keychain Access, please don't forget to install MacGPG2 and Libmacgpg."
 
+
