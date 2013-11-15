@@ -12,7 +12,7 @@ installLocation=${installLocation:-/Applications/GPG Keychain Access.app}
 
 rm -rf "$installLocation"
 mv "$tempLocation" "$installLocation" || exit 1
-chmod -R 755 "$installLocation"
+chmod -R u=rwX,go=rX "$installLocation"
 
 
 exit 0
