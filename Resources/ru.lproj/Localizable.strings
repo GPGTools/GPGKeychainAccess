@@ -30,12 +30,27 @@ DeleteKey_Msg = "Удаление ключа %@, %@.\n\nВы уверены, ч�
 "Exported keys.asc" = "Экспортированные ключи.asc";
 
 
+/* For key creation */
+CheckAlert_NoPassphrase_Title = "No Passphrase";
+CheckAlert_NoPassphrase_Message = "You have entered no passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Button1= "Continue without a passphrase";
+CheckAlert_NoPassphrase_Button2 = "Enter new passphrase";
+CheckAlert_PassphraseShort_Title = "Short Passphrase";
+CheckAlert_PassphraseShort_Message = "You have entered a short passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
+CheckAlert_PassphraseShort_Button1= "Continue with short passphrase";
+CheckAlert_PassphraseShort_Button2 = "Enter new passphrase";
+CheckAlert_PassphraseSimple_Title = "Simple Passphrase";
+CheckAlert_PassphraseSimple_Message = "The passphrase you have entered is too simple. A good passphrase should be alphanumeric and contain at least one special character.";
+CheckAlert_PassphraseSimple_Button1 = "Continue with simple passphrase";
+CheckAlert_PassphraseSimple_Button2 = "Enter new passphrase";
+
+
 /* For Key-Search */
 "No keys Found" = "Ключи не найдены";
-"%@, %@ (%@ bit), created: %@" = "%@, %@ (%@ бит), создан: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Осуществляется поиск на серверах. Это может занять некоторое время. Пожалуйста подождите.";
 
-GenerateEntropy_Msg = "Необходимо сгенерировать некоторе количество случайных байтов. Во время генерации рекомендуется совершать другие действия (вводить что-либо с клавиатуры, перемещать курсор мыши, использовать диск), это позволить получить генератору случайных чисел больше энтропии.";
+GenerateKey_Progress = "We need to generate a lot of random bytes. It is a good idea to perform some other action (type on the keyboard in an application, move the mouse, utilize the disks) during the prime generation. This gives the random number generator a better chance to gain enough entropy.";
 GenerateSubkey_Msg = "Добавить subkey ключу \"%@\", %@.";
 GenerateUserID_Msg = "Добавить ID пользователя ключу \"%@\", %@.";
 GenerateSignature_Msg = "Подписать все IDs пользователя \"%@\", %@";
@@ -43,6 +58,7 @@ GenerateUidSignature_Msg = "Подписать ID пользователя \"%@\
 ChangeExpirationDate_Msg = "Изменить срок годности \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Изменить срок годности \"%@\", %@\nSubkey: %@";
 
+GenerateKey_Error = "Ups, something went wrong. There was a problem creating your key.";
 
 /* Message for incorrect Entries */
 CheckError_NameToShort = "Имя должно быть длиннее 5 символов";
@@ -50,7 +66,7 @@ CheckError_NameToLong = "Слишком длинное имя!";
 CheckError_InvalidCharInName = "Недопустимый знак в имени!\n\"<\" и \">\" не допустимы.";
 CheckError_NameStartWithDigit = "Имя не может начинаться с цифры!";
 CheckError_InvalidEmail = "Недопустимый адрес email!";
-CheckError_EmailToLong = "Адрес E-Mail слишком длинный!\nМаксимальная длина 254.";
+CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
 CheckError_InvalidCharInComment = "Недопустимый знак в комментарии!\n\"(\" и \")\" недопустимы.";
 CheckError_CommentToLong = "Комментарий слишком длинный!";
 CheckError_NoKeyID = "Введите правильный ID ключа!";
@@ -58,15 +74,15 @@ CheckError_PassphraseMissmatch = "Пароли не совпадают!";
 
 
 /* Message on start, if there are any Problems */
-GPGNotFound_Msg = "Не найден GPG!";
-GPGNotStart_Title = "Невозможно запустить GPG!";
-GPGNotStart_Msg = "Пожалуйста проверьте файл gpg.conf";
-GPGInitError_Msg = "Невозможно инициализировать GPG!";
-GPGAgentNotFound_Title = "Не найден gpg-agent!";
-GPGAgentNotFound_Msg = "Без gpg-agent Вы не сможете получить доступ к защищенным ключам.";
-GPGAgentNotStart_Title = "Не удалось запустить gpg-agent!";
-GPGAgentNotStart_Msg = "Без gpg-agent Вы не сможете получить доступ к защищенным ключам.";
-Quit_Button = "Выход";
+GPG_NOT_FOUND_TITLE = "GPG Not Found";
+GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong here. It seems GPG is missing on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
+GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+
 
 
 /* Those are abvious */
@@ -74,16 +90,20 @@ No = "Нет";
 Error = "Ошибка";
 Warning = "Предупреждение";
 Cancel = "Отмена";
-
+"Apply to all" = "Apply to all";
 
 /* For Import-Results */
-"key %@: secret key imported\n" = "ключ %@: секретный ключ импортирован\n";
-"key %@: public key \"%@\" imported\n" = "ключ %@: публичный ключ \"%@\" импортирован\n";
-"key %@: \"%@\" new user ID(s)\n" = "ключ %@: \"%@\" новый ID пользователя\n";
-"key %@: \"%@\" new signature(s)\n" = "ключ %@: \"%@\" новая подпись\n";
-"key %@: \"%@\" new subkey(s)\n" = "ключ %@: \"%@\" новые subkey(s)\n";
-"Nothing imported!" = "Нет данных для иморта.";
-
+ImportResult_Secret = "key %@: secret key \"%@\" imported.";
+ImportResult_Public = "key %@: public key \"%@\" imported.";
+ImportResult_UserID = "key %@: \"%@\" new user ID(s).";
+ImportResult_Signature = "key %@: \"%@\" new signature(s).";
+ImportResult_Subkey = "key %@: \"%@\" new subkey(s).";
+ImportResult_KeyNoChanges = "key %@: \"%@\" no changes.";
+ImportResult_OneRevocationCertificate = "1 revocation certificate imported.";
+ImportResult_CountRevocationCertificate = "%i revocation certificates imported.";
+ImportResult_CountProcessed = "Count of processed keys: %i";
+ImportResult_CountImported = "Count of imported keys: %i";
+ImportResult_CountUnchanged = "Count of unchanged keys: %i";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -102,45 +122,13 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-"This picture is really large!" = "Слишком большое изображение!";
-"You should use a smaller picture." = "Необходимо использовать изображение меньшего размера.";
-"Choose another…" = "Выбрать другое…";
-"Use this photo" = "Использовать это изображение";
-"This picture is to large!" = "TСлишком большое изображение!";
-"Please use a picature smaller than 1 MiB." = "Максимальный размер изображения 1 MiB.";
-"Export failed!" = "Не удалось экспортировать!";
+ChoosePhoto_Large_Message = "This picture is really large!";
+ChoosePhoto_Large_Info = "You should use a smaller picture.";
+ChoosePhoto_Large_Button1 = "Choose another…";
+ChoosePhoto_Large_Button2 = "Use this photo";
+ChoosePhoto_ToLarge_Message = "Эта картина является слишком большой!";
+ChoosePhoto_ToLarge_Info = "Please use a picature smaller than 500 KiB.";
 
-"Generate revoke certificate failed!" = "Неудалось создать сертификат отзыва!";
-
-
-/* For Undo and Redo */
-Undo_Clean = "Очистить";
-Undo_Minimize = "Свернуть";
-Undo_Import = "Импорт";
-Undo_Receive = "Получить";
-Undo_Refresh = "Обновить";
-Undo_SetTrust = "Уровень доверия";
-Undo_Delete = "Удалить";
-Undo_AddPhoto = "Добавить фото";
-Undo_RemovePhoto = "Удалить фото";
-Undo_RevokePhoto = "Отозвать фото";
-Undo_PrimaryPhoto = "Основное фото";
-Undo_AddSignature = "Добавить подпись";
-Undo_AddSubkey = "Добавить Subkey";
-Undo_AddUserID = "Добавить ID пользователя";
-Undo_ChangeExpirationDate = "Изменить срок годности";
-Undo_ChangePassphrase = "Изменить пароль";
-Undo_RemoveSignature = "Удалить подпись";
-Undo_RemoveSubkey = "Удалить Subkey";
-Undo_RemoveUserID = "Удалить ID пользователя";
-Undo_RevokeSignature = "Отозвать подпись";
-Undo_RevokeSubkey = "Отозвать Subkey";
-Undo_RevokeUserID = "Отозвать ID пользователя";
-Undo_PrimaryUserID = "Основной ID пользователя";
-Undo_DisableKey = "Отключить ключ";
-Undo_EnableKey = "Включить ключ";
-Undo_NewKey = "Новый ключ";
-Undo_AlgorithmPreferences = "Изменить опции алгоритма";
 
 
 
@@ -168,4 +156,66 @@ COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
 
+
+
+
+ExportKey_Progress = "Экспорт ключа.";
+ExportKey_Error = "Экспорт ключа не удалось.";
+ImportKey_Progress  = "Импорт ключа.";
+ImportKey_Error = "Импорт ключа не удалось.";
+DeleteSecretKey_Progress = "Удаление секретный ключа.";
+DeleteKeys_Progress = "Удаление ключа.";
+DeleteKeys_Error = "Удаление ключа не удалось.";
+ChangePassphrase_Progress = "Changing Passphrase.";
+ChangePassphrase_Error = "Changing passphrase failed.";
+SetDisabled_Progress = "Enabling/Disabling key.";
+SetDisabled_Error = "Enabling/Disabling key failed.";
+SetOwnerTrust_Progress = "Setting owner trust.";
+SetOwnerTrust_Error = "Setting owner trust failed.";
+ChangeExpirationDate_Progress = "Changing subkey expiration date failed.";
+ChangeExpirationDate_Error = "Changing expiration date.";
+SetAlgorithmPreferences_Progress = "Setting algorithm preferences.";
+SetAlgorithmPreferences_Error = "Setting algorithm preferences failed.";
+CleanKey_Progress = "Cleaning key.";
+CleanKey_Error = "Cleaning key failed.";
+MinimizeKey_Progress = "Minimizing key.";
+MinimizeKey_Error = "Minimizing key failed.";
+GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate.";
+GenerateRevokeCertificateForKey_Error = "Generating revoke certificate failed.";
+SearchKeysOnServer_Progress = "Searching for key.";
+SearchKeysOnServer_Error = "Searching for key failed.";
+SendKeysToServer_Progress = "Sending key.";
+SendKeysToServer_Error = "Sending key failed.";
+RefreshKeysFromServer_Progress = "Refreshing key.";
+RefreshKeysFromServer_Error = "Refreshing key failed.";
+AddSubkey_Progress = "Adding subkey.";
+AddSubkey_Error = "Adding subkey failed.";
+RemoveSubkey_Progress = "Removing subkey.";
+RemoveSubkey_Error = "Removing subkey failed.";
+RevokeSubkey_Progress = "Revoking subkey.";
+RevokeSubkey_Error = "Revoking subkey failed.";
+AddUserID_Progress = "Adding userID.";
+AddUserID_Error = "Adding userID failed.";
+RemoveUserID_Progress = "Removing userID.";
+RemoveUserID_Error = "Removing userID failed.";
+SetPrimaryUserID_Progress = "Setting primary userID.";
+SetPrimaryUserID_Error = "Setting primary userID failed.";
+RevokeUserID_Progress = "Revoking userID.";
+RevokeUserID_Error = "Revoking userID failed.";
+AddPhoto_Progress = "Добавление фото.";
+AddPhoto_Error = "Adding photo failed.";
+RemovePhoto_Progress = "Удаление фото.";
+RemovePhoto_Error = "Removing photo failed.";
+SetPrimaryPhoto_Progress = "Setting primary photo.";
+SetPrimaryPhoto_Error = "Setting primary photo failed.";
+RevokePhoto_Progress = "Revoking photo.";
+RevokePhoto_Error = "Revoking photo failed.";
+AddSignature_Progress = "Adding Signature.";
+AddSignature_Error = "Adding Signature failed.";
+RemoveSignature_Progress = "Removing signature.";
+RemoveSignature_Error = "Removing signature failed.";
+RevokeSignature_Progress = "Revoking signature.";
+RevokeSignature_Error = "Revoking signature failed.";
+ReceiveKeysFromServer_Progress = "Receiving keys.";
+ReceiveKeysFromServer_Error = "Receiving keys failed.";
 

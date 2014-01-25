@@ -1,7 +1,7 @@
 /* For Key-Status */
 "Invalid" = "Vigencia";
 "Revoked" = "Revocada";
-"Expired" = "Expired";
+"Expired" = "Expirado";
 "Disabled" = "Desactivado";
 "Unknown" = "Desconocido";
 "Marginal" = "Marginal";
@@ -10,11 +10,11 @@
 
 
 /* For Delete-Dialogues */
-"Delete secret key only" = "Borrar clave secreta sólo";
+"Delete secret key only" = "Solo borrar clave secreta";
 "Delete both" = "Borrar ambos";
 "Delete key" = "Borrar clave";
 DeleteSecretKey_Title = "Borrar clave secreta";
-DeleteSecretKey_Msg = "Tratando de borrar la clave %@, %@.\n\nUsted está a punto de borrar un par de claves (una clave secreta y una clave pública) de su computadora. Sin la clave secreta, usted no podrá descifrar los mensajes que fueron previamente cifrados con sus contraparte clave pública. (Tenga en cuenta que si ha copiado la clave pública a cualquier servidor de claves, ese clave pública se mantendrá activo en el servidor(es) de claves a menos que usted la revoque. La clave secreta es necesaria a fin de revocar la clave pública.) ¿Está seguro que desea borrar el par de claves?";
+DeleteSecretKey_Msg = "Tratando de borrar la clave %@, %@.\n\nUsted está a punto de borrar un par de claves (una clave secreta y una clave pública) de su computadora. Sin la clave secreta, usted no podrá descifrar los mensajes que fueron previamente cifrados con su clave pública. (Tenga en cuenta que si ha copiado la clave pública a cualquier servidor de claves, esta clave pública se mantendrá activa en el servidor(es) de claves a menos que usted la revoque. La clave secreta es necesaria a fin de revocar la clave pública.) ¿Está seguro que desea borrar el par de claves?";
 DeleteKey_Title = "Borrar clave";
 DeleteKey_Msg = "Tratando de borrar la clave %@, %@.\n\n¿Está seguro que desea borrar esta clave?";
 
@@ -30,12 +30,27 @@ DeleteKey_Msg = "Tratando de borrar la clave %@, %@.\n\n¿Está seguro que desea
 "Exported keys.asc" = "Exportado keys.asc";
 
 
-/* For Key-Search */
-"No keys Found" = "No encontró ninguna claves";
-FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), creado: %@"; /* Format für die gefundenen Schlüssel vom Server. */
-SearchingKeys_Msg = "Estamos buscando para clave(s) que hace juego en el servidor de claves. Podría tomar algún tiempo, por favor espere.";
+/* For key creation */
+CheckAlert_NoPassphrase_Title = "No hay ninguna contraseña";
+CheckAlert_NoPassphrase_Message = "No ha introducido una frase de contraseña. Esto no es recomendable. Una frase de contraseña debe tener al menos 8 caracteres de longitud.";
+CheckAlert_NoPassphrase_Button1= "Continuar sin una frase de contraseña";
+CheckAlert_NoPassphrase_Button2 = "Escriba la nueva contraseña";
+CheckAlert_PassphraseShort_Title = "Contraseña corta";
+CheckAlert_PassphraseShort_Message = "Usted ha introducido una frase corta de contraseña. Esto no es recomendable. Una frase de contraseña debe tener al menos 8 caracteres de longitud.";
+CheckAlert_PassphraseShort_Button1= "Continuar con la frase corta de contraseña";
+CheckAlert_PassphraseShort_Button2 = "Escriba la nueva contraseña";
+CheckAlert_PassphraseSimple_Title = "Contraseña simple";
+CheckAlert_PassphraseSimple_Message = "La frase de contraseña que has escrito es demasiado simple. Una buena contraseña debe ser alfanumérica y contener al menos un carácter especial.";
+CheckAlert_PassphraseSimple_Button1 = "Continuar con una frase simple de contraseña";
+CheckAlert_PassphraseSimple_Button2 = "Escriba la nueva contraseña";
 
-GenerateEntropy_Msg = "Es necesario generar muchos bytes aleatorios. Es una buena idea para llevar a cabo alguna otra acción (escribir en el teclado en una aplicación, mueva el ratón (mouse), utilizar los discos) durante la generación de números primos; lo que da el generador de números al azar una mejor oportunidad para ganar suficiente entropía.";
+
+/* For Key-Search */
+"No keys Found" = "No encontró claves";
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), creado: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+SearchingKeys_Msg = "Estamos buscando clave(s) coincidente(s) en el servidor de claves. Podría tomar algún tiempo, por favor espere.";
+
+GenerateKey_Progress = "Es necesario generar muchos bytes aleatorios. Es una buena idea para llevar a cabo alguna otra acción (escribir en el teclado en una aplicación, mover el ratón, usar los discos) durante la primera generación. Esto le da al generador de números aleatorios una mejor oportunidad para ganar suficiente entropía.";
 GenerateSubkey_Msg = "Añadir subclave a la Clave \"%@\", %@.";
 GenerateUserID_Msg = "Añadir ID de usuario a la clave \"%@\", %@.";
 GenerateSignature_Msg = "Realizar la firma de todos los IDs de usuario de \"%@\", %@";
@@ -43,6 +58,7 @@ GenerateUidSignature_Msg = "Crear la firma de ID de usuario \"%@\", %@";
 ChangeExpirationDate_Msg = "Cambiar la fecha de vencimiento de \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Cambiar la fecha de vencimiento de \"%@\", %@\nSubclave: %@";
 
+GenerateKey_Error = "Vaya, algo salió mal. Hubo un problema al crear la clave.";
 
 /* Message for incorrect Entries */
 CheckError_NameToShort = "¡El nombre debe tener al menos 5 carácteres de largo!";
@@ -50,7 +66,7 @@ CheckError_NameToLong = "¡El nombre es demasiado largo!";
 CheckError_InvalidCharInName = "¡Carácter no válido en el nombre!\n\"<\" y \">\" no se permite.";
 CheckError_NameStartWithDigit = "¡El nombre no puede empezar por un dígito!";
 CheckError_InvalidEmail = "¡No es una dirección de correo electrónico válida!";
-CheckError_EmailToLong = "¡Dirección de correo electrónico es demasiado largo!\nLa longitud máxima es de 254.";
+CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
 CheckError_InvalidCharInComment = "¡Carácter no válido en un comentario!\n\"(\" y \")\" no se permite.";
 CheckError_CommentToLong = "¡Comentario es demasiado largo!";
 CheckError_NoKeyID = "¡Por favor, introduzca un identificador de clave válido!";
@@ -58,15 +74,15 @@ CheckError_PassphraseMissmatch = "¡Sus frases de contraseña no hacen juego!";
 
 
 /* Message on start, if there are any Problems */
-GPGNotFound_Msg = "¡GPG no encontrado!";
-GPGNotStart_Title = "¡GPG no se puede empezar!";
-GPGNotStart_Msg = "Por favor, compruebe su gpg.conf";
-GPGInitError_Msg = "¡GPG no se pudo inicializar!";
-GPGAgentNotFound_Title = "¡gpg-agent no encontrado!";
-GPGAgentNotFound_Msg = "Sin gpg-agent usted no puede acceder a las claves contraseña protegida.";
-GPGAgentNotStart_Title = "¡gpg-agent no se puede empezar!";
-GPGAgentNotStart_Msg = "Sin gpg-agent usted no puede acceder a las claves contraseña protegida.";
-Quit_Button = "Salir";
+GPG_NOT_FOUND_TITLE = "GPG No se ha encontrado";
+GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong here. It seems GPG is missing on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
+GPG_CONFIG_ERROR_TITLE = "GPG error de configuración";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+
 
 
 /* Those are abvious */
@@ -74,16 +90,20 @@ No = "No";
 Error = "Error";
 Warning = "Advertencia";
 Cancel = "Cancelar";
-
+"Apply to all" = "Aplicar a todos";
 
 /* For Import-Results */
-"key %@: secret key imported\n" = "clave %@: clave secreta importada\n";
-"key %@: public key \"%@\" imported\n" = "clave %@: clave pública \"%@\" importada\n";
-"key %@: \"%@\" new user ID(s)\n" = "clave %@: \"%@\" nueva ID(s) de usuario(s)\n";
-"key %@: \"%@\" new signature(s)\n" = "clave %@: \"%@\" nueva(s) firma(s)\n";
-"key %@: \"%@\" new subkey(s)\n" = "clave %@: \"%@\" nueva(s) subclave(s)\n";
-"Nothing imported!" = "¡Nada importada!";
-
+ImportResult_Secret = "clave %@: clave secreto \"%@\" importado.";
+ImportResult_Public = "clave %@: clave secreto \"%@\" importado.";
+ImportResult_UserID = "clave %@: \"%@\" nueva ID de usuario (s).";
+ImportResult_Signature = "clave %@: \"%@\" firma(s) nueva(s).";
+ImportResult_Subkey = "clave %@: \"%@\" subclave(s) nueva(s).";
+ImportResult_KeyNoChanges = "clave %@: \"%@\" no hay cambias.";
+ImportResult_OneRevocationCertificate = "1 de revocación de certificados de importación.";
+ImportResult_CountRevocationCertificate = "%i de revocación de certificados de importación.";
+ImportResult_CountProcessed = "Recuento de las claves de procesados​​: %i";
+ImportResult_CountImported = "Recuento de las claves de importados​​: %i";
+ImportResult_CountUnchanged = "Recuento de las claves sin cambios​​: %i";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -102,45 +122,13 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-"This picture is really large!" = "Esta foto es muy grande!";
-"You should use a smaller picture." = "Usted debe usar una foto más pequeña.";
-"Choose another…" = "Clegir otro…";
-"Use this photo" = "Use esta foto";
-"This picture is to large!" = "Esta foto es demasiado grande!";
-"Please use a picature smaller than 1 MiB." = "Por favor, use una foto más pequeño que 1 MB.";
-"Export failed!" = "¡Exportación fallado!";
+ChoosePhoto_Large_Message = "¡Esta foto es muy grande!";
+ChoosePhoto_Large_Info = "Debe usar un foto más pequeño.";
+ChoosePhoto_Large_Button1 = "Eligir un otro...";
+ChoosePhoto_Large_Button2 = "Usa este foto";
+ChoosePhoto_ToLarge_Message = "¡Esta foto es demasiado grande!";
+ChoosePhoto_ToLarge_Info = "Por favor usa una foto mas pequeño de 500KiB.";
 
-"Generate revoke certificate failed!" = "¡Generación del certificado de revocar fallado!";
-
-
-/* For Undo and Redo */
-Undo_Clean = "Limpiar";
-Undo_Minimize = "Minimizar";
-Undo_Import = "Importar";
-Undo_Receive = "Recibir";
-Undo_Refresh = "Refrescar";
-Undo_SetTrust = "Establecer La Confianza";
-Undo_Delete = "Borrar";
-Undo_AddPhoto = "Añadir Una Foto";
-Undo_RemovePhoto = "Quitar Una Foto";
-Undo_RevokePhoto = "Revocar Foto";
-Undo_PrimaryPhoto = "Foto Principal";
-Undo_AddSignature = "Añadir Firma";
-Undo_AddSubkey = "Añadir Subclave";
-Undo_AddUserID = "Añadir ID de Usuario";
-Undo_ChangeExpirationDate = "Cambiar La Fecha de Vencimiento";
-Undo_ChangePassphrase = "Cambiar Frase de Contraseña";
-Undo_RemoveSignature = "Quitar Firma";
-Undo_RemoveSubkey = "Quitar Subclave";
-Undo_RemoveUserID = "Quitar ID de Usuario";
-Undo_RevokeSignature = "Revocar Firma";
-Undo_RevokeSubkey = "Revocar Subclave";
-Undo_RevokeUserID = "Revocar ID de Usuario";
-Undo_PrimaryUserID = "ID de Usuario Principal";
-Undo_DisableKey = "Desactivar Clave";
-Undo_EnableKey = "Activar Clave";
-Undo_NewKey = "Clave Nueva";
-Undo_AlgorithmPreferences = "Cambiar Preferencias de Algoritmo";
 
 
 
@@ -168,4 +156,66 @@ COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
 
+
+
+
+ExportKey_Progress = "Exportación de la llave.";
+ExportKey_Error = "Exportación de clave falló.";
+ImportKey_Progress  = "Importación de la llave.";
+ImportKey_Error = "Importación de clave falló.";
+DeleteSecretKey_Progress = "Eliminación de clave secreta.";
+DeleteKeys_Progress = "Eliminación de clave.";
+DeleteKeys_Error = "Eliminación de clave falló.";
+ChangePassphrase_Progress = "Cambiando contraseña.";
+ChangePassphrase_Error = "Cambiando de contraseña falló";
+SetDisabled_Progress = "Activación/desactivación de clave.";
+SetDisabled_Error = "Activación/desactivación de clave falló.";
+SetOwnerTrust_Progress = "Configuración de fideicomiso del propietario.";
+SetOwnerTrust_Error = "Configuración de fideicomiso del propietario falló.";
+ChangeExpirationDate_Progress = "Cambiar la fecha de caducidad subclave falló.";
+ChangeExpirationDate_Error = "Cambiando fecha de caducidad.";
+SetAlgorithmPreferences_Progress = "Configuración de las preferencias del algoritmo.";
+SetAlgorithmPreferences_Error = "Configuración de las preferencias del algoritmo falló.";
+CleanKey_Progress = "Limpieza clave.";
+CleanKey_Error = "Limpieza de clave fallado.";
+MinimizeKey_Progress = "Minimizando clave.";
+MinimizeKey_Error = "Minimizando de clave falló.";
+GenerateRevokeCertificateForKey_Progress = "Generación de revocar el certificado.";
+GenerateRevokeCertificateForKey_Error = "Generación de revocar el certificado falló.";
+SearchKeysOnServer_Progress = "Buscando por clave.";
+SearchKeysOnServer_Error = "Buscando por clave falló.";
+SendKeysToServer_Progress = "Enviando clave.";
+SendKeysToServer_Error = "Enviando clave falló.";
+RefreshKeysFromServer_Progress = "Refrescando clave.";
+RefreshKeysFromServer_Error = "Refrescando clave falló.";
+AddSubkey_Progress = "Agregar de subclave.";
+AddSubkey_Error = "Agregar subclave falló.";
+RemoveSubkey_Progress = "Quitar de subclave.";
+RemoveSubkey_Error = "Quitar subclave falló.";
+RevokeSubkey_Progress = "Revocación de subclave.";
+RevokeSubkey_Error = "Revocación de subclave falló.";
+AddUserID_Progress = "Agregar de ID de usuario.";
+AddUserID_Error = "Agregar de ID de usuario falló.";
+RemoveUserID_Progress = "Quitar de ID de usuario.";
+RemoveUserID_Error = "Quitar de ID de usuario falló.";
+SetPrimaryUserID_Progress = "Configuración de ID de usuario principal.";
+SetPrimaryUserID_Error = "Configuración de ID de usuario principal falló.";
+RevokeUserID_Progress = "Revocación de ID de usuario.";
+RevokeUserID_Error = "Revocación de ID de usuario falló.";
+AddPhoto_Progress = "Añadir foto.";
+AddPhoto_Error = "Añadir foto falló.";
+RemovePhoto_Progress = "Quitar foto.";
+RemovePhoto_Error = "Quitar foto falló.";
+SetPrimaryPhoto_Progress = "Configuración de fotografía principal.";
+SetPrimaryPhoto_Error = "Ajuste de la fotografía principal falló.";
+RevokePhoto_Progress = "Revocación de la foto.";
+RevokePhoto_Error = "Revocación de la foto falló.";
+AddSignature_Progress = "Adición de la firma.";
+AddSignature_Error = "Adición de la firma falló.";
+RemoveSignature_Progress = "Extracción de la firma.";
+RemoveSignature_Error = "Extracción de la firma falló.";
+RevokeSignature_Progress = "Revocación de la firma.";
+RevokeSignature_Error = "Revocación de la firma falló.";
+ReceiveKeysFromServer_Progress = "Recepción de claves.";
+ReceiveKeysFromServer_Error = "Recepción de claves falló.";
 

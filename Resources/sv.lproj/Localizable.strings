@@ -10,17 +10,17 @@
 
 
 /* For Delete-Dialogues */
-"Delete secret key only" = "Radera endast hemlig nyckel";
+"Delete secret key only" = "Radera endast privat nyckel";
 "Delete both" = "Radera båda";
 "Delete key" = "Radera nyckel";
-DeleteSecretKey_Title = "Radera hemlig nyckel";
-DeleteSecretKey_Msg = "Försöker radera nyckel %@, %@.\n\nDu kommer nu att radera en hemlig nyckel. När den är borta kommer du inte att kunna avkryptera brev som krypterats mot denna nyckel. Är du säker på att du vill göra detta?";
+DeleteSecretKey_Title = "Radera privat nyckel";
+DeleteSecretKey_Msg = "Försöker radera nyckel %@, %@.\n\nDu kommer nu att radera ett nyckelpar (en privat och publik nyckel) från datorn. Utan den privata nyckeln kommer du inte längre att kunna avkryptera meddelanden som krypterats med motsvarande publik nyckel. (Observera att om du kopierat din publika nyckel till någon nyckelserver, kommer den att fortsätta vara aktiv där, om du inte återkallar den. För att återkalla den, behöver du den privata nyckeln.) Är du säker på att du vill göra detta?";
 DeleteKey_Title = "Radera nyckel";
 DeleteKey_Msg = "Försöker radera nyckel %@, %@.\n\nÄr du säker på att du vill radera denna nyckel?";
 
 
 /* Long key types */
-"Secret and public key" = "Hemlig och publik nyckel";
+"Secret and public key" = "Privat och publik nyckel";
 "Public key" = "Publik nyckel";
 
 
@@ -30,18 +30,35 @@ DeleteKey_Msg = "Försöker radera nyckel %@, %@.\n\nÄr du säker på att du vi
 "Exported keys.asc" = "Exporterade nycklar.asc";
 
 
+/* For key creation */
+CheckAlert_NoPassphrase_Title = "Ingen lösenordsfras";
+CheckAlert_NoPassphrase_Message = "Du har inte skrivit någon lösenordsfras. Det rekommenderas. En lösenordsfras bör vara minst 8 tecken lång.";
+CheckAlert_NoPassphrase_Button1= "Fortsätt utan lösenordsfras";
+CheckAlert_NoPassphrase_Button2 = "Skriv ny lösenordsfras";
+CheckAlert_PassphraseShort_Title = "Kort lösenordsfras";
+CheckAlert_PassphraseShort_Message = "Du har skrivit en kort lösenordsfras. Detta rekommenderas inte. En lösenordsfras borde vara minst 8 tecken lång.";
+CheckAlert_PassphraseShort_Button1= "Fortsätt med kort lösenordsfras";
+CheckAlert_PassphraseShort_Button2 = "Skriv ny lösenordsfras";
+CheckAlert_PassphraseSimple_Title = "Enkel lösenordsfras";
+CheckAlert_PassphraseSimple_Message = "Lösenordsfrasen du skrev är för enkel. En bra lösenordsfras borde innehålla både bokstäver och siffror och minst ett specialtecken.";
+CheckAlert_PassphraseSimple_Button1 = "Fortsätt med enkel lösenordsfras";
+CheckAlert_PassphraseSimple_Button2 = "Skriv ny lösenordsfras";
+
+
 /* For Key-Search */
 "No keys Found" = "Inga nycklar hittades";
-"FOUND_KEY_DESCRIPTION_FORMAT" = "%@, %@ (%lu bit), skapad: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), skapad: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+SearchingKeys_Msg = "Vi söker efter matchande nyckel/nycklar på nyckelservern. Det kan ta tid, vänligen vänta.";
 
-GenerateEntropy_Msg = "Nu behöver många slumpmässiga byte genereras. Det är en god idé att göra flera andra saker (skriva på tangentordet i annat program, röra musen, kopiera filer) medan detta pågår; det ger en slumptalsgenerator bättre möjlighet att uppnå tillräckligt med entropi";
+GenerateKey_Progress = "Vi måste skapa många slumpmässiga bitar. Medan detta görs är det bra om du gör mycket annat på datorn (skriv på tangentbordet, rör musen, se till att hårddisken används). Detta ger slumptalsgeneratorn bättre förutsättningar att få tillräckligt med entropi.";
 GenerateSubkey_Msg = "Lägg till undernyckel till nyckeln \"%@\", %@.";
-GenerateUserID_Msg = "Lägg till användar-ID till nyckeln \"%@\", %@.";
-GenerateSignature_Msg = "Gör signatur för alla användar-ID av \"%@\", %@";
-GenerateUidSignature_Msg = "Gör signatur av användar-ID \"%@\", %@";
+GenerateUserID_Msg = "Lägg till användarID till nyckeln \"%@\", %@.";
+GenerateSignature_Msg = "Gör signatur för alla användarID av \"%@\", %@";
+GenerateUidSignature_Msg = "Gör signatur av användarID \"%@\", %@";
 ChangeExpirationDate_Msg = "Ändra utgångsdatum för \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Ändra utgångsdatum för \"%@\", %@\nUndernyckel: %@";
 
+GenerateKey_Error = "Hoppsan, något blev fel medan din nyckel skapades.";
 
 /* Message for incorrect Entries */
 CheckError_NameToShort = "Namnet måste vara åtminstone 5 tecken långt!";
@@ -57,33 +74,36 @@ CheckError_PassphraseMissmatch = "Dina lösenordsfraser stämde inte överens!";
 
 
 /* Message on start, if there are any Problems */
-GPGNotFound_Msg = "GPG hittades inte!";
-GPGNotStart_Title = "GPG kan inte startas!";
-GPGNotStart_Msg = "Kontrollera din gpg.conf";
-GPGInitError_Msg = "GPG kunde inte initieras!";
-GPGAgentNotFound_Title = "gpg-agenten hittades inte!";
-GPGAgentNotFound_Msg = "Utan gpg-agent kan du inte komma åt nycklar som skyddats med lösenordsfras.";
-GPGAgentNotStart_Title = "gpg-agenten kunde inte startas!";
-GPGAgentNotStart_Msg = "Utan gpg-agent kan du inte komma åt nycklar som skyddats med lösenordsfras.";
-Quit_Button = "Avsluta";
+GPG_NOT_FOUND_TITLE = "GPG hittades inte";
+GPG_NOT_FOUND_MESSAGE = "Hoppsan, något blev fel. Det verkar som om GPG saknas i ditt system. Installera GPG, till exempel från https://www.gpgtools.org";
+GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfel";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg hittades inte";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg hittades inte. Installera GPG, till exempel från https://www.gpgtools.org";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
 
 
-/* Those are obvious */
+
+/* Those are abvious */
 No = "Nej";
 Error = "Fel";
 Warning = "Varning";
 Cancel = "Avbryt";
-
+"Apply to all" = "Ställ in för alla";
 
 /* For Import-Results */
-ImportResult_Secret = "nyckel %@: hemlig nyckel \"%@\" importerades\n";
-ImportResult_Public = "nyckel %@: publik nyckel \"%@\" importerades\n";
-ImportResult_UserID = "nyckel %@: \"%@\" nytt/nya användar-ID\n";
-ImportResult_Signature = "nyckel %@: \"%@\" ny/nya signarur(er)\n";
-ImportResult_Subkey = "nyckel %@: \"%@\" ny/nya undernyckel/nycklar\n";
+ImportResult_Secret = "nyckel %@: hemlig nyckel \"%@\" importerades.";
+ImportResult_Public = "nyckel %@: publik nyckel \"%@\" importerades.";
+ImportResult_UserID = "nyckel %@: \"%@\" nytt/nya användarID.";
+ImportResult_Signature = "nyckel %@: \"%@\" ny/nya signarur(er).";
+ImportResult_Subkey = "nyckel %@: \"%@\" ny/nya undernyckel/nycklar.";
 ImportResult_KeyNoChanges = "key %@: \"%@\" no changes.";
-ImportResult_Nothing = "Ingenting importerades!";
-
+ImportResult_OneRevocationCertificate = "1 återkallelsecertifikat importerades.";
+ImportResult_CountRevocationCertificate = "%i återkallelsecertifikat importerades.";
+ImportResult_CountProcessed = "Antal bearbetade nycklar: %i";
+ImportResult_CountImported = "Antal importerade nycklar: %i";
+ImportResult_CountUnchanged = "Antal oförändrade nycklar. %i";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -109,39 +129,6 @@ ChoosePhoto_Large_Button2 = "Använd detta foto";
 ChoosePhoto_ToLarge_Message = "Denna bild är för stor!";
 ChoosePhoto_ToLarge_Info = "Använd en bild som är mindre än 500 KiB.";
 
-"Export failed!" = "Exporten misslyckades!";
-
-"Generate revoke certificate failed!" = "Det gick inte att skapa ett återkallelse-certifikat!";
-
-
-/* For Undo and Redo */
-Undo_Clean = "Rensa";
-Undo_Minimize = "Minimera";
-Undo_Import = "Importera";
-Undo_Receive = "Ta emot";
-Undo_Refresh = "Uppdatera";
-Undo_SetTrust = "Sätt Trust-nivå";
-Undo_Delete = "Radera";
-Undo_AddPhoto = "Lägg till foto";
-Undo_RemovePhoto = "Ta bort foto";
-Undo_RevokePhoto = "Återkalla foto";
-Undo_PrimaryPhoto = "Primärt foto";
-Undo_AddSignature = "Lägg till signatur";
-Undo_AddSubkey = "Lägg till undernyckel";
-Undo_AddUserID = "Lägg till användar-ID";
-Undo_ChangeExpirationDate = "Ändra utgångsdatum";
-Undo_ChangePassphrase = "Ändra lösenordsfras";
-Undo_RemoveSignature = "Ta bort signatur";
-Undo_RemoveSubkey = "Ta bort undernyckel";
-Undo_RemoveUserID = "Ta bort användar-ID";
-Undo_RevokeSignature = "Återkalla signatur";
-Undo_RevokeSubkey = "Återkalla undernyckel";
-Undo_RevokeUserID = "Återkalla användar-ID";
-Undo_PrimaryUserID = "Återkalla användar-ID";
-Undo_DisableKey = "Inaktivera nyckel";
-Undo_EnableKey = "Aktivera nyckel";
-Undo_NewKey = "Ny nyckel";
-Undo_AlgorithmPreferences = "Ändra algoritm-inställningar";
 
 
 
@@ -169,4 +156,66 @@ COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
 
+
+
+
+ExportKey_Progress = "Exporterar nyckel.";
+ExportKey_Error = "Nyckelexporten misslyckades.";
+ImportKey_Progress  = "Importerar nyckel.";
+ImportKey_Error = "Nyckelimport misslyckades.";
+DeleteSecretKey_Progress = "Raderar privat nyckel.";
+DeleteKeys_Progress = "Raderar nyckel.";
+DeleteKeys_Error = "Raderingen av nyckel misslyckades.";
+ChangePassphrase_Progress = "Byter lösenordsfras.";
+ChangePassphrase_Error = "Byte av lösenordsfras misslyckades.";
+SetDisabled_Progress = "Aktiverar/Avaktiverar nyckel.";
+SetDisabled_Error = "Aktivering/Avaktivering av nyckel misslyckades.";
+SetOwnerTrust_Progress = "Ställer in ägarens förtroendenivå.";
+SetOwnerTrust_Error = "Inställningen av ägarens förtroendenivå misslyckades.";
+ChangeExpirationDate_Progress = "Byte av undernyckelns utgångsdatum misslyckades.";
+ChangeExpirationDate_Error = "Byter utgångsdatum.";
+SetAlgorithmPreferences_Progress = "Ställer in algoritminställningar.";
+SetAlgorithmPreferences_Error = "Inställning av algoritm misslyckades.";
+CleanKey_Progress = "Rensar nyckel.";
+CleanKey_Error = "Rensning av nyckel misslyckades.";
+MinimizeKey_Progress = "Minimerar nyckel.";
+MinimizeKey_Error = "Minimering av nyckel misslyckades.";
+GenerateRevokeCertificateForKey_Progress = "Skapar återkallelsecertifikat.";
+GenerateRevokeCertificateForKey_Error = "Skapandet av återkallelsecertifikat misslyckades.";
+SearchKeysOnServer_Progress = "Söker efter nyckel.";
+SearchKeysOnServer_Error = "Sökingen av nyckel misslyckades.";
+SendKeysToServer_Progress = "Skickar nyckel.";
+SendKeysToServer_Error = "Skickandet av nyckeln misslyckades.";
+RefreshKeysFromServer_Progress = "Uppdaterar nyckel.";
+RefreshKeysFromServer_Error = "Uppdateringen av nyckeln misslyckades.";
+AddSubkey_Progress = "Lägger till undernyckel.";
+AddSubkey_Error = "Det misslyckades att lägga till undernyckel.";
+RemoveSubkey_Progress = "Tar bort undernyckel.";
+RemoveSubkey_Error = "Borttagning av undernyckel misslyckades.";
+RevokeSubkey_Progress = "Återkallar undernyckel.";
+RevokeSubkey_Error = "Återkallandet av undernyckel misslyckades.";
+AddUserID_Progress = "Lägger till användarID.";
+AddUserID_Error = "Det misslyckades att lägga till användarID";
+RemoveUserID_Progress = "Tar bort användarID.";
+RemoveUserID_Error = "Borttagningen av användarID misslyckades.";
+SetPrimaryUserID_Progress = "Ställer in primärt användarID.";
+SetPrimaryUserID_Error = "Inställningen av primärt användarID misslyckades.";
+RevokeUserID_Progress = "Återkallar användarID.";
+RevokeUserID_Error = "Återkallandet av användarID misslyckades.";
+AddPhoto_Progress = "Lägger till bild.";
+AddPhoto_Error = "Det misslyckades att lägga till bild.";
+RemovePhoto_Progress = "Tar bort bild.";
+RemovePhoto_Error = "Borttagandet av bild misslyckades.";
+SetPrimaryPhoto_Progress = "Ställer in primär bild.";
+SetPrimaryPhoto_Error = "Inställningen av primär bild misslyckades.";
+RevokePhoto_Progress = "Återkallar bild.";
+RevokePhoto_Error = "Återkallandet av bild misslyckades.";
+AddSignature_Progress = "Lägger till signatur.";
+AddSignature_Error = "Det misslyckades att lägga till signatur.";
+RemoveSignature_Progress = "Tar bort signatur.";
+RemoveSignature_Error = "Borttagandet av signatur misslyckades.";
+RevokeSignature_Progress = "Återkallar signatur.";
+RevokeSignature_Error = "Återkallandet av signatur misslyckades.";
+ReceiveKeysFromServer_Progress = "Tar emot nycklar.";
+ReceiveKeysFromServer_Error = "Det misslyckades att ta emot nycklar.";
 

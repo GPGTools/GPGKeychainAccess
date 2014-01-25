@@ -1,4 +1,4 @@
-/* Für den Schlüssel-Status */
+/* For Key-Status */
 "Invalid" = "Ungültig";
 "Revoked" = "Widerrufen";
 "Expired" = "Abgelaufen";
@@ -9,7 +9,7 @@
 "Ultimate" = "Absolut";
 
 
-/* Für die Lösch-Dialoge */
+/* For Delete-Dialogues */
 "Delete secret key only" = "Nur geheimen Schlüssel löschen";
 "Delete both" = "Beide löschen";
 "Delete key" = "Schlüssel löschen";
@@ -19,45 +19,18 @@ DeleteKey_Title = "Schlüssel löschen";
 DeleteKey_Msg = "Möchten Sie den Schlüssel „%@“, %@ wirklich löschen?";
 
 
-/* Lange Schlüssel Typen */
+/* Long key types */
 "Secret and public key" = "Geheimer und öffentlicher Schlüssel";
 "Public key" = "Öffentlicher Schlüssel";
 
 
-/* Für den Export, als standard Dateiname. */
+/* For export, as standard File-Name. */
 "untitled" = "unbenannt";
 "%@ Revoke certificate" = "%@ Widerrufszertifikat";
 "Exported keys.asc" = "Exportierte Schlüssel.asc";
 
 
-
-
-
-/* Für die Schlüselsuche */
-"No keys Found" = "Keine Schlüssel gefunden";
-FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), erstellt: %@"; /* Format für die gefundenen Schlüssel vom Server. */
-SearchingKeys_Msg = "Es wird, auf dem Schlüsselserver, nach passenden Schlüsseln gesucht. Die kann einige Zeit in anspruch nehmen.";
-
-GenerateKey_Progress = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
-GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel „%@“, %@ anlegen.";
-GenerateUserID_Msg = "Zusätzliche Benutzer-ID für den Schlüssel „%@“, %@ anlegen.";
-GenerateSignature_Msg = "Beglaubigung aller Benutzer-IDs von „%@“, %@";
-GenerateUidSignature_Msg = "Beglaubigung der Benutzer-ID „%@“, %@";
-ChangeExpirationDate_Msg = "Ändern des Verfalldatums von „%@“, %@";
-ChangeSubkeyExpirationDate_Msg = "Ändern des Verfalldatums des Unterschlüssels: %@ von „%@“, %@";
-
-
-/* Meldungen der Eingabenprüfung. */
-CheckError_NameToShort = "Der Name muss mindestens 5 Zeichen lang sein!!";
-CheckError_NameToLong = "Der Name ist zu lang!";
-CheckError_InvalidCharInName = "Ungültiges Zeichen im Namen!\n„<“ und „>“ sind nicht erlaubt.";
-CheckError_NameStartWithDigit = "Der Name darf nicht mit einer Zahl beginnen!";
-CheckError_InvalidEmail = "Die E-Mail-Adresse ist nicht gültig!";
-CheckError_EmailToLong = "Die E-Mail-Adresse ist zu lang!\nDie E-Mail-Adresse darf höchstens 254 Zeichen lang sein.";
-CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n„(“ und „)“ sind nicht erlaubt.";
-CheckError_CommentToLong = "Der Kommentar ist zu lang!";
-CheckError_NoKeyID = "Bitte geben Sie eine gültige Schlüssel-ID ein!";
-CheckError_PassphraseMissmatch = "Die eingegebenen Passphrasen stimmen nicht überein!";
+/* For key creation */
 CheckAlert_NoPassphrase_Title = "Keine Passphrase";
 CheckAlert_NoPassphrase_Message = "Du hast keine Passphrase eingegeben. Das ist nicht zu empfehlen. Eine Passphrase sollte mindestens 8 Zeichen lang sein.";
 CheckAlert_NoPassphrase_Button1= "Weiter ohne Passphrase";
@@ -72,34 +45,67 @@ CheckAlert_PassphraseSimple_Button1 = "Weiter mit einfacher Passphrase";
 CheckAlert_PassphraseSimple_Button2 = "Neue Passphrase eingeben";
 
 
-/* Meldungen beim Start, wenn es Probleme gibt.  */
+/* For Key-Search */
+"No keys Found" = "Keine Schlüssel gefunden";
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), erstellt: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+SearchingKeys_Msg = "Es wird, auf dem Schlüsselserver, nach passenden Schlüsseln gesucht. Die kann einige Zeit in anspruch nehmen.";
+
+GenerateKey_Progress = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
+GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel „%@“, %@ anlegen.";
+GenerateUserID_Msg = "Zusätzliche Benutzer-ID für den Schlüssel „%@“, %@ anlegen.";
+GenerateSignature_Msg = "Beglaubigung aller Benutzer-IDs von „%@“, %@";
+GenerateUidSignature_Msg = "Beglaubigung der Benutzer-ID „%@“, %@";
+ChangeExpirationDate_Msg = "Ändern des Verfalldatums von „%@“, %@";
+ChangeSubkeyExpirationDate_Msg = "Ändern des Verfalldatums des Unterschlüssels: %@ von „%@“, %@";
+
+GenerateKey_Error = "Ups, da ging was schief. Es gab ein Problem bei der Erstellung deines Schlüssels.";
+
+/* Message for incorrect Entries */
+CheckError_NameToShort = "Der Name muss mindestens 5 Zeichen lang sein!!";
+CheckError_NameToLong = "Der Name ist zu lang!";
+CheckError_InvalidCharInName = "Ungültiges Zeichen im Namen!\n„<“ und „>“ sind nicht erlaubt.";
+CheckError_NameStartWithDigit = "Der Name darf nicht mit einer Zahl beginnen!";
+CheckError_InvalidEmail = "Die E-Mail-Adresse ist nicht gültig!";
+CheckError_EmailToLong = "E-mail-Adresse ist zu lang!\nMax Länge ist 254 Zeichen.";
+CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n„(“ und „)“ sind nicht erlaubt.";
+CheckError_CommentToLong = "Der Kommentar ist zu lang!";
+CheckError_NoKeyID = "Bitte geben Sie eine gültige Schlüssel-ID ein!";
+CheckError_PassphraseMissmatch = "Die eingegebenen Passphrasen stimmen nicht überein!";
+
+
+/* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG nicht gefunden";
-GPG_NOT_FOUND_MESSAGE = "Ups, irgendwas läuft schief. Anscheinend fehlt auf deinem System GPG. Bitte installiere GPG, z.B. mit dem GPGTools Installer von https://www.gpgtools.org.";
-GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, irgendwas läuft schief. GPG wurde auf deinem System gefunden aber es gibt ein Problem mit der config-Datei. Bitte kontaktiere uns auf http://support.gpgtools.org.";
-LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg nicht gefunden";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg wurde auf deinem System nicht gefunden. Bitte installiere Libmacgpg, z.B. mit dem GPGTools Installer von https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Ups, irgendwas läuft schief. Anscheinend fehlt auf deinem System GPG. Bitte installiere die GPGTools Suite von https://www.gpgtools.org.";
+GPG_CONFIG_ERROR_TITLE = "GPG Konfigurations Fehler";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg wurde nicht gefunden";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg wurde auf deinem System nicht gefunden. Bitte installiere die GPG Suite von https://gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
 
 
-/* Sollte klar sein. */
+
+/* Those are abvious */
 No = "Nein";
 Error = "Fehler";
 Warning = "Warnung";
 Cancel = "Abbrechen";
 "Apply to all" = "Auf alle anwenden";
 
-
-/* Für die Importergebnis */
+/* For Import-Results */
 ImportResult_Secret = "Schlüssel %@: geheimer Schlüssel „%@“ importiert\n";
 ImportResult_Public = "Schlüssel %@: öffentlicher Schlüssel „%@“ importiert\n";
 ImportResult_UserID = "Schlüssel %@: „%@“ neue Benutzer-ID(s)\n";
 ImportResult_Signature = "Schlüssel %@: „%@“ neue Beglaubigung(en)\n";
 ImportResult_Subkey = "Schlüssel %@: „%@“ neue(r) Unterschlüssel\n";
 ImportResult_KeyNoChanges = "Schlüssel %@: „%@“ keine Änderungen.";
-ImportResult_Nothing = "Nichts importiert!";
+ImportResult_OneRevocationCertificate = "1 Widerrufszertifikat importiert.";
+ImportResult_CountRevocationCertificate = "%i Widerrufszertifikate importiert.";
+ImportResult_CountProcessed = "Anzahl der verarbeiteten Schlüssel: %i";
+ImportResult_CountImported = "Anzahl der Importierten Schlüssel: %i";
+ImportResult_CountUnchanged = "Anzahl der Unveränderten Schlüssel: %i";
 
-
-/* Die verschiedenen Algorithmen */
+/* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
 GPG_RSAEncryptOnlyAlgorithm = "RSA-E";
 GPG_RSASignOnlyAlgorithm = "RSA-S";
@@ -111,11 +117,11 @@ GPG_ElgamalAlgorithm = "ELG";
 GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
-/* Im Hauptfenster. */
+/* In Main Window */
 "%i of %i keys listed" = "%i von %i Schlüsseln angezeigt";
 
 
-/* Für öffnen und speichern Dialoge */
+/* For opening and saving dialogues */
 ChoosePhoto_Large_Message = "Das Bild ist wirklich groß!";
 ChoosePhoto_Large_Info = "Sie sollten ein kleineres Bild verwenden.";
 ChoosePhoto_Large_Button1 = "Ein anderes wählen …";
@@ -123,14 +129,10 @@ ChoosePhoto_Large_Button2 = "Dieses verwenden";
 ChoosePhoto_ToLarge_Message = "Das Bild ist zu groß!";
 ChoosePhoto_ToLarge_Info = "Bitte verwenden Sie ein Bild, welches kleiner als 500 KiB ist.";
 
-"Export failed!" = "Export fehlgeschlagen!";
-
-"Generate revoke certificate failed!" = "Erstellen des Widerrufszertifikates fehlgeschlagen!";
 
 
 
-
-CIPHER_ALGO_NONE = "None";
+CIPHER_ALGO_NONE = "Keiner";
 CIPHER_ALGO_IDEA = "IDEA";
 CIPHER_ALGO_3DES = "3DES";
 CIPHER_ALGO_CAST5 = "CAST5";
@@ -149,10 +151,11 @@ DIGEST_ALGO_SHA256 = "SHA256";
 DIGEST_ALGO_SHA384 = "SHA384";
 DIGEST_ALGO_SHA512 = "SHA512";
 DIGEST_ALGO_SHA224 = "SHA224";
-COMPRESS_ALGO_NONE = "None";
+COMPRESS_ALGO_NONE = "Keiner";
 COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
+
 
 
 
@@ -215,3 +218,4 @@ RevokeSignature_Progress = "Widerrufe Signatur.";
 RevokeSignature_Error = "Widerrufen der Signatur fehlgeschlagen.";
 ReceiveKeysFromServer_Progress = "Hole Schlüssel von Server.";
 ReceiveKeysFromServer_Error = "Holen des Schlüssels vom Server fehlgeschlagen.";
+

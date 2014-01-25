@@ -1,7 +1,7 @@
-﻿/* For Key-Status */
+/* For Key-Status */
 "Invalid" = "Invàlid";
 "Revoked" = "Revocat";
-"Expired" = "Expirat";
+"Expired" = "Caducat";
 "Disabled" = "Discapacitat";
 "Unknown" = "Desconegut";
 "Marginal" = "Marginal";
@@ -10,13 +10,13 @@
 
 
 /* For Delete-Dialogues */
-"Delete secret key only" = "Elimina només la clau secreta";
-"Delete both" = "Suprimeix ambdós";
-"Delete key" = "Elimina la clau";
-DeleteSecretKey_Title = "Elimina la clau secreta";
-DeleteSecretKey_Msg = "L'intent d'eliminar la clau %@, %@.⏎\n⏎\nEsborrarà un parell de claus (una clau privada i una clau pública) de l'equip. Sense la clau privada, ja no serà capaç de desxifrar els missatges que seran xifrats amb la contrapart pública. (Recordeu que si ha copiat la clau pública a qualsevol servidor de claus, es mantindrà actiu al servidor de claus, a no ser que vostè la revoque. La revocació es requereix a la clau privada). Segur que desitja eliminar la clau?";
-DeleteKey_Title = "Elimina la clau";
-DeleteKey_Msg = "L'intent d'eliminar la clau %@, %@.⏎\n⏎\nSegur que desitja eliminar la clau?";
+"Delete secret key only" = "Esborra només la clau secreta";
+"Delete both" = "Esborra ambdós";
+"Delete key" = "Esborra la clau";
+DeleteSecretKey_Title = "Esborra la clau secreta";
+DeleteSecretKey_Msg = "L'intent d'esborrar la clau %@, %@.⏎\n⏎\nEsborrarà un parell de claus (una clau privada i una clau pública) de l'equip. Sense la clau privada, ja no serà capaç de desxifrar els missatges que seran xifrats amb la contrapart pública. (Recordeu que si ha copiat la clau pública a qualsevol servidor de claus, es mantindrà actiu al servidor de clau(s), a no ser que vostè la revoque. La revocació es requereix a la clau privada). Segur que desitja esborrar la clau?";
+DeleteKey_Title = "Esborra la clau";
+DeleteKey_Msg = "L'intent d'esborrar la clau %@, %@.⏎\n⏎\nSegur que desitja esborrar la clau?";
 
 
 /* Long key types */
@@ -26,8 +26,8 @@ DeleteKey_Msg = "L'intent d'eliminar la clau %@, %@.⏎\n⏎\nSegur que desitja 
 
 /* For export, as standard File-Name. */
 "untitled" = "sense títol";
-"%@ Revoke certificate" = "%@ Revocar el certificat";
-"Exported keys.asc" = "Exportar keys.asc";
+"%@ Revoke certificate" = "Revoca el certificat %@";
+"Exported keys.asc" = "Exporta keys.asc";
 
 
 /* For key creation */
@@ -35,13 +35,13 @@ CheckAlert_NoPassphrase_Title = "Sense contrasenya";
 CheckAlert_NoPassphrase_Message = "No ha utilitzat cap contrasenya. Una contrasenya ha de tenir com a mínim 8 caràcters de longitud.";
 CheckAlert_NoPassphrase_Button1= "Continueu sense contrasenya";
 CheckAlert_NoPassphrase_Button2 = "Escriviu una nova contrasenya";
-CheckAlert_PassphraseShort_Title = "Frase curta";
-CheckAlert_PassphraseShort_Message = "Ha utilitzat una contrasenya curta. Això no és recomana. Una contrasenya ha de tenir com a mínim 8 caràcters de longitud.";
-CheckAlert_PassphraseShort_Button1= "Continuar amb la contrasenya curta";
+CheckAlert_PassphraseShort_Title = "Contrasenya curta";
+CheckAlert_PassphraseShort_Message = "Ha utilitzat una contrasenya curta. No és recomanable. Una contrasenya ha de tenir com a mínim 8 caràcters de longitud.";
+CheckAlert_PassphraseShort_Button1= "Continueu amb la contrasenya curta";
 CheckAlert_PassphraseShort_Button2 = "Escriviu una nova contrasenya";
 CheckAlert_PassphraseSimple_Title = "Contrasenya senzilla";
-CheckAlert_PassphraseSimple_Message = "La contrasenya que s'ha introduït és massa senzilla. Una bona contrasenya ha de ser alfanumèrica i contenir com a mínim un caràcter especial.";
-CheckAlert_PassphraseSimple_Button1 = "Continuar amb una contrasenya senzilla";
+CheckAlert_PassphraseSimple_Message = "La contrasenya que s'ha introduït és massa senzilla. Una bona contrasenya ha de ser alfanumèrica i tenir com a mínim un caràcter especial.";
+CheckAlert_PassphraseSimple_Button1 = "Continueu amb una contrasenya senzilla";
 CheckAlert_PassphraseSimple_Button2 = "Escriviu una nova contrasenya";
 
 
@@ -50,7 +50,7 @@ CheckAlert_PassphraseSimple_Button2 = "Escriviu una nova contrasenya";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), creat: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Busquem claus coincidents al servidor de claus. Podria porta el seu temps, espereu.";
 
-GenerateKey_Progress = "Cal generar molts bytes aleatoris. ÉS una bona idea dur a terme alguna altra acció (escriure al teclat en una aplicació, moure el ratolí, usar els discos) durant la primera generació. Això li dóna al generador de nombres aleatoris una millor oportunitat per guanyar suficient entropia.";
+GenerateKey_Progress = "Cal generar molts bytes aleatoris. És una bona idea dur a terme alguna altra acció (escriure al teclat en una aplicació, moure el ratolí, usar els discos) durant la primera generació. Això li dóna al generador de nombres aleatoris una millor oportunitat per guanyar suficient entropia.";
 GenerateSubkey_Msg = "Afegeix la subclau a la clau \"%@\", %@";
 GenerateUserID_Msg = "Afegeix la identitat d'usuari a la clau \"%@\", %@";
 GenerateSignature_Msg = "Signa per a totes les identitats d'usuari \"%@\", %@";
@@ -63,28 +63,33 @@ GenerateKey_Error = "Alguna cosa ha sortir malament. Hi ha hagut un problema qua
 /* Message for incorrect Entries */
 CheckError_NameToShort = "El nom ha de tenir com a mínim 5 caràcters!";
 CheckError_NameToLong = "El nom és massa llarg!";
-CheckError_InvalidCharInName = "Caràcter invàlid al nom!⏎\n\"<\" i \">\" no estan permesos.";
+CheckError_InvalidCharInName = "Caràcter invàlid al nom!⏎\n\"<\" and \">\" no estan permesos.";
 CheckError_NameStartWithDigit = "El nom no pot començar per una xifra!";
 CheckError_InvalidEmail = "És una adreça de correu electrònic invàlida!";
-CheckError_EmailToLong = "L'adreça electrònica és massa llarga!⏎\nLa longitud màxima és 254.";
-CheckError_InvalidCharInComment = "Caràcter invàlid en el comentari!⏎\n\"(\" i \")\" no estan permesos.";
+CheckError_EmailToLong = "L'adreça de correu electrònic és massa llarga!⏎\nLa longitud màxima és 254.";
+CheckError_InvalidCharInComment = "Caràcter invàlid en el comentari!⏎\n\"(\" and \")\" no estan permesos.";
 CheckError_CommentToLong = "El comentari és massa llarg!";
 CheckError_NoKeyID = "Introduïu una identitat de clau vàlida!";
 CheckError_PassphraseMissmatch = "Les contrasenyes no coincideixen!";
 
 
 /* Message on start, if there are any Problems */
-GPG_NOT_FOUND_TITLE = "No s'ha trobar GPG";
-GPG_NOT_FOUND_MESSAGE = "Alguna cosa ha sortit molt malament. Sembla que falta GPG al sistema. Instal·la'l. Podeu trobar l'instal·lador GPGTools Installer a http://www.gpgtools.org.";
+GPG_NOT_FOUND_TITLE = "No s'ha trobat GPG";
+GPG_NOT_FOUND_MESSAGE = "Alguna cosa funciona malament. GPG no es troba en el sistema. Instal·le'l. Pot trobar-lo a l'instal·lador GPGTools a https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Error de configuració GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Alguna cosa ha sortit malament. GPG es troba al sistema, però sembla que hi ha un problema amb l'arxiu de configuració. Contacteu amb l'esquip de GPGTools a http://www.gpgtools.org/about.html.";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_TITLE = "No funciona Libmacgpg";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Ligmacgpg no funciona en el sistema. Instal·le'l. Pot trobar-lo en l'instal·lador de GPGTools a https://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+
 
 
 /* Those are abvious */
 No = "No";
 Error = "Error";
 Warning = "Advertència";
-Cancel = "Cancel·lar";
+Cancel = "Cancel·la";
 "Apply to all" = "Aplica a tots";
 
 /* For Import-Results */
@@ -121,7 +126,7 @@ ChoosePhoto_Large_Message = "La imatge és massa gran!";
 ChoosePhoto_Large_Info = "Utilitza una imatge més petita.";
 ChoosePhoto_Large_Button1 = "Tria un altra...";
 ChoosePhoto_Large_Button2 = "Utilitza la imatge";
-ChoosePhoto_ToLarge_Message = "La imatge és gran!";
+ChoosePhoto_ToLarge_Message = "La imatge és massa gran!";
 ChoosePhoto_ToLarge_Info = "Utilitza una imatge més petita de 500 Kb";
 
 
@@ -155,34 +160,34 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 ExportKey_Progress = "Clau exportada.";
-ExportKey_Error = "Clau no exportada.";
-ImportKey_Progress  = "Clau importada";
-ImportKey_Error = "Clau no importada";
-DeleteSecretKey_Progress = "Clau secreta eliminada.";
-DeleteKeys_Progress = "Clau eliminada.";
-DeleteKeys_Error = "Clau no eliminada.";
-ChangePassphrase_Progress = "Canvia la constrasenya.";
-ChangePassphrase_Error = "Ha fallat el canvi de contrasenya";
-SetDisabled_Progress = "Activa/Desactiva la clau.";
-SetDisabled_Error = "Errror a l'activació/desactivació de la clau.";
+ExportKey_Error = "Clau no importada.";
+ImportKey_Progress  = "Clau importada.";
+ImportKey_Error = "Clau no importada.";
+DeleteSecretKey_Progress = "Clau secreta suprimida.";
+DeleteKeys_Progress = "Clau suprimida.";
+DeleteKeys_Error = "Clau no suprimida.";
+ChangePassphrase_Progress = "Canvia la contrasenya.";
+ChangePassphrase_Error = "Ha fallat el canvi de contrasenya.";
+SetDisabled_Progress = "Activació/Desactivació de la clau.";
+SetDisabled_Error = "Error a l'activació/desactivació de la clau.";
 SetOwnerTrust_Progress = "Configura la confiança del propietari.";
-SetOwnerTrust_Error = "Error en la configuració de la confiança del propietari";
+SetOwnerTrust_Error = "Error en la configuració de la confiança del propietari.";
 ChangeExpirationDate_Progress = "Error al canviar la data de venciment.";
 ChangeExpirationDate_Error = "Canvia la data de venciment.";
 SetAlgorithmPreferences_Progress = "Configura les preferències de l'algoritme.";
 SetAlgorithmPreferences_Error = "Error al configurar les preferències de l'algoritme.";
-CleanKey_Progress = "Esborra la clau.";
-CleanKey_Error = "Error a l'esborrar la clau.";
+CleanKey_Progress = "Neteja la clau.";
+CleanKey_Error = "Neteja fallida de la clau.";
 MinimizeKey_Progress = "Minimitza la clau.";
-MinimizeKey_Error = "Error al minimitzar la clau.";
+MinimizeKey_Error = "Minimitza la clau fallida.";
 GenerateRevokeCertificateForKey_Progress = "Generació de certificats revocada.";
-GenerateRevokeCertificateForKey_Error = "Error a la generació de certificats revocada.";
+GenerateRevokeCertificateForKey_Error = "Generació fallida de certificats revocada.";
 SearchKeysOnServer_Progress = "Cerca la clau.";
-SearchKeysOnServer_Error = "Error al cercar la clau.";
+SearchKeysOnServer_Error = "Cerca fallida de la clau.";
 SendKeysToServer_Progress = "Envia la clau.";
-SendKeysToServer_Error = "Error a l'enviar la clau.";
-RefreshKeysFromServer_Progress = "Recarrega la clua";
-RefreshKeysFromServer_Error = "Error al recarregar la clau.";
+SendKeysToServer_Error = "Envia fallida de la clau";
+RefreshKeysFromServer_Progress = "Recarrega la clau.";
+RefreshKeysFromServer_Error = "Recarrega fallida de la clau.";
 AddSubkey_Progress = "Afegeix una subclau.";
 AddSubkey_Error = "Error a l'afegir la subclau.";
 RemoveSubkey_Progress = "Extrau la subclau.";
@@ -201,16 +206,16 @@ AddPhoto_Progress = "Afegeix la imatge.";
 AddPhoto_Error = "Error a l'afegir la imatge.";
 RemovePhoto_Progress = "Suprimeix la imatge.";
 RemovePhoto_Error = "Error al suprimir la imatge.";
-SetPrimaryPhoto_Progress = "Configura la imatge primària.";
-SetPrimaryPhoto_Error = "Error al configurar la imatge primària.";
-RevokePhoto_Progress = "Suprimeix la imatge.";
-RevokePhoto_Error = "Error al suprimir la imatge.";
+SetPrimaryPhoto_Progress = "Configura la imatge principal.";
+SetPrimaryPhoto_Error = "Error al configurar la imatge principal.";
+RevokePhoto_Progress = "Revoca la imatge.";
+RevokePhoto_Error = "Error al revocar la imatge.";
 AddSignature_Progress = "Afegeix una signatura.";
-AddSignature_Error = "Error a l'afegir una signatura.";
-RemoveSignature_Progress = "Extrau la signatura.";
-RemoveSignature_Error = "Error a l'extraure la signatura.";
-RevokeSignature_Progress = "Suprimeix la signatura.";
-RevokeSignature_Error = "Error al suprimir la signatura.";
+AddSignature_Error = "Afegeix una signatura fallida.";
+RemoveSignature_Progress = "Suprimeix la signatura.";
+RemoveSignature_Error = "Suprimeix fallida de la signatura.";
+RevokeSignature_Progress = "Revocació de la signatura.";
+RevokeSignature_Error = "Revocació fallida de la signatura.";
 ReceiveKeysFromServer_Progress = "Recepció de les claus.";
-ReceiveKeysFromServer_Error = "Error a la recepció de les claus.";
+ReceiveKeysFromServer_Error = "Recepció fallida de les claus.";
 

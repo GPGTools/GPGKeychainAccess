@@ -30,12 +30,27 @@ DeleteKey_Msg = "Tenter effacer clé %@, %@.\n\nÊtes-vous sûr de vouloir effac
 "Exported keys.asc" = "Clés exportées.asc";
 
 
+/* For key creation */
+CheckAlert_NoPassphrase_Title = "Pas de phrase secrète";
+CheckAlert_NoPassphrase_Message = "Vous n'avez pas saisi de phrase secrète. Ceci n'est pas recommandé. Une phrase secrète doit comporter au minimum 8 caractères.";
+CheckAlert_NoPassphrase_Button1= "Continuer sans phrase secrète";
+CheckAlert_NoPassphrase_Button2 = "Saisir une nouvelle phrase secrète";
+CheckAlert_PassphraseShort_Title = "Phrase secrète trop courte";
+CheckAlert_PassphraseShort_Message = "Vous avez saisi de phrase secrète trop courte. Ceci n'est pas recommandé. Une phrase secrète doit comporter au minimum 8 caractères.";
+CheckAlert_PassphraseShort_Button1= "Continuer avec phrase secrète trop courte";
+CheckAlert_PassphraseShort_Button2 = "Saisir une nouvelle phrase secrète";
+CheckAlert_PassphraseSimple_Title = "Phrase secrète trop simple";
+CheckAlert_PassphraseSimple_Message = "Vous avez saisi de phrase secrète trop simple. Une phrase secrète doit être alphanumérique et comporter au minimum 1 caractère spécial.";
+CheckAlert_PassphraseSimple_Button1 = "Continuer avec phrase secrète trop simple";
+CheckAlert_PassphraseSimple_Button2 = "Saisir une nouvelle phrase secrète";
+
+
 /* For Key-Search */
 "No keys Found" = "Pas de clé trouvée";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), crée: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Nous recherchons la/les clés correspondante(s) sur le serveur de clés. La recherche peut prendre un certain temps, merci de patienter.";
 
-GenerateEntropy_Msg = "Nous avons besoin de générer un grand nombre d'octets aléatoires. C'est une bonne idée d'effectuer une autre action (taper sur le clavier dans une application, déplacer la souris, utiliser les disques) pendant la génération première, ce qui donne au générateur de nombres aléatoires une meilleure chance d'obtenir assez d'entropie.";
+GenerateKey_Progress = "Nous devons générer une grande quantité d'octets aléatoires. Il est utile de faire des actions (taper au clavier, déplacer la souris, utiliser le disque dur) pendant la génération initiale. Ceci permet au générateur de nombre aléatoire de bénéficier d'une meilleure entropie.";
 GenerateSubkey_Msg = "Ajouter sous-clé à la clé \"%@\", %@.";
 GenerateUserID_Msg = "Ajouter identifiant d'usager à la clé \"%@\", %@.";
 GenerateSignature_Msg = "Signer tous les identifiants d'usager de \"%@\", %@";
@@ -43,6 +58,7 @@ GenerateUidSignature_Msg = "Signer l'identifiant d'usager \"%@\", %@";
 ChangeExpirationDate_Msg = "Changer date d'expiration de \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Changer date d'expiration de \"%@\", %@\nsous-clé: %@";
 
+GenerateKey_Error = "Désolé, un problème est apparu durant la création de votre clé.";
 
 /* Message for incorrect Entries */
 CheckError_NameToShort = "Le nom doit avoir au moins 5 caractères!";
@@ -50,7 +66,7 @@ CheckError_NameToLong = "Le nom est trop long!";
 CheckError_InvalidCharInName = "Caractère invalide dans le nom!\n\"<\" et \">\" non permis.";
 CheckError_NameStartWithDigit = "Nom ne peut pas commencer par un chiffre!";
 CheckError_InvalidEmail = "Ce n'est pas une adresse courriel valide!";
-CheckError_EmailToLong = "Adresse courriel trop longue!\nLongueur maximale 254.";
+CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
 CheckError_InvalidCharInComment = "Caractère invalide dans commentaire!\n\"(\" et \")\" non permis.";
 CheckError_CommentToLong = "Commentaire trop long!";
 CheckError_NoKeyID = "Prière entrer un identifiant de clé valide!";
@@ -58,24 +74,23 @@ CheckError_PassphraseMissmatch = "Vos mots de passe ne correspondent pas!";
 
 
 /* Message on start, if there are any Problems */
-GPGNotFound_Msg = "GPG pas trouvé!";
-GPGNotStart_Title = "GPG ne peut pas être lancé!";
-GPGNotStart_Msg = "Prière vérifier votre gpg.conf";
-GPGInitError_Msg = "GPG n'a pas pu être initialisé!";
-GPGAgentNotFound_Title = "gpg-agent pas trouvé!";
-GPGAgentNotFound_Msg = "Sans gpg-agent vous ne pouvez pas accéder aux clés protégées par des mots de passe.";
-GPGAgentNotStart_Title = "gpg-agent n'a pas pu être lancé!";
-GPGAgentNotStart_Msg = "Sans gpg-agent vous ne pouvez pas accéder aux clés protégées par des mots de passe.";
-Quit_Button = "Quitter";
+GPG_NOT_FOUND_TITLE = "GPG n'a pas été trouvé.";
+GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong here. It seems GPG is missing on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
+GPG_CONFIG_ERROR_TITLE = "Erreur de configuration GPG.";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+
 
 
 /* Those are abvious */
 No = "Non";
 Error = "Erreur";
-"Error!" = "Erreur!";
 Warning = "Avertissement";
 Cancel = "Annuler";
-
+"Apply to all" = "Appliquer à tous";
 
 /* For Import-Results */
 ImportResult_Secret = "clé %@: clé secrète \"%@\" importée\n";
@@ -84,8 +99,11 @@ ImportResult_UserID = "clé %@: \"%@\" Nouvel/nouveaux identifiant(s) d'usager";
 ImportResult_Signature = "key %@: \"%@\" nouvelle(s) signature(s)\n";
 ImportResult_Subkey = "key %@: \"%@\" nouvelle(s) sous-clés\n";
 ImportResult_KeyNoChanges = "key %@: \"%@\" no changes.";
-ImportResult_Nothing = "Rien n'a été importé!";
-
+ImportResult_OneRevocationCertificate = "Un certificat de révocation importé.";
+ImportResult_CountRevocationCertificate = "%i certificats de révocation importés.";
+ImportResult_CountProcessed = "Nombre de clés traitées: %i";
+ImportResult_CountImported = "Nombre de clés importées: %i";
+ImportResult_CountUnchanged = "Nombre de clés inchangées: %i";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -100,7 +118,7 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* In Main Window */
-"%i de %i clés énumérées" = "%i de %i clés énumérées";
+"%i of %i keys listed" = "%i clés sur %i listées";
 
 
 /* For opening and saving dialogues */
@@ -111,39 +129,6 @@ ChoosePhoto_Large_Button2 = "Utilisez cette photo";
 ChoosePhoto_ToLarge_Message = "Cette image est trop grande!";
 ChoosePhoto_ToLarge_Info = "Prière utiliser une image de moins de 500 KiO.";
 
-"Export failed!" = "L'exportation a échoué!";
-
-"Generate revoke certificate failed!" = "Génération d'un certificat de revocation a échoué!";
-
-
-/* For Undo and Redo */
-Undo_Clean = "Nettoyer";
-Undo_Minimize = "Réduire au minimum";
-Undo_Import = "Importer";
-Undo_Receive = "Recevoir";
-Undo_Refresh = "Rafraîchir";
-Undo_SetTrust = "Établir confiance (trust)";
-Undo_Delete = "Effacer";
-Undo_AddPhoto = "Ajouter photo";
-Undo_RemovePhoto = "Ôter photo";
-Undo_RevokePhoto = "Révoquer photo";
-Undo_PrimaryPhoto = "Photo principale";
-Undo_AddSignature = "Ajouter signature";
-Undo_AddSubkey = "Ajouter sous-clé";
-Undo_AddUserID = "Ajouter identifiant d'usager";
-Undo_ChangeExpirationDate = "Changer date d'expiration";
-Undo_ChangePassphrase = "Changer mot de passe";
-Undo_RemoveSignature = "Ôter signature";
-Undo_RemoveSubkey = "Ôter sous-clé";
-Undo_RemoveUserID = "Ôter identifiant d'usager";
-Undo_RevokeSignature = "Révoquer signature";
-Undo_RevokeSubkey = "Révoquer sous-clé";
-Undo_RevokeUserID = "Révoquer identifiant d'usager";
-Undo_PrimaryUserID = "Idenfiant d'usager principal";
-Undo_DisableKey = "Désactiver clé";
-Undo_EnableKey = "Activer clé";
-Undo_NewKey = "Nouvelle clé";
-Undo_AlgorithmPreferences = "Changer préférences d'algorithmes";
 
 
 
@@ -171,4 +156,66 @@ COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
 
+
+
+
+ExportKey_Progress = "Exportation clé.";
+ExportKey_Error = "L'exportation de la clé a échoué.";
+ImportKey_Progress  = "Importation clé.";
+ImportKey_Error = "L'importation de la clé a échoué.";
+DeleteSecretKey_Progress = "Effacement de la clé secrète.";
+DeleteKeys_Progress = "Effacement de la clé.";
+DeleteKeys_Error = "L'effacement de la clé a échoué.";
+ChangePassphrase_Progress = "Changement de la phrase secrète.";
+ChangePassphrase_Error = "Le changement de la phrase secrète a échoué.";
+SetDisabled_Progress = "Validation/dévalidation clé.";
+SetDisabled_Error = "Validatio/dévalidation clé a échoué.";
+SetOwnerTrust_Progress = "Paramètrage de la confiance du propriétaire.";
+SetOwnerTrust_Error = "Paramètrage de la confiance du propriétaire a échoué.";
+ChangeExpirationDate_Progress = "Changement date d'expiration de la sous-clé a échoué.";
+ChangeExpirationDate_Error = "Changement de la date d'expiration.";
+SetAlgorithmPreferences_Progress = "Paramètrage des préférences de l'algorithme.";
+SetAlgorithmPreferences_Error = "Paramètrage des préférences de l'algorithme a échoué.";
+CleanKey_Progress = "Nettoyage clé.";
+CleanKey_Error = "Nettoyage clé a échoué.";
+MinimizeKey_Progress = "Minification clé.";
+MinimizeKey_Error = "Minification clé a échoué.";
+GenerateRevokeCertificateForKey_Progress = "Génération certificat de révocation.";
+GenerateRevokeCertificateForKey_Error = "Génération certificat de révocation a échoué.";
+SearchKeysOnServer_Progress = "Recherche clé.";
+SearchKeysOnServer_Error = "Recherche clé a échouée.";
+SendKeysToServer_Progress = "Envoi clé.";
+SendKeysToServer_Error = "Envoi clé a échoué.";
+RefreshKeysFromServer_Progress = "Rafraichissement clé.";
+RefreshKeysFromServer_Error = "Rafraichissement clé a échoué.";
+AddSubkey_Progress = "Ajout sous-clé.";
+AddSubkey_Error = "Ajout sous-clé a échoué.";
+RemoveSubkey_Progress = "Suppression sous-clé.";
+RemoveSubkey_Error = "Suppression sous-clé a échoué.";
+RevokeSubkey_Progress = "Révocation sous-clé.";
+RevokeSubkey_Error = "Révocation sous-clé a échoué.";
+AddUserID_Progress = "Ajout d'un userID.";
+AddUserID_Error = "Ajout d'un userID a échoué.";
+RemoveUserID_Progress = "Suppression d'un userID.";
+RemoveUserID_Error = "Suppression d'un userID a échoué.";
+SetPrimaryUserID_Progress = "Paramètrage userID primaire.";
+SetPrimaryUserID_Error = "Paramètrage userID primaire a échoué.";
+RevokeUserID_Progress = "Révocation userID.";
+RevokeUserID_Error = "Révocation userID a échoué. ";
+AddPhoto_Progress = "Ajout photo.";
+AddPhoto_Error = "Ajout photo a échoué.";
+RemovePhoto_Progress = "Suppression photo.";
+RemovePhoto_Error = "Suppression photo a échoué.";
+SetPrimaryPhoto_Progress = "Paramètrage photo primaire.";
+SetPrimaryPhoto_Error = "Paramètrage photo primaire a échoué.";
+RevokePhoto_Progress = "Révocation photo.";
+RevokePhoto_Error = "Révocation photo a échoué.";
+AddSignature_Progress = "Ajout signature.";
+AddSignature_Error = "Ajout signature a échoué.";
+RemoveSignature_Progress = "Suppression signature.";
+RemoveSignature_Error = "Suppression signature a échoué.";
+RevokeSignature_Progress = "Révocation signature.";
+RevokeSignature_Error = " Révocation signature a échoué.";
+ReceiveKeysFromServer_Progress = "Réception clés.";
+ReceiveKeysFromServer_Error = "Réception clés a échoué.";
 
