@@ -231,7 +231,8 @@ NSSet *draggedKeys;
 		
 		
 		// Testen ob GPG vorhanden und funktionsfähig ist.
-		GPGErrorCode errorCode = [GPGController testGPG];
+		NSException *error = nil;
+		GPGErrorCode errorCode = [GPGController testGPGError:&error];
 		GPGDebugLog(@"KeychainController init testGPG: %i", errorCode);
 		
 		switch (errorCode) {
@@ -239,10 +240,14 @@ NSSet *draggedKeys;
 				NSRunCriticalAlertPanel(localized(@"GPG_NOT_FOUND_TITLE"), localized(@"GPG_NOT_FOUND_MESSAGE"), nil, nil, nil);
 				[NSApp terminate:nil];
 				break;
-			case GPGErrorConfigurationError:
-				NSRunCriticalAlertPanel(localized(@"GPG_CONFIG_ERROR_TITLE"), localized(@"GPG_CONFIG_ERROR_MESSAGE"), nil, nil, nil);
+			case GPGErrorConfigurationError: {
+				NSString *details = @"";
+				if ([error isKindOfClass:[GPGException class]]) {
+					details = [(GPGException *)error gpgTask].errText;
+				}
+				NSRunCriticalAlertPanel(localized(@"GPG_CONFIG_ERROR_TITLE"), [NSString stringWithFormat:localized(@"GPG_CONFIG_ERROR_MESSAGE"), details], nil, nil, nil);
 				[NSApp terminate:nil];
-				break;
+				break; }
 			default:
 				break;
 		}
