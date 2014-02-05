@@ -4164,6 +4164,35 @@
 								<reference ref="992487050"/>
 							</array>
 						</object>
+						<object class="NSButton" id="808909613">
+							<reference key="NSNextResponder" ref="11224533"/>
+							<int key="NSvFlags">1804</int>
+							<string key="NSFrame">{{16, 1}, {226, 22}}</string>
+							<reference key="NSSuperview" ref="11224533"/>
+							<string key="NSReuseIdentifierKey">_NS:9</string>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="193877515">
+								<int key="NSCellFlags">-2080374784</int>
+								<int key="NSCellFlags2">268697600</int>
+								<string key="NSContents">Stay visible</string>
+								<object class="NSFont" key="NSSupport">
+									<string key="NSName">.LucidaGrandeUI</string>
+									<double key="NSSize">9</double>
+									<int key="NSfFlags">3614</int>
+								</object>
+								<string key="NSCellIdentifier">_NS:9</string>
+								<reference key="NSControlView" ref="808909613"/>
+								<int key="NSButtonFlags">1211912448</int>
+								<int key="NSButtonFlags2">2</int>
+								<reference key="NSNormalImage" ref="468991071"/>
+								<reference key="NSAlternateImage" ref="836662344"/>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
+							</object>
+							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						</object>
 					</array>
 					<object class="NSPSMatrix" key="NSFrameMatrix"/>
 					<string key="NSFrameSize">{480, 505}</string>
@@ -4336,6 +4365,9 @@
 				<bool key="NSSelectsInsertedObjects">YES</bool>
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
+			</object>
+			<object class="NSCustomObject" id="784260963">
+				<string key="NSClassName">GPGOptions</string>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -7525,6 +7557,22 @@
 					</object>
 					<string key="id">2034</string>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: inspectorStayVisible</string>
+						<reference key="source" ref="808909613"/>
+						<reference key="destination" ref="784260963"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="808909613"/>
+							<reference key="NSDestination" ref="784260963"/>
+							<string key="NSLabel">value: inspectorStayVisible</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">inspectorStayVisible</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">dfI-I1-581</string>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -8192,6 +8240,7 @@
 						<reference key="object" ref="11224533"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="128790236"/>
+							<reference ref="808909613"/>
 						</array>
 						<reference key="parent" ref="987416651"/>
 					</object>
@@ -9919,6 +9968,25 @@
 						<reference key="object" ref="1018581088"/>
 						<reference key="parent" ref="780719896"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">NXk-ud-xBT</string>
+						<reference key="object" ref="808909613"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="193877515"/>
+						</array>
+						<reference key="parent" ref="11224533"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">feY-Xq-HEp</string>
+						<reference key="object" ref="193877515"/>
+						<reference key="parent" ref="808909613"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">ONB-dh-h3M</string>
+						<reference key="object" ref="784260963"/>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">GPGOptions</string>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -10740,6 +10808,9 @@
 				<boolean value="NO" key="925.showNotes"/>
 				<string key="959.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="959.showNotes"/>
+				<string key="NXk-ud-xBT.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="ONB-dh-h3M.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="feY-Xq-HEp.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
@@ -11033,6 +11104,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/GPGKeychainAccessAppDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GPGOptions</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GPGOptions.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

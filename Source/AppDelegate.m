@@ -24,21 +24,7 @@
 
 
 @implementation GPGKeychainAccessAppDelegate
-@synthesize keyTable, userIDTable, subkeyTable, signatureTable;
-
-- (NSWindow *)window {
-    return mainWindow;
-}
-- (void)setWindow:(NSWindow *)value {
-	mainWindow = value;
-}
-
-- (NSWindow *)inspectorWindow {
-    return inspectorWindow;
-}
-- (void)setInspectorWindow:(NSWindow *)value {
-	inspectorWindow = value;
-}
+@synthesize keyTable, userIDTable, subkeyTable, signatureTable, window, inspectorWindow;
 
 
 - (id)init {
@@ -57,7 +43,7 @@
 	[self generateContextMenuForTable:userIDTable];
 	[self generateContextMenuForTable:signatureTable];
 	
-	
+	[inspectorWindow bind:@"hidesOnDeactivate" toObject:[GPGOptions sharedOptions] withKeyPath:@"inspectorStayVisible" options:@{NSValueTransformerNameBindingOption: @"NSNegateBoolean"}];
 	
 	NSArray *draggedTypes = [NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil];
 	[mainWindow registerForDraggedTypes:draggedTypes];
