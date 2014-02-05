@@ -24,7 +24,21 @@
 
 
 @implementation GPGKeychainAccessAppDelegate
-@synthesize keyTable, userIDTable, subkeyTable, signatureTable, window, inspectorWindow;
+@synthesize keyTable, userIDTable, subkeyTable, signatureTable;
+
+- (NSWindow *)window {
+    return mainWindow;
+}
+- (void)setWindow:(NSWindow *)value {
+	mainWindow = value;
+}
+
+- (NSWindow *)inspectorWindow {
+    return inspectorWindow;
+}
+- (void)setInspectorWindow:(NSWindow *)value {
+	inspectorWindow = value;
+}
 
 
 - (id)init {
