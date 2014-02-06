@@ -405,6 +405,7 @@
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 	
 	GPGKeyAlgorithmNameTransformer *algorithmNameTransformer = [[GPGKeyAlgorithmNameTransformer new] autorelease];
+	BOOL oneKeySelected = NO;
 	
 	for (GPGRemoteKey *key in keys) {
 		NSNumber *selected;
@@ -415,7 +416,8 @@
 			selected = [NSNumber numberWithBool:NO];
 			stringAttributes = [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
 		} else {
-			selected = [NSNumber numberWithBool:YES];
+			selected = [NSNumber numberWithBool:!oneKeySelected];
+			oneKeySelected = YES;
 			stringAttributes = nil;
 		}
 		
