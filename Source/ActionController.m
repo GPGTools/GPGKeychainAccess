@@ -84,23 +84,38 @@
 }
 - (void)importFromData:(NSData *)data {
 	__block BOOL showRevokactionWarning = NO;
+	__block NSString *keyInfo = nil;
+	
 	
 	[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
 		if (packet.type == GPGSignaturePacket && packet.signatureType == 32 /* Revocation */) {
+			GPGKey *key = [[[GPGKeyManager sharedInstance] keysByKeyID] objectForKey:packet.keyID];
+			NSString *keyDescription;
+			
+			if (key) {
+				keyDescription = [NSString stringWithFormat:@"%@ (%@)", key.userIDDescription, key.keyID.shortKeyID];
+			} else {
+				keyDescription = packet.keyID;
+			}
+			if (keyInfo) {
+				keyInfo = [keyInfo stringByAppendingFormat:@", %@", keyDescription];
+			} else {
+				keyInfo = keyDescription;
+			}
+			
 			showRevokactionWarning = YES;
-			*stop = YES;
 		}
 	}];
 	
 	if (showRevokactionWarning) {
 		NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
 								 messageText:localized(@"ImportRevSig_Title")
-									infoText:localized(@"ImportRevSig_Msg")
-							   defaultButton:localized(@"ImportRevSig_No")
-							 alternateButton:localized(@"ImportRevSig_Yes")
+									infoText:[NSString stringWithFormat:localized(@"ImportRevSig_Msg"), keyInfo]
+							   defaultButton:localized(@"ImportRevSig_Yes")
+							 alternateButton:localized(@"ImportRevSig_No")
 								 otherButton:nil
 						   suppressionButton:nil];
-		if (returnCode != NSAlertSecondButtonReturn) {
+		if (returnCode != NSAlertFirstButtonReturn) {
 			return;
 		}
 	}

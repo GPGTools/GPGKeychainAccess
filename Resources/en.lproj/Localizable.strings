@@ -92,6 +92,13 @@ Warning = "Warning";
 Cancel = "Cancel";
 "Apply to all" = "Apply to all";
 
+/* Import warnings */
+ImportRevSig_Title = "Import revocation certificate";
+ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted to your key. Consider uploading your revoked key to the key server so other's are made aware as well, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your public key. We recommend to keep the revoke key in GPG Keychain Access for that purpose.";
+ImportRevSig_Yes = "Import";
+ImportRevSig_No = "Cancel";
+
+
 /* For Import-Results */
 ImportResult_Secret = "key %@: secret key \"%@\" imported.";
 ImportResult_Public = "key %@: public key \"%@\" imported.";
