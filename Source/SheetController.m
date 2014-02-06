@@ -578,6 +578,10 @@
 		goto emailIsInvalid;
 	}
 	
+	if ([self.email rangeOfString:@"@gpgtools.org"].length > 0) {
+		goto emailIsInvalid;
+	}
+	
 	return YES;
 	
 emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist und nicht eine spezielle Meldung ausgegeben werden soll.
