@@ -83,6 +83,29 @@
 	[pool drain];
 }
 - (void)importFromData:(NSData *)data {
+	__block BOOL showRevokactionWarning = NO;
+	
+	[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
+		if (packet.type == GPGSignaturePacket && packet.signatureType == 32 /* Revocation */) {
+			showRevokactionWarning = YES;
+			*stop = YES;
+		}
+	}];
+	
+	if (showRevokactionWarning) {
+		NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
+								 messageText:localized(@"ImportRevSig_Title")
+									infoText:localized(@"ImportRevSig_Msg")
+							   defaultButton:localized(@"ImportRevSig_No")
+							 alternateButton:localized(@"ImportRevSig_Yes")
+								 otherButton:nil
+						   suppressionButton:nil];
+		if (returnCode != NSAlertSecondButtonReturn) {
+			return;
+		}
+	}
+	
+	
 	self.progressText = localized(@"ImportKey_Progress");
 	self.errorText = localized(@"ImportKey_Error");
 	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:ShowResultAction], @"action", nil];
