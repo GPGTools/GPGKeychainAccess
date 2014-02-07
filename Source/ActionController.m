@@ -84,25 +84,16 @@
 }
 - (void)importFromData:(NSData *)data {
 	__block BOOL showRevokactionWarning = NO;
-	__block NSString *keyInfo = nil;
+	__block NSMutableArray *keys = nil;
 	
 	
 	[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
 		if (packet.type == GPGSignaturePacket && packet.signatureType == 32 /* Revocation */) {
+			if (!keys) {
+				keys = [NSMutableArray array];
+			}
 			GPGKey *key = [[[GPGKeyManager sharedInstance] keysByKeyID] objectForKey:packet.keyID];
-			NSString *keyDescription;
-			
-			if (key) {
-				keyDescription = [NSString stringWithFormat:@"%@ (%@)", key.userIDDescription, key.keyID.shortKeyID];
-			} else {
-				keyDescription = packet.keyID;
-			}
-			if (keyInfo) {
-				keyInfo = [keyInfo stringByAppendingFormat:@", %@", keyDescription];
-			} else {
-				keyInfo = keyDescription;
-			}
-			
+			[keys addObject:key ? key : packet.keyID];
 			showRevokactionWarning = YES;
 		}
 	}];
@@ -110,7 +101,7 @@
 	if (showRevokactionWarning) {
 		NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
 								 messageText:localized(@"ImportRevSig_Title")
-									infoText:[NSString stringWithFormat:localized(@"ImportRevSig_Msg"), keyInfo]
+									infoText:[NSString stringWithFormat:localized(@"ImportRevSig_Msg"), [self descriptionForKeys:keys withOptions:0]]
 							   defaultButton:localized(@"ImportRevSig_Yes")
 							 alternateButton:localized(@"ImportRevSig_No")
 								 otherButton:nil
@@ -525,16 +516,16 @@
 }
 - (IBAction)sendKeysToServer:(id)sender {
 	NSSet *keys = [self selectedKeys];
-	if ([keys count] > 0) {
-		self.progressText = localized(@"SendKeysToServer_Progress");
+	if (keys.count > 0) {
+		self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys withOptions:0]];
 		self.errorText = localized(@"SendKeysToServer_Error");
 		[gpgc sendKeysToServer:keys];
 	}
 }
 - (IBAction)refreshKeysFromServer:(id)sender {
 	NSSet *keys = [self selectedKeys];
-	if ([keys count] > 0) {
-		self.progressText = localized(@"RefreshKeysFromServer_Progress");
+	if (keys.count > 0) {
+		self.progressText = [NSString stringWithFormat:localized(@"RefreshKeysFromServer_Progress"), [self descriptionForKeys:keys withOptions:0]];
 		self.errorText = localized(@"RefreshKeysFromServer_Error");
 		[gpgc receiveKeysFromServer:keys];
 	}
@@ -910,6 +901,18 @@
 			return YES;
 		}
 		return NO;
+	} else if (selector == @selector(sendKeysToServer:)) {
+		NSSet *keys = [self selectedKeys];
+		if (keys.count > 0) {
+			return YES;
+		}
+		return NO;
+	} else if (selector == @selector(refreshKeysFromServer:)) {
+		NSSet *keys = [self selectedKeys];
+		if (keys.count > 0) {
+			return YES;
+		}
+		return NO;
 	}
 	return YES;
 }
@@ -939,6 +942,24 @@
 	}
 	
 	return [super respondsToSelector:selector];
+}
+
+- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys withOptions:(NSUInteger)options {
+	NSMutableArray *descriptions = [NSMutableArray array];
+	Class gpgKeyClass = [GPGKey class];
+	
+	for (GPGKey *key in keys) {
+		NSString *description;
+		if ([key isKindOfClass:gpgKeyClass]) {
+			description = [NSString stringWithFormat:@"%@ (%@)", key.userIDDescription, key.keyID.shortKeyID];
+		} else {
+			description = key.keyID;
+		}
+		
+		[descriptions addObject:description];
+	}
+	
+	return [descriptions componentsJoinedByString:@", "];
 }
 
 

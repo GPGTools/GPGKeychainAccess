@@ -25,6 +25,7 @@
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
 - (NSSet *)selectedKeys;
 - (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict;
+- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys withOptions:(NSUInteger)options;
 @end
 
 enum {
