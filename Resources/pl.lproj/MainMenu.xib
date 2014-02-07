@@ -547,15 +547,6 @@
 									<reference key="NSOnImage" ref="987051078"/>
 									<reference key="NSMixedImage" ref="963921074"/>
 								</object>
-								<object class="NSMenuItem" id="70238604">
-									<reference key="NSMenu" ref="904998012"/>
-									<string key="NSTitle">Odzyskaj z serwera kluczy...</string>
-									<string key="NSKeyEquiv">k</string>
-									<int key="NSKeyEquivModMask">1572864</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="987051078"/>
-									<reference key="NSMixedImage" ref="963921074"/>
-								</object>
 								<object class="NSMenuItem" id="858510239">
 									<reference key="NSMenu" ref="904998012"/>
 									<string key="NSTitle">Szukaj klucza...</string>
@@ -4214,7 +4205,7 @@
 					<integer value="1040" key="formatterBehavior"/>
 					<integer value="1" key="timeStyle"/>
 				</dictionary>
-				<string key="NS.format">d MMM y HH:mm</string>
+				<string key="NS.format">dd. MMMM y HH:mm</string>
 				<bool key="NS.natural">NO</bool>
 			</object>
 			<object class="NSDateFormatter" id="336706324">
@@ -4224,7 +4215,7 @@
 					<integer value="1040" key="formatterBehavior"/>
 					<integer value="0" key="timeStyle"/>
 				</dictionary>
-				<string key="NS.format">dd MMM y</string>
+				<string key="NS.format">dd.MM.y</string>
 				<bool key="NS.natural">NO</bool>
 			</object>
 			<object class="NSArrayController" id="211056066">
@@ -4597,14 +4588,6 @@
 						<reference key="destination" ref="368029795"/>
 					</object>
 					<string key="id">240</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">receiveKeys:</string>
-						<reference key="source" ref="520472171"/>
-						<reference key="destination" ref="70238604"/>
-					</object>
-					<string key="id">1635</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -7897,7 +7880,6 @@
 							<reference ref="85812336"/>
 							<reference ref="396846346"/>
 							<reference ref="1046105938"/>
-							<reference ref="70238604"/>
 							<reference ref="858510239"/>
 							<reference ref="338041066"/>
 						</array>
@@ -7961,11 +7943,6 @@
 					<object class="IBObjectRecord">
 						<string key="id">1599</string>
 						<reference key="object" ref="1046105938"/>
-						<reference key="parent" ref="904998012"/>
-					</object>
-					<object class="IBObjectRecord">
-						<string key="id">1600</string>
-						<reference key="object" ref="70238604"/>
 						<reference key="parent" ref="904998012"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -10483,8 +10460,6 @@
 				<boolean value="NO" key="1598.showNotes"/>
 				<string key="1599.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="1599.showNotes"/>
-				<string key="1600.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<boolean value="NO" key="1600.showNotes"/>
 				<string key="1601.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="1601.showNotes"/>
 				<string key="1602.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
