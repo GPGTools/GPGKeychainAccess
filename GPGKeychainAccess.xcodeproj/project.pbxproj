@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1B4942D217A7ECBB00E189CF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B4942D117A7ECBB00E189CF /* Security.framework */; };
 		300DD0E81853AE9A0057B05F /* How to get the source code in Resources */ = {isa = PBXBuildFile; fileRef = 300DD0E71853AE9A0057B05F /* How to get the source code */; };
+		3036CB4118A55EC800BBC167 /* GKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3036CB4018A55EC800BBC167 /* GKImageView.m */; };
 		3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3045A758173D0623006E7FDE /* Libmacgpg.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		3050FB781475B0FB00E589AA /* Undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3050FB771475B0FB00E589AA /* Undo.png */; };
 		3052E10F144B016400D6716A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3052E10E144B016400D6716A /* Cocoa.framework */; };
@@ -133,6 +134,8 @@
 		30368DB814CEB531000BD12A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30368DB914CEB531000BD12A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30368DBC14CEB538000BD12A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = it; path = it.lproj/Credits.rtf; sourceTree = "<group>"; };
+		3036CB3F18A55EC800BBC167 /* GKImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImageView.h; sourceTree = "<group>"; };
+		3036CB4018A55EC800BBC167 /* GKImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKImageView.m; sourceTree = "<group>"; };
 		3045A758173D0623006E7FDE /* Libmacgpg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Libmacgpg.framework; path = /Library/Frameworks/Libmacgpg.framework; sourceTree = "<absolute>"; };
 		3050EF9C17026A9300E1F3E6 /* da */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = da; path = da.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3050EF9D17026A9300E1F3E6 /* da */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = da; path = da.lproj/ModalSheets.xib; sourceTree = "<group>"; };
@@ -382,6 +385,8 @@
 				3052E16B144B021D00D6716A /* PreferencesController.m */,
 				3052E171144B021D00D6716A /* SheetController.h */,
 				3052E172144B021D00D6716A /* SheetController.m */,
+				3036CB3F18A55EC800BBC167 /* GKImageView.h */,
+				3036CB4018A55EC800BBC167 /* GKImageView.m */,
 			);
 			name = Classes;
 			path = Source;
@@ -612,7 +617,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\nlocalizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN \n";
+			shellScript = "cd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\nlocalizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\n";
 			showEnvVarsInLog = 0;
 		};
 		30D69FC115D6D2E1005B7854 /* Fill Info.plist */ = {
@@ -637,6 +642,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3036CB4118A55EC800BBC167 /* GKImageView.m in Sources */,
 				3052E173144B021D00D6716A /* ActionController.m in Sources */,
 				3052E174144B021D00D6716A /* AppDelegate.m in Sources */,
 				3052E175144B021D00D6716A /* Globales.m in Sources */,

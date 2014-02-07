@@ -49,6 +49,7 @@
 - (IBAction)paste:(id)sender;
 - (IBAction)cleanKey:(id)sender;
 - (IBAction)minimizeKey:(id)sender;
+- (void)addPhoto:(NSString *)path toKey:(GPGKey *)key;
 - (IBAction)addPhoto:(NSButton *)sender;
 - (IBAction)removePhoto:(NSButton *)sender;
 - (IBAction)revokePhoto:(NSButton *)sender;
@@ -81,6 +82,7 @@
 - (IBAction)editAlgorithmPreferences:(id)sender;
 
 
+- (NSSet *)selectedKeys;
 
 - (void)importFromURLs:(NSArray *)urls;
 - (void)importFromData:(NSData *)data;

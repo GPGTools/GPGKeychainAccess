@@ -622,12 +622,21 @@
 }
 
 #pragma mark "Photos"
+- (void)addPhoto:(NSString *)path toKey:(GPGKey *)key {
+	
+	self.progressText = localized(@"AddPhoto_Progress");
+	self.errorText = localized(@"AddPhoto_Error");
+	[gpgc addPhotoFromPath:path toKey:key];
+}
 - (IBAction)addPhoto:(NSButton *)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
 		return;
 	}
 	GPGKey *key = [[keys anyObject] primaryKey];
+	if (!key.secret) {
+		return;
+	}
 	
 	sheetController.title = nil; //TODO
 	sheetController.msgText = nil; //TODO
@@ -638,9 +647,7 @@
 		return;
 	}
 	
-	self.progressText = localized(@"AddPhoto_Progress");
-	self.errorText = localized(@"AddPhoto_Error");
-	[gpgc addPhotoFromPath:[sheetController.URL path] toKey:key];
+	[self addPhoto:[sheetController.URL path] toKey:key];
 }
 - (IBAction)removePhoto:(NSButton *)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
