@@ -230,7 +230,7 @@
 					<object class="NSDatePicker" id="478420163">
 						<reference key="NSNextResponder" ref="685051421"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{142, 46}, {98, 27}}</string>
+						<string key="NSFrame">{{142, 46}, {120, 27}}</string>
 						<reference key="NSSuperview" ref="685051421"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="413079770"/>
@@ -809,10 +809,30 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="NSTextField" id="198977625">
+						<reference key="NSNextResponder" ref="941048798"/>
+						<int key="NSvFlags">290</int>
+						<string key="NSFrame">{{18, 123}, {562, 17}}</string>
+						<reference key="NSSuperview" ref="941048798"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="742599720"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSTextFieldCell" key="NSCell" id="552388390">
+							<int key="NSCellFlags">68157504</int>
+							<int key="NSCellFlags2">272630784</int>
+							<string key="NSContents">Do you want your signature to expire (recommended)?</string>
+							<reference key="NSSupport" ref="543533349"/>
+							<reference key="NSControlView" ref="198977625"/>
+							<reference key="NSBackgroundColor" ref="1011004290"/>
+							<reference key="NSTextColor" ref="400508340"/>
+						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
+					</object>
 					<object class="NSTextField" id="333682415">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{17, 220}, {416, 17}}</string>
+						<string key="NSFrame">{{17, 251}, {562, 17}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="623965233"/>
@@ -820,7 +840,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="442576378">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Secret key for sign:</string>
+							<string key="NSContents">Your secret key used to sign:</string>
 							<reference key="NSSupport" ref="543533349"/>
 							<reference key="NSControlView" ref="333682415"/>
 							<reference key="NSBackgroundColor" ref="1011004290"/>
@@ -832,7 +852,7 @@
 					<object class="NSPopUpButton" id="623965233">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{17, 188}, {416, 26}}</string>
+						<string key="NSFrame">{{17, 219}, {562, 26}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="926625285"/>
@@ -866,7 +886,7 @@
 					<object class="NSButton" id="732487268">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{140, 46}, {177, 18}}</string>
+						<string key="NSFrame">{{140, 47}, {177, 18}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="295982485"/>
@@ -891,7 +911,7 @@
 					<object class="NSTextField" id="926625285">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{17, 150}, {416, 34}}</string>
+						<string key="NSFrame">{{17, 179}, {562, 34}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="207551878"/>
@@ -899,7 +919,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="358149794">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
-							<string key="NSContents">How carefully have you verified the key you are about to sign actually belongs to the person named above?</string>
+							<string key="NSContents">How carefully have you verified, that the key you are about to sign actually belongs to the person named above?</string>
 							<reference key="NSSupport" ref="543533349"/>
 							<reference key="NSControlView" ref="926625285"/>
 							<reference key="NSBackgroundColor" ref="1011004290"/>
@@ -911,7 +931,7 @@
 					<object class="NSButton" id="742599720">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{140, 98}, {161, 18}}</string>
+						<string key="NSFrame">{{140, 99}, {161, 18}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="483248402"/>
@@ -936,7 +956,7 @@
 					<object class="NSTextField" id="503984235">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{17, 245}, {416, 54}}</string>
+						<string key="NSFrame">{{17, 276}, {562, 151}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="333682415"/>
@@ -944,7 +964,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="103886806">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272629760</int>
-							<string key="NSContents">msgText</string>
+							<string key="NSContents">Signing a key means, you confirm, that the key owner is indeed who they claim to be.</string>
 							<reference key="NSSupport" ref="543533349"/>
 							<reference key="NSControlView" ref="503984235"/>
 							<reference key="NSBackgroundColor" ref="1011004290"/>
@@ -956,7 +976,7 @@
 					<object class="NSTextField" id="483248402">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{17, 72}, {120, 17}}</string>
+						<string key="NSFrame">{{17, 73}, {120, 17}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="599066855"/>
@@ -976,7 +996,7 @@
 					<object class="NSButton" id="295982485">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{149, 12}, {108, 32}}</string>
+						<string key="NSFrame">{{295, 13}, {108, 32}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="222501699"/>
@@ -1001,7 +1021,7 @@
 					<object class="NSButton" id="222501699">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{257, 12}, {179, 32}}</string>
+						<string key="NSFrame">{{403, 13}, {179, 32}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -1027,7 +1047,7 @@
 					<object class="NSDatePicker" id="599066855">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{142, 70}, {98, 27}}</string>
+						<string key="NSFrame">{{142, 71}, {120, 27}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="732487268"/>
@@ -1048,10 +1068,10 @@
 					<object class="NSPopUpButton" id="207551878">
 						<reference key="NSNextResponder" ref="941048798"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{17, 118}, {416, 26}}</string>
+						<string key="NSFrame">{{17, 147}, {562, 26}}</string>
 						<reference key="NSSuperview" ref="941048798"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="742599720"/>
+						<reference key="NSNextKeyView" ref="198977625"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="820639999">
 							<int key="NSCellFlags">-2076180416</int>
@@ -1065,23 +1085,22 @@
 							<string key="NSKeyEquivalent"/>
 							<int key="NSPeriodicDelay">400</int>
 							<int key="NSPeriodicInterval">75</int>
-							<object class="NSMenuItem" key="NSMenuItem" id="138235469">
-								<reference key="NSMenu" ref="713406968"/>
-								<string key="NSTitle">I will not answer.</string>
-								<string key="NSKeyEquiv"/>
-								<int key="NSKeyEquivModMask">1048576</int>
-								<int key="NSMnemonicLoc">2147483647</int>
-								<int key="NSState">1</int>
-								<reference key="NSOnImage" ref="115819453"/>
-								<reference key="NSMixedImage" ref="553645801"/>
-								<string key="NSAction">_popUpItemAction:</string>
-								<reference key="NSTarget" ref="820639999"/>
-							</object>
+							<nil key="NSMenuItem"/>
 							<bool key="NSMenuItemRespectAlignment">YES</bool>
 							<object class="NSMenu" key="NSMenu" id="713406968">
 								<string key="NSTitle">OtherViews</string>
 								<array class="NSMutableArray" key="NSMenuItems">
-									<reference ref="138235469"/>
+									<object class="NSMenuItem" id="138235469">
+										<reference key="NSMenu" ref="713406968"/>
+										<string key="NSTitle">I will not answer.</string>
+										<string key="NSKeyEquiv"/>
+										<int key="NSKeyEquivModMask">1048576</int>
+										<int key="NSMnemonicLoc">2147483647</int>
+										<reference key="NSOnImage" ref="115819453"/>
+										<reference key="NSMixedImage" ref="553645801"/>
+										<string key="NSAction">_popUpItemAction:</string>
+										<reference key="NSTarget" ref="820639999"/>
+									</object>
 									<object class="NSMenuItem" id="289933837">
 										<reference key="NSMenu" ref="713406968"/>
 										<string key="NSTitle">I have not checked at all.</string>
@@ -1120,6 +1139,7 @@
 									</object>
 								</array>
 							</object>
+							<int key="NSSelectedIndex">-1</int>
 							<int key="NSPreferredEdge">1</int>
 							<bool key="NSUsesItemFromMenu">YES</bool>
 							<bool key="NSAltersState">YES</bool>
@@ -1128,7 +1148,7 @@
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 					</object>
 				</array>
-				<string key="NSFrameSize">{450, 319}</string>
+				<string key="NSFrameSize">{596, 447}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="503984235"/>
@@ -1297,7 +1317,7 @@
 					<object class="NSDatePicker" id="497041210">
 						<reference key="NSNextResponder" ref="108783349"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{142, 46}, {98, 27}}</string>
+						<string key="NSFrame">{{142, 46}, {120, 27}}</string>
 						<reference key="NSSuperview" ref="108783349"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="380875088"/>
@@ -1318,7 +1338,7 @@
 					<object class="NSComboBox" id="259109922">
 						<reference key="NSNextResponder" ref="108783349"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{142, 94}, {99, 26}}</string>
+						<string key="NSFrame">{{142, 94}, {120, 26}}</string>
 						<reference key="NSSuperview" ref="108783349"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="547436059"/>
@@ -2003,7 +2023,7 @@
 							<object class="NSDatePicker" id="747001413">
 								<reference key="NSNextResponder" ref="265332849"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{142, 12}, {98, 27}}</string>
+								<string key="NSFrame">{{142, 12}, {120, 27}}</string>
 								<reference key="NSSuperview" ref="265332849"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="919646383"/>
@@ -2024,7 +2044,7 @@
 							<object class="NSComboBox" id="324695561">
 								<reference key="NSNextResponder" ref="265332849"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{142, 60}, {99, 26}}</string>
+								<string key="NSFrame">{{142, 60}, {120, 26}}</string>
 								<reference key="NSSuperview" ref="265332849"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="1008149596"/>
@@ -3203,7 +3223,7 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 								<reference key="NSDocView" ref="463573961"/>
 								<reference key="NSBGColor" ref="962613214"/>
 								<object class="NSCursor" key="NSCursor">
-									<string key="NSHotSpot">{1, -1}</string>
+									<string key="NSHotSpot">{5, 5}</string>
 									<int key="NSCursorType">0</int>
 								</object>
 								<int key="NScvFlags">4</int>
@@ -5436,6 +5456,7 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 							<reference ref="732487268"/>
 							<reference ref="623965233"/>
 							<reference ref="333682415"/>
+							<reference ref="198977625"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Generate Signature</string>
@@ -6639,6 +6660,19 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 						<reference key="object" ref="463573961"/>
 						<reference key="parent" ref="488718876"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">VvE-5I-mf6</string>
+						<reference key="object" ref="198977625"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="552388390"/>
+						</array>
+						<reference key="parent" ref="941048798"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">eKE-tf-ktq</string>
+						<reference key="object" ref="552388390"/>
+						<reference key="parent" ref="198977625"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -7202,6 +7236,11 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 				<string key="999.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="999.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="999.showNotes"/>
+				<string key="VvE-5I-mf6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<reference key="VvE-5I-mf6.IBUserGuides" ref="0"/>
+				<boolean value="NO" key="VvE-5I-mf6.showNotes"/>
+				<string key="eKE-tf-ktq.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="eKE-tf-ktq.showNotes"/>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>

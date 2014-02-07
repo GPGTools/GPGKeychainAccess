@@ -697,7 +697,16 @@
 		return;
 	}
 	sheetController.secretKey = defaultKey;
-	sheetController.msgText = [NSString stringWithFormat:localized(userID ? @"GenerateUidSignature_Msg" : @"GenerateSignature_Msg"), userID ? userID.userIDDescription : key.userIDDescription, key.keyID.shortKeyID];
+	
+	
+	NSString *msgText;
+	if (userID) {
+		msgText = [NSString stringWithFormat:localized(@"GenerateUidSignature_Msg"), [NSString stringWithFormat:@"%@ (%@)", userID.userIDDescription, key.keyID.shortKeyID]];
+	} else {
+		msgText = [NSString stringWithFormat:localized(@"GenerateSignature_Msg"), key.userIDAndKeyID];
+	}
+	
+	sheetController.msgText = msgText;
 	
 	sheetController.sheetType = SheetTypeAddSignature;
 	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {

@@ -53,8 +53,8 @@ SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It
 GenerateKey_Progress = "We need to generate a lot of random bytes. It is a good idea to perform some other action (type on the keyboard in an application, move the mouse, utilize the disks) during the prime generation. This gives the random number generator a better chance to gain enough entropy.";
 GenerateSubkey_Msg = "Add subkey to the Key \"%@\", %@.";
 GenerateUserID_Msg = "Add user ID to the Key \"%@\", %@.";
-GenerateSignature_Msg = "Make signature for all user IDs of \"%@\", %@";
-GenerateUidSignature_Msg = "Make signature for user ID \"%@\", %@";
+GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
+GenerateUidSignature_Msg = "Signing a UserID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following UserID:\n%@";
 ChangeExpirationDate_Msg = "Change expiration date of \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%@\", %@\nSubkey: %@";
 
