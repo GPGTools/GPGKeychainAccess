@@ -358,6 +358,9 @@ NSSet *draggedKeys;
 	return [NSString stringWithFormat:@"%@ (%@)", self.userIDDescription, self.keyID.shortKeyID];
 }
 
+- (BOOL)detailsLoaded {
+	return !!self.primaryUserID.signatures;
+}
 
 @end
 
