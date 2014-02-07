@@ -403,46 +403,49 @@
 	}
 }
 - (IBAction)editAlgorithmPreferences:(id)sender {
-	NSRunAlertPanel(@"Not Implemented", @"This method is not implemented at the moment!", nil, nil, nil);
-	/*NSSet *keys = [self selectedKeys];
+	NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
 		return;
 	}
-	GPGKey *key = [keys anyObject];
-	
-	NSMutableArray *algorithmPreferences = [NSMutableArray array];
+	GPGKey *key = [[keys anyObject] primaryKey];
 	
 	
-	for (GPGUserID *userID in [key userIDs]) {
-		[algorithmPreferences addObject:
-		 [NSMutableDictionary dictionaryWithObjectsAndKeys:
-		  userID, @"userID",
-		  [userID cipherPreferences], @"cipherPreferences",
-		  [userID digestPreferences], @"digestPreferences",
-		  [userID compressPreferences], @"compressPreferences",
-		  [userID otherPreferences], @"otherPreferences", nil]];
+	NSArray *algorithmPreferences = [gpgc algorithmPreferencesForKey:key];
+		
+	NSMutableArray *mutablePreferences = [NSMutableArray array];
+	for (NSDictionary *prefs in algorithmPreferences) {
+		NSMutableDictionary *tempPrefs = [prefs mutableCopy];
+		[mutablePreferences addObject:tempPrefs];
+		[tempPrefs release];
 	}
 	
+	
+	
 	sheetController.allowEdit = key.secret;
-	sheetController.algorithmPreferences = algorithmPreferences;
+	sheetController.algorithmPreferences = mutablePreferences;
 	sheetController.sheetType = SheetTypeAlgorithmPreferences;
 	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
 		return;
 	}
 	
 	
-	for (NSDictionary *preferences in sheetController.algorithmPreferences) {
-		GPGUserID *userID = [preferences objectForKey:@"userID"];
-		NSString *cipherPreferences = [[preferences objectForKey:@"cipherPreferences"] componentsJoinedByString:@" "];
-		NSString *digestPreferences = [[preferences objectForKey:@"digestPreferences"] componentsJoinedByString:@" "];
-		NSString *compressPreferences = [[preferences objectForKey:@"compressPreferences"] componentsJoinedByString:@" "];
-		
-		self.progressText = localized(@"SetAlgorithmPreferences_Progress");
-		self.errorText = localized(@"SetAlgorithmPreferences_Error");
-		[gpgc setAlgorithmPreferences:[NSString stringWithFormat:@"%@ %@ %@", cipherPreferences, digestPreferences, compressPreferences] forUserID:[userID hashID] ofKey:key];
-	}
-	*/
+	NSArray *newPreferences = sheetController.algorithmPreferences;
 	
+	NSUInteger count = algorithmPreferences.count;
+	for (NSUInteger i = 0; i < count; i++) {
+		NSDictionary *oldPrefs = [algorithmPreferences objectAtIndex:i];
+		NSDictionary *newPrefs = [newPreferences objectAtIndex:i];
+		if (![oldPrefs isEqualToDictionary:newPrefs]) {
+			NSString *userIDDescription = [newPrefs objectForKey:@"userIDDescription"];
+			NSString *cipherPreferences = [[newPrefs objectForKey:@"cipherPreferences"] componentsJoinedByString:@" "];
+			NSString *digestPreferences = [[newPrefs objectForKey:@"digestPreferences"] componentsJoinedByString:@" "];
+			NSString *compressPreferences = [[newPrefs objectForKey:@"compressPreferences"] componentsJoinedByString:@" "];
+			
+			self.progressText = localized(@"SetAlgorithmPreferences_Progress");
+			self.errorText = localized(@"SetAlgorithmPreferences_Error");
+			[gpgc setAlgorithmPreferences:[NSString stringWithFormat:@"%@ %@ %@", cipherPreferences, digestPreferences, compressPreferences] forUserID:userIDDescription ofKey:key];
+		}
+	}
 }
 
 #pragma mark "Keys (other)"

@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">13A603</string>
+		<string key="IBDocument.SystemVersion">13B42</string>
 		<string key="IBDocument.InterfaceBuilderVersion">4514</string>
 		<string key="IBDocument.AppKitVersion">1265</string>
-		<string key="IBDocument.HIToolboxVersion">695.00</string>
+		<string key="IBDocument.HIToolboxVersion">696.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">4514</string>
@@ -3292,7 +3292,6 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 			</object>
 			<object class="NSArrayController" id="522585251">
 				<array class="NSMutableArray" key="NSDeclaredKeys">
-					<string>invalid</string>
 					<string>userID</string>
 					<string>name</string>
 					<string>email</string>
@@ -3313,7 +3312,6 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 					<string>digestPreferences</string>
 					<string>compressPreferences</string>
 				</array>
-				<string key="NSObjectClassName">GKUserID</string>
 				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
 				<bool key="NSAvoidsEmptySelection">YES</bool>
 				<bool key="NSPreservesSelection">YES</bool>
@@ -4877,24 +4875,32 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 					<string key="id">1046</string>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">arrangedObjects.userID.userIDDescription</string>
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">nextKeyView</string>
 						<reference key="source" ref="973194645"/>
-						<reference key="destination" ref="522585251"/>
-						<object class="NSNibBindingConnector" key="connector" id="1031858570">
-							<reference key="NSSource" ref="973194645"/>
-							<reference key="NSDestination" ref="522585251"/>
-							<string key="NSLabel">contentValues: arrangedObjects.userID.userIDDescription</string>
-							<string key="NSBinding">contentValues</string>
-							<string key="NSKeyPath">arrangedObjects.userID.userIDDescription</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
+						<reference key="destination" ref="906843354"/>
 					</object>
-					<string key="id">1128</string>
+					<string key="id">1045</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">selectionIndex</string>
+						<string key="label">contentValues: arrangedObjects.userIDDescription</string>
+						<reference key="source" ref="973194645"/>
+						<reference key="destination" ref="522585251"/>
+						<object class="NSNibBindingConnector" key="connector" id="601550038">
+							<reference key="NSSource" ref="973194645"/>
+							<reference key="NSDestination" ref="522585251"/>
+							<string key="NSLabel">contentValues: arrangedObjects.userIDDescription</string>
+							<string key="NSBinding">contentValues</string>
+							<string key="NSKeyPath">arrangedObjects.userIDDescription</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">y7g-VH-Vb1</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">selectedIndex: selectionIndex</string>
 						<reference key="source" ref="973194645"/>
 						<reference key="destination" ref="522585251"/>
 						<object class="NSNibBindingConnector" key="connector">
@@ -4903,19 +4909,11 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 							<string key="NSLabel">selectedIndex: selectionIndex</string>
 							<string key="NSBinding">selectedIndex</string>
 							<string key="NSKeyPath">selectionIndex</string>
-							<reference key="NSPreviousConnector" ref="1031858570"/>
+							<reference key="NSPreviousConnector" ref="601550038"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<string key="id">1129</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">nextKeyView</string>
-						<reference key="source" ref="973194645"/>
-						<reference key="destination" ref="906843354"/>
-					</object>
-					<string key="id">1045</string>
+					<string key="id">F4X-dP-2nr</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
