@@ -80,7 +80,7 @@
 - (IBAction)showInspector:(id)sender;
 - (IBAction)genRevokeCertificate:(id)sender;
 - (IBAction)editAlgorithmPreferences:(id)sender;
-
+- (BOOL)warningSheetForWindow:(NSWindow *)window string:(NSString *)string, ...;
 
 - (NSSet *)selectedKeys;
 

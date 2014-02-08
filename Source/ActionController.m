@@ -99,14 +99,7 @@
 	}];
 	
 	if (showRevokactionWarning) {
-		NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
-								 messageText:localized(@"ImportRevSig_Title")
-									infoText:[NSString stringWithFormat:localized(@"ImportRevSig_Msg"), [self descriptionForKeys:keys withOptions:0]]
-							   defaultButton:localized(@"ImportRevSig_Yes")
-							 alternateButton:localized(@"ImportRevSig_No")
-								 otherButton:nil
-						   suppressionButton:nil];
-		if (returnCode != NSAlertFirstButtonReturn) {
+		if ([self warningSheetForWindow:mainWindow string:@"ImportRevSig", [self descriptionForKeys:keys withOptions:0]] == NO) {
 			return;
 		}
 	}
@@ -544,24 +537,35 @@
 	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)removeSubkey:(NSButton *)sender {
-	if ([[subkeysController selectedObjects] count] == 1) {
-		GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
-		GPGKey *key = [subkey primaryKey];
-		
-		self.progressText = localized(@"RemoveSubkey_Progress");
-		self.errorText = localized(@"RemoveSubkey_Error");
-		[gpgc removeSubkey:subkey fromKey:key];
+	if (subkeysController.selectedObjects.count != 1) {
+		return;
 	}
+	
+	GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
+	GPGKey *key = [subkey primaryKey];
+	
+	if ([self warningSheetForWindow:inspectorWindow string:@"RemoveSubkey"] == NO) {
+		return;
+	}
+	
+	self.progressText = localized(@"RemoveSubkey_Progress");
+	self.errorText = localized(@"RemoveSubkey_Error");
+	[gpgc removeSubkey:subkey fromKey:key];
 }
 - (IBAction)revokeSubkey:(NSButton *)sender {
-	if ([[subkeysController selectedObjects] count] == 1) {
-		GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
-		GPGKey *key = [subkey primaryKey];
-		
-		self.progressText = localized(@"RevokeSubkey_Progress");
-		self.errorText = localized(@"RevokeSubkey_Error");
-		[gpgc revokeSubkey:subkey fromKey:key reason:0 description:nil];
+	if (subkeysController.selectedObjects.count != 1) {
+		return;
 	}
+	GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
+	GPGKey *key = [subkey primaryKey];
+	
+	if ([self warningSheetForWindow:inspectorWindow string:@"RevokeSubkey"] == NO) {
+		return;
+	}
+	
+	self.progressText = localized(@"RevokeSubkey_Progress");
+	self.errorText = localized(@"RevokeSubkey_Error");
+	[gpgc revokeSubkey:subkey fromKey:key reason:0 description:nil];
 }
 
 #pragma mark "UserIDs"
@@ -584,14 +588,19 @@
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
 - (IBAction)removeUserID:(NSButton *)sender {
-	if ([userIDsController selectionIndex] != NSNotFound) {
-		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *key = [userID primaryKey];
-		
-		self.progressText = localized(@"RemoveUserID_Progress");
-		self.errorText = localized(@"RemoveUserID_Error");
-		[gpgc removeUserID:[userID hashID] fromKey:key];
+	if ([userIDsController selectionIndex] == NSNotFound) {
+		return;
 	}
+	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
+	GPGKey *key = [userID primaryKey];
+	
+	if ([self warningSheetForWindow:inspectorWindow string:@"RemoveUserID"] == NO) {
+		return;
+	}
+	
+	self.progressText = localized(@"RemoveUserID_Progress");
+	self.errorText = localized(@"RemoveUserID_Error");
+	[gpgc removeUserID:[userID hashID] fromKey:key];
 }
 - (IBAction)setPrimaryUserID:(NSButton *)sender {
 	if ([userIDsController selectionIndex] != NSNotFound) {
@@ -604,14 +613,19 @@
 	}
 }
 - (IBAction)revokeUserID:(NSButton *)sender {
-	if ([userIDsController selectionIndex] != NSNotFound) {
-		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *key = [userID primaryKey];
-		
-		self.progressText = localized(@"RevokeUserID_Progress");
-		self.errorText = localized(@"RevokeUserID_Error");
-		[gpgc revokeUserID:[userID hashID] fromKey:key reason:0 description:nil];
+	if ([userIDsController selectionIndex] == NSNotFound) {
+		return;
 	}
+	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
+	GPGKey *key = [userID primaryKey];
+	
+	if ([self warningSheetForWindow:inspectorWindow string:@"RevokeUserID"] == NO) {
+		return;
+	}
+	
+	self.progressText = localized(@"RevokeUserID_Progress");
+	self.errorText = localized(@"RevokeUserID_Error");
+	[gpgc revokeUserID:[userID hashID] fromKey:key reason:0 description:nil];
 }
 
 #pragma mark "Photos"
@@ -969,6 +983,26 @@
 	}
 	
 	return [descriptions componentsJoinedByString:@", "];
+}
+
+- (BOOL)warningSheetForWindow:(NSWindow *)window string:(NSString *)string, ... {
+	NSInteger returnCode;
+	NSString *title;
+	
+	va_list args;
+	va_start(args, string);
+	title = [[[NSString alloc] initWithFormat:localized([string stringByAppendingString:@"_Title"]) arguments:args] autorelease];
+	va_end(args);
+	
+	returnCode = [sheetController alertSheetForWindow:window
+										  messageText:title
+											 infoText:localized([string stringByAppendingString:@"_Msg"])
+										defaultButton:localized([string stringByAppendingString:@"_Yes"])
+									  alternateButton:localized([string stringByAppendingString:@"_No"])
+										  otherButton:nil
+									suppressionButton:nil];
+	
+	return (returnCode == NSAlertFirstButtonReturn);
 }
 
 
