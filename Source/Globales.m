@@ -120,7 +120,7 @@ NSString *localized(NSString *key) {
 	
 	if ([value respondsToSelector:@selector(validity)]) {
 		if ([value validity] >= GPGValidityInvalid) {
-			return [NSColor darkGrayColor];
+			return [NSColor disabledControlTextColor];
 		}
 	}
 	
