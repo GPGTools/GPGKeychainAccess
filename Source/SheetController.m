@@ -467,40 +467,65 @@
 }
 - (void)setDataFromAddressBook {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSString *userName = nil;
+	NSMutableArray *mailAddresses = [NSMutableArray array];
+	
+
+	// Get name and email-addresses from the AddressBook.
 	ABPerson *myPerson = [[ABAddressBook sharedAddressBook] me];
 	if (myPerson) {
 		NSString *abFirstName = [myPerson valueForProperty:kABFirstNameProperty];
 		NSString *abLastName = [myPerson valueForProperty:kABLastNameProperty];
 		
 		if (abFirstName && abLastName) {
-			self.name = [NSString stringWithFormat:@"%@ %@", abFirstName, abLastName];
+			userName = [NSString stringWithFormat:@"%@ %@", abFirstName, abLastName];
 		} else if (abFirstName) {
-			self.name = abFirstName;
+			userName = abFirstName;
 		} else if (abLastName) {
-			self.name = abLastName;
-		} else {
-			self.name = @"";
+			userName = abLastName;
 		}
 		
 		ABMultiValue *abEmailAddresses = [myPerson valueForProperty:kABEmailProperty];
 		
-		NSUInteger count = [abEmailAddresses count];
-		if (count > 0) {
-			NSMutableArray *newEmailAddresses = [NSMutableArray arrayWithCapacity:count];
-			for (NSUInteger i = 0; i < count; i++) {
-				[newEmailAddresses addObject:[abEmailAddresses valueAtIndex:i]];
-			}
-			self.emailAddresses = newEmailAddresses;
-			self.email = [emailAddresses objectAtIndex:0];
-		} else {
-			self.emailAddresses = nil;
-			self.email = @"";
+		NSUInteger count = abEmailAddresses.count;
+		for (NSUInteger i = 0; i < count; i++) {
+			[mailAddresses addObject:[abEmailAddresses valueAtIndex:i]];
 		}
+	}
+	
+	
+	// Get name and email-addresses from Mail.
+	@try {
+		NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Library/Mail/V2/MailData/Accounts.plist"];
+		NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
+		
+		NSArray *mailAccounts = [plist objectForKey:@"MailAccounts"];
+		
+		for (NSDictionary *account in mailAccounts) {
+			[mailAddresses addObjectsFromArray:[account objectForKey:@"EmailAddresses"]];
+			if (!userName) {
+				userName = [account objectForKey:@"FullUserName"];
+			}
+		}
+		
+	}
+	@catch (id e) {}
+	
+
+	if (userName) {
+		self.name = userName;
 	} else {
 		self.name = @"";
-		self.email = @"";
-		self.emailAddresses = nil;
 	}
+	
+	self.emailAddresses = mailAddresses;
+	
+	if (mailAddresses.count > 0) {
+		self.email = [mailAddresses objectAtIndex:0];
+	} else {
+		self.email = @"";
+	}
+		
 	[pool drain];
 }
 
