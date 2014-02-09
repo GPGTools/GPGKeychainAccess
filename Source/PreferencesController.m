@@ -112,6 +112,8 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
 		gpgc.keyserver = keyserver;
 		gpgc.async = YES;
 		gpgc.delegate = self;
+		gpgc.keyserverTimeout = 5;
+		gpgc.timeout = 5;
 		
 		[gpgc testKeyserver];
 	}
