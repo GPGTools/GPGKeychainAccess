@@ -32,5 +32,6 @@ enum {
 	ShowResultAction,
 	ShowFoundKeysAction,
 	SaveDataToURLAction,
-	UploadKeyAction
+	UploadKeyAction,
+	SetPrimaryUserIDAction
 };

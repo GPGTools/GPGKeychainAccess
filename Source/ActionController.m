@@ -585,6 +585,7 @@
 	
 	self.progressText = localized(@"AddUserID_Progress");
 	self.errorText = localized(@"AddUserID_Error");
+	gpgc.userInfo = @{@"action": @(SetPrimaryUserIDAction), @"userID": key.primaryUserID};
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
 - (IBAction)removeUserID:(NSButton *)sender {
@@ -1095,6 +1096,15 @@
 			self.errorText = localized(@"SendKeysToServer_Error");
 			
 			[gpgc sendKeysToServer:[NSSet setWithObject:value]];
+			
+			break;
+		case SetPrimaryUserIDAction:
+			if (gc.error) break;
+			
+			GPGUserID *userID = [oldUserInfo objectForKey:@"userID"];
+			self.progressText = localized(@"SetPrimaryUserID_Progress");
+			self.errorText = localized(@"SetPrimaryUserID_Error");
+			[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
 			
 			break;
 		default:
