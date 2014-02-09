@@ -588,7 +588,7 @@
 	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 	GPGKey *key = [userID primaryKey];
 	
-	if ([self warningSheet:@"RemoveUserID"] == NO) {
+	if ([self warningSheet:@"RemoveUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
 	}
 	
@@ -613,7 +613,7 @@
 	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 	GPGKey *key = [userID primaryKey];
 	
-	if ([self warningSheet:@"RevokeUserID"] == NO) {
+	if ([self warningSheet:@"RevokeUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
 	}
 	
@@ -979,16 +979,16 @@
 
 - (BOOL)warningSheet:(NSString *)string, ... {
 	NSInteger returnCode;
-	NSString *title;
+	NSString *message = localized([string stringByAppendingString:@"_Msg"]);
 	
 	va_list args;
 	va_start(args, string);
-	title = [[[NSString alloc] initWithFormat:localized([string stringByAppendingString:@"_Title"]) arguments:args] autorelease];
+	message = [[[NSString alloc] initWithFormat:message arguments:args] autorelease];
 	va_end(args);
 	
 	returnCode = [sheetController alertSheetForWindow:mainWindow
-										  messageText:title
-											 infoText:localized([string stringByAppendingString:@"_Msg"])
+										  messageText:localized([string stringByAppendingString:@"_Title"])
+											 infoText:message
 										defaultButton:localized([string stringByAppendingString:@"_Yes"])
 									  alternateButton:localized([string stringByAppendingString:@"_No"])
 										  otherButton:nil

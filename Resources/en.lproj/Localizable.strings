@@ -92,6 +92,30 @@ Warning = "Warning";
 Cancel = "Cancel";
 "Apply to all" = "Apply to all";
 
+
+/* Warnings */
+RemoveUserID_Title = "Remove UserID";
+RemoveUserID_Msg = "You are about to remove UserID %@ from your key %@. If you remove this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, removing the UserID will not remove the UserID from the key on the key servers. Please instead revoke the UserID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove UserID";
+RemoveUserID_No = "Cancel";
+
+RevokeUserID_Title = "Revoke UserID";
+RevokeUserID_Msg = "You are about to revoke UserID %@ from your key %@. If you revoke this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked UserID.";
+RevokeUserID_Yes = "Remove UserID";
+RevokeUserID_No = "Cancel";
+
+RemoveSubkey_Title = "Remove Subkey";
+RemoveSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
+RemoveSubkey_Yes = "Remove UserID";
+RemoveSubkey_No = "Cancel";
+
+RevokeSubkey_Title = "Revoke Subkey";
+RevokeSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
+RevokeSubkey_Yes = "Remove UserID";
+RevokeSubkey_No = "Cancel";
+
+
+
 /* Import warnings */
 ImportRevSig_Title = "Import revocation certificate";
 ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.";
