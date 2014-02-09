@@ -30,7 +30,6 @@
     IBOutlet NSArrayController *userIDsController;
 	IBOutlet NSArrayController *photosController;
 	IBOutlet NSOutlineView *keyTable;
-	IBOutlet NSWindow *inspectorWindow;
 	
 	GPGController *gpgc;
 	SheetController *sheetController;
@@ -39,7 +38,6 @@
 	NSString *progressText, *errorText;
 }
 @property (readonly) NSUndoManager *undoManager;
-@property (assign) NSWindow *inspectorWindow;
 
 + (id)sharedInstance;
 
@@ -77,10 +75,9 @@
 - (IBAction)searchKeys:(id)sender;
 - (IBAction)receiveKeys:(id)sender;
 - (IBAction)refreshKeysFromServer:(id)sender;
-- (IBAction)showInspector:(id)sender;
 - (IBAction)genRevokeCertificate:(id)sender;
 - (IBAction)editAlgorithmPreferences:(id)sender;
-- (BOOL)warningSheetForWindow:(NSWindow *)window string:(NSString *)string, ...;
+- (BOOL)warningSheet:(NSString *)string, ...;
 
 - (NSSet *)selectedKeys;
 

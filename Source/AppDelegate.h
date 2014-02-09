@@ -19,11 +19,13 @@
 
 #import <Sparkle/Sparkle.h>
 
-@interface GPGKeychainAccessAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate> {
+@interface GPGKeychainAccessAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
 	NSOutlineView *keyTable, *userIDTable, *subkeyTable, *signatureTable;
+	NSDrawer *drawer;
 }
-@property (assign) IBOutlet NSWindow *window, *inspectorWindow;
+@property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSOutlineView *keyTable, *userIDTable, *subkeyTable, *signatureTable;
+@property (assign) IBOutlet NSDrawer *drawer;
 
 
 - (void)generateContextMenuForTable:(NSTableView *)table;

@@ -46,7 +46,7 @@
 	
 	
 	sheetController.sheetType = SheetTypeExportKey;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -62,7 +62,7 @@
 	//sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", nil];
 	
 	sheetController.sheetType = SheetTypeOpenPanel;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -113,24 +113,22 @@
 - (IBAction)copy:(id)sender {
 	NSString *stringForPasteboard = nil;
 	
-	if (inspectorWindow.isKeyWindow) {
-		NSResponder *responder = inspectorWindow.firstResponder;
-		
-		if (responder == appDelegate.userIDTable) {
-			if (userIDsController.selectedObjects.count == 1) {
-				GPGUserID *userID = [userIDsController.selectedObjects objectAtIndex:0];
-				stringForPasteboard = userID.userIDDescription;
-			}
-		} else if (responder == appDelegate.signatureTable) {
-			if (signaturesController.selectedObjects.count == 1) {
-				GPGUserIDSignature *signature = [signaturesController.selectedObjects objectAtIndex:0];
-				stringForPasteboard = signature.keyID;
-			}
-		} else if (responder == appDelegate.subkeyTable) {
-			if (subkeysController.selectedObjects.count == 1) {
-				GPGKey *subkey = [subkeysController.selectedObjects objectAtIndex:0];
-				stringForPasteboard = subkey.keyID;
-			}
+	NSResponder *responder = mainWindow.firstResponder;
+	
+	if (responder == appDelegate.userIDTable) {
+		if (userIDsController.selectedObjects.count == 1) {
+			GPGUserID *userID = [userIDsController.selectedObjects objectAtIndex:0];
+			stringForPasteboard = userID.userIDDescription;
+		}
+	} else if (responder == appDelegate.signatureTable) {
+		if (signaturesController.selectedObjects.count == 1) {
+			GPGUserIDSignature *signature = [signaturesController.selectedObjects objectAtIndex:0];
+			stringForPasteboard = signature.keyID;
+		}
+	} else if (responder == appDelegate.subkeyTable) {
+		if (subkeysController.selectedObjects.count == 1) {
+			GPGKey *subkey = [subkeysController.selectedObjects objectAtIndex:0];
+			stringForPasteboard = subkey.keyID;
 		}
 	} else {
 		NSSet *keys = [self selectedKeys];
@@ -167,11 +165,6 @@
 
 
 #pragma mark "Window and display"
-- (IBAction)showInspector:(id)sender {
-	if (![sender isKindOfClass:[NSTableView class]] || [sender clickedRow] > -1) {
-		[inspectorWindow makeKeyAndOrderFront:sender];
-	}
-}
 - (IBAction)refreshDisplayedKeys:(id)sender {
 	[[GPGKeyManager sharedInstance] loadAllKeys];
 }
@@ -180,7 +173,7 @@
 - (IBAction)generateNewKey:(id)sender {
 	sheetController.sheetType = SheetTypeNewKey;
 	sheetController.autoUpload = NO;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	NSInteger keyType, subkeyType;
@@ -380,7 +373,7 @@
 	}
 	
 	sheetController.sheetType = SheetTypeExpirationDate;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] == NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] == NSOKButton) {
 		self.progressText = localized(@"ChangeExpirationDate_Progress");
 		self.errorText = localized(@"ChangeExpirationDate_Error");
 		[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:sheetController.daysToExpire];
@@ -408,7 +401,7 @@
 	sheetController.allowEdit = key.secret;
 	sheetController.algorithmPreferences = mutablePreferences;
 	sheetController.sheetType = SheetTypeAlgorithmPreferences;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -462,7 +455,7 @@
 	sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), key.keyID.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeSavePanel;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -475,7 +468,7 @@
 #pragma mark "Keyserver"
 - (IBAction)searchKeys:(id)sender {
 	sheetController.sheetType = SheetTypeSearchKeys;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -492,7 +485,7 @@
 }
 - (IBAction)receiveKeys:(id)sender {
 	sheetController.sheetType = SheetTypeReceiveKeys;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -528,7 +521,7 @@
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeAddSubkey;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -544,7 +537,7 @@
 	GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 	GPGKey *key = [subkey primaryKey];
 	
-	if ([self warningSheetForWindow:inspectorWindow string:@"RemoveSubkey"] == NO) {
+	if ([self warningSheet:@"RemoveSubkey"] == NO) {
 		return;
 	}
 	
@@ -559,7 +552,7 @@
 	GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
 	GPGKey *key = [subkey primaryKey];
 	
-	if ([self warningSheetForWindow:inspectorWindow string:@"RevokeSubkey"] == NO) {
+	if ([self warningSheet:@"RevokeSubkey"] == NO) {
 		return;
 	}
 	
@@ -579,7 +572,7 @@
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeAddUserID;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -595,7 +588,7 @@
 	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 	GPGKey *key = [userID primaryKey];
 	
-	if ([self warningSheetForWindow:inspectorWindow string:@"RemoveUserID"] == NO) {
+	if ([self warningSheet:@"RemoveUserID"] == NO) {
 		return;
 	}
 	
@@ -620,7 +613,7 @@
 	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 	GPGKey *key = [userID primaryKey];
 	
-	if ([self warningSheetForWindow:inspectorWindow string:@"RevokeUserID"] == NO) {
+	if ([self warningSheet:@"RevokeUserID"] == NO) {
 		return;
 	}
 	
@@ -651,7 +644,7 @@
 	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"jpg", @"jpeg", nil];;
 	
 	sheetController.sheetType = SheetTypeOpenPhotoPanel;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -724,7 +717,7 @@
 	sheetController.msgText = msgText;
 	
 	sheetController.sheetType = SheetTypeAddSignature;
-	if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) {
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -943,21 +936,19 @@
 
 - (BOOL)respondsToSelector:(SEL)selector {
 	if (selector == @selector(copy:)) {
-		if (inspectorWindow.isKeyWindow) {
-			NSResponder *responder = inspectorWindow.firstResponder;
-			
-			if (responder == appDelegate.userIDTable) {
-				if (userIDsController.selectedObjects.count == 1) {
-					return YES;
-				}
-			} else if (responder == appDelegate.signatureTable) {
-				if (signaturesController.selectedObjects.count == 1) {
-					return YES;
-				}
-			} else if (responder == appDelegate.subkeyTable) {
-				if (subkeysController.selectedObjects.count == 1) {
-					return YES;
-				}
+		NSResponder *responder = mainWindow.firstResponder;
+		
+		if (responder == appDelegate.userIDTable) {
+			if (userIDsController.selectedObjects.count == 1) {
+				return YES;
+			}
+		} else if (responder == appDelegate.signatureTable) {
+			if (signaturesController.selectedObjects.count == 1) {
+				return YES;
+			}
+		} else if (responder == appDelegate.subkeyTable) {
+			if (subkeysController.selectedObjects.count == 1) {
+				return YES;
 			}
 		} else if ([self selectedKeys].count > 0) {
 			return YES;
@@ -986,7 +977,7 @@
 	return [descriptions componentsJoinedByString:@", "];
 }
 
-- (BOOL)warningSheetForWindow:(NSWindow *)window string:(NSString *)string, ... {
+- (BOOL)warningSheet:(NSString *)string, ... {
 	NSInteger returnCode;
 	NSString *title;
 	
@@ -995,7 +986,7 @@
 	title = [[[NSString alloc] initWithFormat:localized([string stringByAppendingString:@"_Title"]) arguments:args] autorelease];
 	va_end(args);
 	
-	returnCode = [sheetController alertSheetForWindow:window
+	returnCode = [sheetController alertSheetForWindow:mainWindow
 										  messageText:title
 											 infoText:localized([string stringByAppendingString:@"_Msg"])
 										defaultButton:localized([string stringByAppendingString:@"_Yes"])
@@ -1004,17 +995,6 @@
 									suppressionButton:nil];
 	
 	return (returnCode == NSAlertFirstButtonReturn);
-}
-
-
-
-#pragma mark "Setter and getter"
-- (NSWindow *)inspectorWindow {
-	return inspectorWindow;
-}
-- (void)setInspectorWindow:(NSWindow *)newValue {
-	inspectorWindow = newValue;
-	[inspectorWindow setNextResponder:self];
 }
 
 
@@ -1060,7 +1040,7 @@
 				
 				sheetController.msgText = [self importResultWithStatusDict:statusDict];
 				sheetController.sheetType = SheetTypeShowResult;
-				[sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow];
+				[sheetController runModalForWindow:mainWindow];
 			}
 			break;
 		}
@@ -1070,12 +1050,12 @@
 			if ([keys count] == 0) {
 				sheetController.msgText = localized(@"No keys Found");
 				sheetController.sheetType = SheetTypeShowResult;
-				[sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow];
+				[sheetController runModalForWindow:mainWindow];
 			} else {
 				sheetController.keys = keys;
 				
 				sheetController.sheetType = SheetTypeShowFoundKeys;
-				if ([sheetController runModalForWindow:[inspectorWindow isKeyWindow] ? inspectorWindow : mainWindow] != NSOKButton) break;
+				if ([sheetController runModalForWindow:mainWindow] != NSOKButton) break;
 				
 				[self receiveKeysFromServer:sheetController.keys];
 			}

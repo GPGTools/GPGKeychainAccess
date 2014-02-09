@@ -24,7 +24,7 @@
 
 
 @implementation GPGKeychainAccessAppDelegate
-@synthesize keyTable, userIDTable, subkeyTable, signatureTable;
+@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer;
 
 - (NSWindow *)window {
     return mainWindow;
@@ -33,11 +33,10 @@
 	mainWindow = value;
 }
 
-- (NSWindow *)inspectorWindow {
-    return inspectorWindow;
-}
-- (void)setInspectorWindow:(NSWindow *)value {
-	inspectorWindow = value;
+
+- (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize {
+	[[GPGOptions sharedOptions] setValue:@(contentSize.width) forKey:@"drawerWidth"];
+	return contentSize;
 }
 
 
@@ -49,16 +48,23 @@
 
 - (void)awakeFromNib {
 	GPGDebugLog(@"GPGKeychainAccessAppDelegate awakeFromNib");
-	[keyTable setDoubleAction:@selector(showInspector:)];
-	[keyTable setTarget:[ActionController sharedInstance]];
+	[keyTable setDoubleAction:@selector(open:)];
+	[keyTable setTarget:drawer];
+	
+	drawer.delegate = self;
+	NSNumber *drawerWidth = [[GPGOptions sharedOptions] valueForKey:@"drawerWidth"];
+	if (drawerWidth) {
+		NSSize size = drawer.contentSize;
+		size.width = drawerWidth.floatValue;
+		drawer.contentSize = size;
+	}
+	
 	
 	[self generateContextMenuForTable:keyTable];
 	[self generateContextMenuForTable:subkeyTable];
 	[self generateContextMenuForTable:userIDTable];
 	[self generateContextMenuForTable:signatureTable];
-	
-	[inspectorWindow bind:@"hidesOnDeactivate" toObject:[GPGOptions sharedOptions] withKeyPath:@"inspectorStayVisible" options:@{NSValueTransformerNameBindingOption: @"NSNegateBoolean"}];
-	
+		
 	NSArray *draggedTypes = [NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil];
 	[mainWindow registerForDraggedTypes:draggedTypes];
 }

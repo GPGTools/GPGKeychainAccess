@@ -21,7 +21,7 @@
 
 @class GPGKeychainAccessAppDelegate;
 
-extern NSWindow *mainWindow, *inspectorWindow;
+extern NSWindow *mainWindow;
 extern GPGKeychainAccessAppDelegate *appDelegate;
 
 

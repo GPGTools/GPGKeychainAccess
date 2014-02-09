@@ -23,7 +23,7 @@
 #import "AppDelegate.h"
 
 
-NSWindow *mainWindow, *inspectorWindow;
+NSWindow *mainWindow;
 GPGKeychainAccessAppDelegate *appDelegate;
 
 
