@@ -18,10 +18,13 @@
 */
 
 #import <Sparkle/Sparkle.h>
+#import "GKOutlineView.h"
 
 @interface GPGKeychainAccessAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
-	NSOutlineView *keyTable, *userIDTable, *subkeyTable, *signatureTable;
+	GKOutlineView *keyTable;
+	NSOutlineView *userIDTable, *subkeyTable, *signatureTable;
 	NSDrawer *drawer;
+	BOOL rowWasSelected;
 }
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSOutlineView *keyTable, *userIDTable, *subkeyTable, *signatureTable;

@@ -40,6 +40,18 @@
 }
 
 
+- (IBAction)singleClick:(NSOutlineView *)sender {
+	rowWasSelected = [keyTable clickedRowWasSelected];
+}
+- (IBAction)doubleClick:(NSOutlineView *)sender {
+	if (keyTable.selectedRowIndexes.count > 1 ? [keyTable clickedRowWasSelected] : rowWasSelected) {
+		[drawer toggle:nil];
+	} else {
+		[drawer open:nil];
+	}
+}
+
+
 - (id)init {
 	self = [super init];
 	appDelegate = self;
@@ -48,8 +60,12 @@
 
 - (void)awakeFromNib {
 	GPGDebugLog(@"GPGKeychainAccessAppDelegate awakeFromNib");
-	[keyTable setDoubleAction:@selector(open:)];
-	[keyTable setTarget:drawer];
+	
+	[keyTable setAction:@selector(singleClick:)];
+	[keyTable setDoubleAction:@selector(doubleClick:)];
+	[keyTable setTarget:self];
+	
+	
 	
 	drawer.delegate = self;
 	NSNumber *drawerWidth = [[GPGOptions sharedOptions] valueForKey:@"drawerWidth"];

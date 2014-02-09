@@ -96,7 +96,7 @@ NSSet *draggedKeys;
 }
 
 //Für Drag & Drop.
-- (BOOL)outlineView:(NSOutlineView*)outlineView writeItems:(NSArray*)items toPasteboard:(NSPasteboard *)pasteboard {
+- (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray*)items toPasteboard:(NSPasteboard *)pasteboard {
 	NSMutableSet *keys = [NSMutableSet setWithCapacity:[items count]];
 	
 	for (NSTreeNode *node in items) {
