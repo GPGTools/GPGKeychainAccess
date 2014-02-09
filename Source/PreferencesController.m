@@ -19,6 +19,7 @@
 
 #import "Globales.h"
 #import "PreferencesController.h"
+#import "SheetController.h"
 
 @implementation PreferencesController
 @synthesize window;
@@ -106,6 +107,15 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
 }
 
 - (void)setKeyserver:(NSString *)keyserver {
+	if (![[self keyservers] containsObject:keyserver]) {
+		GPGController *gpgc = [GPGController gpgController];
+		gpgc.keyserver = keyserver;
+		gpgc.async = YES;
+		gpgc.delegate = self;
+		
+		[gpgc testKeyserver];
+	}
+	
     // assign a server name to the "keyserver" option
     [self.options setValue:keyserver forKey:kKeyserver];
     
@@ -118,6 +128,19 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
         [self.options setValue:newOptions forKey:kAutoKeyLocate];
     }
 }
+
+- (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
+	if (![value boolValue]) {
+		[[SheetController sharedInstance] alertSheetForWindow:window
+												  messageText:@"BadKeyserver_Title"
+													 infoText:@"BadKeyserver_Msg"
+												defaultButton:nil
+											  alternateButton:nil
+												  otherButton:nil
+											suppressionButton:nil];
+	}
+}
+
 
 + (NSSet *)keyPathsForValuesAffectingKeyservers {
 	return [NSSet setWithObject:@"options.keyservers"];
