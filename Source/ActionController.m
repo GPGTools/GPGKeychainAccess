@@ -99,7 +99,7 @@
 	}];
 	
 	if (showRevokactionWarning) {
-		if ([self warningSheetForWindow:mainWindow string:@"ImportRevSig", [self descriptionForKeys:keys withOptions:0]] == NO) {
+		if ([self warningSheet:@"ImportRevSig", [self descriptionForKeys:keys withOptions:0]] == NO) {
 			return;
 		}
 	}
