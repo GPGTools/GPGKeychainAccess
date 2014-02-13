@@ -92,6 +92,7 @@ enum {
 	NSURL *URL;
 	NSArray *URLs;
 	NSWindow *modalWindow;
+	BOOL hideExtension;
 }
 
 @property (retain) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
@@ -104,6 +105,7 @@ enum {
 @property (retain) GPGKey *secretKey;
 @property (readonly, retain) NSURL *URL;
 @property (readonly, retain) NSArray *URLs;
+@property (readonly) BOOL hideExtension;
 
 
 - (NSInteger)runModal;

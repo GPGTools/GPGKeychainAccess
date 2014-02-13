@@ -49,7 +49,7 @@
 	expirationDate, minExpirationDate, maxExpirationDate,
 	algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
 	sigType, length, sheetType, URL, URLs,
-	modalWindow, foundKeyDicts;
+	modalWindow, foundKeyDicts, hideExtension;
 
 
 
@@ -260,6 +260,7 @@
 	[sheetLock unlock];
 	
 	self.URL = panel.URL;
+	hideExtension = panel.isExtensionHidden;
 }
 - (void)runOpenPanelWithaccessoryView:(NSView *)accessoryView {
 	NSOpenPanel *panel = [NSOpenPanel openPanel];

@@ -53,7 +53,7 @@
 	self.progressText = localized(@"ExportKey_Progress");
 	self.errorText = localized(@"ExportKey_Error");
 	gpgc.useArmor = sheetController.exportFormat != 0;
-	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:SaveDataToURLAction], @"action", sheetController.URL, @"URL", nil];
+	gpgc.userInfo = @{@"action": @(SaveDataToURLAction), @"URL": sheetController.URL, @"hideExtension": @(sheetController.hideExtension)};
 	[gpgc exportKeys:keys allowSecret:sheetController.allowSecretKeyExport fullExport:NO];
 }
 - (IBAction)importKey:(id)sender {
@@ -461,7 +461,7 @@
 	
 	self.progressText = localized(@"GenerateRevokeCertificateForKey_Progress");
 	self.errorText = localized(@"GenerateRevokeCertificateForKey_Error");
-	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:SaveDataToURLAction], @"action", sheetController.URL, @"URL", nil];
+	gpgc.userInfo = @{@"action": @(SaveDataToURLAction), @"URL": sheetController.URL, @"hideExtension": @(sheetController.hideExtension)};
 	[gpgc generateRevokeCertificateForKey:key reason:0 description:nil];
 }
 
@@ -1076,7 +1076,8 @@
 			if (gc.error) break;
 			
 			NSURL *URL = [oldUserInfo objectForKey:@"URL"];
-			[(NSData *)value writeToURL:URL atomically:YES];
+			NSNumber *hideExtension = @([[oldUserInfo objectForKey:@"hideExtension"] boolValue]);
+			[[NSFileManager defaultManager] createFileAtPath:URL.path contents:value attributes:@{NSFileExtensionHidden: hideExtension}];
 			
 			break;
 		}
