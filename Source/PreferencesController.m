@@ -134,8 +134,8 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	if (![value boolValue]) {
 		[[SheetController sharedInstance] alertSheetForWindow:window
-												  messageText:@"BadKeyserver_Title"
-													 infoText:@"BadKeyserver_Msg"
+												  messageText:localized(@"BadKeyserver_Title")
+													 infoText:localized(@"BadKeyserver_Msg")
 												defaultButton:nil
 											  alternateButton:nil
 												  otherButton:nil
