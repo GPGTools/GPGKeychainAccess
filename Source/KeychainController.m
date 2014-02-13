@@ -64,6 +64,16 @@ NSSet *draggedKeys;
 	return [[_selectionIndexPaths retain] autorelease];
 }
 - (void)setSelectionIndexPaths:(NSArray *)value {
+	if (!userChangingSelection && _selectionIndexPaths.count > 0) {
+		NSUInteger index = [_selectionIndexPaths[0] indexAtPosition:0];
+		if (index != NSNotFound) {
+			if (index >= filteredKeyList.count) {
+				index = filteredKeyList.count - 1;
+			}
+			value = @[[NSIndexPath indexPathWithIndex:index]];
+		}
+	}
+	userChangingSelection = NO;
 	if (_selectionIndexPaths != value) {
 		id old = _selectionIndexPaths;
 		_selectionIndexPaths = [value retain];
@@ -89,6 +99,10 @@ NSSet *draggedKeys;
 
 
 
+- (BOOL)selectionShouldChangeInOutlineView:(NSOutlineView *)outlineView {
+	userChangingSelection = YES;
+	return YES;
+}
 
 // NSOutlineView delegate.
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldReorderColumn:(NSInteger)columnIndex toColumn:(NSInteger)newColumnIndex {

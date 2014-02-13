@@ -38,6 +38,8 @@
 	BOOL showSecretKeysOnly;
 	
 	NSSet *oldAllKeys;
+	
+	BOOL userChangingSelection;
 }
 
 @property (readonly) NSSet *secretKeys;
