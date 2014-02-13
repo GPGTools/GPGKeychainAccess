@@ -38,8 +38,8 @@
 - (BOOL)checkPassphrase;
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 - (void)generateFoundKeyDicts;
-- (void)runSavePanelWithaccessoryView:(NSView *)accessoryView;
-- (void)runOpenPanelWithaccessoryView:(NSView *)accessoryView;
+- (void)runSavePanelWithAccessoryView:(NSView *)accessoryView;
+- (void)runOpenPanelWithAccessoryView:(NSView *)accessoryView;
 @end
 
 
@@ -120,18 +120,20 @@
 			self.displayedView = generateSignatureView;
 			break;
 		case SheetTypeSavePanel:
-			[self runSavePanelWithaccessoryView:nil];
+			[self runSavePanelWithAccessoryView:nil];
 			
 			return clickedButton;
 		case SheetTypeOpenPanel:
 		case SheetTypeOpenPhotoPanel:
-			[self runOpenPanelWithaccessoryView:nil];
+			[self runOpenPanelWithAccessoryView:nil];
 			
 			return clickedButton;
-		case SheetTypeExportKey:
-			[self runSavePanelWithaccessoryView:exportKeyOptionsView];
+		case SheetTypeExportKey: {
+			BOOL showAccessoryView = self.allowSecretKeyExport;
+			self.allowSecretKeyExport = NO;
+			[self runSavePanelWithAccessoryView:showAccessoryView ? exportKeyOptionsView : nil];
 			
-			return clickedButton;
+			return clickedButton; }
 		case SheetTypeAlgorithmPreferences:
 			self.displayedView = editAlgorithmPreferencesView;
 			break;
@@ -235,7 +237,7 @@
 	[progressSheetLock unlock];
 }
 
-- (void)runSavePanelWithaccessoryView:(NSView *)accessoryView {
+- (void)runSavePanelWithAccessoryView:(NSView *)accessoryView {
 	NSSavePanel *panel = [NSSavePanel savePanel];
 	
 	panel.delegate = self;
@@ -262,7 +264,7 @@
 	self.URL = panel.URL;
 	hideExtension = panel.isExtensionHidden;
 }
-- (void)runOpenPanelWithaccessoryView:(NSView *)accessoryView {
+- (void)runOpenPanelWithAccessoryView:(NSView *)accessoryView {
 	NSOpenPanel *panel = [NSOpenPanel openPanel];
 	
 	panel.delegate = self;

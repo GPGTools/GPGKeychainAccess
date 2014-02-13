@@ -44,7 +44,13 @@
 		sheetController.pattern = localized(@"untitled");
 	}
 	
-	sheetController.allowSecretKeyExport = NO;
+	[keys enumerateObjectsUsingBlock:^(GPGKey *key, BOOL *stop) {
+		if (key.secret) {
+			sheetController.allowSecretKeyExport = YES;
+			*stop = YES;
+		}
+	}];
+	
 	sheetController.sheetType = SheetTypeExportKey;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
