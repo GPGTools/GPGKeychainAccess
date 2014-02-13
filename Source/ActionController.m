@@ -44,7 +44,7 @@
 		sheetController.pattern = localized(@"untitled");
 	}
 	
-	
+	sheetController.allowSecretKeyExport = NO;
 	sheetController.sheetType = SheetTypeExportKey;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
