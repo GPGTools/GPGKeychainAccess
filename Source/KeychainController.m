@@ -65,7 +65,7 @@ NSSet *draggedKeys;
 }
 - (void)setSelectionIndexPaths:(NSArray *)value {
 	if (!userChangingSelection && _selectionIndexPaths.count > 0) {
-		NSUInteger index = [_selectionIndexPaths[0] indexAtPosition:0];
+		NSUInteger index = [[_selectionIndexPaths objectAtIndex:0] indexAtPosition:0];
 		if (index != NSNotFound) {
 			if (index >= filteredKeyList.count) {
 				index = filteredKeyList.count - 1;
