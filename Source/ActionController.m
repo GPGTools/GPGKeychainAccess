@@ -726,26 +726,37 @@
 	[gpgc signUserID:[userID hashID] ofKey:key signKey:sheetController.secretKey type:sheetController.sigType local:sheetController.localSig daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)removeSignature:(NSButton *)sender {
-	if ([signaturesController selectionIndex] != NSNotFound) {
-		GPGUserIDSignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
-		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *key = [userID primaryKey];
-		
-		self.progressText = localized(@"RemoveSignature_Progress");
-		self.errorText = localized(@"RemoveSignature_Error");
-		[gpgc removeSignature:gpgKeySignature fromUserID:userID ofKey:key];
+	if ([signaturesController selectionIndex] == NSNotFound) {
+		return;
 	}
+	GPGUserIDSignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
+	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
+	GPGKey *key = [userID primaryKey];
+	
+	if ([self warningSheet:@"RemoveSignature", gpgKeySignature.userIDDescription, gpgKeySignature.keyID.shortKeyID, userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+		return;
+	}
+
+	
+	self.progressText = localized(@"RemoveSignature_Progress");
+	self.errorText = localized(@"RemoveSignature_Error");
+	[gpgc removeSignature:gpgKeySignature fromUserID:userID ofKey:key];
 }
 - (IBAction)revokeSignature:(NSButton *)sender {
-	if ([signaturesController selectionIndex] != NSNotFound) {
-		GPGUserIDSignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
-		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *key = [userID primaryKey];
-		
-		self.progressText = localized(@"RevokeSignature_Progress");
-		self.errorText = localized(@"RevokeSignature_Error");
-		[gpgc revokeSignature:gpgKeySignature fromUserID:userID ofKey:key reason:0 description:nil];
+	if ([signaturesController selectionIndex] == NSNotFound) {
+		return;
 	}
+	GPGUserIDSignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
+	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
+	GPGKey *key = [userID primaryKey];
+	
+	if ([self warningSheet:@"RevokeSignature", gpgKeySignature.userIDDescription, gpgKeySignature.keyID.shortKeyID, userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+		return;
+	}
+	
+	self.progressText = localized(@"RevokeSignature_Progress");
+	self.errorText = localized(@"RevokeSignature_Error");
+	[gpgc revokeSignature:gpgKeySignature fromUserID:userID ofKey:key reason:0 description:nil];
 }
 
 
