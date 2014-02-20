@@ -51,6 +51,7 @@
 		}
 	}];
 	
+	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
 	sheetController.sheetType = SheetTypeExportKey;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
@@ -457,7 +458,7 @@
 	
 	sheetController.title = nil; //TODO
 	sheetController.msgText = nil; //TODO
-	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", nil];
+	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
 	sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), key.keyID.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeSavePanel;
