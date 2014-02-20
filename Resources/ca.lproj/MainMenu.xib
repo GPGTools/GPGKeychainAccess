@@ -781,6 +781,28 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
+						<object class="NSToolbarItem" key="B1B6B5FA-C2DF-4625-BDC9-EF4AADBA801A" id="859397181">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">B1B6B5FA-C2DF-4625-BDC9-EF4AADBA801A</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Search</string>
+							<string key="NSToolbarItemPaletteLabel">Search</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">Search</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
 						<object class="NSToolbarItem" key="B202D568-D7E9-49F2-8AC7-44B577940F90" id="581918453">
 							<string key="NSToolbarItemIdentifier">B202D568-D7E9-49F2-8AC7-44B577940F90</string>
 							<string key="NSToolbarItemLabel">Camp de cerca</string>
@@ -947,6 +969,7 @@
 						<reference ref="949157989"/>
 						<reference ref="468352004"/>
 						<reference ref="93100335"/>
+						<reference ref="859397181"/>
 						<reference ref="519919187"/>
 						<reference ref="666400670"/>
 						<reference ref="581918453"/>
@@ -958,6 +981,9 @@
 						<reference ref="949157989"/>
 						<reference ref="468352004"/>
 						<reference ref="93100335"/>
+						<reference ref="859397181"/>
+						<reference ref="33662868"/>
+						<reference ref="519919187"/>
 						<reference ref="33662868"/>
 						<reference ref="666400670"/>
 						<reference ref="116262695"/>
@@ -5640,6 +5666,14 @@
 					<string key="id">EG1-z4-HmI</string>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">searchKeys:</string>
+						<reference key="source" ref="1005191833"/>
+						<reference key="destination" ref="859397181"/>
+					</object>
+					<string key="id">Y8L-FX-BLl</string>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">arrangedObjects.shortKeyID</string>
 						<reference key="source" ref="633122803"/>
@@ -8024,6 +8058,7 @@
 							<reference ref="33662868"/>
 							<reference ref="116262695"/>
 							<reference ref="409477503"/>
+							<reference ref="859397181"/>
 						</array>
 						<reference key="parent" ref="914020908"/>
 					</object>
@@ -9830,6 +9865,11 @@
 						<reference key="object" ref="981536125"/>
 						<reference key="parent" ref="71204244"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">SGr-SW-ieo</string>
+						<reference key="object" ref="859397181"/>
+						<reference key="parent" ref="107471408"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -10365,6 +10405,9 @@
 				<string key="S9x-Fv-A5G.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="S9x-Fv-A5G.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="S9x-Fv-A5G.showNotes"/>
+				<string key="SGr-SW-ieo.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="SGr-SW-ieo.showNotes"/>
+				<boolean value="NO" key="SGr-SW-ieo.toolbarItem.selectable"/>
 				<string key="SH1-4x-VRG.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="SH1-4x-VRG.showNotes"/>
 				<string key="Sgq-kp-s0B.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -11057,6 +11100,7 @@
 			<string key="NSRemoveTemplate">{8, 8}</string>
 			<string key="NSRightFacingTriangleTemplate">{9, 9}</string>
 			<string key="NSSwitch">{15, 15}</string>
+			<string key="Search">{32, 32}</string>
 			<string key="Undo">{32, 32}</string>
 		</dictionary>
 	</data>
