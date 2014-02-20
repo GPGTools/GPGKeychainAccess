@@ -626,7 +626,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\nlocalizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\n";
+			shellScript = "[[ \"$LOCALIZE\" == \"NO\" ]] && exit\n\ncd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\nlocalizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\n\n";
 			showEnvVarsInLog = 0;
 		};
 		30D69FC115D6D2E1005B7854 /* Fill Info.plist */ = {
@@ -967,6 +967,7 @@
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks /Library/Frameworks";
+				LOCALIZE = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -988,11 +989,57 @@
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks /Library/Frameworks";
 				LLVM_LTO = YES;
+				LOCALIZE = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
+		};
+		3075B00818B64C4300BEAA71 /* Debug without l10n */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_GC = unsupported;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUGGING;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = "Debug without l10n";
+		};
+		3075B00918B64C4300BEAA71 /* Debug without l10n */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+					/Library/Frameworks,
+					"\"$(HOME)/Library/Frameworks\"",
+					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Source/Prefix.pch;
+				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks /Library/Frameworks";
+				LOCALIZE = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Debug without l10n";
 		};
 /* End XCBuildConfiguration section */
 
@@ -1001,6 +1048,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3052E126144B016400D6716A /* Debug */,
+				3075B00818B64C4300BEAA71 /* Debug without l10n */,
 				3052E127144B016400D6716A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1010,6 +1058,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3052E129144B016400D6716A /* Debug */,
+				3075B00918B64C4300BEAA71 /* Debug without l10n */,
 				3052E12A144B016400D6716A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
