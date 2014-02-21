@@ -53,8 +53,8 @@ SearchingKeys_Msg = "Nous recherchons la/les clés correspondante(s) sur le serv
 GenerateKey_Progress = "Nous devons générer une grande quantité d'octets aléatoires. Il est utile de faire des actions (taper au clavier, déplacer la souris, utiliser le disque dur) pendant la génération initiale. Ceci permet au générateur de nombre aléatoire de bénéficier d'une meilleure entropie.";
 GenerateSubkey_Msg = "Ajouter sous-clé à la clé \"%@\", %@.";
 GenerateUserID_Msg = "Ajouter identifiant d'usager à la clé \"%@\", %@.";
-
-
+GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
+GenerateUidSignature_Msg = "Signing a UserID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following UserID:\n%@";
 ChangeExpirationDate_Msg = "Changer date d'expiration de \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Changer date d'expiration de \"%@\", %@\nsous-clé: %@";
 
@@ -91,6 +91,50 @@ Error = "Erreur";
 Warning = "Avertissement";
 Cancel = "Annuler";
 "Apply to all" = "Appliquer à tous";
+
+
+/* Warnings */
+RemoveUserID_Title = "Remove UserID";
+RemoveUserID_Msg = "You are about to remove UserID %@ from your key %@. If you remove this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, removing the UserID will not remove the UserID from the key on the key servers. Please instead revoke the UserID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove UserID";
+RemoveUserID_No = "Cancel";
+
+RevokeUserID_Title = "Revoke UserID";
+RevokeUserID_Msg = "You are about to revoke UserID %@ from your key %@. If you revoke this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked UserID.";
+RevokeUserID_Yes = "Revoke UserID";
+RevokeUserID_No = "Cancel";
+
+RemoveSubkey_Title = "Remove Subkey";
+RemoveSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
+RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_No = "Cancel";
+
+RevokeSubkey_Title = "Revoke Subkey";
+RevokeSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
+RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_No = "Cancel";
+
+RevokeSignature_Title = "Revoke Signature";
+RevokeSignature_Msg = "Revoking your Signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. Consider uploading your updated key to the Keyservers so others are made aware, that your signature has been revoked.";
+RevokeSignature_Yes = "Revoke Signature";
+RevokeSignature_No = "Cancel";
+
+RemoveSignature_Title = "Remove Signature";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Yes = "Remove Signature";
+RemoveSignature_No = "Cancel";
+
+
+BadKeyserver_Title = "Bad Keyserver";
+BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+
+
+/* Import warnings */
+ImportRevSig_Title = "Import revocation certificate";
+ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.";
+ImportRevSig_Yes = "Importer";
+ImportRevSig_No = "Annuler";
+
 
 /* For Import-Results */
 ImportResult_Secret = "clé %@: clé secrète \"%@\" importée\n";
@@ -184,9 +228,9 @@ GenerateRevokeCertificateForKey_Progress = "Génération certificat de révocati
 GenerateRevokeCertificateForKey_Error = "Génération certificat de révocation a échoué.";
 SearchKeysOnServer_Progress = "Recherche clé.";
 SearchKeysOnServer_Error = "Recherche clé a échouée.";
-SendKeysToServer_Progress = "Envoi clé.";
+SendKeysToServer_Progress = "Sending %@ to server.";
 SendKeysToServer_Error = "Envoi clé a échoué.";
-RefreshKeysFromServer_Progress = "Rafraichissement clé.";
+RefreshKeysFromServer_Progress = "Refreshing %@ from server.";
 RefreshKeysFromServer_Error = "Rafraichissement clé a échoué.";
 AddSubkey_Progress = "Ajout sous-clé.";
 AddSubkey_Error = "Ajout sous-clé a échoué.";

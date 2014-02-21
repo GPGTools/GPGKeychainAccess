@@ -53,8 +53,8 @@ SearchingKeys_Msg = "Szukamy odpowiedniego klucza(y) na serwerze kluczy. Może t
 GenerateKey_Progress = "Musimy wygenerować dużo losowych bajtów. Dobrym pomysłem, będzie wykonywanie różnych działań, na przykład (pisz na klawiaturze, ruszaj myszką) w trakcie głównej generacji. Daje to generatorowi liczb losowych większą szansę zdobycia wystarczającej ilości entropii.";
 GenerateSubkey_Msg = "dodaj podklucz do klucza \"%@\", %@.";
 GenerateUserID_Msg = "Dodaj ID użytkownika do klucza \"%@\", %@.";
-
-
+GenerateSignature_Msg = "Podpisując klucz oznacza to, że potwierdzasz, że właściciel klucza jest tym za kogo się podaje.\nPo wrzuceniu, sygnaturki mogą być przeglądane przez innych.\nTak więc, jeśli podpiszesz kluczem Bob'a i jeśli Twoja koleżanka Alicja nie jest pewna czy Bob to naprawdę Bob, to Alicja będzie widziała Twoją sygnaturkę  w kluczu Boba i tym samym Alicja będzie wiedziała, że Twój klucz jest godny zaufania. Alicja będzie wiedziała, że Bob jest tym za kogo się podaje.\n\nMasz zamar podpisać następujący klucz:\n%@";
+GenerateUidSignature_Msg = "Podpisując ID użytkownika oznacza jest potwierdzasz, że właściciel klucza jest tym za kogo się podaje.\nPo wrzuceniu, sygnaturki mogą być przeglądane przez innych.\nTak więc, jeśli podpiszesz kluczem Bob'a i jeśli Twoja koleżanka Alicja nie jest pewna czy Bob to naprawdę Bob, to Alicja będzie widziała Twoją sygnaturkę w kluczu Boba i tym samym Alicja będzie wiedziała, że Twój klucz jest godny zaufania. Alicja będzie wiedziała, że Bob jest tym za kogo się podaje.\n\nMasz zamar podpisać następujący ID użytkownika:\n%@";
 ChangeExpirationDate_Msg = "Zmień datę wygaśnięcia \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Zmień datę wygaśnięcia \"%@\", %@\nPodklucz: %@";
 
@@ -77,7 +77,7 @@ CheckError_PassphraseMissmatch = "Twoje hasła nie zgadzają się!";
 GPG_NOT_FOUND_TITLE = "Nie znaleziono GPG";
 GPG_NOT_FOUND_MESSAGE = "Ups, coś poszło nie tak. Wygląda na to, że brakuje na Twoim systemie GPG. Proszę zainstaluj GPG. Możesz je znaleźć na przykład w GPGTools Installer na https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Błąd konfiguracji GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, coś poszło nie tak. GPG zostało wykryte na Twoim systemie, ale wygląda na to, że wystąpił problem z plikiem konfiguracyjnym. Proszę skontaktuj się z nami na http://support.gpgtools.org.\n\nSzczegóły: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Nie udało się znaleźć Libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg nie został znaleziony na Twoim systemie. Proszę zainstaluj go. Możesz go znaleźć na GPGTools Installer https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Ktoś majstrował przy Twojej instalacji GPG Keychain Access!";
@@ -91,6 +91,50 @@ Error = "Błąd";
 Warning = "Ostrzeżenie";
 Cancel = "Anuluj";
 "Apply to all" = "Zastosuj do wszystkich";
+
+
+/* Warnings */
+RemoveUserID_Title = "Remove UserID";
+RemoveUserID_Msg = "You are about to remove UserID %@ from your key %@. If you remove this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, removing the UserID will not remove the UserID from the key on the key servers. Please instead revoke the UserID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove UserID";
+RemoveUserID_No = "Cancel";
+
+RevokeUserID_Title = "Revoke UserID";
+RevokeUserID_Msg = "You are about to revoke UserID %@ from your key %@. If you revoke this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked UserID.";
+RevokeUserID_Yes = "Revoke UserID";
+RevokeUserID_No = "Cancel";
+
+RemoveSubkey_Title = "Remove Subkey";
+RemoveSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
+RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_No = "Cancel";
+
+RevokeSubkey_Title = "Revoke Subkey";
+RevokeSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
+RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_No = "Cancel";
+
+RevokeSignature_Title = "Revoke Signature";
+RevokeSignature_Msg = "Revoking your Signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. Consider uploading your updated key to the Keyservers so others are made aware, that your signature has been revoked.";
+RevokeSignature_Yes = "Revoke Signature";
+RevokeSignature_No = "Cancel";
+
+RemoveSignature_Title = "Remove Signature";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Yes = "Remove Signature";
+RemoveSignature_No = "Cancel";
+
+
+BadKeyserver_Title = "Bad Keyserver";
+BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+
+
+/* Import warnings */
+ImportRevSig_Title = "Importowanie unieważnionych certyfikatów";
+ImportRevSig_Msg = "Zamierzasz zaimportować unieważniony certyfikat dla %@. Jeśli unieważnisz swój klucz, to nie będziesz już w stanie podpisywać wiadomości używając tego klucza i inni nie będą w stanie wysyłać Ci szyfrowanych wiadomości używając Twojego klucza. Rozważ wysłanie swojego unieważnionego klucza do serwera kluczy tak aby inni byli świadomi, że ten klucz został unieważniony.\n\nBędziesz w dalszym ciągu mógł używać swoj unieważniony klucz do odszyfrowywania maili i plików które zostały zaszyfrowane używając tego klucza. To właśnie temu radzimy abyś trzymał swoje unieważnione klucze w GPG Keychain Access.";
+ImportRevSig_Yes = "Import";
+ImportRevSig_No = "Anuluj";
+
 
 /* For Import-Results */
 ImportResult_Secret = "klucz %@: klucz prywatny \"%@\" zaimportowany.";
@@ -184,9 +228,9 @@ GenerateRevokeCertificateForKey_Progress = "Generowanie unieważnienia certyfika
 GenerateRevokeCertificateForKey_Error = "Generowanie unieważnienia certyfikatu nieudane.";
 SearchKeysOnServer_Progress = "Szukanie klucza.";
 SearchKeysOnServer_Error = "Szukanie klucza nieudane.";
-SendKeysToServer_Progress = "Wysyłanie klucza.";
+SendKeysToServer_Progress = "Wysyłanie %@ na serwer.";
 SendKeysToServer_Error = "Wysyłanie klucza nieudane.";
-RefreshKeysFromServer_Progress = "Odświeżenie klucza.";
+RefreshKeysFromServer_Progress = "Odświeżanie %@ z serwera.";
 RefreshKeysFromServer_Error = "Odświeżenie klucza nieudane.";
 AddSubkey_Progress = "Dodanie podklucza.";
 AddSubkey_Error = "Dodanie podklucza nieudane.";

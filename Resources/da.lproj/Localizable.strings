@@ -53,8 +53,8 @@ SearchingKeys_Msg = "Vi leder efter matchende nøgler på nøgleserveren. Det ta
 GenerateKey_Progress = "Vi har brug for at generere en masse tilfældige bits. Det er en god idé at gøre noget imens (skriv på tastaturet i et program, bevæg musen, brug harddisken). Dette giver tilfældighedsgeneratoren bedre muligheder for at få tilstrækkelig entropi.";
 GenerateSubkey_Msg = "Tilføj undernøgle til nøglen \"%@\", %@.";
 GenerateUserID_Msg = "Tilføj bruger ID til nøglen \"%@\", %@.";
-
-
+GenerateSignature_Msg = "At signere en nøgle betyder, at du bekræfter, at nøglens ejer er den han/hun giver sig ud for at være.\nNår signaturer er uploadede kan de ses af andre.\nHvis du signerer Bobs nøgle, og din ven Alice ikke er sikker på, at Bob virkelig er Bob, kan Alice se din signatur i Bobs nøgle. Da Alice ved at din nøgle er troværdig, ved hun også at Bob sandsynligvis faktisk er Bob.\n\nDu er ved at signere denne nøgle:\n%@";
+GenerateUidSignature_Msg = "At signere et bruger ID betyder, at du bekræfter, at nøglens ejer er den han/hun giver sig ud for at være.\nNår signaturer er uploadede kan de ses af andre.\nHvis du signerer Bobs nøgle, og din ven Alice ikke er sikker på, at Bob virkelig er Bob, kan Alice se din signatur i Bobs nøgle. Da Alice ved at din nøgle er troværdig, ved hun også at Bob sandsynligvis faktisk er Bob.\n\nDu er ved at signere dette bruger ID:\n%@";
 ChangeExpirationDate_Msg = "Ændre udløbsdato for \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Ændre udløbsdato for \"%@\", %@\nUndernøgle: %@";
 
@@ -91,6 +91,50 @@ Error = "Fejl";
 Warning = "Advarsel";
 Cancel = "Annuller";
 "Apply to all" = "Anvend på alle";
+
+
+/* Warnings */
+RemoveUserID_Title = "Remove UserID";
+RemoveUserID_Msg = "You are about to remove UserID %@ from your key %@. If you remove this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, removing the UserID will not remove the UserID from the key on the key servers. Please instead revoke the UserID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove UserID";
+RemoveUserID_No = "Cancel";
+
+RevokeUserID_Title = "Revoke UserID";
+RevokeUserID_Msg = "You are about to revoke UserID %@ from your key %@. If you revoke this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked UserID.";
+RevokeUserID_Yes = "Revoke UserID";
+RevokeUserID_No = "Cancel";
+
+RemoveSubkey_Title = "Remove Subkey";
+RemoveSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
+RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_No = "Cancel";
+
+RevokeSubkey_Title = "Revoke Subkey";
+RevokeSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
+RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_No = "Cancel";
+
+RevokeSignature_Title = "Revoke Signature";
+RevokeSignature_Msg = "Revoking your Signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. Consider uploading your updated key to the Keyservers so others are made aware, that your signature has been revoked.";
+RevokeSignature_Yes = "Revoke Signature";
+RevokeSignature_No = "Cancel";
+
+RemoveSignature_Title = "Remove Signature";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Yes = "Remove Signature";
+RemoveSignature_No = "Cancel";
+
+
+BadKeyserver_Title = "Bad Keyserver";
+BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+
+
+/* Import warnings */
+ImportRevSig_Title = "Importer tilbagekaldelsescertifikat";
+ImportRevSig_Msg = "Du er ved at importere et tilbagekaldelsescertifikat for %@. Hvis du tilbagekalder din nøgle, vil du ikke længere kunne signere beskeder med den nøgle, og andre vil ikke længere kunne sende beskeder til dig, der er krypterede med din nøgle. Overvej at uploade din tilbagekaldte nøgle til nøgleserveren, så andre bliver gjort opmærksom på, at din nøgle er blevet tilbagekaldt.\n\nDin tilbagekaldte nøgle kan stadig bruges til at dekryptere e-mails og filer, der er krypteret med din offentlige nøgle. Derfor anbefaler vi at du beholder den tilbagekaldte nøgle i GPG Nøglering.";
+ImportRevSig_Yes = "Importér";
+ImportRevSig_No = "Annuller";
+
 
 /* For Import-Results */
 ImportResult_Secret = "nøgle %@: privat nøgle \"%@\" importeret.";
@@ -184,9 +228,9 @@ GenerateRevokeCertificateForKey_Progress = "Laver tilbagekaldelsescertifikat.";
 GenerateRevokeCertificateForKey_Error = "Oprettelse af tilbagekaldelsescertifikat mislykkedes.";
 SearchKeysOnServer_Progress = "Søger efter nøgle.";
 SearchKeysOnServer_Error = "Søgen efter nøgle mislykkedes.";
-SendKeysToServer_Progress = "Sender nøgle.";
+SendKeysToServer_Progress = "Sender %@ til server.";
 SendKeysToServer_Error = "Afsendelse af nøgle mislykkedes.";
-RefreshKeysFromServer_Progress = "Fornyer nøgle.";
+RefreshKeysFromServer_Progress = "Opdaterer %@ fra server.";
 RefreshKeysFromServer_Error = "Fornyelse af nøgle mislykkedes.";
 AddSubkey_Progress = "Tilføjer undernøgle.";
 AddSubkey_Error = "Tilføjelse af undernøgle mislykkedes.";
