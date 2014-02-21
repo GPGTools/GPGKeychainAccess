@@ -1083,7 +1083,7 @@
 	switch ([[userInfo objectForKey:@"operation"] integerValue]) {
 		case ImportOperation:
 			if (![[userInfo objectForKey:@"containsImportable"] boolValue]) {
-				if ([[userInfo objectForKey:@"containsImportable"] boolValue]) {
+				if ([[userInfo objectForKey:@"containsNonImportable"] boolValue]) {
 					title = localized(@"ImportKeyErrorPGP_Title");
 					message = localized(@"ImportKeyErrorPGP_Msg");
 				} else {
