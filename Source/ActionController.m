@@ -365,7 +365,7 @@
 }
 
 #pragma mark "Key attributes"
-- (IBAction)changePassphrase:(NSButton *)sender {
+- (IBAction)changePassphrase:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] == 1) {
 		GPGKey *key = [[keys anyObject] primaryKey];
@@ -375,7 +375,7 @@
 		[gpgc changePassphraseForKey:key];
 	}
 }
-- (IBAction)setDisabled:(NSButton *)sender {
+- (IBAction)setDisabled:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] > 0) {
 		BOOL disabled = [sender state] == NSOnState;
@@ -399,7 +399,7 @@
 		}
 	}
 }
-- (IBAction)changeExpirationDate:(NSButton *)sender {
+- (IBAction)changeExpirationDate:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
 		return;
@@ -558,7 +558,7 @@
 }
 
 #pragma mark "Subkeys"
-- (IBAction)addSubkey:(NSButton *)sender {
+- (IBAction)addSubkey:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
 		return;
@@ -576,7 +576,7 @@
 	self.errorText = localized(@"AddSubkey_Error");
 	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
 }
-- (IBAction)removeSubkey:(NSButton *)sender {
+- (IBAction)removeSubkey:(id)sender {
 	if (subkeysController.selectedObjects.count != 1) {
 		return;
 	}
@@ -592,7 +592,7 @@
 	self.errorText = localized(@"RemoveSubkey_Error");
 	[gpgc removeSubkey:subkey fromKey:key];
 }
-- (IBAction)revokeSubkey:(NSButton *)sender {
+- (IBAction)revokeSubkey:(id)sender {
 	if (subkeysController.selectedObjects.count != 1) {
 		return;
 	}
@@ -609,7 +609,7 @@
 }
 
 #pragma mark "UserIDs"
-- (IBAction)addUserID:(NSButton *)sender {
+- (IBAction)addUserID:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
 		return;
@@ -628,7 +628,7 @@
 	gpgc.userInfo = @{@"action": @(SetPrimaryUserIDAction), @"userID": key.primaryUserID};
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
-- (IBAction)removeUserID:(NSButton *)sender {
+- (IBAction)removeUserID:(id)sender {
 	if ([userIDsController selectionIndex] == NSNotFound) {
 		return;
 	}
@@ -643,7 +643,7 @@
 	self.errorText = localized(@"RemoveUserID_Error");
 	[gpgc removeUserID:[userID hashID] fromKey:key];
 }
-- (IBAction)setPrimaryUserID:(NSButton *)sender {
+- (IBAction)setPrimaryUserID:(id)sender {
 	if ([userIDsController selectionIndex] != NSNotFound) {
 		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 		GPGKey *key = [userID primaryKey];
@@ -653,7 +653,7 @@
 		[gpgc setPrimaryUserID:[userID hashID] ofKey:key];
 	}
 }
-- (IBAction)revokeUserID:(NSButton *)sender {
+- (IBAction)revokeUserID:(id)sender {
 	if ([userIDsController selectionIndex] == NSNotFound) {
 		return;
 	}
@@ -676,7 +676,7 @@
 	self.errorText = localized(@"AddPhoto_Error");
 	[gpgc addPhotoFromPath:path toKey:key];
 }
-- (IBAction)addPhoto:(NSButton *)sender {
+- (IBAction)addPhoto:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
 		return;
@@ -697,7 +697,7 @@
 	
 	[self addPhoto:[sheetController.URL path] toKey:key];
 }
-- (IBAction)removePhoto:(NSButton *)sender {
+- (IBAction)removePhoto:(id)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
 		NSSet *keys = [self selectedKeys];
 		GPGKey *key = [[keys anyObject] primaryKey];
@@ -707,7 +707,7 @@
 		[gpgc removeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key];
 	}
 }
-- (IBAction)setPrimaryPhoto:(NSButton *)sender {
+- (IBAction)setPrimaryPhoto:(id)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
 		GPGKey *key = [[[self selectedKeys] anyObject] primaryKey];
 		
@@ -716,7 +716,7 @@
 		[gpgc setPrimaryUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] ofKey:key];
 	}
 }
-- (IBAction)revokePhoto:(NSButton *)sender {
+- (IBAction)revokePhoto:(id)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
 		GPGKey *key = [[[self selectedKeys] anyObject] primaryKey];
 		
@@ -772,7 +772,7 @@
 	self.errorText = localized(@"AddSignature_Error");
 	[gpgc signUserID:[userID hashID] ofKey:key signKey:sheetController.secretKey type:sheetController.sigType local:sheetController.localSig daysToExpire:sheetController.daysToExpire];
 }
-- (IBAction)removeSignature:(NSButton *)sender {
+- (IBAction)removeSignature:(id)sender {
 	if ([signaturesController selectionIndex] == NSNotFound) {
 		return;
 	}
@@ -789,7 +789,7 @@
 	self.errorText = localized(@"RemoveSignature_Error");
 	[gpgc removeSignature:gpgKeySignature fromUserID:userID ofKey:key];
 }
-- (IBAction)revokeSignature:(NSButton *)sender {
+- (IBAction)revokeSignature:(id)sender {
 	if ([signaturesController selectionIndex] == NSNotFound) {
 		return;
 	}
