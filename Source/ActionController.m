@@ -90,24 +90,75 @@
 	[pool drain];
 }
 - (void)importFromData:(NSData *)data {
-	__block BOOL showRevokactionWarning = NO;
+	__block BOOL containsRevSig = NO;
+	__block BOOL containsImportable = NO;
+	__block BOOL containsNonImportable = NO;
 	__block NSMutableArray *keys = nil;
 	
 	
 	[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
-		if (packet.type == GPGSignaturePacket && packet.signatureType == 32 /* Revocation */) {
-			if (!keys) {
-				keys = [NSMutableArray array];
-			}
-			GPGKey *key = [[[GPGKeyManager sharedInstance] keysByKeyID] objectForKey:packet.keyID];
-			[keys addObject:key ? key : packet.keyID];
-			showRevokactionWarning = YES;
+		switch (packet.type) {
+			case GPGSignaturePacket:
+				switch (packet.signatureType) {
+					case GPGBinarySignature:
+					case GPGTextSignature:
+						containsNonImportable = YES;
+						break;
+					case GPGRevocationSignature: {
+						if (!keys) {
+							keys = [NSMutableArray array];
+						}
+						GPGKey *key = [[[GPGKeyManager sharedInstance] keysByKeyID] objectForKey:packet.keyID];
+						[keys addObject:key ? key : packet.keyID];
+						containsRevSig = YES;
+					} /* no break */
+					case GPGGeneriCertificationSignature:
+					case GPGPersonaCertificationSignature:
+					case GPGCasualCertificationSignature:
+					case GPGPositiveCertificationSignature:
+					case GPGSubkeyBindingSignature:
+					case GPGKeyBindingSignature:
+					case GPGDirectKeySignature:
+					case GPGSubkeyRevocationSignature:
+					case GPGCertificationRevocationSignature:
+						containsImportable = YES;
+					default:
+						break;
+				}
+				/* no break */
+			case GPGSecretKeyPacket:
+			case GPGPublicKeyPacket:
+			case GPGSecretSubkeyPacket:
+			case GPGUserIDPacket:
+			case GPGPublicSubkeyPacket:
+			case GPGUserAttributePacket:
+				containsImportable = YES;
+				break;
+			case GPGPublicKeyEncryptedSessionKeyPacket:
+			case GPGSymmetricEncryptedSessionKeyPacket:
+			case GPGSymmetricEncryptedDataPacket:
+			case GPGSymmetricEncryptedProtectedDataPacket:
+			case GPGCompressedDataPacket:
+				containsNonImportable = YES;
+				break;
+			default:
+				break;
 		}
 	}];
 	
-	if (showRevokactionWarning) {
+	if (containsRevSig) {
 		if ([self warningSheet:@"ImportRevSig", [self descriptionForKeys:keys withOptions:0]] == NO) {
 			return;
+		}
+	} else if (!containsImportable) {
+		if (containsNonImportable) {
+			if ([self warningSheet:@"ImportNonImportable", [self descriptionForKeys:keys withOptions:0]] == NO) {
+				return;
+			}
+		} else {
+			if ([self warningSheet:@"ImportRandomData", [self descriptionForKeys:keys withOptions:0]] == NO) {
+				return;
+			}
 		}
 	}
 	
