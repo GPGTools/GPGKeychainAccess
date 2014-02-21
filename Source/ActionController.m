@@ -150,21 +150,11 @@
 		if ([self warningSheet:@"ImportRevSig", [self descriptionForKeys:keys withOptions:0]] == NO) {
 			return;
 		}
-	} else if (!containsImportable) {
-		if (containsNonImportable) {
-			if ([self warningSheet:@"ImportNonImportable", [self descriptionForKeys:keys withOptions:0]] == NO) {
-				return;
-			}
-		} else {
-			if ([self warningSheet:@"ImportRandomData", [self descriptionForKeys:keys withOptions:0]] == NO) {
-				return;
-			}
-		}
 	}
 	
 	
 	self.progressText = localized(@"ImportKey_Progress");
-	gpgc.userInfo = @{@"action": @(ShowResultAction), @"operation": @(ImportOperation)};
+	gpgc.userInfo = @{@"action": @(ShowResultAction), @"operation": @(ImportOperation), @"containsImportable": @(containsImportable), @"containsNonImportable": @(containsNonImportable)};
 	[gpgc importFromData:data fullImport:NO];
 }
 - (IBAction)copy:(id)sender {
@@ -1075,6 +1065,7 @@
 	NSString *title, *message;
 	GPGException *ex = nil;
 	GPGTask *gpgTask = nil;
+	NSDictionary *userInfo = gc.userInfo;
 	
 	
 	NSLog(@"Exception: %@", e.description);
@@ -1089,10 +1080,20 @@
 	}
 	
 	
-	switch ([[gc.userInfo objectForKey:@"operation"] integerValue]) {
+	switch ([[userInfo objectForKey:@"operation"] integerValue]) {
 		case ImportOperation:
-			title = localized(@"ImportKeyError_Title");
-			message = localized(@"ImportKeyError_Msg");
+			if (![[userInfo objectForKey:@"containsImportable"] boolValue]) {
+				if ([[userInfo objectForKey:@"containsImportable"] boolValue]) {
+					title = localized(@"ImportKeyErrorPGP_Title");
+					message = localized(@"ImportKeyErrorPGP_Msg");
+				} else {
+					title = localized(@"ImportKeyErrorNoPGP_Title");
+					message = localized(@"ImportKeyErrorNoPGP_Msg");
+				}
+			} else {
+				title = localized(@"ImportKeyError_Title");
+				message = localized(@"ImportKeyError_Msg");
+			}
 			break;
 		default:
 			title = self.errorText;
