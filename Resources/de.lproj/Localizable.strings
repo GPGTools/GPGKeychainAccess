@@ -61,7 +61,7 @@ ChangeSubkeyExpirationDate_Msg = "Ändern des Verfalldatums des Unterschlüssels
 GenerateKey_Error = "Ups, da ging was schief. Es gab ein Problem bei der Erstellung deines Schlüssels.";
 
 /* Message for incorrect Entries */
-CheckError_NameToShort = "Der Name muss mindestens 5 Zeichen lang sein!!";
+CheckError_NameToShort = "Der Name muss mindestens 5 Zeichen lang sein!";
 CheckError_NameToLong = "Der Name ist zu lang!";
 CheckError_InvalidCharInName = "Ungültiges Zeichen im Namen!\n„<“ und „>“ sind nicht erlaubt.";
 CheckError_NameStartWithDigit = "Der Name darf nicht mit einer Zahl beginnen!";
@@ -94,39 +94,39 @@ Cancel = "Abbrechen";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove UserID";
+RemoveUserID_Title = "BenutzerID löschen";
 RemoveUserID_Msg = "You are about to remove UserID %@ from your key %@. If you remove this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, removing the UserID will not remove the UserID from the key on the key servers. Please instead revoke the UserID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove UserID";
-RemoveUserID_No = "Cancel";
+RemoveUserID_Yes = "BenutzerID löschen";
+RemoveUserID_No = "Abbrechen";
 
-RevokeUserID_Title = "Revoke UserID";
+RevokeUserID_Title = "BenutzerID widerrufen";
 RevokeUserID_Msg = "You are about to revoke UserID %@ from your key %@. If you revoke this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked UserID.";
-RevokeUserID_Yes = "Revoke UserID";
-RevokeUserID_No = "Cancel";
+RevokeUserID_Yes = "BenutzerID widerrufen";
+RevokeUserID_No = "Abbrechen";
 
-RemoveSubkey_Title = "Remove Subkey";
+RemoveSubkey_Title = "Unterschlüssel löschen";
 RemoveSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
-RemoveSubkey_Yes = "Remove Subkey";
-RemoveSubkey_No = "Cancel";
+RemoveSubkey_Yes = "Unterschlüssel löschen";
+RemoveSubkey_No = "Abbrechen";
 
-RevokeSubkey_Title = "Revoke Subkey";
+RevokeSubkey_Title = "Unterschlüssel widerrufen";
 RevokeSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
-RevokeSubkey_Yes = "Revoke Subkey";
-RevokeSubkey_No = "Cancel";
+RevokeSubkey_Yes = "Unterschlüssel widerrufen";
+RevokeSubkey_No = "Abbrechen";
 
-RevokeSignature_Title = "Revoke Signature";
-RevokeSignature_Msg = "Revoking your Signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. Consider uploading your updated key to the Keyservers so others are made aware, that your signature has been revoked.";
-RevokeSignature_Yes = "Revoke Signature";
-RevokeSignature_No = "Cancel";
+RevokeSignature_Title = "Signatur widerrufen";
+RevokeSignature_Msg = "Das Widerrufen deiner Signatur wird sie als widerrufen kennzeichnen. Benutze diese Option, wenn du glaubst, dass der Schlüssel vom Schlüsselbesitzer gestohlen wurde und dass der ursprüngliche Schlüsselbesitzer keine Kontrolle mehr über den Schlüssel hat. Bitte ziehe in Betracht, den Schlüssel mit der widerrufenen Signatur auf den Schlüsselserver zu laden, damit andere mitbekommen, dass deine Signatur widerrufen wurde. ";
+RevokeSignature_Yes = "Signatur widerrufen";
+RevokeSignature_No = "Abbrechen";
 
-RemoveSignature_Title = "Remove Signature";
+RemoveSignature_Title = "Beglaubigung löschen";
 RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
-RemoveSignature_Yes = "Remove Signature";
-RemoveSignature_No = "Cancel";
+RemoveSignature_Yes = "Beglaubigung löschen";
+RemoveSignature_No = "Abbrechen";
 
 
-BadKeyserver_Title = "Bad Keyserver";
-BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+BadKeyserver_Title = "Falscher Schlüsselserver";
+BadKeyserver_Msg = "Der eingegebene Schlüsselserver funktioniert nicht.\nBitte überprüfe die Adresse des Schlüsselservers. Sie sollte ungefähr so aussehen: hkp://some.key.server.org\n\nEs könnte sein, dass der Schlüsselserver offline ist. In dem Fall, benutze bitte einen anderen Schlüsselserver.";
 
 
 /* Import warnings */
@@ -134,6 +134,16 @@ ImportRevSig_Title = "Widerrufszertifikat importieren";
 ImportRevSig_Msg = "Du bist dabei ein Widerrufszertifikat für %@ zu importieren. Sobald der Schlüssel widerrufen ist, kannst du damit keine Nachrichten mehr signieren und andere werden dir keine Nachrichten mehr schicken können, die mit diesem Schlüssel verschlüsselt sind. Bitte ziehe in Betracht, den widerrufenen Schlüssel auf den Schlüsselserver zu laden, damit andere mitbekommen, dass der Schlüssel widerrufen wurde. Du kannst deinen widerrufenen Schlüssel weiterhin zum Entschlüsseln von Mails und Dateien verwenden, die mit deinem öffentlichen Schlüssel verschlüsselt wurden. Wir empfehlen daher den widerrufenen Schlüssel im GPG Schlüsselbund zu behalten.";
 ImportRevSig_Yes = "Importieren";
 ImportRevSig_No = "Abbrechen";
+
+ImportRandomData_Title = "Warning! Content can probably not be imported.";
+ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
+ImportRandomData_Yes = "Try Import";
+ImportRandomData_No = "Cancel";
+
+ImportNonImportable_Title = "Warning! Content can probably not be imported.";
+ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain Access.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
+ImportNonImportable_Yes = "Try Import";
+ImportNonImportable_No = "Cancel";
 
 
 /* For Import-Results */
@@ -148,6 +158,12 @@ ImportResult_CountRevocationCertificate = "%i Widerrufszertifikate importiert.";
 ImportResult_CountProcessed = "Anzahl der verarbeiteten Schlüssel: %i";
 ImportResult_CountImported = "Anzahl der Importierten Schlüssel: %i";
 ImportResult_CountUnchanged = "Anzahl der Unveränderten Schlüssel: %i";
+
+/* Errors */
+ImportKeyError_Title = "Import failed!";
+ImportKeyError_Msg = "Ouch! This did not work.\n\nThe message could not be imported into GPG Keychain Access.\n\nAre you sure this really is a key?\n\nThis might rather be an encrypted or signed message. In that case use GPGServices for decryption or verification.";
+
+
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -206,7 +222,6 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 ExportKey_Progress = "Exportiere Schlüssel.";
 ExportKey_Error = "Schlüsselexport fehlgeschlagen.";
 ImportKey_Progress  = "Importiere Schlüssel.";
-ImportKey_Error = "Schlüsselimport fehlgeschlagen.";
 DeleteSecretKey_Progress = "Lösche geheimen Schlüssel.";
 DeleteKeys_Progress = "Lösche Schlüssel.";
 DeleteKeys_Error = "Löschen des Schlüssels fehlgeschlagen.";

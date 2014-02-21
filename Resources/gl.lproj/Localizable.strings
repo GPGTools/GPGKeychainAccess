@@ -135,6 +135,16 @@ ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If 
 ImportRevSig_Yes = "Import";
 ImportRevSig_No = "Cancel";
 
+ImportRandomData_Title = "Warning! Content can probably not be imported.";
+ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
+ImportRandomData_Yes = "Try Import";
+ImportRandomData_No = "Cancel";
+
+ImportNonImportable_Title = "Warning! Content can probably not be imported.";
+ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain Access.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
+ImportNonImportable_Yes = "Try Import";
+ImportNonImportable_No = "Cancel";
+
 
 /* For Import-Results */
 ImportResult_Secret = "key %@: secret key \"%@\" imported.";
@@ -148,6 +158,12 @@ ImportResult_CountRevocationCertificate = "%i revocation certificates imported."
 ImportResult_CountProcessed = "Count of processed keys: %i";
 ImportResult_CountImported = "Count of imported keys: %i";
 ImportResult_CountUnchanged = "Count of unchanged keys: %i";
+
+/* Errors */
+ImportKeyError_Title = "Import failed!";
+ImportKeyError_Msg = "Ouch! This did not work.\n\nThe message could not be imported into GPG Keychain Access.\n\nAre you sure this really is a key?\n\nThis might rather be an encrypted or signed message. In that case use GPGServices for decryption or verification.";
+
+
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -206,7 +222,6 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 ExportKey_Progress = "Exporting key.";
 ExportKey_Error = "Key export failed.";
 ImportKey_Progress  = "Importing key.";
-ImportKey_Error = "Key import failed.";
 DeleteSecretKey_Progress = "Deleting secret key.";
 DeleteKeys_Progress = "Deleting key.";
 DeleteKeys_Error = "Deleting key failed.";
