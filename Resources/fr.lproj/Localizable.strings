@@ -138,12 +138,12 @@ ImportRevSig_No = "Annuler";
 ImportRandomData_Title = "Warning! Content can probably not be imported.";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
 ImportRandomData_Yes = "Try Import";
-ImportRandomData_No = "Cancel";
+ImportRandomData_No = "Annuler";
 
 ImportNonImportable_Title = "Warning! Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain Access.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Try Import";
-ImportNonImportable_No = "Cancel";
+ImportNonImportable_No = "Annuler";
 
 
 /* For Import-Results */
@@ -160,10 +160,12 @@ ImportResult_CountImported = "Nombre de clés importées: %i";
 ImportResult_CountUnchanged = "Nombre de clés inchangées: %i";
 
 /* Errors */
-ImportKeyError_Title = "Import failed!";
-ImportKeyError_Msg = "Ouch! This did not work.\n\nThe message could not be imported into GPG Keychain Access.\n\nAre you sure this really is a key?\n\nThis might rather be an encrypted or signed message. In that case use GPGServices for decryption or verification.";
-
-
+ImportKeyError_Title = "Failed to import one or more keys!";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signat...for more details and steps on how to resolve this problem.";
+ImportKeyErrorPGP_Title = "Import Failed!";
+ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
+ImportKeyErrorNoPGP_Title = "Import failed!";
+ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";

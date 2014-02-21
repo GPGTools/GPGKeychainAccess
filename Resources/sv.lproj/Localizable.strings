@@ -53,7 +53,7 @@ SearchingKeys_Msg = "Vi söker efter matchande nyckel/nycklar på nyckelservern.
 GenerateKey_Progress = "Vi måste skapa många slumpmässiga bitar. Medan detta görs är det bra om du gör mycket annat på datorn (skriv på tangentbordet, rör musen, se till att hårddisken används). Detta ger slumptalsgeneratorn bättre förutsättningar att få tillräckligt med entropi.";
 GenerateSubkey_Msg = "Lägg till undernyckel till nyckeln \"%@\", %@.";
 GenerateUserID_Msg = "Lägg till användarID till nyckeln \"%@\", %@.";
-GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
+GenerateSignature_Msg = "Att signera en nyckel betyder att du bekräfta att du känner till nyckelns ägaren.\nSå fort nyckelns laddades upp, kan nyckelns betraktas av andra personer. Om du har skrivit under Bobs nyckel och din kompis Alice är inte säkert att om Bob verkligen är Bob, Alice kommer att se ditt intyg i hans nyckel och förstår att hon kan lita på nyckeln. Så hon vet att Bob är sannolikt Bob.\n\nNu ska du skriva under nyckeln:\n%@ ";
 GenerateUidSignature_Msg = "Signing a UserID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following UserID:\n%@";
 ChangeExpirationDate_Msg = "Ändra utgångsdatum för \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Ändra utgångsdatum för \"%@\", %@\nUndernyckel: %@";
@@ -94,14 +94,14 @@ Cancel = "Avbryt";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove UserID";
+RemoveUserID_Title = "Ta bort användarens ID";
 RemoveUserID_Msg = "You are about to remove UserID %@ from your key %@. If you remove this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, removing the UserID will not remove the UserID from the key on the key servers. Please instead revoke the UserID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove UserID";
+RemoveUserID_Yes = "Ta bort användarens ID";
 RemoveUserID_No = "Avbryt";
 
-RevokeUserID_Title = "Revoke UserID";
+RevokeUserID_Title = "Dra tillbaka användarens identitet";
 RevokeUserID_Msg = "You are about to revoke UserID %@ from your key %@. If you revoke this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked UserID.";
-RevokeUserID_Yes = "Revoke UserID";
+RevokeUserID_Yes = "Dra tillbaka användarens identitet";
 RevokeUserID_No = "Avbryt";
 
 RemoveSubkey_Title = "Remove Subkey";
@@ -130,7 +130,7 @@ BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check
 
 
 /* Import warnings */
-ImportRevSig_Title = "Import revocation certificate";
+ImportRevSig_Title = "Importerar återkallelsecertifikat";
 ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.";
 ImportRevSig_Yes = "Importera";
 ImportRevSig_No = "Avbryt";
@@ -138,12 +138,12 @@ ImportRevSig_No = "Avbryt";
 ImportRandomData_Title = "Warning! Content can probably not be imported.";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
 ImportRandomData_Yes = "Try Import";
-ImportRandomData_No = "Cancel";
+ImportRandomData_No = "Avbryt";
 
 ImportNonImportable_Title = "Warning! Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain Access.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Try Import";
-ImportNonImportable_No = "Cancel";
+ImportNonImportable_No = "Avbryt";
 
 
 /* For Import-Results */
@@ -160,10 +160,12 @@ ImportResult_CountImported = "Antal importerade nycklar: %i";
 ImportResult_CountUnchanged = "Antal oförändrade nycklar. %i";
 
 /* Errors */
-ImportKeyError_Title = "Import failed!";
-ImportKeyError_Msg = "Ouch! This did not work.\n\nThe message could not be imported into GPG Keychain Access.\n\nAre you sure this really is a key?\n\nThis might rather be an encrypted or signed message. In that case use GPGServices for decryption or verification.";
-
-
+ImportKeyError_Title = "Failed to import one or more keys!";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signat...for more details and steps on how to resolve this problem.";
+ImportKeyErrorPGP_Title = "Import Failed!";
+ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
+ImportKeyErrorNoPGP_Title = "Import failed!";
+ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -243,9 +245,9 @@ GenerateRevokeCertificateForKey_Progress = "Skapar återkallelsecertifikat.";
 GenerateRevokeCertificateForKey_Error = "Skapandet av återkallelsecertifikat misslyckades.";
 SearchKeysOnServer_Progress = "Söker efter nyckel.";
 SearchKeysOnServer_Error = "Sökingen av nyckel misslyckades.";
-SendKeysToServer_Progress = "Sending %@ to server.";
+SendKeysToServer_Progress = "Skicka %@ till nyckelserver";
 SendKeysToServer_Error = "Skickandet av nyckeln misslyckades.";
-RefreshKeysFromServer_Progress = "Refreshing %@ from server.";
+RefreshKeysFromServer_Progress = "Uppdatera %@ från nyckelserver";
 RefreshKeysFromServer_Error = "Uppdateringen av nyckeln misslyckades.";
 AddSubkey_Progress = "Lägger till undernyckel.";
 AddSubkey_Error = "Det misslyckades att lägga till undernyckel.";
