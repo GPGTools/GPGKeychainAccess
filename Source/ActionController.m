@@ -125,7 +125,7 @@
 					default:
 						break;
 				}
-				/* no break */
+				break;
 			case GPGSecretKeyPacket:
 			case GPGPublicKeyPacket:
 			case GPGSecretSubkeyPacket:
@@ -164,8 +164,7 @@
 	
 	
 	self.progressText = localized(@"ImportKey_Progress");
-	self.errorText = localized(@"ImportKey_Error");
-	gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:ShowResultAction], @"action", nil];
+	gpgc.userInfo = @{@"action": @(ShowResultAction), @"operation": @(ImportOperation)};
 	[gpgc importFromData:data fullImport:NO];
 }
 - (IBAction)copy:(id)sender {
@@ -1073,22 +1072,40 @@
 	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:YES];
 }
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
-	NSString *infoText;
+	NSString *title, *message;
+	GPGException *ex = nil;
+	GPGTask *gpgTask = nil;
+	
 	
 	NSLog(@"Exception: %@", e.description);
-	
-	infoText = [NSString stringWithFormat:@"%@", e.description];
 
 	if ([e isKindOfClass:[GPGException class]]) {
-		if ([(GPGException *)e errorCode] == GPGErrorCancelled) {
+		ex = (GPGException *)e;
+		gpgTask = ex.gpgTask;
+		if (ex.errorCode == GPGErrorCancelled) {
 			return;
 		}
-		if ([(GPGException *)e gpgTask]) {
-			NSLog(@"Error text: %@\nStatus text: %@", [(GPGException *)e gpgTask].errText, [(GPGException *)e gpgTask].statusText);
-			infoText = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, [(GPGException *)e gpgTask].errText];
-		}
+		NSLog(@"Error text: %@\nStatus text: %@", gpgTask.errText, gpgTask.statusText);
 	}
-	[sheetController errorSheetWithmessageText:self.errorText infoText:infoText];
+	
+	
+	switch ([[gc.userInfo objectForKey:@"operation"] integerValue]) {
+		case ImportOperation:
+			title = localized(@"ImportKeyError_Title");
+			message = localized(@"ImportKeyError_Msg");
+			break;
+		default:
+			title = self.errorText;
+			if (gpgTask) {
+				message = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, gpgTask.errText];
+			} else {
+				message = [NSString stringWithFormat:@"%@", e.description];
+			}
+			break;
+	}
+	
+	
+	[sheetController errorSheetWithmessageText:title infoText:message];
 }
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];

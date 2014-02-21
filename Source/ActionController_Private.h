@@ -35,3 +35,8 @@ enum {
 	UploadKeyAction,
 	SetPrimaryUserIDAction
 };
+
+enum {
+	ImportOperation = 1
+};
+
