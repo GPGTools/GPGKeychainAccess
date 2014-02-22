@@ -33,7 +33,9 @@ enum {
 	ShowFoundKeysAction,
 	SaveDataToURLAction,
 	UploadKeyAction,
-	SetPrimaryUserIDAction
+	SetPrimaryUserIDAction,
+	SetTrustAction,
+	SetDisabledAction
 };
 
 enum {

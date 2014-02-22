@@ -377,28 +377,55 @@
 }
 - (IBAction)setDisabled:(id)sender {
 	NSSet *keys = [self selectedKeys];
-	if ([keys count] > 0) {
-		BOOL disabled = [sender state] == NSOnState;
-		[self.undoManager beginUndoGrouping];
-		for (GPGKey *key in keys) {
-			self.progressText = localized(@"SetDisabled_Progress");
-			self.errorText = localized(@"SetDisabled_Error");
-			[gpgc key:key setDisabled:disabled];
-		}
-		[self.undoManager endUndoGrouping];
-		[self.undoManager setActionName:localized(disabled ? @"Undo_Disable" : @"Undo_Enable")];
+	BOOL disabled = [sender state] == NSOnState;
+	[self setDisabled:disabled forKeys:keys];
+}
+- (void)setDisabled:(BOOL)disabled forKeys:(NSSet *)keys {
+	if (keys.count == 0) {
+		return;
 	}
+	self.progressText = localized(@"SetDisabled_Progress");
+	self.errorText = localized(@"SetDisabled_Error");
+	
+	GPGKey *key = keys.anyObject;
+	
+	if (keys.count > 1) {
+		if (![keys isKindOfClass:[NSMutableSet class]]) {
+			keys = [keys mutableCopy];
+		}
+		[(NSMutableSet *)keys removeObject:key];
+		
+		gpgc.userInfo = @{@"action": @(SetDisabledAction), @"keys": keys, @"disabled": @(disabled)};
+	}
+	
+	[gpgc key:key setDisabled:disabled];
 }
 - (IBAction)setTrust:(NSPopUpButton *)sender {
 	NSSet *keys = [self selectedKeys];
-	if ([keys count] > 0) {
-		for (GPGKey *key in keys) {
-			self.progressText = localized(@"SetOwnerTrust_Progress");
-			self.errorText = localized(@"SetOwnerTrust_Error");
-			[gpgc key:key setOwnerTrust:[sender selectedTag]];
-		}
-	}
+	NSInteger trust = sender.selectedTag;
+	[self setTrust:trust forKeys:keys];
 }
+- (void)setTrust:(NSInteger)trust forKeys:(NSSet *)keys {
+	if (keys.count == 0) {
+		return;
+	}
+	self.progressText = localized(@"SetOwnerTrust_Progress");
+	self.errorText = localized(@"SetOwnerTrust_Error");
+	
+	GPGKey *key = keys.anyObject;
+	
+	if (keys.count > 1) {
+		if (![keys isKindOfClass:[NSMutableSet class]]) {
+			keys = [keys mutableCopy];
+		}
+		[(NSMutableSet *)keys removeObject:key];
+		
+		gpgc.userInfo = @{@"action": @(SetTrustAction), @"keys": keys, @"trust": @(trust)};
+	}
+	
+	[gpgc key:key setOwnerTrust:trust];
+}
+
 - (IBAction)changeExpirationDate:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
@@ -1109,11 +1136,10 @@
 	[sheetController errorSheetWithmessageText:title infoText:message];
 }
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
-	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:YES];
-	
-	NSDictionary *oldUserInfo = gc.userInfo;
-	NSString *oldProgressText = self.progressText;
-	NSString *oldErrorText = self.errorText;
+	NSDictionary *oldUserInfo = [gc.userInfo retain];
+	gc.userInfo = nil;
+	self.progressText = nil;
+	self.errorText = nil;
 	
 	NSInteger action = [[oldUserInfo objectForKey:@"action"] integerValue];
 	
@@ -1175,18 +1201,27 @@
 			[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
 			
 			break;
+		case SetTrustAction: {
+			NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
+			NSInteger *trust = [[oldUserInfo objectForKey:@"trust"] integerValue];
+			
+			[self setTrust:trust forKeys:keys];
+			break;
+		}
+		case SetDisabledAction: {
+			NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
+			BOOL *disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
+			
+			[self setDisabled:disabled forKeys:keys];
+			break;
+		}
 		default:
 			break;
 	}
-	if (oldProgressText == self.progressText) {
-		self.progressText = nil;
-	}
-	if (oldErrorText == self.errorText) {
-		self.errorText = nil;
-	}
-	if (oldUserInfo == gc.userInfo) {
-		gc.userInfo = nil;
-	}
+	
+	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:NO];
+	
+	[oldUserInfo release];
 }
 
 
