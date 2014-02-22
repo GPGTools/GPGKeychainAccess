@@ -80,6 +80,7 @@
 - (IBAction)refreshKeysFromServer:(id)sender;
 - (IBAction)genRevokeCertificate:(id)sender;
 - (IBAction)editAlgorithmPreferences:(id)sender;
+- (IBAction)sendKeysPerMail:(id)sender;
 - (BOOL)warningSheet:(NSString *)string, ...;
 
 - (NSSet *)selectedKeys;

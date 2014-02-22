@@ -242,6 +242,24 @@
 									<reference key="NSOnImage" ref="987051078"/>
 									<reference key="NSMixedImage" ref="963921074"/>
 								</object>
+								<object class="NSMenuItem" id="744471151">
+									<reference key="NSMenu" ref="931098208"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="987051078"/>
+									<reference key="NSMixedImage" ref="963921074"/>
+								</object>
+								<object class="NSMenuItem" id="662316073">
+									<reference key="NSMenu" ref="931098208"/>
+									<string key="NSTitle">Mail Public Key…</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="987051078"/>
+									<reference key="NSMixedImage" ref="963921074"/>
+								</object>
 								<object class="NSMenuItem" id="380425204">
 									<reference key="NSMenu" ref="931098208"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -3180,7 +3198,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrameSize">{408, 190}</string>
 															<reference key="NSSuperview" ref="72703776"/>
-															<reference key="NSNextKeyView" ref="45255014"/>
+															<reference key="NSNextKeyView" ref="712054289"/>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 															<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -3422,7 +3440,7 @@
 											<object class="NSPSMatrix" key="NSFrameMatrix"/>
 											<string key="NSFrame">{{17, 219}, {410, 208}}</string>
 											<reference key="NSSuperview" ref="60689277"/>
-											<reference key="NSNextKeyView" ref="72703776"/>
+											<reference key="NSNextKeyView" ref="45255014"/>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="1070964678"/>
 											<reference key="NSHScroller" ref="45255014"/>
@@ -3667,6 +3685,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{102, 13}, {308, 14}}</string>
 															<reference key="NSSuperview" ref="515609855"/>
+															<reference key="NSNextKeyView" ref="922095770"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="2179208">
 																<int key="NSCellFlags">70254657</int>
@@ -4577,6 +4596,14 @@
 						<reference key="destination" ref="630972612"/>
 					</object>
 					<string key="id">370</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">sendKeysPerMail:</string>
+						<reference key="source" ref="520472171"/>
+						<reference key="destination" ref="662316073"/>
+					</object>
+					<string key="id">mYZ-ek-o58</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -6475,7 +6502,7 @@
 						<string key="label">enabled: selection.primaryKey.secret</string>
 						<reference key="source" ref="21525396"/>
 						<reference key="destination" ref="605920174"/>
-						<object class="NSNibBindingConnector" key="connector" id="824804018">
+						<object class="NSNibBindingConnector" key="connector" id="385912140">
 							<reference key="NSSource" ref="21525396"/>
 							<reference key="NSDestination" ref="605920174"/>
 							<string key="NSLabel">enabled: selection.primaryKey.secret</string>
@@ -6503,7 +6530,7 @@
 								<integer value="-1" key="NSNotApplicablePlaceholder"/>
 								<integer value="-1" key="NSNullPlaceholder"/>
 							</dictionary>
-							<reference key="NSPreviousConnector" ref="824804018"/>
+							<reference key="NSPreviousConnector" ref="385912140"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
@@ -7516,6 +7543,8 @@
 							<reference ref="820745758"/>
 							<reference ref="380425204"/>
 							<reference ref="8657209"/>
+							<reference ref="662316073"/>
+							<reference ref="744471151"/>
 						</array>
 						<reference key="parent" ref="655014316"/>
 					</object>
@@ -9715,6 +9744,16 @@
 						<reference key="object" ref="497599725"/>
 						<reference key="parent" ref="246952317"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">r1I-78-T8p</string>
+						<reference key="object" ref="662316073"/>
+						<reference key="parent" ref="931098208"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">OCw-XG-FDI</string>
+						<reference key="object" ref="744471151"/>
+						<reference key="parent" ref="931098208"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -10199,6 +10238,8 @@
 				<string key="NzI-w2-TNg.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="NzI-w2-TNg.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="NzI-w2-TNg.showNotes"/>
+				<string key="OCw-XG-FDI.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="OCw-XG-FDI.showNotes"/>
 				<string key="OGy-pg-Usv.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="OGy-pg-Usv.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="OGy-pg-Usv.showNotes"/>
@@ -10449,6 +10490,7 @@
 				<string key="r0A-3i-riC.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="r0A-3i-riC.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="r0A-3i-riC.showNotes"/>
+				<string key="r1I-78-T8p.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="rRM-jA-WGg.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="rRM-jA-WGg.showNotes"/>
 				<object class="NSMutableDictionary" key="reo-f1-cjF.IBAttributePlaceholdersKey">
@@ -10549,6 +10591,8 @@
 						<string key="revokeSubkey:">id</string>
 						<string key="revokeUserID:">id</string>
 						<string key="searchKeys:">id</string>
+						<string key="sendKeyPerMail:">id</string>
+						<string key="sendKeysPerMail:">id</string>
 						<string key="sendKeysToServer:">id</string>
 						<string key="setDisabled:">id</string>
 						<string key="setPrimaryPhoto:">id</string>
@@ -10666,6 +10710,14 @@
 						</object>
 						<object class="IBActionInfo" key="searchKeys:">
 							<string key="name">searchKeys:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="sendKeyPerMail:">
+							<string key="name">sendKeyPerMail:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="sendKeysPerMail:">
+							<string key="name">sendKeysPerMail:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="sendKeysToServer:">

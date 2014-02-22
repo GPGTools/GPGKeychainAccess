@@ -209,6 +209,39 @@
 		}
 	}
 }
+- (IBAction)sendKeysPerMail:(id)sender {
+	NSSet *keys = [self selectedKeys];
+	if (keys.count == 0) {
+		return;
+	}
+
+	gpgc.async = NO;
+	gpgc.useArmor = YES;
+	NSData *data = [gpgc exportKeys:keys allowSecret:NO fullExport:NO];
+	gpgc.async = YES;
+	if (data.length == 0) {
+		return;
+	}
+	
+	NSString *templateString = [NSTemporaryDirectory() stringByAppendingPathComponent:@"GKA.XXXXXX"];
+	NSMutableData *template = [[[templateString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy] autorelease];
+
+	char *tempDir = [template mutableBytes];
+	if (!mkdtemp(tempDir)) {
+		return;
+	}
+	
+	NSString *path = [NSString stringWithFormat:@"%s/%@.asc", tempDir, keys.count == 1 ? [[keys anyObject] shortKeyID] : localized(@"Keys")];
+	NSURL *url = [NSURL fileURLWithPath:path];
+	NSError *error = nil;
+	[data writeToURL:url options:0 error:&error];
+	if (error) {
+		return;
+	}
+	
+	NSSharingService *service = [NSSharingService sharingServiceNamed:NSSharingServiceNameComposeEmail];
+	[service performWithItems:@[url]];
+}
 
 
 #pragma mark "Window and display"
@@ -1225,6 +1258,8 @@
 	[sheetController errorSheetWithmessageText:title infoText:message];
 }
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
+	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:NO];
+
 	NSDictionary *oldUserInfo = [gc.userInfo retain];
 	gc.userInfo = nil;
 	self.progressText = nil;
@@ -1307,9 +1342,7 @@
 		default:
 			break;
 	}
-	
-	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:NO];
-	
+		
 	[oldUserInfo release];
 }
 
