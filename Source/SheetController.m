@@ -675,6 +675,10 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			}
 		}
 	}
+	if (self.passphrase.length > 300) {
+		NSRunAlertPanel(localized(@"CheckAlert_PassphraseTooLong_Title"), localized(@"CheckAlert_PassphraseTooLong_Message"), nil, nil, nil);
+		return NO;
+	}
 	
 	return YES;
 }
