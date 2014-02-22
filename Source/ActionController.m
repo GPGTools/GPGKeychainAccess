@@ -803,34 +803,66 @@
 	if ([signaturesController selectionIndex] == NSNotFound) {
 		return;
 	}
-	GPGUserIDSignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
+	GPGUserIDSignature *signature = [[signaturesController selectedObjects] objectAtIndex:0];
 	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 	GPGKey *key = [userID primaryKey];
+	BOOL lastSelfSignature = NO;
 	
-	if ([self warningSheet:@"RemoveSignature", gpgKeySignature.userIDDescription, gpgKeySignature.keyID.shortKeyID, userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+	if ([signature.primaryKey isEqualTo:key] && !signature.revocation) {
+		NSArray *signatures = userID.signatures;
+		NSInteger count = 0;
+		for (GPGUserIDSignature *sig in signatures) {
+			if ([sig.primaryKey isEqualTo:key]) {
+				count++;
+				if (count > 1) {
+					break;
+				}
+			}
+		}
+		lastSelfSignature = (count == 1);
+	}
+	
+	NSString *warningTemplate = lastSelfSignature ? @"RemoveLastSelfSignature" : @"RemoveSignature";
+	if ([self warningSheet:warningTemplate, signature.userIDDescription, signature.keyID.shortKeyID, userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
 	}
 
 	
 	self.progressText = localized(@"RemoveSignature_Progress");
 	self.errorText = localized(@"RemoveSignature_Error");
-	[gpgc removeSignature:gpgKeySignature fromUserID:userID ofKey:key];
+	[gpgc removeSignature:signature fromUserID:userID ofKey:key];
 }
 - (IBAction)revokeSignature:(id)sender {
 	if ([signaturesController selectionIndex] == NSNotFound) {
 		return;
 	}
-	GPGUserIDSignature *gpgKeySignature = [[signaturesController selectedObjects] objectAtIndex:0];
+	GPGUserIDSignature *signature = [[signaturesController selectedObjects] objectAtIndex:0];
 	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
 	GPGKey *key = [userID primaryKey];
+	BOOL lastSelfSignature = NO;
 	
-	if ([self warningSheet:@"RevokeSignature", gpgKeySignature.userIDDescription, gpgKeySignature.keyID.shortKeyID, userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+	if ([signature.primaryKey isEqualTo:key] && !signature.revocation) {
+		NSArray *signatures = userID.signatures;
+		NSInteger count = 0;
+		for (GPGUserIDSignature *sig in signatures) {
+			if ([sig.primaryKey isEqualTo:key]) {
+				count++;
+				if (count > 1) {
+					break;
+				}
+			}
+		}
+		lastSelfSignature = (count == 1);
+	}
+	
+	NSString *warningTemplate = lastSelfSignature ? @"RevokeLastSelfSignature" : @"RevokeSignature";
+	if ([self warningSheet:warningTemplate, signature.userIDDescription, signature.keyID.shortKeyID, userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
 	}
 	
 	self.progressText = localized(@"RevokeSignature_Progress");
 	self.errorText = localized(@"RevokeSignature_Error");
-	[gpgc revokeSignature:gpgKeySignature fromUserID:userID ofKey:key reason:0 description:nil];
+	[gpgc revokeSignature:signature fromUserID:userID ofKey:key reason:0 description:nil];
 }
 
 
