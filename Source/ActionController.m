@@ -604,12 +604,12 @@
 	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)removeSubkey:(id)sender {
-	if (subkeysController.selectedObjects.count != 1) {
+	NSArray *objects = [self selectedObjectsOf:subkeysTable];
+	if (objects.count != 1) {
 		return;
 	}
-	
-	GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
-	GPGKey *key = [subkey primaryKey];
+	GPGKey *subkey = [objects objectAtIndex:0];
+	GPGKey *key = subkey.primaryKey;
 	
 	if ([self warningSheet:@"RemoveSubkey"] == NO) {
 		return;
@@ -620,11 +620,12 @@
 	[gpgc removeSubkey:subkey fromKey:key];
 }
 - (IBAction)revokeSubkey:(id)sender {
-	if (subkeysController.selectedObjects.count != 1) {
+	NSArray *objects = [self selectedObjectsOf:subkeysTable];
+	if (objects.count != 1) {
 		return;
 	}
-	GPGKey *subkey = [[subkeysController selectedObjects] objectAtIndex:0];
-	GPGKey *key = [subkey primaryKey];
+	GPGKey *subkey = [objects objectAtIndex:0];
+	GPGKey *key = subkey.primaryKey;
 	
 	if ([self warningSheet:@"RevokeSubkey"] == NO) {
 		return;
@@ -656,11 +657,12 @@
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
 - (IBAction)removeUserID:(id)sender {
-	if ([userIDsController selectionIndex] == NSNotFound) {
+	NSArray *objects = [self selectedObjectsOf:userIDsTable];
+	if (objects.count != 1) {
 		return;
 	}
-	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-	GPGKey *key = [userID primaryKey];
+	GPGUserID *userID = [objects objectAtIndex:0];
+	GPGKey *key = userID.primaryKey;
 	
 	if ([self warningSheet:@"RemoveUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
@@ -668,24 +670,27 @@
 	
 	self.progressText = localized(@"RemoveUserID_Progress");
 	self.errorText = localized(@"RemoveUserID_Error");
-	[gpgc removeUserID:[userID hashID] fromKey:key];
+	[gpgc removeUserID:userID.hashID fromKey:key];
 }
 - (IBAction)setPrimaryUserID:(id)sender {
-	if ([userIDsController selectionIndex] != NSNotFound) {
-		GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-		GPGKey *key = [userID primaryKey];
-		
-		self.progressText = localized(@"SetPrimaryUserID_Progress");
-		self.errorText = localized(@"SetPrimaryUserID_Error");
-		[gpgc setPrimaryUserID:[userID hashID] ofKey:key];
-	}
-}
-- (IBAction)revokeUserID:(id)sender {
-	if ([userIDsController selectionIndex] == NSNotFound) {
+	NSArray *objects = [self selectedObjectsOf:userIDsTable];
+	if (objects.count != 1) {
 		return;
 	}
-	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-	GPGKey *key = [userID primaryKey];
+	GPGUserID *userID = [objects objectAtIndex:0];
+	GPGKey *key = userID.primaryKey;
+	
+	self.progressText = localized(@"SetPrimaryUserID_Progress");
+	self.errorText = localized(@"SetPrimaryUserID_Error");
+	[gpgc setPrimaryUserID:userID.hashID ofKey:key];
+}
+- (IBAction)revokeUserID:(id)sender {
+	NSArray *objects = [self selectedObjectsOf:userIDsTable];
+	if (objects.count != 1) {
+		return;
+	}
+	GPGUserID *userID = [objects objectAtIndex:0];
+	GPGKey *key = userID.primaryKey;
 	
 	if ([self warningSheet:@"RevokeUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
@@ -756,16 +761,17 @@
 #pragma mark "Signatures"
 - (IBAction)addSignature:(id)sender {
 	NSSet *keys = [self selectedKeys];
-	if ([keys count] != 1) {
+	if (keys.count != 1) {
 		return;
 	}
 	
 	GPGUserID *userID = nil;
 	if ([sender tag] == 1) {
-		if ([userIDsController selectionIndex] == NSNotFound) {
+		NSArray *objects = [self selectedObjectsOf:userIDsTable];
+		if (objects.count != 1) {
 			return;
 		}
-		userID = [[userIDsController selectedObjects] objectAtIndex:0];
+		userID = [objects objectAtIndex:0];
 	}
 	
 	GPGKey *key = [[keys anyObject] primaryKey];
@@ -800,12 +806,13 @@
 	[gpgc signUserID:[userID hashID] ofKey:key signKey:sheetController.secretKey type:sheetController.sigType local:sheetController.localSig daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)removeSignature:(id)sender {
-	if ([signaturesController selectionIndex] == NSNotFound) {
+	NSArray *objects = [self selectedObjectsOf:signaturesTable];
+	if (objects.count != 1) {
 		return;
 	}
-	GPGUserIDSignature *signature = [[signaturesController selectedObjects] objectAtIndex:0];
+	GPGUserIDSignature *signature = [objects objectAtIndex:0];
 	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-	GPGKey *key = [userID primaryKey];
+	GPGKey *key = userID.primaryKey;
 	BOOL lastSelfSignature = NO;
 	
 	if ([signature.primaryKey isEqualTo:key] && !signature.revocation) {
@@ -833,12 +840,13 @@
 	[gpgc removeSignature:signature fromUserID:userID ofKey:key];
 }
 - (IBAction)revokeSignature:(id)sender {
-	if ([signaturesController selectionIndex] == NSNotFound) {
+	NSArray *objects = [self selectedObjectsOf:signaturesTable];
+	if (objects.count != 1) {
 		return;
 	}
-	GPGUserIDSignature *signature = [[signaturesController selectedObjects] objectAtIndex:0];
+	GPGUserIDSignature *signature = [objects objectAtIndex:0];
 	GPGUserID *userID = [[userIDsController selectedObjects] objectAtIndex:0];
-	GPGKey *key = [userID primaryKey];
+	GPGKey *key = userID.primaryKey;
 	BOOL lastSelfSignature = NO;
 	
 	if ([signature.primaryKey isEqualTo:key] && !signature.revocation) {
@@ -1001,16 +1009,35 @@
 		return keySet;
 	}
 }
+- (NSArray *)selectedObjectsOf:(NSTableView *)table {
+	NSArrayController *arrayController;
+	if (table == userIDsTable) {
+		arrayController = userIDsController;
+	} else if (table == signaturesTable) {
+		arrayController = signaturesController;
+	} else if (table == subkeysTable) {
+		arrayController = subkeysController;
+	} else {
+		return nil;
+	}
 
-- (BOOL)validateUserInterfaceItem:(id)anItem {
-    SEL selector = [anItem action];
+	NSInteger clickedRow = [table clickedRow];
+	if (clickedRow != -1 && ![table isRowSelected:clickedRow]) {
+		return @[[arrayController.arrangedObjects objectAtIndex:clickedRow]];
+	} else {
+		return [arrayController selectedObjects];
+	}
+}
+
+
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item {
+    SEL selector = item.action;
+	NSInteger tag = item.tag;
 	
     if (selector == @selector(copy:)) {
-		if ([[self selectedKeys] count] >= 1) {
-			return YES;
-		}
-		return NO;
-    } else if (selector == @selector(paste:)) {
+		return self.selectedKeys.count > 0;
+    }
+	else if (selector == @selector(paste:)) {
 		NSPasteboard *pboard = [NSPasteboard generalPasteboard];
 		NSArray *types = [pboard types];
 		if ([types containsObject:NSFilenamesPboardType]) {
@@ -1023,31 +1050,61 @@
 				return NO;
 			}
 		}
-    } else if (selector == @selector(genRevokeCertificate:)) {
+    }
+	else if (selector == @selector(genRevokeCertificate:)) {
 		NSSet *keys = [self selectedKeys];
-		if ([keys count] == 1 && ((GPGKey*)[keys anyObject]).secret) {
-			return YES;
-		}
-		return NO;
-    } else if (selector == @selector(editAlgorithmPreferences:)) {
-		NSSet *keys = [self selectedKeys];
-		if ([keys count] == 1) {
-			return YES;
-		}
-		return NO;
-	} else if (selector == @selector(sendKeysToServer:)) {
-		NSSet *keys = [self selectedKeys];
-		if (keys.count > 0) {
-			return YES;
-		}
-		return NO;
-	} else if (selector == @selector(refreshKeysFromServer:)) {
-		NSSet *keys = [self selectedKeys];
-		if (keys.count > 0) {
-			return YES;
-		}
-		return NO;
+		return (keys.count == 1 && ((GPGKey*)[keys anyObject]).secret);
+    }
+	else if (selector == @selector(editAlgorithmPreferences:)) {
+		return self.selectedKeys.count == 1;
 	}
+	else if (selector == @selector(sendKeysToServer:)) {
+		return self.selectedKeys.count > 0;
+	}
+	else if (selector == @selector(refreshKeysFromServer:)) {
+		return self.selectedKeys.count > 0;
+	}
+	else if (selector == @selector(addSignature:)) {
+		if (tag == 1) {
+			return [self selectedObjectsOf:userIDsTable].count == 1;
+		}
+	}
+	else if (selector == @selector(removeUserID:)) {
+		return [self selectedObjectsOf:userIDsTable].count == 1;
+	}
+	else if (selector == @selector(revokeUserID:)) {
+		NSArray *objects = [self selectedObjectsOf:userIDsTable];
+		return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
+	}
+	else if (selector == @selector(setPrimaryUserID:)) {
+		NSArray *objects = [self selectedObjectsOf:userIDsTable];
+		return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
+	}
+	else if (selector == @selector(removeSignature:)) {
+		return [self selectedObjectsOf:signaturesTable].count == 1;
+	}
+	else if (selector == @selector(revokeSignature:)) {
+		NSArray *objects = [self selectedObjectsOf:signaturesTable];
+		if (objects.count != 1) {
+			return NO;
+		}
+		GPGUserIDSignature *sig = [objects objectAtIndex:0];
+		return !sig.revocation && sig.primaryKey.secret;
+	}
+	else if (selector == @selector(removeSubkey:)) {
+		return [self selectedObjectsOf:subkeysTable].count == 1;
+	}
+	else if (selector == @selector(revokeSubkey:)) {
+		NSArray *objects = [self selectedObjectsOf:subkeysTable];
+		return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
+	}
+	else if (selector == @selector(changeExpirationDate:)) {
+		if (tag == 1) {
+			NSArray *objects = [self selectedObjectsOf:subkeysTable];
+			return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
+		}
+	}
+
 	return YES;
 }
 

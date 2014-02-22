@@ -30,6 +30,9 @@
     IBOutlet NSArrayController *userIDsController;
 	IBOutlet NSArrayController *photosController;
 	IBOutlet NSOutlineView *keyTable;
+	IBOutlet NSTableView *signaturesTable;
+	IBOutlet NSTableView *userIDsTable;
+	IBOutlet NSTableView *subkeysTable;
 	
 	GPGController *gpgc;
 	SheetController *sheetController;

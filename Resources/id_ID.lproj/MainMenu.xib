@@ -664,6 +664,12 @@
 				</array>
 				<string key="NSName">_NSMainMenu</string>
 			</object>
+			<object class="NSCustomObject" id="1005191833">
+				<string key="NSClassName">ActionController</string>
+			</object>
+			<object class="NSCustomObject" id="267803462">
+				<string key="NSClassName">GPGKeychainAccessAppDelegate</string>
+			</object>
 			<object class="NSWindowTemplate" id="914020908">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
@@ -1557,8 +1563,25 @@
 				<string key="NSFrameAutosaveName">MainWindow</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
-			<object class="NSCustomObject" id="267803462">
-				<string key="NSClassName">GPGKeychainAccessAppDelegate</string>
+			<object class="NSCustomObject" id="664174828">
+				<string key="NSClassName">KeychainController</string>
+			</object>
+			<object class="NSCustomObject" id="784260963">
+				<string key="NSClassName">GPGOptions</string>
+			</object>
+			<object class="NSCustomObject" id="627693154">
+				<string key="NSClassName">SUUpdater</string>
+			</object>
+			<object class="NSDrawer" id="814916585">
+				<nil key="NSNextResponder"/>
+				<string key="NSContentSize">{450, 480}</string>
+				<string key="NSMinContentSize">{400, 440}</string>
+				<string key="NSMaxContentSize">{10000, 10000}</string>
+				<int key="NSPreferredEdge">2</int>
+				<double key="NSLeadingOffset">0.0</double>
+				<double key="NSTrailingOffset">15</double>
+				<nil key="NSParentWindow"/>
+				<nil key="NSDelegate"/>
 			</object>
 			<object class="NSTreeController" id="605920174">
 				<array class="NSMutableArray" key="NSDeclaredKeys">
@@ -1599,8 +1622,33 @@
 				<bool key="NSPreservesSelection">YES</bool>
 				<string key="NSTreeContentChildrenKey">children</string>
 			</object>
-			<object class="NSCustomObject" id="664174828">
-				<string key="NSClassName">KeychainController</string>
+			<object class="NSArrayController" id="180926723">
+				<array class="NSMutableArray" key="NSDeclaredKeys">
+					<string>invalid</string>
+					<string>userID</string>
+					<string>name</string>
+					<string>email</string>
+					<string>comment</string>
+					<string>revoked</string>
+					<string>validity</string>
+					<string>signatures</string>
+					<string>signatures.signerKeyID</string>
+					<string>count</string>
+					<string>invalid</string>
+					<string>revoked</string>
+					<string>isrevoked</string>
+					<string>hasBeenRevoked</string>
+					<string>isInvalid</string>
+					<string>status</string>
+					<string>hashPreferences</string>
+				</array>
+				<string key="NSObjectClassName">GKUserID</string>
+				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
+				<bool key="NSAvoidsEmptySelection">YES</bool>
+				<bool key="NSPreservesSelection">YES</bool>
+				<bool key="NSSelectsInsertedObjects">YES</bool>
+				<bool key="NSFilterRestrictsInsertion">YES</bool>
+				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
 			<object class="NSArrayController" id="577477955">
 				<array class="NSMutableArray" key="NSDeclaredKeys">
@@ -1645,57 +1693,6 @@
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
-			<object class="NSArrayController" id="180926723">
-				<array class="NSMutableArray" key="NSDeclaredKeys">
-					<string>invalid</string>
-					<string>userID</string>
-					<string>name</string>
-					<string>email</string>
-					<string>comment</string>
-					<string>revoked</string>
-					<string>validity</string>
-					<string>signatures</string>
-					<string>signatures.signerKeyID</string>
-					<string>count</string>
-					<string>invalid</string>
-					<string>revoked</string>
-					<string>isrevoked</string>
-					<string>hasBeenRevoked</string>
-					<string>isInvalid</string>
-					<string>status</string>
-					<string>hashPreferences</string>
-				</array>
-				<string key="NSObjectClassName">GKUserID</string>
-				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
-				<bool key="NSAvoidsEmptySelection">YES</bool>
-				<bool key="NSPreservesSelection">YES</bool>
-				<bool key="NSSelectsInsertedObjects">YES</bool>
-				<bool key="NSFilterRestrictsInsertion">YES</bool>
-				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
-			</object>
-			<object class="NSCustomObject" id="1005191833">
-				<string key="NSClassName">ActionController</string>
-			</object>
-			<object class="NSDateFormatter" id="977511225">
-				<dictionary class="NSMutableDictionary" key="NS.attributes">
-					<integer value="3" key="dateStyle"/>
-					<boolean value="NO" key="doesRelativeDateFormatting"/>
-					<integer value="1040" key="formatterBehavior"/>
-					<integer value="1" key="timeStyle"/>
-				</dictionary>
-				<string key="NS.format">dd. MMMM y HH:mm</string>
-				<bool key="NS.natural">NO</bool>
-			</object>
-			<object class="NSDateFormatter" id="336706324">
-				<dictionary class="NSMutableDictionary" key="NS.attributes">
-					<integer value="2" key="dateStyle"/>
-					<boolean value="NO" key="doesRelativeDateFormatting"/>
-					<integer value="1040" key="formatterBehavior"/>
-					<integer value="0" key="timeStyle"/>
-				</dictionary>
-				<string key="NS.format">dd.MM.y</string>
-				<bool key="NS.natural">NO</bool>
-			</object>
 			<object class="NSArrayController" id="211056066">
 				<array class="NSMutableArray" key="NSDeclaredKeys">
 					<string>image</string>
@@ -1710,32 +1707,6 @@
 				<bool key="NSSelectsInsertedObjects">YES</bool>
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
-			</object>
-			<object class="NSCustomObject" id="627693154">
-				<string key="NSClassName">SUUpdater</string>
-			</object>
-			<object class="NSArrayController" id="808906980">
-				<bool key="NSEditable">YES</bool>
-				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
-				<bool key="NSAvoidsEmptySelection">YES</bool>
-				<bool key="NSPreservesSelection">YES</bool>
-				<bool key="NSSelectsInsertedObjects">YES</bool>
-				<bool key="NSFilterRestrictsInsertion">YES</bool>
-				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
-			</object>
-			<object class="NSCustomObject" id="784260963">
-				<string key="NSClassName">GPGOptions</string>
-			</object>
-			<object class="NSDrawer" id="814916585">
-				<nil key="NSNextResponder"/>
-				<string key="NSContentSize">{450, 480}</string>
-				<string key="NSMinContentSize">{400, 440}</string>
-				<string key="NSMaxContentSize">{10000, 10000}</string>
-				<int key="NSPreferredEdge">2</int>
-				<double key="NSLeadingOffset">0.0</double>
-				<double key="NSTrailingOffset">15</double>
-				<nil key="NSParentWindow"/>
-				<nil key="NSDelegate"/>
 			</object>
 			<object class="NSView" id="134609625">
 				<nil key="NSNextResponder"/>
@@ -3209,7 +3180,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrameSize">{408, 190}</string>
 															<reference key="NSSuperview" ref="72703776"/>
-															<reference key="NSNextKeyView" ref="712054289"/>
+															<reference key="NSNextKeyView" ref="45255014"/>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 															<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -3451,7 +3422,7 @@
 											<object class="NSPSMatrix" key="NSFrameMatrix"/>
 											<string key="NSFrame">{{17, 219}, {410, 208}}</string>
 											<reference key="NSSuperview" ref="60689277"/>
-											<reference key="NSNextKeyView" ref="45255014"/>
+											<reference key="NSNextKeyView" ref="72703776"/>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="1070964678"/>
 											<reference key="NSHScroller" ref="45255014"/>
@@ -3696,7 +3667,6 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{102, 13}, {308, 14}}</string>
 															<reference key="NSSuperview" ref="515609855"/>
-															<reference key="NSNextKeyView" ref="922095770"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="2179208">
 																<int key="NSCellFlags">70254657</int>
@@ -4003,6 +3973,26 @@
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
 				<string key="NSFrameSize">{480, 481}</string>
 				<reference key="NSNextKeyView" ref="922095770"/>
+			</object>
+			<object class="NSDateFormatter" id="977511225">
+				<dictionary class="NSMutableDictionary" key="NS.attributes">
+					<integer value="3" key="dateStyle"/>
+					<boolean value="NO" key="doesRelativeDateFormatting"/>
+					<integer value="1040" key="formatterBehavior"/>
+					<integer value="1" key="timeStyle"/>
+				</dictionary>
+				<string key="NS.format">dd. MMMM y HH:mm</string>
+				<bool key="NS.natural">NO</bool>
+			</object>
+			<object class="NSDateFormatter" id="336706324">
+				<dictionary class="NSMutableDictionary" key="NS.attributes">
+					<integer value="2" key="dateStyle"/>
+					<boolean value="NO" key="doesRelativeDateFormatting"/>
+					<integer value="1040" key="formatterBehavior"/>
+					<integer value="0" key="timeStyle"/>
+				</dictionary>
+				<string key="NS.format">dd.MM.y</string>
+				<bool key="NS.natural">NO</bool>
 			</object>
 			<object class="NSMenu" id="61582394">
 				<string key="NSTitle"/>
@@ -5614,6 +5604,30 @@
 					<string key="id">3jq-au-khY</string>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">userIDsTable</string>
+						<reference key="source" ref="1005191833"/>
+						<reference key="destination" ref="1068758329"/>
+					</object>
+					<string key="id">Wik-qu-zBq</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">signaturesTable</string>
+						<reference key="source" ref="1005191833"/>
+						<reference key="destination" ref="960229813"/>
+					</object>
+					<string key="id">q8M-1h-eDl</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">subkeysTable</string>
+						<reference key="source" ref="1005191833"/>
+						<reference key="destination" ref="498798170"/>
+					</object>
+					<string key="id">byo-20-qFu</string>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">arrangedObjects.shortKeyID</string>
 						<reference key="source" ref="633122803"/>
@@ -6172,22 +6186,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: selection.primaryKey.secret</string>
-						<reference key="source" ref="497599725"/>
-						<reference key="destination" ref="605920174"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="497599725"/>
-							<reference key="NSDestination" ref="605920174"/>
-							<string key="NSLabel">enabled: selection.primaryKey.secret</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">selection.primaryKey.secret</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">RSv-Sj-R2e</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: arrangedObjects.expirationDate</string>
 						<reference key="source" ref="696206363"/>
 						<reference key="destination" ref="710493774"/>
@@ -6245,22 +6243,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: canRemove</string>
-						<reference key="source" ref="94481111"/>
-						<reference key="destination" ref="710493774"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="94481111"/>
-							<reference key="NSDestination" ref="710493774"/>
-							<string key="NSLabel">enabled: canRemove</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">canRemove</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">mQm-A7-3oF</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.primaryKey.longType</string>
 						<reference key="source" ref="71204244"/>
 						<reference key="destination" ref="605920174"/>
@@ -6278,22 +6260,6 @@
 						</object>
 					</object>
 					<string key="id">hpz-sW-LbT</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: selection.primaryKey.secret</string>
-						<reference key="source" ref="29523864"/>
-						<reference key="destination" ref="605920174"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="29523864"/>
-							<reference key="NSDestination" ref="605920174"/>
-							<string key="NSLabel">enabled: selection.primaryKey.secret</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">selection.primaryKey.secret</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">mf9-dE-hat</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -6418,7 +6384,7 @@
 						<string key="label">enabled: selection.primaryKey.secret</string>
 						<reference key="source" ref="455250016"/>
 						<reference key="destination" ref="605920174"/>
-						<object class="NSNibBindingConnector" key="connector">
+						<object class="NSNibBindingConnector" key="connector" id="161685320">
 							<reference key="NSSource" ref="455250016"/>
 							<reference key="NSDestination" ref="605920174"/>
 							<string key="NSLabel">enabled: selection.primaryKey.secret</string>
@@ -6428,6 +6394,29 @@
 						</object>
 					</object>
 					<string key="id">sgy-NR-Ieg</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled2: canRemove</string>
+						<reference key="source" ref="455250016"/>
+						<reference key="destination" ref="211056066"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="455250016"/>
+							<reference key="NSDestination" ref="211056066"/>
+							<string key="NSLabel">enabled2: canRemove</string>
+							<string key="NSBinding">enabled2</string>
+							<string key="NSKeyPath">canRemove</string>
+							<dictionary key="NSOptions">
+								<integer value="-1" key="NSMultipleValuesPlaceholder"/>
+								<integer value="-1" key="NSNoSelectionPlaceholder"/>
+								<integer value="-1" key="NSNotApplicablePlaceholder"/>
+								<integer value="-1" key="NSNullPlaceholder"/>
+							</dictionary>
+							<reference key="NSPreviousConnector" ref="161685320"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">l8k-mG-4n6</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -6486,7 +6475,7 @@
 						<string key="label">enabled: selection.primaryKey.secret</string>
 						<reference key="source" ref="21525396"/>
 						<reference key="destination" ref="605920174"/>
-						<object class="NSNibBindingConnector" key="connector">
+						<object class="NSNibBindingConnector" key="connector" id="824804018">
 							<reference key="NSSource" ref="21525396"/>
 							<reference key="NSDestination" ref="605920174"/>
 							<string key="NSLabel">enabled: selection.primaryKey.secret</string>
@@ -6496,6 +6485,29 @@
 						</object>
 					</object>
 					<string key="id">mya-h3-Aoi</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled2: canRemove</string>
+						<reference key="source" ref="21525396"/>
+						<reference key="destination" ref="211056066"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="21525396"/>
+							<reference key="NSDestination" ref="211056066"/>
+							<string key="NSLabel">enabled2: canRemove</string>
+							<string key="NSBinding">enabled2</string>
+							<string key="NSKeyPath">canRemove</string>
+							<dictionary key="NSOptions">
+								<integer value="-1" key="NSMultipleValuesPlaceholder"/>
+								<integer value="-1" key="NSNoSelectionPlaceholder"/>
+								<integer value="-1" key="NSNotApplicablePlaceholder"/>
+								<integer value="-1" key="NSNullPlaceholder"/>
+							</dictionary>
+							<reference key="NSPreviousConnector" ref="824804018"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">Ac1-U2-SrT</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -6770,38 +6782,6 @@
 					<string key="id">lJx-CV-oeG</string>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: selection.primaryKey.secret</string>
-						<reference key="source" ref="826894370"/>
-						<reference key="destination" ref="605920174"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="826894370"/>
-							<reference key="NSDestination" ref="605920174"/>
-							<string key="NSLabel">enabled: selection.primaryKey.secret</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">selection.primaryKey.secret</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">uWf-Ld-xbi</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: canRemove</string>
-						<reference key="source" ref="480549011"/>
-						<reference key="destination" ref="180926723"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="480549011"/>
-							<reference key="NSDestination" ref="180926723"/>
-							<string key="NSLabel">enabled: canRemove</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">canRemove</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">7bI-Ag-0Ar</string>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="1002495117"/>
@@ -6968,46 +6948,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: selection.primaryKey.secret</string>
-						<reference key="source" ref="909215662"/>
-						<reference key="destination" ref="577477955"/>
-						<object class="NSNibBindingConnector" key="connector" id="161685320">
-							<reference key="NSSource" ref="909215662"/>
-							<reference key="NSDestination" ref="577477955"/>
-							<string key="NSLabel">enabled: selection.primaryKey.secret</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">selection.primaryKey.secret</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">Iba-OK-XwJ</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled2: selection.revocation</string>
-						<reference key="source" ref="909215662"/>
-						<reference key="destination" ref="577477955"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="909215662"/>
-							<reference key="NSDestination" ref="577477955"/>
-							<string key="NSLabel">enabled2: selection.revocation</string>
-							<string key="NSBinding">enabled2</string>
-							<string key="NSKeyPath">selection.revocation</string>
-							<dictionary key="NSOptions">
-								<integer value="-1" key="NSMultipleValuesPlaceholder"/>
-								<integer value="-1" key="NSNoSelectionPlaceholder"/>
-								<integer value="-1" key="NSNotApplicablePlaceholder"/>
-								<integer value="-1" key="NSNullPlaceholder"/>
-								<string key="NSValueTransformerName">NSNegateBoolean</string>
-							</dictionary>
-							<reference key="NSPreviousConnector" ref="161685320"/>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">d35-2N-Gjt</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.primaryKey.length</string>
 						<reference key="source" ref="1037217210"/>
 						<reference key="destination" ref="605920174"/>
@@ -7025,22 +6965,6 @@
 						</object>
 					</object>
 					<string key="id">XUi-Zd-sJq</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: selection.primaryKey.secret</string>
-						<reference key="source" ref="706725850"/>
-						<reference key="destination" ref="605920174"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="706725850"/>
-							<reference key="NSDestination" ref="605920174"/>
-							<string key="NSLabel">enabled: selection.primaryKey.secret</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">selection.primaryKey.secret</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">knq-VW-r62</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -7402,22 +7326,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: canRemove</string>
-						<reference key="source" ref="738243384"/>
-						<reference key="destination" ref="577477955"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="738243384"/>
-							<reference key="NSDestination" ref="577477955"/>
-							<string key="NSLabel">enabled: canRemove</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">canRemove</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">W39-rn-gOP</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">enabled: canSelectPrevious</string>
 						<reference key="source" ref="499433832"/>
 						<reference key="destination" ref="211056066"/>
@@ -7455,22 +7363,6 @@
 						<reference key="destination" ref="336706324"/>
 					</object>
 					<string key="id">Hmu-1Q-tgi</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: canRemove</string>
-						<reference key="source" ref="439434338"/>
-						<reference key="destination" ref="180926723"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="439434338"/>
-							<reference key="NSDestination" ref="180926723"/>
-							<string key="NSLabel">enabled: canRemove</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">canRemove</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<string key="id">7VJ-LP-34W</string>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -8227,11 +8119,6 @@
 						<string key="id">1960</string>
 						<reference key="object" ref="934329261"/>
 						<reference key="parent" ref="61582394"/>
-					</object>
-					<object class="IBObjectRecord">
-						<string key="id">1vV-LZ-j3M</string>
-						<reference key="object" ref="808906980"/>
-						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<string key="id">590</string>
@@ -9042,6 +8929,7 @@
 							<reference ref="445785363"/>
 						</array>
 						<reference key="parent" ref="760465788"/>
+						<string key="objectName">UserIDs Table</string>
 					</object>
 					<object class="IBObjectRecord">
 						<string key="id">grl-ch-lFh</string>
@@ -9165,6 +9053,7 @@
 							<reference ref="436701084"/>
 						</array>
 						<reference key="parent" ref="892183847"/>
+						<string key="objectName">Signatures Table</string>
 					</object>
 					<object class="IBObjectRecord">
 						<string key="id">kNE-rm-6Iw</string>
@@ -9980,7 +9869,6 @@
 				<boolean value="NO" key="1pZ-sd-LU7.showNotes"/>
 				<string key="1ut-YF-lBQ.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="1ut-YF-lBQ.showNotes"/>
-				<string key="1vV-LZ-j3M.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2003.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="2003.showNotes"/>
 				<boolean value="NO" key="2003.toolbarItem.selectable"/>
@@ -10627,7 +10515,412 @@
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">ActionController</string>
+					<string key="superclassName">NSWindowController</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addPhoto:">id</string>
+						<string key="addSignature:">id</string>
+						<string key="addSubkey:">id</string>
+						<string key="addUserID:">id</string>
+						<string key="changeExpirationDate:">id</string>
+						<string key="changePassphrase:">id</string>
+						<string key="cleanKey:">id</string>
+						<string key="copy:">id</string>
+						<string key="deleteKey:">id</string>
+						<string key="editAlgorithmPreferences:">id</string>
+						<string key="exportKey:">id</string>
+						<string key="genRevokeCertificate:">id</string>
+						<string key="generateNewKey:">id</string>
+						<string key="importKey:">id</string>
+						<string key="minimizeKey:">id</string>
+						<string key="paste:">id</string>
+						<string key="receiveKeys:">id</string>
+						<string key="refreshDisplayedKeys:">id</string>
+						<string key="refreshKeysFromServer:">id</string>
+						<string key="removePhoto:">id</string>
+						<string key="removeSignature:">id</string>
+						<string key="removeSubkey:">id</string>
+						<string key="removeUserID:">id</string>
+						<string key="revokePhoto:">id</string>
+						<string key="revokeSignature:">id</string>
+						<string key="revokeSubkey:">id</string>
+						<string key="revokeUserID:">id</string>
+						<string key="searchKeys:">id</string>
+						<string key="sendKeysToServer:">id</string>
+						<string key="setDisabled:">id</string>
+						<string key="setPrimaryPhoto:">id</string>
+						<string key="setPrimaryUserID:">id</string>
+						<string key="setTrust:">NSPopUpButton</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addPhoto:">
+							<string key="name">addPhoto:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addSignature:">
+							<string key="name">addSignature:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addSubkey:">
+							<string key="name">addSubkey:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="addUserID:">
+							<string key="name">addUserID:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changeExpirationDate:">
+							<string key="name">changeExpirationDate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="changePassphrase:">
+							<string key="name">changePassphrase:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cleanKey:">
+							<string key="name">cleanKey:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="copy:">
+							<string key="name">copy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="deleteKey:">
+							<string key="name">deleteKey:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="editAlgorithmPreferences:">
+							<string key="name">editAlgorithmPreferences:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="exportKey:">
+							<string key="name">exportKey:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="genRevokeCertificate:">
+							<string key="name">genRevokeCertificate:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="generateNewKey:">
+							<string key="name">generateNewKey:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="importKey:">
+							<string key="name">importKey:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="minimizeKey:">
+							<string key="name">minimizeKey:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="paste:">
+							<string key="name">paste:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="receiveKeys:">
+							<string key="name">receiveKeys:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="refreshDisplayedKeys:">
+							<string key="name">refreshDisplayedKeys:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="refreshKeysFromServer:">
+							<string key="name">refreshKeysFromServer:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removePhoto:">
+							<string key="name">removePhoto:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeSignature:">
+							<string key="name">removeSignature:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeSubkey:">
+							<string key="name">removeSubkey:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeUserID:">
+							<string key="name">removeUserID:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="revokePhoto:">
+							<string key="name">revokePhoto:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="revokeSignature:">
+							<string key="name">revokeSignature:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="revokeSubkey:">
+							<string key="name">revokeSubkey:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="revokeUserID:">
+							<string key="name">revokeUserID:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="searchKeys:">
+							<string key="name">searchKeys:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="sendKeysToServer:">
+							<string key="name">sendKeysToServer:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setDisabled:">
+							<string key="name">setDisabled:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setPrimaryPhoto:">
+							<string key="name">setPrimaryPhoto:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setPrimaryUserID:">
+							<string key="name">setPrimaryUserID:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setTrust:">
+							<string key="name">setTrust:</string>
+							<string key="candidateClassName">NSPopUpButton</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="keyTable">NSOutlineView</string>
+						<string key="keysController">NSTreeController</string>
+						<string key="photosController">NSArrayController</string>
+						<string key="signaturesController">NSArrayController</string>
+						<string key="signaturesTable">NSTableView</string>
+						<string key="subkeysController">NSArrayController</string>
+						<string key="subkeysTable">NSTableView</string>
+						<string key="userIDsController">NSArrayController</string>
+						<string key="userIDsTable">NSTableView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="keyTable">
+							<string key="name">keyTable</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="keysController">
+							<string key="name">keysController</string>
+							<string key="candidateClassName">NSTreeController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="photosController">
+							<string key="name">photosController</string>
+							<string key="candidateClassName">NSArrayController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="signaturesController">
+							<string key="name">signaturesController</string>
+							<string key="candidateClassName">NSArrayController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="signaturesTable">
+							<string key="name">signaturesTable</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="subkeysController">
+							<string key="name">subkeysController</string>
+							<string key="candidateClassName">NSArrayController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="subkeysTable">
+							<string key="name">subkeysTable</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="userIDsController">
+							<string key="name">userIDsController</string>
+							<string key="candidateClassName">NSArrayController</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="userIDsTable">
+							<string key="name">userIDsTable</string>
+							<string key="candidateClassName">NSTableView</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/ActionController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GKImageView</string>
+					<string key="superclassName">NSImageView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GKImageView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GKMenuButton</string>
+					<string key="superclassName">NSButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GKMenuButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GKOutlineView</string>
+					<string key="superclassName">NSOutlineView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GKOutlineView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GPGKeychainAccessAppDelegate</string>
+					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="doubleClick:">NSOutlineView</string>
+						<string key="selectHeaderVisibility:">NSMenuItem</string>
+						<string key="showHelp:">id</string>
+						<string key="showPreferences:">id</string>
+						<string key="showSupport:">id</string>
+						<string key="singleClick:">NSOutlineView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="doubleClick:">
+							<string key="name">doubleClick:</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+						<object class="IBActionInfo" key="selectHeaderVisibility:">
+							<string key="name">selectHeaderVisibility:</string>
+							<string key="candidateClassName">NSMenuItem</string>
+						</object>
+						<object class="IBActionInfo" key="showHelp:">
+							<string key="name">showHelp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showPreferences:">
+							<string key="name">showPreferences:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showSupport:">
+							<string key="name">showSupport:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="singleClick:">
+							<string key="name">singleClick:</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="drawer">NSDrawer</string>
+						<string key="keyTable">NSOutlineView</string>
+						<string key="signatureTable">NSOutlineView</string>
+						<string key="subkeyTable">NSOutlineView</string>
+						<string key="userIDTable">NSOutlineView</string>
+						<string key="window">NSWindow</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="drawer">
+							<string key="name">drawer</string>
+							<string key="candidateClassName">NSDrawer</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="keyTable">
+							<string key="name">keyTable</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="signatureTable">
+							<string key="name">signatureTable</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="subkeyTable">
+							<string key="name">subkeyTable</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="userIDTable">
+							<string key="name">userIDTable</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="window">
+							<string key="name">window</string>
+							<string key="candidateClassName">NSWindow</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GPGKeychainAccessAppDelegate.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">GPGOptions</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GPGOptions.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">KeychainController</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">updateFilteredKeyList:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">updateFilteredKeyList:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">updateFilteredKeyList:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="keyTable">NSOutlineView</string>
+						<string key="numberOfKeysLabel">NSTextField</string>
+						<string key="treeController">NSTreeController</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="keyTable">
+							<string key="name">keyTable</string>
+							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="numberOfKeysLabel">
+							<string key="name">numberOfKeysLabel</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="treeController">
+							<string key="name">treeController</string>
+							<string key="candidateClassName">NSTreeController</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/KeychainController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">SUUpdater</string>
+					<string key="superclassName">NSObject</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">checkForUpdates:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">checkForUpdates:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">checkForUpdates:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">delegate</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">delegate</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">delegate</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/SUUpdater.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<bool key="IBDocument.previouslyAttemptedUpgradeToXcode5">YES</bool>
