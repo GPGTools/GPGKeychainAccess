@@ -195,6 +195,16 @@
 	[self alertSheetForWindow:nil messageText:messageText infoText:infoText defaultButton:nil alternateButton:nil otherButton:nil suppressionButton:nil];
 }
 
+- (NSInteger)alertSheetWithTitle:(NSString *)theTitle message:(NSString *)message defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton {
+	return [self alertSheetForWindow:mainWindow
+						 messageText:theTitle
+							infoText:message
+					   defaultButton:button1
+					 alternateButton:button2
+						 otherButton:button3
+				   suppressionButton:suppressionButton];
+}
+
 - (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton {
 	if (![NSThread isMainThread]) {
 		NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:_cmd]];

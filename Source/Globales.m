@@ -38,6 +38,9 @@ BOOL containsPGPKeyBlock(NSString *string) {
 
 
 NSString *localized(NSString *key) {
+	if (!key) {
+		return nil;
+	}
 	static NSBundle *bundle = nil, *englishBundle = nil;
 	if (!bundle) {
 		bundle = [[NSBundle mainBundle] retain];

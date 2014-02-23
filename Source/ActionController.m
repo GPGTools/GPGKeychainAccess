@@ -302,99 +302,79 @@
 		return;
 	}
 	
-	NSInteger returnCode;
-	BOOL applyToAll = NO;
-	NSMutableSet *keysToDelete = [NSMutableSet setWithCapacity:keys.count];
-	NSMutableSet *secretKeysToDelete = [NSMutableSet setWithCapacity:keys.count];
 	
-	[self.undoManager beginUndoGrouping];
+	NSString *title, *message, *button1, *button2, *button3 = nil, *description, *template;
+	NSMutableArray *descriptions = [NSMutableArray arrayWithCapacity:keys.count];
+	BOOL hasSecretKey = NO;
 	
-	
-	BOOL (^secretKeyTest)(id, BOOL*) = ^BOOL(id obj, BOOL *stop) {
-		return ((GPGKey *)obj).secret;
-	};
-	
-	
-	
-	NSSet *secretKeys = [keys objectsWithOptions:NSEnumerationConcurrent passingTest:secretKeyTest];
-	NSMutableSet *publicKeys = [[keys mutableCopy] autorelease];
-	[publicKeys minusSet:secretKeys];
-	
-	
-	
-	for (GPGKey *key in secretKeys) {
-		if (!applyToAll) {
-			returnCode = [sheetController alertSheetForWindow:mainWindow
-												  messageText:localized(@"DeleteSecretKey_Title")
-													 infoText:[NSString stringWithFormat:localized(@"DeleteSecretKey_Msg"), [key userIDDescription], key.keyID.shortKeyID]
-												defaultButton:localized(@"Delete secret key only")
-											  alternateButton:localized(@"Cancel")
-												  otherButton:localized(@"Delete both")
-											suppressionButton:keys.count > 1 ? localized(@"Apply to all") : nil];
-			
-			applyToAll = !!(returnCode & SheetSuppressionButton);
-			returnCode = returnCode & ~SheetSuppressionButton;
-			if (returnCode == NSAlertSecondButtonReturn) {
-				return;
-			}
+	for (GPGKey *key in keys) {
+		if (key.secret) {
+			hasSecretKey = YES;
 		}
-		
-		switch (returnCode) {
-			case NSAlertFirstButtonReturn:
-				[secretKeysToDelete addObject:key];
-				break;
-			case NSAlertThirdButtonReturn:
-				[keysToDelete addObject:key];
-				break;
-		}
+		description = [NSString stringWithFormat:@"%@ (%@)", key.userIDDescription, key.keyID.shortKeyID];
+		[descriptions addObject:description];
 	}
+	description = [descriptions componentsJoinedByString:@"\n"];
 	
 	
-	if (applyToAll && returnCode == NSAlertThirdButtonReturn) {
-		returnCode = NSAlertFirstButtonReturn;
+	
+	if (hasSecretKey) {
+		if (keys.count == 1) {
+			template = @"DeleteSecKey";
+		} else {
+			template = @"DeleteSecKeys";
+		}
 	} else {
-		applyToAll = NO;
+		if (keys.count == 1) {
+			template = @"DeleteKey";
+		} else {
+			template = @"DeleteKeys";
+		}
 	}
 	
-	for (GPGKey *key in publicKeys) {
-		if (!applyToAll) {
-			returnCode = [sheetController alertSheetForWindow:mainWindow
-												  messageText:localized(@"DeleteKey_Title")
-													 infoText:[NSString stringWithFormat:localized(@"DeleteKey_Msg"), [key userIDDescription], key.keyID.shortKeyID]
-												defaultButton:localized(@"Delete key")
-											  alternateButton:localized(@"Cancel")
-												  otherButton:nil
-											suppressionButton:keys.count > 1 ? localized(@"Apply to all") : nil];
-			
-			applyToAll = !!(returnCode & SheetSuppressionButton);
-			returnCode = returnCode & ~SheetSuppressionButton;
-			if (returnCode == NSAlertSecondButtonReturn) {
-				return;
+	
+	title = localized([template stringByAppendingString:@"_Title"]);
+	message = [NSString stringWithFormat:localized([template stringByAppendingString:@"_Msg"]), description];
+	button1 = localized([template stringByAppendingString:@"_Yes"]);
+	button2 = localized([template stringByAppendingString:@"_No"]);
+	if (hasSecretKey) {
+		button3 = localized([template stringByAppendingString:@"_SecOnly"]);
+		NSMutableSet *secretKeys = [NSMutableSet set];
+		for (GPGKey *key in keys) {
+			if (key.secret) {
+				[secretKeys addObject:key];
 			}
 		}
-		
-		if (returnCode == NSAlertFirstButtonReturn) {
-			[keysToDelete addObject:key];
-		}
+		keys = secretKeys;
 	}
 	
 	
-	if (secretKeysToDelete.count > 0) {
-		self.progressText = localized(@"DeleteKeys_Progress");
-		self.errorText = localized(@"DeleteKeys_Error");
-		[gpgc deleteKeys:secretKeysToDelete withMode:GPGDeleteSecretKey];
+	
+	NSInteger result;
+	result = [sheetController alertSheetWithTitle:title
+										  message:message
+									defaultButton:button1
+								  alternateButton:button2
+									  otherButton:button3
+								suppressionButton:nil];
+
+	
+	
+	GPGDeleteKeyMode mode;
+	switch (result) {
+		case NSAlertFirstButtonReturn:
+			mode = GPGDeletePublicAndSecretKey;
+			break;
+		case NSAlertThirdButtonReturn:
+			mode = GPGDeleteSecretKey;
+			break;
+		default:
+			return;
 	}
 	
-	if (keysToDelete.count > 0) {
-		self.progressText = localized(@"DeleteKeys_Progress");
-		self.errorText = localized(@"DeleteKeys_Error");
-		[gpgc deleteKeys:keysToDelete withMode:GPGDeletePublicAndSecretKey];
-	}
-	
-	
-	[self.undoManager endUndoGrouping];
-	[self.undoManager setActionName:localized(@"Undo_Delete")];
-	
+	self.progressText = localized(@"DeleteKeys_Progress");
+	self.errorText = localized(@"DeleteKeys_Error");
+	[gpgc deleteKeys:keys withMode:mode];
 }
 
 #pragma mark "Key attributes"
