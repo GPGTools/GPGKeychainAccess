@@ -82,6 +82,11 @@ NSSet *draggedKeys;
 		[self fetchDetailsForSelectedKey];
 	}
 }
+- (void)selectRow:(NSInteger)row {
+	userChangingSelection = YES;
+	self.selectionIndexPaths = @[[NSIndexPath indexPathWithIndex:row]];
+}
+
 - (BOOL)fetchDetailsForSelectedKey { // Returns YES if the details will be fetched.
 	if (_selectionIndexPaths.count == 1) {
 		NSUInteger index = [[_selectionIndexPaths objectAtIndex:0] indexAtPosition:0];

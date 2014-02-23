@@ -50,6 +50,28 @@
 		[drawer open:nil];
 	}
 }
+- (IBAction)showKeyDetails:(id)sender {
+	NSInteger row = keyTable.clickedRow;
+	if (row >= 0) {
+		NSIndexSet *indexes = keyTable.selectedRowIndexes;
+		if (indexes.count == 1 && [indexes containsIndex:row]) {
+			[drawer toggle:nil];
+		} else {
+			KeychainController *kc = [KeychainController sharedInstance];
+			[kc selectRow:row];
+			/*[keysController willChangeValueForKey:@"arra"];
+			[keysController setSelectionIndexPath:ip];
+			[keyTable selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+			[keysController didChangeValueForKey:@"selection"];
+			*/
+			
+			[drawer open:nil];
+		}
+	} else {
+		[drawer toggle:nil];
+	}
+	
+}
 
 
 - (id)init {

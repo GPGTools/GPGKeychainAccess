@@ -58,7 +58,7 @@
 
 
 - (IBAction)updateFilteredKeyList:(id)sender;
-
+- (void)selectRow:(NSInteger)row;
 
 
 

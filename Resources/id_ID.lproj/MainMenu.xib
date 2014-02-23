@@ -2671,7 +2671,7 @@
 																			<object class="NSPSMatrix" key="NSFrameMatrix"/>
 																			<string key="NSFrameSize">{408, 126}</string>
 																			<reference key="NSSuperview" ref="620200667"/>
-																			<reference key="NSNextKeyView" ref="831667034"/>
+																			<reference key="NSNextKeyView" ref="874521588"/>
 																			<bool key="NSEnabled">YES</bool>
 																			<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 																			<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -2836,7 +2836,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 31}, {410, 144}}</string>
 															<reference key="NSSuperview" ref="357118400"/>
-															<reference key="NSNextKeyView" ref="620200667"/>
+															<reference key="NSNextKeyView" ref="831667034"/>
 															<int key="NSsFlags">133682</int>
 															<reference key="NSVScroller" ref="95059261"/>
 															<reference key="NSHScroller" ref="874521588"/>
@@ -2904,7 +2904,7 @@
 																			<object class="NSPSMatrix" key="NSFrameMatrix"/>
 																			<string key="NSFrameSize">{408, 157}</string>
 																			<reference key="NSSuperview" ref="566455106"/>
-																			<reference key="NSNextKeyView" ref="501978040"/>
+																			<reference key="NSNextKeyView" ref="463917557"/>
 																			<bool key="NSEnabled">YES</bool>
 																			<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 																			<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -3122,7 +3122,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 51}, {410, 175}}</string>
 															<reference key="NSSuperview" ref="1023839273"/>
-															<reference key="NSNextKeyView" ref="566455106"/>
+															<reference key="NSNextKeyView" ref="501978040"/>
 															<int key="NSsFlags">133682</int>
 															<reference key="NSVScroller" ref="463917557"/>
 															<reference key="NSHScroller" ref="552735962"/>
@@ -3139,6 +3139,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 20}, {21, 23}}</string>
 															<reference key="NSSuperview" ref="1023839273"/>
+															<reference key="NSNextKeyView" ref="922095770"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="1067650370">
 																<int key="NSCellFlags">67108864</int>
@@ -4551,14 +4552,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">showInspector:</string>
-						<reference key="source" ref="520472171"/>
-						<reference key="destination" ref="468198939"/>
-					</object>
-					<string key="id">1967</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">showSupport:</string>
 						<reference key="source" ref="520472171"/>
 						<reference key="destination" ref="1052565881"/>
@@ -4652,6 +4645,30 @@
 						<reference key="destination" ref="134609625"/>
 					</object>
 					<string key="id">8uE-s5-RPX</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showKeyDetails:</string>
+						<reference key="source" ref="267803462"/>
+						<reference key="destination" ref="468198939"/>
+					</object>
+					<string key="id">Gab-Xj-gdG</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showKeyDetails:</string>
+						<reference key="source" ref="267803462"/>
+						<reference key="destination" ref="85812336"/>
+					</object>
+					<string key="id">s1p-F2-asH</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">keysController</string>
+						<reference key="source" ref="267803462"/>
+						<reference key="destination" ref="605920174"/>
+					</object>
+					<string key="id">ZkS-qr-g5m</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -6733,14 +6750,6 @@
 						<reference key="destination" ref="409477503"/>
 					</object>
 					<string key="id">PLx-lB-T6P</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">toggle:</string>
-						<reference key="source" ref="814916585"/>
-						<reference key="destination" ref="85812336"/>
-					</object>
-					<string key="id">hMA-Vn-Rji</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -10591,7 +10600,6 @@
 						<string key="revokeSubkey:">id</string>
 						<string key="revokeUserID:">id</string>
 						<string key="searchKeys:">id</string>
-						<string key="sendKeyPerMail:">id</string>
 						<string key="sendKeysPerMail:">id</string>
 						<string key="sendKeysToServer:">id</string>
 						<string key="setDisabled:">id</string>
@@ -10712,10 +10720,6 @@
 							<string key="name">searchKeys:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="sendKeyPerMail:">
-							<string key="name">sendKeyPerMail:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="sendKeysPerMail:">
 							<string key="name">sendKeysPerMail:</string>
 							<string key="candidateClassName">id</string>
@@ -10826,6 +10830,7 @@
 						<string key="doubleClick:">NSOutlineView</string>
 						<string key="selectHeaderVisibility:">NSMenuItem</string>
 						<string key="showHelp:">id</string>
+						<string key="showKeyDetails:">id</string>
 						<string key="showPreferences:">id</string>
 						<string key="showSupport:">id</string>
 						<string key="singleClick:">NSOutlineView</string>
@@ -10841,6 +10846,10 @@
 						</object>
 						<object class="IBActionInfo" key="showHelp:">
 							<string key="name">showHelp:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="showKeyDetails:">
+							<string key="name">showKeyDetails:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showPreferences:">
@@ -10859,6 +10868,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="drawer">NSDrawer</string>
 						<string key="keyTable">NSOutlineView</string>
+						<string key="keysController">NSTreeController</string>
 						<string key="signatureTable">NSOutlineView</string>
 						<string key="subkeyTable">NSOutlineView</string>
 						<string key="userIDTable">NSOutlineView</string>
@@ -10872,6 +10882,10 @@
 						<object class="IBToOneOutletInfo" key="keyTable">
 							<string key="name">keyTable</string>
 							<string key="candidateClassName">NSOutlineView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="keysController">
+							<string key="name">keysController</string>
+							<string key="candidateClassName">NSTreeController</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="signatureTable">
 							<string key="name">signatureTable</string>

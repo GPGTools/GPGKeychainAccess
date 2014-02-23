@@ -35,7 +35,7 @@
 
 - (IBAction)selectHeaderVisibility:(NSMenuItem *)sender;
 - (IBAction)showPreferences:(id)sender;
-
 - (IBAction)showSupport:(id)sender;
+- (IBAction)showKeyDetails:(id)sender;
 
 @end
