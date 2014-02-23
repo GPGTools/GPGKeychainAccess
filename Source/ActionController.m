@@ -330,12 +330,12 @@
 												defaultButton:localized(@"Delete secret key only")
 											  alternateButton:localized(@"Cancel")
 												  otherButton:localized(@"Delete both")
-											suppressionButton:localized(@"Apply to all")];
+											suppressionButton:keys.count > 1 ? localized(@"Apply to all") : nil];
 			
 			applyToAll = !!(returnCode & SheetSuppressionButton);
 			returnCode = returnCode & ~SheetSuppressionButton;
-			if (applyToAll && returnCode == NSAlertSecondButtonReturn) {
-				break;
+			if (returnCode == NSAlertSecondButtonReturn) {
+				return;
 			}
 		}
 		
@@ -364,12 +364,12 @@
 												defaultButton:localized(@"Delete key")
 											  alternateButton:localized(@"Cancel")
 												  otherButton:nil
-											suppressionButton:localized(@"Apply to all")];
+											suppressionButton:keys.count > 1 ? localized(@"Apply to all") : nil];
 			
 			applyToAll = !!(returnCode & SheetSuppressionButton);
 			returnCode = returnCode & ~SheetSuppressionButton;
-			if (applyToAll && returnCode == NSAlertSecondButtonReturn) {
-				break;
+			if (returnCode == NSAlertSecondButtonReturn) {
+				return;
 			}
 		}
 		
