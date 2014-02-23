@@ -404,7 +404,11 @@ NSSet *draggedKeys;
 }
 - (NSString *)userIDDescription {
 	if (_userIDDescription) {
-		return [[_userIDDescription retain] autorelease];
+		if (_email.length > 0) {
+			return [NSString stringWithFormat:@"%@ <%@>", _name, _email];
+		} else {
+			return [[_name retain] autorelease];
+		}
 	} else {
 		return localized(@"PhotoID");
 	}
