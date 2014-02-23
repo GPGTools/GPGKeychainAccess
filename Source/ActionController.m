@@ -1327,14 +1327,14 @@
 			break;
 		case SetTrustAction: {
 			NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
-			NSInteger *trust = [[oldUserInfo objectForKey:@"trust"] integerValue];
+			NSInteger trust = [[oldUserInfo objectForKey:@"trust"] integerValue];
 			
 			[self setTrust:trust forKeys:keys];
 			break;
 		}
 		case SetDisabledAction: {
 			NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
-			BOOL *disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
+			BOOL disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
 			
 			[self setDisabled:disabled forKeys:keys];
 			break;
