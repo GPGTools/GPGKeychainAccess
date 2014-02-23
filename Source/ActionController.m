@@ -863,7 +863,7 @@
 	}
 	
 	NSString *warningTemplate = lastSelfSignature ? @"RemoveLastSelfSignature" : @"RemoveSignature";
-	if ([self warningSheet:warningTemplate, signature.userIDDescription, signature.keyID.shortKeyID, userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+	if ([self warningSheet:warningTemplate, signature.userIDDescription, signature.userIDDescription] == NO) {
 		return;
 	}
 
@@ -897,7 +897,7 @@
 	}
 	
 	NSString *warningTemplate = lastSelfSignature ? @"RevokeLastSelfSignature" : @"RevokeSignature";
-	if ([self warningSheet:warningTemplate, signature.userIDDescription, signature.keyID.shortKeyID, userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+	if ([self warningSheet:warningTemplate, signature.userIDDescription, signature.userIDDescription] == NO) {
 		return;
 	}
 	

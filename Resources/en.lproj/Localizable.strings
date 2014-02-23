@@ -127,9 +127,14 @@ RemoveSignature_Yes = "Remove Signature";
 RemoveSignature_No = "Cancel";
 
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
-RemoveLastSelfSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Remove Signature";
 RemoveLastSelfSignature_No = "Cancel";
+
+RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
+RevokeLastSelfSignature_Yes = "Revoke Signature";
+RevokeLastSelfSignature_No = "Cancel";
 
 
 BadKeyserver_Title = "Bad Keyserver";
