@@ -21,6 +21,7 @@
 #import <AddressBook/AddressBook.h>
 #import "Globales.h"
 #import "ActionController.h"
+#import <objc/runtime.h>
 
 
 @interface SheetController ()
@@ -44,13 +45,58 @@
 
 
 @implementation SheetController
-@synthesize progressText, msgText, name, email, comment, passphrase, confirmPassphrase, pattern, title,
+@synthesize progressText, name, email, comment, passphrase, confirmPassphrase, pattern, title,
 	hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload,
 	expirationDate, minExpirationDate, maxExpirationDate,
 	algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
 	sigType, length, sheetType, URL, URLs,
 	modalWindow, foundKeyDicts, hideExtension;
 
+
+
+
+- (void)addObserver:(id)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
+	if ([@"msgText" isEqualToString:keyPath]) {
+		NSObject *object = [observer object];
+		if ([object isKindOfClass:[NSTextField class]]) {
+			[msgTextFields addObject:object];
+		}
+	}
+	[super addObserver:observer forKeyPath:keyPath options:options context:context];
+}
+
+- (void)setMsgText:(NSString *)value {
+	if (value != msgText) {
+		NSString *old = msgText;
+		msgText = [value retain];
+		[old release];
+		
+		
+		// Resize all message text-fields to fit the message.
+		NSDictionary *attributes = @{NSFontAttributeName: [NSFont labelFontOfSize:13]};
+		NSAttributedString *aString = [[[NSAttributedString alloc] initWithString:value attributes:attributes] autorelease];
+		
+		for (NSTextField *field in msgTextFields) {
+			NSView *superview = field.superview;
+			NSRect fieldFrame = field.frame;
+			NSRect superFrame = superview.frame;
+			
+			CGFloat newHeight = [aString boundingRectWithSize:NSMakeSize(fieldFrame.size.width, 10000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading].size.height;
+			if (newHeight < 30) {
+				newHeight = 30;
+			} else if (newHeight > 500) {
+				newHeight = 500;
+			}
+			CGFloat difference = newHeight - fieldFrame.size.height;
+			
+			superFrame.size.height += difference;
+			superview.frame = superFrame;
+		}
+	}
+}
+- (NSString *)msgText {
+	return [[msgText retain] autorelease];
+}
 
 
 // Running sheets //
@@ -906,6 +952,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		
 		sheetLock = [NSLock new];
 		progressSheetLock = [NSLock new];
+		msgTextFields = [[NSMutableSet alloc] init];
 		[NSBundle loadNibNamed:@"ModalSheets" owner:self];
 	}
 	return self;

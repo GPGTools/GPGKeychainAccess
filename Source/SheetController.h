@@ -93,19 +93,20 @@ enum {
 	NSArray *URLs;
 	NSWindow *modalWindow;
 	BOOL hideExtension;
+	NSMutableSet *msgTextFields;
 }
 
-@property (retain) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
-@property BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload;
-@property (retain) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
-@property (retain) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
-@property NSInteger exportFormat, keyType, sigType, length, sheetType;
-@property (readonly, retain) NSArray *foundKeyDicts;
-@property (readonly) NSInteger daysToExpire;
-@property (retain) GPGKey *secretKey;
-@property (readonly, retain) NSURL *URL;
-@property (readonly, retain) NSArray *URLs;
-@property (readonly) BOOL hideExtension;
+@property (nonatomic, retain) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
+@property (nonatomic) BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload;
+@property (nonatomic, retain) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
+@property (nonatomic, retain) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
+@property (nonatomic) NSInteger exportFormat, keyType, sigType, length, sheetType;
+@property (nonatomic, readonly, retain) NSArray *foundKeyDicts;
+@property (nonatomic, readonly) NSInteger daysToExpire;
+@property (nonatomic, retain) GPGKey *secretKey;
+@property (nonatomic, readonly, retain) NSURL *URL;
+@property (nonatomic, readonly, retain) NSArray *URLs;
+@property (nonatomic, readonly) BOOL hideExtension;
 
 
 - (NSInteger)runModal;
