@@ -187,6 +187,28 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
+						<object class="NSToolbarItem" key="A06C69B7-70CB-4DEB-975A-657E6830E4AE" id="150125085">
+							<object class="NSMutableString" key="NSToolbarItemIdentifier">
+								<characters key="NS.bytes">A06C69B7-70CB-4DEB-975A-657E6830E4AE</characters>
+							</object>
+							<string key="NSToolbarItemLabel">Redo</string>
+							<string key="NSToolbarItemPaletteLabel">Redo</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">Redo</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
 						<object class="NSToolbarItem" key="B1B6B5FA-C2DF-4625-BDC9-EF4AADBA801A" id="859397181">
 							<object class="NSMutableString" key="NSToolbarItemIdentifier">
 								<characters key="NS.bytes">B1B6B5FA-C2DF-4625-BDC9-EF4AADBA801A</characters>
@@ -384,6 +406,7 @@
 						<reference ref="859397181"/>
 						<reference ref="519919187"/>
 						<reference ref="666400670"/>
+						<reference ref="150125085"/>
 						<reference ref="581918453"/>
 						<reference ref="33662868"/>
 						<reference ref="116262695"/>
@@ -2088,7 +2111,7 @@
 																			<object class="NSPSMatrix" key="NSFrameMatrix"/>
 																			<string key="NSFrameSize">{408, 126}</string>
 																			<reference key="NSSuperview" ref="620200667"/>
-																			<reference key="NSNextKeyView" ref="874521588"/>
+																			<reference key="NSNextKeyView" ref="831667034"/>
 																			<bool key="NSEnabled">YES</bool>
 																			<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 																			<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -2253,7 +2276,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 31}, {410, 144}}</string>
 															<reference key="NSSuperview" ref="357118400"/>
-															<reference key="NSNextKeyView" ref="831667034"/>
+															<reference key="NSNextKeyView" ref="620200667"/>
 															<int key="NSsFlags">133682</int>
 															<reference key="NSVScroller" ref="95059261"/>
 															<reference key="NSHScroller" ref="874521588"/>
@@ -2321,7 +2344,7 @@
 																			<object class="NSPSMatrix" key="NSFrameMatrix"/>
 																			<string key="NSFrameSize">{408, 157}</string>
 																			<reference key="NSSuperview" ref="566455106"/>
-																			<reference key="NSNextKeyView" ref="463917557"/>
+																			<reference key="NSNextKeyView" ref="501978040"/>
 																			<bool key="NSEnabled">YES</bool>
 																			<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 																			<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -2539,7 +2562,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 51}, {410, 175}}</string>
 															<reference key="NSSuperview" ref="1023839273"/>
-															<reference key="NSNextKeyView" ref="501978040"/>
+															<reference key="NSNextKeyView" ref="566455106"/>
 															<int key="NSsFlags">133682</int>
 															<reference key="NSVScroller" ref="463917557"/>
 															<reference key="NSHScroller" ref="552735962"/>
@@ -2556,7 +2579,6 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 20}, {21, 23}}</string>
 															<reference key="NSSuperview" ref="1023839273"/>
-															<reference key="NSNextKeyView" ref="922095770"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="1067650370">
 																<int key="NSCellFlags">67108864</int>
@@ -4626,6 +4648,14 @@
 						<reference key="destination" ref="662316073"/>
 					</object>
 					<string key="id">mYZ-ek-o58</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">redo:</string>
+						<reference key="source" ref="520472171"/>
+						<reference key="destination" ref="150125085"/>
+					</object>
+					<string key="id">ysK-Kd-8rq</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -8017,6 +8047,7 @@
 							<reference ref="116262695"/>
 							<reference ref="409477503"/>
 							<reference ref="859397181"/>
+							<reference ref="150125085"/>
 						</array>
 						<reference key="parent" ref="914020908"/>
 					</object>
@@ -9842,6 +9873,11 @@
 						<reference key="object" ref="621840128"/>
 						<reference key="parent" ref="838499136"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">o72-0C-Ab8</string>
+						<reference key="object" ref="150125085"/>
+						<reference key="parent" ref="107471408"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -10565,6 +10601,9 @@
 				<boolean value="NO" key="nfl-fM-902.showNotes"/>
 				<string key="nht-3U-47N.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="nht-3U-47N.showNotes"/>
+				<string key="o72-0C-Ab8.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="o72-0C-Ab8.showNotes"/>
+				<boolean value="NO" key="o72-0C-Ab8.toolbarItem.selectable"/>
 				<string key="oRt-yu-SZN.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="oRt-yu-SZN.showNotes"/>
 				<string key="ozB-Bm-KwW.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -11089,6 +11128,7 @@
 			<string key="NSMenuMixedState">{10, 3}</string>
 			<string key="NSRightFacingTriangleTemplate">{9, 9}</string>
 			<string key="NSSwitch">{15, 15}</string>
+			<string key="Redo">{32, 32}</string>
 			<string key="Search">{32, 32}</string>
 			<string key="Undo">{32, 32}</string>
 		</dictionary>
