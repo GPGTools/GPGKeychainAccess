@@ -229,14 +229,6 @@
 	}
 	if (infoText) {
 		[alert setInformativeText:infoText];
-		NSDictionary *attributes = @{NSFontAttributeName: [NSFont labelFontOfSize:11]};
-		NSSize size = [infoText sizeWithAttributes:attributes];
-		CGFloat width = size.width;
-		
-		NSWindow *alertWindow = alert.window;
-		NSRect frame = alertWindow.frame;
-		frame.size.width = width + 135;
-		[alertWindow setFrame:frame display:NO];
 	}
 	if (button1) {
 		[alert addButtonWithTitle:button1];

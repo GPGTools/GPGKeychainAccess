@@ -381,6 +381,53 @@ NSSet *draggedKeys;
 	return !!self.primaryUserID.signatures;
 }
 
+
+- (NSString *)simpleValidity {
+	NSInteger intValue = self.validity;
+	NSString *validity = nil;
+	
+	
+	if (intValue >= GPGValidityInvalid) {
+		if (intValue & GPGValidityInvalid) {
+			validity = localized(@"Invalid");
+		}
+		else if (intValue & GPGValidityRevoked) {
+			validity = localized(@"Revoked");
+		}
+		else if (intValue & GPGValidityExpired) {
+			validity = localized(@"Expired");
+		}
+		else if (intValue & GPGValidityDisabled) {
+			validity = localized(@"Disabled");
+		}
+	} else {
+		switch (intValue) {
+			case 2:
+				validity = localized(@"?"); //Was bedeutet 2?
+				break;
+			case 3:
+				validity = localized(@"Marginal");
+				break;
+			case 4:
+				validity = localized(@"Full");
+				break;
+			case 5:
+				validity = localized(@"Ultimate");
+				break;
+			default:
+				validity = localized(@"Unknown");
+				break;
+		}
+	}
+	
+	if (!validity) {
+		validity = localized(@"Unknown");
+	}
+	
+	return validity;
+}
+
+
 @end
 
 @implementation GPGUserID (GKAExtension)
