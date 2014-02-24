@@ -1083,7 +1083,7 @@
 		}
 	}
 	else if (selector == @selector(removeUserID:)) {
-		return [self selectedObjectsOf:userIDsTable].count == 1;
+		return [self selectedObjectsOf:userIDsTable].count == 1 && [userIDsController.arrangedObjects count] > 1;
 	}
 	else if (selector == @selector(revokeUserID:)) {
 		NSArray *objects = [self selectedObjectsOf:userIDsTable];
