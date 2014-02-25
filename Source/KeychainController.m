@@ -20,7 +20,8 @@
 #import "KeychainController.h"
 #import "ActionController.h"
 #import "SheetController.h"
-#include <sys/time.h>
+#import <sys/time.h>
+#import <objc/runtime.h>
 
 
 //KeychainController kümmert sich um das anzeigen und Filtern der Schlüssel-Liste.
@@ -174,16 +175,11 @@ NSSet *draggedKeys;
 
 
 
-
-
-
 - (IBAction)updateFilteredKeyList:(id)sender {
 	if ([sender isKindOfClass:[NSTextField class]]) {
 		self.filterStrings = [[sender stringValue] componentsSeparatedByString:@" "];
 	}
 }
-
-
 
 - (void)keysDidChange:(NSNotification *)notification {
 	if (![self fetchDetailsForSelectedKey]) {
@@ -192,11 +188,9 @@ NSSet *draggedKeys;
 	}
 }
 
-
 - (NSSet *)allKeys {
 	return [GPGKeyManager sharedInstance].allKeys;
 }
-
 
 - (NSArray *)filteredKeyList {
 	NSSet *filteredKeys = [self.allKeys objectsPassingTest:^BOOL(GPGKey *key, BOOL *stop) {
@@ -225,12 +219,9 @@ NSSet *draggedKeys;
 	return [[filteredKeyList retain] autorelease];
 }
 
-
 + (NSSet*)keyPathsForValuesAffectingFilteredKeyList {
 	return [NSSet setWithObjects:@"allKeys", @"filterStrings", @"showSecretKeysOnly", nil];
 }
-
-
 
 
 // Singleton: alloc, init etc.
@@ -310,11 +301,6 @@ NSSet *draggedKeys;
     return self;
 }
 
-
-
-
-
-
 @end
 
 
@@ -381,7 +367,6 @@ NSSet *draggedKeys;
 	return !!self.primaryUserID.signatures;
 }
 
-
 - (NSString *)simpleValidity {
 	NSInteger intValue = self.validity;
 	NSString *validity = nil;
@@ -426,6 +411,48 @@ NSSet *draggedKeys;
 	
 	return validity;
 }
+
+- (BOOL)hasPassphrase {
+	//This method isn't perfect yet!
+	if (!_secret) {
+		return NO;
+	}
+	
+	NSNumber *storedValue = objc_getAssociatedObject(self, @"hasPassphrase");
+	if (storedValue) {
+		return storedValue.boolValue;
+	}
+	
+	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+	dispatch_async(queue, ^{
+		GPGTask *gpgTask = [GPGTask gpgTask];
+		gpgTask.batchMode = YES;
+		[gpgTask addArguments:@[@"--passphrase", @"", @"--passwd", self.fingerprint]];
+		
+		[gpgTask start];
+		
+		BOOL value = !![gpgTask.statusDict objectForKey:@"BAD_PASSPHRASE"];
+		
+		objc_setAssociatedObject(self, @"hasPassphrase", @(value), 0);
+		if (value) {
+			[self willChangeValueForKey:@"hasPassphrase"];
+			[self didChangeValueForKey:@"hasPassphrase"];
+		}
+	});
+				   
+	return NO;
+}
+
+- (void)setIvar:(id)key value:(id)value {
+    objc_setAssociatedObject(self, (__bridge const void *)(key), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (id)getIvar:(id)key {
+    return objc_getAssociatedObject(self, (__bridge const void *)(key));
+	objc_removeAssociatedObjects(self);
+
+}
+
 
 
 @end
@@ -482,3 +509,5 @@ NSSet *draggedKeys;
 	return [NSString stringWithFormat:@"%@%@%@", typeString, classString, localString];
 }
 @end
+
+
