@@ -1227,7 +1227,11 @@
 		default:
 			title = self.errorText;
 			if (gpgTask) {
-				message = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, gpgTask.errText];
+				NSString *errText = gpgTask.errText;
+				if (errText.length > 1000) {
+					errText = [NSString stringWithFormat:@"%@\n…\n%@", [errText substringToIndex:400], [errText substringFromIndex:errText.length - 400]];
+				}
+				message = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, errText];
 			} else {
 				message = [NSString stringWithFormat:@"%@", e.description];
 			}
