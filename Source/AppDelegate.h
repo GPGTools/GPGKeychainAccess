@@ -22,12 +22,13 @@
 
 @interface GPGKeychainAccessAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
 	GKOutlineView *keyTable;
-	NSOutlineView *userIDTable, *subkeyTable, *signatureTable;
+	NSTableView *userIDTable, *subkeyTable, *signatureTable;
 	NSDrawer *drawer;
 	BOOL rowWasSelected;
 }
 @property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSOutlineView *keyTable, *userIDTable, *subkeyTable, *signatureTable;
+@property (assign) IBOutlet GKOutlineView *keyTable;
+@property (assign) IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
 @property (assign) IBOutlet NSDrawer *drawer;
 
 

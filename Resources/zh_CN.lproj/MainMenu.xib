@@ -2111,7 +2111,7 @@
 																			<object class="NSPSMatrix" key="NSFrameMatrix"/>
 																			<string key="NSFrameSize">{408, 126}</string>
 																			<reference key="NSSuperview" ref="620200667"/>
-																			<reference key="NSNextKeyView" ref="831667034"/>
+																			<reference key="NSNextKeyView" ref="874521588"/>
 																			<bool key="NSEnabled">YES</bool>
 																			<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 																			<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -2276,7 +2276,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 31}, {410, 144}}</string>
 															<reference key="NSSuperview" ref="357118400"/>
-															<reference key="NSNextKeyView" ref="620200667"/>
+															<reference key="NSNextKeyView" ref="831667034"/>
 															<int key="NSsFlags">133682</int>
 															<reference key="NSVScroller" ref="95059261"/>
 															<reference key="NSHScroller" ref="874521588"/>
@@ -2344,7 +2344,7 @@
 																			<object class="NSPSMatrix" key="NSFrameMatrix"/>
 																			<string key="NSFrameSize">{408, 157}</string>
 																			<reference key="NSSuperview" ref="566455106"/>
-																			<reference key="NSNextKeyView" ref="501978040"/>
+																			<reference key="NSNextKeyView" ref="463917557"/>
 																			<bool key="NSEnabled">YES</bool>
 																			<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 																			<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -2562,7 +2562,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 51}, {410, 175}}</string>
 															<reference key="NSSuperview" ref="1023839273"/>
-															<reference key="NSNextKeyView" ref="566455106"/>
+															<reference key="NSNextKeyView" ref="501978040"/>
 															<int key="NSsFlags">133682</int>
 															<reference key="NSVScroller" ref="463917557"/>
 															<reference key="NSHScroller" ref="552735962"/>
@@ -2579,6 +2579,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 20}, {21, 23}}</string>
 															<reference key="NSSuperview" ref="1023839273"/>
+															<reference key="NSNextKeyView" ref="922095770"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="1067650370">
 																<int key="NSCellFlags">67108864</int>
@@ -4728,6 +4729,30 @@
 						<reference key="destination" ref="605920174"/>
 					</object>
 					<string key="id">ZkS-qr-g5m</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">userIDTable</string>
+						<reference key="source" ref="267803462"/>
+						<reference key="destination" ref="1068758329"/>
+					</object>
+					<string key="id">vBl-oj-gWj</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">signatureTable</string>
+						<reference key="source" ref="267803462"/>
+						<reference key="destination" ref="960229813"/>
+					</object>
+					<string key="id">nds-iM-3dn</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">subkeyTable</string>
+						<reference key="source" ref="267803462"/>
+						<reference key="destination" ref="498798170"/>
+					</object>
+					<string key="id">ojg-JK-Q3z</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -10987,10 +11012,10 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="drawer">NSDrawer</string>
-						<string key="keyTable">NSOutlineView</string>
-						<string key="signatureTable">NSOutlineView</string>
-						<string key="subkeyTable">NSOutlineView</string>
-						<string key="userIDTable">NSOutlineView</string>
+						<string key="keyTable">GKOutlineView</string>
+						<string key="signatureTable">NSTableView</string>
+						<string key="subkeyTable">NSTableView</string>
+						<string key="userIDTable">NSTableView</string>
 						<string key="window">NSWindow</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -11000,19 +11025,19 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="keyTable">
 							<string key="name">keyTable</string>
-							<string key="candidateClassName">NSOutlineView</string>
+							<string key="candidateClassName">GKOutlineView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="signatureTable">
 							<string key="name">signatureTable</string>
-							<string key="candidateClassName">NSOutlineView</string>
+							<string key="candidateClassName">NSTableView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="subkeyTable">
 							<string key="name">subkeyTable</string>
-							<string key="candidateClassName">NSOutlineView</string>
+							<string key="candidateClassName">NSTableView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="userIDTable">
 							<string key="name">userIDTable</string>
-							<string key="candidateClassName">NSOutlineView</string>
+							<string key="candidateClassName">NSTableView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="window">
 							<string key="name">window</string>
