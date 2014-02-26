@@ -46,6 +46,7 @@
 
 
 - (BOOL)validateUserInterfaceItem:(id)anItem;
+- (IBAction)delete:(id)sender;
 - (IBAction)copy:(id)sender;
 - (IBAction)paste:(id)sender;
 - (IBAction)cleanKey:(id)sender;

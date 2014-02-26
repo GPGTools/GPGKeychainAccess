@@ -3794,6 +3794,15 @@
 									<reference key="NSOnImage" ref="734934930"/>
 									<reference key="NSMixedImage" ref="987910177"/>
 								</object>
+								<object class="NSMenuItem" id="430321327">
+									<reference key="NSMenu" ref="466789479"/>
+									<string key="NSTitle">Delete</string>
+									<string type="base64-UTF8" key="NSKeyEquiv">CA</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="734934930"/>
+									<reference key="NSMixedImage" ref="987910177"/>
+								</object>
 								<object class="NSMenuItem" id="256556304">
 									<reference key="NSMenu" ref="466789479"/>
 									<string key="NSTitle">Select All</string>
@@ -3909,15 +3918,6 @@
 									<reference key="NSMenu" ref="904998012"/>
 									<string key="NSTitle">Generate…</string>
 									<string key="NSKeyEquiv">n</string>
-									<int key="NSKeyEquivModMask">1048576</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="734934930"/>
-									<reference key="NSMixedImage" ref="987910177"/>
-								</object>
-								<object class="NSMenuItem" id="430321327">
-									<reference key="NSMenu" ref="904998012"/>
-									<string key="NSTitle">Delete</string>
-									<string type="base64-UTF8" key="NSKeyEquiv">CA</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="734934930"/>
@@ -4449,14 +4449,6 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">deleteKey:</string>
 						<reference key="source" ref="520472171"/>
-						<reference key="destination" ref="430321327"/>
-					</object>
-					<string key="id">1630</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">deleteKey:</string>
-						<reference key="source" ref="520472171"/>
 						<reference key="destination" ref="934329261"/>
 					</object>
 					<string key="id">1961</string>
@@ -4716,6 +4708,14 @@
 						<reference key="destination" ref="150125085"/>
 					</object>
 					<string key="id">ysK-Kd-8rq</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">delete:</string>
+						<reference key="source" ref="520472171"/>
+						<reference key="destination" ref="430321327"/>
+					</object>
+					<string key="id">sZw-NP-CDK</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -6584,7 +6584,7 @@
 						<string key="label">enabled2: canInsert</string>
 						<reference key="source" ref="749882950"/>
 						<reference key="destination" ref="710493774"/>
-						<object class="NSNibBindingConnector" key="connector" id="1001455091">
+						<object class="NSNibBindingConnector" key="connector" id="384804748">
 							<reference key="NSSource" ref="749882950"/>
 							<reference key="NSDestination" ref="710493774"/>
 							<string key="NSLabel">enabled2: canInsert</string>
@@ -6617,7 +6617,7 @@
 								<string key="NS.key.0">NSValueTransformerName</string>
 								<string key="NS.object.0">NSNegateBoolean</string>
 							</object>
-							<reference key="NSPreviousConnector" ref="1001455091"/>
+							<reference key="NSPreviousConnector" ref="384804748"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
@@ -7798,6 +7798,7 @@
 							<reference ref="256556304"/>
 							<reference ref="4662800"/>
 							<reference ref="1038769316"/>
+							<reference ref="430321327"/>
 						</array>
 						<reference key="parent" ref="585005772"/>
 					</object>
@@ -7914,7 +7915,6 @@
 						<reference key="object" ref="904998012"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="692247346"/>
-							<reference ref="430321327"/>
 							<reference ref="887879091"/>
 							<reference ref="652150554"/>
 							<reference ref="823897743"/>
@@ -7933,11 +7933,6 @@
 					<object class="IBObjectRecord">
 						<string key="id">1595</string>
 						<reference key="object" ref="692247346"/>
-						<reference key="parent" ref="904998012"/>
-					</object>
-					<object class="IBObjectRecord">
-						<string key="id">1596</string>
-						<reference key="object" ref="430321327"/>
 						<reference key="parent" ref="904998012"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -9983,6 +9978,11 @@
 						<reference key="object" ref="150125085"/>
 						<reference key="parent" ref="107471408"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">1596</string>
+						<reference key="object" ref="430321327"/>
+						<reference key="parent" ref="466789479"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -10805,6 +10805,7 @@
 						<string key="changePassphrase:">id</string>
 						<string key="cleanKey:">id</string>
 						<string key="copy:">id</string>
+						<string key="delete:">id</string>
 						<string key="deleteKey:">id</string>
 						<string key="editAlgorithmPreferences:">id</string>
 						<string key="exportKey:">id</string>
@@ -10863,6 +10864,10 @@
 						</object>
 						<object class="IBActionInfo" key="copy:">
 							<string key="name">copy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="delete:">
+							<string key="name">delete:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="deleteKey:">

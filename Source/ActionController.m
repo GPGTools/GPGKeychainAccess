@@ -28,7 +28,23 @@
 @synthesize progressText, errorText;
 
 
-#pragma mark "Import and Export"
+#pragma mark General
+- (IBAction)delete:(id)sender {
+	NSResponder *responder = mainWindow.firstResponder;
+	
+	if (responder == appDelegate.userIDTable) {
+		[self removeUserID:nil];
+	} else if (responder == appDelegate.signatureTable) {
+		[self removeSignature:nil];
+	} else if (responder == appDelegate.subkeyTable) {
+		[self removeSubkey:nil];
+	} else {
+		[self deleteKey:nil];
+	}
+}
+
+
+#pragma mark Import and Export
 - (IBAction)exportKey:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if (keys.count == 0) {
@@ -244,12 +260,12 @@
 }
 
 
-#pragma mark "Window and display"
+#pragma mark Window and display
 - (IBAction)refreshDisplayedKeys:(id)sender {
 	[[GPGKeyManager sharedInstance] loadAllKeys];
 }
 
-#pragma mark "Keys"
+#pragma mark Keys
 - (IBAction)generateNewKey:(id)sender {
 	sheetController.sheetType = SheetTypeNewKey;
 	sheetController.autoUpload = NO;
@@ -377,7 +393,7 @@
 	[gpgc deleteKeys:keys withMode:mode];
 }
 
-#pragma mark "Key attributes"
+#pragma mark Key attributes
 - (IBAction)changePassphrase:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] == 1) {
@@ -512,7 +528,7 @@
 	}
 }
 
-#pragma mark "Keys (other)"
+#pragma mark Keys (other)
 - (IBAction)cleanKey:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	
@@ -552,7 +568,7 @@
 	[gpgc generateRevokeCertificateForKey:key reason:0 description:nil];
 }
 
-#pragma mark "Keyserver"
+#pragma mark Keyserver
 - (IBAction)searchKeys:(id)sender {
 	sheetController.sheetType = SheetTypeSearchKeys;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
@@ -597,7 +613,7 @@
 	}
 }
 
-#pragma mark "Subkeys"
+#pragma mark Subkeys
 - (IBAction)addSubkey:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
@@ -649,7 +665,7 @@
 	[gpgc revokeSubkey:subkey fromKey:key reason:0 description:nil];
 }
 
-#pragma mark "UserIDs"
+#pragma mark UserIDs
 - (IBAction)addUserID:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if ([keys count] != 1) {
@@ -714,7 +730,7 @@
 	[gpgc revokeUserID:[userID hashID] fromKey:key reason:0 description:nil];
 }
 
-#pragma mark "Photos"
+#pragma mark Photos
 - (void)addPhoto:(NSString *)path toKey:(GPGKey *)key {
 	
 	self.progressText = localized(@"AddPhoto_Progress");
@@ -771,7 +787,7 @@
 	}
 }
 
-#pragma mark "Signatures"
+#pragma mark Signatures
 - (IBAction)addSignature:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if (keys.count != 1) {
@@ -889,7 +905,7 @@
 
 
 
-#pragma mark "Miscellaneous :)"
+#pragma mark Miscellaneous :)
 - (void)cancelOperation:(id)sender {
 	[gpgc cancel];
 }
@@ -1047,6 +1063,22 @@
     SEL selector = item.action;
 	NSInteger tag = item.tag;
 	
+	
+	if (selector == @selector(delete:)) {
+		NSResponder *responder = mainWindow.firstResponder;
+		
+		if (responder == appDelegate.userIDTable) {
+			selector = @selector(removeUserID:);
+		} else if (responder == appDelegate.signatureTable) {
+			selector = @selector(removeSignature:);
+		} else if (responder == appDelegate.subkeyTable) {
+			selector = @selector(removeSubkey:);
+		} else {
+			selector = @selector(deleteKey:);
+		}
+	}
+	
+	
     if (selector == @selector(copy:)) {
 		return self.selectedKeys.count > 0;
     }
@@ -1116,6 +1148,9 @@
 			NSArray *objects = [self selectedObjectsOf:subkeysTable];
 			return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
 		}
+	}
+	else if (selector == @selector(deleteKey:)) {
+		return self.selectedKeys.count > 0;
 	}
 
 	return YES;
@@ -1197,7 +1232,7 @@
 }
 
 
-#pragma mark "Delegate"
+#pragma mark Delegate
 - (void)gpgControllerOperationDidStart:(GPGController *)gc {
 	sheetController.progressText = self.progressText;
 	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:YES];
@@ -1344,7 +1379,7 @@
 
 
 
-#pragma mark "Singleton: alloc, init etc."
+#pragma mark Singleton: alloc, init etc.
 + (id)sharedInstance {
 	static id sharedInstance = nil;
     if (!sharedInstance) {
