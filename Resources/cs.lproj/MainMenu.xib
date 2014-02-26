@@ -1393,11 +1393,11 @@
 										</object>
 										<object class="NSTextField" id="963800762">
 											<reference key="NSNextResponder" ref="959173311"/>
-											<int key="NSvFlags">1802</int>
+											<int key="NSvFlags">1804</int>
 											<object class="NSPSMatrix" key="NSFrameMatrix"/>
-											<string key="NSFrame">{{101, 307}, {329, 14}}</string>
+											<string key="NSFrame">{{101, 307}, {161, 14}}</string>
 											<reference key="NSSuperview" ref="959173311"/>
-											<reference key="NSNextKeyView" ref="666723871"/>
+											<reference key="NSNextKeyView" ref="749882950"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="652521670">
 												<int key="NSCellFlags">70254657</int>
@@ -1410,35 +1410,6 @@
 											</object>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 											<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
-										</object>
-										<object class="NSButton" id="749882950">
-											<reference key="NSNextResponder" ref="959173311"/>
-											<int key="NSvFlags">1804</int>
-											<object class="NSPSMatrix" key="NSFrameMatrix"/>
-											<string key="NSFrame">{{232, 45}, {150, 28}}</string>
-											<reference key="NSSuperview" ref="959173311"/>
-											<reference key="NSNextKeyView" ref="922095770"/>
-											<string key="NSHuggingPriority">{250, 750}</string>
-											<bool key="NSEnabled">YES</bool>
-											<object class="NSButtonCell" key="NSCell" id="219055144">
-												<int key="NSCellFlags">-2080374784</int>
-												<int key="NSCellFlags2">134348800</int>
-												<string key="NSContents">Změnit datum platnosti</string>
-												<reference key="NSSupport" ref="26"/>
-												<reference key="NSControlView" ref="749882950"/>
-												<int key="NSButtonFlags">-2038284288</int>
-												<int key="NSButtonFlags2">129</int>
-												<object class="NSFont" key="NSAlternateImage" id="43955672">
-													<string key="NSName">LucidaGrande</string>
-													<double key="NSSize">11</double>
-													<int key="NSfFlags">16</int>
-												</object>
-												<string key="NSAlternateContents"/>
-												<string key="NSKeyEquivalent"/>
-												<int key="NSPeriodicDelay">400</int>
-												<int key="NSPeriodicInterval">75</int>
-											</object>
-											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										</object>
 										<object class="NSTextField" id="209122692">
 											<reference key="NSNextResponder" ref="959173311"/>
@@ -1740,7 +1711,11 @@
 												<reference key="NSControlView" ref="519687740"/>
 												<int key="NSButtonFlags">109199360</int>
 												<int key="NSButtonFlags2">1</int>
-												<reference key="NSAlternateImage" ref="43955672"/>
+												<object class="NSFont" key="NSAlternateImage" id="43955672">
+													<string key="NSName">LucidaGrande</string>
+													<double key="NSSize">11</double>
+													<int key="NSfFlags">16</int>
+												</object>
 												<string key="NSAlternateContents"/>
 												<string key="NSKeyEquivalent"/>
 												<int key="NSPeriodicDelay">400</int>
@@ -1836,9 +1811,9 @@
 											<reference key="NSNextResponder" ref="959173311"/>
 											<int key="NSvFlags">1804</int>
 											<object class="NSPSMatrix" key="NSFrameMatrix"/>
-											<string key="NSFrame">{{84, 45}, {150, 28}}</string>
+											<string key="NSFrame">{{84, 48}, {150, 28}}</string>
 											<reference key="NSSuperview" ref="959173311"/>
-											<reference key="NSNextKeyView" ref="749882950"/>
+											<reference key="NSNextKeyView" ref="922095770"/>
 											<string key="NSHuggingPriority">{250, 750}</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="724969137">
@@ -1974,6 +1949,39 @@
 											</object>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 											<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
+										</object>
+										<object class="NSButton" id="749882950">
+											<reference key="NSNextResponder" ref="959173311"/>
+											<int key="NSvFlags">1804</int>
+											<object class="NSPSMatrix" key="NSFrameMatrix"/>
+											<string key="NSFrame">{{267, 305}, {57, 16}}</string>
+											<reference key="NSSuperview" ref="959173311"/>
+											<reference key="NSNextKeyView" ref="666723871"/>
+											<string key="NSHuggingPriority">{250, 750}</string>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSButtonCell" key="NSCell" id="219055144">
+												<int key="NSCellFlags">-2080374784</int>
+												<int key="NSCellFlags2">134479872</int>
+												<string key="NSContents">Změnit datum platnosti</string>
+												<object class="NSFont" key="NSSupport">
+													<string key="NSName">.LucidaGrandeUI</string>
+													<double key="NSSize">9</double>
+													<int key="NSfFlags">3614</int>
+												</object>
+												<reference key="NSControlView" ref="749882950"/>
+												<int key="NSButtonFlags">-2038284288</int>
+												<int key="NSButtonFlags2">129</int>
+												<object class="NSFont" key="NSAlternateImage">
+													<string key="NSName">LucidaGrande</string>
+													<double key="NSSize">9</double>
+													<int key="NSfFlags">16</int>
+												</object>
+												<string key="NSAlternateContents"/>
+												<string key="NSKeyEquivalent"/>
+												<int key="NSPeriodicDelay">400</int>
+												<int key="NSPeriodicInterval">75</int>
+											</object>
+											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 										</object>
 									</array>
 									<object class="NSPSMatrix" key="NSFrameMatrix"/>
@@ -6525,7 +6533,7 @@
 						<string key="label">enabled2: canInsert</string>
 						<reference key="source" ref="749882950"/>
 						<reference key="destination" ref="710493774"/>
-						<object class="NSNibBindingConnector" key="connector">
+						<object class="NSNibBindingConnector" key="connector" id="1001455091">
 							<reference key="NSSource" ref="749882950"/>
 							<reference key="NSDestination" ref="710493774"/>
 							<string key="NSLabel">enabled2: canInsert</string>
@@ -6542,6 +6550,27 @@
 						</object>
 					</object>
 					<string key="id">nbg-ZD-AVY</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">hidden: selection.primaryKey.secret</string>
+						<reference key="source" ref="749882950"/>
+						<reference key="destination" ref="605920174"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="749882950"/>
+							<reference key="NSDestination" ref="605920174"/>
+							<string key="NSLabel">hidden: selection.primaryKey.secret</string>
+							<string key="NSBinding">hidden</string>
+							<string key="NSKeyPath">selection.primaryKey.secret</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<reference key="NSPreviousConnector" ref="1001455091"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">Rvu-Sb-bbn</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -8566,8 +8595,8 @@
 							<reference ref="292141186"/>
 							<reference ref="645477533"/>
 							<reference ref="519687740"/>
-							<reference ref="228434545"/>
 							<reference ref="666249972"/>
+							<reference ref="228434545"/>
 							<reference ref="749882950"/>
 						</array>
 						<reference key="parent" ref="23021117"/>
