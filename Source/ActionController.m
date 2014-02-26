@@ -147,7 +147,7 @@
 	}];
 	
 	if (containsRevSig) {
-		if ([self warningSheet:@"ImportRevSig", [self descriptionForKeys:keys withOptions:0]] == NO) {
+		if ([self warningSheet:@"ImportRevSig", [self descriptionForKeys:keys maxLines:0 withOptions:0]] == NO) {
 			return;
 		}
 	}
@@ -583,7 +583,7 @@
 - (IBAction)sendKeysToServer:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if (keys.count > 0) {
-		self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys withOptions:0]];
+		self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
 		self.errorText = localized(@"SendKeysToServer_Error");
 		[gpgc sendKeysToServer:keys];
 	}
@@ -591,7 +591,7 @@
 - (IBAction)refreshKeysFromServer:(id)sender {
 	NSSet *keys = [self selectedKeys];
 	if (keys.count > 0) {
-		self.progressText = [NSString stringWithFormat:localized(@"RefreshKeysFromServer_Progress"), [self descriptionForKeys:keys withOptions:0]];
+		self.progressText = [NSString stringWithFormat:localized(@"RefreshKeysFromServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
 		self.errorText = localized(@"RefreshKeysFromServer_Error");
 		[gpgc receiveKeysFromServer:keys];
 	}
@@ -1146,9 +1146,16 @@
 	return [super respondsToSelector:selector];
 }
 
-- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys withOptions:(NSUInteger)options {
+- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSInteger)lines withOptions:(NSUInteger)options {
 	NSMutableArray *descriptions = [NSMutableArray array];
 	Class gpgKeyClass = [GPGKey class];
+	NSUInteger i = 0, count = keys.count;
+	if (lines > 0 && count > lines) {
+		lines = lines - 1;
+	} else {
+		lines = NSIntegerMax;
+	}
+	
 	
 	for (GPGKey *key in keys) {
 		NSString *description;
@@ -1159,9 +1166,14 @@
 		}
 		
 		[descriptions addObject:description];
+		i++;
+		if (i >= lines) {
+			[descriptions addObject:[NSString stringWithFormat:@"and %lu more", count - i]];
+			break;
+		}
 	}
 	
-	return [descriptions componentsJoinedByString:@", "];
+	return [descriptions componentsJoinedByString:@"\n"];
 }
 
 - (BOOL)warningSheet:(NSString *)string, ... {

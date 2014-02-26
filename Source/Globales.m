@@ -112,6 +112,20 @@ NSString *localized(NSString *key) {
 - (NSString *)shortKeyID {
 	return [self substringFromIndex:[self length] - 8];
 }
+- (NSUInteger)lines {
+	NSUInteger numberOfLines, index, length = self.length;
+	if (length == 0) {
+		return 0;
+	}
+	for (index = 0, numberOfLines = 0; index < length; numberOfLines++) {
+		index = NSMaxRange([self lineRangeForRange:NSMakeRange(index, 0)]);
+	}
+	if ([self characterAtIndex:length - 1] == '\n') {
+		numberOfLines++;
+	}
+	return numberOfLines;
+}
+
 @end
 
 

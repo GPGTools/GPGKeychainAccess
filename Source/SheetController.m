@@ -45,7 +45,7 @@
 
 
 @implementation SheetController
-@synthesize progressText, name, email, comment, passphrase, confirmPassphrase, pattern, title,
+@synthesize name, email, comment, passphrase, confirmPassphrase, pattern, title,
 	hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload,
 	expirationDate, minExpirationDate, maxExpirationDate,
 	algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
@@ -63,6 +63,53 @@
 		}
 	}
 	[super addObserver:observer forKeyPath:keyPath options:options context:context];
+}
+
+- (void)setProgressText:(NSString *)value {
+	if (value != progressText) {
+		NSString *old = progressText;
+		progressText = [value retain];
+		[old release];
+		
+		
+		// Resize the progress text-field to fit the text.
+		NSDictionary *attributes = @{NSFontAttributeName: [NSFont labelFontOfSize:14]};
+		NSAttributedString *aString = [[[NSAttributedString alloc] initWithString:value attributes:attributes] autorelease];
+		
+		NSRect fieldFrame = progressTextField.frame;
+		NSRect superFrame = progressView.frame;
+		
+		NSUInteger lines = value.lines;
+		CGFloat width = 1000;
+		CGFloat height = 10000;
+		if (lines <= 1) {
+			width = 500;
+		}
+		
+		
+		NSSize size = [aString boundingRectWithSize:NSMakeSize(width, height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading].size;
+		width = size.width;
+		height = size.height;
+		
+		if (height < 100) {
+			height = 100;
+		} else if (height > 500) {
+			height = 500;
+		}
+		if (width < 400) {
+			width = 400;
+		}
+		
+		height -= fieldFrame.size.height;
+		width -= fieldFrame.size.width;
+		
+		superFrame.size.height += height + 5;
+		superFrame.size.width += width + 20;
+		progressView.frame = superFrame;
+	}
+}
+- (NSString *)progressText {
+	return [[progressText retain] autorelease];
 }
 
 - (void)setMsgText:(NSString *)value {

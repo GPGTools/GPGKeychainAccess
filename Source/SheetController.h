@@ -59,6 +59,7 @@ enum {
 
 	//Views die im Sheet angezeigt werden können.
 	IBOutlet NSView *progressView;
+	IBOutlet NSTextField *progressTextField;
 	IBOutlet NSView *newKeyView;
 	IBOutlet NSView *newKey_passphraseSubview;
 	IBOutlet NSView *newKey_advancedSubview;
