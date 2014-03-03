@@ -258,6 +258,14 @@ NSSet *draggedKeys;
 				NSRunCriticalAlertPanel(localized(@"GPG_CONFIG_ERROR_TITLE"), [NSString stringWithFormat:localized(@"GPG_CONFIG_ERROR_MESSAGE"), details], nil, nil, nil);
 				[NSApp terminate:nil];
 				break; }
+			case GPGErrorGeneralError: {
+				NSString *details = @"";
+				if ([error isKindOfClass:[GPGException class]]) {
+					details = [(GPGException *)error gpgTask].errText;
+				}
+				NSRunCriticalAlertPanel(localized(@"UnknownGPGError_Title"), [NSString stringWithFormat:localized(@"UnknownGPGError_Msg"), details], nil, nil, nil);
+				[NSApp terminate:nil];
+				break; }
 			default:
 				break;
 		}
