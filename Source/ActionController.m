@@ -1237,7 +1237,16 @@
 	sheetController.progressText = self.progressText;
 	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:YES];
 }
+
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
+	NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:gc, @"GPGController", e, @"exception", nil]; // Do not use @{} for this dcit!
+	[self performSelectorOnMainThread:@selector(gpgControllerOperationThrownException:) withObject:args waitUntilDone:NO];
+}
+
+- (void)gpgControllerOperationThrownException:(NSDictionary *)args {
+	GPGController *gc = [args objectForKey:@"GPGController"];
+	NSException *e = [args objectForKey:@"exception"];
+	
 	NSString *title, *message;
 	GPGException *ex = nil;
 	GPGTask *gpgTask = nil;
@@ -1288,9 +1297,18 @@
 	
 	[sheetController errorSheetWithmessageText:title infoText:message];
 }
-- (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
-	[sheetController performSelectorOnMainThread:@selector(endProgressSheet) withObject:nil waitUntilDone:NO];
 
+- (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
+	NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:gc, @"GPGController", value, @"value", nil]; // Do not use @{} for this dcit!
+	[self performSelectorOnMainThread:@selector(gpgControllerOperationDidFinish:) withObject:args waitUntilDone:NO];
+}
+
+- (void)gpgControllerOperationDidFinish:(NSDictionary *)args {
+	GPGController *gc = [args objectForKey:@"GPGController"];
+	id value = [args objectForKey:@"value"];
+	
+	[sheetController endProgressSheet];
+	
 	NSDictionary *oldUserInfo = [gc.userInfo retain];
 	gc.userInfo = nil;
 	self.progressText = nil;
