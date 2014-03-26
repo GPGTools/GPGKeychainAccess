@@ -269,6 +269,10 @@
 		30867B2314BDFDF300194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30867B2614BDFDFA00194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = nl; path = nl.lproj/Credits.rtf; sourceTree = "<group>"; };
 		3096C91A14D167FC00246400 /* Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Info.png; sourceTree = "<group>"; };
+		30AB9CE818E31EB800F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		30AB9CE918E31EB800F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		30AB9CEA18E31EB800F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
+		30AB9CF118E31F2000F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ar; path = ar.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		30AC56EB18BB71A30038F224 /* Redo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Redo.png; sourceTree = "<group>"; };
 		30B20F0714B1DAC300E8CCD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30B20F0814B1DAC300E8CCD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -540,6 +544,7 @@
 				vi,
 				gl,
 				"ca-ES",
+				ar,
 			);
 			mainGroup = 3052E0FF144B016300D6716A;
 			productRefGroup = 3052E10B144B016400D6716A /* Products */;
@@ -643,7 +648,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "[[ \"$LOCALIZE\" == \"NO\" ]] && exit\n\ncd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\nlocalizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\n\n";
+			shellScript = "[[ \"$LOCALIZE\" == \"NO\" ]] && exit\n\ncd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\nlocalizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     ar ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ru sk sv vi zh_CN\n";
 			showEnvVarsInLog = 0;
 		};
 		30D69FC115D6D2E1005B7854 /* Fill Info.plist */ = {
@@ -722,6 +727,7 @@
 				3056FA52189432D90089C960 /* ca_ES */,
 				30C5E409189432F7004AE459 /* vi */,
 				30C5E41318943300004AE459 /* gl */,
+				30AB9CE818E31EB800F2864A /* ar */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -749,6 +755,7 @@
 				3056FA53189432D90089C960 /* ca_ES */,
 				30C5E40A189432F7004AE459 /* vi */,
 				30C5E41418943300004AE459 /* gl */,
+				30AB9CE918E31EB800F2864A /* ar */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -776,6 +783,7 @@
 				3001FA12189433C40004F44F /* vi */,
 				3001FA13189433C60004F44F /* gl */,
 				3001FA18189434100004F44F /* ca_ES */,
+				30AB9CF118E31F2000F2864A /* ar */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -803,6 +811,7 @@
 				3056FA54189432D90089C960 /* ca_ES */,
 				30C5E40B189432F7004AE459 /* vi */,
 				30C5E41518943300004AE459 /* gl */,
+				30AB9CEA18E31EB800F2864A /* ar */,
 			);
 			name = MainMenu.xib.strings;
 			sourceTree = "<group>";
