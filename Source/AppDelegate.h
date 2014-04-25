@@ -24,12 +24,21 @@
 	GKOutlineView *keyTable;
 	NSTableView *userIDTable, *subkeyTable, *signatureTable;
 	NSDrawer *drawer;
+	NSWindow *inspectorWindow;
+	NSView *inspectorView;
+	
 	BOOL rowWasSelected;
+	SUUpdater *updater;
 }
-@property (assign) IBOutlet NSWindow *window;
+
+@property (assign) IBOutlet NSWindow *window, *inspectorWindow;
+@property (assign) IBOutlet NSView *inspectorView;
 @property (assign) IBOutlet GKOutlineView *keyTable;
 @property (assign) IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
 @property (assign) IBOutlet NSDrawer *drawer;
+@property (assign) IBOutlet SUUpdater *updater;
+
+- (IBAction)toggleInspector:(id)sender;
 
 
 - (void)generateContextMenuForTable:(NSTableView *)table;

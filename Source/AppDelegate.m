@@ -24,7 +24,7 @@
 
 
 @implementation GPGKeychainAccessAppDelegate
-@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer;
+@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer, updater, inspectorWindow, inspectorView;
 
 - (NSWindow *)window {
     return mainWindow;
@@ -40,35 +40,81 @@
 }
 
 
+- (void)showInspector:(int)show {
+	BOOL isDrawer, isVisible;
+	isDrawer = drawer.state;
+	isVisible = isDrawer || inspectorWindow.isVisible;
+	
+	if (show == -1) {
+		show = !isVisible;
+	}
+
+	if (show) {
+		if (!isVisible) {
+			NSRect windowFrame = self.window.frame;
+			CGFloat drawerWidth = drawer.contentSize.width;
+			CGFloat minSpace = drawer.minContentSize.width + 10;
+			CGFloat spaceLeft = windowFrame.origin.x;
+			CGFloat spaceRight = self.window.screen.frame.size.width - windowFrame.origin.x - windowFrame.size.width;
+			
+			isDrawer = spaceRight >= minSpace || spaceLeft >= minSpace;
+			
+			if (isDrawer) {
+				CGFloat maxSpace = MAX(spaceRight, spaceLeft) - 10;
+				if (drawerWidth > maxSpace) {
+					NSSize size = drawer.contentSize;
+					size.width = maxSpace;
+					drawer.contentSize = size;
+				}
+				[drawer setContentView:inspectorView];
+				[drawer open];
+			} else {
+				[inspectorWindow setContentView:inspectorView];
+				[inspectorWindow makeKeyAndOrderFront:nil];
+			}
+		}
+	} else if (isDrawer) {
+		[drawer close];
+	} else {
+		[inspectorWindow close];
+	}
+}
+- (IBAction)toggleInspector:(id)sender {
+	[self showInspector:-1];
+}
+- (void)openInspector:(id)sender {
+	[self showInspector:1];
+}
+
+
+
 - (IBAction)singleClick:(NSOutlineView *)sender {
 	rowWasSelected = [keyTable clickedRowWasSelected];
 }
 - (IBAction)doubleClick:(NSOutlineView *)sender {
 	if (keyTable.selectedRowIndexes.count > 1 ? [keyTable clickedRowWasSelected] : rowWasSelected) {
-		[drawer toggle:nil];
+		[self showInspector:-1];
 	} else {
-		[drawer open:nil];
+		[self showInspector:1];
 	}
 }
 - (IBAction)showKeyDetails:(id)sender {
+	[self showInspector:-1];
+	return;
+	
 	NSInteger row = keyTable.clickedRow;
 	if (row >= 0) {
 		NSIndexSet *indexes = keyTable.selectedRowIndexes;
 		if (indexes.count == 1 && [indexes containsIndex:row]) {
-			[drawer toggle:nil];
+			[self showInspector:-1];
 		} else {
 			KeychainController *kc = [KeychainController sharedInstance];
 			[kc selectRow:row];
-			/*[keysController willChangeValueForKey:@"arra"];
-			[keysController setSelectionIndexPath:ip];
-			[keyTable selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-			[keysController didChangeValueForKey:@"selection"];
-			*/
 			
-			[drawer open:nil];
+			[self showInspector:1];
 		}
 	} else {
-		[drawer toggle:nil];
+		[self showInspector:-1];
 	}
 	
 }
