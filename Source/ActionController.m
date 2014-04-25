@@ -1194,6 +1194,18 @@
 	
 	for (GPGKey *key in keys) {
 		NSString *description;
+		if (![key isKindOfClass:gpgKeyClass]) {
+			GPGKeyManager *keyManager = [GPGKeyManager sharedInstance];
+			GPGKey *realKey = [[keyManager allKeysAndSubkeys] member:key];
+			
+			if (!realKey) {
+				realKey = [[keyManager keysByKeyID] objectForKey:key.keyID];
+			}
+			if (realKey) {
+				key = realKey;
+			}
+		}
+		
 		if ([key isKindOfClass:gpgKeyClass]) {
 			description = [NSString stringWithFormat:@"%@ (%@)", key.userIDDescription, key.keyID.shortKeyID];
 		} else {
@@ -1356,15 +1368,17 @@
 			
 			break;
 		}
-		case UploadKeyAction:
+		case UploadKeyAction: {
 			if (gc.error || !value) break;
 			
-			self.progressText = localized(@"SendKeysToServer_Progress");
+			NSSet *keys = [NSSet setWithObject:value];
+			self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
 			self.errorText = localized(@"SendKeysToServer_Error");
 			
-			[gpgc sendKeysToServer:[NSSet setWithObject:value]];
+			[gpgc sendKeysToServer:keys];
 			
 			break;
+		}
 		case SetPrimaryUserIDAction:
 			if (gc.error) break;
 			
