@@ -153,14 +153,6 @@
 	[mainWindow registerForDraggedTypes:draggedTypes];
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)notification {
-	// Process command line arguments
-	NSArray *arguments = [[NSProcessInfo processInfo] arguments];
-	if ([arguments containsObject:@"--gen-key"]) {
-		[[ActionController sharedInstance] generateNewKey:self];
-	}
-}
-
 - (NSString *)feedURLStringForUpdater:(SUUpdater *)updater {
 	NSString *updateSourceKey = @"UpdateSource";
 	NSBundle *bundle = [NSBundle bundleForClass:[self class]];
