@@ -1,0 +1,3 @@
+
+@interface GKCheckForUpdatesCommand : NSScriptCommand
+@end

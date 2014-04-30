@@ -47,6 +47,8 @@
 		3075AFFF18B646C100BEAA71 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 3075AFFE18B646C100BEAA71 /* Search.png */; };
 		3096C91B14D167FC00246400 /* Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 3096C91A14D167FC00246400 /* Info.png */; };
 		30AC56EC18BB71A30038F224 /* Redo.png in Resources */ = {isa = PBXBuildFile; fileRef = 30AC56EB18BB71A30038F224 /* Redo.png */; };
+		30B29BE6191156DE00FC453C /* gka.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 30B29BE5191156DE00FC453C /* gka.sdef */; };
+		30B29BEE19116DF400FC453C /* GKScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B29BED19116DF400FC453C /* GKScripting.m */; };
 		30EA818518A82E17000B4D0A /* GKOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30EA818418A82E17000B4D0A /* GKOutlineView.m */; };
 /* End PBXBuildFile section */
 
@@ -283,6 +285,9 @@
 		30B20F1514B1DB3100E8CCD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		30B20F1614B1DB3100E8CCD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		30B20F1714B1DB3100E8CCD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ru; path = ru.lproj/Preferences.xib; sourceTree = "<group>"; };
+		30B29BE5191156DE00FC453C /* gka.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gka.sdef; sourceTree = "<group>"; };
+		30B29BEC19116DF400FC453C /* GKScripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKScripting.h; sourceTree = "<group>"; };
+		30B29BED19116DF400FC453C /* GKScripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKScripting.m; sourceTree = "<group>"; };
 		30C5E409189432F7004AE459 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30C5E40A189432F7004AE459 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30C5E40B189432F7004AE459 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
@@ -359,6 +364,7 @@
 				3052E2DD144B07A600D6716A /* Info.plist */,
 				3052E2E0144B07AC00D6716A /* LICENSE.txt */,
 				300DD0E71853AE9A0057B05F /* How to get the source code */,
+				30B29BE5191156DE00FC453C /* gka.sdef */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -417,6 +423,8 @@
 				30EA818418A82E17000B4D0A /* GKOutlineView.m */,
 				3047D38C18B7C626001D9334 /* GKMenuButton.h */,
 				3047D38D18B7C626001D9334 /* GKMenuButton.m */,
+				30B29BEC19116DF400FC453C /* GKScripting.h */,
+				30B29BED19116DF400FC453C /* GKScripting.m */,
 			);
 			name = Classes;
 			path = Source;
@@ -616,6 +624,7 @@
 				3052E37B144B082B00D6716A /* Export.png in Resources */,
 				300DD0E81853AE9A0057B05F /* How to get the source code in Resources */,
 				3052E37C144B082B00D6716A /* Generate.png in Resources */,
+				30B29BE6191156DE00FC453C /* gka.sdef in Resources */,
 				3052E37D144B082B00D6716A /* gpgkey.icns in Resources */,
 				3052E37E144B082B00D6716A /* Icon.icns in Resources */,
 				3052E37F144B082B00D6716A /* Import.png in Resources */,
@@ -674,6 +683,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3036CB4118A55EC800BBC167 /* GKImageView.m in Sources */,
+				30B29BEE19116DF400FC453C /* GKScripting.m in Sources */,
 				30EA818518A82E17000B4D0A /* GKOutlineView.m in Sources */,
 				3047D38E18B7C626001D9334 /* GKMenuButton.m in Sources */,
 				3052E173144B021D00D6716A /* ActionController.m in Sources */,
