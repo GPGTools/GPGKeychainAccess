@@ -317,7 +317,7 @@ NSSet *draggedKeys;
 	if (_primaryKey == self) {
 		return self.secret ? @"sec/pub" : @"pub";
 	} else {
-		return @"sub";
+		return self.secret ? @"ssb" : @"sub";
 	}
 }
 - (NSString *)longType {
