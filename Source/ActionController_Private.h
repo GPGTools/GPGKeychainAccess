@@ -24,7 +24,7 @@
 @property (retain) NSString *progressText, *errorText;
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
 - (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict;
-- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys withOptions:(NSUInteger)options;
+- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSInteger)lines withOptions:(NSUInteger)options;
 @end
 
 enum {
