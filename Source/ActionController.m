@@ -25,7 +25,9 @@
 
 
 @implementation ActionController
-@synthesize progressText, errorText;
+@synthesize progressText, errorText, keysController, signaturesController,
+			subkeysController, userIDsController, photosController, keyTable,
+			signaturesTable, userIDsTable, subkeysTable;
 
 
 #pragma mark General

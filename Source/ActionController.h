@@ -24,71 +24,17 @@
 
 
 @interface ActionController : NSWindowController <GPGControllerDelegate> {
-    IBOutlet NSTreeController *keysController;
-    IBOutlet NSArrayController *signaturesController;
-    IBOutlet NSArrayController *subkeysController;
-    IBOutlet NSArrayController *userIDsController;
-	IBOutlet NSArrayController *photosController;
-	IBOutlet NSOutlineView *keyTable;
-	IBOutlet NSTableView *signaturesTable;
-	IBOutlet NSTableView *userIDsTable;
-	IBOutlet NSTableView *subkeysTable;
-	
 	GPGController *gpgc;
 	SheetController *sheetController;
 	NSUndoManager *undoManager;
-	
-	NSString *progressText, *errorText;
 }
-@property (readonly) NSUndoManager *undoManager;
 
 + (id)sharedInstance;
 
-
-- (BOOL)validateUserInterfaceItem:(id)anItem;
-- (IBAction)delete:(id)sender;
-- (IBAction)copy:(id)sender;
-- (IBAction)paste:(id)sender;
-- (IBAction)cleanKey:(id)sender;
-- (IBAction)minimizeKey:(id)sender;
-- (void)addPhoto:(NSString *)path toKey:(GPGKey *)key;
-- (IBAction)addPhoto:(id)sender;
-- (IBAction)removePhoto:(id)sender;
-- (IBAction)revokePhoto:(id)sender;
-- (IBAction)setPrimaryPhoto:(id)sender;
-- (IBAction)exportKey:(id)sender;
-- (IBAction)importKey:(id)sender;
-- (IBAction)addSignature:(id)sender;
-- (IBAction)addSubkey:(id)sender;
-- (IBAction)addUserID:(id)sender;
-- (IBAction)changeExpirationDate:(id)sender;
-- (IBAction)changePassphrase:(id)sender;
-- (IBAction)removeSignature:(id)sender;
-- (IBAction)removeSubkey:(id)sender;
-- (IBAction)removeUserID:(id)sender;
-- (IBAction)revokeSignature:(id)sender;
-- (IBAction)revokeSubkey:(id)sender;
-- (IBAction)revokeUserID:(id)sender;
-- (IBAction)setDisabled:(id)sender;
-- (IBAction)setPrimaryUserID:(id)sender;
-- (IBAction)setTrust:(NSPopUpButton *)sender;
-- (IBAction)generateNewKey:(id)sender;
-- (IBAction)deleteKey:(id)sender;
-- (IBAction)refreshDisplayedKeys:(id)sender;
-- (IBAction)sendKeysToServer:(id)sender;
-- (IBAction)searchKeys:(id)sender;
-- (IBAction)receiveKeys:(id)sender;
-- (IBAction)refreshKeysFromServer:(id)sender;
-- (IBAction)genRevokeCertificate:(id)sender;
-- (IBAction)editAlgorithmPreferences:(id)sender;
-- (IBAction)sendKeysPerMail:(id)sender;
-- (BOOL)warningSheet:(NSString *)string, ...;
-
 - (NSSet *)selectedKeys;
-
+- (void)addPhoto:(NSString *)path toKey:(GPGKey *)key;
 - (void)importFromURLs:(NSArray *)urls;
 - (void)importFromData:(NSData *)data;
 
-- (void)cancelOperation:(id)sender;
 
 @end
