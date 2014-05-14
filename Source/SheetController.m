@@ -66,6 +66,9 @@
 }
 
 - (void)setProgressText:(NSString *)value {
+	if (value == nil) {
+		value = @"";
+	}
 	if (value != progressText) {
 		NSString *old = progressText;
 		progressText = [value retain];
@@ -113,6 +116,9 @@
 }
 
 - (void)setMsgText:(NSString *)value {
+	if (value == nil) {
+		value = @"";
+	}
 	if (value != msgText) {
 		NSString *old = msgText;
 		msgText = [value retain];
