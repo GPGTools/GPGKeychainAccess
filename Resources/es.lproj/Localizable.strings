@@ -34,8 +34,8 @@ CheckAlert_PassphraseSimple_Title = "Contraseña simple";
 CheckAlert_PassphraseSimple_Message = "La frase de contraseña que has escrito es demasiado simple. Una buena contraseña debe ser alfanumérica y contener al menos un carácter especial.";
 CheckAlert_PassphraseSimple_Button1 = "Continuar con una frase simple de contraseña";
 CheckAlert_PassphraseSimple_Button2 = "Escriba la nueva contraseña";
-CheckAlert_PassphraseToLong_Title = "Passphrase too long";
-CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too long. Enter a passphrase with less than 300 characters.";
+CheckAlert_PassphraseToLong_Title = "Frase contraseña demasiado larga";
+CheckAlert_PassphraseToLong_Message = "La frase contraseña que ha introducido es demasiado larga. Introduzca una frase contraseña con menos de 300 caracteres.";
 
 
 /* For Key-Search */
@@ -46,8 +46,8 @@ SearchingKeys_Msg = "Estamos buscando clave(s) coincidente(s) en el servidor de 
 GenerateKey_Progress = "Es necesario generar muchos bytes aleatorios. Es una buena idea para llevar a cabo alguna otra acción (escribir en el teclado en una aplicación, mover el ratón, usar los discos) durante la primera generación. Esto le da al generador de números aleatorios una mejor oportunidad para ganar suficiente entropía.";
 GenerateSubkey_Msg = "Añadir subclave a la Clave \"%@\", %@.";
 GenerateUserID_Msg = "Añadir ID de usuario a la clave \"%@\", %@.";
-GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
-GenerateUidSignature_Msg = "Signing a UserID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following UserID:\n%@";
+GenerateSignature_Msg = "Firmar una clave significa que el poseedor de la clave es de hecho quien afirma ser.\nUna vez subida, las firmas pueden ser vistas por otros.\nAsí que si firmas la clave de Bob, y tu amiga Alice no está segura de si Bob es realmente Bob, Alice verá tu firma en la clave de Bob, y como Alice sabe que tu clave es fiable, ella sabrá que Bob si será Bob.\n\nEstás a punto de firmar la siguiente clave:\n%@";
+GenerateUidSignature_Msg = "Firmar un UserID significa, que usted confirma, que el propietario de la clave es de hecho quien proclama ser.\nUna vez subidas, las firmas pueden ser vistas por otros.\nAsí que si usted firma la clave de Bob y su amiga Alice no está segura de si Bob es realmente Bob, Alice verá su firma en la clave de Bob, y como Alice sabe que la clave de usted es confiable, ella sabe que lo más probable es que Bob sea realmente Bob.\n\nEstá a punto de firmar el siguiente UserID:\n%@";
 ChangeExpirationDate_Msg = "Cambiar la fecha de vencimiento de \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Cambiar la fecha de vencimiento de \"%@\", %@\nSubclave: %@";
 
@@ -59,7 +59,7 @@ CheckError_NameToLong = "¡El nombre es demasiado largo!";
 CheckError_InvalidCharInName = "¡Carácter no válido en el nombre!\n\"<\" y \">\" no se permite.";
 CheckError_NameStartWithDigit = "¡El nombre no puede empezar por un dígito!";
 CheckError_InvalidEmail = "¡No es una dirección de correo electrónico válida!";
-CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
+CheckError_EmailToLong = "Dirección de correo demasiado larga!\nLongitud máxima de 254 caracteres.";
 CheckError_InvalidCharInComment = "¡Carácter no válido en un comentario!\n\"(\" y \")\" no se permite.";
 CheckError_CommentToLong = "¡Comentario es demasiado largo!";
 CheckError_NoKeyID = "¡Por favor, introduzca un identificador de clave válido!";
@@ -68,13 +68,13 @@ CheckError_PassphraseMissmatch = "¡Sus frases de contraseña no hacen juego!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG No se ha encontrado";
-GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong here. It seems GPG is missing on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Ups, algo salió muy mal aquí. Parece GPG falta en su sistema. Por favor, instálelo. Puede encontrarlo, por ejemplo, en el instalador de GPGTools en https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG error de configuración";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.\n\nDetails: %@";
-LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
-CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, algo fue mal. Se encontró GPG en su sistema pero parece haber un problema con el fichero de configuración. Por favor contacte con nosotros en http://support.gpgtools.org\n\nDetalles: %@";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg no se ha encontrado";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg no se encontró en su sistema. Por favor instálelo. Lo encontrará p.e. en el instalador de GPGTools en https://www.gpgtools.org";
+CODE_SIGN_ERROR_TITLE = "¡Alguien interfirió con su instalación de GPG Keychain Access!";
+CODE_SIGN_ERROR_MESSAGE = "Para mantenerle seguro, ¡GPG Keychain Access se cerrará ahora!\n\nPor favor descargue e instale la última versión de GPG Suite desde https://gpgtools.org ¡para estar seguro de que tiene una versión original procedente de nosotros!";
 
 
 
@@ -87,89 +87,89 @@ Cancel = "Cancelar";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove UserID";
-RemoveUserID_Msg = "You are about to remove UserID %@ from your key %@. If you remove this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, removing the UserID will not remove the UserID from the key on the key servers. Please instead revoke the UserID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove UserID";
+RemoveUserID_Title = "Eliminar UserID";
+RemoveUserID_Msg = "Está a punto de eliminar el UserID %@ de su clave %@. Si elimina este UserID, ya no podrá usar esta clave con la cuenta de correo en Mail.app asociada.\n\nSi la clave con este UserID fue subida a los servidores de claves, eliminar el UserID no eliminará el UserID de la clave que está en los servidores de claves. En su lugar, por favor revoque el UserID en cuestión y suba la clave actualizada.";
+RemoveUserID_Yes = "Eliminar UserID";
 RemoveUserID_No = "Cancelar";
 
-RevokeUserID_Title = "Revoke UserID";
-RevokeUserID_Msg = "You are about to revoke UserID %@ from your key %@. If you revoke this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked UserID.";
-RevokeUserID_Yes = "Revoke UserID";
+RevokeUserID_Title = "Revocar UserID";
+RevokeUserID_Msg = "Está a punto de revocar el UserID %@ de su clave %@. Si revoca este UserID, ya no podrá usar esta clave con la cuenta de correo en Mail.app asociada.\n\nSi la clave con este UserID fue subida a los servidores de claves, asegúrese de subir la clave actualizada. Sólo entonces la entrada en los servidores de claves reflejará el UserID revocado.";
+RevokeUserID_Yes = "Revocar UserID";
 RevokeUserID_No = "Cancelar";
 
-RemoveSubkey_Title = "Remove Subkey";
-RemoveSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
-RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_Title = "Eliminar subclave";
+RemoveSubkey_Msg = "¡Precaución! Por favor proceda sólo si de verdad sabe lo que está haciendo.\n\nEliminar una subclave puede destruir todas las capacidades de firmado y descifrado.\n\nSi la clave con esta subclave fue subida a los servidores de claves, eliminar la subclave no eliminará la subclave de la clave que está en los servidores de claves. En ese caso, en su lugar por favor revoque la subclave en cuestión y suba la clave actualizada.";
+RemoveSubkey_Yes = "Eliminar subclave";
 RemoveSubkey_No = "Cancelar";
 
-RevokeSubkey_Title = "Revoke Subkey";
-RevokeSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
-RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_Title = "Revocar subclave";
+RevokeSubkey_Msg = "¡Precaución! Por favor proceda sólo si realmente sabe lo que está haciendo.\n\nRevocar una subclave puede destruir todas las capacidades de firmado y descifrado.\n\nSi la clave con esta subclave fue subida a los servidores de claves, asegúrese de subir la clave actualizada. Sólo entonces la entrada en los servidores de claves reflejará la subclave revocada.";
+RevokeSubkey_Yes = "Revocar subclave";
 RevokeSubkey_No = "Cancelar";
 
-RevokeSignature_Title = "Revoke Signature";
-RevokeSignature_Msg = "Revoking your Signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. Consider uploading your updated key to the Keyservers so others are made aware, that your signature has been revoked.";
-RevokeSignature_Yes = "Revoke Signature";
+RevokeSignature_Title = "Revocar firma";
+RevokeSignature_Msg = "Revocar su firma marcará a esta como revocada. Use esta opción si piensa que la clave fue robada de su propietario y que el propietario original ya no tiene la clave bajo su control. Considere subir su clave actualizada a los servidores de claves para que otros sean advertidos de que su firma ha sido revocada.";
+RevokeSignature_Yes = "Revocar firma";
 RevokeSignature_No = "Cancelar";
 
-RemoveSignature_Title = "Remove Signature";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
-RemoveSignature_Yes = "Remove Signature";
+RemoveSignature_Title = "Eliminar firma";
+RemoveSignature_Msg = "¿Está seguro de que quiere eliminar esta firma? Eliminar una firma sólo eliminará la firma localmente. No la eliminará, y no puede ser eliminada, de la clave en los servidores de claves. En su lugar por favor revoque su firma si quiere marcarla como no válida.";
+RemoveSignature_Yes = "Eliminar firma";
 RemoveSignature_No = "Cancelar";
 
-RemoveLastSelfSignature_Title = "Remove last Self-Signature";
-RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
-RemoveLastSelfSignature_Yes = "Remove Signature";
+RemoveLastSelfSignature_Title = "Eliminar la última auto-firma";
+RemoveLastSelfSignature_Msg = "Está a punto de eliminar la última auto-firma del User-ID %@. Por favor proceda sólo si realmente sabe lo que está haciendo.\n\nEsta firma asegura que la dirección de correo electrónico, el nombre, y la descripción de un User-ID sólo pueden ser modificados por su propietario.\n\nSi esta firma está ausente, alguien podría modificar esta información, y no hay forma de saber si tal cosa sucedió.";
+RemoveLastSelfSignature_Yes = "Eliminar firma";
 RemoveLastSelfSignature_No = "Cancelar";
 
-RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
-RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
-RevokeLastSelfSignature_Yes = "Revoke Signature";
+RevokeLastSelfSignature_Title = "Revocar la última auto-firma";
+RevokeLastSelfSignature_Msg = "Está a punto de revocar la última auto-firma del User-ID %@. Por favor proceda sólo si realmente sabe lo que está haciendo.\n\nRevocar la última auto-firma de un User-ID volverá inútil a ese User-ID. Ya no podrá usar el User-ID %@ en Mail.app para firmar correos. Otros ya no podrán cifrar hacia la dirección de correo de este User-ID.";
+RevokeLastSelfSignature_Yes = "Revocar firma";
 RevokeLastSelfSignature_No = "Cancelar";
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key";
-DeleteKey_Msg = "You are about to delete the public key of %@.\n\nAre you sure you want to delete this public key?";
+DeleteKey_Title = "Borrar clave pública";
+DeleteKey_Msg = "Está a punto de borrar la clave pública de %@.\n\nEstá seguro de que desea borrar esta clave pública?";
 DeleteKey_Yes = "Borrar clave";
 DeleteKey_No = "Cancelar";
 
-DeleteKeys_Title = "Delete public keys";
-DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete those public keys?";
-DeleteKeys_Yes = "Delete keys";
+DeleteKeys_Title = "Borrar claves públicas";
+DeleteKeys_Msg = "Está a punto de borrar las siguientes claves públicas:\n\n%@\n\n¿Está seguro de que quiere borrar esas claves públicas?";
+DeleteKeys_Yes = "Borrar claves";
 DeleteKeys_No = "Cancelar";
 
-DeleteSecKey_Title = "Delete secret and public key";
-DeleteSecKey_Msg = "Warning! You are about to delete your secret and public key:\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret key, you will no longer be able to decrypt messages that were encrypted with its public counterpart.\n\nNote that if you have uploaded your public key to the key servers, it will remain valid on the key servers unless you revoke it. In that case before deleting your key pair, please revoke your public key and upload it to the key servers so it will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete this key pair?";
-DeleteSecKey_Yes = "Delete secret and public key";
+DeleteSecKey_Title = "Borrar clave secreta y pública";
+DeleteSecKey_Msg = "¡Advertencia! Está a punto de borrar sus claves privada (secreta) y pública:\n%@\n\nBorrar una clave privada tiene importantes consecuencias de las que debería estar advertido.\n\nSin la clave privada, ya no podrá descifrar mensajes que fueron cifrados con su contraparte pública.\n\nObserve que si ha subido su clave pública a los servidores de claves, permanecerá válida en tales servidores a menos que usted la revoque. En ese caso, antes de borrar su par de claves, por favor revoque su clave pública y súbala a los servidores de claves para que sea mostrada como revocada. Revocar una clave requiere la clave privada (secreta).\n\n¿Está seguro de quiere borrar este par de claves?";
+DeleteSecKey_Yes = "Borrar clave secreta y pública";
 DeleteSecKey_No = "Cancelar";
 DeleteSecKey_SecOnly = "Solo borrar clave secreta";
 
-DeleteSecKeys_Title = "Delete secret and public keys";
-DeleteSecKeys_Msg = "Warning! You are about to delete the following secret and public keys:\n\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret keys, you will no longer be able to decrypt messages that were encrypted with their public counterparts.\n\nNote that if you have copied your public keys to any key servers, they will remain valid on the key servers unless you revoke them. In that case before deleting your key pairs, please revoke your public keys and upload them to the key servers so they will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete those key pairs?";
-DeleteSecKeys_Yes = "Delete secret and public keys";
+DeleteSecKeys_Title = "Borrar claves secreta y pública";
+DeleteSecKeys_Msg = "¡Advertencia! Está a punto de borrar las siguientes claves privadas (secretas) y públicas:\n\n%@\n\nBorrar una clave privada tiene importantes consecuencias de las que deben estar advertidos.\n\nSin las claves privadas, ya no podrá descifrar mensajes que fueron cifrados con sus contrapartes públicas.\n\nObserve que si ha copiado sus claves públicas en algún servidor de claves, estas permanecerán válidas en tales servidores, a menos que las revoque. En ese caso, antes de borrar sus pares de claves, por favor revoque sus claves públicas y súbalas a los servidores de claves para que sean mostradas como revocadas. Revocar una clave requiere la clave privada (secreta).\n\n¿Está seguro de que quiere borrar esos pares de claves?";
+DeleteSecKeys_Yes = "Borrar claves secreta y pública";
 DeleteSecKeys_No = "Cancelar";
-DeleteSecKeys_SecOnly = "Delete secret keys only";
+DeleteSecKeys_SecOnly = "Solo borrar clave secreta";
 
 
 /* Bad keyserver */
-BadKeyserver_Title = "Bad Keyserver";
-BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+BadKeyserver_Title = "Servidor de claves erróneo";
+BadKeyserver_Msg = "El servidor de claves que ha introducido no está funcionando.\nPor favor compruebe la dirección del servidor de claves. Debe parecerse a algo como: hkp://some.key.server.org\n\nEl servidor de claves también podría estar desconectado. En ese caso, por favor use otro servidor de claves.";
 
 
 /* Import warnings */
-ImportRevSig_Title = "Import revocation certificate";
-ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.";
+ImportRevSig_Title = "Importar certificado de revocación";
+ImportRevSig_Msg = "Está a punto de importar un certificado de revocación para %@. Si usted revoca su clave, ya no podrá firmar mensajes usando esa clave y otros ya no podrán enviarle mensajes cifrados con su clave. Considere subir su clave revocada al servidor de claves para que otros sean advertidos de que su clave ha sido revocada.\n\nTodavía podrá usar su clave revocada para descifrar correos y ficheros que fueron cifrados con su clave. Ese es el porqué recomendamos que mantenga su clave revocada en GPG Keychain Access.";
 ImportRevSig_Yes = "Importar";
 ImportRevSig_No = "Cancelar";
 
-ImportRandomData_Title = "Warning! Content can probably not be imported.";
-ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
-ImportRandomData_Yes = "Try Import";
+ImportRandomData_Title = "¡Advertencia! Probablemente el contenido puede no ser importado.";
+ImportRandomData_Msg = "Parece que está intentando importar un mensaje que no es una clave OpenPGP.\n\n¿Está seguro de que quiere intentar importar este contenido?";
+ImportRandomData_Yes = "Intentar importar";
 ImportRandomData_No = "Cancelar";
 
-ImportNonImportable_Title = "Warning! Content can probably not be imported.";
-ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain Access.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
-ImportNonImportable_Yes = "Try Import";
+ImportNonImportable_Title = "¡Advertencia! Probablemente el contenido no será importado.";
+ImportNonImportable_Msg = "Parece que está intentando importar un mensaje firmado o cifrado.\n\nTales mensajes no pueden ser importados hacia GPG Keychain Access.\n\nEn su lugar, por favor intente descifrar o verificar el mensaje en cuestión con GPGServices.";
+ImportNonImportable_Yes = "Intentar importar.";
 ImportNonImportable_No = "Cancelar";
 
 
@@ -187,12 +187,12 @@ ImportResult_CountImported = "Recuento de las claves de importados​​: %i";
 ImportResult_CountUnchanged = "Recuento de las claves sin cambios​​: %i";
 
 /* Errors */
-ImportKeyError_Title = "Failed to import one or more keys!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signat...for more details and steps on how to resolve this problem.";
-ImportKeyErrorPGP_Title = "Import Failed!";
-ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
-ImportKeyErrorNoPGP_Title = "Import failed!";
-ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
+ImportKeyError_Title = "¡Fallo al importar una o más claves!";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyErrorPGP_Title = "¡Fallo al importar!";
+ImportKeyErrorPGP_Msg = "Parece que está intentando importar un mensaje cifrafo o firmado. Para descifrar o verificar tales mensajes por favor use GPGServices.";
+ImportKeyErrorNoPGP_Title = "¡Fallo al importar!";
+ImportKeyErrorNoPGP_Msg = "Parece que está intentando importar algunos datos no compatibles con PGP que no pueden procesarse.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -260,8 +260,8 @@ SetDisabled_Progress = "Activación/desactivación de clave.";
 SetDisabled_Error = "Activación/desactivación de clave falló.";
 SetOwnerTrust_Progress = "Configuración de fideicomiso del propietario.";
 SetOwnerTrust_Error = "Configuración de fideicomiso del propietario falló.";
-ChangeExpirationDate_Progress = "Cambiar la fecha de caducidad subclave falló.";
-ChangeExpirationDate_Error = "Cambiando fecha de caducidad.";
+ChangeExpirationDate_Progress = "Changing expiration date.";
+ChangeExpirationDate_Error = "Changing expiration date failed.";
 SetAlgorithmPreferences_Progress = "Configuración de las preferencias del algoritmo.";
 SetAlgorithmPreferences_Error = "Configuración de las preferencias del algoritmo falló.";
 CleanKey_Progress = "Limpieza clave.";
@@ -272,9 +272,9 @@ GenerateRevokeCertificateForKey_Progress = "Generación de revocar el certificad
 GenerateRevokeCertificateForKey_Error = "Generación de revocar el certificado falló.";
 SearchKeysOnServer_Progress = "Buscando por clave.";
 SearchKeysOnServer_Error = "Buscando por clave falló.";
-SendKeysToServer_Progress = "Sending %@ to server.";
+SendKeysToServer_Progress = "Enviando %@ al servidor.";
 SendKeysToServer_Error = "Enviando clave falló.";
-RefreshKeysFromServer_Progress = "Refreshing %@ from server.";
+RefreshKeysFromServer_Progress = "Actualizando %@ desde el servidor.";
 RefreshKeysFromServer_Error = "Refrescando clave falló.";
 AddSubkey_Progress = "Agregar de subclave.";
 AddSubkey_Error = "Agregar subclave falló.";
