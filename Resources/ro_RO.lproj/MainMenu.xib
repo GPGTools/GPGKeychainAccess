@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">13C64</string>
-		<string key="IBDocument.InterfaceBuilderVersion">5053</string>
-		<string key="IBDocument.AppKitVersion">1265.19</string>
-		<string key="IBDocument.HIToolboxVersion">697.40</string>
+		<string key="IBDocument.SystemVersion">13D65</string>
+		<string key="IBDocument.InterfaceBuilderVersion">5056</string>
+		<string key="IBDocument.AppKitVersion">1265.20</string>
+		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">5053</string>
+			<string key="NS.object.0">5056</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSArrayController</string>
@@ -841,6 +841,11 @@
 													<bool key="NSIsResizeable">YES</bool>
 													<bool key="NSIsEditable">YES</bool>
 													<reference key="NSTableView" ref="517707392"/>
+													<object class="NSSortDescriptor" key="NSSortDescriptorPrototype">
+														<string key="NSKey">validity</string>
+														<bool key="NSAscending">YES</bool>
+														<string key="NSSelector">compareValidity:</string>
+													</object>
 												</object>
 												<object class="NSTableColumn" id="3161780">
 													<string key="NSIdentifier">comment</string>
@@ -1176,6 +1181,7 @@
 						<object class="NSPSMatrix" key="NSFrameMatrix"/>
 						<string key="NSFrame">{{8, 5}, {464, 471}}</string>
 						<reference key="NSSuperview" ref="134609625"/>
+						<reference key="NSNextKeyView" ref="959173311"/>
 						<array class="NSMutableArray" key="NSTabViewItems">
 							<object class="NSTabViewItem" id="23021117">
 								<string key="NSIdentifier">1</string>
@@ -1852,6 +1858,7 @@
 											<object class="NSPSMatrix" key="NSFrameMatrix"/>
 											<string key="NSFrame">{{98, 26}, {150, 28}}</string>
 											<reference key="NSSuperview" ref="959173311"/>
+											<reference key="NSNextKeyView" ref="922095770"/>
 											<string key="NSHuggingPriority">{250, 750}</string>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="724969137">
@@ -2157,7 +2164,7 @@
 																			<object class="NSPSMatrix" key="NSFrameMatrix"/>
 																			<string key="NSFrameSize">{408, 126}</string>
 																			<reference key="NSSuperview" ref="620200667"/>
-																			<reference key="NSNextKeyView" ref="831667034"/>
+																			<reference key="NSNextKeyView" ref="874521588"/>
 																			<bool key="NSEnabled">YES</bool>
 																			<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 																			<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -2322,7 +2329,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 31}, {410, 144}}</string>
 															<reference key="NSSuperview" ref="357118400"/>
-															<reference key="NSNextKeyView" ref="620200667"/>
+															<reference key="NSNextKeyView" ref="831667034"/>
 															<int key="NSsFlags">133682</int>
 															<reference key="NSVScroller" ref="95059261"/>
 															<reference key="NSHScroller" ref="874521588"/>
@@ -2390,7 +2397,7 @@
 																			<object class="NSPSMatrix" key="NSFrameMatrix"/>
 																			<string key="NSFrameSize">{408, 157}</string>
 																			<reference key="NSSuperview" ref="566455106"/>
-																			<reference key="NSNextKeyView" ref="501978040"/>
+																			<reference key="NSNextKeyView" ref="463917557"/>
 																			<bool key="NSEnabled">YES</bool>
 																			<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 																			<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -2608,7 +2615,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 51}, {410, 175}}</string>
 															<reference key="NSSuperview" ref="1023839273"/>
-															<reference key="NSNextKeyView" ref="566455106"/>
+															<reference key="NSNextKeyView" ref="501978040"/>
 															<int key="NSsFlags">133682</int>
 															<reference key="NSVScroller" ref="463917557"/>
 															<reference key="NSHScroller" ref="552735962"/>
@@ -2625,6 +2632,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{20, 20}, {21, 23}}</string>
 															<reference key="NSSuperview" ref="1023839273"/>
+															<reference key="NSNextKeyView" ref="922095770"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSButtonCell" key="NSCell" id="1067650370">
 																<int key="NSCellFlags">67108864</int>
@@ -2684,7 +2692,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrameSize">{408, 168}</string>
 															<reference key="NSSuperview" ref="72703776"/>
-															<reference key="NSNextKeyView" ref="45255014"/>
+															<reference key="NSNextKeyView" ref="712054289"/>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 															<bool key="NSControlAllowsExpansionToolTips">YES</bool>
@@ -2953,7 +2961,7 @@
 											<object class="NSPSMatrix" key="NSFrameMatrix"/>
 											<string key="NSFrame">{{17, 241}, {410, 186}}</string>
 											<reference key="NSSuperview" ref="60689277"/>
-											<reference key="NSNextKeyView" ref="72703776"/>
+											<reference key="NSNextKeyView" ref="45255014"/>
 											<int key="NSsFlags">133682</int>
 											<reference key="NSVScroller" ref="1070964678"/>
 											<reference key="NSHScroller" ref="45255014"/>
@@ -3238,6 +3246,7 @@
 															<object class="NSPSMatrix" key="NSFrameMatrix"/>
 															<string key="NSFrame">{{103, 13}, {308, 14}}</string>
 															<reference key="NSSuperview" ref="515609855"/>
+															<reference key="NSNextKeyView" ref="922095770"/>
 															<bool key="NSEnabled">YES</bool>
 															<object class="NSTextFieldCell" key="NSCell" id="415330661">
 																<int key="NSCellFlags">70254657</int>
@@ -3450,6 +3459,7 @@
 											<object class="NSPSMatrix" key="NSFrameMatrix"/>
 											<string key="NSFrame">{{411, 17}, {21, 23}}</string>
 											<reference key="NSSuperview" ref="304125728"/>
+											<reference key="NSNextKeyView" ref="922095770"/>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="83038413">
 												<int key="NSCellFlags">67108864</int>
@@ -6444,23 +6454,24 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.simpleValidity</string>
+						<string key="label">value: arrangedObjects.validity</string>
 						<reference key="source" ref="838499136"/>
 						<reference key="destination" ref="605920174"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="838499136"/>
 							<reference key="NSDestination" ref="605920174"/>
-							<string key="NSLabel">value: arrangedObjects.simpleValidity</string>
+							<string key="NSLabel">value: arrangedObjects.validity</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.simpleValidity</string>
+							<string key="NSKeyPath">arrangedObjects.validity</string>
 							<dictionary key="NSOptions">
 								<boolean value="NO" key="NSAllowsEditingMultipleValuesSelection"/>
 								<boolean value="NO" key="NSConditionallySetsEditable"/>
+								<string key="NSValueTransformerName">GPGValidityDescriptionTransformer</string>
 							</dictionary>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<string key="id">cnO-az-prD</string>
+					<string key="id">KSG-1B-Jdh</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">

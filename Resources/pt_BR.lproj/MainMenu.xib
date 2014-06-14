@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1060</int>
-		<string key="IBDocument.SystemVersion">13C64</string>
-		<string key="IBDocument.InterfaceBuilderVersion">5053</string>
-		<string key="IBDocument.AppKitVersion">1265.19</string>
-		<string key="IBDocument.HIToolboxVersion">697.40</string>
+		<string key="IBDocument.SystemVersion">13D65</string>
+		<string key="IBDocument.InterfaceBuilderVersion">5056</string>
+		<string key="IBDocument.AppKitVersion">1265.20</string>
+		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">5053</string>
+			<string key="NS.object.0">5056</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSArrayController</string>
@@ -841,6 +841,11 @@
 													<bool key="NSIsResizeable">YES</bool>
 													<bool key="NSIsEditable">YES</bool>
 													<reference key="NSTableView" ref="517707392"/>
+													<object class="NSSortDescriptor" key="NSSortDescriptorPrototype">
+														<string key="NSKey">validity</string>
+														<bool key="NSAscending">YES</bool>
+														<string key="NSSelector">compareValidity:</string>
+													</object>
 												</object>
 												<object class="NSTableColumn" id="3161780">
 													<string key="NSIdentifier">comment</string>
@@ -6449,23 +6454,24 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: arrangedObjects.simpleValidity</string>
+						<string key="label">value: arrangedObjects.validity</string>
 						<reference key="source" ref="838499136"/>
 						<reference key="destination" ref="605920174"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="838499136"/>
 							<reference key="NSDestination" ref="605920174"/>
-							<string key="NSLabel">value: arrangedObjects.simpleValidity</string>
+							<string key="NSLabel">value: arrangedObjects.validity</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">arrangedObjects.simpleValidity</string>
+							<string key="NSKeyPath">arrangedObjects.validity</string>
 							<dictionary key="NSOptions">
 								<boolean value="NO" key="NSAllowsEditingMultipleValuesSelection"/>
 								<boolean value="NO" key="NSConditionallySetsEditable"/>
+								<string key="NSValueTransformerName">GPGValidityDescriptionTransformer</string>
 							</dictionary>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<string key="id">cnO-az-prD</string>
+					<string key="id">KSG-1B-Jdh</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">

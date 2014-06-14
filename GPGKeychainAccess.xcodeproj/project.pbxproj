@@ -50,6 +50,7 @@
 		30B29BE6191156DE00FC453C /* gka.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 30B29BE5191156DE00FC453C /* gka.sdef */; };
 		30B29BEE19116DF400FC453C /* GKScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B29BED19116DF400FC453C /* GKScripting.m */; };
 		30EA818518A82E17000B4D0A /* GKOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30EA818418A82E17000B4D0A /* GKOutlineView.m */; };
+		30ECA2CA194C8AB800C1E761 /* GKAExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ECA2C9194C8AB800C1E761 /* GKAExtensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -326,6 +327,8 @@
 		30DC330717026C0300EF559F /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
 		30EA818318A82E17000B4D0A /* GKOutlineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKOutlineView.h; sourceTree = "<group>"; };
 		30EA818418A82E17000B4D0A /* GKOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKOutlineView.m; sourceTree = "<group>"; };
+		30ECA2C8194C8AB800C1E761 /* GKAExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKAExtensions.h; sourceTree = "<group>"; };
+		30ECA2C9194C8AB800C1E761 /* GKAExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKAExtensions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -425,6 +428,8 @@
 				3047D38D18B7C626001D9334 /* GKMenuButton.m */,
 				30B29BEC19116DF400FC453C /* GKScripting.h */,
 				30B29BED19116DF400FC453C /* GKScripting.m */,
+				30ECA2C8194C8AB800C1E761 /* GKAExtensions.h */,
+				30ECA2C9194C8AB800C1E761 /* GKAExtensions.m */,
 			);
 			name = Classes;
 			path = Source;
@@ -657,7 +662,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "[[ \"$LOCALIZE\" == \"NO\" ]] && exit\n\ncd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\nlocalizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     ar ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  ar ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\nlocalizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  ar ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\n";
+			shellScript = "[[ \"$LOCALIZE\" == \"NO\" ]] && exit\n\ncd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\n localizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     ar ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\n localizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  ar ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\n localizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  ar ca ca@valencia ca_ES cs da de es fr gl id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\n";
 			showEnvVarsInLog = 0;
 		};
 		30D69FC115D6D2E1005B7854 /* Fill Info.plist */ = {
@@ -683,6 +688,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3036CB4118A55EC800BBC167 /* GKImageView.m in Sources */,
+				30ECA2CA194C8AB800C1E761 /* GKAExtensions.m in Sources */,
 				30B29BEE19116DF400FC453C /* GKScripting.m in Sources */,
 				30EA818518A82E17000B4D0A /* GKOutlineView.m in Sources */,
 				3047D38E18B7C626001D9334 /* GKMenuButton.m in Sources */,

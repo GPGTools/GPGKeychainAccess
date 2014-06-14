@@ -30,16 +30,6 @@ BOOL containsPGPKeyBlock(NSString *string);
 NSString *localized(NSString *key);
 
 
-@interface NSDate (GKA_Extension)
-- (NSInteger)daysSinceNow;
-@end
-
-@interface NSString (GKA_Extension)
-- (NSSet *)keyIDs;
-- (NSString *)shortKeyID;
-- (NSUInteger)lines; //Returns the number of lines;
-@end
-
 @interface GKAKeyColorTransformer : NSValueTransformer {}
 @end
 
