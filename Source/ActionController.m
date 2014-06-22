@@ -646,10 +646,10 @@
 		}];
 		
 		if (haveValidRevCert) {
-			if ([self warningSheet:@"WarnRevokeKey"] == NO) {
+			if ([self warningSheet:@"RevokeKey", [self descriptionForKey:key]] == NO) {
 				return;
 			}
-			
+	
 			self.errorText = nil;
 			self.progressText = localized(@"RevokeKey_Progress");
 			self.errorText = localized(@"RevokeKey_Error");
@@ -1310,6 +1310,10 @@
 	return [super respondsToSelector:selector];
 }
 
+- (NSString *)descriptionForKey:(NSObject <KeyFingerprint> *)key {
+	return [self descriptionForKeys:@[key] maxLines:0 withOptions:0];
+}
+
 - (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSInteger)lines withOptions:(NSUInteger)options {
 	NSMutableArray *descriptions = [NSMutableArray array];
 	Class gpgKeyClass = [GPGKey class];
@@ -1541,8 +1545,7 @@
 				self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
 				self.errorText = localized(@"SendKeysToServer_Error");
 				
-				//[gpgc sendKeysToServer:keys];
-				NSRunAlertPanel(@"asd", @"asd", nil, nil, nil);
+				[gpgc sendKeysToServer:keys];
 				
 				break;
 			}
@@ -1574,11 +1577,13 @@
 				NSSet *keys = oldUserInfo[@"keys"];
 				if (gc.error || !keys) break;
 				
-				self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
+				GPGKey *key = [keys anyObject];
+				
+				self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKey:key]];
 				self.errorText = localized(@"SendKeysToServer_Error");
 				
 				gc.passphrase = oldUserInfo[@"passphrase"];
-				[self revCertificateForKey:[keys anyObject] customPath:NO];
+				[self revCertificateForKey:key customPath:NO];
 				
 				break;
 			}
