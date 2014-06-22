@@ -39,6 +39,12 @@
 	return contentSize;
 }
 
+- (BOOL)inspectorVisible {
+	return drawer.state || inspectorWindow.isVisible;
+}
+- (void)setInspectorVisible:(BOOL)inspectorVisible {
+	[self showInspector:inspectorVisible];
+}
 
 - (void)showInspector:(int)show {
 	BOOL isDrawer, isVisible;
@@ -220,7 +226,6 @@
 }
 
 
-
 - (void)generateContextMenuForTable:(NSTableView *)table {
 	NSMenuItem *menuItem;
 	NSString *title;
@@ -273,7 +278,6 @@
 - (IBAction)showSupport:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://support.gpgtools.org/home"]];
 }
-
 
 
 @end

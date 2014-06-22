@@ -78,7 +78,6 @@
 - (BOOL)validateUserInterfaceItem:(id)anItem;
 
 - (BOOL)warningSheet:(NSString *)string, ...;
-- (void)cancelOperation:(id)sender;
 
 @end
 

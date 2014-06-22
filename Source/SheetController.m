@@ -415,7 +415,7 @@
 	}
 	
 	if (numberOfProgressSheets > 0) {
-		[[ActionController sharedInstance] cancelOperation:self];
+		[[ActionController sharedInstance] cancelGPGOperation:self];
 	} else {
 		if (clickedButton == NSOKButton) {
 			switch (self.sheetType) {

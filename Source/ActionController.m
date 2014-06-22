@@ -25,6 +25,7 @@
 #import "GKAExtensions.h"
 
 
+
 @implementation ActionController
 @synthesize progressText, errorText, keysController, signaturesController,
 			subkeysController, userIDsController, photosController, keyTable,
@@ -1029,9 +1030,14 @@
 
 
 #pragma mark Miscellaneous :)
-- (void)cancelOperation:(id)sender {
+- (void)cancelGPGOperation:(id)sender {
 	[gpgc cancel];
 }
+
+- (void)cancel:(id)sender {
+	appDelegate.inspectorVisible = NO;
+}
+
 
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys {
 	gpgc.userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:ShowResultAction] forKey:@"action"];
@@ -1305,6 +1311,8 @@
 			return YES;
 		}
 		return NO;
+	} else if (selector == @selector(cancel:)) {
+		return appDelegate.inspectorVisible;
 	}
 	
 	return [super respondsToSelector:selector];
@@ -1471,7 +1479,11 @@
 		
 		switch ([oldUserInfo[@"operation"] integerValue]) {
 			case NewKeyOperation:
-				oldUserInfo[@"keys"] = [NSSet setWithObject:value];
+				if (value) {
+					oldUserInfo[@"keys"] = [NSSet setWithObject:value];
+				} else {
+					[oldUserInfo removeObjectForKey:@"keys"];
+				}
 				break;
 		}
 		oldUserInfo[@"operation"] = @0;
@@ -1605,7 +1617,7 @@
 
 
 #pragma mark Singleton: alloc, init etc.
-+ (id)sharedInstance {
++ (instancetype)sharedInstance {
 	static id sharedInstance = nil;
     if (!sharedInstance) {
         sharedInstance = [[super allocWithZone:nil] init];

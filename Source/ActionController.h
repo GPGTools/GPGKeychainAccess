@@ -37,5 +37,7 @@
 - (void)importFromURLs:(NSArray *)urls;
 - (void)importFromData:(NSData *)data;
 
+- (void)cancelGPGOperation:(id)sender;
+
 
 @end
