@@ -163,7 +163,7 @@
 	
 	switch (self.sheetType) {
 		case SheetTypeNewKey:
-			self.length = 2048;
+			self.length = 4096;
 			self.keyType = 1;
 			self.expirationDate = nil;
 			[self setStandardExpirationDates];
@@ -204,7 +204,7 @@
 			self.displayedView = generateUserIDView;
 			break;
 		case SheetTypeAddSubkey:
-			self.length = 2048;
+			self.length = 4096;
 			self.keyType = 6;
 			self.expirationDate = nil;
 			[self setStandardExpirationDates];
