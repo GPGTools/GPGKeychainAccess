@@ -570,30 +570,7 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *userName = nil;
 	NSMutableArray *mailAddresses = [NSMutableArray array];
-	
-
-	// Get name and email-addresses from the AddressBook.
-	ABPerson *myPerson = [[ABAddressBook sharedAddressBook] me];
-	if (myPerson) {
-		NSString *abFirstName = [myPerson valueForProperty:kABFirstNameProperty];
-		NSString *abLastName = [myPerson valueForProperty:kABLastNameProperty];
 		
-		if (abFirstName && abLastName) {
-			userName = [NSString stringWithFormat:@"%@ %@", abFirstName, abLastName];
-		} else if (abFirstName) {
-			userName = abFirstName;
-		} else if (abLastName) {
-			userName = abLastName;
-		}
-		
-		ABMultiValue *abEmailAddresses = [myPerson valueForProperty:kABEmailProperty];
-		
-		NSUInteger count = abEmailAddresses.count;
-		for (NSUInteger i = 0; i < count; i++) {
-			[mailAddresses addObject:[abEmailAddresses valueAtIndex:i]];
-		}
-	}
-	
 	
 	// Get name and email-addresses from Mail.
 	@try {
@@ -633,6 +610,7 @@
 - (void)runAndWait {
 	[sheetLock lock];
 	GPGDebugLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", modalWindow, sheetWindow);
+	
 	if (modalWindow.isVisible) {
 		[NSApp beginSheet:sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
 		[NSApp runModalForWindow:sheetWindow];
@@ -650,6 +628,7 @@
 	
 	CGFloat height = [newKey_advancedSubview frame].size.height;
 	newFrame.size.height += show ? height : -height;
+	newFrame.origin.y -= show ? height : -height;
 	
 	if (!show) {
 		[newKey_advancedSubview setHidden:YES];

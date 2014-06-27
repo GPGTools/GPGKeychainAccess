@@ -39,45 +39,9 @@
 - (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict;
 - (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSInteger)lines withOptions:(NSUInteger)options;
 
-
-- (IBAction)delete:(id)sender;
-- (IBAction)copy:(id)sender;
-- (IBAction)paste:(id)sender;
-- (IBAction)cleanKey:(id)sender;
-- (IBAction)minimizeKey:(id)sender;
-- (IBAction)addPhoto:(id)sender;
-- (IBAction)removePhoto:(id)sender;
-- (IBAction)revokePhoto:(id)sender;
-- (IBAction)setPrimaryPhoto:(id)sender;
-- (IBAction)exportKey:(id)sender;
-- (IBAction)importKey:(id)sender;
-- (IBAction)addSignature:(id)sender;
-- (IBAction)addSubkey:(id)sender;
-- (IBAction)addUserID:(id)sender;
-- (IBAction)changeExpirationDate:(id)sender;
-- (IBAction)changePassphrase:(id)sender;
-- (IBAction)removeSignature:(id)sender;
-- (IBAction)removeSubkey:(id)sender;
-- (IBAction)removeUserID:(id)sender;
-- (IBAction)revokeSignature:(id)sender;
-- (IBAction)revokeSubkey:(id)sender;
-- (IBAction)revokeUserID:(id)sender;
-- (IBAction)setDisabled:(id)sender;
-- (IBAction)setPrimaryUserID:(id)sender;
-- (IBAction)setTrust:(NSPopUpButton *)sender;
-- (IBAction)generateNewKey:(id)sender;
-- (IBAction)deleteKey:(id)sender;
-- (IBAction)refreshDisplayedKeys:(id)sender;
-- (IBAction)sendKeysToServer:(id)sender;
-- (IBAction)searchKeys:(id)sender;
-- (IBAction)receiveKeys:(id)sender;
-- (IBAction)refreshKeysFromServer:(id)sender;
-- (IBAction)genRevokeCertificate:(id)sender;
-- (IBAction)editAlgorithmPreferences:(id)sender;
-- (IBAction)sendKeysPerMail:(id)sender;
-- (BOOL)validateUserInterfaceItem:(id)anItem;
-
 - (BOOL)warningSheet:(NSString *)string, ...;
+
+
 
 @end
 
