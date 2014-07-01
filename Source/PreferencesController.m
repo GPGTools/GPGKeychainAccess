@@ -49,25 +49,11 @@ static PreferencesController *_sharedInstance = nil;
 - (IBAction)moveSecring:(id)sender {
 	GPGOptions *options = self.options;
 	NSString *gpgHome = options.gpgHome;
+	NSFileManager *fileManager = [NSFileManager defaultManager];
 
 	
-	NSOpenPanel *panel = [NSOpenPanel openPanel];
-	panel.canChooseFiles = NO;
-	panel.canChooseDirectories = YES;
-	panel.canCreateDirectories = YES;
-	panel.message = localized(@"MoveSecring_PanelMsg");
-	panel.prompt = localized(@"MoveSecring_PanelOk");
-	panel.directoryURL = [NSURL fileURLWithPath:gpgHome];
 	
-	[panel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
-		[NSApp stopModalWithCode:result];
-	}];
-
-	if ([NSApp runModalForWindow:window] != NSOKButton) {
-		return;
-	}
-	
-	
+	// Get current location.
 	NSNumber *tempvalue = [options valueInGPGConfForKey:@"default-keyring"];
 	BOOL default_keyring = tempvalue ? tempvalue.boolValue : YES;
 	
@@ -86,9 +72,6 @@ static PreferencesController *_sharedInstance = nil;
 	}
 	secringPath = [secringPath stringByStandardizingPath];
 	
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	
-	
 	BOOL isDir;
 	if (![fileManager fileExistsAtPath:secringPath isDirectory:&isDir] || isDir) {
 		[[SheetController sharedInstance] alertSheetForWindow:window
@@ -101,6 +84,30 @@ static PreferencesController *_sharedInstance = nil;
 		return;
 	}
 	
+
+	
+	
+	
+	
+	
+
+	// Let the user select the new location.
+	NSOpenPanel *panel = [NSOpenPanel openPanel];
+	panel.canChooseFiles = NO;
+	panel.canChooseDirectories = YES;
+	panel.canCreateDirectories = YES;
+	panel.message = localized(@"MoveSecring_PanelMsg");
+	panel.prompt = localized(@"MoveSecring_PanelOk");
+	panel.directoryURL = [NSURL fileURLWithPath:gpgHome];
+	
+	[panel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
+		[NSApp stopModalWithCode:result];
+	}];
+
+	if ([NSApp runModalForWindow:window] != NSOKButton) {
+		return;
+	}
+	
 	NSString *destDir = [[panel.URL path] stringByStandardizingPath];
 	NSString *destPath = [destDir stringByAppendingPathComponent:@"secring.gpg"];
 	
@@ -109,13 +116,15 @@ static PreferencesController *_sharedInstance = nil;
 		return;
 	}
 	
-	
+	// Select unique filename.
 	NSInteger n = 1;
 	while ([fileManager fileExistsAtPath:destPath]) {
 		n++;
 		destPath = [destDir stringByAppendingPathComponent:[NSString stringWithFormat:@"secring_%i.gpg", n]];
 	}
 	
+	
+	// Move the secring.
 	NSError *error = nil;
 	GPGDebugLog(@"Move Secring from '%@' to '%@'", secringPath, destPath);
 	if (![fileManager moveItemAtPath:secringPath toPath:destPath error:&error]) {
@@ -129,6 +138,7 @@ static PreferencesController *_sharedInstance = nil;
 		return; 
 	}
 	
+	// ... and update the config.
 	[self willChangeValueForKey:@"secringPath"];
 	[secrings insertObject:destPath atIndex:0];
 	[options setValueInGPGConf:secrings forKey:@"secret-keyring"];
