@@ -32,6 +32,7 @@
 @property (strong) NSArray *URLs;
 @property (nonatomic, strong) NSArray *volumes;
 @property (nonatomic, strong) NSDictionary *result;
+@property (nonatomic) BOOL enableOK;
 
 - (void)runAndWait;
 - (void)setStandardExpirationDates;
@@ -516,6 +517,16 @@
 	[secretKeysController setSelectedObjects:[NSArray arrayWithObject:value]];
 }
 
+- (NSIndexSet *)selectedVolumeIndexes {
+	return selectedVolumeIndexes;
+}
+- (void)setSelectedVolumeIndexes:(NSIndexSet *)value {
+	if (value.count > 0) {
+		self.enableOK = (value.firstIndex != oldVolumeIndex);
+		selectedVolumeIndexes = value;
+	}
+}
+
 
 // Internal methods //
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
@@ -693,10 +704,21 @@
 		[volumeList addObject:volume];
 	}
 	
-	self.volumes = volumeList;
-	if (index != NSNotFound) {
-		self.selectedVolumeIndexes = [NSIndexSet indexSetWithIndex:index];
+	if (index == NSNotFound) {
+		index = volumeList.count;
+		NSDictionary *volume = @{@"image": [NSImage imageNamed:@""],
+								 @"name": self.URL.path.lastPathComponent,
+								 @"url": self.URL};
+		[volumeList addObject:volume];
 	}
+	
+	oldVolumeIndex = index;
+	
+	self.volumes = volumeList;
+	self.selectedVolumeIndexes = [NSIndexSet indexSetWithIndex:index];
+	
+	
+	self.msgText = [NSString stringWithFormat:localized(@"MoveSecring_Msg"), volumeList[index][@"name"]];
 }
 
 
