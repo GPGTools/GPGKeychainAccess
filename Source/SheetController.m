@@ -686,10 +686,9 @@
 	
 	for (NSURL *url in urls) {
 		NSDictionary *values = [url resourceValuesForKeys:resKeys error:nil];
-		if (![url.path isEqualToString:@"/"]) {
-			if (![values[NSURLVolumeIsBrowsableKey] boolValue] || ![values[NSURLVolumeIsLocalKey] boolValue] || [values[NSURLVolumeIsReadOnlyKey] boolValue] || [values[NSURLVolumeIsInternalKey] boolValue]) {
-				continue;
-			}
+		BOOL isDefault = [url.path isEqualToString:@"/"];
+		if (!isDefault && (![values[NSURLVolumeIsBrowsableKey] boolValue] || ![values[NSURLVolumeIsLocalKey] boolValue] || [values[NSURLVolumeIsReadOnlyKey] boolValue] || [values[NSURLVolumeIsInternalKey] boolValue])) {
+			continue;
 		}
 		
 		if ([self.URL isEqualTo:url]) {
@@ -697,18 +696,19 @@
 		}
 		
 		NSDictionary *volume = @{@"image": values[NSURLEffectiveIconKey],
-				   @"name": values[NSURLVolumeNameKey],
-				   @"UUID": values[NSURLVolumeUUIDStringKey],
-				   @"url": url};
+								 @"name": isDefault ? localized(@"Local") : values[NSURLVolumeNameKey],
+								 @"UUID": values[NSURLVolumeUUIDStringKey],
+								 @"url": url};
 		
 		[volumeList addObject:volume];
 	}
 	
 	if (index == NSNotFound) {
 		index = volumeList.count;
-		NSDictionary *volume = @{@"image": [NSImage imageNamed:@""],
-								 @"name": self.URL.path.lastPathComponent,
-								 @"url": self.URL};
+		NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:[self.URL.path stringByDeletingLastPathComponent]];
+		[image setSize:NSMakeSize(64, 64)];
+		
+		NSDictionary *volume = [NSDictionary dictionaryWithObjectsAndKeys:self.URL, @"url", self.URL.path.lastPathComponent, @"name", image, @"image", nil];
 		[volumeList addObject:volume];
 	}
 	
