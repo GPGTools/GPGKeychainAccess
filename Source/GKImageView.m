@@ -66,8 +66,8 @@
 				unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:fileName error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
 				if (filesize > 500 * 1024) { //Bilder über 500 KiB sind zu gross. (Meiner Meinung nach.)
 					[[SheetController sharedInstance] alertSheetForWindow:mainWindow
-								  messageText:localized(@"ChoosePhoto_ToLarge_Message")
-									 infoText:localized(@"ChoosePhoto_ToLarge_Info")
+								  messageText:localized(@"ChoosePhoto_TooLarge_Message")
+									 infoText:localized(@"ChoosePhoto_TooLarge_Info")
 								defaultButton:nil
 							  alternateButton:nil
 								  otherButton:nil
