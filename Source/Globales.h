@@ -26,7 +26,7 @@ extern GPGKeychainAccessAppDelegate *appDelegate;
 
 
 
-BOOL containsPGPKeyBlock(NSString *string);
+BOOL couldContainPGPKey(NSString *string);
 NSString *localized(NSString *key);
 
 

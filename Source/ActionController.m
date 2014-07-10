@@ -1218,7 +1218,7 @@
 			return YES;
 		} else if ([types containsObject:NSStringPboardType]) {
 			NSString *string = [pboard stringForType:NSStringPboardType];
-			if (containsPGPKeyBlock(string)) {
+			if (couldContainPGPKey(string)) {
 				return YES;
 			} else {
 				return NO;

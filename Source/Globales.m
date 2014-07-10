@@ -29,11 +29,8 @@ GPGKeychainAccessAppDelegate *appDelegate;
 
 
 
-BOOL containsPGPKeyBlock(NSString *string) {
-	return ([string rangeOfString:@"-----BEGIN PGP PUBLIC KEY BLOCK-----"].length > 0 && 
-			[string rangeOfString:@"-----END PGP PUBLIC KEY BLOCK-----"].length > 0) || 
-		([string rangeOfString:@"-----BEGIN PGP PRIVATE KEY BLOCK-----"].length > 0 && 
-		 [string rangeOfString:@"-----END PGP PRIVATE KEY BLOCK-----"].length > 0);
+BOOL couldContainPGPKey(NSString *string) {
+	return ([string rangeOfString:@"-----BEGIN PGP "].length > 0);
 }
 
 

@@ -182,7 +182,7 @@
 		}
 	} else if ([pboardType isEqualToString:NSStringPboardType]) {
 		NSString *string = [pboard stringForType:NSStringPboardType];
-		if (containsPGPKeyBlock(string)) {
+		if (couldContainPGPKey(string)) {
 			return NSDragOperationCopy;
 		}
 	}
@@ -212,7 +212,7 @@
 		}
 	} else if ([pboardType isEqualToString:NSStringPboardType]) {
 		NSString *string = [pboard stringForType:NSStringPboardType];
-		if (containsPGPKeyBlock(string)) {
+		if (couldContainPGPKey(string)) {
 			[NSThread detachNewThreadSelector:@selector(importFromData:) toTarget:[ActionController sharedInstance] withObject:[string UTF8Data]];
 			return YES;
 		}
