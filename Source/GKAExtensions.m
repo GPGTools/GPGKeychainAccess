@@ -255,7 +255,7 @@
 	return 0;
 }
 - (NSString *)type {
-	return name ? @"uid" : @"uat";
+	return _name ? @"uid" : @"uat";
 }
 - (id)shortKeyID {
 	return nil;
@@ -270,25 +270,25 @@
 	return nil;
 }
 - (NSString *)userIDDescription {
-	if (userIDDescription) {
-		if (email.length > 0) {
-			return [NSString stringWithFormat:@"%@ <%@>", name, email];
+	if (_userIDDescription) {
+		if (_email.length > 0) {
+			return [NSString stringWithFormat:@"%@ <%@>", _name, _email];
 		} else {
-			return name;
+			return _name;
 		}
 	} else {
 		return localized(@"PhotoID");
 	}
 }
 - (NSString *)name {
-	if (name) {
-		return name;
+	if (_name) {
+		return _name;
 	} else {
 		return localized(@"PhotoID");
 	}
 }
 - (BOOL)isUat {
-	return !name;
+	return !_name;
 }
 
 @end
