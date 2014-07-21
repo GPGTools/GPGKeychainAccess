@@ -6,13 +6,15 @@ GPG Keychain Access is used to create and manage GnuPG keys.
 Updates
 -------
 
-The latest releases of GPG Keychain Access can be found on our [official website](https://gpgtools.org/keychain/).
+The latest releases of GPG Keychain Access can be found on our [official website](https://gpgtools.org/).
 
 For the latest news and updates check our [Twitter](https://twitter.com/gpgtools).
 
 Visit our [support page](http://support.gpgtools.org) if you have questions or need help setting up your system and using GPG Keychain Access.
 
 If you are a developer, feel free to have a look at the [open issues](https://gpgtools.lighthouseapp.com/projects/65684).
+
+Localizations are done on [Transifex](https://www.transifex.com/projects/p/GPGKeychainAccess/).
 
 
 Build
