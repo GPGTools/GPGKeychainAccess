@@ -90,10 +90,13 @@ enum {
 	UploadKeyAction,
 	SetPrimaryUserIDAction,
 	SetTrustAction,
-	SetDisabledAction
+	SetDisabledAction,
+	RevCertificateAction,
+	RevokeKeyAction
 };
 
 enum {
-	ImportOperation = 1
+	ImportOperation = 1,
+	NewKeyOperation
 };
 

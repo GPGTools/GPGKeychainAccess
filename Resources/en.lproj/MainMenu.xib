@@ -4018,6 +4018,14 @@
 									<reference key="NSOnImage" ref="734934930"/>
 									<reference key="NSMixedImage" ref="987910177"/>
 								</object>
+								<object class="NSMenuItem" id="541651925">
+									<reference key="NSMenu" ref="904998012"/>
+									<string key="NSTitle">Revoke…</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="734934930"/>
+									<reference key="NSMixedImage" ref="987910177"/>
+								</object>
 								<object class="NSMenuItem" id="312750114">
 									<reference key="NSMenu" ref="904998012"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -4808,6 +4816,14 @@
 						<reference key="destination" ref="430321327"/>
 					</object>
 					<string key="id">sZw-NP-CDK</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">revokeKey:</string>
+						<reference key="source" ref="520472171"/>
+						<reference key="destination" ref="541651925"/>
+					</object>
+					<string key="id">vS2-O8-dpB</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -8188,6 +8204,7 @@
 							<reference ref="1046105938"/>
 							<reference ref="858510239"/>
 							<reference ref="338041066"/>
+							<reference ref="541651925"/>
 						</array>
 						<reference key="parent" ref="682216945"/>
 					</object>
@@ -10328,6 +10345,11 @@
 						<reference key="object" ref="930989022"/>
 						<reference key="parent" ref="670970088"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">sS9-so-7Oh</string>
+						<reference key="object" ref="541651925"/>
+						<reference key="parent" ref="904998012"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -11104,6 +11126,7 @@
 				<string key="reo-f1-cjF.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="reo-f1-cjF.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="reo-f1-cjF.showNotes"/>
+				<string key="sS9-so-7Oh.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="seA-FC-Vmm.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="seA-FC-Vmm.showNotes"/>
 				<string key="t1u-gq-8Lo.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -11191,6 +11214,7 @@
 						<string key="removeSignature:">id</string>
 						<string key="removeSubkey:">id</string>
 						<string key="removeUserID:">id</string>
+						<string key="revokeKey:">id</string>
 						<string key="revokePhoto:">id</string>
 						<string key="revokeSignature:">id</string>
 						<string key="revokeSubkey:">id</string>
@@ -11298,6 +11322,10 @@
 						</object>
 						<object class="IBActionInfo" key="removeUserID:">
 							<string key="name">removeUserID:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="revokeKey:">
+							<string key="name">revokeKey:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="revokePhoto:">

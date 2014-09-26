@@ -27,6 +27,7 @@
 	GPGController *gpgc;
 	SheetController *sheetController;
 	NSUndoManager *undoManager;
+	NSSet *revCertCache;
 }
 
 + (id)sharedInstance;

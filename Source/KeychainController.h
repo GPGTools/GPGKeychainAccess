@@ -53,7 +53,7 @@
 @property BOOL showSecretKeysOnly;
 @property (readonly) GPGKey *defaultKey;
 
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 
 
 

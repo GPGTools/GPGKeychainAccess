@@ -61,9 +61,7 @@ enum {
 	IBOutlet NSView *progressView;
 	IBOutlet NSTextField *progressTextField;
 	IBOutlet NSView *newKeyView;
-	IBOutlet NSView *newKey_passphraseSubview;
 	IBOutlet NSView *newKey_advancedSubview;
-	IBOutlet NSView *newKey_topSubview;
 	IBOutlet NSView *generateSubkeyView;
 	IBOutlet NSView *generateUserIDView;
 	IBOutlet NSView *generateSignatureView;
@@ -97,10 +95,10 @@ enum {
 	NSMutableSet *msgTextFields;
 }
 
-@property (nonatomic, retain) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
+@property (nonatomic, strong) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
 @property (nonatomic) BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload;
-@property (nonatomic, retain) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
-@property (nonatomic, retain) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
+@property (nonatomic, strong) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
+@property (nonatomic, strong) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
 @property (nonatomic) NSInteger exportFormat, keyType, sigType, length, sheetType;
 @property (nonatomic, readonly, retain) NSArray *foundKeyDicts;
 @property (nonatomic, readonly) NSInteger daysToExpire;

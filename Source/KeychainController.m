@@ -223,7 +223,7 @@ NSSet *draggedKeys;
 
 
 // Singleton: alloc, init etc.
-+ (id)sharedInstance {
++ (instancetype)sharedInstance {
 	static id sharedInstance = nil;
     if (!sharedInstance) {
         sharedInstance = [[super allocWithZone:nil] init];

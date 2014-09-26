@@ -423,12 +423,7 @@
 					if (![self checkName]) return;
 					if (![self checkEmailMustSet:NO]) return;
 					if (![self checkComment]) return;
-					
-					if ([[GPGController gpgVersion] hasPrefix:@"1"]) {
-						if (![self checkPassphrase]) return;
-					} else {
-						self.passphrase = nil;
-					}
+					if (![self checkPassphrase]) return;
 					break;
 				case SheetTypeReceiveKeys: {
 					NSSet *keyIDs = [self.pattern keyIDs];
@@ -463,15 +458,7 @@
 
 
 - (IBAction)advancedButton:(NSButton *)sender {
-	BOOL hide = sender.state == NSOffState;
-	NSRect newFrame = sheetWindow.frame;
-	
-	CGFloat height = [newKey_advancedSubview frame].size.height;
-	newFrame.size.height += hide ? -height : height;
-	
-	if (hide) [newKey_advancedSubview setHidden:YES];
-	[sheetWindow setFrame:newFrame display:YES animate:YES];
-	if (!hide) [newKey_advancedSubview setHidden:NO];
+	[self showAdvanced:sender.state == NSOnState animate:YES];
 }
 
 
@@ -658,6 +645,22 @@
 	[sheetLock unlock];
 }
 
+- (void)showAdvanced:(BOOL)show animate:(BOOL)animate {
+	NSRect newFrame = sheetWindow.frame;
+	
+	CGFloat height = [newKey_advancedSubview frame].size.height;
+	newFrame.size.height += show ? height : -height;
+	
+	if (!show) {
+		[newKey_advancedSubview setHidden:YES];
+	}
+	[sheetWindow setFrame:newFrame display:YES animate:animate];
+	if (show) {
+		[newKey_advancedSubview setHidden:NO];
+	}
+	
+}
+
 
 
 
@@ -809,20 +812,14 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		//[displayedView removeFromSuperview];
 		//displayedView = value;
 		if (value != nil) {
+			[sheetWindow setContentView:value];
+			
 			static BOOL	newKeyViewInitialized = NO;
 			if (!newKeyViewInitialized && value == newKeyView) {
+				[self showAdvanced:NO animate:NO];
 				newKeyViewInitialized = YES;
-				if (![[GPGController gpgVersion] hasPrefix:@"1"]) { //Passphrase-Felder nur bei GPG 1.x anzeigen.
-					[newKey_passphraseSubview setHidden:YES];
-					NSSize newSize = [newKeyView frame].size;
-					newSize.height -= [newKey_passphraseSubview frame].size.height;
-					
-					[newKeyView setFrameSize:newSize];
-				}
 			}
-			
 
-			[sheetWindow setContentView:value];
 			
 			if ([value nextKeyView]) {
 				[sheetWindow makeFirstResponder:[value nextKeyView]];

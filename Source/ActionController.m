@@ -299,9 +299,22 @@
 	self.progressText = localized(@"GenerateKey_Progress");
 	self.errorText = localized(@"GenerateKey_Error");
 	
-	if (sheetController.autoUpload) {
-		gpgc.userInfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInteger:UploadKeyAction], @"action", nil];
+	
+	NSString *passphrase = sheetController.passphrase;
+	if (!passphrase) {
+		passphrase = @"";
 	}
+	gpgc.passphrase = passphrase;
+	
+	NSMutableArray *actions = [NSMutableArray array];
+	
+	[actions addObject:@(RevCertificateAction)];
+	
+	if (sheetController.autoUpload) {
+		[actions addObject:@(UploadKeyAction)];
+	}
+	
+	gpgc.userInfo = @{@"action": actions, @"operation": @(NewKeyOperation), @"passphrase": passphrase};
 	
 	
 	[gpgc generateNewKeyWithName:sheetController.name
@@ -312,8 +325,7 @@
 					  subkeyType:subkeyType
 					subkeyLength:sheetController.length
 					daysToExpire:sheetController.daysToExpire
-					 preferences:nil
-					  passphrase:sheetController.passphrase];
+					 preferences:nil];
 }
 - (IBAction)deleteKey:(id)sender {
 	NSSet *keys = [self selectedKeys];
@@ -553,23 +565,131 @@
 		return;
 	}
 	GPGKey *key = [[keys anyObject] primaryKey];
+
+	[self revCertificateForKey:key customPath:YES];
+}
+- (void)revCertificateForKey:(NSObject <KeyFingerprint> *)key customPath:(BOOL)customPath {
+	BOOL hideExtension = NO;
+	NSURL *url = nil;
 	
-	
-	sheetController.title = nil; //TODO
-	sheetController.msgText = nil; //TODO
-	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
-	sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), key.keyID.shortKeyID];
-	
-	sheetController.sheetType = SheetTypeSavePanel;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
-		return;
+	if (customPath) {
+		sheetController.title = nil; //TODO
+		sheetController.msgText = nil; //TODO
+		sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
+		sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), key.description.keyID.shortKeyID];
+		
+		sheetController.sheetType = SheetTypeSavePanel;
+		if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+			return;
+		}
+		hideExtension = sheetController.hideExtension;
+		url = sheetController.URL;
+	} else {
+		NSString *path = [[GPGOptions sharedOptions] gpgHome];
+		path = [path stringByAppendingPathComponent:@"RevCerts"];
+		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
+		path = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_rev.asc", key.description.keyID]];
+		url = [NSURL fileURLWithPath:path];
+		revCertCache = nil;
 	}
+	
 	
 	self.progressText = localized(@"GenerateRevokeCertificateForKey_Progress");
 	self.errorText = localized(@"GenerateRevokeCertificateForKey_Error");
-	gpgc.userInfo = @{@"action": @(SaveDataToURLAction), @"URL": sheetController.URL, @"hideExtension": @(sheetController.hideExtension)};
+	
+	
+	
+	if ([gpgc.userInfo[@"action"] isKindOfClass:[NSArray class]]) {
+		NSMutableDictionary *userInfo = [gpgc.userInfo mutableCopy];
+		NSMutableArray *actions = [NSMutableArray arrayWithObject:@(SaveDataToURLAction)];
+		[actions addObjectsFromArray:userInfo[@"action"]];
+
+		userInfo[@"action"] = actions;
+		userInfo[@"URL"] = url;
+		userInfo[@"hideExtension"] = @(hideExtension);
+		
+		gpgc.userInfo = userInfo;
+	} else {
+		gpgc.userInfo = @{@"action": @(SaveDataToURLAction), @"URL": url, @"hideExtension": @(hideExtension)};
+	}
+	
+	
 	[gpgc generateRevokeCertificateForKey:key reason:0 description:nil];
 }
+- (IBAction)revokeKey:(id)sender {
+	NSSet *keys = [self selectedKeys];
+	if ([keys count] != 1) {
+		return;
+	}
+	GPGKey *key = [[keys anyObject] primaryKey];
+
+	[self revokeKey:key generateIfNeeded:YES];
+}
+
+- (void)revokeKey:(NSObject <KeyFingerprint> *)key generateIfNeeded:(BOOL)generate {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	
+	NSString *path = [[[GPGOptions sharedOptions] gpgHome] stringByAppendingPathComponent:[NSString stringWithFormat:@"RevCerts/%@_rev.asc", key.keyID]];
+	
+	
+	__block BOOL haveValidRevCert = NO;
+	if ([fileManager fileExistsAtPath:path]) {
+		NSData *data = [NSData dataWithContentsOfFile:path];
+		
+		[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
+			if (packet.type == GPGSignaturePacket && packet.signatureType == GPGRevocationSignature) {
+				if (packet.keyID ) {
+					haveValidRevCert = YES;
+					*stop = YES;
+				}
+			}
+		}];
+		
+		if (haveValidRevCert) {
+			if ([self warningSheet:@"WarnRevokeKey"] == NO) {
+				return;
+			}
+			
+			self.errorText = nil;
+			self.progressText = localized(@"RevokeKey_Progress");
+			self.errorText = localized(@"RevokeKey_Error");
+			
+			gpgc.userInfo = @{};
+			[gpgc importFromData:data fullImport:NO];
+		}
+	}
+	
+	if (!haveValidRevCert && generate) {
+		GPGKey *gpgKey = [[[KeychainController sharedInstance] allKeys] member:key];
+		if (gpgKey.secret) {
+			gpgc.userInfo = @{@"action": @[@(RevokeKeyAction)], @"keys":[NSSet setWithObject:key]};
+			[self revCertificateForKey:key customPath:NO];
+		}
+	}
+}
+- (BOOL)canRevokeKey:(GPGKey *)key {
+	if (!revCertCache) {
+		NSFileManager *fileManager = [NSFileManager defaultManager];
+		NSString *path = [[[GPGOptions sharedOptions] gpgHome] stringByAppendingPathComponent:@"RevCerts"];
+
+		NSArray *files = [fileManager contentsOfDirectoryAtPath:path error:nil];
+		if (files) {
+			NSMutableSet *keyIDs = [NSMutableSet set];
+			for (NSString *file in files) {
+				if (file.length == 24 && [[file substringFromIndex:16] isEqualToString:@"_rev.asc"]) {
+					[keyIDs addObject:[file substringToIndex:16]];
+				}
+			}
+			
+			revCertCache = [keyIDs copy];
+		}
+	}
+	
+	return !key.revoked && (key.secret || [revCertCache containsObject:key.keyID]);
+}
+
+
+
 
 #pragma mark Keyserver
 - (IBAction)searchKeys:(id)sender {
@@ -1154,6 +1274,12 @@
 	}
 	else if (selector == @selector(deleteKey:)) {
 		return self.selectedKeys.count > 0;
+	} else if (selector == @selector(revokeKey:)) {
+		NSSet *keys = self.selectedKeys;
+		if (keys.count == 1) {
+			return [self canRevokeKey:keys.anyObject];
+		}
+		return NO;
 	}
 
 	return YES;
@@ -1254,6 +1380,7 @@
 }
 
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
+	gc.passphrase = nil;
 	NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:gc, @"GPGController", e, @"exception", nil]; // Do not use @{} for this dcit!
 	[self performSelectorOnMainThread:@selector(gpgControllerOperationThrownException:) withObject:args waitUntilDone:NO];
 }
@@ -1314,102 +1441,160 @@
 }
 
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
+	gc.passphrase = nil;
 	NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:gc, @"GPGController", value, @"value", nil]; // Do not use @{} for this dcit!
 	[self performSelectorOnMainThread:@selector(gpgControllerOperationDidFinish:) withObject:args waitUntilDone:NO];
 }
 
 - (void)gpgControllerOperationDidFinish:(NSDictionary *)args {
+	BOOL reEvaluate;
 	GPGController *gc = [args objectForKey:@"GPGController"];
 	id value = [args objectForKey:@"value"];
-	
+
 	[sheetController endProgressSheet];
 	
-	NSDictionary *oldUserInfo = [gc.userInfo retain];
-	gc.userInfo = nil;
-	self.progressText = nil;
-	self.errorText = nil;
 	
-	NSInteger action = [[oldUserInfo objectForKey:@"action"] integerValue];
 	
-	switch (action) {
-		case ShowResultAction: {
-			if (gc.error) break;
-			
-			NSDictionary *statusDict = gc.statusDict;
-			if (statusDict) {
-				[self refreshDisplayedKeys:self];
-				
-				sheetController.msgText = [self importResultWithStatusDict:statusDict];
-				sheetController.sheetType = SheetTypeShowResult;
-				[sheetController runModalForWindow:mainWindow];
-			}
-			break;
-		}
-		case ShowFoundKeysAction: {
-			if (gc.error) break;
-			NSArray *keys = gc.lastReturnValue;
-			if ([keys count] == 0) {
-				sheetController.msgText = localized(@"No keys Found");
-				sheetController.sheetType = SheetTypeShowResult;
-				[sheetController runModalForWindow:mainWindow];
-			} else {
-				sheetController.keys = keys;
-				
-				sheetController.sheetType = SheetTypeShowFoundKeys;
-				if ([sheetController runModalForWindow:mainWindow] != NSOKButton) break;
-				
-				[self receiveKeysFromServer:sheetController.keys];
-			}
-			break;
-		}
-		case SaveDataToURLAction: {
-			if (gc.error) break;
-			
-			NSURL *URL = [oldUserInfo objectForKey:@"URL"];
-			NSNumber *hideExtension = @([[oldUserInfo objectForKey:@"hideExtension"] boolValue]);
-			[[NSFileManager defaultManager] createFileAtPath:URL.path contents:value attributes:@{NSFileExtensionHidden: hideExtension}];
-			
-			break;
-		}
-		case UploadKeyAction: {
-			if (gc.error || !value) break;
-			
-			NSSet *keys = [NSSet setWithObject:value];
-			self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
-			self.errorText = localized(@"SendKeysToServer_Error");
-			
-			[gpgc sendKeysToServer:keys];
-			
-			break;
-		}
-		case SetPrimaryUserIDAction:
-			if (gc.error) break;
-			
-			GPGUserID *userID = [oldUserInfo objectForKey:@"userID"];
-			self.progressText = localized(@"SetPrimaryUserID_Progress");
-			self.errorText = localized(@"SetPrimaryUserID_Error");
-			[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
-			
-			break;
-		case SetTrustAction: {
-			NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
-			NSInteger trust = [[oldUserInfo objectForKey:@"trust"] integerValue];
-			
-			[self setTrust:trust forKeys:keys];
-			break;
-		}
-		case SetDisabledAction: {
-			NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
-			BOOL disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
-			
-			[self setDisabled:disabled forKeys:keys];
-			break;
-		}
-		default:
-			break;
-	}
+	do {
+		reEvaluate = NO;
 		
-	[oldUserInfo release];
+		NSMutableDictionary *oldUserInfo = [NSMutableDictionary dictionaryWithDictionary:gc.userInfo];
+		
+		gc.userInfo = nil;
+		self.progressText = nil;
+		self.errorText = nil;
+		
+		
+		switch ([oldUserInfo[@"operation"] integerValue]) {
+			case NewKeyOperation:
+				oldUserInfo[@"keys"] = [NSSet setWithObject:value];
+				break;
+		}
+		oldUserInfo[@"operation"] = @0;
+		
+		
+		NSInteger action = 0;
+		NSArray *actionObject = [oldUserInfo objectForKey:@"action"];
+		
+		if ([actionObject isKindOfClass:[NSArray class]]) {
+			if (actionObject.count > 0) {
+				action = [actionObject[0] integerValue];
+				if (actionObject.count > 1) {
+					actionObject = [actionObject subarrayWithRange:NSMakeRange(1, actionObject.count - 1)];
+					NSMutableDictionary *tempUserInfo = oldUserInfo.mutableCopy;
+					tempUserInfo[@"action"] = actionObject;
+					gc.userInfo = tempUserInfo;
+				}
+			}
+		} else {
+			action = [(NSNumber *)actionObject integerValue];
+		}
+		
+		
+		
+		switch (action) {
+			case ShowResultAction: {
+				if (gc.error) break;
+				
+				NSDictionary *statusDict = gc.statusDict;
+				if (statusDict) {
+					[self refreshDisplayedKeys:self];
+					
+					sheetController.msgText = [self importResultWithStatusDict:statusDict];
+					sheetController.sheetType = SheetTypeShowResult;
+					[sheetController runModalForWindow:mainWindow];
+				}
+				break;
+			}
+			case ShowFoundKeysAction: {
+				if (gc.error) break;
+				NSArray *keys = gc.lastReturnValue;
+				if ([keys count] == 0) {
+					sheetController.msgText = localized(@"No keys Found");
+					sheetController.sheetType = SheetTypeShowResult;
+					[sheetController runModalForWindow:mainWindow];
+				} else {
+					sheetController.keys = keys;
+					
+					sheetController.sheetType = SheetTypeShowFoundKeys;
+					if ([sheetController runModalForWindow:mainWindow] != NSOKButton) break;
+					
+					[self receiveKeysFromServer:sheetController.keys];
+				}
+				break;
+			}
+			case SaveDataToURLAction: {
+				if (gc.error) break;
+				
+				NSURL *URL = [oldUserInfo objectForKey:@"URL"];
+				NSNumber *hideExtension = @([[oldUserInfo objectForKey:@"hideExtension"] boolValue]);
+				[[NSFileManager defaultManager] createFileAtPath:URL.path contents:value attributes:@{NSFileExtensionHidden: hideExtension}];
+				
+				reEvaluate = YES;
+				
+				break;
+			}
+			case UploadKeyAction: {
+				NSSet *keys = oldUserInfo[@"keys"];
+				if (gc.error || !keys) break;
+				
+				self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
+				self.errorText = localized(@"SendKeysToServer_Error");
+				
+				//[gpgc sendKeysToServer:keys];
+				NSRunAlertPanel(@"asd", @"asd", nil, nil, nil);
+				
+				break;
+			}
+			case SetPrimaryUserIDAction: {
+				if (gc.error) break;
+				
+				GPGUserID *userID = [oldUserInfo objectForKey:@"userID"];
+				self.progressText = localized(@"SetPrimaryUserID_Progress");
+				self.errorText = localized(@"SetPrimaryUserID_Error");
+				[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
+				
+				break;
+			}
+			case SetTrustAction: {
+				NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
+				NSInteger trust = [[oldUserInfo objectForKey:@"trust"] integerValue];
+				
+				[self setTrust:trust forKeys:keys];
+				break;
+			}
+			case SetDisabledAction: {
+				NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
+				BOOL disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
+				
+				[self setDisabled:disabled forKeys:keys];
+				break;
+			}
+			case RevCertificateAction: {
+				NSSet *keys = oldUserInfo[@"keys"];
+				if (gc.error || !keys) break;
+				
+				self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
+				self.errorText = localized(@"SendKeysToServer_Error");
+				
+				gc.passphrase = oldUserInfo[@"passphrase"];
+				[self revCertificateForKey:[keys anyObject] customPath:NO];
+				
+				break;
+			}
+			case RevokeKeyAction: {
+				NSSet *keys = oldUserInfo[@"keys"];
+				if (gc.error || !keys) break;
+				
+				[self revokeKey:[keys anyObject] generateIfNeeded:NO];
+				
+				break;
+			}
+			default:
+				break;
+		}
+	} while (reEvaluate);
+	
 }
 
 
