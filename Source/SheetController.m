@@ -273,19 +273,10 @@
 
 - (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton {
 	if (![NSThread isMainThread]) {
-		NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[self methodSignatureForSelector:_cmd]];
-		invocation.selector = _cmd;
-		invocation.target = self;
-		[invocation setArgument:&window atIndex:2];
-		[invocation setArgument:&messageText atIndex:3];
-		[invocation setArgument:&infoText atIndex:4];
-		[invocation setArgument:&button1 atIndex:5];
-		[invocation setArgument:&button2 atIndex:6];
-		[invocation setArgument:&button3 atIndex:7];
-		[invocation setArgument:&suppressionButton atIndex:8];
-		[invocation performSelectorOnMainThread:@selector(invoke) withObject:nil waitUntilDone:YES];
-		NSInteger returnValue;
-		[invocation getReturnValue:&returnValue];
+		__block NSInteger returnValue;
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			returnValue = [self alertSheetForWindow:window messageText:messageText infoText:infoText defaultButton:button1 alternateButton:button2 otherButton:button3 suppressionButton:suppressionButton];
+		});
 		return returnValue;
 	}
 	
