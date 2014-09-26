@@ -50,6 +50,7 @@ static PreferencesController *_sharedInstance = nil;
 	GPGOptions *options = self.options;
 	NSString *gpgHome = options.gpgHome;
 	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSError *error = nil;
 
 	
 	
@@ -84,36 +85,49 @@ static PreferencesController *_sharedInstance = nil;
 		return;
 	}
 	
-
 	
 	
-	
-	
-	
-
 	// Let the user select the new location.
-	NSOpenPanel *panel = [NSOpenPanel openPanel];
-	panel.canChooseFiles = NO;
-	panel.canChooseDirectories = YES;
-	panel.canCreateDirectories = YES;
-	panel.message = localized(@"MoveSecring_PanelMsg");
-	panel.prompt = localized(@"MoveSecring_PanelOk");
-	panel.directoryURL = [NSURL fileURLWithPath:gpgHome];
-	
-	[panel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
-		[NSApp stopModalWithCode:result];
-	}];
-
-	if ([NSApp runModalForWindow:window] != NSOKButton) {
+	SheetController *sc = [SheetController sharedInstance];
+	sc.sheetType = SheetTypeSelectVolume;
+	NSString *path = @"/";
+	if (secringPath.length > 9 && [secringPath rangeOfString:@"/Volumes/"].length > 0) {
+		NSUInteger slash = [secringPath rangeOfString:@"/" options:0 range:NSMakeRange(9, secringPath.length - 9)].location;
+		if (slash != NSNotFound) {
+			path = [secringPath substringToIndex:slash];
+		}
+	}
+	sc.URL = [NSURL fileURLWithPath:path];
+	if ([sc runModalForWindow:window] != NSOKButton) {
 		return;
 	}
+		
+	path = sc.URL.path;
+	if ([path isEqualToString:@"/"]) {
+		path = gpgHome;
+	} else {
+		path = [path stringByAppendingPathComponent:@".gnupg"];
+	}
 	
-	NSString *destDir = [[panel.URL path] stringByStandardizingPath];
+	
+	NSString *destDir = [path stringByStandardizingPath];
 	NSString *destPath = [destDir stringByAppendingPathComponent:@"secring.gpg"];
 	
 	if ([destPath isEqualToString:secringPath]) {
 		GPGDebugLog(@"moveSecring source and dest are equal: %@", destPath);
 		return;
+	}
+	
+	if (![fileManager fileExistsAtPath:destDir]) {
+		if (![fileManager createDirectoryAtPath:destDir withIntermediateDirectories:NO attributes:nil error:&error]) {
+			[[SheetController sharedInstance] alertSheetForWindow:window
+													  messageText:localized(@"MoveSecringCantMove_Title")
+														 infoText:error.localizedDescription
+													defaultButton:localized(@"OK")
+												  alternateButton:nil
+													  otherButton:nil
+												suppressionButton:nil];
+		}
 	}
 	
 	// Select unique filename.
@@ -125,7 +139,6 @@ static PreferencesController *_sharedInstance = nil;
 	
 	
 	// Move the secring.
-	NSError *error = nil;
 	GPGDebugLog(@"Move Secring from '%@' to '%@'", secringPath, destPath);
 	if (![fileManager moveItemAtPath:secringPath toPath:destPath error:&error]) {
 		[[SheetController sharedInstance] alertSheetForWindow:window
@@ -167,6 +180,18 @@ static PreferencesController *_sharedInstance = nil;
 	
 	return secringPath;
 }
+
+
+- (BOOL)panel:(id)sender shouldEnableURL:(NSURL *)url {
+	NSLog(@"%@", url);
+	return YES;
+}
+
+- (BOOL)panel:(id)sender shouldShowFilename:(NSString *)filename {
+	NSLog(@"%@", filename);
+	return YES;
+}
+
 
 
 

@@ -38,7 +38,8 @@ typedef enum {
 	SheetTypeOpenPanel,
 	SheetTypeExportKey,
 	SheetTypeOpenPhotoPanel,
-	SheetTypeAlgorithmPreferences
+	SheetTypeAlgorithmPreferences,
+	SheetTypeSelectVolume
 } SheetType;
 
 enum {
@@ -71,6 +72,7 @@ enum {
 	IBOutlet NSView *receiveKeysView;
 	IBOutlet NSView *resultView;
 	IBOutlet NSView *editAlgorithmPreferencesView;
+	IBOutlet NSView *selectVolumeView;
 
 	
 	
@@ -102,10 +104,13 @@ enum {
 @property (nonatomic) NSInteger exportFormat, keyType, sigType, length, sheetType;
 @property (nonatomic, readonly, retain) NSArray *foundKeyDicts;
 @property (nonatomic, readonly) NSInteger daysToExpire;
-@property (nonatomic, retain) GPGKey *secretKey;
-@property (nonatomic, readonly, retain) NSURL *URL;
-@property (nonatomic, readonly, retain) NSArray *URLs;
+@property (nonatomic, strong) GPGKey *secretKey;
+@property (nonatomic, strong) NSURL *URL;
+@property (nonatomic, readonly, strong) NSArray *URLs;
 @property (nonatomic, readonly) BOOL hideExtension;
+@property (nonatomic, readonly) NSArray *volumes;
+@property (nonatomic, strong) NSIndexSet *selectedVolumeIndexes;
+@property (nonatomic, readonly) NSDictionary *result;
 
 
 - (NSInteger)runModal;

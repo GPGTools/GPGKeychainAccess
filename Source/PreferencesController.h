@@ -21,8 +21,7 @@
 
 @class GPGOptions;
 
-@interface PreferencesController : NSWindowController <GPGControllerDelegate> {
-	NSWindow *window;
+@interface PreferencesController : NSWindowController <GPGControllerDelegate, NSToolbarDelegate, NSOpenSavePanelDelegate> {
 	IBOutlet NSToolbar *toolbar;
 	IBOutlet NSView *keyserverPreferencesView;
 	IBOutlet NSView *updatesPreferencesView;

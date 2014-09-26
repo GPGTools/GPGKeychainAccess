@@ -26,11 +26,13 @@
 
 
 @interface SheetController ()
-@property (assign) NSView *displayedView;
-@property (assign) NSWindow *modalWindow;
-@property (retain) NSArray *foundKeyDicts;
-@property (retain) NSURL *URL;
-@property (retain) NSArray *URLs;
+@property NSView *displayedView;
+@property NSWindow *modalWindow;
+@property (strong) NSArray *foundKeyDicts;
+@property (strong) NSArray *URLs;
+@property (nonatomic, strong) NSArray *volumes;
+@property (nonatomic, strong) NSDictionary *result;
+
 - (void)runAndWait;
 - (void)setStandardExpirationDates;
 - (void)setDataFromAddressBook;
@@ -241,6 +243,10 @@
 			return clickedButton; }
 		case SheetTypeAlgorithmPreferences:
 			self.displayedView = editAlgorithmPreferencesView;
+			break;
+		case SheetTypeSelectVolume:
+			[self prepareVolumeCollection];
+			self.displayedView = selectVolumeView;
 			break;
 		default:
 			return -1;
@@ -457,7 +463,18 @@
 					if (![self checkEmailMustSet:NO]) return;
 					if (![self checkComment]) return;
 					break;
+				case SheetTypeSelectVolume: {
+					NSUInteger index = self.selectedVolumeIndexes.firstIndex;
+					if (index < self.volumes.count) {
+						self.result = self.volumes[index];
+						self.URL = self.volumes[index][@"url"];
+					} else {
+						self.result = nil;
+					}
+					break; }
 			}
+		} else { // NSCancelButton
+			self.result = nil;
 		}
 		
 		[NSApp stopModal];
@@ -648,6 +665,39 @@
 	
 }
 
+
+- (void)prepareVolumeCollection {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSArray *resKeys = @[NSURLVolumeIsLocalKey, NSURLVolumeIsInternalKey, NSURLVolumeIsReadOnlyKey, NSURLVolumeIsBrowsableKey, NSURLVolumeNameKey, NSURLVolumeUUIDStringKey, NSURLEffectiveIconKey];
+	NSArray *urls = [fileManager mountedVolumeURLsIncludingResourceValuesForKeys:resKeys options:NSVolumeEnumerationSkipHiddenVolumes];
+	NSMutableArray *volumeList = [NSMutableArray array];
+	NSUInteger index = NSNotFound;
+	
+	for (NSURL *url in urls) {
+		NSDictionary *values = [url resourceValuesForKeys:resKeys error:nil];
+		if (![url.path isEqualToString:@"/"]) {
+			if (![values[NSURLVolumeIsBrowsableKey] boolValue] || ![values[NSURLVolumeIsLocalKey] boolValue] || [values[NSURLVolumeIsReadOnlyKey] boolValue] || [values[NSURLVolumeIsInternalKey] boolValue]) {
+				continue;
+			}
+		}
+		
+		if ([self.URL isEqualTo:url]) {
+			index = volumeList.count;
+		}
+		
+		NSDictionary *volume = @{@"image": values[NSURLEffectiveIconKey],
+				   @"name": values[NSURLVolumeNameKey],
+				   @"UUID": values[NSURLVolumeUUIDStringKey],
+				   @"url": url};
+		
+		[volumeList addObject:volume];
+	}
+	
+	self.volumes = volumeList;
+	if (index != NSNotFound) {
+		self.selectedVolumeIndexes = [NSIndexSet indexSetWithIndex:index];
+	}
+}
 
 
 
