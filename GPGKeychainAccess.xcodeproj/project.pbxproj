@@ -46,6 +46,7 @@
 		3056FA57189432D90089C960 /* MainMenu.xib.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3052E31E144B07D200D6716A /* MainMenu.xib.strings */; };
 		3056FA58189432D90089C960 /* ModalSheets.xib.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3052E322144B07D200D6716A /* ModalSheets.xib.strings */; };
 		3056FA59189432D90089C960 /* Preferences.xib.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3052E326144B07D200D6716A /* Preferences.xib.strings */; };
+		3058A61D19D5B65D008568EA /* PLWeakCompatibilityStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */; };
 		3075AFFF18B646C100BEAA71 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 3075AFFE18B646C100BEAA71 /* Search.png */; };
 		3096C91B14D167FC00246400 /* Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 3096C91A14D167FC00246400 /* Info.png */; };
 		30AC56EC18BB71A30038F224 /* Redo.png in Resources */ = {isa = PBXBuildFile; fileRef = 30AC56EB18BB71A30038F224 /* Redo.png */; };
@@ -253,6 +254,8 @@
 		3052E365144B07E900D6716A /* sv */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		3052E366144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/Preferences.xib; sourceTree = "<group>"; };
 		3052E367144B07E900D6716A /* sv */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
+		3058A61B19D5B65D008568EA /* PLWeakCompatibilityStubs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLWeakCompatibilityStubs.h; sourceTree = "<group>"; };
+		3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLWeakCompatibilityStubs.m; sourceTree = "<group>"; };
 		3075AFFE18B646C100BEAA71 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
 		307B007F148EE19400182622 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		307B0081148EE19E00182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/ModalSheets.xib; sourceTree = "<group>"; };
@@ -429,6 +432,8 @@
 				30B29BED19116DF400FC453C /* GKScripting.m */,
 				30ECA2C8194C8AB800C1E761 /* GKAExtensions.h */,
 				30ECA2C9194C8AB800C1E761 /* GKAExtensions.m */,
+				3058A61B19D5B65D008568EA /* PLWeakCompatibilityStubs.h */,
+				3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */,
 			);
 			name = Classes;
 			path = Source;
@@ -696,6 +701,7 @@
 				3047D38E18B7C626001D9334 /* GKMenuButton.m in Sources */,
 				3052E173144B021D00D6716A /* ActionController.m in Sources */,
 				3052E174144B021D00D6716A /* AppDelegate.m in Sources */,
+				3058A61D19D5B65D008568EA /* PLWeakCompatibilityStubs.m in Sources */,
 				3052E175144B021D00D6716A /* Globales.m in Sources */,
 				3052E177144B021D00D6716A /* KeychainController.m in Sources */,
 				3052E178144B021D00D6716A /* main.m in Sources */,
@@ -1024,7 +1030,11 @@
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks /Library/Frameworks";
 				LOCALIZE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-fobjc-runtime-has-weak",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1050,7 +1060,11 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks /Library/Frameworks";
 				LLVM_LTO = YES;
 				LOCALIZE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-fobjc-runtime-has-weak",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1107,7 +1121,11 @@
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks /Library/Frameworks";
 				LOCALIZE = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-Xclang",
+					"-fobjc-runtime-has-weak",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
