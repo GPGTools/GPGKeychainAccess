@@ -127,6 +127,13 @@ RevokeLastSelfSignature_Msg = "Está a punto de revocar la última auto-firma de
 RevokeLastSelfSignature_Yes = "Revocar firma";
 RevokeLastSelfSignature_No = "Cancelar";
 
+RevokeKey_Title = "Warning! You are about to revoke a key.";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Yes = "Revoke Key";
+RevokeKey_No = "Cancelar";
+
+
+
 /* Delete warnings */
 DeleteKey_Title = "Borrar clave pública";
 DeleteKey_Msg = "Está a punto de borrar la clave pública de %@.\n\nEstá seguro de que desea borrar esta clave pública?";
@@ -188,7 +195,7 @@ ImportResult_CountUnchanged = "Recuento de las claves sin cambios​​: %i";
 
 /* Errors */
 ImportKeyError_Title = "¡Fallo al importar una o más claves!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "A menudo las claves no pueden importarse debido a una auto-firma ausente. Por favor visite http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signature para más detalles sobre cómo resolver este problema y pasos a seguir.";
 ImportKeyErrorPGP_Title = "¡Fallo al importar!";
 ImportKeyErrorPGP_Msg = "Parece que está intentando importar un mensaje cifrafo o firmado. Para descifrar o verificar tales mensajes por favor use GPGServices.";
 ImportKeyErrorNoPGP_Title = "¡Fallo al importar!";
@@ -260,8 +267,8 @@ SetDisabled_Progress = "Activación/desactivación de clave.";
 SetDisabled_Error = "Activación/desactivación de clave falló.";
 SetOwnerTrust_Progress = "Configuración de fideicomiso del propietario.";
 SetOwnerTrust_Error = "Configuración de fideicomiso del propietario falló.";
-ChangeExpirationDate_Progress = "Changing expiration date.";
-ChangeExpirationDate_Error = "Changing expiration date failed.";
+ChangeExpirationDate_Progress = "Cambiando fecha de expiración.";
+ChangeExpirationDate_Error = "Fallo cambiando la fecha de expiración.";
 SetAlgorithmPreferences_Progress = "Configuración de las preferencias del algoritmo.";
 SetAlgorithmPreferences_Error = "Configuración de las preferencias del algoritmo falló.";
 CleanKey_Progress = "Limpieza clave.";
@@ -306,4 +313,7 @@ RevokeSignature_Progress = "Revocación de la firma.";
 RevokeSignature_Error = "Revocación de la firma falló.";
 ReceiveKeysFromServer_Progress = "Recepción de claves.";
 ReceiveKeysFromServer_Error = "Recepción de claves falló.";
+RevokeKey_Progress = "Revoking key.";
+RevokeKey_Error = "Revoking key failed.";
+
 

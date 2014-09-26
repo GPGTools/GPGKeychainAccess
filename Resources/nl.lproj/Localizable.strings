@@ -127,6 +127,13 @@ RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature o
 RevokeLastSelfSignature_Yes = "Revoke Signature";
 RevokeLastSelfSignature_No = "Annuleer";
 
+RevokeKey_Title = "Warning! You are about to revoke a key.";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Yes = "Revoke Key";
+RevokeKey_No = "Annuleer";
+
+
+
 /* Delete warnings */
 DeleteKey_Title = "Delete public key";
 DeleteKey_Msg = "You are about to delete the public key of %@.\n\nAre you sure you want to delete this public key?";
@@ -260,7 +267,7 @@ SetDisabled_Progress = "Inschakelen/Uitschakelen van sleutel.";
 SetDisabled_Error = "Het Inschakelen/Uitschakelen van sleutel is mislukt.";
 SetOwnerTrust_Progress = "Bezig met het zetten van de \"owner trust\".";
 SetOwnerTrust_Error = "Het zetten van de \"owner trust\" is mislukt.";
-ChangeExpirationDate_Progress = "Changing expiration date.";
+ChangeExpirationDate_Progress = "Bezig met veranderen van de vervaldatum.";
 ChangeExpirationDate_Error = "Changing expiration date failed.";
 SetAlgorithmPreferences_Progress = "Bezig met het toepassen van de algoritme voorkeuren.";
 SetAlgorithmPreferences_Error = "Het zetten van de algoritme voorkeuren is mislukt.";
@@ -306,4 +313,7 @@ RevokeSignature_Progress = "Bezig met terugtrekken handtekening.";
 RevokeSignature_Error = "Het terugtrekken van de handtekening is mislukt.";
 ReceiveKeysFromServer_Progress = "Bezig met ontvangen van sleutels.";
 ReceiveKeysFromServer_Error = "Het ontvangen van de sleutels is mislukt.";
+RevokeKey_Progress = "Revoking key.";
+RevokeKey_Error = "Revoking key failed.";
+
 

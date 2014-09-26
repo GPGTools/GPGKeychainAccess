@@ -43,15 +43,15 @@ CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too lo
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Осуществляется поиск на серверах. Это может занять некоторое время. Пожалуйста подождите.";
 
-GenerateKey_Progress = "We need to generate a lot of random bytes. It is a good idea to perform some other action (type on the keyboard in an application, move the mouse, utilize the disks) during the prime generation. This gives the random number generator a better chance to gain enough entropy.";
+GenerateKey_Progress = "Необходимо сгенерировать много случайных чисел. Желательно, что бы Вы выполняли некоторые другие действия (печать на клавиатуре, движения мыши, обращения к дискам) в процессе генерации. Это даст генератору случайных чисел возможность получить лучшую энтропию.";
 GenerateSubkey_Msg = "Добавить subkey ключу \"%@\", %@.";
 GenerateUserID_Msg = "Добавить ID пользователя ключу \"%@\", %@.";
-GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
-GenerateUidSignature_Msg = "Signing a UserID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following UserID:\n%@";
+GenerateSignature_Msg = "Подписывая ключ, вы подтверждаете, что данные о его владельце верны.\nБудучи загруженной на сервер, подпись будет видна всем пользователям.\nТак, если вы подписали ключ Пети, то ваша знакомая Катя, доверяя вашей подписи, сможет быть уверена, что ключ действительно принадлежит Пете.\n\nВы собираетесь подписать следующий ключ:\n%@";
+GenerateUidSignature_Msg = "Подписывая идентификатор пользователя, вы подтверждаете, что данные о владельце ключа верны.\nБудучи загруженной на сервер, подпись будет видна всем пользователям.\nТак, если вы подписали ключ Пети, то ваша знакомая Катя, доверяя вашей подписи, сможет быть уверена, что ключ действительно принадлежит Пете.\n\nВы собираетесь подписать следующий идентификатор:\n%@";
 ChangeExpirationDate_Msg = "Изменить срок годности \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Изменить срок годности \"%@\", %@\nSubkey: %@";
 
-GenerateKey_Error = "Ups, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "Ой, что-то пошло не так. Возникла проблема при создании ключа.";
 
 /* Message for incorrect Entries */
 CheckError_NameToShort = "Имя должно быть длиннее 5 символов";
@@ -59,7 +59,7 @@ CheckError_NameToLong = "Слишком длинное имя!";
 CheckError_InvalidCharInName = "Недопустимый знак в имени!\n\"<\" и \">\" не допустимы.";
 CheckError_NameStartWithDigit = "Имя не может начинаться с цифры!";
 CheckError_InvalidEmail = "Недопустимый адрес email!";
-CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
+CheckError_EmailToLong = "Адрес Email слишком длинный!\nМаксимальная длина 254.";
 CheckError_InvalidCharInComment = "Недопустимый знак в комментарии!\n\"(\" и \")\" недопустимы.";
 CheckError_CommentToLong = "Комментарий слишком длинный!";
 CheckError_NoKeyID = "Введите правильный ID ключа!";
@@ -67,10 +67,10 @@ CheckError_PassphraseMissmatch = "Пароли не совпадают!";
 
 
 /* Message on start, if there are any Problems */
-GPG_NOT_FOUND_TITLE = "GPG Not Found";
-GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong here. It seems GPG is missing on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
-GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.\n\nDetails: %@";
+GPG_NOT_FOUND_TITLE = "GPG не найден";
+GPG_NOT_FOUND_MESSAGE = "Ой, что-то пошло совсем не так. Похоже, GPG отсутствует в вашей системе. Пожалуйста, сначала установите его. GPG может быть найден, например, в составе GPGTools  на сайте https://www.gpgtools.org.";
+GPG_CONFIG_ERROR_TITLE = "Ошибка настройки GPG";
+GPG_CONFIG_ERROR_MESSAGE = "Ой, что-то пошло не так. GPG найден, но найден проблема в файле настроек. Пожалуйста, свяжитесь с нами на сайте http://support.gpgtools.org.\n\nСведения: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
@@ -83,7 +83,7 @@ No = "Нет";
 Error = "Ошибка";
 Warning = "Предупреждение";
 Cancel = "Отмена";
-"Apply to all" = "Apply to all";
+"Apply to all" = "Применить ко всем";
 
 
 /* Warnings */
@@ -127,8 +127,15 @@ RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature o
 RevokeLastSelfSignature_Yes = "Revoke Signature";
 RevokeLastSelfSignature_No = "Отмена";
 
+RevokeKey_Title = "Warning! You are about to revoke a key.";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Yes = "Revoke Key";
+RevokeKey_No = "Отмена";
+
+
+
 /* Delete warnings */
-DeleteKey_Title = "Delete public key";
+DeleteKey_Title = "Удалить публичный ключ";
 DeleteKey_Msg = "You are about to delete the public key of %@.\n\nAre you sure you want to delete this public key?";
 DeleteKey_Yes = "Удалить ключ";
 DeleteKey_No = "Отмена";
@@ -180,8 +187,8 @@ ImportResult_UserID = "key %@: \"%@\" new user ID(s).";
 ImportResult_Signature = "key %@: \"%@\" new signature(s).";
 ImportResult_Subkey = "key %@: \"%@\" new subkey(s).";
 ImportResult_KeyNoChanges = "key %@: \"%@\" no changes.";
-ImportResult_OneRevocationCertificate = "1 revocation certificate imported.";
-ImportResult_CountRevocationCertificate = "%i revocation certificates imported.";
+ImportResult_OneRevocationCertificate = "1 сертификат отзыва ключа импортирован.";
+ImportResult_CountRevocationCertificate = "%i сертификатов отзыва импортировано.";
 ImportResult_CountProcessed = "Count of processed keys: %i";
 ImportResult_CountImported = "Count of imported keys: %i";
 ImportResult_CountUnchanged = "Count of unchanged keys: %i";
@@ -306,4 +313,7 @@ RevokeSignature_Progress = "Revoking signature.";
 RevokeSignature_Error = "Revoking signature failed.";
 ReceiveKeysFromServer_Progress = "Receiving keys.";
 ReceiveKeysFromServer_Error = "Receiving keys failed.";
+RevokeKey_Progress = "Revoking key.";
+RevokeKey_Error = "Revoking key failed.";
+
 

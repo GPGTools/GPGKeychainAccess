@@ -127,6 +127,13 @@ RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature o
 RevokeLastSelfSignature_Yes = "Unieważnij Podpis";
 RevokeLastSelfSignature_No = "Anuluj";
 
+RevokeKey_Title = "Warning! You are about to revoke a key.";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Yes = "Revoke Key";
+RevokeKey_No = "Anuluj";
+
+
+
 /* Delete warnings */
 DeleteKey_Title = "Usuń klucz publiczny";
 DeleteKey_Msg = "Zamierzasz usunąć klucz publiczny z %@.\n\nCzy jesteś pewny, że chcesz usunąć ten publiczny klucz?";
@@ -188,7 +195,7 @@ ImportResult_CountUnchanged = "Ilość niezmienionych kluczy: %i";
 
 /* Errors */
 ImportKeyError_Title = "Nie udało się importować jednego lub więcej kluczy!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Często klucze nie mogą być zaimportowane z powodu braku własnego podpisu. Proszę odwiedź http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signature po więcej szczegółów i kroków w rozwiązaniu tego problemu.";
 ImportKeyErrorPGP_Title = "Importowanie nieudane!";
 ImportKeyErrorPGP_Msg = "Wygląda na to, że próbujesz importować zaszyfrowaną lub podpisą wiadomość. Aby odszyfrować lub zweryfikować takie wiadomości skorzystaj z GPGServices.";
 ImportKeyErrorNoPGP_Title = "Importowanie nieudane!";
@@ -260,8 +267,8 @@ SetDisabled_Progress = "Włączenie/Wyłączenie klucza.";
 SetDisabled_Error = "Włączenie/Wyłączenie klucza nieudane.";
 SetOwnerTrust_Progress = "Ustawienie zaufania właściciela.";
 SetOwnerTrust_Error = "Ustawienie zaufania właściciela nieudane.";
-ChangeExpirationDate_Progress = "Changing expiration date.";
-ChangeExpirationDate_Error = "Changing expiration date failed.";
+ChangeExpirationDate_Progress = "Zmiana daty wygaśnięcia.";
+ChangeExpirationDate_Error = "Zmiana daty wygaśnięcia nieudana.";
 SetAlgorithmPreferences_Progress = "Ustawienia właściwości algorytmu.";
 SetAlgorithmPreferences_Error = "Ustawienia właściwości algorytmu nieudane.";
 CleanKey_Progress = "Czyszczenie klucza.";
@@ -306,4 +313,7 @@ RevokeSignature_Progress = "Unieważnienie podpisu.";
 RevokeSignature_Error = "Unieważnienie podpisu nieudane.";
 ReceiveKeysFromServer_Progress = "Otrzymywanie kluczy.";
 ReceiveKeysFromServer_Error = "Nieudane otrzymywanie kluczy.";
+RevokeKey_Progress = "Revoking key.";
+RevokeKey_Error = "Revoking key failed.";
+
 

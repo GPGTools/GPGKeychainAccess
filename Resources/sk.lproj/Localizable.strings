@@ -127,6 +127,13 @@ RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature o
 RevokeLastSelfSignature_Yes = "Revoke Signature";
 RevokeLastSelfSignature_No = "Zrušiť";
 
+RevokeKey_Title = "Warning! You are about to revoke a key.";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Yes = "Revoke Key";
+RevokeKey_No = "Zrušiť";
+
+
+
 /* Delete warnings */
 DeleteKey_Title = "Delete public key";
 DeleteKey_Msg = "You are about to delete the public key of %@.\n\nAre you sure you want to delete this public key?";
@@ -260,7 +267,7 @@ SetDisabled_Progress = "Povolujem/Zakazujem kľúč.";
 SetDisabled_Error = "Povolenie/Zakázanie kľúča zlyhalo.";
 SetOwnerTrust_Progress = "Nastavujem dôveru vlastníka.";
 SetOwnerTrust_Error = "Nastavenie dôvery vlastníka zlyhalo.";
-ChangeExpirationDate_Progress = "Changing expiration date.";
+ChangeExpirationDate_Progress = "Mením platnosť kľúča.";
 ChangeExpirationDate_Error = "Changing expiration date failed.";
 SetAlgorithmPreferences_Progress = "Aplikujem nastavenia algoritmu.";
 SetAlgorithmPreferences_Error = "Nastavenie algoritmu zlyhalo.";
@@ -306,4 +313,7 @@ RevokeSignature_Progress = "Zneplatňujem podpis.";
 RevokeSignature_Error = "Zneplatňovanie podpisu zlyhalo.";
 ReceiveKeysFromServer_Progress = "Prijímam kľúče.";
 ReceiveKeysFromServer_Error = "Prijímanie kľúčov zlyhalo.";
+RevokeKey_Progress = "Revoking key.";
+RevokeKey_Error = "Revoking key failed.";
+
 

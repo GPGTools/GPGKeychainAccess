@@ -127,6 +127,13 @@ RevokeLastSelfSignature_Msg = "Du kommer att återkalla den sista egen-signature
 RevokeLastSelfSignature_Yes = "Återkalla signatur";
 RevokeLastSelfSignature_No = "Avbryt";
 
+RevokeKey_Title = "Warning! You are about to revoke a key.";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Yes = "Revoke Key";
+RevokeKey_No = "Avbryt";
+
+
+
 /* Delete warnings */
 DeleteKey_Title = "Radera publik nyckel";
 DeleteKey_Msg = "Du kommer att radera den publika nyckeln %@.\n\nÄr du säker på att du vill radera denna publika nyckel?";
@@ -188,7 +195,7 @@ ImportResult_CountUnchanged = "Antal oförändrade nycklar. %i";
 
 /* Errors */
 ImportKeyError_Title = "Det gick inte att importera en eller flera nycklar!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Ofta kan nycklar inte importeras eftersom en egen-signatur saknas. Besök http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signature för mer information och steg för hur man löser detta problem.";
 ImportKeyErrorPGP_Title = "Import misslyckades!";
 ImportKeyErrorPGP_Msg = "Det verkar som att du försöker importera ett krypterat ett signerat meddelande. Använd GPGServices för att dekryptera eller verifiera sådana meddelanden.";
 ImportKeyErrorNoPGP_Title = "Import misslyckades!";
@@ -260,8 +267,8 @@ SetDisabled_Progress = "Aktiverar/Avaktiverar nyckel.";
 SetDisabled_Error = "Det gick inte att aktivera/avaktivera nyckel.";
 SetOwnerTrust_Progress = "Ställer in ägarens förtroendenivå.";
 SetOwnerTrust_Error = "Det gick inte att ställa in ägarens förtroendenivå.";
-ChangeExpirationDate_Progress = "Changing expiration date.";
-ChangeExpirationDate_Error = "Changing expiration date failed.";
+ChangeExpirationDate_Progress = "Ändrar utgångsdatum.";
+ChangeExpirationDate_Error = "Det gick inte att ändra utgångsdatum.";
 SetAlgorithmPreferences_Progress = "Ställer in algoritminställningar.";
 SetAlgorithmPreferences_Error = "Det gick inte att ställa in algoritm.";
 CleanKey_Progress = "Rensar nyckel.";
@@ -306,4 +313,7 @@ RevokeSignature_Progress = "Återkallar signatur.";
 RevokeSignature_Error = "Det gick inte att återkalla signatur.";
 ReceiveKeysFromServer_Progress = "Tar emot nycklar.";
 ReceiveKeysFromServer_Error = "Det gick inte att ta emot nycklar.";
+RevokeKey_Progress = "Revoking key.";
+RevokeKey_Error = "Revoking key failed.";
+
 

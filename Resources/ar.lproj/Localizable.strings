@@ -127,6 +127,13 @@ RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature o
 RevokeLastSelfSignature_Yes = "Revoke Signature";
 RevokeLastSelfSignature_No = "إلغاء";
 
+RevokeKey_Title = "Warning! You are about to revoke a key.";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Yes = "Revoke Key";
+RevokeKey_No = "إلغاء";
+
+
+
 /* Delete warnings */
 DeleteKey_Title = "حذف المفتاح العمومي";
 DeleteKey_Msg = "You are about to delete the public key of %@.\n\nAre you sure you want to delete this public key?";
@@ -306,4 +313,7 @@ RevokeSignature_Progress = "Revoking signature.";
 RevokeSignature_Error = "Revoking signature failed.";
 ReceiveKeysFromServer_Progress = "Receiving keys.";
 ReceiveKeysFromServer_Error = "Receiving keys failed.";
+RevokeKey_Progress = "Revoking key.";
+RevokeKey_Error = "Revoking key failed.";
+
 
