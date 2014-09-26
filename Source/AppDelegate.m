@@ -170,16 +170,17 @@
 	NSString *pboardType = [pboard availableTypeFromArray:[NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil]];
 	
 	if ([pboardType isEqualToString:NSFilenamesPboardType]) {
-		NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
+		/*NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
 		for (NSString *fileName in fileNames) {
 			
 			//TODO: Check if any key to import are available.
 			
-			/*NSString *extension = [fileName pathExtension];
-			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"] || [extension isEqualToString:@"gpg"]) {*/
+			NSString *extension = [fileName pathExtension];
+			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"] || [extension isEqualToString:@"gpg"]) {
 			return NSDragOperationCopy;
-			/*}*/
-		}
+			}
+		}*/
+		return NSDragOperationCopy;
 	} else if ([pboardType isEqualToString:NSStringPboardType]) {
 		NSString *string = [pboard stringForType:NSStringPboardType];
 		if (couldContainPGPKey(string)) {
@@ -229,7 +230,7 @@
 - (void)generateContextMenuForTable:(NSTableView *)table {
 	NSMenuItem *menuItem;
 	NSString *title;
-	NSMenu *contextMenu = [[[NSMenu alloc] initWithTitle:@""] autorelease];
+	NSMenu *contextMenu = [[NSMenu alloc] initWithTitle:@""];
 	[[table headerView] setMenu:contextMenu];
 	
 	NSArray *columns = [table tableColumns];

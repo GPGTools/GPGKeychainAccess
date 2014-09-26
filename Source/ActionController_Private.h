@@ -22,15 +22,15 @@
 
 @interface ActionController ()
 
-@property (assign) IBOutlet NSTreeController *keysController;
-@property (assign) IBOutlet NSArrayController *signaturesController;
-@property (assign) IBOutlet NSArrayController *subkeysController;
-@property (assign) IBOutlet NSArrayController *userIDsController;
-@property (assign) IBOutlet NSArrayController *photosController;
-@property (assign) IBOutlet NSOutlineView *keyTable;
-@property (assign) IBOutlet NSTableView *signaturesTable;
-@property (assign) IBOutlet NSTableView *userIDsTable;
-@property (assign) IBOutlet NSTableView *subkeysTable;
+@property (weak) IBOutlet NSTreeController *keysController;
+@property (weak) IBOutlet NSArrayController *signaturesController;
+@property (weak) IBOutlet NSArrayController *subkeysController;
+@property (weak) IBOutlet NSArrayController *userIDsController;
+@property (weak) IBOutlet NSArrayController *photosController;
+@property (weak) IBOutlet NSOutlineView *keyTable;
+@property (weak) IBOutlet NSTableView *signaturesTable;
+@property (weak) IBOutlet NSTableView *userIDsTable;
+@property (weak) IBOutlet NSTableView *subkeysTable;
 
 @property (strong) NSString *progressText, *errorText;
 @property (strong, readonly) NSUndoManager *undoManager;

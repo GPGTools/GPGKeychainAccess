@@ -96,18 +96,18 @@
 	[self importFromURLs:sheetController.URLs];
 }
 - (void)importFromURLs:(NSArray *)urls {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSMutableData *dataToImport = [NSMutableData data];
-	
-	for (NSObject *url in urls) {
-		if ([url isKindOfClass:[NSURL class]]) {
-			[dataToImport appendData:[NSData dataWithContentsOfURL:(NSURL *)url]];
-		} else if ([url isKindOfClass:[NSString class]]) {
-			[dataToImport appendData:[NSData dataWithContentsOfFile:(NSString *)url]];
+	@autoreleasepool {
+		NSMutableData *dataToImport = [NSMutableData data];
+		
+		for (NSObject *url in urls) {
+			if ([url isKindOfClass:[NSURL class]]) {
+				[dataToImport appendData:[NSData dataWithContentsOfURL:(NSURL *)url]];
+			} else if ([url isKindOfClass:[NSString class]]) {
+				[dataToImport appendData:[NSData dataWithContentsOfFile:(NSString *)url]];
+			}
 		}
+		[self importFromData:dataToImport];
 	}
-	[self importFromData:dataToImport];
-	[pool drain];
 }
 - (void)importFromData:(NSData *)data {
 	__block BOOL containsRevSig = NO;
@@ -244,7 +244,7 @@
 	}
 	
 	NSString *templateString = [NSTemporaryDirectory() stringByAppendingPathComponent:@"GKA.XXXXXX"];
-	NSMutableData *template = [[[templateString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy] autorelease];
+	NSMutableData *template = [[templateString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
 
 	char *tempDir = [template mutableBytes];
 	if (!mkdtemp(tempDir)) {
@@ -512,7 +512,6 @@
 	for (NSDictionary *prefs in algorithmPreferences) {
 		NSMutableDictionary *tempPrefs = [prefs mutableCopy];
 		[mutablePreferences addObject:tempPrefs];
-		[tempPrefs release];
 	}
 	
 	
@@ -1152,7 +1151,7 @@
 		undoManager = [NSUndoManager new];
 		[undoManager setLevelsOfUndo:50];
 	}
-	return [[undoManager retain] autorelease];
+	return undoManager;
 }
 
 - (NSSet *)selectedKeys {
@@ -1333,7 +1332,7 @@
 	}
 	
 	
-	for (GPGKey *key in keys) {
+	for (__strong GPGKey *key in keys) {
 		NSString *description;
 		if (![key isKindOfClass:gpgKeyClass]) {
 			GPGKeyManager *keyManager = [GPGKeyManager sharedInstance];
@@ -1370,7 +1369,7 @@
 	
 	va_list args;
 	va_start(args, string);
-	message = [[[NSString alloc] initWithFormat:message arguments:args] autorelease];
+	message = [[NSString alloc] initWithFormat:message arguments:args];
 	va_end(args);
 	
 	returnCode = [sheetController alertSheetForWindow:mainWindow
@@ -1630,33 +1629,23 @@
 		initialized = YES;
 		self = [super init];
 		
-		gpgc = [[GPGController gpgController] retain];
+		gpgc = [GPGController gpgController];
 		gpgc.delegate = self;
 		gpgc.undoManager = self.undoManager;
 		gpgc.printVersion = YES;
 		gpgc.async = YES;
 		gpgc.keyserverTimeout = 20;
-		sheetController = [[SheetController sharedInstance] retain];
+		sheetController = [SheetController sharedInstance];
 	}
 	return self;
 }
 + (id)allocWithZone:(NSZone *)zone {
-    return [[self sharedInstance] retain];
+    return [self sharedInstance];
 }
 - (id)copyWithZone:(NSZone *)zone {
     return self;
 }
-- (id)retain {
-    return self;
-}
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;
-}
-- (oneway void)release {
-}
-- (id)autorelease {
-    return self;
-}
+
 
 
 @end

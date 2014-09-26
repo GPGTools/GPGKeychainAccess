@@ -35,9 +35,9 @@ NSSet *draggedKeys;
 - (NSSet *)secretKeys {
 	if (!secretKeys) {
 		NSPredicate *secrectKeyPredicate = [NSPredicate predicateWithFormat:@"secret==YES"];
-		secretKeys = [[self.allKeys filteredSetUsingPredicate:secrectKeyPredicate] retain];
+		secretKeys = [self.allKeys filteredSetUsingPredicate:secrectKeyPredicate];
 	}
-	return [[secretKeys retain] autorelease];
+	return secretKeys;
 }
 
 - (GPGKey *)defaultKey {
@@ -60,7 +60,7 @@ NSSet *draggedKeys;
 
 
 - (NSArray *)selectionIndexPaths {
-	return [[_selectionIndexPaths retain] autorelease];
+	return _selectionIndexPaths;
 }
 - (void)setSelectionIndexPaths:(NSArray *)value {
 	if (!userChangingSelection && _selectionIndexPaths.count > 0) {
@@ -74,9 +74,7 @@ NSSet *draggedKeys;
 	}
 	userChangingSelection = NO;
 	if (_selectionIndexPaths != value) {
-		id old = _selectionIndexPaths;
-		_selectionIndexPaths = [value retain];
-		[old release];
+		_selectionIndexPaths = value;
 		
 		[self fetchDetailsForSelectedKey];
 	}
@@ -208,13 +206,11 @@ NSSet *draggedKeys;
 	}];
 	
 	
-	NSArray *old = filteredKeyList;
-	filteredKeyList = [[filteredKeys allObjects] retain];
-	[old release];
+	filteredKeyList = [filteredKeys allObjects];
 	
 	[numberOfKeysLabel setStringValue:[NSString stringWithFormat:localized(@"%i of %i keys listed"), filteredKeyList.count, self.allKeys.count]];
 	
-	return [[filteredKeyList retain] autorelease];
+	return filteredKeyList;
 }
 
 + (NSSet*)keyPathsForValuesAffectingFilteredKeyList {
@@ -290,20 +286,9 @@ NSSet *draggedKeys;
 	return self;
 }
 + (id)allocWithZone:(NSZone *)zone {
-    return [[self sharedInstance] retain];	
+    return [self sharedInstance];	
 }
 - (id)copyWithZone:(NSZone *)zone {
-    return self;
-}
-- (id)retain {
-    return self;
-}
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;
-}
-- (oneway void)release {
-}
-- (id)autorelease {
     return self;
 }
 

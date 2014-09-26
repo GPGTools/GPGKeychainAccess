@@ -30,18 +30,18 @@
 	NSView *view;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSWindow *window;
 
-@property (readonly) GPGOptions *options;
+@property (weak, readonly) GPGOptions *options;
 
 // Get a list of keyservers from GPGOptions
-@property (readonly) NSArray *keyservers;
+@property (weak, readonly) NSArray *keyservers;
 
 // To set keyserver and also coordinate auto-key-locate
-@property (assign) NSString *keyserver;
+@property (weak) NSString *keyserver;
 
 
-@property (readonly) NSString *secringPath;
+@property (weak, readonly) NSString *secringPath;
 
 
 + (id)sharedInstance;

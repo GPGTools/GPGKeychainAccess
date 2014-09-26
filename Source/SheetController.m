@@ -15,7 +15,7 @@
  
  Sie sollten ein Exemplar der GNU General Public License zusammen mit diesem
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
-*/
+ */
 
 #import "SheetController.h"
 #import <AddressBook/AddressBook.h>
@@ -26,8 +26,8 @@
 
 
 @interface SheetController ()
-@property NSView *displayedView;
-@property NSWindow *modalWindow;
+@property (weak) NSView *displayedView;
+@property (weak) NSWindow *modalWindow;
 @property (strong) NSArray *foundKeyDicts;
 @property (strong) NSArray *URLs;
 @property (nonatomic, strong) NSArray *volumes;
@@ -55,11 +55,11 @@
 
 @implementation SheetController
 @synthesize name, email, comment, passphrase, confirmPassphrase, pattern, title,
-	hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload,
-	expirationDate, minExpirationDate, maxExpirationDate,
-	algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
-	sigType, length, sheetType, URL, URLs,
-	modalWindow, foundKeyDicts, hideExtension;
+hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload,
+expirationDate, minExpirationDate, maxExpirationDate,
+algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
+sigType, length, sheetType, URL, URLs,
+modalWindow, foundKeyDicts, hideExtension;
 
 
 
@@ -79,14 +79,12 @@
 		value = @"";
 	}
 	if (value != progressText) {
-		NSString *old = progressText;
-		progressText = [value retain];
-		[old release];
+		progressText = value;
 		
 		
 		// Resize the progress text-field to fit the text.
 		NSDictionary *attributes = @{NSFontAttributeName: [NSFont labelFontOfSize:14]};
-		NSAttributedString *aString = [[[NSAttributedString alloc] initWithString:value attributes:attributes] autorelease];
+		NSAttributedString *aString = [[NSAttributedString alloc] initWithString:value attributes:attributes];
 		
 		NSRect fieldFrame = progressTextField.frame;
 		NSRect superFrame = progressView.frame;
@@ -121,7 +119,7 @@
 	}
 }
 - (NSString *)progressText {
-	return [[progressText retain] autorelease];
+	return progressText;
 }
 
 - (void)setMsgText:(NSString *)value {
@@ -129,14 +127,12 @@
 		value = @"";
 	}
 	if (value != msgText) {
-		NSString *old = msgText;
-		msgText = [value retain];
-		[old release];
+		msgText = value;
 		
 		
 		// Resize all message text-fields to fit the message.
 		NSDictionary *attributes = @{NSFontAttributeName: [NSFont labelFontOfSize:13]};
-		NSAttributedString *aString = [[[NSAttributedString alloc] initWithString:value attributes:attributes] autorelease];
+		NSAttributedString *aString = [[NSAttributedString alloc] initWithString:value attributes:attributes];
 		
 		for (NSTextField *field in msgTextFields) {
 			NSView *superview = field.superview;
@@ -157,7 +153,7 @@
 	}
 }
 - (NSString *)msgText {
-	return [[msgText retain] autorelease];
+	return msgText;
 }
 
 
@@ -202,7 +198,7 @@
 			break;
 		case SheetTypeExpirationDate:
 			[self setStandardExpirationDates];
-
+			
 			self.displayedView = changeExpirationDateView;
 			break;
 		case SheetTypeAddUserID:
@@ -216,7 +212,7 @@
 			self.keyType = 6;
 			self.expirationDate = nil;
 			[self setStandardExpirationDates];
-
+			
 			self.displayedView = generateSubkeyView;
 			break;
 		case SheetTypeAddSignature:
@@ -280,7 +276,7 @@
 		return returnValue;
 	}
 	
-	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	NSAlert *alert = [[NSAlert alloc] init];
 	if (messageText) {
 		[alert setMessageText:messageText];
 	}
@@ -318,7 +314,7 @@
 	if (alert.suppressionButton.state == NSOnState) {
 		clickedButton = clickedButton | SheetSuppressionButton;
 	}
-
+	
 	
 	return clickedButton;
 }
@@ -437,8 +433,8 @@
 						NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NoKeyID"), nil, nil, nil);
 						return;
 					}
-
-					break; 
+					
+					break;
 				}
 				case SheetTypeShowFoundKeys: {
 					NSMutableArray *selectedKeys = [NSMutableArray arrayWithCapacity:[keys count]];
@@ -528,11 +524,11 @@
 - (void)generateFoundKeyDicts {
 	NSMutableArray *dicts = [NSMutableArray arrayWithCapacity:[keys count]];
 	
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 	
-	GPGKeyAlgorithmNameTransformer *algorithmNameTransformer = [[GPGKeyAlgorithmNameTransformer new] autorelease];
+	GPGKeyAlgorithmNameTransformer *algorithmNameTransformer = [GPGKeyAlgorithmNameTransformer new];
 	BOOL oneKeySelected = NO;
 	
 	for (GPGRemoteKey *key in keys) {
@@ -549,16 +545,16 @@
 			stringAttributes = nil;
 		}
 		
-		NSString *tempDescription = [NSString stringWithFormat:localized(@"FOUND_KEY_DESCRIPTION_FORMAT"), 
+		NSString *tempDescription = [NSString stringWithFormat:localized(@"FOUND_KEY_DESCRIPTION_FORMAT"),
 									 key.keyID, //Schlüssel ID
 									 [algorithmNameTransformer transformedIntegerValue:key.algorithm], //Algorithmus
 									 key.length, //Länge
 									 [dateFormatter stringFromDate:key.creationDate]]; //Erstellt
 		
-		description = [[[NSMutableAttributedString alloc] initWithString:tempDescription attributes:stringAttributes] autorelease];
+		description = [[NSMutableAttributedString alloc] initWithString:tempDescription attributes:stringAttributes];
 		
 		for (GPGRemoteUserID *userID in key.userIDs) {
-			[description appendAttributedString:[[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n	%@", userID.userIDDescription]] autorelease]];
+			[description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n	%@", userID.userIDDescription]]];
 		}
 		
 		[dicts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:description, @"description", selected, @"selected", [NSNumber numberWithUnsignedInteger:[key.userIDs count] + 1], @"lines", key, @"key", nil]];
@@ -570,9 +566,9 @@
 - (void)setStandardExpirationDates {
 	//Setzt minExpirationDate einen Tag in die Zukunft.
 	//Setzt maxExpirationDate 500 Jahre in die Zukunft.
-	//Setzt expirationDate 4 Jahre in die Zukunft.	
+	//Setzt expirationDate 4 Jahre in die Zukunft.
 	
-	NSDateComponents *dateComponents = [[[NSDateComponents alloc] init] autorelease];
+	NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
 	NSCalendar *calendar = [NSCalendar currentCalendar];
 	NSDate *curDate = [NSDate date];
 	
@@ -581,57 +577,57 @@
 	[dateComponents setDay:0];
 	
 	[dateComponents setYear:500];
-	self.maxExpirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0]; 	
-
+	self.maxExpirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0];
+	
 	if (self.expirationDate) {
 		self.minExpirationDate = [self.minExpirationDate earlierDate:self.expirationDate];
 		self.maxExpirationDate = [self.maxExpirationDate laterDate:self.expirationDate];
 		self.hasExpirationDate = YES;
 	} else {
 		[dateComponents setYear:4];
-		self.expirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0]; 
+		self.expirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0];
 		self.hasExpirationDate = YES;
 	}
 }
 - (void)setDataFromAddressBook {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *userName = nil;
-	NSMutableArray *mailAddresses = [NSMutableArray array];
+	@autoreleasepool {
+		NSString *userName = nil;
+		NSMutableArray *mailAddresses = [NSMutableArray array];
 		
-	
-	// Get name and email-addresses from Mail.
-	@try {
-		NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Library/Mail/V2/MailData/Accounts.plist"];
-		NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
 		
-		NSArray *mailAccounts = [plist objectForKey:@"MailAccounts"];
-		
-		for (NSDictionary *account in mailAccounts) {
-			[mailAddresses addObjectsFromArray:[account objectForKey:@"EmailAddresses"]];
-			if (!userName) {
-				userName = [account objectForKey:@"FullUserName"];
+		// Get name and email-addresses from Mail.
+		@try {
+			NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Library/Mail/V2/MailData/Accounts.plist"];
+			NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
+			
+			NSArray *mailAccounts = [plist objectForKey:@"MailAccounts"];
+			
+			for (NSDictionary *account in mailAccounts) {
+				[mailAddresses addObjectsFromArray:[account objectForKey:@"EmailAddresses"]];
+				if (!userName) {
+					userName = [account objectForKey:@"FullUserName"];
+				}
 			}
+			
+		}
+		@catch (id e) {}
+		
+		
+		if (userName) {
+			self.name = userName;
+		} else {
+			self.name = @"";
 		}
 		
-	}
-	@catch (id e) {}
-	
-
-	if (userName) {
-		self.name = userName;
-	} else {
-		self.name = @"";
-	}
-	
-	self.emailAddresses = mailAddresses;
-	
-	if (mailAddresses.count > 0) {
-		self.email = [mailAddresses objectAtIndex:0];
-	} else {
-		self.email = @"";
-	}
+		self.emailAddresses = mailAddresses;
 		
-	[pool drain];
+		if (mailAddresses.count > 0) {
+			self.email = [mailAddresses objectAtIndex:0];
+		} else {
+			self.email = @"";
+		}
+	
+	}
 }
 
 - (void)runAndWait {
@@ -643,7 +639,7 @@
 		[NSApp runModalForWindow:sheetWindow];
 		[NSApp endSheet:sheetWindow];
 	} else {
-		[sheetWindow makeKeyAndOrderFront:self];	
+		[sheetWindow makeKeyAndOrderFront:self];
 		[NSApp runModalForWindow:sheetWindow];
 	}
 	[sheetWindow orderOut:self];
@@ -735,49 +731,51 @@
 	return YES;
 }
 - (BOOL)checkEmailMustSet:(BOOL)mustSet {
-	if (!self.email) {
-		self.email = @"";
-	}
-	
-	if (!mustSet && [self.email length] == 0) {
+	{
+		if (!self.email) {
+			self.email = @"";
+		}
+		
+		if (!mustSet && [self.email length] == 0) {
+			return YES;
+		}
+		if ([self.email length] > 254) {
+			NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_EmailToLong"), nil, nil, nil);
+			return NO;
+		}
+		if ([self.email length] < 4) {
+			goto emailIsInvalid;
+		}
+		if ([self.email hasPrefix:@"@"] || [self.email hasSuffix:@"@"] || [self.email hasSuffix:@"."]) {
+			goto emailIsInvalid;
+		}
+		NSArray *components = [self.email componentsSeparatedByString:@"@"];
+		if ([components count] != 2) {
+			goto emailIsInvalid;
+		}
+		if ([(NSString *)[components objectAtIndex:0] length] > 64) {
+			goto emailIsInvalid;
+		}
+		
+		NSMutableCharacterSet *charSet = [NSMutableCharacterSet characterSetWithRange:(NSRange){128, 65408}];
+		[charSet addCharactersInString:@"01234567890_-+@.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+		[charSet invert];
+		
+		if ([[components objectAtIndex:0] rangeOfCharacterFromSet:charSet].length != 0) {
+			goto emailIsInvalid;
+		}
+		[charSet addCharactersInString:@"+"];
+		if ([[components objectAtIndex:1] rangeOfCharacterFromSet:charSet].length != 0) {
+			goto emailIsInvalid;
+		}
+		
+		if ([self.email rangeOfString:@"@gpgtools.org"].length > 0) {
+			goto emailIsInvalid;
+		}
+		
 		return YES;
+		
 	}
-	if ([self.email length] > 254) {
-		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_EmailToLong"), nil, nil, nil);
-		return NO;
-	}
-	if ([self.email length] < 4) {
-		goto emailIsInvalid;
-	}
-	if ([self.email hasPrefix:@"@"] || [self.email hasSuffix:@"@"] || [self.email hasSuffix:@"."]) {
-		goto emailIsInvalid;
-	}
-	NSArray *components = [self.email componentsSeparatedByString:@"@"];
-	if ([components count] != 2) {
-		goto emailIsInvalid;
-	} 
-	if ([(NSString *)[components objectAtIndex:0] length] > 64) {
-		goto emailIsInvalid;
-	}
-	
-	NSMutableCharacterSet *charSet = [NSMutableCharacterSet characterSetWithRange:(NSRange){128, 65408}];
-	[charSet addCharactersInString:@"01234567890_-+@.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
-	[charSet invert];
-	
-	if ([[components objectAtIndex:0] rangeOfCharacterFromSet:charSet].length != 0) {
-		goto emailIsInvalid;
-	}
-	[charSet addCharactersInString:@"+"];
-	if ([[components objectAtIndex:1] rangeOfCharacterFromSet:charSet].length != 0) {
-		goto emailIsInvalid;
-	}
-	
-	if ([self.email rangeOfString:@"@gpgtools.org"].length > 0) {
-		goto emailIsInvalid;
-	}
-	
-	return YES;
-	
 emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist und nicht eine spezielle Meldung ausgegeben werden soll.
 	NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_InvalidEmail"), nil, nil, nil);
 	return NO;
@@ -813,17 +811,17 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	}
 	
 	if ([self.passphrase length] == 0) {
-		if (NSRunAlertPanel(localized(@"CheckAlert_NoPassphrase_Title"), 
-							localized(@"CheckAlert_NoPassphrase_Message"), 
-							localized(@"CheckAlert_NoPassphrase_Button1"), 
+		if (NSRunAlertPanel(localized(@"CheckAlert_NoPassphrase_Title"),
+							localized(@"CheckAlert_NoPassphrase_Message"),
+							localized(@"CheckAlert_NoPassphrase_Button1"),
 							localized(@"CheckAlert_NoPassphrase_Button2"), nil) != NSAlertDefaultReturn) {
 			return NO;
 		}
 	} else {
 		if ([self.passphrase length] < 8) {
-			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseShort_Title"), 
-								localized(@"CheckAlert_PassphraseShort_Message"), 
-								localized(@"CheckAlert_PassphraseShort_Button1"), 
+			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseShort_Title"),
+								localized(@"CheckAlert_PassphraseShort_Message"),
+								localized(@"CheckAlert_PassphraseShort_Button1"),
 								localized(@"CheckAlert_PassphraseShort_Button2"), nil) != NSAlertDefaultReturn) {
 				return NO;
 			}
@@ -831,9 +829,9 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		if ([self.passphrase rangeOfCharacterFromSet:[NSCharacterSet letterCharacterSet]].length == 0 ||
 			[self.passphrase rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].length == 0 ||
 			[self.passphrase rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].length == 0 ) {
-			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseSimple_Title"), 
-								localized(@"CheckAlert_PassphraseSimple_Message"), 
-								localized(@"CheckAlert_PassphraseSimple_Button1"), 
+			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseSimple_Title"),
+								localized(@"CheckAlert_PassphraseSimple_Message"),
+								localized(@"CheckAlert_PassphraseSimple_Button1"),
 								localized(@"CheckAlert_PassphraseSimple_Button2"), nil) != NSAlertDefaultReturn) {
 				return NO;
 			}
@@ -869,7 +867,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 				[self showAdvanced:NO animate:NO];
 				newKeyViewInitialized = YES;
 			}
-
+			
 			
 			if ([value nextKeyView]) {
 				[sheetWindow makeFirstResponder:[value nextKeyView]];
@@ -927,20 +925,20 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		NSString *path = [url path];
 		unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
 		if (filesize > 500 * 1024) { //Bilder über 500 KiB sind zu gross. (Meiner Meinung nach.)
-			[self alertSheetForWindow:sender 
-						  messageText:localized(@"ChoosePhoto_TooLarge_Message") 
-							 infoText:localized(@"ChoosePhoto_TooLarge_Info") 
-						defaultButton:nil 
-					  alternateButton:nil 
+			[self alertSheetForWindow:sender
+						  messageText:localized(@"ChoosePhoto_TooLarge_Message")
+							 infoText:localized(@"ChoosePhoto_TooLarge_Info")
+						defaultButton:nil
+					  alternateButton:nil
 						  otherButton:nil
 					suppressionButton:nil];
 			return NO;
 		} else if (filesize > 15 * 1024) { //Bei Bildern über 15 KiB nachfragen.
-			NSInteger retVal =  [self alertSheetForWindow:sender 
-											  messageText:localized(@"ChoosePhoto_Large_Message") 
-												 infoText:localized(@"ChoosePhoto_Large_Info") 
-											defaultButton:localized(@"ChoosePhoto_Large_Button1") 
-										  alternateButton:localized(@"ChoosePhoto_Large_Button2") 
+			NSInteger retVal =  [self alertSheetForWindow:sender
+											  messageText:localized(@"ChoosePhoto_Large_Message")
+												 infoText:localized(@"ChoosePhoto_Large_Info")
+											defaultButton:localized(@"ChoosePhoto_Large_Button1")
+										  alternateButton:localized(@"ChoosePhoto_Large_Button2")
 											  otherButton:nil
 										suppressionButton:nil];
 			if (retVal == NSAlertFirstButtonReturn) {
@@ -954,7 +952,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 
 
 // NSTokenFieldDelegate
-- (NSArray *)tokenField:(NSTokenField *)tokenField shouldAddObjects:(NSArray *)tokens atIndex:(NSUInteger)index {	
+- (NSArray *)tokenField:(NSTokenField *)tokenField shouldAddObjects:(NSArray *)tokens atIndex:(NSUInteger)index {
 	NSMutableArray *newTokens = [NSMutableArray arrayWithCapacity:[tokens count]];
 	
 	NSString *tokenPrefix;
@@ -982,28 +980,28 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 - (id)tokenField:(NSTokenField *)tokenField representedObjectForEditingString:(NSString *)editingString {
 	static NSDictionary *algorithmIdentifiers = nil;
 	if (!algorithmIdentifiers) {
-		algorithmIdentifiers = [[NSDictionary alloc] initWithObjectsAndKeys:@"S0", localized(@"CIPHER_ALGO_NONE"), 
-								@"S1", localized(@"CIPHER_ALGO_IDEA"), 
-								@"S2", localized(@"CIPHER_ALGO_3DES"), 
-								@"S3", localized(@"CIPHER_ALGO_CAST5"), 
-								@"S4", localized(@"CIPHER_ALGO_BLOWFISH"), 
-								@"S7", localized(@"CIPHER_ALGO_AES"), 
-								@"S8", localized(@"CIPHER_ALGO_AES192"), 
-								@"S9", localized(@"CIPHER_ALGO_AES256"), 
-								@"S10", localized(@"CIPHER_ALGO_TWOFISH"), 
-								@"S11", localized(@"CIPHER_ALGO_CAMELLIA128"), 
-								@"S12", localized(@"CIPHER_ALGO_CAMELLIA192"), 
-								@"S13", localized(@"CIPHER_ALGO_CAMELLIA256"), 
-								@"H1", localized(@"DIGEST_ALGO_MD5"), 
-								@"H2", localized(@"DIGEST_ALGO_SHA1"), 
-								@"H3", localized(@"DIGEST_ALGO_RMD160"), 
-								@"H8", localized(@"DIGEST_ALGO_SHA256"), 
-								@"H9", localized(@"DIGEST_ALGO_SHA384"), 
-								@"H10", localized(@"DIGEST_ALGO_SHA512"), 
-								@"H11", localized(@"DIGEST_ALGO_SHA224"), 
-								@"Z0", localized(@"COMPRESS_ALGO_NONE"), 
-								@"Z1", localized(@"COMPRESS_ALGO_ZIP"), 
-								@"Z2", localized(@"COMPRESS_ALGO_ZLIB"), 
+		algorithmIdentifiers = [[NSDictionary alloc] initWithObjectsAndKeys:@"S0", localized(@"CIPHER_ALGO_NONE"),
+								@"S1", localized(@"CIPHER_ALGO_IDEA"),
+								@"S2", localized(@"CIPHER_ALGO_3DES"),
+								@"S3", localized(@"CIPHER_ALGO_CAST5"),
+								@"S4", localized(@"CIPHER_ALGO_BLOWFISH"),
+								@"S7", localized(@"CIPHER_ALGO_AES"),
+								@"S8", localized(@"CIPHER_ALGO_AES192"),
+								@"S9", localized(@"CIPHER_ALGO_AES256"),
+								@"S10", localized(@"CIPHER_ALGO_TWOFISH"),
+								@"S11", localized(@"CIPHER_ALGO_CAMELLIA128"),
+								@"S12", localized(@"CIPHER_ALGO_CAMELLIA192"),
+								@"S13", localized(@"CIPHER_ALGO_CAMELLIA256"),
+								@"H1", localized(@"DIGEST_ALGO_MD5"),
+								@"H2", localized(@"DIGEST_ALGO_SHA1"),
+								@"H3", localized(@"DIGEST_ALGO_RMD160"),
+								@"H8", localized(@"DIGEST_ALGO_SHA256"),
+								@"H9", localized(@"DIGEST_ALGO_SHA384"),
+								@"H10", localized(@"DIGEST_ALGO_SHA512"),
+								@"H11", localized(@"DIGEST_ALGO_SHA224"),
+								@"Z0", localized(@"COMPRESS_ALGO_NONE"),
+								@"Z1", localized(@"COMPRESS_ALGO_ZIP"),
+								@"Z2", localized(@"COMPRESS_ALGO_ZLIB"),
 								@"Z3", localized(@"COMPRESS_ALGO_BZIP2"), nil];
 	}
 	NSString *algorithmIdentifier = [algorithmIdentifiers objectForKey:[editingString uppercaseString]];
@@ -1015,28 +1013,28 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 - (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject {
 	static NSDictionary *algorithmNames = nil;
 	if (!algorithmNames) {
-		algorithmNames = [[NSDictionary alloc] initWithObjectsAndKeys:localized(@"CIPHER_ALGO_NONE"), @"S0", 
-						  localized(@"CIPHER_ALGO_IDEA"), @"S1", 
-						  localized(@"CIPHER_ALGO_3DES"), @"S2", 
-						  localized(@"CIPHER_ALGO_CAST5"), @"S3", 
-						  localized(@"CIPHER_ALGO_BLOWFISH"), @"S4", 
-						  localized(@"CIPHER_ALGO_AES"), @"S7", 
-						  localized(@"CIPHER_ALGO_AES192"), @"S8", 
-						  localized(@"CIPHER_ALGO_AES256"), @"S9", 
-						  localized(@"CIPHER_ALGO_TWOFISH"), @"S10", 
-						  localized(@"CIPHER_ALGO_CAMELLIA128"), @"S11", 
-						  localized(@"CIPHER_ALGO_CAMELLIA192"), @"S12", 
-						  localized(@"CIPHER_ALGO_CAMELLIA256"), @"S13", 
-						  localized(@"DIGEST_ALGO_MD5"), @"H1", 
-						  localized(@"DIGEST_ALGO_SHA1"), @"H2", 
-						  localized(@"DIGEST_ALGO_RMD160"), @"H3", 
-						  localized(@"DIGEST_ALGO_SHA256"), @"H8", 
-						  localized(@"DIGEST_ALGO_SHA384"), @"H9", 
-						  localized(@"DIGEST_ALGO_SHA512"), @"H10", 
-						  localized(@"DIGEST_ALGO_SHA224"), @"H11", 
-						  localized(@"COMPRESS_ALGO_NONE"), @"Z0", 
-						  localized(@"COMPRESS_ALGO_ZIP"), @"Z1", 
-						  localized(@"COMPRESS_ALGO_ZLIB"), @"Z2", 
+		algorithmNames = [[NSDictionary alloc] initWithObjectsAndKeys:localized(@"CIPHER_ALGO_NONE"), @"S0",
+						  localized(@"CIPHER_ALGO_IDEA"), @"S1",
+						  localized(@"CIPHER_ALGO_3DES"), @"S2",
+						  localized(@"CIPHER_ALGO_CAST5"), @"S3",
+						  localized(@"CIPHER_ALGO_BLOWFISH"), @"S4",
+						  localized(@"CIPHER_ALGO_AES"), @"S7",
+						  localized(@"CIPHER_ALGO_AES192"), @"S8",
+						  localized(@"CIPHER_ALGO_AES256"), @"S9",
+						  localized(@"CIPHER_ALGO_TWOFISH"), @"S10",
+						  localized(@"CIPHER_ALGO_CAMELLIA128"), @"S11",
+						  localized(@"CIPHER_ALGO_CAMELLIA192"), @"S12",
+						  localized(@"CIPHER_ALGO_CAMELLIA256"), @"S13",
+						  localized(@"DIGEST_ALGO_MD5"), @"H1",
+						  localized(@"DIGEST_ALGO_SHA1"), @"H2",
+						  localized(@"DIGEST_ALGO_RMD160"), @"H3",
+						  localized(@"DIGEST_ALGO_SHA256"), @"H8",
+						  localized(@"DIGEST_ALGO_SHA384"), @"H9",
+						  localized(@"DIGEST_ALGO_SHA512"), @"H10",
+						  localized(@"DIGEST_ALGO_SHA224"), @"H11",
+						  localized(@"COMPRESS_ALGO_NONE"), @"Z0",
+						  localized(@"COMPRESS_ALGO_ZIP"), @"Z1",
+						  localized(@"COMPRESS_ALGO_ZLIB"), @"Z2",
 						  localized(@"COMPRESS_ALGO_BZIP2"), @"Z3", nil];
 	}
 	NSString *displayString = [algorithmNames objectForKey:[representedObject description]];
@@ -1054,7 +1052,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
     if (!sharedInstance) {
         sharedInstance = [[super allocWithZone:nil] init];
     }
-    return sharedInstance;	
+    return sharedInstance;
 }
 - (id)init {
 	static BOOL initialized = NO;
@@ -1070,20 +1068,9 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	return self;
 }
 + (id)allocWithZone:(NSZone *)zone {
-    return [[self sharedInstance] retain];	
+    return [self sharedInstance];
 }
 - (id)copyWithZone:(NSZone *)zone {
-    return self;
-}
-- (id)retain {
-    return self;
-}
-- (NSUInteger)retainCount {
-    return NSUIntegerMax;
-}
-- (oneway void)release {
-}
-- (id)autorelease {
     return self;
 }
 

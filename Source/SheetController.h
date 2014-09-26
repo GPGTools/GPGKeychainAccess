@@ -93,7 +93,7 @@ enum {
 	GPGKey *secretKey;
 	NSURL *URL;
 	NSArray *URLs;
-	NSWindow *modalWindow;
+	NSWindow *__weak modalWindow;
 	BOOL hideExtension;
 	NSMutableSet *msgTextFields;
 	NSIndexSet *selectedVolumeIndexes;
@@ -105,15 +105,15 @@ enum {
 @property (nonatomic, strong) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 @property (nonatomic, strong) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
 @property (nonatomic) NSInteger exportFormat, keyType, sigType, length, sheetType;
-@property (nonatomic, readonly, retain) NSArray *foundKeyDicts;
+@property (nonatomic, readonly, strong) NSArray *foundKeyDicts;
 @property (nonatomic, readonly) NSInteger daysToExpire;
 @property (nonatomic, strong) GPGKey *secretKey;
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, readonly, strong) NSArray *URLs;
 @property (nonatomic, readonly) BOOL hideExtension, enableOK;
-@property (nonatomic, readonly) NSArray *volumes;
+@property (nonatomic, strong, readonly) NSArray *volumes;
 @property (nonatomic, strong) NSIndexSet *selectedVolumeIndexes;
-@property (nonatomic, readonly) NSDictionary *result;
+@property (nonatomic, strong, readonly) NSDictionary *result;
 
 
 - (NSInteger)runModal;

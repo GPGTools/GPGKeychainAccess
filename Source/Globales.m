@@ -40,8 +40,8 @@ NSString *localized(NSString *key) {
 	}
 	static NSBundle *bundle = nil, *englishBundle = nil;
 	if (!bundle) {
-		bundle = [[NSBundle mainBundle] retain];
-		englishBundle = [[NSBundle bundleWithPath:[bundle pathForResource:@"en" ofType:@"lproj"]] retain];
+		bundle = [NSBundle mainBundle];
+		englishBundle = [NSBundle bundleWithPath:[bundle pathForResource:@"en" ofType:@"lproj"]];
 	}
 	
 	NSString *notFoundValue = @"~#*?*#~";

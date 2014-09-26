@@ -42,16 +42,16 @@
 	BOOL userChangingSelection;
 }
 
-@property (readonly) NSSet *secretKeys;
-@property (readonly) NSArray *filteredKeyList;
-@property (readonly) NSSet *allKeys;
-@property (retain) NSArray *filterStrings;
-@property (retain) NSArray *keysSortDescriptors;
-@property (retain) NSArray *userIDsSortDescriptors;
-@property (retain) NSArray *subkeysSortDescriptors;
-@property (nonatomic, retain) NSArray *selectionIndexPaths;
+@property (weak, readonly) NSSet *secretKeys;
+@property (weak, readonly) NSArray *filteredKeyList;
+@property (weak, readonly) NSSet *allKeys;
+@property (strong) NSArray *filterStrings;
+@property (strong) NSArray *keysSortDescriptors;
+@property (strong) NSArray *userIDsSortDescriptors;
+@property (strong) NSArray *subkeysSortDescriptors;
+@property (nonatomic, strong) NSArray *selectionIndexPaths;
 @property BOOL showSecretKeysOnly;
-@property (readonly) GPGKey *defaultKey;
+@property (weak, readonly) GPGKey *defaultKey;
 
 + (instancetype)sharedInstance;
 

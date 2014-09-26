@@ -21,22 +21,22 @@
 #import "GKOutlineView.h"
 
 @interface GPGKeychainAccessAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
-	GKOutlineView *keyTable;
-	NSTableView *userIDTable, *subkeyTable, *signatureTable;
-	NSDrawer *drawer;
-	NSWindow *inspectorWindow;
-	NSView *inspectorView;
+	GKOutlineView *__weak keyTable;
+	NSTableView *__weak userIDTable, *__weak subkeyTable, *__weak signatureTable;
+	NSDrawer *__weak drawer;
+	NSWindow *__weak inspectorWindow;
+	NSView *__weak inspectorView;
 	
 	BOOL rowWasSelected;
-	SUUpdater *updater;
+	SUUpdater *__weak updater;
 }
 
-@property IBOutlet NSWindow *window, *inspectorWindow;
-@property IBOutlet NSView *inspectorView;
-@property IBOutlet GKOutlineView *keyTable;
-@property IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
-@property IBOutlet NSDrawer *drawer;
-@property IBOutlet SUUpdater *updater;
+@property (weak) IBOutlet NSWindow *window, *inspectorWindow;
+@property (weak) IBOutlet NSView *inspectorView;
+@property (weak) IBOutlet GKOutlineView *keyTable;
+@property (weak) IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
+@property (weak) IBOutlet NSDrawer *drawer;
+@property (weak) IBOutlet SUUpdater *updater;
 @property (nonatomic) BOOL inspectorVisible;
 
 
