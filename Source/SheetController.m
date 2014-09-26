@@ -44,6 +44,11 @@
 - (void)runOpenPanelWithAccessoryView:(NSView *)accessoryView;
 @end
 
+@interface NSSavePanel ()
+- (void)setShowsTagField:(BOOL)flag;
+@end
+
+
 
 @implementation SheetController
 @synthesize name, email, comment, passphrase, confirmPassphrase, pattern, title,
@@ -351,6 +356,9 @@
 - (void)runSavePanelWithAccessoryView:(NSView *)accessoryView {
 	NSSavePanel *panel = [NSSavePanel savePanel];
 	
+	if ([panel respondsToSelector:@selector(setShowsTagField:)]) {
+		[panel setShowsTagField:NO];
+	}
 	panel.delegate = self;
 	panel.allowsOtherFileTypes = YES;
 	panel.canSelectHiddenExtension = YES;

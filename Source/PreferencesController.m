@@ -45,6 +45,121 @@ static PreferencesController *_sharedInstance = nil;
 	return self;
 }
 
+
+- (IBAction)moveSecring:(id)sender {
+	GPGOptions *options = self.options;
+	NSString *gpgHome = options.gpgHome;
+
+	
+	NSOpenPanel *panel = [NSOpenPanel openPanel];
+	panel.canChooseFiles = NO;
+	panel.canChooseDirectories = YES;
+	panel.canCreateDirectories = YES;
+	panel.message = localized(@"MoveSecring_PanelMsg");
+	panel.prompt = localized(@"MoveSecring_PanelOk");
+	panel.directoryURL = [NSURL fileURLWithPath:gpgHome];
+	
+	[panel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
+		[NSApp stopModalWithCode:result];
+	}];
+
+	if ([NSApp runModalForWindow:window] != NSOKButton) {
+		return;
+	}
+	
+	
+	NSNumber *tempvalue = [options valueInGPGConfForKey:@"default-keyring"];
+	BOOL default_keyring = tempvalue ? tempvalue.boolValue : YES;
+	
+	NSMutableArray *secrings = [NSMutableArray arrayWithArray:[options valueInGPGConfForKey:@"secret-keyring"]];
+	NSString *secring = @"secring.gpg";
+	
+	if (!default_keyring && secrings.count > 0) {
+		secring = secrings[0];
+		[secrings removeObjectAtIndex:0];
+	}
+	
+	
+	NSString *secringPath = [secring stringByExpandingTildeInPath];
+	if ([secringPath characterAtIndex:0] != '/') {
+		secringPath = [gpgHome stringByAppendingPathComponent:secring];
+	}
+	secringPath = [secringPath stringByStandardizingPath];
+	
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	
+	
+	BOOL isDir;
+	if (![fileManager fileExistsAtPath:secringPath isDirectory:&isDir] || isDir) {
+		[[SheetController sharedInstance] alertSheetForWindow:window
+												  messageText:localized(@"MoveSecringNotFound_Title")
+													 infoText:localized(@"MoveSecringNotFound_Msg")
+												defaultButton:localized(@"OK")
+											  alternateButton:nil
+												  otherButton:nil
+											suppressionButton:nil];
+		return;
+	}
+	
+	NSString *destDir = [[panel.URL path] stringByStandardizingPath];
+	NSString *destPath = [destDir stringByAppendingPathComponent:@"secring.gpg"];
+	
+	if ([destPath isEqualToString:secringPath]) {
+		GPGDebugLog(@"moveSecring source and dest are equal: %@", destPath);
+		return;
+	}
+	
+	
+	NSInteger n = 1;
+	while ([fileManager fileExistsAtPath:destPath]) {
+		n++;
+		destPath = [destDir stringByAppendingPathComponent:[NSString stringWithFormat:@"secring_%i.gpg", n]];
+	}
+	
+	NSError *error = nil;
+	GPGDebugLog(@"Move Secring from '%@' to '%@'", secringPath, destPath);
+	if (![fileManager moveItemAtPath:secringPath toPath:destPath error:&error]) {
+		[[SheetController sharedInstance] alertSheetForWindow:window
+												  messageText:localized(@"MoveSecringCantMove_Title")
+													 infoText:error.localizedDescription
+												defaultButton:localized(@"OK")
+											  alternateButton:nil
+												  otherButton:nil
+											suppressionButton:nil];
+		return; 
+	}
+	
+	[self willChangeValueForKey:@"secringPath"];
+	[secrings insertObject:destPath atIndex:0];
+	[options setValueInGPGConf:secrings forKey:@"secret-keyring"];
+	[options setValueInGPGConf:@NO forKey:@"default-keyring"];
+	[self didChangeValueForKey:@"secringPath"];
+	
+}
+
+- (NSString *)secringPath {
+	NSNumber *tempvalue = [self.options valueInGPGConfForKey:@"default-keyring"];
+	BOOL default_keyring = tempvalue ? tempvalue.boolValue : YES;
+	
+	NSString *secring = @"secring.gpg";
+	if (!default_keyring) {
+		NSArray *secrings = [self.options valueInGPGConfForKey:@"secret-keyring"];
+		if (secrings.count > 0) {
+			secring = secrings[0];
+		}
+	}
+	
+	NSString *secringPath = [secring stringByExpandingTildeInPath];
+	if ([secringPath characterAtIndex:0] != '/') {
+		secringPath = [self.options.gpgHome stringByAppendingPathComponent:secring];
+	}
+	secringPath = [secringPath stringByStandardizingPath];
+	
+	return secringPath;
+}
+
+
+
 - (IBAction)showPreferences:(id)sender {
 	if (!view) {
 		NSToolbarItem *item = [[toolbar items] objectAtIndex:0];
@@ -58,8 +173,10 @@ static PreferencesController *_sharedInstance = nil;
 	static NSDictionary *views = nil;
 	if (!views) {
 		views = [[NSDictionary alloc] initWithObjectsAndKeys:
-					 keyserverPreferencesView, @"keyserver",
-					 updatesPreferencesView, @"updates", nil];		
+				 keyserverPreferencesView, @"keyserver",
+				 updatesPreferencesView, @"updates",
+				 keyringPreferencesView, @"keyring",
+				 nil];
 	}
 
 	[view removeFromSuperview];

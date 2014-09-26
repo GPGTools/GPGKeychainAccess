@@ -26,6 +26,8 @@
 	IBOutlet NSToolbar *toolbar;
 	IBOutlet NSView *keyserverPreferencesView;
 	IBOutlet NSView *updatesPreferencesView;
+	IBOutlet NSView *keyringPreferencesView;
+	
 	NSView *view;
 }
 
@@ -39,9 +41,14 @@
 // To set keyserver and also coordinate auto-key-locate
 @property (assign) NSString *keyserver;
 
+
+@property (readonly) NSString *secringPath;
+
+
 + (id)sharedInstance;
 - (IBAction)showPreferences:(id)sender;
 - (IBAction)selectTab:(NSToolbarItem *)sender;
 - (IBAction)removeKeyserver:(NSButton *)sender;
+- (IBAction)moveSecring:(id)sender;
 
 @end
