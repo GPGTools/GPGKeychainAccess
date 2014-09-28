@@ -42,7 +42,7 @@
 - (BOOL)checkComment;
 - (BOOL)checkPassphrase;
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
-- (void)generateFoundKeyDicts;
+- (BOOL)generateFoundKeyDicts;
 - (void)runSavePanelWithAccessoryView:(NSView *)accessoryView;
 - (void)runOpenPanelWithAccessoryView:(NSView *)accessoryView;
 @end
@@ -192,9 +192,13 @@ modalWindow, foundKeyDicts, hideExtension;
 			self.displayedView = resultView;
 			break;
 		case SheetTypeShowFoundKeys:
-			[self generateFoundKeyDicts];
+			if ([self generateFoundKeyDicts]) {
+				self.displayedView = foundKeysView;
+			} else {
+				self.msgText = localized(@"No keys Found");
+				self.displayedView = resultView;
+			}
 			
-			self.displayedView = foundKeysView;
 			break;
 		case SheetTypeExpirationDate:
 			[self setStandardExpirationDates];
@@ -521,46 +525,80 @@ modalWindow, foundKeyDicts, hideExtension;
 	[NSApp stopModal];
 }
 
-- (void)generateFoundKeyDicts {
-	NSMutableArray *dicts = [NSMutableArray arrayWithCapacity:[keys count]];
-	
+- (BOOL)generateFoundKeyDicts {
+	NSMutableArray *dicts = [NSMutableArray arrayWithCapacity:keys.count];
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 	
 	GPGKeyAlgorithmNameTransformer *algorithmNameTransformer = [GPGKeyAlgorithmNameTransformer new];
-	BOOL oneKeySelected = NO;
+	NSArray *gpgtoolsKeys = @[@"00D026C4"/*Team*/, @"50FE9D32"/*Alex*/, @"C4B1DC35"/*Kristof*/, @"E845 1FBB"/*Kristof*/, @"6F9F4937"/*Luke*/, @"46A957B0"/*Mento*/, @"92CBBADF"/*Steve*/];
+	BOOL showInvalidKeys = [[GPGOptions sharedOptions] boolForKey:@"KeyserverShowInvalidKeys"];
+	
+	NSDate *now = [NSDate date];
+	
 	
 	for (GPGRemoteKey *key in keys) {
-		NSNumber *selected;
-		NSDictionary *stringAttributes;
-		NSMutableAttributedString *description;
+		NSDictionary *stringAttributes = nil;
 		
-		if (key.expired || key.revoked) {
-			selected = [NSNumber numberWithBool:NO];
+		BOOL isGpgtoolsKey = [gpgtoolsKeys containsObject:key.keyID];
+		NSNumber *selected = @NO;
+		
+		if (key.expired || key.revoked || [key.expirationDate compare:now] == NSOrderedAscending) {
+			if (!showInvalidKeys) {
+				continue;
+			}
 			stringAttributes = [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
-		} else {
-			selected = [NSNumber numberWithBool:!oneKeySelected];
-			oneKeySelected = YES;
-			stringAttributes = nil;
+		} else if (isGpgtoolsKey) {
+			selected = @YES;
 		}
+				
 		
 		NSString *tempDescription = [NSString stringWithFormat:localized(@"FOUND_KEY_DESCRIPTION_FORMAT"),
-									 key.keyID, //Schlüssel ID
-									 [algorithmNameTransformer transformedIntegerValue:key.algorithm], //Algorithmus
-									 key.length, //Länge
-									 [dateFormatter stringFromDate:key.creationDate]]; //Erstellt
+									 key.keyID,
+									 [algorithmNameTransformer transformedIntegerValue:key.algorithm],
+									 key.length,
+									 [dateFormatter stringFromDate:key.creationDate]];
 		
-		description = [[NSMutableAttributedString alloc] initWithString:tempDescription attributes:stringAttributes];
+		NSMutableAttributedString *description = [[NSMutableAttributedString alloc] initWithString:tempDescription attributes:stringAttributes];
 		
 		for (GPGRemoteUserID *userID in key.userIDs) {
 			[description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n	%@", userID.userIDDescription]]];
 		}
 		
-		[dicts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:description, @"description", selected, @"selected", [NSNumber numberWithUnsignedInteger:[key.userIDs count] + 1], @"lines", key, @"key", nil]];
+		[dicts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:description, @"description", selected, @"selected", [NSNumber numberWithUnsignedInteger:[key.userIDs count] + 1], @"lines", key, @"key", @(isGpgtoolsKey), @"gpgtools", nil]];
+	}
+	
+	
+	
+	[dicts sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+		GPGRemoteKey *key1 = obj1[@"key"];
+		GPGRemoteKey *key2 = obj2[@"key"];
+		
+		if (key1.revoked && !key2.revoked) {
+			return NSOrderedDescending;
+		} else if (!key1.revoked && key2.revoked) {
+			return NSOrderedAscending;
+		}
+		
+		BOOL isGpgtools1 = [obj1[@"gpgtools"] boolValue];
+		BOOL isGpgtools2 = [obj2[@"gpgtools"] boolValue];
+		
+		if (isGpgtools1 && !isGpgtools2) {
+			return NSOrderedAscending;
+		} else if (!isGpgtools1 && isGpgtools2) {
+			return NSOrderedDescending;
+		}
+		
+		return 0 - [key1.creationDate compare:key2.creationDate];
+	}];
+	
+	if (dicts.count) {
+		dicts[0][@"selected"] = @YES;
 	}
 	
 	self.foundKeyDicts = dicts;
+	return dicts.count > 0;
 }
 
 - (void)setStandardExpirationDates {

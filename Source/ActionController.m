@@ -1600,7 +1600,7 @@
 					sheetController.keys = keys;
 					
 					sheetController.sheetType = SheetTypeShowFoundKeys;
-					if ([sheetController runModalForWindow:mainWindow] != NSOKButton) break;
+					if ([sheetController runModalForWindow:mainWindow] != NSOKButton || sheetController.keys.count == 0) break;
 					
 					[self receiveKeysFromServer:sheetController.keys];
 				}
