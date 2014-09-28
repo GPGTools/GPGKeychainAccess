@@ -23,7 +23,7 @@
 
 extern NSWindow *mainWindow;
 extern GPGKeychainAccessAppDelegate *appDelegate;
-
+extern BOOL showExpertSettings;
 
 
 BOOL couldContainPGPKey(NSString *string);

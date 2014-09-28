@@ -135,6 +135,9 @@
 - (void)awakeFromNib {
 	GPGDebugLog(@"GPGKeychainAccessAppDelegate awakeFromNib");
 	
+	showExpertSettings = [[GPGOptions sharedOptions] boolForKey:@"showExpertSettings"];
+	
+	
 	[keyTable setAction:@selector(singleClick:)];
 	[keyTable setDoubleAction:@selector(doubleClick:)];
 	[keyTable setTarget:self];

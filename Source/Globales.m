@@ -25,7 +25,7 @@
 
 NSWindow *mainWindow;
 GPGKeychainAccessAppDelegate *appDelegate;
-
+BOOL showExpertSettings;
 
 
 
