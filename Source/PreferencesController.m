@@ -21,6 +21,10 @@
 #import "PreferencesController.h"
 #import "SheetController.h"
 
+@interface GPGOptions ()
+- (NSArray *)keyserversInPlist;
+@end
+
 @implementation PreferencesController
 @synthesize window;
 static PreferencesController *_sharedInstance = nil;
@@ -251,7 +255,7 @@ static PreferencesController *_sharedInstance = nil;
 - (BOOL)canRemoveKeyserver {
 	static NSArray *keyservers = nil;
 	if (keyservers == nil) {
-		keyservers = [NSArray arrayWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"Keyservers" withExtension:@"plist"]];
+		keyservers = [self.options keyserversInPlist];
 	}
 	
 	return [keyservers containsObject:self.keyserver] == NO;
