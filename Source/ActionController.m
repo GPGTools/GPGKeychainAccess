@@ -1251,15 +1251,74 @@
 		return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
 	}
 	else if (selector == @selector(removeSignature:)) {
-		return [self selectedObjectsOf:signaturesTable].count == 1;
-	}
-	else if (selector == @selector(revokeSignature:)) {
-		NSArray *objects = [self selectedObjectsOf:signaturesTable];
-		if (objects.count != 1) {
+		NSArray *signatures = [self selectedObjectsOf:signaturesTable];
+		if (signatures.count != 1) {
 			return NO;
 		}
-		GPGUserIDSignature *sig = [objects objectAtIndex:0];
-		return !sig.revocation && sig.primaryKey.secret;
+		if (!showExpertSettings) {
+			// Check if it's the last self-signature.
+			GPGUserIDSignature *signature = signatures[0];
+			GPGUserID *userID = [self selectedObjectsOf:userIDsTable][0];
+			
+			GPGKey *key = userID.primaryKey;
+			
+			if (![signature.primaryKey isEqualTo:key] || signature.revocation) {
+				// Not a self signature.
+				return YES;
+			}
+			
+			signatures = userID.signatures;
+			NSInteger count = 0;
+			// Look for other self-signatures.
+			for (signature in signatures) {
+				if (!signature.revocation && [signature.primaryKey isEqualTo:key]) {
+					count++;
+					if (count > 1) {
+						return YES;
+					}
+				}
+			}
+			return NO;
+			
+		}
+		return YES;
+	}
+	else if (selector == @selector(revokeSignature:)) {
+		NSArray *signatures = [self selectedObjectsOf:signaturesTable];
+		if (signatures.count != 1) {
+			return NO;
+		}
+		GPGUserIDSignature *signature = signatures[0];
+		if (signature.revocation || !signature.primaryKey.secret) {
+			return NO;
+		}
+		
+		if (!showExpertSettings) {
+			// Check if it's the last self-signature.
+			GPGUserID *userID = [self selectedObjectsOf:userIDsTable][0];
+			
+			GPGKey *key = userID.primaryKey;
+			
+			if (![signature.primaryKey isEqualTo:key] || signature.revocation) {
+				// Not a self signature.
+				return YES;
+			}
+			
+			signatures = userID.signatures;
+			NSInteger count = 0;
+			// Look for other self-signatures.
+			for (signature in signatures) {
+				if (!signature.revocation && [signature.primaryKey isEqualTo:key]) {
+					count++;
+					if (count > 1) {
+						return YES;
+					}
+				}
+			}
+			return NO;
+			
+		}
+		return YES;
 	}
 	else if (selector == @selector(removeSubkey:)) {
 		return [self selectedObjectsOf:subkeysTable].count == 1;
