@@ -1207,7 +1207,10 @@
 	}
 	
 	
-    if (selector == @selector(copy:)) {
+    if (selector == @selector(copy:) ||
+		selector == @selector(sendKeysToServer:) ||
+		selector == @selector(refreshKeysFromServer:) ||
+		selector == @selector(deleteKey:)) {
 		return self.selectedKeys.count > 0;
     }
 	else if (selector == @selector(paste:)) {
@@ -1230,12 +1233,6 @@
     }
 	else if (selector == @selector(editAlgorithmPreferences:)) {
 		return self.selectedKeys.count == 1;
-	}
-	else if (selector == @selector(sendKeysToServer:)) {
-		return self.selectedKeys.count > 0;
-	}
-	else if (selector == @selector(refreshKeysFromServer:)) {
-		return self.selectedKeys.count > 0;
 	}
 	else if (selector == @selector(addSignature:)) {
 		if (tag == 1) {
@@ -1277,9 +1274,7 @@
 			return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
 		}
 	}
-	else if (selector == @selector(deleteKey:)) {
-		return self.selectedKeys.count > 0;
-	} else if (selector == @selector(revokeKey:)) {
+	else if (selector == @selector(revokeKey:)) {
 		NSSet *keys = self.selectedKeys;
 		if (keys.count == 1) {
 			return [self canRevokeKey:keys.anyObject];
