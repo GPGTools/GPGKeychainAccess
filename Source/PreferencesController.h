@@ -26,6 +26,7 @@
 	IBOutlet NSView *keyserverPreferencesView;
 	IBOutlet NSView *updatesPreferencesView;
 	IBOutlet NSView *keyringPreferencesView;
+	IBOutlet NSProgressIndicator *spinner;
 	
 	NSView *view;
 }
@@ -41,7 +42,7 @@
 @property (weak) NSString *keyserver;
 
 @property (readonly) BOOL canRemoveKeyserver;
-
+@property BOOL testingServer;
 
 @property (weak, readonly) NSString *secringPath;
 

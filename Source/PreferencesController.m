@@ -238,8 +238,10 @@ static PreferencesController *_sharedInstance = nil;
 	gpgc.keyserver = keyserver;
 	gpgc.async = YES;
 	gpgc.delegate = self;
-	gpgc.keyserverTimeout = 5;
-	gpgc.timeout = 5;
+	gpgc.keyserverTimeout = 3;
+	gpgc.timeout = 3;
+	[spinner startAnimation:nil];
+	self.testingServer = YES;
 	
 	[gpgc testKeyserver];
 }
@@ -299,6 +301,8 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
 
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	// Result of the keyserer test.
+	self.testingServer = NO;
+	
 	if (![value boolValue]) {
 		[self.options removeKeyserver:gc.keyserver];
 		

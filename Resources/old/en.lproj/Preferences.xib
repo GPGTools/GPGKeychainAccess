@@ -22,6 +22,7 @@
 			<string>NSMenuItem</string>
 			<string>NSPopUpButton</string>
 			<string>NSPopUpButtonCell</string>
+			<string>NSProgressIndicator</string>
 			<string>NSTextField</string>
 			<string>NSTextFieldCell</string>
 			<string>NSToolbar</string>
@@ -420,6 +421,17 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="NSProgressIndicator" id="367992443">
+						<reference key="NSNextResponder" ref="158153653"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{417, 73}, {16, 16}}</string>
+						<reference key="NSSuperview" ref="158153653"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="390542011"/>
+						<string key="NSReuseIdentifierKey">_NS:984</string>
+						<int key="NSpiFlags">20746</int>
+						<double key="NSMaxValue">100</double>
+					</object>
 					<object class="NSButton" id="390542011">
 						<reference key="NSNextResponder" ref="158153653"/>
 						<int key="NSvFlags">292</int>
@@ -474,10 +486,10 @@
 					<object class="NSComboBox" id="195041365">
 						<reference key="NSNextResponder" ref="158153653"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{127, 68}, {309, 26}}</string>
+						<string key="NSFrame">{{127, 68}, {285, 26}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="390542011"/>
+						<reference key="NSNextKeyView" ref="367992443"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSComboBoxCell" key="NSCell" id="645987468">
 							<int key="NSCellFlags">342884417</int>
@@ -804,6 +816,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">spinner</string>
+						<reference key="source" ref="747187618"/>
+						<reference key="destination" ref="367992443"/>
+					</object>
+					<string key="id">6HB-vb-OnR</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="731206276"/>
 						<reference key="destination" ref="747187618"/>
@@ -974,6 +994,26 @@
 						</object>
 					</object>
 					<string key="id">5IX-rO-iPI</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">hidden: testingServer</string>
+						<reference key="source" ref="367992443"/>
+						<reference key="destination" ref="747187618"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="367992443"/>
+							<reference key="NSDestination" ref="747187618"/>
+							<string key="NSLabel">hidden: testingServer</string>
+							<string key="NSBinding">hidden</string>
+							<string key="NSKeyPath">testingServer</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">Jpy-NF-RNw</string>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1196,6 +1236,7 @@
 							<reference ref="195041365"/>
 							<reference ref="747068752"/>
 							<reference ref="390542011"/>
+							<reference ref="367992443"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Keyserver</string>
@@ -1308,6 +1349,11 @@
 						<reference key="object" ref="309725891"/>
 						<reference key="parent" ref="0"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">nRW-bT-15X</string>
+						<reference key="object" ref="367992443"/>
+						<reference key="parent" ref="158153653"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -1418,6 +1464,7 @@
 				<boolean value="YES" key="YlP-Zk-RFe.toolbarItem.selectable"/>
 				<string key="dgp-VD-IvJ.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="hIO-af-jLM.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="nRW-bT-15X.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
@@ -1490,8 +1537,8 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="keyringPreferencesView">NSView</string>
-						<string key="keyserverField">NSTextField</string>
 						<string key="keyserverPreferencesView">NSView</string>
+						<string key="spinner">NSProgressIndicator</string>
 						<string key="toolbar">NSToolbar</string>
 						<string key="updatesPreferencesView">NSView</string>
 						<string key="window">NSWindow</string>
@@ -1501,13 +1548,13 @@
 							<string key="name">keyringPreferencesView</string>
 							<string key="candidateClassName">NSView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="keyserverField">
-							<string key="name">keyserverField</string>
-							<string key="candidateClassName">NSTextField</string>
-						</object>
 						<object class="IBToOneOutletInfo" key="keyserverPreferencesView">
 							<string key="name">keyserverPreferencesView</string>
 							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="spinner">
+							<string key="name">spinner</string>
+							<string key="candidateClassName">NSProgressIndicator</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="toolbar">
 							<string key="name">toolbar</string>
