@@ -39,7 +39,7 @@
 - (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict;
 - (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSInteger)lines withOptions:(NSUInteger)options;
 
-- (BOOL)warningSheet:(NSString *)string, ...;
+- (BOOL)warningSheetWithDefault:(BOOL)defaultValue string:(NSString *)string, ...;
 
 
 

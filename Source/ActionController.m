@@ -167,7 +167,7 @@
 	}];
 	
 	if (containsRevSig) {
-		if ([self warningSheet:@"ImportRevSig", [self descriptionForKeys:keys maxLines:0 withOptions:0]] == NO) {
+		if ([self warningSheetWithDefault:NO string:@"ImportRevSig", [self descriptionForKeys:keys maxLines:0 withOptions:0]] == NO) {
 			return;
 		}
 	}
@@ -367,8 +367,8 @@
 	
 	title = localized([template stringByAppendingString:@"_Title"]);
 	message = [NSString stringWithFormat:localized([template stringByAppendingString:@"_Msg"]), description];
-	button1 = localized([template stringByAppendingString:@"_Yes"]);
-	button2 = localized([template stringByAppendingString:@"_No"]);
+	button2 = localized([template stringByAppendingString:@"_Yes"]);
+	button1 = localized([template stringByAppendingString:@"_No"]);
 	if (hasSecretKey) {
 		button3 = localized([template stringByAppendingString:@"_SecOnly"]);
 		NSMutableSet *secretKeys = [NSMutableSet set];
@@ -394,7 +394,7 @@
 	
 	GPGDeleteKeyMode mode;
 	switch (result) {
-		case NSAlertFirstButtonReturn:
+		case NSAlertSecondButtonReturn:
 			mode = GPGDeletePublicAndSecretKey;
 			break;
 		case NSAlertThirdButtonReturn:
@@ -646,7 +646,7 @@
 		}];
 		
 		if (haveValidRevCert) {
-			if ([self warningSheet:@"RevokeKey", [self descriptionForKey:key]] == NO) {
+			if ([self warningSheetWithDefault:NO string:@"RevokeKey", [self descriptionForKey:key]] == NO) {
 				return;
 			}
 	
@@ -763,7 +763,7 @@
 	GPGKey *subkey = [objects objectAtIndex:0];
 	GPGKey *key = subkey.primaryKey;
 	
-	if ([self warningSheet:@"RemoveSubkey"] == NO) {
+	if ([self warningSheetWithDefault:NO string:@"RemoveSubkey"] == NO) {
 		return;
 	}
 	
@@ -779,7 +779,7 @@
 	GPGKey *subkey = [objects objectAtIndex:0];
 	GPGKey *key = subkey.primaryKey;
 	
-	if ([self warningSheet:@"RevokeSubkey"] == NO) {
+	if ([self warningSheetWithDefault:NO string:@"RevokeSubkey"] == NO) {
 		return;
 	}
 	
@@ -816,7 +816,7 @@
 	GPGUserID *userID = [objects objectAtIndex:0];
 	GPGKey *key = userID.primaryKey;
 	
-	if ([self warningSheet:@"RemoveUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+	if ([self warningSheetWithDefault:NO string:@"RemoveUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
 	}
 	
@@ -844,7 +844,7 @@
 	GPGUserID *userID = [objects objectAtIndex:0];
 	GPGKey *key = userID.primaryKey;
 	
-	if ([self warningSheet:@"RevokeUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+	if ([self warningSheetWithDefault:NO string:@"RevokeUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
 	}
 	
@@ -982,7 +982,7 @@
 	}
 	
 	NSString *warningTemplate = lastSelfSignature ? @"RemoveLastSelfSignature" : @"RemoveSignature";
-	if ([self warningSheet:warningTemplate, signature.userIDDescription, signature.userIDDescription] == NO) {
+	if ([self warningSheetWithDefault:NO string:warningTemplate, signature.userIDDescription, signature.userIDDescription] == NO) {
 		return;
 	}
 
@@ -1016,7 +1016,7 @@
 	}
 	
 	NSString *warningTemplate = lastSelfSignature ? @"RevokeLastSelfSignature" : @"RevokeSignature";
-	if ([self warningSheet:warningTemplate, signature.userIDDescription, signature.userIDDescription] == NO) {
+	if ([self warningSheetWithDefault:NO string:warningTemplate, signature.userIDDescription, signature.userIDDescription] == NO) {
 		return;
 	}
 	
@@ -1358,7 +1358,11 @@
 	return [descriptions componentsJoinedByString:@"\n"];
 }
 
-- (BOOL)warningSheet:(NSString *)string, ... {
+- (BOOL)warningSheetWithDefault:(BOOL)defaultValue string:(NSString *)string, ... {
+	// Show a sheet with the localized message "string_Msg", by replacing placeholders.
+	// defaultValue defines, which button should be the default. :)
+	// Returns YES when Yes is clicked.
+	
 	NSInteger returnCode;
 	NSString *message = localized([string stringByAppendingString:@"_Msg"]);
 	
@@ -1367,15 +1371,24 @@
 	message = [[NSString alloc] initWithFormat:message arguments:args];
 	va_end(args);
 	
+	NSString *button1, *button2;
+	if (defaultValue) {
+		button1 = @"_Yes";
+		button2 = @"_No";
+	} else {
+		button1 = @"_No";
+		button2 = @"_Yes";
+	}
+	
 	returnCode = [sheetController alertSheetForWindow:mainWindow
 										  messageText:localized([string stringByAppendingString:@"_Title"])
 											 infoText:message
-										defaultButton:localized([string stringByAppendingString:@"_Yes"])
-									  alternateButton:localized([string stringByAppendingString:@"_No"])
+										defaultButton:localized([string stringByAppendingString:button1])
+									  alternateButton:localized([string stringByAppendingString:button2])
 										  otherButton:nil
 									suppressionButton:nil];
 	
-	return (returnCode == NSAlertFirstButtonReturn);
+	return (returnCode == (defaultValue ? NSAlertFirstButtonReturn : NSAlertSecondButtonReturn));
 }
 
 
