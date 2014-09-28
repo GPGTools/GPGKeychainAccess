@@ -770,7 +770,9 @@ modalWindow, foundKeyDicts, hideExtension;
 		}
 		
 		if ([self.email rangeOfString:@"@gpgtools.org"].length > 0) {
-			goto emailIsInvalid;
+			if ([[[GPGOptions sharedOptions] valueInCommonDefaultsForKey:@"GPGToolsTeamMember"] boolValue] == NO) {
+				goto emailIsInvalid;
+			}
 		}
 		
 		return YES;
