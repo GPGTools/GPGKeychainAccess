@@ -482,15 +482,15 @@ modalWindow, foundKeyDicts, hideExtension;
 - (void)setKeyType:(NSInteger)value {
 	keyType = value;
 	if (value == 2 || value == 3) {
-		keyLengthFormatter.minKeyLength = 1024;
+		keyLengthFormatter.minKeyLength = 2048;
 		keyLengthFormatter.maxKeyLength = 3072;
 		self.length = [keyLengthFormatter checkedValue:length];
-		self.availableLengths = [NSArray arrayWithObjects:@"1024", @"2048", @"3072", nil];
+		self.availableLengths = [NSArray arrayWithObjects:@"2048", @"3072", nil];
 	} else {
-		keyLengthFormatter.minKeyLength = 1024;
+		keyLengthFormatter.minKeyLength = 2048;
 		keyLengthFormatter.maxKeyLength = 4096;
 		self.length = [keyLengthFormatter checkedValue:length];
-		self.availableLengths = [NSArray arrayWithObjects:@"1024", @"2048", @"3072", @"4096", nil];
+		self.availableLengths = [NSArray arrayWithObjects:@"2048", @"3072", @"4096", nil];
 	}
 }
 
