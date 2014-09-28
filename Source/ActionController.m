@@ -1147,11 +1147,12 @@
 }
 
 - (NSUndoManager *)undoManager {
-	if (!undoManager) {
+	/*if (!undoManager) {
 		undoManager = [NSUndoManager new];
 		[undoManager setLevelsOfUndo:50];
 	}
-	return undoManager;
+	return undoManager;*/
+	return nil;
 }
 
 - (NSSet *)selectedKeys {
