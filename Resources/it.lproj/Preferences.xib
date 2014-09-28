@@ -405,7 +405,32 @@
 				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="NSProgressIndicator" id="367992443">
+					<object class="NSButton" id="147587013">
+						<reference key="NSNextResponder" ref="158153653"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{125, 35}, {286, 18}}</string>
+						<reference key="NSSuperview" ref="158153653"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSButtonCell" key="NSCell" id="228590476">
+							<int key="NSCellFlags">-2080374784</int>
+							<int key="NSCellFlags2">268435456</int>
+							<string key="NSContents">Show revoked and expired keys</string>
+							<reference key="NSSupport" ref="582340800"/>
+							<string key="NSCellIdentifier">_NS:9</string>
+							<reference key="NSControlView" ref="147587013"/>
+							<int key="NSButtonFlags">1211912448</int>
+							<int key="NSButtonFlags2">2</int>
+							<reference key="NSNormalImage" ref="146756277"/>
+							<reference key="NSAlternateImage" ref="930511670"/>
+							<string key="NSAlternateContents"/>
+							<string key="NSKeyEquivalent"/>
+							<int key="NSPeriodicDelay">200</int>
+							<int key="NSPeriodicInterval">25</int>
+						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+					</object>
+					<object class="NSProgressIndicator" id="519072954">
 						<reference key="NSNextResponder" ref="158153653"/>
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{417, 73}, {16, 16}}</string>
@@ -420,6 +445,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{441, 70}, {21, 21}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
+						<reference key="NSNextKeyView" ref="147587013"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="705862476">
 							<int key="NSCellFlags">67108864</int>
@@ -468,7 +494,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{144, 68}, {285, 26}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
-						<reference key="NSNextKeyView" ref="367992443"/>
+						<reference key="NSNextKeyView" ref="519072954"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSComboBoxCell" key="NSCell" id="645987468">
 							<int key="NSCellFlags">342884417</int>
@@ -795,7 +821,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">spinner</string>
 						<reference key="source" ref="747187618"/>
-						<reference key="destination" ref="367992443"/>
+						<reference key="destination" ref="519072954"/>
 					</object>
 					<string key="id">6HB-vb-OnR</string>
 				</object>
@@ -958,6 +984,22 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: options.KeyserverShowInvalidKeys</string>
+						<reference key="source" ref="147587013"/>
+						<reference key="destination" ref="747187618"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="147587013"/>
+							<reference key="NSDestination" ref="747187618"/>
+							<string key="NSLabel">value: options.KeyserverShowInvalidKeys</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">options.KeyserverShowInvalidKeys</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">59w-97-fB2</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: secringPath</string>
 						<reference key="source" ref="555471780"/>
 						<reference key="destination" ref="747187618"/>
@@ -975,10 +1017,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">hidden: testingServer</string>
-						<reference key="source" ref="367992443"/>
+						<reference key="source" ref="519072954"/>
 						<reference key="destination" ref="747187618"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="367992443"/>
+							<reference key="NSSource" ref="519072954"/>
 							<reference key="NSDestination" ref="747187618"/>
 							<string key="NSLabel">hidden: testingServer</string>
 							<string key="NSBinding">hidden</string>
@@ -1213,7 +1255,8 @@
 							<reference ref="195041365"/>
 							<reference ref="747068752"/>
 							<reference ref="390542011"/>
-							<reference ref="367992443"/>
+							<reference ref="519072954"/>
+							<reference ref="147587013"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Keyserver</string>
@@ -1328,8 +1371,21 @@
 					</object>
 					<object class="IBObjectRecord">
 						<string key="id">nRW-bT-15X</string>
-						<reference key="object" ref="367992443"/>
+						<reference key="object" ref="519072954"/>
 						<reference key="parent" ref="158153653"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">IBE-EH-kir</string>
+						<reference key="object" ref="147587013"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="228590476"/>
+						</array>
+						<reference key="parent" ref="158153653"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">u5F-TJ-cmV</string>
+						<reference key="object" ref="228590476"/>
+						<reference key="parent" ref="147587013"/>
 					</object>
 				</array>
 			</object>
@@ -1431,6 +1487,7 @@
 				<boolean value="NO" key="96.showNotes"/>
 				<boolean value="YES" key="96.toolbarItem.selectable"/>
 				<string key="AnJ-zG-1gC.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="IBE-EH-kir.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="Kf7-X6-gHu.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="VZM-cX-rx2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="WFj-Qt-j9u.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1442,6 +1499,7 @@
 				<string key="dgp-VD-IvJ.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="hIO-af-jLM.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="nRW-bT-15X.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="u5F-TJ-cmV.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
@@ -1461,17 +1519,6 @@
 						<string key="NS.key.0">checkForUpdates:</string>
 						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">checkForUpdates:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">delegate</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">delegate</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">delegate</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</object>
