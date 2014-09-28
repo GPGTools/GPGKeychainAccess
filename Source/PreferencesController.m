@@ -46,6 +46,7 @@ static PreferencesController *_sharedInstance = nil;
 }
 
 
+
 - (IBAction)moveSecring:(id)sender {
 	GPGOptions *options = self.options;
 	NSString *gpgHome = options.gpgHome;
@@ -230,6 +231,29 @@ static PreferencesController *_sharedInstance = nil;
 	[window setTitle:sender.label];
 }
 
+- (IBAction)checkKeyserver:(id)sender {
+	NSString *keyserver = self.options.keyserver;
+	
+	GPGController *gpgc = [GPGController gpgController];
+	gpgc.keyserver = keyserver;
+	gpgc.async = YES;
+	gpgc.delegate = self;
+	gpgc.keyserverTimeout = 5;
+	gpgc.timeout = 5;
+	
+	[gpgc testKeyserver];
+}
++ (NSSet*)keyPathsForValuesAffectingCanRemoveKeyserver {
+	return [NSSet setWithObjects:@"keyserver", nil];
+}
+- (BOOL)canRemoveKeyserver {
+	static NSArray *keyservers = nil;
+	if (keyservers == nil) {
+		keyservers = [NSArray arrayWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"Keyservers" withExtension:@"plist"]];
+	}
+	
+	return [keyservers containsObject:self.keyserver] == NO;
+}
 - (IBAction)removeKeyserver:(NSButton *)sender {
 	NSString *oldServer = self.keyserver;
 	[self.options removeKeyserver:oldServer];
@@ -242,6 +266,7 @@ static PreferencesController *_sharedInstance = nil;
 		self.keyserver = @"";
 	}
 }
+
 
 - (GPGOptions *)options {
     return [GPGOptions sharedOptions];
@@ -259,17 +284,6 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
 }
 
 - (void)setKeyserver:(NSString *)keyserver {
-	if (![[self keyservers] containsObject:keyserver]) {
-		GPGController *gpgc = [GPGController gpgController];
-		gpgc.keyserver = keyserver;
-		gpgc.async = YES;
-		gpgc.delegate = self;
-		gpgc.keyserverTimeout = 5;
-		gpgc.timeout = 5;
-		
-		[gpgc testKeyserver];
-	}
-	
     // assign a server name to the "keyserver" option
     [self.options setValue:keyserver forKey:kKeyserver];
     
@@ -284,6 +298,7 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
 }
 
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
+	// Result of the keyserer test.
 	if (![value boolValue]) {
 		[self.options removeKeyserver:gc.keyserver];
 		

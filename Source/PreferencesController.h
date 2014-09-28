@@ -40,6 +40,8 @@
 // To set keyserver and also coordinate auto-key-locate
 @property (weak) NSString *keyserver;
 
+@property (readonly) BOOL canRemoveKeyserver;
+
 
 @property (weak, readonly) NSString *secringPath;
 

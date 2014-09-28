@@ -133,7 +133,7 @@
 				<string key="NSClassName">GPGTSUUpdater</string>
 			</object>
 			<object class="NSCustomView" id="465336957">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSTextField" id="722473697">
@@ -141,6 +141,8 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{86, 20}, {243, 14}}</string>
 						<reference key="NSSuperview" ref="465336957"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="1032535549">
 							<int key="NSCellFlags">68157504</int>
@@ -190,6 +192,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{17, 20}, {67, 14}}</string>
 						<reference key="NSSuperview" ref="465336957"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="722473697"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="781330519">
@@ -209,6 +212,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{14, 37}, {115, 32}}</string>
 						<reference key="NSSuperview" ref="465336957"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="85221806"/>
 						<string key="NSHuggingPriority">{250, 750}</string>
 						<bool key="NSEnabled">YES</bool>
@@ -241,6 +245,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 123}, {228, 18}}</string>
 						<reference key="NSSuperview" ref="465336957"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="780318448"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="304997418">
@@ -270,6 +275,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{37, 161}, {125, 17}}</string>
 						<reference key="NSSuperview" ref="465336957"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="704989704"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="924562671">
@@ -289,6 +295,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{164, 155}, {185, 26}}</string>
 						<reference key="NSSuperview" ref="465336957"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="178688288"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="917750025">
@@ -382,6 +389,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 185}, {225, 18}}</string>
 						<reference key="NSSuperview" ref="465336957"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="8447605"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="190733438">
@@ -403,11 +411,13 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{410, 221}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="270258777"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="158153653">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="390542011">
@@ -415,6 +425,8 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{441, 70}, {21, 21}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="705862476">
 							<int key="NSCellFlags">67108864</int>
@@ -444,6 +456,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 72}, {105, 17}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="195041365"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="98128707">
@@ -463,6 +476,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{127, 68}, {309, 26}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="390542011"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSComboBoxCell" key="NSCell" id="645987468">
@@ -569,6 +583,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{482, 111}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="747068752"/>
 				<string key="NSClassName">NSView</string>
 			</object>
@@ -779,6 +795,14 @@
 					<string key="id">PFr-26-Z3Z</string>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">checkKeyserver:</string>
+						<reference key="source" ref="747187618"/>
+						<reference key="destination" ref="195041365"/>
+					</object>
+					<string key="id">IgI-ic-1dH</string>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="731206276"/>
@@ -918,6 +942,22 @@
 						</object>
 					</object>
 					<string key="id">170</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: canRemoveKeyserver</string>
+						<reference key="source" ref="390542011"/>
+						<reference key="destination" ref="747187618"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="390542011"/>
+							<reference key="NSDestination" ref="747187618"/>
+							<string key="NSLabel">enabled: canRemoveKeyserver</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">canRemoveKeyserver</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">cIv-rf-Sl4</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1420,12 +1460,17 @@
 					<string key="className">PreferencesController</string>
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="checkKeyserver:">id</string>
 						<string key="moveSecring:">id</string>
 						<string key="removeKeyserver:">NSButton</string>
 						<string key="selectTab:">NSToolbarItem</string>
 						<string key="showPreferences:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="checkKeyserver:">
+							<string key="name">checkKeyserver:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="moveSecring:">
 							<string key="name">moveSecring:</string>
 							<string key="candidateClassName">id</string>
@@ -1445,6 +1490,7 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="keyringPreferencesView">NSView</string>
+						<string key="keyserverField">NSTextField</string>
 						<string key="keyserverPreferencesView">NSView</string>
 						<string key="toolbar">NSToolbar</string>
 						<string key="updatesPreferencesView">NSView</string>
@@ -1454,6 +1500,10 @@
 						<object class="IBToOneOutletInfo" key="keyringPreferencesView">
 							<string key="name">keyringPreferencesView</string>
 							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="keyserverField">
+							<string key="name">keyserverField</string>
+							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="keyserverPreferencesView">
 							<string key="name">keyserverPreferencesView</string>

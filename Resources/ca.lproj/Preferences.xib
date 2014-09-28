@@ -775,6 +775,14 @@
 					<string key="id">PFr-26-Z3Z</string>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">checkKeyserver:</string>
+						<reference key="source" ref="747187618"/>
+						<reference key="destination" ref="195041365"/>
+					</object>
+					<string key="id">IgI-ic-1dH</string>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="731206276"/>
@@ -914,6 +922,22 @@
 						</object>
 					</object>
 					<string key="id">170</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: canRemoveKeyserver</string>
+						<reference key="source" ref="390542011"/>
+						<reference key="destination" ref="747187618"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="390542011"/>
+							<reference key="NSDestination" ref="747187618"/>
+							<string key="NSLabel">enabled: canRemoveKeyserver</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">canRemoveKeyserver</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">cIv-rf-Sl4</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -1416,12 +1440,17 @@
 					<string key="className">PreferencesController</string>
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="checkKeyserver:">id</string>
 						<string key="moveSecring:">id</string>
 						<string key="removeKeyserver:">NSButton</string>
 						<string key="selectTab:">NSToolbarItem</string>
 						<string key="showPreferences:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="checkKeyserver:">
+							<string key="name">checkKeyserver:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="moveSecring:">
 							<string key="name">moveSecring:</string>
 							<string key="candidateClassName">id</string>
@@ -1441,6 +1470,7 @@
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="keyringPreferencesView">NSView</string>
+						<string key="keyserverField">NSTextField</string>
 						<string key="keyserverPreferencesView">NSView</string>
 						<string key="toolbar">NSToolbar</string>
 						<string key="updatesPreferencesView">NSView</string>
@@ -1450,6 +1480,10 @@
 						<object class="IBToOneOutletInfo" key="keyringPreferencesView">
 							<string key="name">keyringPreferencesView</string>
 							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="keyserverField">
+							<string key="name">keyserverField</string>
+							<string key="candidateClassName">NSTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="keyserverPreferencesView">
 							<string key="name">keyserverPreferencesView</string>
