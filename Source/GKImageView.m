@@ -28,7 +28,7 @@
 		NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
 		if (fileNames.count == 1) {
 			NSString *fileName = [fileNames objectAtIndex:0];
-			NSString *extension = [fileName pathExtension];
+			NSString *extension = [[fileName pathExtension] lowercaseString];
 			if ([extension isEqualToString:@"jpg"]) {
 				return NSDragOperationCopy;
 			}
@@ -60,7 +60,7 @@
 		NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
 		if (fileNames.count == 1) {
 			NSString *fileName = [fileNames objectAtIndex:0];
-			NSString *extension = [fileName pathExtension];
+			NSString *extension = [[fileName pathExtension] lowercaseString];
 			if ([extension isEqualToString:@"jpg"]) {
 				
 				unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:fileName error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
