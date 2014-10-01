@@ -647,15 +647,28 @@
 		}];
 		
 		if (haveValidRevCert) {
-			if ([self warningSheetWithDefault:NO string:@"RevokeKey", [self descriptionForKey:key]] == NO) {
+			NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
+												  messageText:localized(@"RevokeKey_Title")
+													 infoText:[NSString stringWithFormat:localized(@"RevokeKey_Msg"), [self descriptionForKey:key]]
+												defaultButton:localized(@"RevokeKey_No")
+											  alternateButton:localized(@"RevokeKey_Yes")
+												  otherButton:nil
+											suppressionButton:localized(@"RevokeKey_Upload")];
+			
+			if (returnCode & SheetSuppressionButton) {
+				returnCode -= SheetSuppressionButton;
+				gpgc.userInfo = @{@"action": @[@(UploadKeyAction)], @"keys":[NSSet setWithObject:key]};
+			} else {
+				gpgc.userInfo = @{};
+			}
+			if (returnCode != NSAlertSecondButtonReturn) {
 				return;
 			}
-	
+			
 			self.errorText = nil;
 			self.progressText = localized(@"RevokeKey_Progress");
 			self.errorText = localized(@"RevokeKey_Error");
 			
-			gpgc.userInfo = @{};
 			[gpgc importFromData:data fullImport:NO];
 		}
 	}
@@ -1625,6 +1638,7 @@
 				self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
 				self.errorText = localized(@"SendKeysToServer_Error");
 				
+				NSLog(@"Upload %@", keys);
 				[gpgc sendKeysToServer:keys];
 				
 				break;

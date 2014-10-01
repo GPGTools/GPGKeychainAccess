@@ -300,6 +300,7 @@ modalWindow, foundKeyDicts, hideExtension;
 		alert.showsSuppressionButton = YES;
 		if ([suppressionButton length] > 0) {
 			alert.suppressionButton.title = suppressionButton;
+			alert.suppressionButton.state = NSOnState;
 		}
 	}
 	if (!window) {
