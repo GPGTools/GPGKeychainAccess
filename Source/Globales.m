@@ -74,4 +74,28 @@ NSString *localized(NSString *key) {
 
 @end
 
+@implementation GKAValidityInidicatorTransformer
++ (Class)transformedValueClass { return [NSColor class]; }
++ (BOOL)allowsReverseTransformation { return NO; }
+- (id)transformedValue:(id)value {
+	
+	GPGValidity validity = [value intValue];
+	if (validity >= GPGValidityInvalid) {
+		return @1;
+	}
+	if (validity == GPGValidityUltimate) {
+		return @5;
+	}
+	if (validity == GPGValidityFull) {
+		return @4;
+	}
+	if (validity == GPGValidityMarginal) {
+		return @3;
+	}
+	
+	return @2;
+}
+
+@end
+
 

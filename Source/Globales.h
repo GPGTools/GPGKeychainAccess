@@ -33,3 +33,6 @@ NSString *localized(NSString *key);
 @interface GKAKeyColorTransformer : NSValueTransformer {}
 @end
 
+@interface GKAValidityInidicatorTransformer : NSValueTransformer {}
+@end
+
