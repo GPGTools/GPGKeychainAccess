@@ -296,6 +296,13 @@ modalWindow, foundKeyDicts, hideExtension;
 	if (button3) {
 		[alert addButtonWithTitle:button3];
 	}
+	if ([button1 isEqualTo:localized(@"Cancel")]) {
+		// This is a hack to allow, to close the alert with the escape-key.
+		[alert addButtonWithTitle:@"Cancel"]; // Add a cancel button. NSAlert sets the key equivalent automatically to esc.
+		NSButton *button = alert.buttons[alert.buttons.count - 1];
+		button.bounds = NSMakeRect(-10, -10, 1, 1); // Hide the button.
+		button.tag = NSAlertFirstButtonReturn; // Set the tag to mtach the real cancel button.
+	}
 	if (suppressionButton) {
 		alert.showsSuppressionButton = YES;
 		if ([suppressionButton length] > 0) {
