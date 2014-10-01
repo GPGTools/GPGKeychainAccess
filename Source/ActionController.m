@@ -259,10 +259,8 @@
 		return;
 	}
 	
-	
 	NSSharingService *service = [NSSharingService sharingServiceNamed:NSSharingServiceNameComposeEmail];
-	
-	[service setValue:@{@"NSSharingServiceParametersDefaultSubjectKey": localized(@"MailKey_Subject")} forKey:@"parameters"];
+	service.subject = localized(@"MailKey_Subject");
 	[service performWithItems:@[localized(@"MailKey_Message"), url]];
 }
 
