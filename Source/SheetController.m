@@ -293,7 +293,7 @@ modalWindow, foundKeyDicts, hideExtension;
 	if (button2) {
 		[alert addButtonWithTitle:button2];
 	}
-	if (button2) {
+	if (button3) {
 		[alert addButtonWithTitle:button3];
 	}
 	if (suppressionButton) {
