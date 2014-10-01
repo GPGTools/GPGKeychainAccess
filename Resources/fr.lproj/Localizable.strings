@@ -38,6 +38,8 @@ CheckAlert_PassphraseToLong_Title = "Passphrase too long";
 CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too long. Enter a passphrase with less than 300 characters.";
 
 
+MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
+
 /* For Key-Search */
 "No keys Found" = "Pas de clé trouvée";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), crée: %@"; /* Format für die gefundenen Schlüssel vom Server. */
@@ -76,6 +78,10 @@ LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please in
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
 
+
+/* Mail public key */
+MailKey_Subject = "";
+MailKey_Message = "";
 
 
 /* Those are abvious */
@@ -131,7 +137,7 @@ RevokeKey_Title = "Warning! You are about to revoke a key.";
 RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "Annuler";
-
+RevokeKey_Upload = "Upload revoked key";
 
 
 /* Delete warnings */
@@ -151,11 +157,11 @@ DeleteSecKey_Yes = "Delete secret and public key";
 DeleteSecKey_No = "Annuler";
 DeleteSecKey_SecOnly = "Effacer seulement la clé secrète";
 
-DeleteSecKeys_Title = "Delete secret and public keys";
+DeleteSecKeys_Title = "Effacer les clés publique et secrète";
 DeleteSecKeys_Msg = "Warning! You are about to delete the following secret and public keys:\n\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret keys, you will no longer be able to decrypt messages that were encrypted with their public counterparts.\n\nNote that if you have copied your public keys to any key servers, they will remain valid on the key servers unless you revoke them. In that case before deleting your key pairs, please revoke your public keys and upload them to the key servers so they will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete those key pairs?";
-DeleteSecKeys_Yes = "Delete secret and public keys";
+DeleteSecKeys_Yes = "Effacer les clés publique et secrète\n";
 DeleteSecKeys_No = "Annuler";
-DeleteSecKeys_SecOnly = "Delete secret keys only";
+DeleteSecKeys_SecOnly = "Effacer seulement la clé secrète";
 
 
 /* Bad keyserver */
@@ -219,11 +225,11 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 /* For opening and saving dialogues */
 ChoosePhoto_Large_Message = "Cette image est vraiment grande!";
-ChoosePhoto_Large_Info = "Vous devriez utiliser une image plus petite.";
+ChoosePhoto_Large_Info = "You should use a smaller picture.\nWe recommend a size of less than 15 KiB.";
 ChoosePhoto_Large_Button1 = "Choisissez un(e) autre…";
 ChoosePhoto_Large_Button2 = "Utilisez cette photo";
-ChoosePhoto_TooLarge_Message = "Cette image est trop grande!";
-ChoosePhoto_TooLarge_Info = "Prière utiliser une image de moins de 500 KiO.";
+ChoosePhoto_TooLarge_Message = "This picture is too large!";
+ChoosePhoto_TooLarge_Info = "Please use a picature smaller than 500 KiB.";
 
 
 
@@ -313,7 +319,7 @@ RevokeSignature_Progress = "Révocation signature.";
 RevokeSignature_Error = " Révocation signature a échoué.";
 ReceiveKeysFromServer_Progress = "Réception clés.";
 ReceiveKeysFromServer_Error = "Réception clés a échoué.";
-RevokeKey_Progress = "Revoking key.";
-RevokeKey_Error = "Revoking key failed.";
+RevokeKey_Progress = "Révocation clé.";
+RevokeKey_Error = "Révocation clé a échoué.";
 
 

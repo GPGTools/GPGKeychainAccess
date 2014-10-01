@@ -38,6 +38,8 @@ CheckAlert_PassphraseToLong_Title = "Frase contraseña demasiado larga";
 CheckAlert_PassphraseToLong_Message = "La frase contraseña que ha introducido es demasiado larga. Introduzca una frase contraseña con menos de 300 caracteres.";
 
 
+MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
+
 /* For Key-Search */
 "No keys Found" = "No encontró claves";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), creado: %@"; /* Format für die gefundenen Schlüssel vom Server. */
@@ -76,6 +78,10 @@ LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg no se encontró en su sistema. Por favo
 CODE_SIGN_ERROR_TITLE = "¡Alguien interfirió con su instalación de GPG Keychain Access!";
 CODE_SIGN_ERROR_MESSAGE = "Para mantenerle seguro, ¡GPG Keychain Access se cerrará ahora!\n\nPor favor descargue e instale la última versión de GPG Suite desde https://gpgtools.org ¡para estar seguro de que tiene una versión original procedente de nosotros!";
 
+
+/* Mail public key */
+MailKey_Subject = "";
+MailKey_Message = "";
 
 
 /* Those are abvious */
@@ -127,11 +133,11 @@ RevokeLastSelfSignature_Msg = "Está a punto de revocar la última auto-firma de
 RevokeLastSelfSignature_Yes = "Revocar firma";
 RevokeLastSelfSignature_No = "Cancelar";
 
-RevokeKey_Title = "Warning! You are about to revoke a key.";
-RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
-RevokeKey_Yes = "Revoke Key";
+RevokeKey_Title = "¡Advertencia! Está a punto de revocar una clave.";
+RevokeKey_Msg = "Está a punto de revocar la siguiente clave\n\n%@\n\nSi revoca esta clave ya no podrá firmar mensajes usándola, y otros ya no podrán enviarle mensajes cifrados con su clave. Si previamente ha subido su clave pública a los servidores de claves, asegúrese de subir la clave revocada (la opción está activa por defecto), para que otros sean advertidos de que su clave ha sido revocada.\n\nAún podrá usar su clave revocada para descifrar correos y ficheros que fueron previamente cifrados con su clave. Por eso recomendamos que conserve la clave revocada en GPG Keychain Access.\n\n¿Está seguro de que quiere revocar esta clave?";
+RevokeKey_Yes = "Revocar clave";
 RevokeKey_No = "Cancelar";
-
+RevokeKey_Upload = "Upload revoked key";
 
 
 /* Delete warnings */
@@ -219,11 +225,11 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 /* For opening and saving dialogues */
 ChoosePhoto_Large_Message = "¡Esta foto es muy grande!";
-ChoosePhoto_Large_Info = "Debe usar un foto más pequeño.";
+ChoosePhoto_Large_Info = "You should use a smaller picture.\nWe recommend a size of less than 15 KiB.";
 ChoosePhoto_Large_Button1 = "Eligir un otro...";
 ChoosePhoto_Large_Button2 = "Usa este foto";
-ChoosePhoto_TooLarge_Message = "¡Esta foto es demasiado grande!";
-ChoosePhoto_TooLarge_Info = "Por favor usa una foto mas pequeño de 500KiB.";
+ChoosePhoto_TooLarge_Message = "This picture is too large!";
+ChoosePhoto_TooLarge_Info = "Please use a picature smaller than 500 KiB.";
 
 
 
@@ -313,7 +319,7 @@ RevokeSignature_Progress = "Revocación de la firma.";
 RevokeSignature_Error = "Revocación de la firma falló.";
 ReceiveKeysFromServer_Progress = "Recepción de claves.";
 ReceiveKeysFromServer_Error = "Recepción de claves falló.";
-RevokeKey_Progress = "Revoking key.";
-RevokeKey_Error = "Revoking key failed.";
+RevokeKey_Progress = "Revocando clave.";
+RevokeKey_Error = "Fallo al revocar clave.";
 
 
