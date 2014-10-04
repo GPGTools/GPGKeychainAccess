@@ -1717,7 +1717,8 @@
 		gpgc = [GPGController gpgController];
 		gpgc.delegate = self;
 		gpgc.undoManager = self.undoManager;
-		gpgc.printVersion = YES;
+		// The printVersion is managed through gpg.conf via the emit-version and no-emit-version options.  Do not override here.
+		//gpgc.printVersion = YES;
 		gpgc.async = YES;
 		gpgc.keyserverTimeout = 20;
 		sheetController = [SheetController sharedInstance];
