@@ -109,7 +109,7 @@
 						<reference ref="634984293"/>
 						<reference ref="561285712"/>
 					</array>
-					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
+					<array key="NSToolbarIBDefaultItems">
 						<reference ref="634984293"/>
 						<reference ref="561285712"/>
 					</array>
@@ -118,9 +118,11 @@
 				<string key="NSWindowContentMaxSize">{448, 258}</string>
 				<string key="NSWindowContentMinSize">{446, 258}</string>
 				<object class="NSView" key="NSWindowView" id="446227507">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<string key="NSFrameSize">{447, 90}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMinSize">{446, 336}</string>
@@ -405,7 +407,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="158153653">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="147587013">
@@ -413,8 +415,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{125, 35}, {286, 18}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="228590476">
@@ -440,7 +440,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{417, 73}, {16, 16}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="390542011"/>
 						<string key="NSReuseIdentifierKey">_NS:984</string>
 						<int key="NSpiFlags">20746</int>
@@ -451,7 +450,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{441, 70}, {21, 21}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="147587013"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="705862476">
@@ -482,7 +480,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 72}, {105, 17}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="195041365"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="98128707">
@@ -502,7 +499,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{127, 68}, {285, 26}}</string>
 						<reference key="NSSuperview" ref="158153653"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="519072954"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSComboBoxCell" key="NSCell" id="645987468">
@@ -609,13 +605,11 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{482, 111}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="747068752"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="678548710">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="NSButton" id="921930691">
@@ -623,6 +617,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{12, 56}, {123, 32}}</string>
 						<reference key="NSSuperview" ref="678548710"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSButtonCell" key="NSCell" id="572488483">
@@ -646,6 +641,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{77, 92}, {409, 17}}</string>
 						<reference key="NSSuperview" ref="678548710"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="921930691"/>
 						<string key="NSReuseIdentifierKey">_NS:397</string>
 						<string key="NSHuggingPriority">{251, 750}</string>
@@ -668,6 +664,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 92}, {55, 17}}</string>
 						<reference key="NSSuperview" ref="678548710"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="555471780"/>
 						<string key="NSReuseIdentifierKey">_NS:397</string>
 						<string key="NSHuggingPriority">{251, 750}</string>
@@ -690,6 +687,7 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{18, 135}, {468, 76}}</string>
 						<reference key="NSSuperview" ref="678548710"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="430731973"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="NSAntiCompressionPriority">{250, 750}</string>
@@ -705,11 +703,12 @@
 							<reference key="NSTextColor" ref="134885512"/>
 						</object>
 						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
-						<bool key="NSControlAutosetMaxLayoutWidth">YES</bool>
 						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
 					</object>
 				</array>
 				<string key="NSFrameSize">{504, 231}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="447404679"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="NSClassName">NSView</string>
@@ -1502,7 +1501,7 @@
 				<string key="Kf7-X6-gHu.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="VZM-cX-rx2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="WFj-Qt-j9u.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<boolean value="YES" key="Yej-1m-wwE.IBNSControlSetsMaxLayoutWidthAtFirstLayoutMetadataKey"/>
+				<boolean value="NO" key="Yej-1m-wwE.IBNSControlSetsMaxLayoutWidthAtFirstLayoutMetadataKey"/>
 				<string key="Yej-1m-wwE.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="YlP-Zk-RFe.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="YlP-Zk-RFe.designableToolbarItemIdentifier">keyring</string>
