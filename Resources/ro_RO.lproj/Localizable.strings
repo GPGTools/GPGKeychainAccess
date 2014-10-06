@@ -75,8 +75,8 @@ GPG_CONFIG_ERROR_TITLE = "Eroare Configurare GPG";
 GPG_CONFIG_ERROR_MESSAGE = "Ah, ceva nu a funcționat corespunzător. GPG a fost identificat în sistemul dvs., dar pare a fi o problemă cu fișierul config. Vă rugăm să ne contactați la http://support.gpgtools.org\n\nDetalii:%@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg nu a fost găsit";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg nu a fost găsit în sistemul dvs. Vă rugăm să îl instalați.  Îl puteți găsi în Instalatorul GPGTools din https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Cineva a umblat la instalarea dvs. GPG Keychain Access!";
-CODE_SIGN_ERROR_MESSAGE = "Pentru a vă menține în siguranță, GPG Keychain Access se va închide acum!\n\nVă rugăm să descărcați și să instalați ultima versiune a Suitei GPG de pe https://gpgtools.org pentru a vă asigura că aveți o versiune originală de la noi!";
+CODE_SIGN_ERROR_TITLE = "Cineva a umblat la instalarea dvs. GPG Keychain!";
+CODE_SIGN_ERROR_MESSAGE = "Pentru a vă menține în siguranță, GPG Keychain se va închide acum!\n\nVă rugăm să descărcați și să instalați ultima versiune a Suitei GPG de pe https://gpgtools.org pentru a vă asigura că aveți o versiune originală de la noi!";
 
 
 /* Mail public key */
@@ -134,7 +134,7 @@ RevokeLastSelfSignature_Yes = "Revocare Semnătură";
 RevokeLastSelfSignature_No = "Anulare";
 
 RevokeKey_Title = "Atenție! Sunteți pe cale să revocați o cheie.";
-RevokeKey_Msg = "Sunteți pe cale să revocați următoarea cheie:\n\n%@\n\nDacă revocați această cheie, nu veți mai putea semna mesaje folosind această cheie, iar alții nu vă vor mai putea trimite mesaje criptate cu cheia dvs. Dacă v-ați încărcat în prealabil cheia publică pe serverele de chei, asigurați-vă că veți încărca cheia revocată (opțiunea este activată ca implicit), astfel încât altora li se aduce la cunoștință faptul că cheia dvs. a fost revocată.\n\nVă veți putea folosi în continuarea cheia revocată pentru a decripta mailurile și fișierele ce au fost în prealabil criptate cu cheia dvs. De aceea vă recomandăm să vă păstrați cheia revocată, în GPG Keychain Access.\n\nSunteți sigur că doriți revocarea acestei chei?";
+RevokeKey_Msg = "Sunteți pe cale să revocați următoarea cheie:\n\n%@\n\nDacă revocați această cheie, nu veți mai putea semna mesaje folosind această cheie, iar alții nu vă vor mai putea trimite mesaje criptate cu cheia dvs. Dacă v-ați încărcat în prealabil cheia publică pe serverele de chei, asigurați-vă că veți încărca cheia revocată (opțiunea este activată ca implicit), astfel încât altora li se aduce la cunoștință faptul că cheia dvs. a fost revocată.\n\nVă veți putea folosi în continuarea cheia revocată pentru a decripta mailurile și fișierele ce au fost în prealabil criptate cu cheia dvs. De aceea vă recomandăm să vă păstrați cheia revocată, în GPG Keychain.\n\nSunteți sigur că doriți revocarea acestei chei?";
 RevokeKey_Yes = "Revocare Cheie";
 RevokeKey_No = "Anulare";
 RevokeKey_Upload = "Upload revoked key";
@@ -171,7 +171,7 @@ BadKeyserver_Msg = "Serverul de chei pe care l-ați introdus, nu funcționează.
 
 /* Import warnings */
 ImportRevSig_Title = "Importare certificate de revocare";
-ImportRevSig_Msg = "Sunteți pe cale să importați un Certificat de revocare pentru %@. Dacă vă revocați cheia, nu veți mai putea semna mesaje folosind această cheie, iar alții nu vă vor mai putea trimite mesaje criptate cu cheia dvs. Luați în considerare încărcarea cheii dvs. revocate, pe serverul de chei, pentru ca ceilalți să cunoască faptul că, cheia dvs. a fost revocată.\n\nVeți putea în continuare să vă folosiți cheia revocată pentru a decripta mail-urile ți fișierele ce au fost criptate cu aceasta. De aceea vă recomandăm să vă păstrați cheia revocată în GPG Keychain Access.";
+ImportRevSig_Msg = "Sunteți pe cale să importați un Certificat de revocare pentru %@. Dacă vă revocați cheia, nu veți mai putea semna mesaje folosind această cheie, iar alții nu vă vor mai putea trimite mesaje criptate cu cheia dvs. Luați în considerare încărcarea cheii dvs. revocate, pe serverul de chei, pentru ca ceilalți să cunoască faptul că, cheia dvs. a fost revocată.\n\nVeți putea în continuare să vă folosiți cheia revocată pentru a decripta mail-urile ți fișierele ce au fost criptate cu aceasta. De aceea vă recomandăm să vă păstrați cheia revocată în GPG Keychain.";
 ImportRevSig_Yes = "Importare";
 ImportRevSig_No = "Anulare";
 
@@ -181,7 +181,7 @@ ImportRandomData_Yes = "Încearcă Importarea";
 ImportRandomData_No = "Anulare";
 
 ImportNonImportable_Title = "Atenție! Conținutul, probabil nu va putea fi importat.";
-ImportNonImportable_Msg = "Se pare că încercați să importați un mesaj semnat sau criptat.\n\nAsemenea mesaje nu pot fi importate în GPG Keychain Access\n\nÎn schimb, vă rugăm să încercați să decriptați sau să verificați mesajul în speță, cu GPGServices.";
+ImportNonImportable_Msg = "Se pare că încercați să importați un mesaj semnat sau criptat.\n\nAsemenea mesaje nu pot fi importate în GPG Keychain\n\nÎn schimb, vă rugăm să încercați să decriptați sau să verificați mesajul în speță, cu GPGServices.";
 ImportNonImportable_Yes = "Încearcă Importarea";
 ImportNonImportable_No = "Anulare";
 

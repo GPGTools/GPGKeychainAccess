@@ -75,8 +75,8 @@ GPG_CONFIG_ERROR_TITLE = "خطأ في اعداد GPG";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please install it. Find it e.g. in the GPGTools Installer on https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain Access!";
-CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain Access will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
 
 
 /* Mail public key */
@@ -134,7 +134,7 @@ RevokeLastSelfSignature_Yes = "Revoke Signature";
 RevokeLastSelfSignature_No = "إلغاء";
 
 RevokeKey_Title = "Warning! You are about to revoke a key.";
-RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "إلغاء";
 RevokeKey_Upload = "Upload revoked key";
@@ -171,7 +171,7 @@ BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check
 
 /* Import warnings */
 ImportRevSig_Title = "Import revocation certificate";
-ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain Access.";
+ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "استيراد";
 ImportRevSig_No = "إلغاء";
 
@@ -181,7 +181,7 @@ ImportRandomData_Yes = "Try Import";
 ImportRandomData_No = "إلغاء";
 
 ImportNonImportable_Title = "Warning! Content can probably not be imported.";
-ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain Access.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
+ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Try Import";
 ImportNonImportable_No = "إلغاء";
 

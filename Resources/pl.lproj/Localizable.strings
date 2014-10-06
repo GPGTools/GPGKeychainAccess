@@ -75,8 +75,8 @@ GPG_CONFIG_ERROR_TITLE = "Błąd konfiguracji GPG";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, coś poszło nie tak. GPG zostało wykryte na Twoim systemie, ale wygląda na to, że wystąpił problem z plikiem konfiguracyjnym. Proszę skontaktuj się z nami na http://support.gpgtools.org.\n\nSzczegóły: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Nie udało się znaleźć Libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg nie został znaleziony na Twoim systemie. Proszę zainstaluj go. Możesz go znaleźć na GPGTools Installer https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Ktoś majstrował przy Twojej instalacji GPG Keychain Access!";
-CODE_SIGN_ERROR_MESSAGE = "Dla Twojego bezpieczeństwa, GPG Keychain Access zostanie wyłączony!\n\nProszę pobierz i zainstaluj najnowszą wersję GPG Suite z https://gpgtools.org aby być pewnym, że masz naszą oryginalną wersję!";
+CODE_SIGN_ERROR_TITLE = "Ktoś majstrował przy Twojej instalacji GPG Keychain!";
+CODE_SIGN_ERROR_MESSAGE = "Dla Twojego bezpieczeństwa, GPG Keychain zostanie wyłączony!\n\nProszę pobierz i zainstaluj najnowszą wersję GPG Suite z https://gpgtools.org aby być pewnym, że masz naszą oryginalną wersję!";
 
 
 /* Mail public key */
@@ -134,7 +134,7 @@ RevokeLastSelfSignature_Yes = "Unieważnij Podpis";
 RevokeLastSelfSignature_No = "Anuluj";
 
 RevokeKey_Title = "Uwaga! Zamierzasz unieważnić klucz.";
-RevokeKey_Msg = "Zamierzasz unieważąnić następujący klucz\n\n%@\n\nJeśli odwołasz ten klucz to nie będziesz w stanie podpisywać wiadomości uzywając tego klucza, a inni nie będą w stanie wysyłać Tobie wiadmości szyfrowanych z Twoim kluczem. Jeśli poprzednio wysłałeś swój klucz publiczny na serwer kluczy, to upewnij się, że wyślesz także unieważniony klucz (ta opcja jest domyślnie aktywna), tak aby inni byli świadomi, że Twój klucz jest już nieważny.\n\nW dalszym ciągu będziesz w stanie używać swojego uinieważnionego klucza do odszyfrowywania maili i plików które poprzednio były szyfrowane Twoim kluczem. Właśnie dlatego zalecamy, aby zachować swój unieważniony/odwołany klucz na GPG Keychain Access.\n\nCzy jesteś pewny, że chcesz unieważnić ten klucz?";
+RevokeKey_Msg = "Zamierzasz unieważąnić następujący klucz\n\n%@\n\nJeśli odwołasz ten klucz to nie będziesz w stanie podpisywać wiadomości uzywając tego klucza, a inni nie będą w stanie wysyłać Tobie wiadmości szyfrowanych z Twoim kluczem. Jeśli poprzednio wysłałeś swój klucz publiczny na serwer kluczy, to upewnij się, że wyślesz także unieważniony klucz (ta opcja jest domyślnie aktywna), tak aby inni byli świadomi, że Twój klucz jest już nieważny.\n\nW dalszym ciągu będziesz w stanie używać swojego uinieważnionego klucza do odszyfrowywania maili i plików które poprzednio były szyfrowane Twoim kluczem. Właśnie dlatego zalecamy, aby zachować swój unieważniony/odwołany klucz na GPG Keychain.\n\nCzy jesteś pewny, że chcesz unieważnić ten klucz?";
 RevokeKey_Yes = "Unieważnij Klucz";
 RevokeKey_No = "Anuluj";
 RevokeKey_Upload = "Upload revoked key";
@@ -171,7 +171,7 @@ BadKeyserver_Msg = "Serwer Kluczy który wpisałeś nie działa.\nProszę sprawd
 
 /* Import warnings */
 ImportRevSig_Title = "Importowanie unieważnionych certyfikatów";
-ImportRevSig_Msg = "Zamierzasz zaimportować unieważniony certyfikat dla %@. Jeśli unieważnisz swój klucz, to nie będziesz już w stanie podpisywać wiadomości używając tego klucza i inni nie będą w stanie wysyłać Ci szyfrowanych wiadomości używając Twojego klucza. Rozważ wysłanie swojego unieważnionego klucza do serwera kluczy tak aby inni byli świadomi, że ten klucz został unieważniony.\n\nBędziesz w dalszym ciągu mógł używać swoj unieważniony klucz do odszyfrowywania maili i plików które zostały zaszyfrowane używając tego klucza. To właśnie temu radzimy abyś trzymał swoje unieważnione klucze w GPG Keychain Access.";
+ImportRevSig_Msg = "Zamierzasz zaimportować unieważniony certyfikat dla %@. Jeśli unieważnisz swój klucz, to nie będziesz już w stanie podpisywać wiadomości używając tego klucza i inni nie będą w stanie wysyłać Ci szyfrowanych wiadomości używając Twojego klucza. Rozważ wysłanie swojego unieważnionego klucza do serwera kluczy tak aby inni byli świadomi, że ten klucz został unieważniony.\n\nBędziesz w dalszym ciągu mógł używać swoj unieważniony klucz do odszyfrowywania maili i plików które zostały zaszyfrowane używając tego klucza. To właśnie temu radzimy abyś trzymał swoje unieważnione klucze w GPG Keychain.";
 ImportRevSig_Yes = "Import";
 ImportRevSig_No = "Anuluj";
 
@@ -181,7 +181,7 @@ ImportRandomData_Yes = "Spróbuj Importować";
 ImportRandomData_No = "Anuluj";
 
 ImportNonImportable_Title = "Uwaga! Zawartość najprawdopodobniej nie może być importowana.";
-ImportNonImportable_Msg = "Wygląda na to, że próbujesz importować podpisaną lub szyfrowaną wiadomość.\n\nTakie wiadomości nie mogą być importowane do GPG Keychain Access.\n\nZamiast tego, spróbuj odszyfrować lub zweryfikować daną wiadomość używając GPGServices.";
+ImportNonImportable_Msg = "Wygląda na to, że próbujesz importować podpisaną lub szyfrowaną wiadomość.\n\nTakie wiadomości nie mogą być importowane do GPG Keychain.\n\nZamiast tego, spróbuj odszyfrować lub zweryfikować daną wiadomość używając GPGServices.";
 ImportNonImportable_Yes = "Spróbuj Importować";
 ImportNonImportable_No = "Anuluj";
 

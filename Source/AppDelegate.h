@@ -1,14 +1,14 @@
 /*
  Copyright © Roman Zechmeister, 2014
  
- Diese Datei ist Teil von GPG Keychain Access.
+ Diese Datei ist Teil von GPG Keychain.
  
- GPG Keychain Access ist freie Software. Sie können es unter den Bedingungen 
+ GPG Keychain ist freie Software. Sie können es unter den Bedingungen 
  der GNU General Public License, wie von der Free Software Foundation 
  veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß 
  Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.
  
- Die Veröffentlichung von GPG Keychain Access erfolgt in der Hoffnung, daß es Ihnen 
+ Die Veröffentlichung von GPG Keychain erfolgt in der Hoffnung, daß es Ihnen 
  von Nutzen sein wird, aber ohne irgendeine Garantie, sogar ohne die implizite 
  Garantie der Marktreife oder der Verwendbarkeit für einen bestimmten Zweck. 
  Details finden Sie in der GNU General Public License.
@@ -20,7 +20,7 @@
 #import <Sparkle/Sparkle.h>
 #import "GKOutlineView.h"
 
-@interface GPGKeychainAccessAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
+@interface GPGKeychainAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
 	GKOutlineView *__weak keyTable;
 	NSTableView *__weak userIDTable, *__weak subkeyTable, *__weak signatureTable;
 	NSDrawer *__weak drawer;

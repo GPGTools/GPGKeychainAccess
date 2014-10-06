@@ -75,8 +75,8 @@ GPG_CONFIG_ERROR_TITLE = "GPG error de configuración";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, algo fue mal. Se encontró GPG en su sistema pero parece haber un problema con el fichero de configuración. Por favor contacte con nosotros en http://support.gpgtools.org\n\nDetalles: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg no se ha encontrado";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg no se encontró en su sistema. Por favor instálelo. Lo encontrará p.e. en el instalador de GPGTools en https://www.gpgtools.org";
-CODE_SIGN_ERROR_TITLE = "¡Alguien interfirió con su instalación de GPG Keychain Access!";
-CODE_SIGN_ERROR_MESSAGE = "Para mantenerle seguro, ¡GPG Keychain Access se cerrará ahora!\n\nPor favor descargue e instale la última versión de GPG Suite desde https://gpgtools.org ¡para estar seguro de que tiene una versión original procedente de nosotros!";
+CODE_SIGN_ERROR_TITLE = "¡Alguien interfirió con su instalación de GPG Keychain!";
+CODE_SIGN_ERROR_MESSAGE = "Para mantenerle seguro, ¡GPG Keychain se cerrará ahora!\n\nPor favor descargue e instale la última versión de GPG Suite desde https://gpgtools.org ¡para estar seguro de que tiene una versión original procedente de nosotros!";
 
 
 /* Mail public key */
@@ -134,7 +134,7 @@ RevokeLastSelfSignature_Yes = "Revocar firma";
 RevokeLastSelfSignature_No = "Cancelar";
 
 RevokeKey_Title = "¡Advertencia! Está a punto de revocar una clave.";
-RevokeKey_Msg = "Está a punto de revocar la siguiente clave\n\n%@\n\nSi revoca esta clave ya no podrá firmar mensajes usándola, y otros ya no podrán enviarle mensajes cifrados con su clave. Si previamente ha subido su clave pública a los servidores de claves, asegúrese de subir la clave revocada (la opción está activa por defecto), para que otros sean advertidos de que su clave ha sido revocada.\n\nAún podrá usar su clave revocada para descifrar correos y ficheros que fueron previamente cifrados con su clave. Por eso recomendamos que conserve la clave revocada en GPG Keychain Access.\n\n¿Está seguro de que quiere revocar esta clave?";
+RevokeKey_Msg = "Está a punto de revocar la siguiente clave\n\n%@\n\nSi revoca esta clave ya no podrá firmar mensajes usándola, y otros ya no podrán enviarle mensajes cifrados con su clave. Si previamente ha subido su clave pública a los servidores de claves, asegúrese de subir la clave revocada (la opción está activa por defecto), para que otros sean advertidos de que su clave ha sido revocada.\n\nAún podrá usar su clave revocada para descifrar correos y ficheros que fueron previamente cifrados con su clave. Por eso recomendamos que conserve la clave revocada en GPG Keychain.\n\n¿Está seguro de que quiere revocar esta clave?";
 RevokeKey_Yes = "Revocar clave";
 RevokeKey_No = "Cancelar";
 RevokeKey_Upload = "Upload revoked key";
@@ -171,7 +171,7 @@ BadKeyserver_Msg = "El servidor de claves que ha introducido no está funcionand
 
 /* Import warnings */
 ImportRevSig_Title = "Importar certificado de revocación";
-ImportRevSig_Msg = "Está a punto de importar un certificado de revocación para %@. Si usted revoca su clave, ya no podrá firmar mensajes usando esa clave y otros ya no podrán enviarle mensajes cifrados con su clave. Considere subir su clave revocada al servidor de claves para que otros sean advertidos de que su clave ha sido revocada.\n\nTodavía podrá usar su clave revocada para descifrar correos y ficheros que fueron cifrados con su clave. Ese es el porqué recomendamos que mantenga su clave revocada en GPG Keychain Access.";
+ImportRevSig_Msg = "Está a punto de importar un certificado de revocación para %@. Si usted revoca su clave, ya no podrá firmar mensajes usando esa clave y otros ya no podrán enviarle mensajes cifrados con su clave. Considere subir su clave revocada al servidor de claves para que otros sean advertidos de que su clave ha sido revocada.\n\nTodavía podrá usar su clave revocada para descifrar correos y ficheros que fueron cifrados con su clave. Ese es el porqué recomendamos que mantenga su clave revocada en GPG Keychain.";
 ImportRevSig_Yes = "Importar";
 ImportRevSig_No = "Cancelar";
 
@@ -181,7 +181,7 @@ ImportRandomData_Yes = "Intentar importar";
 ImportRandomData_No = "Cancelar";
 
 ImportNonImportable_Title = "¡Advertencia! Probablemente el contenido no será importado.";
-ImportNonImportable_Msg = "Parece que está intentando importar un mensaje firmado o cifrado.\n\nTales mensajes no pueden ser importados hacia GPG Keychain Access.\n\nEn su lugar, por favor intente descifrar o verificar el mensaje en cuestión con GPGServices.";
+ImportNonImportable_Msg = "Parece que está intentando importar un mensaje firmado o cifrado.\n\nTales mensajes no pueden ser importados hacia GPG Keychain.\n\nEn su lugar, por favor intente descifrar o verificar el mensaje en cuestión con GPGServices.";
 ImportNonImportable_Yes = "Intentar importar.";
 ImportNonImportable_No = "Cancelar";
 
