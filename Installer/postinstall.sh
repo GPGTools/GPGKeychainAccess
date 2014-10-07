@@ -7,8 +7,15 @@ if [[ ! -e "$temporarydir/$bundle" ]] ;then
 	exit 1
 fi
 
+# Remove old named installation.
+oldLocation=$(mdfind -onlyin /Applications "kMDItemCFBundleIdentifier = org.gpgtools.gpgkeychainaccess" | head -1)
+if [[ -n "$oldLocation" ]] ;then
+	rm -rf "$oldLocation"
+fi
+
 installLocation=$(mdfind -onlyin /Applications "kMDItemCFBundleIdentifier = org.gpgtools.gpgkeychain" | head -1)
 installLocation=${installLocation:-/Applications/GPG Keychain.app}
+
 
 rm -rf "$installLocation"
 mv "$tempLocation" "$installLocation" || exit 1
