@@ -235,6 +235,14 @@
 		return;
 	}
 
+	BOOL yourKey = keys.count == 1 && [keys.anyObject secret];
+	
+	NSString *description = [self descriptionForKeys:keys maxLines:5 withOptions:0];
+	
+	self.progressText = [NSString stringWithFormat:localized(yourKey ? @"MailKey_Progress_Your" : @"MailKey_Progress"), description];
+	self.errorText = localized(@"MailKey_Error");
+	
+	
 	gpgc.async = NO;
 	gpgc.useArmor = YES;
 	NSData *data = [gpgc exportKeys:keys allowSecret:NO fullExport:NO];
@@ -259,11 +267,18 @@
 		return;
 	}
 	
+	NSString *subjectDescription = [self descriptionForKeys:keys maxLines:1 withOptions:DescriptionSingleLine | DescriptionNoKeyID | DescriptionNoEmail];
+
+	
+	NSString *subject = [NSString stringWithFormat:localized(yourKey ? @"MailKey_Subject_Your" : @"MailKey_Subject"), subjectDescription];
+	NSString *message = [NSString stringWithFormat:localized(yourKey ? @"MailKey_Message_Your" : @"MailKey_Message"), description, subjectDescription];
+	
+	
 	
 	NSSharingService *service = [NSSharingService sharingServiceNamed:NSSharingServiceNameComposeEmail];
 	
-	[service setValue:@{@"NSSharingServiceParametersDefaultSubjectKey": localized(@"MailKey_Subject")} forKey:@"parameters"];
-	[service performWithItems:@[localized(@"MailKey_Message"), url]];
+	[service setValue:@{@"NSSharingServiceParametersDefaultSubjectKey": subject} forKey:@"parameters"];
+	[service performWithItems:@[message, url]];
 }
 
 
@@ -1392,19 +1407,33 @@
 	return [self descriptionForKeys:@[key] maxLines:0 withOptions:0];
 }
 
-- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSInteger)lines withOptions:(NSUInteger)options {
-	NSMutableArray *descriptions = [NSMutableArray array];
+
+- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSUInteger)lines withOptions:(DescriptionOptions)options {
+	NSMutableString *descriptions = [NSMutableString string];
 	Class gpgKeyClass = [GPGKey class];
 	NSUInteger i = 0, count = keys.count;
+	if (count == 0) {
+		return @"";
+	}
 	if (lines > 0 && count > lines) {
 		lines = lines - 1;
 	} else {
-		lines = NSIntegerMax;
+		lines = NSUIntegerMax;
 	}
+	NSUInteger showFlags = (!(options & DescriptionNoName)) + ((!(options & DescriptionNoKeyID)) << 2);
+	BOOL showEmail = !(options & DescriptionNoEmail);
+	BOOL singleLine = options & DescriptionSingleLine;
 	
+	NSString *normalSeperator = singleLine ? @", " : @",\n";
+	NSString *lastSeperator = [NSString stringWithFormat:@" %@%@", localized(@"and"), singleLine ? @" " : @"\n"];
+	NSString *seperator = @"";
 	
 	for (__strong GPGKey *key in keys) {
-		NSString *description;
+		if (i >= lines && i > 0) {
+			[descriptions appendFormat:localized(@"%@and %lu more"), singleLine ? @" " : @"\n" , count - i];
+			break;
+		}
+
 		if (![key isKindOfClass:gpgKeyClass]) {
 			GPGKeyManager *keyManager = [GPGKeyManager sharedInstance];
 			GPGKey *realKey = [[keyManager allKeysAndSubkeys] member:key];
@@ -1417,21 +1446,49 @@
 			}
 		}
 		
-		if ([key isKindOfClass:gpgKeyClass]) {
-			description = [NSString stringWithFormat:@"%@ (%@)", key.userIDDescription, key.keyID.shortKeyID];
-		} else {
-			description = key.keyID;
+		if (i > 0) {
+			seperator = normalSeperator;
+			if (i == count - 1) {
+				seperator = lastSeperator;
+			}
 		}
 		
-		[descriptions addObject:description];
-		i++;
-		if (i >= lines) {
-			[descriptions addObject:[NSString stringWithFormat:@"and %lu more", count - i]];
-			break;
+		
+		if ([key isKindOfClass:gpgKeyClass]) {
+			NSUInteger mailFlag = (showEmail && key.email.length) << 1;
+			
+			switch (showFlags + mailFlag) {
+				case 1:
+					[descriptions appendFormat:@"%@%@", seperator, key.name];
+					break;
+				case 2:
+					[descriptions appendFormat:@"%@%@", seperator, key.email];
+					break;
+				case 3:
+					[descriptions appendFormat:@"%@%@ <%@>", seperator, key.name, key.email];
+					break;
+				case 4:
+					[descriptions appendFormat:@"%@%@", seperator, key.shortKeyID];
+					break;
+				case 5:
+					[descriptions appendFormat:@"%@%@ (%@)", seperator, key.name, key.shortKeyID];
+					break;
+				case 6:
+					[descriptions appendFormat:@"%@%@ (%@)", seperator, key.email, key.shortKeyID];
+					break;
+				default:
+					[descriptions appendFormat:@"%@%@ <%@> (%@)", seperator, key.name, key.email, key.shortKeyID];
+					break;
+			}
+		} else {
+			[descriptions appendFormat:@"%@%@", seperator, key.shortKeyID];
 		}
+		
+		
+		i++;
 	}
 	
-	return [descriptions componentsJoinedByString:@"\n"];
+	return descriptions.copy;
 }
 
 - (BOOL)warningSheetWithDefault:(BOOL)defaultValue string:(NSString *)string, ... {

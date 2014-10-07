@@ -22,6 +22,15 @@
 
 @interface ActionController ()
 
+typedef enum {
+	DescriptionNoKeyID = 8,
+	DescriptionNoEmail = 16,
+	DescriptionNoName = 32,
+	DescriptionSingleLine = 64,
+	
+} DescriptionOptions;
+
+
 @property (weak) IBOutlet NSTreeController *keysController;
 @property (weak) IBOutlet NSArrayController *signaturesController;
 @property (weak) IBOutlet NSArrayController *subkeysController;
@@ -37,7 +46,7 @@
 
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
 - (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict;
-- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSInteger)lines withOptions:(NSUInteger)options;
+- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSUInteger)lines withOptions:(DescriptionOptions)options;
 
 - (BOOL)warningSheetWithDefault:(BOOL)defaultValue string:(NSString *)string, ...;
 

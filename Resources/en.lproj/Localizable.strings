@@ -80,8 +80,14 @@ CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlea
 
 
 /* Mail public key */
-MailKey_Subject = "";
-MailKey_Message = "";
+MailKey_Subject = "Public key of %@";
+MailKey_Subject_Your = "My public key to secure our messages";
+MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
+MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Progress = "Please sit tight while a new mail with the public key of %@ attached is being created.";
+MailKey_Progress_Your = "Please sit tight while a new mail with your public key attached is being created.";
+MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+
 
 
 /* Those are abvious */
