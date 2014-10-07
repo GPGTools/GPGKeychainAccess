@@ -38,7 +38,7 @@ CheckAlert_PassphraseToLong_Title = "Lösenordsfras är för lång";
 CheckAlert_PassphraseToLong_Message = "Lösenordsfrasen du angav är för lång. Ange en lösenordsfras med färre än 300 tecken.";
 
 
-MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
+MoveSecring_Msg = "Dina privata nycklar finns för närvarande på \"%@\".\nFör att flytta dina privata nycklar till en annan volym markerar du målvolymen nedan.";
 
 /* For Key-Search */
 "No keys Found" = "Inga nycklar hittades";
@@ -75,13 +75,19 @@ GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfel";
 GPG_CONFIG_ERROR_MESSAGE = "Hoppsan, något gick fel! GPG har hittats på ditt system men det verkar vara ett problem med konfigurationsfilen. Kontakta oss på http://support.gpgtools.org.\n\nDetaljer: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg hittades inte";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg hittades inte på ditt system. Installera det, t.ex. från GPGTools-installeraren på https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Någon har mixtrat med din installation av GPG Nyckelhanterare!";
-CODE_SIGN_ERROR_MESSAGE = "För din egen säkerhets skull kommer GPG Nyckelhanterare nu att avslutas!\n\nHämta och installera den senaste versionen av GPG Suite från https://gpgtools.org för att försäkra dig om att du har en äkta version från oss!";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
 
 
 /* Mail public key */
-MailKey_Subject = "";
-MailKey_Message = "";
+MailKey_Subject = "Public key of %@";
+MailKey_Subject_Your = "My public key to secure our messages";
+MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
+MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Progress = "Please sit tight while a new mail with the public key of %@ attached is being created.";
+MailKey_Progress_Your = "Please sit tight while a new mail with your public key attached is being created.";
+MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+
 
 
 /* Those are abvious */
@@ -134,10 +140,10 @@ RevokeLastSelfSignature_Yes = "Återkalla signatur";
 RevokeLastSelfSignature_No = "Avbryt";
 
 RevokeKey_Title = "Varning! Du kommer att återkalla en nyckel.";
-RevokeKey_Msg = "Du kommer att återkalla följande nyckel\n\n%@\n\nOm du återkallar den här nyckeln kommer du inte längre att kunna signera meddelanden med nyckeln och andra kommer inte längre att kunna skicka meddelanden till dig krypterade med din nyckel. Om du har laddat upp din publika nyckel till nyckelservrarna, se till att ladda upp den återkallade nyckeln (är förvald inställning) så att andra vet om att din nyckel har återkallats.\n\nDu kommer fortfarande att kunna använda din återkallade nyckel för att dekryptera e-postmeddelanden och filer som tidigare krypterats med din nyckel. Därför rekommenderar vi att du behåller den återkallade nyckeln i GPG Nyckelhanterare.\n\nÄr du säker på att du vill återkalla den här nyckeln?";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Återkalla nyckel";
 RevokeKey_No = "Avbryt";
-RevokeKey_Upload = "Upload revoked key";
+RevokeKey_Upload = "Ladda upp återkallad nyckel";
 
 
 /* Delete warnings */
@@ -171,7 +177,7 @@ BadKeyserver_Msg = "Nyckelservern som du angav fungerar inte. Kontrollera nyckel
 
 /* Import warnings */
 ImportRevSig_Title = "Importera återkallelsecertifikat";
-ImportRevSig_Msg = "Du kommer att importera ett återkallelsecertifikat för %@. Om du återkallar din nyckel kommer du inte längre att kunna signera meddelanden med nyckeln och andra kommer inte längre att kunna skicka meddelanden till dig krypterade med din nyckel. Överväg att ladda upp din återkallade nyckel till nyckelservern så att andra vet om att din nyckel har återkallats.\n\nDu kommer fortfarande att kunna använda din återkallade nyckel för att dekryptera e-postmeddelanden och filer som krypterats med din nyckel. Därför rekommenderar vi att du behåller den återkallade nyckeln i GPG Nyckelhanterare.";
+ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Importera";
 ImportRevSig_No = "Avbryt";
 
@@ -181,7 +187,7 @@ ImportRandomData_Yes = "Försök importera";
 ImportRandomData_No = "Avbryt";
 
 ImportNonImportable_Title = "Varning! Innehållet kan förmodligen inte importeras.";
-ImportNonImportable_Msg = "Det verkar som att du försöker importera ett signerat eller krypterat meddelande.\n\nSådana meddelanden kan inte importeras till GPG Nyckelhanterare.\n\nFörsök istället att dekryptera eller verifiera det aktuella meddelandet med GPGServices.";
+ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Försök importera";
 ImportNonImportable_No = "Avbryt";
 
@@ -224,12 +230,12 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "Den här bilden är riktigt stor!";
-ChoosePhoto_Large_Info = "You should use a smaller picture.\nWe recommend a size of less than 15 KiB.";
+ChoosePhoto_Large_Message = "This photo is really large!";
+ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KiB.";
 ChoosePhoto_Large_Button1 = "Välj en annan…";
 ChoosePhoto_Large_Button2 = "Använd det här fotot";
-ChoosePhoto_TooLarge_Message = "This picture is too large!";
-ChoosePhoto_TooLarge_Info = "Please use a picature smaller than 500 KiB.";
+ChoosePhoto_TooLarge_Message = "Your photo is too large!";
+ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KiB.\nWe recommend a size of less than 15 KiB.";
 
 
 

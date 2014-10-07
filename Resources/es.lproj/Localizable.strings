@@ -1,5 +1,5 @@
 /* For Key-Status */
-"Invalid" = "Vigencia";
+"Invalid" = "No válida";
 "Revoked" = "Revocada";
 "Expired" = "Expirado";
 "Disabled" = "Desactivado";
@@ -22,7 +22,7 @@
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No hay ninguna contraseña";
+CheckAlert_NoPassphrase_Title = "No hay frase-contraseña";
 CheckAlert_NoPassphrase_Message = "No ha introducido una frase de contraseña. Esto no es recomendable. Una frase de contraseña debe tener al menos 8 caracteres de longitud.";
 CheckAlert_NoPassphrase_Button1= "Continuar sin una frase de contraseña";
 CheckAlert_NoPassphrase_Button2 = "Escriba la nueva contraseña";
@@ -31,23 +31,23 @@ CheckAlert_PassphraseShort_Message = "Usted ha introducido una frase corta de co
 CheckAlert_PassphraseShort_Button1= "Continuar con la frase corta de contraseña";
 CheckAlert_PassphraseShort_Button2 = "Escriba la nueva contraseña";
 CheckAlert_PassphraseSimple_Title = "Contraseña simple";
-CheckAlert_PassphraseSimple_Message = "La frase de contraseña que has escrito es demasiado simple. Una buena contraseña debe ser alfanumérica y contener al menos un carácter especial.";
-CheckAlert_PassphraseSimple_Button1 = "Continuar con una frase simple de contraseña";
-CheckAlert_PassphraseSimple_Button2 = "Escriba la nueva contraseña";
-CheckAlert_PassphraseToLong_Title = "Frase contraseña demasiado larga";
-CheckAlert_PassphraseToLong_Message = "La frase contraseña que ha introducido es demasiado larga. Introduzca una frase contraseña con menos de 300 caracteres.";
+CheckAlert_PassphraseSimple_Message = "La frase-contraseña que ha introducido es demasiado simple. Una buena frase-contraseña debe ser alfanumérica y contener al menos un caracter especial.";
+CheckAlert_PassphraseSimple_Button1 = "Continuar con frase-contraseña simple";
+CheckAlert_PassphraseSimple_Button2 = "Introduzca la nueva frase-contraseña";
+CheckAlert_PassphraseToLong_Title = "Frase-contraseña demasiado larga";
+CheckAlert_PassphraseToLong_Message = "La frase contraseña que ha introducido es demasiado larga. Introduzca una frase-contraseña con menos de 300 caracteres.";
 
 
-MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
+MoveSecring_Msg = "Sus claves secretas (privadas) residen actualmente en \"%@\".\nPara mover sus claves secretas a otro volumen, seleccione el volumen objetivo debajo.";
 
 /* For Key-Search */
-"No keys Found" = "No encontró claves";
-FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), creado: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+"No keys Found" = "No se encontraron claves";
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), creada: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Estamos buscando clave(s) coincidente(s) en el servidor de claves. Podría tomar algún tiempo, por favor espere.";
 
-GenerateKey_Progress = "Es necesario generar muchos bytes aleatorios. Es una buena idea para llevar a cabo alguna otra acción (escribir en el teclado en una aplicación, mover el ratón, usar los discos) durante la primera generación. Esto le da al generador de números aleatorios una mejor oportunidad para ganar suficiente entropía.";
+GenerateKey_Progress = "Es necesario generar muchos bytes aleatorios. Es una buena idea llevar a cabo alguna otra acción (escribir con el teclado en alguna aplicación, mover el ratón, usar los discos) durante la generación de números primos. Esto le da al generador de números aleatorios una mejor oportunidad para adquirir suficiente entropía.";
 GenerateSubkey_Msg = "Añadir subclave a la Clave \"%@\", %@.";
-GenerateUserID_Msg = "Añadir ID de usuario a la clave \"%@\", %@.";
+GenerateUserID_Msg = "Añadir identidad de usuario a la clave \"%@\", %@.";
 GenerateSignature_Msg = "Firmar una clave significa que el poseedor de la clave es de hecho quien afirma ser.\nUna vez subida, las firmas pueden ser vistas por otros.\nAsí que si firmas la clave de Bob, y tu amiga Alice no está segura de si Bob es realmente Bob, Alice verá tu firma en la clave de Bob, y como Alice sabe que tu clave es fiable, ella sabrá que Bob si será Bob.\n\nEstás a punto de firmar la siguiente clave:\n%@";
 GenerateUidSignature_Msg = "Firmar un UserID significa, que usted confirma, que el propietario de la clave es de hecho quien proclama ser.\nUna vez subidas, las firmas pueden ser vistas por otros.\nAsí que si usted firma la clave de Bob y su amiga Alice no está segura de si Bob es realmente Bob, Alice verá su firma en la clave de Bob, y como Alice sabe que la clave de usted es confiable, ella sabe que lo más probable es que Bob sea realmente Bob.\n\nEstá a punto de firmar el siguiente UserID:\n%@";
 ChangeExpirationDate_Msg = "Cambiar la fecha de vencimiento de \"%@\", %@";
@@ -75,13 +75,19 @@ GPG_CONFIG_ERROR_TITLE = "GPG error de configuración";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, algo fue mal. Se encontró GPG en su sistema pero parece haber un problema con el fichero de configuración. Por favor contacte con nosotros en http://support.gpgtools.org\n\nDetalles: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg no se ha encontrado";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg no se encontró en su sistema. Por favor instálelo. Lo encontrará p.e. en el instalador de GPGTools en https://www.gpgtools.org";
-CODE_SIGN_ERROR_TITLE = "¡Alguien interfirió con su instalación de GPG Keychain!";
-CODE_SIGN_ERROR_MESSAGE = "Para mantenerle seguro, ¡GPG Keychain se cerrará ahora!\n\nPor favor descargue e instale la última versión de GPG Suite desde https://gpgtools.org ¡para estar seguro de que tiene una versión original procedente de nosotros!";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
 
 
 /* Mail public key */
-MailKey_Subject = "";
-MailKey_Message = "";
+MailKey_Subject = "Public key of %@";
+MailKey_Subject_Your = "My public key to secure our messages";
+MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
+MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Progress = "Please sit tight while a new mail with the public key of %@ attached is being created.";
+MailKey_Progress_Your = "Please sit tight while a new mail with your public key attached is being created.";
+MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+
 
 
 /* Those are abvious */
@@ -134,10 +140,10 @@ RevokeLastSelfSignature_Yes = "Revocar firma";
 RevokeLastSelfSignature_No = "Cancelar";
 
 RevokeKey_Title = "¡Advertencia! Está a punto de revocar una clave.";
-RevokeKey_Msg = "Está a punto de revocar la siguiente clave\n\n%@\n\nSi revoca esta clave ya no podrá firmar mensajes usándola, y otros ya no podrán enviarle mensajes cifrados con su clave. Si previamente ha subido su clave pública a los servidores de claves, asegúrese de subir la clave revocada (la opción está activa por defecto), para que otros sean advertidos de que su clave ha sido revocada.\n\nAún podrá usar su clave revocada para descifrar correos y ficheros que fueron previamente cifrados con su clave. Por eso recomendamos que conserve la clave revocada en GPG Keychain.\n\n¿Está seguro de que quiere revocar esta clave?";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revocar clave";
 RevokeKey_No = "Cancelar";
-RevokeKey_Upload = "Upload revoked key";
+RevokeKey_Upload = "Subir clave revocada";
 
 
 /* Delete warnings */
@@ -171,7 +177,7 @@ BadKeyserver_Msg = "El servidor de claves que ha introducido no está funcionand
 
 /* Import warnings */
 ImportRevSig_Title = "Importar certificado de revocación";
-ImportRevSig_Msg = "Está a punto de importar un certificado de revocación para %@. Si usted revoca su clave, ya no podrá firmar mensajes usando esa clave y otros ya no podrán enviarle mensajes cifrados con su clave. Considere subir su clave revocada al servidor de claves para que otros sean advertidos de que su clave ha sido revocada.\n\nTodavía podrá usar su clave revocada para descifrar correos y ficheros que fueron cifrados con su clave. Ese es el porqué recomendamos que mantenga su clave revocada en GPG Keychain.";
+ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Importar";
 ImportRevSig_No = "Cancelar";
 
@@ -181,7 +187,7 @@ ImportRandomData_Yes = "Intentar importar";
 ImportRandomData_No = "Cancelar";
 
 ImportNonImportable_Title = "¡Advertencia! Probablemente el contenido no será importado.";
-ImportNonImportable_Msg = "Parece que está intentando importar un mensaje firmado o cifrado.\n\nTales mensajes no pueden ser importados hacia GPG Keychain.\n\nEn su lugar, por favor intente descifrar o verificar el mensaje en cuestión con GPGServices.";
+ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Intentar importar.";
 ImportNonImportable_No = "Cancelar";
 
@@ -224,12 +230,12 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "¡Esta foto es muy grande!";
-ChoosePhoto_Large_Info = "You should use a smaller picture.\nWe recommend a size of less than 15 KiB.";
+ChoosePhoto_Large_Message = "This photo is really large!";
+ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KiB.";
 ChoosePhoto_Large_Button1 = "Eligir un otro...";
 ChoosePhoto_Large_Button2 = "Usa este foto";
-ChoosePhoto_TooLarge_Message = "This picture is too large!";
-ChoosePhoto_TooLarge_Info = "Please use a picature smaller than 500 KiB.";
+ChoosePhoto_TooLarge_Message = "Your photo is too large!";
+ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KiB.\nWe recommend a size of less than 15 KiB.";
 
 
 

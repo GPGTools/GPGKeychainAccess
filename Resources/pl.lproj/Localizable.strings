@@ -38,7 +38,7 @@ CheckAlert_PassphraseToLong_Title = "Hasło jest zbyt długie";
 CheckAlert_PassphraseToLong_Message = "Hasło które wpisałes jest za długie. Wpisz hasło o liczbie mniejszej niż 300 znaków.";
 
 
-MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
+MoveSecring_Msg = "Twoje tajne/prywatne klucze są w \"%@\".\nAby przenieść te klucze na inny nośnik proszę go wybierz poniżej.";
 
 /* For Key-Search */
 "No keys Found" = "Nie znaleziono żadnych kluczy";
@@ -75,13 +75,19 @@ GPG_CONFIG_ERROR_TITLE = "Błąd konfiguracji GPG";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, coś poszło nie tak. GPG zostało wykryte na Twoim systemie, ale wygląda na to, że wystąpił problem z plikiem konfiguracyjnym. Proszę skontaktuj się z nami na http://support.gpgtools.org.\n\nSzczegóły: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Nie udało się znaleźć Libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg nie został znaleziony na Twoim systemie. Proszę zainstaluj go. Możesz go znaleźć na GPGTools Installer https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Ktoś majstrował przy Twojej instalacji GPG Keychain!";
-CODE_SIGN_ERROR_MESSAGE = "Dla Twojego bezpieczeństwa, GPG Keychain zostanie wyłączony!\n\nProszę pobierz i zainstaluj najnowszą wersję GPG Suite z https://gpgtools.org aby być pewnym, że masz naszą oryginalną wersję!";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
 
 
 /* Mail public key */
-MailKey_Subject = "";
-MailKey_Message = "";
+MailKey_Subject = "Public key of %@";
+MailKey_Subject_Your = "My public key to secure our messages";
+MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
+MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Progress = "Please sit tight while a new mail with the public key of %@ attached is being created.";
+MailKey_Progress_Your = "Please sit tight while a new mail with your public key attached is being created.";
+MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+
 
 
 /* Those are abvious */
@@ -134,10 +140,10 @@ RevokeLastSelfSignature_Yes = "Unieważnij Podpis";
 RevokeLastSelfSignature_No = "Anuluj";
 
 RevokeKey_Title = "Uwaga! Zamierzasz unieważnić klucz.";
-RevokeKey_Msg = "Zamierzasz unieważąnić następujący klucz\n\n%@\n\nJeśli odwołasz ten klucz to nie będziesz w stanie podpisywać wiadomości uzywając tego klucza, a inni nie będą w stanie wysyłać Tobie wiadmości szyfrowanych z Twoim kluczem. Jeśli poprzednio wysłałeś swój klucz publiczny na serwer kluczy, to upewnij się, że wyślesz także unieważniony klucz (ta opcja jest domyślnie aktywna), tak aby inni byli świadomi, że Twój klucz jest już nieważny.\n\nW dalszym ciągu będziesz w stanie używać swojego uinieważnionego klucza do odszyfrowywania maili i plików które poprzednio były szyfrowane Twoim kluczem. Właśnie dlatego zalecamy, aby zachować swój unieważniony/odwołany klucz na GPG Keychain.\n\nCzy jesteś pewny, że chcesz unieważnić ten klucz?";
+RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Unieważnij Klucz";
 RevokeKey_No = "Anuluj";
-RevokeKey_Upload = "Upload revoked key";
+RevokeKey_Upload = "Wyślij unieważniony klucz";
 
 
 /* Delete warnings */
@@ -171,7 +177,7 @@ BadKeyserver_Msg = "Serwer Kluczy który wpisałeś nie działa.\nProszę sprawd
 
 /* Import warnings */
 ImportRevSig_Title = "Importowanie unieważnionych certyfikatów";
-ImportRevSig_Msg = "Zamierzasz zaimportować unieważniony certyfikat dla %@. Jeśli unieważnisz swój klucz, to nie będziesz już w stanie podpisywać wiadomości używając tego klucza i inni nie będą w stanie wysyłać Ci szyfrowanych wiadomości używając Twojego klucza. Rozważ wysłanie swojego unieważnionego klucza do serwera kluczy tak aby inni byli świadomi, że ten klucz został unieważniony.\n\nBędziesz w dalszym ciągu mógł używać swoj unieważniony klucz do odszyfrowywania maili i plików które zostały zaszyfrowane używając tego klucza. To właśnie temu radzimy abyś trzymał swoje unieważnione klucze w GPG Keychain.";
+ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Import";
 ImportRevSig_No = "Anuluj";
 
@@ -181,7 +187,7 @@ ImportRandomData_Yes = "Spróbuj Importować";
 ImportRandomData_No = "Anuluj";
 
 ImportNonImportable_Title = "Uwaga! Zawartość najprawdopodobniej nie może być importowana.";
-ImportNonImportable_Msg = "Wygląda na to, że próbujesz importować podpisaną lub szyfrowaną wiadomość.\n\nTakie wiadomości nie mogą być importowane do GPG Keychain.\n\nZamiast tego, spróbuj odszyfrować lub zweryfikować daną wiadomość używając GPGServices.";
+ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Spróbuj Importować";
 ImportNonImportable_No = "Anuluj";
 
@@ -224,12 +230,12 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "Te zdjęcia jest naprawdę wielkie!";
-ChoosePhoto_Large_Info = "You should use a smaller picture.\nWe recommend a size of less than 15 KiB.";
+ChoosePhoto_Large_Message = "This photo is really large!";
+ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KiB.";
 ChoosePhoto_Large_Button1 = "Wybierz inne...";
 ChoosePhoto_Large_Button2 = "Użyj tego zdjecia";
-ChoosePhoto_TooLarge_Message = "This picture is too large!";
-ChoosePhoto_TooLarge_Info = "Please use a picature smaller than 500 KiB.";
+ChoosePhoto_TooLarge_Message = "Your photo is too large!";
+ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KiB.\nWe recommend a size of less than 15 KiB.";
 
 
 
