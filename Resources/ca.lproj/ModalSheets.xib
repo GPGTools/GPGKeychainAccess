@@ -3746,6 +3746,22 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
+						<string key="label">genNewKeyView</string>
+						<reference key="source" ref="899240081"/>
+						<reference key="destination" ref="605420484"/>
+					</object>
+					<string key="id">9M0-fI-Xmb</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">genNewKey_advancedSubview</string>
+						<reference key="source" ref="899240081"/>
+						<reference key="destination" ref="265332849"/>
+					</object>
+					<string key="id">yYD-Hg-Lhm</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
 						<string key="label">nextKeyView</string>
 						<reference key="source" ref="662923981"/>
 						<reference key="destination" ref="469169338"/>
@@ -7620,6 +7636,48 @@ cy4</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
+					<string key="className">NSCollectionViewItem</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="imageView">NSImageView</string>
+						<string key="textField">NSTextField</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="imageView">
+							<string key="name">imageView</string>
+							<string key="candidateClassName">NSImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="textField">
+							<string key="name">textField</string>
+							<string key="candidateClassName">NSTextField</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSCollectionViewItem.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSTextView</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="orderFrontSharingServicePicker:">id</string>
+						<string key="toggleQuickLookPreviewPanel:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="orderFrontSharingServicePicker:">
+							<string key="name">orderFrontSharingServicePicker:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleQuickLookPreviewPanel:">
+							<string key="name">toggleQuickLookPreviewPanel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSTextView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">SheetController</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
@@ -7642,12 +7700,12 @@ cy4</string>
 						<string key="exportKeyOptionsView">NSView</string>
 						<string key="foundKeysController">NSArrayController</string>
 						<string key="foundKeysView">NSView</string>
+						<string key="genNewKeyView">NSView</string>
+						<string key="genNewKey_advancedSubview">NSView</string>
 						<string key="generateSignatureView">NSView</string>
 						<string key="generateSubkeyView">NSView</string>
 						<string key="generateUserIDView">NSView</string>
 						<string key="keyLengthFormatter">KeyLengthFormatter</string>
-						<string key="newKeyView">NSView</string>
-						<string key="newKey_advancedSubview">NSView</string>
 						<string key="progressIndicator">NSProgressIndicator</string>
 						<string key="progressTextField">NSTextField</string>
 						<string key="progressView">NSView</string>
@@ -7680,6 +7738,14 @@ cy4</string>
 							<string key="name">foundKeysView</string>
 							<string key="candidateClassName">NSView</string>
 						</object>
+						<object class="IBToOneOutletInfo" key="genNewKeyView">
+							<string key="name">genNewKeyView</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="genNewKey_advancedSubview">
+							<string key="name">genNewKey_advancedSubview</string>
+							<string key="candidateClassName">NSView</string>
+						</object>
 						<object class="IBToOneOutletInfo" key="generateSignatureView">
 							<string key="name">generateSignatureView</string>
 							<string key="candidateClassName">NSView</string>
@@ -7695,14 +7761,6 @@ cy4</string>
 						<object class="IBToOneOutletInfo" key="keyLengthFormatter">
 							<string key="name">keyLengthFormatter</string>
 							<string key="candidateClassName">KeyLengthFormatter</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="newKeyView">
-							<string key="name">newKeyView</string>
-							<string key="candidateClassName">NSView</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="newKey_advancedSubview">
-							<string key="name">newKey_advancedSubview</string>
-							<string key="candidateClassName">NSView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="progressIndicator">
 							<string key="name">progressIndicator</string>

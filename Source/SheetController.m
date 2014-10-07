@@ -27,7 +27,7 @@
 
 @interface SheetController ()
 @property (weak) NSView *displayedView;
-@property (weak) NSWindow *modalWindow;
+@property (assign) NSWindow *modalWindow;
 @property (strong) NSArray *foundKeyDicts;
 @property (strong) NSArray *URLs;
 @property (nonatomic, strong) NSArray *volumes;
@@ -86,8 +86,8 @@ modalWindow, foundKeyDicts, hideExtension;
 		NSDictionary *attributes = @{NSFontAttributeName: [NSFont labelFontOfSize:14]};
 		NSAttributedString *aString = [[NSAttributedString alloc] initWithString:value attributes:attributes];
 		
-		NSRect fieldFrame = progressTextField.frame;
-		NSRect superFrame = progressView.frame;
+		NSRect fieldFrame = _progressTextField.frame;
+		NSRect superFrame = _progressView.frame;
 		
 		NSUInteger lines = value.lines;
 		CGFloat width = 1000;
@@ -115,7 +115,7 @@ modalWindow, foundKeyDicts, hideExtension;
 		
 		superFrame.size.height += height + 5;
 		superFrame.size.width += width + 20;
-		progressView.frame = superFrame;
+		_progressView.frame = superFrame;
 	}
 }
 - (NSString *)progressText {
@@ -176,40 +176,40 @@ modalWindow, foundKeyDicts, hideExtension;
 			self.passphrase = @"";
 			self.confirmPassphrase = @"";
 			
-			self.displayedView = newKeyView;
+			self.displayedView = _genNewKeyView;
 			break;
 		case SheetTypeSearchKeys:
 			self.pattern = @"";
 			
-			self.displayedView = searchKeysView;
+			self.displayedView = _searchKeysView;
 			break;
 		case SheetTypeReceiveKeys:
 			self.pattern = @"";
 			
-			self.displayedView = receiveKeysView;
+			self.displayedView = _receiveKeysView;
 			break;
 		case SheetTypeShowResult:
-			self.displayedView = resultView;
+			self.displayedView = _resultView;
 			break;
 		case SheetTypeShowFoundKeys:
 			if ([self generateFoundKeyDicts]) {
-				self.displayedView = foundKeysView;
+				self.displayedView = _foundKeysView;
 			} else {
 				self.msgText = localized(@"No keys Found");
-				self.displayedView = resultView;
+				self.displayedView = _resultView;
 			}
 			
 			break;
 		case SheetTypeExpirationDate:
 			[self setStandardExpirationDates];
 			
-			self.displayedView = changeExpirationDateView;
+			self.displayedView = _changeExpirationDateView;
 			break;
 		case SheetTypeAddUserID:
 			[self setDataFromAddressBook];
 			self.comment = @"";
 			
-			self.displayedView = generateUserIDView;
+			self.displayedView = _generateUserIDView;
 			break;
 		case SheetTypeAddSubkey:
 			self.length = 4096;
@@ -217,7 +217,7 @@ modalWindow, foundKeyDicts, hideExtension;
 			self.expirationDate = nil;
 			[self setStandardExpirationDates];
 			
-			self.displayedView = generateSubkeyView;
+			self.displayedView = _generateSubkeyView;
 			break;
 		case SheetTypeAddSignature:
 			self.expirationDate = nil;
@@ -225,7 +225,7 @@ modalWindow, foundKeyDicts, hideExtension;
 			self.sigType = 0;
 			self.localSig = NO;
 			
-			self.displayedView = generateSignatureView;
+			self.displayedView = _generateSignatureView;
 			break;
 		case SheetTypeSavePanel:
 			[self runSavePanelWithAccessoryView:nil];
@@ -239,15 +239,15 @@ modalWindow, foundKeyDicts, hideExtension;
 		case SheetTypeExportKey: {
 			BOOL showAccessoryView = self.allowSecretKeyExport;
 			self.allowSecretKeyExport = NO;
-			[self runSavePanelWithAccessoryView:showAccessoryView ? exportKeyOptionsView : nil];
+			[self runSavePanelWithAccessoryView:showAccessoryView ? _exportKeyOptionsView : nil];
 			
 			return clickedButton; }
 		case SheetTypeAlgorithmPreferences:
-			self.displayedView = editAlgorithmPreferencesView;
+			self.displayedView = _editAlgorithmPreferencesView;
 			break;
 		case SheetTypeSelectVolume:
 			[self prepareVolumeCollection];
-			self.displayedView = selectVolumeView;
+			self.displayedView = _selectVolumeView;
 			break;
 		default:
 			return -1;
@@ -335,10 +335,10 @@ modalWindow, foundKeyDicts, hideExtension;
 	[progressSheetLock lock];
 	if (numberOfProgressSheets == 0) { //Nur anzeigen wenn das progressSheet nicht bereits angezeigt wird.
 		oldDisplayedView = displayedView; //displayedView sichern.
-		self.displayedView = progressView; //progressView anzeigen.
+		self.displayedView = _progressView; //progressView anzeigen.
 		if ([sheetLock tryLock]) { //Es wird kein anderes Sheet angezeigt.
 			oldDisplayedView = nil;
-			[NSApp beginSheet:sheetWindow modalForWindow:mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+			[NSApp beginSheet:_sheetWindow modalForWindow:mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
 		}
 	}
 	numberOfProgressSheets++;
@@ -351,8 +351,8 @@ modalWindow, foundKeyDicts, hideExtension;
 		if (oldDisplayedView) { //Soll ein zuvor angezeigtes Sheet wieder angezeigt werden?
 			self.displayedView = oldDisplayedView; //Altes Sheet wieder anzeigen.
 		} else {
-			[NSApp endSheet:sheetWindow]; //Sheet beenden...
-			[sheetWindow orderOut:self]; // und ausblenden.
+			[NSApp endSheet:_sheetWindow]; //Sheet beenden...
+			[_sheetWindow orderOut:self]; // und ausblenden.
 			[sheetLock unlock];
 		}
 	}
@@ -424,8 +424,8 @@ modalWindow, foundKeyDicts, hideExtension;
 // buttonClicked //
 - (IBAction)buttonClicked:(NSButton *)sender {
 	clickedButton = sender.tag;
-	if (![sheetWindow makeFirstResponder:sheetWindow]) {
-		[sheetWindow endEditingFor:nil];
+	if (![_sheetWindow makeFirstResponder:_sheetWindow]) {
+		[_sheetWindow endEditingFor:nil];
 	}
 	
 	if (numberOfProgressSheets > 0) {
@@ -494,14 +494,14 @@ modalWindow, foundKeyDicts, hideExtension;
 - (void)setKeyType:(NSInteger)value {
 	keyType = value;
 	if (value == 2 || value == 3) {
-		keyLengthFormatter.minKeyLength = 2048;
-		keyLengthFormatter.maxKeyLength = 3072;
-		self.length = [keyLengthFormatter checkedValue:length];
+		_keyLengthFormatter.minKeyLength = 2048;
+		_keyLengthFormatter.maxKeyLength = 3072;
+		self.length = [_keyLengthFormatter checkedValue:length];
 		self.availableLengths = [NSArray arrayWithObjects:@"2048", @"3072", nil];
 	} else {
-		keyLengthFormatter.minKeyLength = 2048;
-		keyLengthFormatter.maxKeyLength = 4096;
-		self.length = [keyLengthFormatter checkedValue:length];
+		_keyLengthFormatter.minKeyLength = 2048;
+		_keyLengthFormatter.maxKeyLength = 4096;
+		self.length = [_keyLengthFormatter checkedValue:length];
 		self.availableLengths = [NSArray arrayWithObjects:@"2048", @"3072", @"4096", nil];
 	}
 }
@@ -510,10 +510,10 @@ modalWindow, foundKeyDicts, hideExtension;
 	return self.hasExpirationDate ? [self.expirationDate daysSinceNow] : 0;
 }
 - (GPGKey *)secretKey {
-	return [[secretKeysController selectedObjects] objectAtIndex:0];
+	return [[_secretKeysController selectedObjects] objectAtIndex:0];
 }
 - (void)setSecretKey:(GPGKey *)value {
-	[secretKeysController setSelectedObjects:[NSArray arrayWithObject:value]];
+	[_secretKeysController setSelectedObjects:[NSArray arrayWithObject:value]];
 }
 
 - (NSIndexSet *)selectedVolumeIndexes {
@@ -678,33 +678,33 @@ modalWindow, foundKeyDicts, hideExtension;
 
 - (void)runAndWait {
 	[sheetLock lock];
-	GPGDebugLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", modalWindow, sheetWindow);
+	GPGDebugLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", modalWindow, _sheetWindow);
 	
 	if (modalWindow.isVisible) {
-		[NSApp beginSheet:sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
-		[NSApp runModalForWindow:sheetWindow];
-		[NSApp endSheet:sheetWindow];
+		[NSApp beginSheet:_sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+		[NSApp runModalForWindow:_sheetWindow];
+		[NSApp endSheet:_sheetWindow];
 	} else {
-		[sheetWindow makeKeyAndOrderFront:self];
-		[NSApp runModalForWindow:sheetWindow];
+		[_sheetWindow makeKeyAndOrderFront:self];
+		[NSApp runModalForWindow:_sheetWindow];
 	}
-	[sheetWindow orderOut:self];
+	[_sheetWindow orderOut:self];
 	[sheetLock unlock];
 }
 
 - (void)showAdvanced:(BOOL)show animate:(BOOL)animate {
-	NSRect newFrame = sheetWindow.frame;
+	NSRect newFrame = _sheetWindow.frame;
 	
-	CGFloat height = [newKey_advancedSubview frame].size.height;
+	CGFloat height = [_genNewKey_advancedSubview frame].size.height;
 	newFrame.size.height += show ? height : -height;
 	newFrame.origin.y -= show ? height : -height;
 	
 	if (!show) {
-		[newKey_advancedSubview setHidden:YES];
+		[_genNewKey_advancedSubview setHidden:YES];
 	}
-	[sheetWindow setFrame:newFrame display:YES animate:animate];
+	[_sheetWindow setFrame:newFrame display:YES animate:animate];
 	if (show) {
-		[newKey_advancedSubview setHidden:NO];
+		[_genNewKey_advancedSubview setHidden:NO];
 	}
 	
 }
@@ -901,28 +901,28 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 }
 - (void)setDisplayedView:(NSView *)value {
 	if (displayedView != value) {
-		if (displayedView == progressView) {
-			[progressIndicator stopAnimation:nil];
+		if (displayedView == _progressView) {
+			[_progressIndicator stopAnimation:nil];
 		}
 		
 		//[displayedView removeFromSuperview];
 		//displayedView = value;
 		if (value != nil) {
-			[sheetWindow setContentView:value];
+			[_sheetWindow setContentView:value];
 			
 			static BOOL	newKeyViewInitialized = NO;
-			if (!newKeyViewInitialized && value == newKeyView) {
+			if (!newKeyViewInitialized && value == _genNewKeyView) {
 				[self showAdvanced:NO animate:NO];
 				newKeyViewInitialized = YES;
 			}
 			
 			
 			if ([value nextKeyView]) {
-				[sheetWindow makeFirstResponder:[value nextKeyView]];
+				[_sheetWindow makeFirstResponder:[value nextKeyView]];
 			}
 			
-			if (value == progressView) {
-				[progressIndicator startAnimation:nil];
+			if (value == _progressView) {
+				[_progressIndicator startAnimation:nil];
 			}
 		}
 	}
@@ -942,22 +942,22 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			extensions = [NSArray arrayWithObjects:@"gpg", @"asc", @"pgp", @"key", @"gpgkey", @"txt", nil];
 			break;
 	}
-	[(NSSavePanel *)[exportKeyOptionsView window] setAllowedFileTypes:extensions];
+	[(NSSavePanel *)[_exportKeyOptionsView window] setAllowedFileTypes:extensions];
 }
 
 
 
 // NSTableView delegate.
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-	NSDictionary *foundKey = [[foundKeysController arrangedObjects] objectAtIndex:row];
+	NSDictionary *foundKey = [[_foundKeysController arrangedObjects] objectAtIndex:row];
 	return [[foundKey objectForKey:@"lines"] integerValue] * [tableView rowHeight] + 1;
 }
 - (BOOL)tableView:(NSTableView *)tableView shouldTypeSelectForEvent:(NSEvent *)event withCurrentSearchString:(NSString *)searchString {
 	if ([event type] == NSKeyDown && [event keyCode] == 49) { //Leertaste gedrückt
-		NSArray *selectedKeys = [foundKeysController selectedObjects];
+		NSArray *selectedKeys = [_foundKeysController selectedObjects];
 		if ([selectedKeys count] > 0) {
 			NSNumber *selected = [NSNumber numberWithBool:![[[selectedKeys objectAtIndex:0] objectForKey:@"selected"] boolValue]];
-			for (NSMutableDictionary *foundKey in [foundKeysController selectedObjects]) {
+			for (NSMutableDictionary *foundKey in [_foundKeysController selectedObjects]) {
 				[foundKey setObject:selected forKey:@"selected"];
 			}
 		}

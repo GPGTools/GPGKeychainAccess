@@ -48,36 +48,6 @@ enum {
 
 
 @interface SheetController : NSObject <NSOpenSavePanelDelegate, NSTabViewDelegate> {
-	IBOutlet NSWindow *sheetWindow;
-	IBOutlet NSView *sheetView;
-	
-	IBOutlet KeyLengthFormatter *keyLengthFormatter;
-	IBOutlet NSProgressIndicator *progressIndicator;
-	IBOutlet NSArrayController *foundKeysController;
-	IBOutlet NSArrayController *secretKeysController;
-	
-	
-	IBOutlet NSView *exportKeyOptionsView;
-
-	//Views die im Sheet angezeigt werden können.
-	IBOutlet NSView *progressView;
-	IBOutlet NSTextField *progressTextField;
-	IBOutlet NSView *newKeyView;
-	IBOutlet NSView *newKey_advancedSubview;
-	IBOutlet NSView *generateSubkeyView;
-	IBOutlet NSView *generateUserIDView;
-	IBOutlet NSView *generateSignatureView;
-	IBOutlet NSView *changeExpirationDateView;
-	IBOutlet NSView *searchKeysView;
-	IBOutlet NSView *foundKeysView;
-	IBOutlet NSView *receiveKeysView;
-	IBOutlet NSView *resultView;
-	IBOutlet NSView *editAlgorithmPreferencesView;
-	IBOutlet NSView *selectVolumeView;
-
-	
-	
-	
 	NSView *displayedView;
 	NSInteger clickedButton;
 	NSView *oldDisplayedView;
@@ -93,12 +63,44 @@ enum {
 	GPGKey *secretKey;
 	NSURL *URL;
 	NSArray *URLs;
-	NSWindow *__weak modalWindow;
 	BOOL hideExtension;
 	NSMutableSet *msgTextFields;
 	NSIndexSet *selectedVolumeIndexes;
 	NSUInteger oldVolumeIndex;
 }
+
+@property (assign) IBOutlet NSWindow *sheetWindow;
+@property (assign) IBOutlet NSView *sheetView;
+
+@property (assign) IBOutlet KeyLengthFormatter *keyLengthFormatter;
+@property (assign) IBOutlet NSProgressIndicator *progressIndicator;
+@property (assign) IBOutlet NSArrayController *foundKeysController;
+@property (assign) IBOutlet NSArrayController *secretKeysController;
+
+
+@property (assign) IBOutlet NSView *exportKeyOptionsView;
+
+//Views die im Sheet angezeigt werden können.
+@property (assign) IBOutlet NSView *progressView;
+@property (assign) IBOutlet NSTextField *progressTextField;
+@property (assign) IBOutlet NSView *genNewKeyView;
+@property (assign) IBOutlet NSView *genNewKey_advancedSubview;
+@property (assign) IBOutlet NSView *generateSubkeyView;
+@property (assign) IBOutlet NSView *generateUserIDView;
+@property (assign) IBOutlet NSView *generateSignatureView;
+@property (assign) IBOutlet NSView *changeExpirationDateView;
+@property (assign) IBOutlet NSView *searchKeysView;
+@property (assign) IBOutlet NSView *foundKeysView;
+@property (assign) IBOutlet NSView *receiveKeysView;
+@property (assign) IBOutlet NSView *resultView;
+@property (assign) IBOutlet NSView *editAlgorithmPreferencesView;
+@property (assign) IBOutlet NSView *selectVolumeView;
+
+
+
+
+
+
 
 @property (nonatomic, strong) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
 @property (nonatomic) BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload;
