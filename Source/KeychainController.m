@@ -158,7 +158,6 @@ NSSet *draggedKeys;
 	GPGController *gc = [GPGController gpgController];
 	gc.async = NO;
 	gc.useArmor = YES;
-	gc.printVersion = YES;
 	NSData *exportedData = [gc exportKeys:draggedKeys allowSecret:NO fullExport:NO];
 	if ([exportedData length] > 0) {
 		[exportedData writeToFile:[[dropDestination path] stringByAppendingPathComponent:fileName] atomically:YES];
