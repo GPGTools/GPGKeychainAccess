@@ -65,7 +65,7 @@
 				
 				unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:fileName error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
 				if (filesize > 500 * 1000) { //Bilder über 500 KB sind zu gross. (Meiner Meinung nach.)
-					[[SheetController sharedInstance] alertSheetForWindow:mainWindow
+					[[SheetController sharedInstance] alertSheetForWindow:nil
 								  messageText:localized(@"ChoosePhoto_TooLarge_Message")
 									 infoText:localized(@"ChoosePhoto_TooLarge_Info")
 								defaultButton:nil
@@ -74,6 +74,17 @@
 							suppressionButton:nil];
 					
 					return NO;
+				} else if (filesize > 15 * 1000) { //Bei Bildern über 15 KB nachfragen.
+					NSInteger retVal = [[SheetController sharedInstance] alertSheetForWindow:nil
+															  messageText:localized(@"ChoosePhoto_Large_Message")
+																 infoText:localized(@"ChoosePhoto_Large_Info")
+															defaultButton:localized(@"Cancel")
+														  alternateButton:localized(@"ChoosePhoto_Large_Button2")
+															  otherButton:nil
+														suppressionButton:nil];
+					if (retVal != NSAlertSecondButtonReturn) {
+						return NO;
+					}
 				}
 				
 				[actc addPhoto:fileName toKey:key];
