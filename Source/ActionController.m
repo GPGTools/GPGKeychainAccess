@@ -1589,7 +1589,7 @@
 	}
 	
 	
-	[sheetController errorSheetWithmessageText:title infoText:message];
+	[sheetController errorSheetWithMessageText:title infoText:message];
 }
 
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {

@@ -257,8 +257,8 @@ modalWindow, foundKeyDicts, hideExtension;
 	return clickedButton;
 }
 
-- (void)errorSheetWithmessageText:(NSString *)messageText infoText:(NSString *)infoText {
-	[self alertSheetForWindow:nil messageText:messageText infoText:infoText defaultButton:nil alternateButton:nil otherButton:nil suppressionButton:nil];
+- (void)errorSheetWithMessageText:(NSString *)messageText infoText:(NSString *)infoText {
+	[self alertSheetForWindow:mainWindow messageText:messageText infoText:infoText defaultButton:nil alternateButton:nil otherButton:nil suppressionButton:nil];
 }
 
 - (NSInteger)alertSheetWithTitle:(NSString *)theTitle message:(NSString *)message defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton {
@@ -310,12 +310,9 @@ modalWindow, foundKeyDicts, hideExtension;
 			alert.suppressionButton.state = NSOnState;
 		}
 	}
-	if (!window) {
-		window = mainWindow;
-	}
 	
 	
-	if (window.isVisible && [sheetLock tryLock]) {
+	if (window && window.isVisible && [sheetLock tryLock]) {
 		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
 		[NSApp runModalForWindow:window];
 		[sheetLock unlock];

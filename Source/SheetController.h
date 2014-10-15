@@ -120,7 +120,7 @@ enum {
 
 - (NSInteger)runModal;
 - (NSInteger)runModalForWindow:(NSWindow *)window;
-- (void)errorSheetWithmessageText:(NSString *)messageText infoText:(NSString *)infoText;
+- (void)errorSheetWithMessageText:(NSString *)messageText infoText:(NSString *)infoText;
 - (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton;
 - (NSInteger)alertSheetWithTitle:(NSString *)title message:(NSString *)message defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton;
 
