@@ -29,7 +29,7 @@
 		if (fileNames.count == 1) {
 			NSString *fileName = [fileNames objectAtIndex:0];
 			NSString *extension = [[fileName pathExtension] lowercaseString];
-			if ([extension isEqualToString:@"jpg"]) {
+			if ([extension isEqualToString:@"jpg"] || [extension isEqualToString:@"jpeg"]) {
 				return NSDragOperationCopy;
 			}
 
@@ -61,7 +61,7 @@
 		if (fileNames.count == 1) {
 			NSString *fileName = [fileNames objectAtIndex:0];
 			NSString *extension = [[fileName pathExtension] lowercaseString];
-			if ([extension isEqualToString:@"jpg"]) {
+			if ([extension isEqualToString:@"jpg"] || [extension isEqualToString:@"jpeg"]) {
 				
 				unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:fileName error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
 				if (filesize > 500 * 1000) { //Bilder über 500 KB sind zu gross. (Meiner Meinung nach.)
