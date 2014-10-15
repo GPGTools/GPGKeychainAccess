@@ -70,23 +70,23 @@ CheckError_PassphraseMissmatch = "Dine kodeord er ikke ens!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG kunne ikke findes";
-GPG_NOT_FOUND_MESSAGE = "Ups, noget gik rigtigt galt her. Det ser ud til at GPG mangler på dit system. Installer det f.eks. med GPGTools Installeren fra https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Ups, noget gik rigtigt galt. Det ser ud til at GPG mangler på dit system. Gen-installer GPG Suiten fra https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfejl";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, noget gik galt. GPG findes på dit system, men der ser ud til at være problemer med konfigurationsfilen. Kontakt os venligst på http://support.gpgtools.org.\n\nDetaljer: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg blev ikke fundet";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg blev ikke fundet på dit system. Installer det f.eks. med GPGTools Installeren fra https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
-CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease download and install the latest version of GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg blev ikke fundet på dit system. Gen-installer GPG Suiten fra https://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Nogen har pillet ved din installation af GPG Nøglering!";
+CODE_SIGN_ERROR_MESSAGE = "For en sikkerheds skyld vil GPG Nøglering lukke nu!\n\nGen-installer venligst GPG Suiten fra https://gpgtools.org for at være sikker på, at du har en original version fra os!";
 
 
 /* Mail public key */
-MailKey_Subject = "Public key of %@";
-MailKey_Subject_Your = "My public key to secure our messages";
-MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
-MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
-MailKey_Progress = "Please sit tight while a new mail with the public key of %@ attached is being created.";
-MailKey_Progress_Your = "Please sit tight while a new mail with your public key attached is being created.";
-MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+MailKey_Subject = "Offentlig nøgle til %@";
+MailKey_Subject_Your = "Min offentlige nøgle til at sikre vores beskeder";
+MailKey_Message = "Hej,\n\nvedhæftet finder du den offentlige nøgle til\n\n%@\n\nDu kan bruge denne nøgle til at kryptere og sikre beskeder, når du skriver til %@.\n\nFor at bruge den skal du have et OpenPGP program på din computer. Nedenfor finder du en liste af mulige programmer til dit styresystem:\n\nOS X: GPG Nøglering (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nImporter den offentlige nøgle i din lokale OpenPGP nøglering.\n\nVenlig hilsen";
+MailKey_Message_Your = "Hej,\n\nvedhæftet finder du min offentlige nøgle\n\n%@\n\nDu kan bruge denne nøgle til at kryptere og sikre vores beskeder.\n\nFor at bruge den skal du have et OpenPGP program på din computer. Nedenfor finder du en liste af mulige programmer til dit styresystem:\n\nOS X: GPG Nøglering (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nImporter den offentlige nøgle i din lokale OpenPGP nøglering.\n\nJeg ser frem til at udveksle beskeder med dig, som andre ikke kan stikke næsen i.\n\nVenlig hilsen";
+MailKey_Progress = "Vent venligst, mens en ny e-mail bliver oprettet med den offentlige nøgle til %@ vedhæftet.";
+MailKey_Progress_Your = "Vent venligst, mens en ny e-mail bliver oprettet med din offentlige nøgle vedhæftet.";
+MailKey_Error = "Ups, noget gik galt. Der var problemer med at eksportere din nøgle.";
 
 
 
@@ -140,7 +140,7 @@ RevokeLastSelfSignature_Yes = "Tilbagekald signatur";
 RevokeLastSelfSignature_No = "Annuller";
 
 RevokeKey_Title = "Advarsel! Du er ved at tilbagekalde en nøgle.";
-RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "Du er ved at tilbagekalde denne nøgle\n\n%@\n\nHvis du tilbagekalder denne nøgle, kan du ikke længere signere beskeder med den nøgle, og andre kan ikke længere sende dig beskeder, der er krypterede med din nøgle. Hvis du tidligere har uploadet dig offentlige nøgle til nøgleserverne, skal du huske at uploade den tilbagekaldte nøgle (dette er valgt til som standard), så andre bliver gjort opmærksomme på, at din nøgle er blevet tilbagekaldt.\n\nDu vil stadig kunne bruge din tilbagekaldte nøgle til at dekryptere e-mails og filer, der tidligere er blevet krypterede med din nøgle. Derfor anbefaler vi, at du beholder den tilbagekaldte nøgle i GPG Nøglering.\n\nEr du sikker på, at du vil tilbagekalde denne nøgle?";
 RevokeKey_Yes = "Tilbagekald nøgle";
 RevokeKey_No = "Annuller";
 RevokeKey_Upload = "Upload tilbagekaldt nøgle";
@@ -177,7 +177,7 @@ BadKeyserver_Msg = "Den angivne nøgleserver virker ikke.\nTjek nøgleserveren a
 
 /* Import warnings */
 ImportRevSig_Title = "Importer tilbagekaldelsescertifikat";
-ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
+ImportRevSig_Msg = "Du er ved at importere et tilbagekaldelsescertifikat for %@. Hvis du tilbagekalder din nøgle, vil du ikke længere kunne signere beskeder med den nøgle, og andre vil ikke længere kunne sende beskeder til dig, der er krypterede med din nøgle. Overvej at uploade din tilbagekaldte nøgle til nøgleserveren, så andre bliver gjort opmærksom på, at din nøgle er blevet tilbagekaldt.\n\nDin tilbagekaldte nøgle kan stadig bruges til at dekryptere e-mails og filer, der er krypteret med din offentlige nøgle. Derfor anbefaler vi at du beholder den tilbagekaldte nøgle i GPG Nøglering.";
 ImportRevSig_Yes = "Importér";
 ImportRevSig_No = "Annuller";
 
@@ -187,7 +187,7 @@ ImportRandomData_Yes = "Forsøg at importere";
 ImportRandomData_No = "Annuller";
 
 ImportNonImportable_Title = "Advarsel! Indholdet kan sandsynligvis ikke importeres.";
-ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
+ImportNonImportable_Msg = "Det ser ud til at du forsøger at importere en signeret eller krypteret besked.\n\nSådanne beskeder kan ikke importeres i GPG Nøglering.\n\nPrøv i stedet at dekryptere eller verificere beskeden med GPGServices.";
 ImportNonImportable_Yes = "Forsøg at importere";
 ImportNonImportable_No = "Annuller";
 
@@ -230,12 +230,12 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "This photo is really large!";
-ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KiB.";
+ChoosePhoto_Large_Message = "Dette billede er virkeligt stort!";
+ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
 ChoosePhoto_Large_Button1 = "Vælg et andet...";
 ChoosePhoto_Large_Button2 = "Brug dette billede";
-ChoosePhoto_TooLarge_Message = "Your photo is too large!";
-ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KiB.\nWe recommend a size of less than 15 KiB.";
+ChoosePhoto_TooLarge_Message = "Dit billede er for stort!";
+ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
 
 
 

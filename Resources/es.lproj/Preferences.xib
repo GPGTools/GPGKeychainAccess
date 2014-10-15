@@ -66,8 +66,8 @@
 					<dictionary class="NSMutableDictionary" key="NSToolbarIBIdentifiedItems">
 						<object class="NSToolbarItem" key="609D3507-AAD7-4DE9-9AB3-328CB4D80420" id="634984293">
 							<string key="NSToolbarItemIdentifier">609D3507-AAD7-4DE9-9AB3-328CB4D80420</string>
-							<string key="NSToolbarItemLabel">Key server</string>
-							<string key="NSToolbarItemPaletteLabel">Key server</string>
+							<string key="NSToolbarItemLabel">Servidor de claves</string>
+							<string key="NSToolbarItemPaletteLabel">Servidor de claves</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
@@ -86,8 +86,8 @@
 						</object>
 						<object class="NSToolbarItem" key="8ABDB856-CACE-4F60-A69C-19F79CDA46BE" id="561285712">
 							<string key="NSToolbarItemIdentifier">8ABDB856-CACE-4F60-A69C-19F79CDA46BE</string>
-							<string key="NSToolbarItemLabel">Actualizaciónes</string>
-							<string key="NSToolbarItemPaletteLabel">Actualizaciónes</string>
+							<string key="NSToolbarItemLabel">Actualizaciones</string>
+							<string key="NSToolbarItemPaletteLabel">Actualizaciones</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
@@ -191,7 +191,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="781330519">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">71435264</int>
-							<string key="NSContents">Chequear ultima: </string>
+							<string key="NSContents">Última comprobación:</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="85221806"/>
 							<reference key="NSBackgroundColor" ref="303703962"/>
@@ -211,7 +211,7 @@
 						<object class="NSButtonCell" key="NSCell" id="453034332">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Chequear ahora</string>
+							<string key="NSContents">Comprobar ahora</string>
 							<object class="NSFont" key="NSSupport" id="582340800">
 								<string key="NSName">.LucidaGrandeUI</string>
 								<double key="NSSize">13</double>
@@ -242,7 +242,7 @@
 						<object class="NSButtonCell" key="NSCell" id="304997418">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Descargar las actualizaciónes automáticamente</string>
+							<string key="NSContents">Descargar las actualizaciones automáticamente</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<reference key="NSControlView" ref="178688288"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -271,7 +271,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="924562671">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Chequear por actualizaciónes:</string>
+							<string key="NSContents">Buscar actualizaciones:</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<reference key="NSControlView" ref="8447605"/>
 							<reference key="NSBackgroundColor" ref="303703962"/>
@@ -382,7 +382,7 @@
 						<object class="NSButtonCell" key="NSCell" id="190733438">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Chequear por actualizaciónes automáticamente</string>
+							<string key="NSContents">Buscar actualizaciones automáticamente</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<reference key="NSControlView" ref="270258777"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -415,7 +415,7 @@
 						<object class="NSButtonCell" key="NSCell" id="228590476">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Mostrar claves revocadas y expiradas</string>
+							<string key="NSContents">Mostrar claves revocadas y caducadas</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="147587013"/>
@@ -1479,6 +1479,17 @@
 						<string key="NS.key.0">checkForUpdates:</string>
 						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">checkForUpdates:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">delegate</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">delegate</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">delegate</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</object>
