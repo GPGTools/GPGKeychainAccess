@@ -972,7 +972,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		
 		NSString *path = [url path];
 		unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
-		if (filesize > 500 * 1024) { //Bilder über 500 KiB sind zu gross. (Meiner Meinung nach.)
+		if (filesize > 500 * 1000) { //Bilder über 500 KB sind zu gross. (Meiner Meinung nach.)
 			[self alertSheetForWindow:sender
 						  messageText:localized(@"ChoosePhoto_TooLarge_Message")
 							 infoText:localized(@"ChoosePhoto_TooLarge_Info")
@@ -981,7 +981,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 						  otherButton:nil
 					suppressionButton:nil];
 			return NO;
-		} else if (filesize > 15 * 1024) { //Bei Bildern über 15 KiB nachfragen.
+		} else if (filesize > 15 * 1000) { //Bei Bildern über 15 KB nachfragen.
 			NSInteger retVal =  [self alertSheetForWindow:sender
 											  messageText:localized(@"ChoosePhoto_Large_Message")
 												 infoText:localized(@"ChoosePhoto_Large_Info")
