@@ -251,34 +251,50 @@
 		return;
 	}
 	
-	NSString *templateString = [NSTemporaryDirectory() stringByAppendingPathComponent:@"GKA.XXXXXX"];
-	NSMutableData *template = [[templateString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
-
-	char *tempDir = [template mutableBytes];
-	if (!mkdtemp(tempDir)) {
-		return;
-	}
-	
-	NSString *path = [NSString stringWithFormat:@"%s/%@.asc", tempDir, keys.count == 1 ? [[keys anyObject] shortKeyID] : localized(@"Keys")];
-	NSURL *url = [NSURL fileURLWithPath:path];
-	NSError *error = nil;
-	[data writeToURL:url options:0 error:&error];
-	if (error) {
-		return;
-	}
 	
 	NSString *subjectDescription = [self descriptionForKeys:keys maxLines:1 withOptions:DescriptionSingleLine | DescriptionNoKeyID | DescriptionNoEmail];
-
+	
 	
 	NSString *subject = [NSString stringWithFormat:localized(yourKey ? @"MailKey_Subject_Your" : @"MailKey_Subject"), subjectDescription];
 	NSString *message = [NSString stringWithFormat:localized(yourKey ? @"MailKey_Message_Your" : @"MailKey_Message"), description, subjectDescription];
+
 	
 	
-	
-	NSSharingService *service = [NSSharingService sharingServiceNamed:NSSharingServiceNameComposeEmail];
-	
-	[service setValue:@{@"NSSharingServiceParametersDefaultSubjectKey": subject} forKey:@"parameters"];
-	[service performWithItems:@[message, url]];
+	if (NSAppKitVersionNumber < NSAppKitVersionNumber10_8) {
+		// Mac OS X < 10.8 doesn't have NSSharingService. Let's use a mailto: link and add the key-block as normal text.
+		
+		message = [message stringByAppendingFormat:@"\n\n\n%@\n", [data gpgString]];
+		message = [message stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		subject = [subject stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		
+		NSString *mailto = [NSString stringWithFormat:@"mailto:?subject=%@&body=%@", subject, message];
+		
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:mailto]];
+		
+	} else {
+		// On Mac OS X 10.8 and higher, we use NSSharingService, to create an email, with an attached key-file.
+		NSString *templateString = [NSTemporaryDirectory() stringByAppendingPathComponent:@"GKA.XXXXXX"];
+		NSMutableData *template = [[templateString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
+		
+		char *tempDir = [template mutableBytes];
+		if (!mkdtemp(tempDir)) {
+			return;
+		}
+		
+		NSString *path = [NSString stringWithFormat:@"%s/%@.asc", tempDir, keys.count == 1 ? [[keys anyObject] shortKeyID] : localized(@"Keys")];
+		NSURL *url = [NSURL fileURLWithPath:path];
+		NSError *error = nil;
+		[data writeToURL:url options:0 error:&error];
+		if (error) {
+			return;
+		}
+		
+		
+		NSSharingService *service = [NSSharingService sharingServiceNamed:NSSharingServiceNameComposeEmail];
+		
+		[service setValue:@{@"NSSharingServiceParametersDefaultSubjectKey": subject} forKey:@"parameters"];
+		[service performWithItems:@[message, url]];
+	}
 }
 
 
