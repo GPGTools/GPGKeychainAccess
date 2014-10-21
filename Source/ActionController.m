@@ -370,17 +370,15 @@
 	
 	
 	NSString *title, *message, *button1, *button2, *button3 = nil, *description, *template;
-	NSMutableArray *descriptions = [NSMutableArray arrayWithCapacity:keys.count];
 	BOOL hasSecretKey = NO;
 	
 	for (GPGKey *key in keys) {
 		if (key.secret) {
 			hasSecretKey = YES;
+			break;
 		}
-		description = [NSString stringWithFormat:@"%@ (%@)", key.userIDDescription, key.keyID.shortKeyID];
-		[descriptions addObject:description];
 	}
-	description = [descriptions componentsJoinedByString:@"\n"];
+	description = [self descriptionForKeys:keys maxLines:8 withOptions:0];
 	
 	
 	
