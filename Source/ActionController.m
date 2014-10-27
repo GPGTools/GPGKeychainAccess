@@ -260,7 +260,7 @@
 
 	
 	
-	if (NSAppKitVersionNumber < NSAppKitVersionNumber10_8) {
+	if (NSAppKitVersionNumber < 1187) {
 		// Mac OS X < 10.8 doesn't have NSSharingService. Let's use a mailto: link and add the key-block as normal text.
 		
 		message = [message stringByAppendingFormat:@"\n\n\n%@\n", [data gpgString]];
