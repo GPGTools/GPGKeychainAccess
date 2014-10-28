@@ -47,9 +47,9 @@ SearchingKeys_Msg = "Hledá se odpovídající klíč(klíče) na klíčovém se
 
 GenerateKey_Progress = "Je třeba vytvořit velké množství náhodných dat. Během vytváření prvočísla je dobré abyste dělali na počítači také něco jiného (psali na klávesnici, hýbali myší, vytěžovali disk). Tyto vaše akce umožní generátoru náhodných čísel získat lepší výsledky.";
 GenerateSubkey_Msg = "Přiřadit podklíč klíči „%@“, %@.";
-GenerateUserID_Msg = "Přiřadit uživatelské ID klíči „%@“, %@.";
+GenerateUserID_Msg = "Add User ID to the Key \"%@\", %@.";
 GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
-GenerateUidSignature_Msg = "Signing a UserID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following UserID:\n%@";
+GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
 ChangeExpirationDate_Msg = "Změnit datum platnosti „%@“, %@";
 ChangeSubkeyExpirationDate_Msg = "Změnit datum platnosti „%@“, %@\nPodklíč: %@";
 
@@ -80,10 +80,10 @@ CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlea
 
 
 /* Mail public key */
-MailKey_Subject = "Public key of %@";
+MailKey_Subject = "Veřejný klíč %@";
 MailKey_Subject_Your = "My public key to secure our messages";
-MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
-MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
+MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Progress = "Creating new mail...";
 MailKey_Progress_Your = "Creating new mail...";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
@@ -99,14 +99,14 @@ Cancel = "Zrušit";
 
 
 /* Warnings */
-RemoveUserID_Title = "Odstranit ID uživatele";
-RemoveUserID_Msg = "You are about to remove UserID %@ from your key %@. If you remove this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, removing the UserID will not remove the UserID from the key on the key servers. Please instead revoke the UserID in question and upload the updated key.";
-RemoveUserID_Yes = "Odstranit ID uživatele";
+RemoveUserID_Title = "Remove User ID";
+RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove User ID";
 RemoveUserID_No = "Zrušit";
 
-RevokeUserID_Title = "Zrušit platnost ID uživatele";
-RevokeUserID_Msg = "You are about to revoke UserID %@ from your key %@. If you revoke this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked UserID.";
-RevokeUserID_Yes = "Zrušit platnost ID uživatele";
+RevokeUserID_Title = "Revoke User ID";
+RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
+RevokeUserID_Yes = "Revoke User ID";
 RevokeUserID_No = "Zrušit";
 
 RemoveSubkey_Title = "Odstranit podklíč";
@@ -195,7 +195,7 @@ ImportNonImportable_No = "Zrušit";
 /* For Import-Results */
 ImportResult_Secret = "klíč %@: tajný klíč „%@“ naimportován.";
 ImportResult_Public = "klíč %@: veřejný klíč „%@“ naimportován.";
-ImportResult_UserID = "klíč %@: „%@“ nové uživatelské ID.";
+ImportResult_UserID = "key %@: \"%@\" new User ID(s).";
 ImportResult_Signature = "klíč %@: „%@“ nový(é) podpis(y).";
 ImportResult_Subkey = "klíč %@: „%@“ nový(é) podklíč(e).";
 ImportResult_KeyNoChanges = "klíč %@: „%@“ beze změny.";
@@ -301,14 +301,14 @@ RemoveSubkey_Progress = "Odstraňuje se podklíč.";
 RemoveSubkey_Error = "Odstraňování podklíče selhalo.";
 RevokeSubkey_Progress = "Ruší se podklíč";
 RevokeSubkey_Error = "Rušení podklíče selhalo.";
-AddUserID_Progress = "Přidává se ID uživatele.";
-AddUserID_Error = "Přidávání ID uživatele selhalo.";
-RemoveUserID_Progress = "Odstraňuje se ID uživatele.";
-RemoveUserID_Error = "Odstraňování ID uživatele selhalo.";
-SetPrimaryUserID_Progress = "Nastavuje se primární ID uživatele.";
-SetPrimaryUserID_Error = "Nastavování primárního ID uživatele selhalo.";
-RevokeUserID_Progress = "Ruší se ID uživatele.";
-RevokeUserID_Error = "Rušení ID uživatele selhalo.";
+AddUserID_Progress = "Adding User ID.";
+AddUserID_Error = "Adding User ID failed.";
+RemoveUserID_Progress = "Removing User ID.";
+RemoveUserID_Error = "Removing User ID failed.";
+SetPrimaryUserID_Progress = "Setting primary User ID.";
+SetPrimaryUserID_Error = "Setting primary User ID failed.";
+RevokeUserID_Progress = "Revoking User ID.";
+RevokeUserID_Error = "Revoking User ID failed.";
 AddPhoto_Progress = "Přidává se fotografie.";
 AddPhoto_Error = "Přidání fotografie selhalo.";
 RemovePhoto_Progress = "Odstraňuje se fotografie.";

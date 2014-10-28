@@ -47,9 +47,9 @@ SearchingKeys_Msg = "Es wird, auf dem Schlüsselserver, nach passenden Schlüsse
 
 GenerateKey_Progress = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
 GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel „%@“, %@ anlegen.";
-GenerateUserID_Msg = "Zusätzliche Benutzer-ID für den Schlüssel „%@“, %@ anlegen.";
+GenerateUserID_Msg = "Add User ID to the Key \"%@\", %@.";
 GenerateSignature_Msg = "Mit dem Signieren eines Schlüssels, bestätigst du die Identität des Schlüssel-Eigentümers. Du bestätigst also, dass er wirklich derjenige ist, der er vorgibt zu sein.\nSobald die Signatur hoch geladen ist, ist sie für andere sichtbar.\nAlso: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass dieser Schlüssel wirklich Bob ist.\n\nDu willst folgenden Schlüssel signieren:\n%@";
-GenerateUidSignature_Msg = "Mit dem Signieren einer Benutzer-ID, bestätigst du die Identität des Schlüssel-Eigentümers. Du bestätigst also, dass er wirklich derjenige ist, der er vorgibt zu sein.\nSobald die Signatur hoch geladen ist, ist sie für andere sichtbar.\nAlso: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass dieser Schlüssel wirklich Bob ist.\n\nDu willst folgenden Schlüssel signieren:\n%@";
+GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
 ChangeExpirationDate_Msg = "Ändern des Verfalldatums von „%@“, %@";
 ChangeSubkeyExpirationDate_Msg = "Ändern des Verfalldatums des Unterschlüssels: %@ von „%@“, %@";
 
@@ -82,8 +82,8 @@ CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlea
 /* Mail public key */
 MailKey_Subject = "Public key of %@";
 MailKey_Subject_Your = "My public key to secure our messages";
-MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
-MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
+MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Progress = "Creating new mail...";
 MailKey_Progress_Your = "Creating new mail...";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
@@ -99,14 +99,14 @@ Cancel = "Abbrechen";
 
 
 /* Warnings */
-RemoveUserID_Title = "BenutzerID löschen";
-RemoveUserID_Msg = "Du bist dabei die Benutzer-ID %@ aus dem Schlüssel %@ zu löschen. Sobald die Benutzer-ID entfernt ist, kannst du diesen Schlüssel nicht mehr mit dem entsprechenden Konto in Mail.app verwenden.\n\nFalls der Schlüssel mit dieser Benutzer-ID auf den Schlüsselservern existiert, wird diese Benutzer-ID durch das Löschen nicht vom Schlüsselserver entfernt. Wir empfehlen die Benutzer-ID stattdessen zu widerrufen und den aktualisierten Schlüssel auf den Schlüsselserver zu laden.";
-RemoveUserID_Yes = "BenutzerID löschen";
+RemoveUserID_Title = "Remove User ID";
+RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove User ID";
 RemoveUserID_No = "Abbrechen";
 
-RevokeUserID_Title = "BenutzerID widerrufen";
-RevokeUserID_Msg = "Du bist dabei die Benutzer-ID %@ aus dem Schlüssel %@ zu widerrufen. Sobald die Benutzer-ID widerrufen ist, kannst du diesen Schlüssel nicht mehr mit dem entsprechenden Konto in Mail.app verwenden.\n\nFalls der Schlüssel mit dieser Benutzer-ID auf den Schlüsselservern existiert, lade den aktualisierten Schlüssel hoch. Nur dann wird die Benutzer-ID auf dem Schlüsselserver als widerrufen angezeigt werden.";
-RevokeUserID_Yes = "BenutzerID widerrufen";
+RevokeUserID_Title = "Revoke User ID";
+RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
+RevokeUserID_Yes = "Revoke User ID";
 RevokeUserID_No = "Abbrechen";
 
 RemoveSubkey_Title = "Unterschlüssel löschen";
@@ -195,7 +195,7 @@ ImportNonImportable_No = "Abbrechen";
 /* For Import-Results */
 ImportResult_Secret = "Schlüssel %@: geheimer Schlüssel „%@“ importiert\n";
 ImportResult_Public = "Schlüssel %@: öffentlicher Schlüssel „%@“ importiert\n";
-ImportResult_UserID = "Schlüssel %@: „%@“ neue Benutzer-ID(s)\n";
+ImportResult_UserID = "key %@: \"%@\" new User ID(s).";
 ImportResult_Signature = "Schlüssel %@: „%@“ neue Beglaubigung(en)\n";
 ImportResult_Subkey = "Schlüssel %@: „%@“ neue(r) Unterschlüssel\n";
 ImportResult_KeyNoChanges = "Schlüssel %@: „%@“ keine Änderungen.";
@@ -207,7 +207,7 @@ ImportResult_CountUnchanged = "Anzahl der Unveränderten Schlüssel: %i";
 
 /* Errors */
 ImportKeyError_Title = "Importieren von einem oder mehreren Schlüsseln fehlgeschlagen!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for instructions to resolve this problem.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Importieren fehlgeschlagen!";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Importieren fehlgeschlagen!";
@@ -301,14 +301,14 @@ RemoveSubkey_Progress = "Löschen Unterschlüssel.";
 RemoveSubkey_Error = "Löschen des Unterschlüssels fehlgeschlagen.";
 RevokeSubkey_Progress = "Widerrufe Unterschlüssel.";
 RevokeSubkey_Error = "Widerrufen des Unterschlüssels fehlgeschlagen.";
-AddUserID_Progress = "Erstelle BenutzerID.";
-AddUserID_Error = "Erstellen der BenutzerID fehlgeschlagen.";
-RemoveUserID_Progress = "Lösche BenutzerID.";
-RemoveUserID_Error = "Löschen der BenutzerID fehlgeschlagen.";
-SetPrimaryUserID_Progress = "Setze primäre BenutzerID.";
-SetPrimaryUserID_Error = "Setzen der  primäre BenutzerID fehlgeschlagen.";
-RevokeUserID_Progress = "Widerrufe BenutzerID.";
-RevokeUserID_Error = "Widerrufen der BenutzerID fehlgeschlagen.";
+AddUserID_Progress = "Adding User ID.";
+AddUserID_Error = "Adding User ID failed.";
+RemoveUserID_Progress = "Removing User ID.";
+RemoveUserID_Error = "Removing User ID failed.";
+SetPrimaryUserID_Progress = "Setting primary User ID.";
+SetPrimaryUserID_Error = "Setting primary User ID failed.";
+RevokeUserID_Progress = "Revoking User ID.";
+RevokeUserID_Error = "Revoking User ID failed.";
 AddPhoto_Progress = "Füge Foto zu Schlüssel hinzu.";
 AddPhoto_Error = "Hinzufügen des Fotos fehlgeschlagen.";
 RemovePhoto_Progress = "Lösche Foto.";

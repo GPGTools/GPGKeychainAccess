@@ -47,9 +47,9 @@ SearchingKeys_Msg = "Estamos buscando clave(s) coincidente(s) en el servidor de 
 
 GenerateKey_Progress = "Es necesario generar muchos bytes aleatorios. Es una buena idea llevar a cabo alguna otra acción (escribir con el teclado en alguna aplicación, mover el ratón, usar los discos) durante la generación de números primos. Esto le da al generador de números aleatorios una mejor oportunidad para adquirir suficiente entropía.";
 GenerateSubkey_Msg = "Añadir subclave a la clave \"%@\", %@.";
-GenerateUserID_Msg = "Añadir identificación de usuario (userID) a la clave \"%@\", %@.";
+GenerateUserID_Msg = "Añadir identificación de usuario a la clave \"%@\", %@.";
 GenerateSignature_Msg = "Firmar una clave significa que usted confirma que el poseedor de la clave es de hecho quien proclama ser.\nUna vez subida, las firmas pueden ser vistas por otros.\nAsí que si firma la clave de Bob, y su amiga Alice no está segura de si Bob es realmente Bob, Alice verá la firma de usted en la clave de Bob, y como Alice sabe que la clave de usted es de confianza, sabrá que lo más probable es que Bob sea de hecho Bob.\n\nEstá a punto de firmar la siguiente clave:\n%@";
-GenerateUidSignature_Msg = "Firmar una identificación de usuario significa, que usted confirma, que el poseedor de la clave es de hecho quien proclama ser.\nUna vez subidas, las firmas pueden ser vistas por otros.\nAsí que si usted firma la clave de Bob y su amiga Alice no está segura de si Bob es realmente Bob, Alice verá la firma de usted en la clave de Bob, y como Alice sabe que la clave de usted es de confianza, ella sabrá que lo más probable es que Bob sea realmente Bob.\n\nEstá a punto de firmar la siguiente identificación de usuario:\n%@";
+GenerateUidSignature_Msg = "Firmar una identificación de usuario significa, que usted confirma, que el poseedor de la clave es de hecho quien afirma ser.\nUna vez subidas, las firmas pueden ser vistas por otros.\nAsí que si usted firma la clave de Bob, y su amiga Alice no está segura de si Bob es en realidad Bob, Alice verá la firma de usted en la clave de Bob, y como Alice sabe que la clave de usted es de confianza, ella sabrá que lo más probable es que Bob sea realmente Bob.\n\nEstá a punto de firmar la siguiente identificación de usuario:\n%@";
 ChangeExpirationDate_Msg = "Cambiar la fecha de expiración de \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Cambiar la fecha de expiración de \"%@\", %@\nSubclave: %@";
 
@@ -82,10 +82,10 @@ CODE_SIGN_ERROR_MESSAGE = "¡Para mantenerle seguro, GPG Keychain se cerrará ah
 /* Mail public key */
 MailKey_Subject = "Clave pública de %@";
 MailKey_Subject_Your = "Mi clave pública para asegurar nuestros mensajes";
-MailKey_Message = "Hola,\n\nencontrará adjunta la clave pública de\n\n%@\n\nPuede usar esta clave para cifrar y asegurar mensajes al escribir a %@.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su equipo. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/es/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?hl=es&id=org.sufficientlysecure.keychain)\n\nPor favor importe la clave pública en su Administrador de claves OpenPGP local.\n\nSaludos";
-MailKey_Message_Your = "Hola,\n\nencontrará adjunta mi clave pública\n\n%@\n\nPuede usar esta clave para cifrar y asegurar nuestros mensajes.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su equipo. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/es/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?hl=es&id=org.sufficientlysecure.keychain)\n\nPor favor importe la clave pública en su Administrador de claves OpenPGP local.\n\nBuscamos la manera de intercambiar mensajes libres-de-escuchas con usted.\n\nSaludos";
-MailKey_Progress = "Creating new mail...";
-MailKey_Progress_Your = "Creating new mail...";
+MailKey_Message = "Hola,\n\nadjunta encontrará la clave pública de \n\n%@\n\nPuede usar esta clave para cifrar y asegurar mensajes cuando escriba a %@.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/es/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?hl=es&id=org.sufficientlysecure.keychain)\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP local.\n\nSaludos\n\nRegards";
+MailKey_Message_Your = "Hola,\n\nadjunta encontrará mi clave pública\n\n%@\n\nPuede usar esta clave para cifrar y asegurar nuestros mensajes.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/es/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?hl=es&id=org.sufficientlysecure.keychain)\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP local.\n\nEspero intercambiar mensajes libres-de-obsevadores con usted.\n\nSaludos\n\nRegards";
+MailKey_Progress = "Creando un correo nuevo...";
+MailKey_Progress_Your = "Creando un correo nuevo...";
 MailKey_Error = "Ups, algo salió mal. Hubo un problema al exportar su clave.";
 
 
@@ -100,12 +100,12 @@ Cancel = "Cancelar";
 
 /* Warnings */
 RemoveUserID_Title = "Eliminar identificación de usuario";
-RemoveUserID_Msg = "Está a punto de eliminar la identificación de usuario (UserID) %@ de su clave %@. Si elimina esta identificación de usuario, ya no podrá usar esta clave con la cuenta de correoasociada en Mail.app.\n\nSi la clave con esta identificación fue subida a los servidores de claves, eliminar la identificación de usuario de su clave localmente no la eliminará de la clave que está en los servidores de claves. En su lugar, por favor revoque la identificación de usuario en cuestión y suba la clave actualizada.";
+RemoveUserID_Msg = "Está a punto de eliminar la identificación de usuario %@ de su clave %@. Si elimina esta identificación de usuario, ya no podrá usar esta clave con la cuenta de correo asociada en Mail.app.\n\nSi la clave con esta identificación de usuario fue subida a los servidores de claves, eliminar la identificación de usuario localmente no la eliminará de la clave presente en los servidores de claves. En su lugar, por favor revoque la identificación de usuario en cuestión, y suba la clave actualizada.";
 RemoveUserID_Yes = "Eliminar identificación de usuario";
 RemoveUserID_No = "Cancelar";
 
 RevokeUserID_Title = "Revocar identificación de usuario";
-RevokeUserID_Msg = "Está a punto de revocar la identificación de usuario (UserID) %@ de su clave %@. Si revoca esta identificación, ya no podrá usar esta clave con la cuenta de correo asociada en Mail.app.\n\nSi la clave con esta identificación de usuario fue subida a los servidores de claves, asegúrese de subir la clave actualizada. Sólo entonces la entrada en los servidores de claves reflejará la identificación de usuario revocada.";
+RevokeUserID_Msg = "Está a punto de revocar la identificación de usuario %@ de su clave %@. Si revoca esta identificación de usuario, ya no podrá usar esta clave con la cuenta de correo asociada en Mail.app.\n\nSi la clave con esta identificación de usuario fue subida a los servidores de claves, asegúrese de subir la clave actualizada. Sólo entonces, la entrada en los servidores de claves reflejará la identificación de usuario revocada.";
 RevokeUserID_Yes = "Revocar identificación de usuario";
 RevokeUserID_No = "Cancelar";
 
@@ -195,7 +195,7 @@ ImportNonImportable_No = "Cancelar";
 /* For Import-Results */
 ImportResult_Secret = "clave %@: clave secreta (privada) \"%@\" importada.";
 ImportResult_Public = "clave %@: clave pública \"%@\" importada.";
-ImportResult_UserID = "clave %@: \"%@\" nueva(s) identificación(es) de usuario (userID).";
+ImportResult_UserID = "clave %@: \"%@\" identificación(es) de usuario nueva(s).";
 ImportResult_Signature = "clave %@: \"%@\" firma(s) nueva(s).";
 ImportResult_Subkey = "clave %@: \"%@\" subclave(s) nueva(s).";
 ImportResult_KeyNoChanges = "clave %@: \"%@\" no hay cambios.";
@@ -305,8 +305,8 @@ AddUserID_Progress = "Añadiendo identificación de usuario.";
 AddUserID_Error = "Fallo al añadir identificación de usuario.";
 RemoveUserID_Progress = "Eliminando identificación de usuario.";
 RemoveUserID_Error = "Fallo al eliminar identificación de usuario.";
-SetPrimaryUserID_Progress = "Configurando identificación de usuario primaria.";
-SetPrimaryUserID_Error = "Fallo al configurar identificación de usuario primaria.";
+SetPrimaryUserID_Progress = "Configurando identificación principal de usuario.";
+SetPrimaryUserID_Error = "Fallo al configurar identificación principal de usuario.";
 RevokeUserID_Progress = "Revocando identificación de usuario.";
 RevokeUserID_Error = "Fallo al revocar identificación de usuario.";
 AddPhoto_Progress = "Añadiendo foto.";

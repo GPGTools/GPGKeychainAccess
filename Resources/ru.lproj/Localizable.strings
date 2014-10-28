@@ -47,9 +47,9 @@ SearchingKeys_Msg = "Осуществляется поиск на сервера
 
 GenerateKey_Progress = "Необходимо сгенерировать много случайных чисел. Желательно, что бы Вы выполняли некоторые другие действия (печать на клавиатуре, движения мыши, обращения к дискам) в процессе генерации. Это даст генератору случайных чисел возможность получить лучшую энтропию.";
 GenerateSubkey_Msg = "Добавить subkey ключу \"%@\", %@.";
-GenerateUserID_Msg = "Добавить ID пользователя ключу \"%@\", %@.";
+GenerateUserID_Msg = "Add User ID to the Key \"%@\", %@.";
 GenerateSignature_Msg = "Подписывая ключ, вы подтверждаете, что данные о его владельце верны.\nБудучи загруженной на сервер, подпись будет видна всем пользователям.\nТак, если вы подписали ключ Пети, то ваша знакомая Катя, доверяя вашей подписи, сможет быть уверена, что ключ действительно принадлежит Пете.\n\nВы собираетесь подписать следующий ключ:\n%@";
-GenerateUidSignature_Msg = "Подписывая идентификатор пользователя, вы подтверждаете, что данные о владельце ключа верны.\nБудучи загруженной на сервер, подпись будет видна всем пользователям.\nТак, если вы подписали ключ Пети, то ваша знакомая Катя, доверяя вашей подписи, сможет быть уверена, что ключ действительно принадлежит Пете.\n\nВы собираетесь подписать следующий идентификатор:\n%@";
+GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
 ChangeExpirationDate_Msg = "Изменить срок годности \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Изменить срок годности \"%@\", %@\nSubkey: %@";
 
@@ -80,10 +80,10 @@ CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlea
 
 
 /* Mail public key */
-MailKey_Subject = "Public key of %@";
+MailKey_Subject = "Публичный ключ %@";
 MailKey_Subject_Your = "My public key to secure our messages";
-MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
-MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain Access (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/de/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
+MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Progress = "Creating new mail...";
 MailKey_Progress_Your = "Creating new mail...";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
@@ -99,14 +99,14 @@ Cancel = "Отмена";
 
 
 /* Warnings */
-RemoveUserID_Title = "Удалить UserID";
-RemoveUserID_Msg = "You are about to remove UserID %@ from your key %@. If you remove this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, removing the UserID will not remove the UserID from the key on the key servers. Please instead revoke the UserID in question and upload the updated key.";
-RemoveUserID_Yes = "Удалить UserID";
+RemoveUserID_Title = "Remove User ID";
+RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove User ID";
 RemoveUserID_No = "Отмена";
 
-RevokeUserID_Title = "Аннулировать UserID";
-RevokeUserID_Msg = "You are about to revoke UserID %@ from your key %@. If you revoke this UserID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this UserID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked UserID.";
-RevokeUserID_Yes = "Аннулировать UserID";
+RevokeUserID_Title = "Revoke User ID";
+RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
+RevokeUserID_Yes = "Revoke User ID";
 RevokeUserID_No = "Отмена";
 
 RemoveSubkey_Title = "Remove Subkey";
@@ -163,11 +163,11 @@ DeleteSecKey_Yes = "Удалить секретный и публичный кл
 DeleteSecKey_No = "Отмена";
 DeleteSecKey_SecOnly = "Удалить только секретный ключ";
 
-DeleteSecKeys_Title = "Delete secret and public keys";
+DeleteSecKeys_Title = "Удалить секретный и публичный ключи";
 DeleteSecKeys_Msg = "Warning! You are about to delete the following secret and public keys:\n\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret keys, you will no longer be able to decrypt messages that were encrypted with their public counterparts.\n\nNote that if you have copied your public keys to any key servers, they will remain valid on the key servers unless you revoke them. In that case before deleting your key pairs, please revoke your public keys and upload them to the key servers so they will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete those key pairs?";
-DeleteSecKeys_Yes = "Delete secret and public keys";
+DeleteSecKeys_Yes = "Удалить секретный и публичный ключи";
 DeleteSecKeys_No = "Отмена";
-DeleteSecKeys_SecOnly = "Delete secret keys only";
+DeleteSecKeys_SecOnly = "Удалить только секретный ключи";
 
 
 /* Bad keyserver */
@@ -195,7 +195,7 @@ ImportNonImportable_No = "Отмена";
 /* For Import-Results */
 ImportResult_Secret = "ключ %@: секретный ключ \"%@\" импортирован.";
 ImportResult_Public = "ключ %@: публичный ключ \"%@\" импортирован.";
-ImportResult_UserID = "ключ %@: \"%@\" нов. user ID(s).";
+ImportResult_UserID = "key %@: \"%@\" new User ID(s).";
 ImportResult_Signature = "ключ %@: \"%@\" нов. подпись(-и).";
 ImportResult_Subkey = "ключ %@: \"%@\" нов. subkey(s).";
 ImportResult_KeyNoChanges = "ключ %@: \"%@\" без изменений.";
@@ -301,14 +301,14 @@ RemoveSubkey_Progress = "Removing subkey.";
 RemoveSubkey_Error = "Removing subkey failed.";
 RevokeSubkey_Progress = "Revoking subkey.";
 RevokeSubkey_Error = "Revoking subkey failed.";
-AddUserID_Progress = "Добавление UserID.";
-AddUserID_Error = "Добавление UserID не удалось.";
-RemoveUserID_Progress = "Удаление UserID.";
-RemoveUserID_Error = "Удаление UserID не удалось.";
-SetPrimaryUserID_Progress = "Установка основного UserID.";
-SetPrimaryUserID_Error = "Установка основного UserID не удалась.";
-RevokeUserID_Progress = "Аннулирование UserID.";
-RevokeUserID_Error = "Аннулирование UserID не удалось.";
+AddUserID_Progress = "Adding User ID.";
+AddUserID_Error = "Adding User ID failed.";
+RemoveUserID_Progress = "Removing User ID.";
+RemoveUserID_Error = "Removing User ID failed.";
+SetPrimaryUserID_Progress = "Setting primary User ID.";
+SetPrimaryUserID_Error = "Setting primary User ID failed.";
+RevokeUserID_Progress = "Revoking User ID.";
+RevokeUserID_Error = "Revoking User ID failed.";
 AddPhoto_Progress = "Добавление фото.";
 AddPhoto_Error = "Добавление фото не удалось.";
 RemovePhoto_Progress = "Удаление фото.";
