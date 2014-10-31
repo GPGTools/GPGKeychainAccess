@@ -4160,6 +4160,14 @@
 						<object class="NSMenu" key="NSSubmenu" id="471904192">
 							<string key="NSTitle">Help</string>
 							<array class="NSMutableArray" key="NSMenuItems">
+								<object class="NSMenuItem" id="724697378">
+									<reference key="NSMenu" ref="471904192"/>
+									<string key="NSTitle">Donate</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="734934930"/>
+									<reference key="NSMixedImage" ref="987910177"/>
+								</object>
 								<object class="NSMenuItem" id="876746484">
 									<reference key="NSMenu" ref="471904192"/>
 									<string key="NSTitle">GPG Keychain Help</string>
@@ -4921,6 +4929,14 @@
 						<reference key="destination" ref="150125085"/>
 					</object>
 					<string key="id">ysK-Kd-8rq</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">showDonate:</string>
+						<reference key="source" ref="520472171"/>
+						<reference key="destination" ref="724697378"/>
+					</object>
+					<string key="id">DHB-JB-kKp</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -8406,6 +8422,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="876746484"/>
 							<reference ref="1052565881"/>
+							<reference ref="724697378"/>
 						</array>
 						<reference key="parent" ref="805711201"/>
 					</object>
@@ -10464,6 +10481,11 @@
 						<string key="id">ktV-w5-MsV</string>
 						<reference key="object" ref="570987286"/>
 						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">vTg-Zx-Qqp</string>
+						<reference key="object" ref="724697378"/>
+						<reference key="parent" ref="471904192"/>
 					</object>
 				</array>
 			</object>

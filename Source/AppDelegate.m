@@ -282,6 +282,9 @@
 - (IBAction)showSupport:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://support.gpgtools.org/home"]];
 }
+- (IBAction)showDonate:(id)sender {
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.org/donate.html"]];
+}
 
 
 @end
