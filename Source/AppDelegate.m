@@ -277,7 +277,7 @@
 }
 
 - (IBAction)showHelp:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://support.gpgtools.org/kb/faq-gpg-keychain-access"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://support.gpgtools.org/kb/gpg-keychain-faq/"]];
 }
 - (IBAction)showSupport:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://support.gpgtools.org/home"]];
