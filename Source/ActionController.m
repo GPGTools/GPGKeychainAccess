@@ -403,13 +403,6 @@
 	button1 = localized([template stringByAppendingString:@"_No"]);
 	if (hasSecretKey) {
 		button3 = localized([template stringByAppendingString:@"_SecOnly"]);
-		NSMutableSet *secretKeys = [NSMutableSet set];
-		for (GPGKey *key in keys) {
-			if (key.secret) {
-				[secretKeys addObject:key];
-			}
-		}
-		keys = secretKeys;
 	}
 	
 	
@@ -429,9 +422,16 @@
 		case NSAlertSecondButtonReturn:
 			mode = GPGDeletePublicAndSecretKey;
 			break;
-		case NSAlertThirdButtonReturn:
+		case NSAlertThirdButtonReturn: {
 			mode = GPGDeleteSecretKey;
-			break;
+			NSMutableSet *secretKeys = [NSMutableSet set];
+			for (GPGKey *key in keys) {
+				if (key.secret) {
+					[secretKeys addObject:key];
+				}
+			}
+			keys = secretKeys;
+			break; }
 		default:
 			return;
 	}
