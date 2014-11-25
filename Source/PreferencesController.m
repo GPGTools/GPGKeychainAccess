@@ -318,6 +318,25 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
 												  otherButton:nil
 											suppressionButton:nil];
 	}
+	else {
+		// If the keyserver is not already contained in the list of available keyservers,
+		// save it in the common defaults plist (org.gpgtools.common)
+		
+		// Fetch the currently available keyservers.
+		NSArray *keyservers = [self keyservers];
+		if([keyservers containsObject:gc.keyserver])
+			return;
+		
+		// Not found in the currently available list, let's retrieve the keyservers
+		// currently available in common defaults and add the new keyserver.
+		NSArray *defaultKeyservers = [self.options valueInCommonDefaultsForKey:@"keyservers"];
+		NSMutableArray *updatedDefaultKeyservers = [NSMutableArray array];
+		if([defaultKeyservers count])
+			[updatedDefaultKeyservers addObjectsFromArray:defaultKeyservers];
+		
+		[updatedDefaultKeyservers addObject:gc.keyserver];
+		[self.options setValueInCommonDefaults:updatedDefaultKeyservers forKey:@"keyservers"];
+	}
 }
 
 
