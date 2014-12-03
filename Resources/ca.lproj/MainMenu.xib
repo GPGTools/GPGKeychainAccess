@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">101000</int>
-		<string key="IBDocument.SystemVersion">13E28</string>
-		<string key="IBDocument.InterfaceBuilderVersion">6250</string>
-		<string key="IBDocument.AppKitVersion">1265.21</string>
-		<string key="IBDocument.HIToolboxVersion">698.00</string>
+		<string key="IBDocument.SystemVersion">14B25</string>
+		<string key="IBDocument.InterfaceBuilderVersion">6254</string>
+		<string key="IBDocument.AppKitVersion">1343.16</string>
+		<string key="IBDocument.HIToolboxVersion">755.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">6250</string>
+			<string key="NS.object.0">6254</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSArrayController</string>
@@ -112,7 +112,7 @@
 						<object class="NSToolbarItem" key="1A0B15F5-75A8-4E80-8E77-03BF8E63698A" id="519919187">
 							<string key="NSToolbarItemIdentifier">1A0B15F5-75A8-4E80-8E77-03BF8E63698A</string>
 							<string key="NSToolbarItemLabel">Suprimeix</string>
-							<string key="NSToolbarItemPaletteLabel">Esborra</string>
+							<string key="NSToolbarItemPaletteLabel">Suprimeix</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
@@ -193,8 +193,8 @@
 						</object>
 						<object class="NSToolbarItem" key="B202D568-D7E9-49F2-8AC7-44B577940F90" id="581918453">
 							<string key="NSToolbarItemIdentifier">B202D568-D7E9-49F2-8AC7-44B577940F90</string>
-							<string key="NSToolbarItemLabel">Filter</string>
-							<string key="NSToolbarItemPaletteLabel">Filter</string>
+							<string key="NSToolbarItemLabel">Filtre</string>
+							<string key="NSToolbarItemPaletteLabel">Filtre</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSSearchField" key="NSToolbarItemView" id="358460620">
 								<nil key="NSNextResponder"/>
@@ -263,6 +263,7 @@
 										<int key="NSPeriodicInterval">75</int>
 									</object>
 									<int key="NSMaximumRecents">255</int>
+									<bytes key="NSSearchFieldFlags">BgAAAA</bytes>
 								</object>
 								<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 								<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
@@ -341,7 +342,7 @@
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
 							<string key="NSToolbarItemMinSize">{32, 5}</string>
-							<string key="NSToolbarItemMaxSize">{32, 32}</string>
+							<string key="NSToolbarItemMaxSize">{32, 10000}</string>
 							<bool key="NSToolbarItemEnabled">YES</bool>
 							<bool key="NSToolbarItemAutovalidates">YES</bool>
 							<int key="NSToolbarItemTag">-1</int>
@@ -833,6 +834,7 @@
 									<reference key="NSDocView" ref="517707392"/>
 									<reference key="NSBGColor" ref="428465068"/>
 									<int key="NScvFlags">4</int>
+									<bool key="NSAutomaticallyAdjustsContentInsets">YES</bool>
 								</object>
 								<object class="NSClipView" id="983426954">
 									<reference key="NSNextResponder" ref="242605978"/>
@@ -844,6 +846,7 @@
 									<reference key="NSSuperview" ref="242605978"/>
 									<reference key="NSNextKeyView" ref="852515167"/>
 									<reference key="NSDocView" ref="852515167"/>
+									<bool key="NSAutomaticallyAdjustsContentInsets">YES</bool>
 								</object>
 								<reference ref="895251549"/>
 								<object class="NSScroller" id="855215700">
@@ -854,6 +857,8 @@
 									<reference key="NSSuperview" ref="242605978"/>
 									<reference key="NSNextKeyView" ref="996727638"/>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+									<string key="NSControlAction">_doScroller:</string>
+									<reference key="NSControlTarget" ref="242605978"/>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="242605978"/>
 									<string key="NSAction">_doScroller:</string>
@@ -867,6 +872,8 @@
 									<reference key="NSSuperview" ref="242605978"/>
 									<reference key="NSNextKeyView" ref="726507736"/>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+									<string key="NSControlAction">_doScroller:</string>
+									<reference key="NSControlTarget" ref="242605978"/>
 									<reference key="NSTarget" ref="242605978"/>
 									<string key="NSAction">_doScroller:</string>
 									<double key="NSPercent">0.9719626168224299</double>
@@ -2211,6 +2218,7 @@
 																	<reference key="NSDocView" ref="1068758329"/>
 																	<reference key="NSBGColor" ref="428465068"/>
 																	<int key="NScvFlags">4</int>
+																	<bool key="NSAutomaticallyAdjustsContentInsets">YES</bool>
 																</object>
 																<object class="NSClipView" id="831667034">
 																	<reference key="NSNextResponder" ref="760465788"/>
@@ -2222,6 +2230,7 @@
 																	<reference key="NSSuperview" ref="760465788"/>
 																	<reference key="NSNextKeyView" ref="485731734"/>
 																	<reference key="NSDocView" ref="485731734"/>
+																	<bool key="NSAutomaticallyAdjustsContentInsets">YES</bool>
 																</object>
 																<reference ref="307684929"/>
 																<object class="NSScroller" id="874521588">
@@ -2232,6 +2241,8 @@
 																	<reference key="NSSuperview" ref="760465788"/>
 																	<reference key="NSNextKeyView" ref="860487704"/>
 																	<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+																	<string key="NSControlAction">_doScroller:</string>
+																	<reference key="NSControlTarget" ref="760465788"/>
 																	<int key="NSsFlags">1</int>
 																	<reference key="NSTarget" ref="760465788"/>
 																	<string key="NSAction">_doScroller:</string>
@@ -2245,6 +2256,8 @@
 																	<reference key="NSSuperview" ref="760465788"/>
 																	<reference key="NSNextKeyView" ref="620200667"/>
 																	<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+																	<string key="NSControlAction">_doScroller:</string>
+																	<reference key="NSControlTarget" ref="760465788"/>
 																	<reference key="NSTarget" ref="760465788"/>
 																	<string key="NSAction">_doScroller:</string>
 																</object>
@@ -2401,7 +2414,7 @@
 																					<object class="NSTableHeaderCell" key="NSHeaderCell">
 																						<int key="NSCellFlags">75497536</int>
 																						<int key="NSCellFlags2">2048</int>
-																						<string key="NSContents">Identificació</string>
+																						<string key="NSContents">Key ID</string>
 																						<reference key="NSSupport" ref="26"/>
 																						<object class="NSColor" key="NSBackgroundColor">
 																							<int key="NSColorSpace">3</int>
@@ -2495,6 +2508,7 @@
 																	<reference key="NSDocView" ref="960229813"/>
 																	<reference key="NSBGColor" ref="428465068"/>
 																	<int key="NScvFlags">4</int>
+																	<bool key="NSAutomaticallyAdjustsContentInsets">YES</bool>
 																</object>
 																<object class="NSClipView" id="501978040">
 																	<reference key="NSNextResponder" ref="892183847"/>
@@ -2506,6 +2520,7 @@
 																	<reference key="NSSuperview" ref="892183847"/>
 																	<reference key="NSNextKeyView" ref="547091564"/>
 																	<reference key="NSDocView" ref="547091564"/>
+																	<bool key="NSAutomaticallyAdjustsContentInsets">YES</bool>
 																</object>
 																<reference ref="12399023"/>
 																<object class="NSScroller" id="552735962">
@@ -2516,6 +2531,8 @@
 																	<reference key="NSSuperview" ref="892183847"/>
 																	<reference key="NSNextKeyView" ref="253579923"/>
 																	<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+																	<string key="NSControlAction">_doScroller:</string>
+																	<reference key="NSControlTarget" ref="892183847"/>
 																	<int key="NSsFlags">1</int>
 																	<reference key="NSTarget" ref="892183847"/>
 																	<string key="NSAction">_doScroller:</string>
@@ -2528,6 +2545,8 @@
 																	<reference key="NSSuperview" ref="892183847"/>
 																	<reference key="NSNextKeyView" ref="552735962"/>
 																	<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+																	<string key="NSControlAction">_doScroller:</string>
+																	<reference key="NSControlTarget" ref="892183847"/>
 																	<reference key="NSTarget" ref="892183847"/>
 																	<string key="NSAction">_doScroller:</string>
 																	<double key="NSPercent">0.10526315789473684</double>
@@ -2841,6 +2860,7 @@
 													<reference key="NSDocView" ref="498798170"/>
 													<reference key="NSBGColor" ref="428465068"/>
 													<int key="NScvFlags">4</int>
+													<bool key="NSAutomaticallyAdjustsContentInsets">YES</bool>
 												</object>
 												<object class="NSClipView" id="846929372">
 													<reference key="NSNextResponder" ref="826138751"/>
@@ -2852,6 +2872,7 @@
 													<reference key="NSSuperview" ref="826138751"/>
 													<reference key="NSNextKeyView" ref="831193381"/>
 													<reference key="NSDocView" ref="831193381"/>
+													<bool key="NSAutomaticallyAdjustsContentInsets">YES</bool>
 												</object>
 												<reference ref="757686643"/>
 												<object class="NSScroller" id="45255014">
@@ -2862,6 +2883,8 @@
 													<reference key="NSSuperview" ref="826138751"/>
 													<reference key="NSNextKeyView" ref="846929372"/>
 													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+													<string key="NSControlAction">_doScroller:</string>
+													<reference key="NSControlTarget" ref="826138751"/>
 													<int key="NSsFlags">1</int>
 													<reference key="NSTarget" ref="826138751"/>
 													<string key="NSAction">_doScroller:</string>
@@ -2875,6 +2898,8 @@
 													<reference key="NSSuperview" ref="826138751"/>
 													<reference key="NSNextKeyView" ref="757686643"/>
 													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+													<string key="NSControlAction">_doScroller:</string>
+													<reference key="NSControlTarget" ref="826138751"/>
 													<reference key="NSTarget" ref="826138751"/>
 													<string key="NSAction">_doScroller:</string>
 												</object>
@@ -3524,7 +3549,7 @@ A</string>
 					<integer value="1040" key="formatterBehavior"/>
 					<integer value="1" key="timeStyle"/>
 				</dictionary>
-				<string key="NS.format">dd. MMMM y HH:mm</string>
+				<string key="NS.format">d. MMMM y HH:mm</string>
 				<bool key="NS.natural">NO</bool>
 			</object>
 			<object class="NSDateFormatter" id="336706324">
@@ -3812,7 +3837,7 @@ A</string>
 								</object>
 								<object class="NSMenuItem" id="307234592">
 									<reference key="NSMenu" ref="466789479"/>
-									<string key="NSTitle">Enganxa</string>
+									<string key="NSTitle">Apega</string>
 									<string key="NSKeyEquiv">v</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -3821,7 +3846,7 @@ A</string>
 								</object>
 								<object class="NSMenuItem" id="430321327">
 									<reference key="NSMenu" ref="466789479"/>
-									<string key="NSTitle">Esborra</string>
+									<string key="NSTitle">Suprimeix</string>
 									<string type="base64-UTF8" key="NSKeyEquiv">CA</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -3876,7 +3901,7 @@ A</string>
 					</object>
 					<object class="NSMenuItem" id="874263191">
 						<reference key="NSMenu" ref="417287328"/>
-						<string key="NSTitle">Visualitza</string>
+						<string key="NSTitle">Veure</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSKeyEquivModMask">1048576</int>
 						<int key="NSMnemonicLoc">2147483647</int>
@@ -4038,7 +4063,7 @@ A</string>
 								</object>
 								<object class="NSMenuItem" id="1046105938">
 									<reference key="NSMenu" ref="904998012"/>
-									<string key="NSTitle">Send public key to key server</string>
+									<string key="NSTitle">Envia la clau pública al servidor de claus</string>
 									<string key="NSKeyEquiv">K</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -4056,7 +4081,7 @@ A</string>
 								</object>
 								<object class="NSMenuItem" id="338041066">
 									<reference key="NSMenu" ref="904998012"/>
-									<string key="NSTitle">Update from key server</string>
+									<string key="NSTitle">Actualitza des del servidor de claus</string>
 									<string key="NSKeyEquiv">Y</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -4144,7 +4169,7 @@ A</string>
 								</object>
 								<object class="NSMenuItem" id="1052565881">
 									<reference key="NSMenu" ref="471904192"/>
-									<string key="NSTitle">Ajuda GPGTools</string>
+									<string key="NSTitle">Ajuda de GPGTools</string>
 									<string key="NSKeyEquiv">?</string>
 									<int key="NSKeyEquivModMask">1572864</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -4287,7 +4312,7 @@ A</string>
 					</object>
 					<object class="NSMenuItem" id="934329261">
 						<reference key="NSMenu" ref="61582394"/>
-						<string key="NSTitle">Esborra</string>
+						<string key="NSTitle">Suprimeix</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="734934930"/>
@@ -11289,11 +11314,11 @@ A</string>
 			<string key="Import">{32, 32}</string>
 			<string key="Info">{32, 32}</string>
 			<string key="NSActionTemplate">{14, 14}</string>
-			<string key="NSAddTemplate">{8, 8}</string>
-			<string key="NSLeftFacingTriangleTemplate">{9, 9}</string>
-			<string key="NSMenuCheckmark">{11, 11}</string>
-			<string key="NSMenuMixedState">{10, 3}</string>
-			<string key="NSRightFacingTriangleTemplate">{9, 9}</string>
+			<string key="NSAddTemplate">{11, 11}</string>
+			<string key="NSLeftFacingTriangleTemplate">{9, 12}</string>
+			<string key="NSMenuCheckmark">{12, 12}</string>
+			<string key="NSMenuMixedState">{10, 2}</string>
+			<string key="NSRightFacingTriangleTemplate">{9, 12}</string>
 			<string key="NSSwitch">{15, 15}</string>
 			<string key="Redo">{32, 32}</string>
 			<string key="Search">{32, 32}</string>

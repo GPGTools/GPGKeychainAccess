@@ -34,8 +34,8 @@ CheckAlert_PassphraseSimple_Title = "Contrasenya senzilla";
 CheckAlert_PassphraseSimple_Message = "La contrasenya que s'ha introduït és massa senzilla. Una bona contrasenya ha de ser alfanumèrica i tenir com a mínim un caràcter especial.";
 CheckAlert_PassphraseSimple_Button1 = "Continueu amb una contrasenya senzilla";
 CheckAlert_PassphraseSimple_Button2 = "Escriviu una nova contrasenya";
-CheckAlert_PassphraseToLong_Title = "Passphrase too long";
-CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too long. Enter a passphrase with less than 300 characters.";
+CheckAlert_PassphraseToLong_Title = "Contrasenya massa llarga";
+CheckAlert_PassphraseToLong_Message = "La contrasenya que s'ha introduït és massa llarg. Introduïu una contrasenya amb menys de 300 caràcters.";
 
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
@@ -99,14 +99,14 @@ Cancel = "Cancel·la";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove User ID";
+RemoveUserID_Title = "Suprimeix la ID d'usuari";
 RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove User ID";
+RemoveUserID_Yes = "Suprimeix la ID d'usuari";
 RemoveUserID_No = "Cancel·la";
 
-RevokeUserID_Title = "Revoke User ID";
+RevokeUserID_Title = "Revoca la ID d'usuari";
 RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Yes = "Revoca la ID d'usuari";
 RevokeUserID_No = "Cancel·la";
 
 RemoveSubkey_Title = "Suprimeix la subclau";
@@ -141,7 +141,7 @@ RevokeLastSelfSignature_No = "Cancel·la";
 
 RevokeKey_Title = "Warning! You are about to revoke a key.";
 RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
-RevokeKey_Yes = "Revoke Key";
+RevokeKey_Yes = "Revoca la clau";
 RevokeKey_No = "Cancel·la";
 RevokeKey_Upload = "Upload revoked key";
 
@@ -207,7 +207,7 @@ ImportResult_CountUnchanged = "Recompte de claus sense canvis: %i";
 
 /* Errors */
 ImportKeyError_Title = "Failed to import one or more keys!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/faq-gpg-keychain-access/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Import Failed!";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import failed!";
