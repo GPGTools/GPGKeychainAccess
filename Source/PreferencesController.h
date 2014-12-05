@@ -27,6 +27,7 @@
 	IBOutlet NSView *updatesPreferencesView;
 	IBOutlet NSView *keyringPreferencesView;
 	IBOutlet NSProgressIndicator *spinner;
+    NSString *keyserverToCheck;
 	
 	NSView *view;
 }
@@ -40,7 +41,10 @@
 
 // To set keyserver and also coordinate auto-key-locate
 @property (weak) NSString *keyserver;
-
+// Before a keyserver is stored in gpg.conf it's first checked
+// if it works properly. The keyserverToCheck variable will hold
+// whatever value the user is seeing at the moment of the check.
+@property (strong) NSString *keyserverToCheck;
 @property (readonly) BOOL canRemoveKeyserver;
 @property BOOL testingServer;
 

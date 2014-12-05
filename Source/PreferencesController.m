@@ -27,6 +27,7 @@
 
 @implementation PreferencesController
 @synthesize window;
+@synthesize keyserverToCheck;
 static PreferencesController *_sharedInstance = nil;
 
 
@@ -236,8 +237,13 @@ static PreferencesController *_sharedInstance = nil;
 }
 
 - (IBAction)checkKeyserver:(id)sender {
-	NSString *keyserver = self.options.keyserver;
-	
+    // We can't use self.options.keyserver anymore, since setting this value
+    // will update gpg.conf which doesn't make sense if the keyserver can't be used.
+    //NSString *keyserver = self.options.keyserver;
+    NSString *keyserver = self.keyserverToCheck;
+    if(!keyserver)
+        keyserver = self.keyserver;
+    
 	GPGController *gpgc = [GPGController gpgController];
 	gpgc.keyserver = keyserver;
 	gpgc.async = YES;
@@ -286,10 +292,16 @@ static NSString * const kKeyserver = @"keyserver";
 static NSString * const kAutoKeyLocate = @"auto-key-locate";
 
 - (NSString *)keyserver {
-    return [self.options valueForKey:kKeyserver];
+    return !self.keyserverToCheck ? [self.options valueForKey:kKeyserver] : self.keyserverToCheck;
 }
 
 - (void)setKeyserver:(NSString *)keyserver {
+    self.keyserverToCheck = keyserver;
+}
+- (void)updateKeyserver:(NSString *)keyserver {
+    // This method is only called if the keyserver is in fact usable,
+    // since otherwise an invalid keyserver would be stored in gpg.conf
+    
     // assign a server name to the "keyserver" option
     [self.options setValue:keyserver forKey:kKeyserver];
     
@@ -319,9 +331,12 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
 											suppressionButton:nil];
 	}
 	else {
-		// If the keyserver is not already contained in the list of available keyservers,
+		// The keyserver is working, so let's define it as new default key server.
+        // updateKeyserver will also update gpg.conf
+        [self updateKeyserver:gc.keyserver];
+        
+        // If the keyserver is not already contained in the list of available keyservers,
 		// save it in the common defaults plist (org.gpgtools.common)
-		
 		// Fetch the currently available keyservers.
 		NSArray *keyservers = [self keyservers];
 		if([keyservers containsObject:gc.keyserver])
