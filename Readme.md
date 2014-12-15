@@ -22,8 +22,8 @@ Build
 
 ### Clone the repository
 ```bash
-git clone https://github.com/GPGTools/GPGKeychain.git
-cd GPGKeychain
+git clone https://github.com/GPGTools/GPGKeychainAccess.git
+cd GPGKeychainAccess
 ```
 
 ### Build
