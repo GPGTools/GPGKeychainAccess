@@ -417,9 +417,10 @@
 												<reference key="NSTableView" ref="517707392"/>
 											</object>
 											<object class="_NSCornerView" key="NSCornerView" id="895251549">
-												<nil key="NSNextResponder"/>
+												<reference key="NSNextResponder" ref="242605978"/>
 												<int key="NSvFlags">-2147481856</int>
 												<string key="NSFrameSize">{15, 20}</string>
+												<reference key="NSSuperview" ref="242605978"/>
 												<reference key="NSNextKeyView" ref="983426954"/>
 											</object>
 											<array class="NSMutableArray" key="NSTableColumns">
@@ -844,6 +845,7 @@
 									<reference key="NSNextKeyView" ref="852515167"/>
 									<reference key="NSDocView" ref="852515167"/>
 								</object>
+								<reference ref="895251549"/>
 								<object class="NSScroller" id="855215700">
 									<reference key="NSNextResponder" ref="242605978"/>
 									<int key="NSvFlags">-2147481856</int>
@@ -3521,7 +3523,7 @@
 					<integer value="1040" key="formatterBehavior"/>
 					<integer value="1" key="timeStyle"/>
 				</dictionary>
-				<string key="NS.format">dd. MMMM y HH:mm</string>
+				<string key="NS.format">MMMM d, y 'at' H:mm</string>
 				<bool key="NS.natural">NO</bool>
 			</object>
 			<object class="NSDateFormatter" id="336706324">
@@ -3531,7 +3533,7 @@
 					<integer value="1040" key="formatterBehavior"/>
 					<integer value="0" key="timeStyle"/>
 				</dictionary>
-				<string key="NS.format">dd.MM.y</string>
+				<string key="NS.format">MMM d, y</string>
 				<bool key="NS.natural">NO</bool>
 			</object>
 			<object class="NSMenu" id="417287328">
@@ -3760,6 +3762,35 @@
 						<object class="NSMenu" key="NSSubmenu" id="466789479">
 							<string key="NSTitle">Edit</string>
 							<array class="NSMutableArray" key="NSMenuItems">
+								<object class="NSMenuItem" id="328786375">
+									<reference key="NSMenu" ref="466789479"/>
+									<string key="NSTitle">Undo</string>
+									<string key="NSKeyEquiv">z</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="734934930"/>
+									<reference key="NSMixedImage" ref="987910177"/>
+								</object>
+								<object class="NSMenuItem" id="372430632">
+									<reference key="NSMenu" ref="466789479"/>
+									<string key="NSTitle">Redo</string>
+									<string key="NSKeyEquiv">Z</string>
+									<int key="NSKeyEquivModMask">1179648</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="734934930"/>
+									<reference key="NSMixedImage" ref="987910177"/>
+								</object>
+								<object class="NSMenuItem" id="427068369">
+									<reference key="NSMenu" ref="466789479"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="734934930"/>
+									<reference key="NSMixedImage" ref="987910177"/>
+								</object>
 								<object class="NSMenuItem" id="175820397">
 									<reference key="NSMenu" ref="466789479"/>
 									<string key="NSTitle">Cut</string>
@@ -4706,6 +4737,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">redo:</string>
+						<reference key="source" ref="520472171"/>
+						<reference key="destination" ref="372430632"/>
+					</object>
+					<string key="id">231</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">refreshDisplayedKeys:</string>
 						<reference key="source" ref="520472171"/>
 						<reference key="destination" ref="333545544"/>
@@ -4791,6 +4830,14 @@
 						<reference key="destination" ref="516132663"/>
 					</object>
 					<string key="id">1604</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">undo:</string>
+						<reference key="source" ref="520472171"/>
+						<reference key="destination" ref="328786375"/>
+					</object>
+					<string key="id">223</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -8080,6 +8127,9 @@
 						<string key="id">205</string>
 						<reference key="object" ref="466789479"/>
 						<array class="NSMutableArray" key="children">
+							<reference ref="328786375"/>
+							<reference ref="372430632"/>
+							<reference ref="427068369"/>
 							<reference ref="175820397"/>
 							<reference ref="113450221"/>
 							<reference ref="307234592"/>
@@ -8089,6 +8139,21 @@
 							<reference ref="430321327"/>
 						</array>
 						<reference key="parent" ref="585005772"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">207</string>
+						<reference key="object" ref="328786375"/>
+						<reference key="parent" ref="466789479"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">215</string>
+						<reference key="object" ref="372430632"/>
+						<reference key="parent" ref="466789479"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">206</string>
+						<reference key="object" ref="427068369"/>
+						<reference key="parent" ref="466789479"/>
 					</object>
 					<object class="IBObjectRecord">
 						<string key="id">199</string>
@@ -10552,6 +10617,10 @@
 				<boolean value="NO" key="203.showNotes"/>
 				<string key="205.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="205.showNotes"/>
+				<string key="206.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="206.showNotes"/>
+				<string key="207.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="207.showNotes"/>
 				<string key="2115.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="2115.showNotes"/>
 				<boolean value="NO" key="2115.toolbarItem.selectable"/>
@@ -10559,6 +10628,8 @@
 				<boolean value="NO" key="2118.showNotes"/>
 				<string key="2123.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="2123.showNotes"/>
+				<string key="215.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="215.showNotes"/>
 				<string key="217.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="217.showNotes"/>
 				<string key="22e-QX-BDg.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
