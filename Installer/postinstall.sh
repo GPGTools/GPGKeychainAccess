@@ -23,13 +23,15 @@ chmod -R u=rwX,go=rX "$installLocation"
 
 
 
-
 ########################################################################################
 #####     Code to fix the Dock icon     ################################################
 ########################################################################################
 
+# Run the Dock fix as normal user.
+sudo -u "${USER:-$(id -un)}" /bin/bash <<\EOT
+
 DOCK_ID=com.apple.dock
-DOCK_PLIST=~/Library/Preferences/$DOCK_ID.plist
+DOCK_PLIST=$HOME/Library/Preferences/$DOCK_ID.plist
 PLIST_BUDDY=/usr/libexec/PlistBuddy
 GK_ID_OLD=org.gpgtools.gpgkeychainaccess
 GK_ID=org.gpgtools.gpgkeychain
@@ -68,11 +70,8 @@ if [[ "$BUNDLE_ID" != "$GK_ID_OLD" ]] ;then
 	exit 0
 fi
 
-
-# Use the installLocation as in postinstall and set it as the new location.
 installLocation=$(mdfind -onlyin /Applications "kMDItemCFBundleIdentifier = org.gpgtools.gpgkeychain" | head -1)
 NEW_PATH=${installLocation:-/Applications/GPG Keychain.app}
-
 
 # Update the CFURLString to the new location
 $PLIST_BUDDY -c "Set persistent-apps:$[$GK_INDEX]:tile-data:file-data:_CFURLString $NEW_PATH" $DOCK_PLIST
@@ -91,6 +90,7 @@ defaults read $DOCK_ID > /dev/null
 # Kill the dock to complete the fix.
 killall Dock
 
+EOT
 ########################################################################################
 
 
