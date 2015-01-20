@@ -160,7 +160,7 @@ NSSet *draggedKeys;
 	gc.useArmor = YES;
 	NSData *exportedData = [gc exportKeys:draggedKeys allowSecret:NO fullExport:NO];
 	if ([exportedData length] > 0) {
-		[exportedData writeToFile:[[dropDestination path] stringByAppendingPathComponent:fileName] atomically:YES];
+		[[NSFileManager defaultManager] createFileAtPath:[dropDestination.path stringByAppendingPathComponent:fileName] contents:exportedData attributes:@{NSFileExtensionHidden: @YES}];
 		
 		return [NSArray arrayWithObject:fileName];
 	} else {
