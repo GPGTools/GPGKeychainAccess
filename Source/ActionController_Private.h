@@ -43,6 +43,7 @@ typedef enum {
 
 @property (strong) NSString *progressText, *errorText;
 @property (strong, readonly) NSUndoManager *undoManager;
+@property (strong) NSSet *revCertCache;
 
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
 - (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict;

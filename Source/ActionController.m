@@ -602,7 +602,9 @@
 }
 - (void)revCertificateForKey:(NSObject <KeyFingerprint> *)key customPath:(BOOL)customPath {
 	BOOL hideExtension = NO;
-	NSURL *url = nil;
+	NSObject *url = nil;
+	
+	
 	
 	if (customPath) {
 		sheetController.title = nil; //TODO
@@ -616,13 +618,23 @@
 		}
 		hideExtension = sheetController.hideExtension;
 		url = sheetController.URL;
-	} else {
+	}
+ 
+	if (!customPath || ![self.revCertCache containsObject:key.keyID]) {
 		NSString *path = [[GPGOptions sharedOptions] gpgHome];
 		path = [path stringByAppendingPathComponent:@"RevCerts"];
 		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
 		path = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_rev.asc", key.description.keyID]];
-		url = [NSURL fileURLWithPath:path];
-		revCertCache = nil;
+		
+		NSURL *tmpURL = [NSURL fileURLWithPath:path];
+		
+		if (url) {
+			url = [NSSet setWithObjects:url, tmpURL, nil];
+		} else {
+			url = tmpURL;
+		}
+		
+		self.revCertCache = nil;
 	}
 	
 	
@@ -713,10 +725,14 @@
 	}
 }
 - (BOOL)canRevokeKey:(GPGKey *)key {
+	return !key.revoked && (key.secret || [self.revCertCache containsObject:key.keyID]);
+}
+
+- (NSSet *)revCertCache {
 	if (!revCertCache) {
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 		NSString *path = [[[GPGOptions sharedOptions] gpgHome] stringByAppendingPathComponent:@"RevCerts"];
-
+		
 		NSArray *files = [fileManager contentsOfDirectoryAtPath:path error:nil];
 		if (files) {
 			NSMutableSet *keyIDs = [NSMutableSet set];
@@ -729,11 +745,11 @@
 			revCertCache = [keyIDs copy];
 		}
 	}
-	
-	return !key.revoked && (key.secret || [revCertCache containsObject:key.keyID]);
+	return revCertCache;
 }
-
-
+- (void)setRevCertCache:(NSSet *)value {
+	revCertCache = value;
+}
 
 
 #pragma mark Keyserver
@@ -1693,13 +1709,20 @@
 				}
 				break;
 			}
-			case SaveDataToURLAction: {
+			case SaveDataToURLAction: { // Saves value to one or more files (@"URL"). You can specify @"hideExtension".
 				if (gc.error) break;
 				
-				NSURL *URL = [oldUserInfo objectForKey:@"URL"];
+				NSSet *urls = [oldUserInfo objectForKey:@"URL"];
 				NSNumber *hideExtension = @([[oldUserInfo objectForKey:@"hideExtension"] boolValue]);
-				[[NSFileManager defaultManager] createFileAtPath:URL.path contents:value attributes:@{NSFileExtensionHidden: hideExtension}];
+				if ([urls isKindOfClass:[NSURL class]]) {
+					urls = [NSSet setWithObject:urls];
+				}
 				
+				NSFileManager *fileManager = [NSFileManager defaultManager];
+				for (NSURL *url in urls) {
+					[fileManager createFileAtPath:url.path contents:value attributes:@{NSFileExtensionHidden: hideExtension}];
+				}
+
 				reEvaluate = YES;
 				
 				break;
