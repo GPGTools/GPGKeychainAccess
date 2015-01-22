@@ -51,17 +51,21 @@
 #pragma mark Import and Export
 - (IBAction)exportKey:(id)sender {
 	NSSet *keys = [self selectedKeys];
-	if (keys.count == 0) {
+	NSUInteger count = keys.count;
+	if (count == 0) {
 		return;
 	}
 	
 	sheetController.title = nil; //TODO
 	sheetController.msgText = nil; //TODO
 	
-	if ([keys count] == 1) {
+	if (count == 1) {
 		sheetController.pattern = [[keys anyObject] shortKeyID];
 	} else {
-		sheetController.pattern = localized(@"untitled");
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		dateFormatter.dateFormat = @"Y-m-d";
+		NSString *date = [dateFormatter stringFromDate:[NSDate date]];
+		sheetController.pattern = [NSString stringWithFormat:localized(@"ExportKeysFilename"), date, count];
 	}
 	
 	[keys enumerateObjectsUsingBlock:^(GPGKey *key, BOOL *stop) {

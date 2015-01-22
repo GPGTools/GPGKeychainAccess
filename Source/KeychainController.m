@@ -153,10 +153,14 @@ NSSet *draggedKeys;
 - (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
 	NSString *fileName;
 	if ([draggedKeys count] == 1) {
-		fileName = [NSString stringWithFormat:@"%@.asc", [[draggedKeys anyObject] shortKeyID]];
+		fileName = [[draggedKeys anyObject] shortKeyID];
 	} else {
-		fileName = localized(@"Exported keys.asc");
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		dateFormatter.dateFormat = @"Y-m-d";
+		NSString *date = [dateFormatter stringFromDate:[NSDate date]];
+		fileName = [NSString stringWithFormat:localized(@"ExportKeysFilename"), date, draggedKeys.count];
 	}
+	fileName = [fileName stringByAppendingString:@".asc"];
 	
 	GPGController *gc = [GPGController gpgController];
 	gc.async = NO;
