@@ -63,13 +63,16 @@ NSSet *draggedKeys;
 	return _selectionIndexPaths;
 }
 - (void)setSelectionIndexPaths:(NSArray *)value {
-	if (!userChangingSelection && _selectionIndexPaths.count > 0) {
+	if (!userChangingSelection && _selectionIndexPaths.count > 0 && value.count > 0 && [[value objectAtIndex:0] indexAtPosition:0] == 0) {
 		NSUInteger index = [[_selectionIndexPaths objectAtIndex:0] indexAtPosition:0];
 		if (index != NSNotFound) {
-			if (index >= filteredKeyList.count) {
-				index = filteredKeyList.count - 1;
+			GPGKey *selectedKey = [[[[treeController arrangedObjects] childNodes] objectAtIndex:0] representedObject];
+			if (![selectedKey isEqualTo:[[keyTable itemAtRow:index] representedObject]]) {
+				if (index >= filteredKeyList.count) {
+					index = filteredKeyList.count - 1;
+				}
+				value = @[[NSIndexPath indexPathWithIndex:index]];
 			}
-			value = @[[NSIndexPath indexPathWithIndex:index]];
 		}
 	}
 	userChangingSelection = NO;
