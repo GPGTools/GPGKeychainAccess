@@ -33,11 +33,7 @@ NSSet *draggedKeys;
 
 
 - (NSSet *)secretKeys {
-	if (!secretKeys) {
-		NSPredicate *secrectKeyPredicate = [NSPredicate predicateWithFormat:@"secret==YES"];
-		secretKeys = [self.allKeys filteredSetUsingPredicate:secrectKeyPredicate];
-	}
-	return secretKeys;
+	return [GPGKeyManager sharedInstance].secretKeys;
 }
 
 - (GPGKey *)defaultKey {
