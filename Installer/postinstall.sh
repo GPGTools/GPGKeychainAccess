@@ -64,10 +64,12 @@ GK_PATH=$($PLIST_BUDDY -c "Print persistent-apps:$[$GK_INDEX]:tile-data:file-dat
 if [[ "${GK_PATH:0:7}" == 'file://' ]] ;then
 	GK_PATH=$(perl -MURI -le 'print URI->new(<>)->file' <<<"$GK_PATH")
 fi
-BUNDLE_ID=$($PLIST_BUDDY -c "Print CFBundleIdentifier" "$GK_PATH/Contents/Info.plist")
-if [[ "$BUNDLE_ID" != "$GK_ID_OLD" ]] ;then
-	echo "Bundle ID doesn't match. Continue..."
-	exit 0
+if [[ -e "$GK_PATH" ]] ;then
+	BUNDLE_ID=$($PLIST_BUDDY -c "Print CFBundleIdentifier" "$GK_PATH/Contents/Info.plist")
+	if [[ "$BUNDLE_ID" != "$GK_ID_OLD" ]] ;then
+		echo "Bundle ID doesn't match. Continue..."
+		exit 0
+	fi
 fi
 
 installLocation=$(mdfind -onlyin /Applications "kMDItemCFBundleIdentifier = org.gpgtools.gpgkeychain" | head -1)
