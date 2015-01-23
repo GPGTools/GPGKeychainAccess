@@ -63,7 +63,7 @@
 		sheetController.pattern = [[keys anyObject] shortKeyID];
 	} else {
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.dateFormat = @"Y-m-d";
+		dateFormatter.dateFormat = @"Y-MM-dd";
 		NSString *date = [dateFormatter stringFromDate:[NSDate date]];
 		sheetController.pattern = [NSString stringWithFormat:localized(@"ExportKeysFilename"), date, count];
 	}
