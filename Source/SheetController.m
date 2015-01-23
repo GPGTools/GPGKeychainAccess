@@ -22,6 +22,7 @@
 #import "Globales.h"
 #import "ActionController.h"
 #import "GKAExtensions.h"
+#import "AppDelegate.h"
 #import <objc/runtime.h>
 
 
@@ -678,9 +679,14 @@ modalWindow, foundKeyDicts, hideExtension;
 	GPGDebugLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", modalWindow, _sheetWindow);
 	
 	if (modalWindow.isVisible) {
+		NSUInteger oldLevel = appDelegate.inspectorWindow.level; //Order the sheet over the inspector window.
+		appDelegate.inspectorWindow.level = NSNormalWindowLevel;
+		
 		[NSApp beginSheet:_sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
 		[NSApp runModalForWindow:_sheetWindow];
 		[NSApp endSheet:_sheetWindow];
+		
+		appDelegate.inspectorWindow.level = oldLevel;
 	} else {
 		[_sheetWindow makeKeyAndOrderFront:self];
 		[NSApp runModalForWindow:_sheetWindow];
