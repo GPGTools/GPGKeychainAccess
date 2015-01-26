@@ -1198,13 +1198,18 @@
 			[lines addObject:@""];
 		}
 		
-		[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountProcessed"), publicKeysCount]];
 		if (publicKeysOk > 0) {
 			[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountImported"), publicKeysOk]];
+		} else if (publicKeysCount > 0 && publicKeysNoChange == 0) {
+			[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_NoKeysImported"), publicKeysOk]];
+			[lines addObject:@""];
 		}
 		if (publicKeysNoChange > 0) {
 			[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountUnchanged"), publicKeysNoChange]];
 		}
+		
+		[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountProcessed"), publicKeysCount]];
+
 	}
 	
 	
