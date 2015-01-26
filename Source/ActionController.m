@@ -179,7 +179,7 @@
 	
 	self.progressText = localized(@"ImportKey_Progress");
 	gpgc.userInfo = @{@"action": @(ShowResultAction), @"operation": @(ImportOperation), @"containsImportable": @(containsImportable), @"containsNonImportable": @(containsNonImportable)};
-	[gpgc importFromData:data fullImport:NO];
+	[gpgc importFromData:data fullImport:showExpertSettings];
 }
 - (IBAction)copy:(id)sender {
 	NSString *stringForPasteboard = nil;
