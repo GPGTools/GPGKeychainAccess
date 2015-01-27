@@ -98,10 +98,12 @@
 	rowWasSelected = [keyTable clickedRowWasSelected];
 }
 - (IBAction)doubleClick:(NSOutlineView *)sender {
-	if (keyTable.selectedRowIndexes.count > 1 ? [keyTable clickedRowWasSelected] : rowWasSelected) {
-		[self showInspector:-1];
-	} else {
-		[self showInspector:1];
+	if (keyTable.clickedRow >= 0) {
+		if (keyTable.selectedRowIndexes.count > 1 ? [keyTable clickedRowWasSelected] : rowWasSelected) {
+			[self showInspector:-1];
+		} else {
+			[self showInspector:1];
+		}
 	}
 }
 - (IBAction)showKeyDetails:(id)sender {
