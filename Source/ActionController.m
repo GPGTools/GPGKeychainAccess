@@ -1824,6 +1824,13 @@
 		//gpgc.printVersion = YES;
 		gpgc.async = YES;
 		gpgc.keyserverTimeout = 20;
+		
+		showExpertSettings = [[GPGOptions sharedOptions] boolForKey:@"showExpertSettings"];
+		if (showExpertSettings) {
+			gpgc.allowNonSelfsignedUid = YES;
+			gpgc.allowWeakDigestAlgos = YES;
+		}
+		
 		sheetController = [SheetController sharedInstance];
 	}
 	return self;

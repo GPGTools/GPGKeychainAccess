@@ -137,13 +137,10 @@
 - (void)awakeFromNib {
 	GPGDebugLog(@"GPGKeychainAppDelegate awakeFromNib");
 	
-	showExpertSettings = [[GPGOptions sharedOptions] boolForKey:@"showExpertSettings"];
-	
 	
 	[keyTable setAction:@selector(singleClick:)];
 	[keyTable setDoubleAction:@selector(doubleClick:)];
 	[keyTable setTarget:self];
-	
 	
 	
 	drawer.delegate = self;
