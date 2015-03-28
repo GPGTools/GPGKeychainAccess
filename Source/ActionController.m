@@ -403,10 +403,12 @@
 	
 	title = localized([template stringByAppendingString:@"_Title"]);
 	message = [NSString stringWithFormat:localized([template stringByAppendingString:@"_Msg"]), description];
-	button2 = localized([template stringByAppendingString:@"_Yes"]);
 	button1 = localized([template stringByAppendingString:@"_No"]);
 	if (hasSecretKey) {
-		button3 = localized([template stringByAppendingString:@"_SecOnly"]);
+		button2 = localized([template stringByAppendingString:@"_SecOnly"]);
+		button3 = localized([template stringByAppendingString:@"_Yes"]);
+	} else {
+		button2 = localized([template stringByAppendingString:@"_Yes"]);
 	}
 	
 	
@@ -424,17 +426,22 @@
 	GPGDeleteKeyMode mode;
 	switch (result) {
 		case NSAlertSecondButtonReturn:
-			mode = GPGDeletePublicAndSecretKey;
+			if (hasSecretKey) {
+				mode = GPGDeleteSecretKey;
+				NSMutableSet *secretKeys = [NSMutableSet set];
+				for (GPGKey *key in keys) {
+					if (key.secret) {
+						[secretKeys addObject:key];
+					}
+				}
+				keys = secretKeys;
+
+			} else {
+				mode = GPGDeletePublicKey;
+			}
 			break;
 		case NSAlertThirdButtonReturn: {
-			mode = GPGDeleteSecretKey;
-			NSMutableSet *secretKeys = [NSMutableSet set];
-			for (GPGKey *key in keys) {
-				if (key.secret) {
-					[secretKeys addObject:key];
-				}
-			}
-			keys = secretKeys;
+			mode = GPGDeletePublicAndSecretKey;
 			break; }
 		default:
 			return;
