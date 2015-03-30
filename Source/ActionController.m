@@ -259,8 +259,14 @@
 	NSString *subjectDescription = [self descriptionForKeys:keys maxLines:1 withOptions:DescriptionSingleLine | DescriptionNoKeyID | DescriptionNoEmail];
 	
 	
+	NSString *links = localized(@"MailKey_Message_Links");
 	NSString *subject = [NSString stringWithFormat:localized(yourKey ? @"MailKey_Subject_Your" : @"MailKey_Subject"), subjectDescription];
-	NSString *message = [NSString stringWithFormat:localized(yourKey ? @"MailKey_Message_Your" : @"MailKey_Message"), description, subjectDescription];
+	NSString *message;
+	if (yourKey) {
+		message = [NSString stringWithFormat:localized(@"MailKey_Message_Your"), description, links];
+	} else {
+		message = [NSString stringWithFormat:localized(@"MailKey_Message"), description, subjectDescription, links];
+	}
 
 	
 	
