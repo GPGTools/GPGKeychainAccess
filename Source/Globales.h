@@ -36,3 +36,5 @@ NSString *localized(NSString *key);
 @interface GKAValidityInidicatorTransformer : NSValueTransformer {}
 @end
 
+@interface GKFingerprintTransformer : GPGFingerprintTransformer
+@end

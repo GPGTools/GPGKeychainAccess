@@ -268,7 +268,11 @@ NSSet *draggedKeys;
 
 		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(keysDidChange:) name:GPGKeyManagerKeysDidChangeNotification object:nil];
 		@try {
-			[[GPGKeyManager sharedInstance] loadAllKeys];
+			GPGKeyManager *keyManager = [GPGKeyManager sharedInstance];
+			if ([[GPGOptions sharedOptions] boolForKey:@"showExpertSettings"]) {
+				keyManager.allowWeakDigestAlgos = YES;
+			}
+			[keyManager loadAllKeys];
 		}
 		@catch (NSException *exception) {
 			NSLog(@"loadAllKeys threw exception: %@", exception);

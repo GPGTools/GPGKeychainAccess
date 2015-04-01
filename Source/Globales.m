@@ -98,4 +98,13 @@ NSString *localized(NSString *key) {
 
 @end
 
+@implementation GKFingerprintTransformer
+- (id)transformedValue:(id)value {
+	NSString *fingerprint = [value description];
+	if (fingerprint.length <= 16) {
+		return @"0000 0000 0000 0000  0000 0000 0000 0000";
+	}
+	return [super transformedValue:value];
+}
+@end
 
