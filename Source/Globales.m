@@ -133,18 +133,22 @@ NSString *localized(NSString *key) {
 		}
 	});
 
-	CGFloat width = cellFrame.size.width;
-	if (width > minWidths[2]) {
-		[formatter setDateStyle:4];
-	} else if (width > minWidths[1]) {
-		[formatter setDateStyle:3];
-	} else if (width > minWidths[0]) {
-		[formatter setDateStyle:2];
+	if (self.objectValue) {
+		CGFloat width = cellFrame.size.width;
+		if (width > minWidths[2]) {
+			[formatter setDateStyle:4];
+		} else if (width > minWidths[1]) {
+			[formatter setDateStyle:3];
+		} else if (width > minWidths[0]) {
+			[formatter setDateStyle:2];
+		} else {
+			[formatter setDateStyle:1];
+		}
+		
+		self.stringValue = [formatter stringForObjectValue:self.objectValue];
 	} else {
-		[formatter setDateStyle:1];
+		self.stringValue = @"";
 	}
-	
-	self.stringValue = [formatter stringForObjectValue:self.objectValue];
 	[super drawInteriorWithFrame:cellFrame inView:controlView];
 }
 
