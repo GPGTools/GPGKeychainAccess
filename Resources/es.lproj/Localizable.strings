@@ -19,6 +19,7 @@
 "untitled" = "sin título";
 "%@ Revoke certificate" = "%@ Certificado de revocación";
 "Exported keys.asc" = "keys.asc exportado";
+ExportKeysFilename = "%@ %u Claves OpenPGP";
 
 
 /* For key creation */
@@ -72,18 +73,22 @@ CheckError_PassphraseMissmatch = "¡Sus frases-contraseña no coinciden!";
 GPG_NOT_FOUND_TITLE = "No se encontró GPG";
 GPG_NOT_FOUND_MESSAGE = "Ups, algo salió realmente mal. Parece que GPG está ausente en su sistema. Por favor reinstale GPG Suite desde https://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Error de configuración de GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, algo salió mal. Se encontró GPG en su sistema, pero parece haber un problema con el fichero de configuración. Por favor contacte con nosotros en http://support.gpgtools.org\n\nDetalles: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, algo fue mal. Se encontró GPG en su sistema pero parece haber un problema con el fichero de configuración. Por favor contacte con nosotros en https://gpgtools.tenderapp.com\n\nDetalles: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "No se encontró libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "No se encontró libmacgpg en su sistema. Por favor reinstale GPG Suite desde https://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "¡Alguién manipuló su instalación de GPG Keychain!";
 CODE_SIGN_ERROR_MESSAGE = "¡Para mantenerle seguro, GPG Keychain se cerrará ahora!\n\n¡Por favor reinstale GPG Suite desde https://www.gpgtools.org para asegurarse de que tiene una versión original procedente de nosotros!";
+UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
+
 
 
 /* Mail public key */
 MailKey_Subject = "Clave pública de %@";
 MailKey_Subject_Your = "Mi clave pública para asegurar nuestros mensajes";
-MailKey_Message = "Hola,\n\nadjunta encontrará la clave pública de \n\n%@\n\nPuede usar esta clave para cifrar y asegurar mensajes cuando escriba a %@.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/es/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?hl=es&id=org.sufficientlysecure.keychain)\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP local.\n\nSaludos\n\nRegards";
-MailKey_Message_Your = "Hola,\n\nadjunta encontrará mi clave pública\n\n%@\n\nPuede usar esta clave para cifrar y asegurar nuestros mensajes.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/es/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?hl=es&id=org.sufficientlysecure.keychain)\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP local.\n\nEspero intercambiar mensajes libres-de-obsevadores con usted.\n\nSaludos\n\nRegards";
+MailKey_Message = "Hola,\n\nadjunta encontrará la clave pública de \n\n%@\n\nPuede usar esta clave para cifrar y asegurar mensajes cuando escriba a %@.\n\nPara comenzar a usarla, tiene que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\n%@\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP.\n\nSaludos\n\nRegards";
+MailKey_Message_Your = "Hola,\n\nadjunta encontrará mi clave pública\n\n%@\n\nPuede usar esta clave para cifrar y asegurar nuestros mensajes.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\n%@\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP local.\n\nEspero intercambiar mensajes libres-de-obsevadores con usted.\n\nSaludos\n\nRegards";
+MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Creando un correo nuevo...";
 MailKey_Progress_Your = "Creando un correo nuevo...";
 MailKey_Error = "Ups, algo salió mal. Hubo un problema al exportar su clave.";
@@ -120,7 +125,7 @@ RevokeSubkey_Yes = "Revocar subclave";
 RevokeSubkey_No = "Cancelar";
 
 RevokeSignature_Title = "Revocar firma";
-RevokeSignature_Msg = "Revocar su firma hará que sea marcada como revocada. Use esta opción si piensa que la clave fue robada a su propietario y que el propietario original ya no tiene la clave bajo su control. Considere subir la clave actualizada a los servidores de claves para que otros estén sobre aviso de que su firma ha sido revocada.";
+RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
 RevokeSignature_Yes = "Revocar firma";
 RevokeSignature_No = "Cancelar";
 
@@ -204,10 +209,12 @@ ImportResult_CountRevocationCertificate = "Importados %i certificados de revocac
 ImportResult_CountProcessed = "Recuento de claves procesadas: %i";
 ImportResult_CountImported = "Recuento de claves importadas​​: %i";
 ImportResult_CountUnchanged = "Recuento de claves inalteradas: %i";
+ImportResult_NoKeysImported = "¡No pudo importarse ninguna clave!";
+
 
 /* Errors */
 ImportKeyError_Title = "¡Fallo al importar una o más claves!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "A menudo las claves no pueden importarse debido a una auto-firma ausente. Por favor visite https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature para más detalles y pasos sobre cómo resolver este problema.";
 ImportKeyErrorPGP_Title = "¡Fallo al importar!";
 ImportKeyErrorPGP_Msg = "Parece que está intentando importar un mensaje cifrafo o firmado. Para descifrar o verificar tales mensajes por favor use GPGServices.";
 ImportKeyErrorNoPGP_Title = "¡Fallo al importar!";

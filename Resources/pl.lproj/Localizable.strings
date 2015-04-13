@@ -19,6 +19,7 @@
 "untitled" = "bez nazwy";
 "%@ Revoke certificate" = "%@ unieważnij certyfikat";
 "Exported keys.asc" = "Wyeksportowano keys.asc";
+ExportKeysFilename = "%@ %u OpenPGP Keys";
 
 
 /* For key creation */
@@ -72,18 +73,22 @@ CheckError_PassphraseMissmatch = "Twoje hasła nie zgadzają się!";
 GPG_NOT_FOUND_TITLE = "Nie znaleziono GPG";
 GPG_NOT_FOUND_MESSAGE = "Ups, coś poszło nie tak. Wygląda na to, że na Twoim systemie brakuje GPG. Proszę zainstaluj ponownie GPG Suite z https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Błąd konfiguracji GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, coś poszło nie tak. GPG zostało wykryte na Twoim systemie, ale wygląda na to, że wystąpił problem z plikiem konfiguracyjnym. Proszę skontaktuj się z nami na http://support.gpgtools.org.\n\nSzczegóły: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, coś poszło nie tak. GPG zostało wykryte na Twoim systemie, ale wygląda na to, że wystąpił problem z plikiem konfiguracyjnym. Proszę skontaktuj się z nami na https://gpgtools.tenderapp.com.\n\nSzczegóły: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Nie udało się znaleźć Libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg nie został wykryty na Twoim systemie. Prosimy o ponowne zainstalowanie GPG Suite z https://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Ktoś majstrował przy Twojej instalacji GPG Keychain!";
 CODE_SIGN_ERROR_MESSAGE = "Dla Twojego bezpieczeństwa, GPG Keychain zostanie teraz zamknięty!\n\nProszę zainstaluj ponownie GPG Suite z https://gpgtools.org aby być pewnym, że masz naszą oryginalną wersję!";
+UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
+
 
 
 /* Mail public key */
 MailKey_Subject = "Klucz publiczny %@";
 MailKey_Subject_Your = "Mój klucz publiczny, aby zabezpieczyć nasze wiadomości";
-MailKey_Message = "Cześć,\n\nw załączniku znajdziesz klucz publiczny\n\n%@\n\nMożesz używać tego klucza do szyfrowania i zabezpieczania wiadomości które piszesz do %@.\n\nAby zacząć go używać będziesz musiał/a zainstalować oprogramowanie OpenPGP na Twoim komputerze. Poniżej znajdziesz listę możliwych programów dla Twojego systemu operacyjnego:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nProszę importuj załączony klucz publiczny do Twojego lokalnego menadżera kluczy OpenPGP.\n\nPozdrawiam";
-MailKey_Message_Your = "Cześć,\n\nw załączniku znajdziesz mój klucz publiczny\n\n%@\n\nMożesz używać tego klucza do szyfrowania i zabezpieczania wiadomości które piszesz do mnie.\n\nAby zacząć go używać będziesz musiał/a zainstalować oprogramowanie OpenPGP na Twoim komputerze. Poniżej znajdziesz listę możliwych programów dla Twojego systemu operacyjnego:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nProszę importuj załączony klucz publiczny do Twojego lokalnego menadżera kluczy OpenPGP.\n\nNie mogę się doczekać, aby pisać z Tobą wiadomości prywatnie.\n\nPozdrawiam";
+MailKey_Message = "Cześć,\n\nw załączniku znajdziesz klucz publiczny\n\n%@\n\nMożesz używać tego klucza do szyfrowania i zabezpieczania wiadomości które piszesz do %@.\n\nAby zacząć go używać będziesz musiał/a zainstalować oprogramowanie OpenPGP na Twoim komputerze. Poniżej znajdziesz listę możliwych programów dla Twojego systemu operacyjnego:\n\n%@\n\nProszę importuj załączony klucz publiczny do Twojego lokalnego menadżera kluczy OpenPGP.\n\nPozdrawiam";
+MailKey_Message_Your = "Cześć,\n\nw załączniku znajdziesz mój klucz publiczny\n\n%@\n\nMożesz używać tego klucza do szyfrowania i zabezpieczania wiadomości które piszesz do mnie.\n\nAby zacząć go używać będziesz musiał/a zainstalować oprogramowanie OpenPGP na Twoim komputerze. Poniżej znajdziesz listę możliwych programów dla Twojego systemu operacyjnego:\n\n%@\n\nProszę importuj załączony klucz publiczny do Twojego lokalnego menadżera kluczy OpenPGP.\n\nNie mogę się doczekać, aby pisać z Tobą wiadomości prywatnie.\n\nPozdrawiam";
+MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Tworzenie nowego maila...";
 MailKey_Progress_Your = "Tworzenie nowego maila...";
 MailKey_Error = "Ups, coś poszło nie tak. Wystąpił błąd podczas eksportowania Twojego klucza.";
@@ -120,7 +125,7 @@ RevokeSubkey_Yes = "Unieważnij Pod-klucz";
 RevokeSubkey_No = "Anuluj";
 
 RevokeSignature_Title = "Unieważnij Podpis";
-RevokeSignature_Msg = "Cofnięcie Twojego Podpisu będzie oznaczać jego unieważnienie. Używaj tej opcji jeśli myślisz, że klucz został skradziony właścicielowi klucza i że oryginalny właściciel nie ma tego klucza pod własną kontrolą. Rozważ przesłanie zaktualizowanego klucza do serwerów kluczy, aby inni byli świadomi, że podpis został unieważniony.";
+RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
 RevokeSignature_Yes = "Unieważnij Podpis";
 RevokeSignature_No = "Anuluj";
 
@@ -204,10 +209,12 @@ ImportResult_CountRevocationCertificate = "%i unieważnionych certyfikatów zaim
 ImportResult_CountProcessed = "Ilość przetworzonych kluczy: %i";
 ImportResult_CountImported = "Ilość importowanych kluczy: %i";
 ImportResult_CountUnchanged = "Ilość niezmienionych kluczy: %i";
+ImportResult_NoKeysImported = "No keys could be imported!";
+
 
 /* Errors */
 ImportKeyError_Title = "Nie udało się importować jednego lub więcej kluczy!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Często klucze nie mogą być importowane, ponieważ brakuje własnego podpisu tzw. self-signature. Wejdź na https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature aby dowiedzieć się jak można ten problem naprawić.";
 ImportKeyErrorPGP_Title = "Importowanie nieudane!";
 ImportKeyErrorPGP_Msg = "Wygląda na to, że próbujesz importować zaszyfrowaną lub podpisą wiadomość. Aby odszyfrować lub zweryfikować takie wiadomości skorzystaj z GPGServices.";
 ImportKeyErrorNoPGP_Title = "Importowanie nieudane!";

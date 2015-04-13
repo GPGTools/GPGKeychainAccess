@@ -19,6 +19,7 @@
 "untitled" = "ingen titel";
 "%@ Revoke certificate" = "%@ tilbagekaldelsescertifikat";
 "Exported keys.asc" = "Eksporterede keys.asc";
+ExportKeysFilename = "%@ %u OpenPGP nøgler";
 
 
 /* For key creation */
@@ -72,18 +73,22 @@ CheckError_PassphraseMissmatch = "Dine kodeord er ikke ens!";
 GPG_NOT_FOUND_TITLE = "GPG kunne ikke findes";
 GPG_NOT_FOUND_MESSAGE = "Ups, noget gik rigtigt galt. Det ser ud til at GPG mangler på dit system. Gen-installer GPG Suiten fra https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfejl";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, noget gik galt. GPG findes på dit system, men der ser ud til at være problemer med konfigurationsfilen. Kontakt os venligst på http://support.gpgtools.org.\n\nDetaljer: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, noget gik galt. GPG findes på dit system, men der ser ud til at være problemer med konfigurationsfilen. Kontakt os venligst på https://gpgtools.tenderapp.com.\n\nDetaljer: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg blev ikke fundet";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg blev ikke fundet på dit system. Gen-installer GPG Suiten fra https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Nogen har pillet ved din installation af GPG Nøglering!";
 CODE_SIGN_ERROR_MESSAGE = "For en sikkerheds skyld vil GPG Nøglering lukke nu!\n\nGen-installer venligst GPG Suiten fra https://gpgtools.org for at være sikker på, at du har en original version fra os!";
+UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
+
 
 
 /* Mail public key */
 MailKey_Subject = "Offentlig nøgle til %@";
 MailKey_Subject_Your = "Min offentlige nøgle til at sikre vores beskeder";
-MailKey_Message = "Hej,\n\nvedhæftet finder du den offentlige nøgle til\n\n%@\n\nDu kan bruge denne nøgle til at kryptere og sikre beskeder, når du skriver til %@.\n\nFor at bruge den skal du have et OpenPGP program på din computer. Nedenfor finder du en liste af mulige programmer til dit styresystem:\n\nOS X: GPG Nøglering (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/dk/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nImporter den offentlige nøgle i din lokale OpenPGP nøglering.\n\nVenlig hilsen";
-MailKey_Message_Your = "Hej,\n\nvedhæftet finder du min offentlige nøgle\n\n%@\n\nDu kan bruge denne nøgle til at kryptere og sikre vores beskeder.\n\nFor at bruge den skal du have et OpenPGP program på din computer. Nedenfor finder du en liste af mulige programmer til dit styresystem:\n\nOS X: GPG Nøglering (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/dk/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nImporter den offentlige nøgle i din lokale OpenPGP nøglering.\n\nJeg ser frem til at udveksle beskeder med dig, som andre ikke kan stikke næsen i.\n\nVenlig hilsen";
+MailKey_Message = "Hej,\n\nvedhæftet finder du den offentlige nøgle til\n\n%@\n\nDu kan bruge denne nøgle til at kryptere og sikre beskeder, når du skriver til %@.\n\nFor at bruge den skal du have et OpenPGP program på din computer. Nedenfor finder du en liste af mulige programmer til dit styresystem:\n\n%@\n\nImporter den offentlige nøgle i din lokale OpenPGP nøglering.\n\nVenlig hilsen";
+MailKey_Message_Your = "Hej,\n\nvedhæftet finder du min offentlige nøgle\n\n%@\n\nDu kan bruge denne nøgle til at kryptere og sikre vores beskeder.\n\nFor at bruge den skal du have et OpenPGP program på din computer. Nedenfor finder du en liste af mulige programmer til dit styresystem:\n\n%@\n\nImporter den offentlige nøgle i din lokale OpenPGP nøglering.\n\nJeg ser frem til at udveksle beskeder med dig, som andre ikke kan stikke næsen i.\n\nVenlig hilsen";
+MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Opretter ny e-mail...";
 MailKey_Progress_Your = "Opretter ny e-mail...";
 MailKey_Error = "Ups, noget gik galt. Der var problemer med at eksportere din nøgle.";
@@ -120,7 +125,7 @@ RevokeSubkey_Yes = "Tilbagekald undernøgle";
 RevokeSubkey_No = "Annuller";
 
 RevokeSignature_Title = "Tilbagekald signatur";
-RevokeSignature_Msg = "Tilbagekaldelse af din signatur vil markere den som tilbagekaldt. Brug denne mulighed, hvis du tror at nøglen er blevet stjålet fra ejeren, og at den oprindelige ejer ikke længere har nøglen under hans kontrol. Overvej at uploade din opdaterede nøgle til nøgleserverne, så andre bliver gjort opmærksomme på, at din signatur er blevet tilbagekaldt.";
+RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
 RevokeSignature_Yes = "Tilbagekald signatur";
 RevokeSignature_No = "Annuller";
 
@@ -204,10 +209,12 @@ ImportResult_CountRevocationCertificate = "%i tilbagekaldelsescertifikater impor
 ImportResult_CountProcessed = "Antal behandlede nøgler: %i";
 ImportResult_CountImported = "Antal importerede nøgler: %i";
 ImportResult_CountUnchanged = "Antal uændrede nøgler: %i";
+ImportResult_NoKeysImported = "Ingen nøgler kunne importeres!";
+
 
 /* Errors */
 ImportKeyError_Title = "Import af en eller flere nøgler mislykkedes!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Ofte kan nøgler ikke importeres, fordi der mangler en egen-signatur. Se venligst https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for flere detaljer og trin til, hvordan problemet kan løses.";
 ImportKeyErrorPGP_Title = "Import mislykkedes!";
 ImportKeyErrorPGP_Msg = "Det ser ud til at du forsøger at importere en krypteret eller signeret besked. For at dekryptere eller verificere sådanne beskedder skal du bruge GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import mislykkedes!";

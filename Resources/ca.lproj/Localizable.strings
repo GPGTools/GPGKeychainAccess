@@ -19,6 +19,7 @@
 "untitled" = "sense títol";
 "%@ Revoke certificate" = "Revoca el certificat %@";
 "Exported keys.asc" = "Exporta keys.asc";
+ExportKeysFilename = "%@ %u OpenPGP Keys";
 
 
 /* For key creation */
@@ -47,7 +48,7 @@ SearchingKeys_Msg = "Busquem claus coincidents al servidor de claus. Podria port
 
 GenerateKey_Progress = "Cal generar molts bytes aleatoris. És una bona idea dur a terme alguna altra acció (escriure al teclat en una aplicació, moure el ratolí, usar els discos) durant la primera generació. Això li dóna al generador de nombres aleatoris una millor oportunitat per guanyar suficient entropia.";
 GenerateSubkey_Msg = "Afegeix la subclau a la clau \"%@\", %@";
-GenerateUserID_Msg = "Add User ID to the Key \"%@\", %@.";
+GenerateUserID_Msg = "Afegeix la identitat d'usuari a la clau \"%@\", %@.";
 GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
 GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
 ChangeExpirationDate_Msg = "Canvi en la data de venciment de \"%@\", %@";
@@ -70,23 +71,27 @@ CheckError_PassphraseMissmatch = "Les contrasenyes no coincideixen!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "No s'ha trobat GPG";
-GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Alguna cosa funciona malament. GPG no es troba en el sistema. Instal·le'l. Pot trobar-lo a l'instal·lador GPG Suite a https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Error de configuració GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at http://support.gpgtools.org.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Alguna cosa funciona malament. GPG es troba en el sistema, però hi ha un problema amb el fitxer de configuració. Contacte amb l'equip de GPGTools a https://gpgtools.tenderapp.com.\n\nDetalles: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "No funciona Libmacgpg";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Ligmacgpg no funciona en el sistema. Instal·le'l. Pot trobar-lo en l'instal·lador de GPG Suite a https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
+
 
 
 /* Mail public key */
 MailKey_Subject = "Public key of %@";
 MailKey_Subject_Your = "My public key to secure our messages";
-MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
-MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
+MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Creating new mail...";
 MailKey_Progress_Your = "Creating new mail...";
-MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+MailKey_Error = "Alguna cosa ha sortir malament. Hi ha hagut un problema quan s'ha creat la clau.";
 
 
 
@@ -120,7 +125,7 @@ RevokeSubkey_Yes = "Revoca la subclau";
 RevokeSubkey_No = "Cancel·la";
 
 RevokeSignature_Title = "Revoca la signatura";
-RevokeSignature_Msg = "Revoking your Signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. Consider uploading your updated key to the Keyservers so others are made aware, that your signature has been revoked.";
+RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
 RevokeSignature_Yes = "Revoca la signatura";
 RevokeSignature_No = "Cancel·la";
 
@@ -204,10 +209,12 @@ ImportResult_CountRevocationCertificate = "%i revocats els certificats importats
 ImportResult_CountProcessed = "Recompte de claus processats: %i";
 ImportResult_CountImported = "Recompte de claus importades: %i";
 ImportResult_CountUnchanged = "Recompte de claus sense canvis: %i";
+ImportResult_NoKeysImported = "No keys could be imported!";
+
 
 /* Errors */
 ImportKeyError_Title = "Failed to import one or more keys!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Import Failed!";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import failed!";
@@ -280,7 +287,7 @@ SetDisabled_Error = "Error a l'activació/desactivació de la clau.";
 SetOwnerTrust_Progress = "Configura la confiança del propietari.";
 SetOwnerTrust_Error = "Error en la configuració de la confiança del propietari.";
 ChangeExpirationDate_Progress = "Canvia la data de venciment.";
-ChangeExpirationDate_Error = "Changing expiration date failed.";
+ChangeExpirationDate_Error = "El canvi de la data de caducitat ha fallat.";
 SetAlgorithmPreferences_Progress = "Configura les preferències de l'algoritme.";
 SetAlgorithmPreferences_Error = "Error al configurar les preferències de l'algoritme.";
 CleanKey_Progress = "Neteja la clau.";
@@ -291,9 +298,9 @@ GenerateRevokeCertificateForKey_Progress = "Generació de certificats revocada."
 GenerateRevokeCertificateForKey_Error = "Generació fallida de certificats revocada.";
 SearchKeysOnServer_Progress = "Cerca la clau.";
 SearchKeysOnServer_Error = "Cerca fallida de la clau.";
-SendKeysToServer_Progress = "Sending %@ to server.";
+SendKeysToServer_Progress = "Envieu %@ al servidor.";
 SendKeysToServer_Error = "Envia fallida de la clau";
-RefreshKeysFromServer_Progress = "Refreshing %@ from server.";
+RefreshKeysFromServer_Progress = "Actualitzant %@ des del servidor.";
 RefreshKeysFromServer_Error = "Recarrega fallida de la clau.";
 AddSubkey_Progress = "Afegeix una subclau.";
 AddSubkey_Error = "Error a l'afegir la subclau.";
@@ -301,10 +308,10 @@ RemoveSubkey_Progress = "Extrau la subclau.";
 RemoveSubkey_Error = "Error a l'extraure la subclau.";
 RevokeSubkey_Progress = "Suprimeix la subclau.";
 RevokeSubkey_Error = "Error al suprimir la subclau.";
-AddUserID_Progress = "Adding User ID.";
-AddUserID_Error = "Adding User ID failed.";
-RemoveUserID_Progress = "Removing User ID.";
-RemoveUserID_Error = "Removing User ID failed.";
+AddUserID_Progress = "Afegeix la ID de l'usuari.";
+AddUserID_Error = "Ha fallat la'afegit de la ID de l'usuari.";
+RemoveUserID_Progress = "Suprimeix la ID de l'usuari.";
+RemoveUserID_Error = "Ha fallat la supressió de la ID de l'usuari.";
 SetPrimaryUserID_Progress = "Setting primary User ID.";
 SetPrimaryUserID_Error = "Setting primary User ID failed.";
 RevokeUserID_Progress = "Revoking User ID.";

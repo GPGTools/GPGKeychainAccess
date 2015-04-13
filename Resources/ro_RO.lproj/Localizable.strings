@@ -19,6 +19,7 @@
 "untitled" = "neintitulat";
 "%@ Revoke certificate" = "%@ Revocare certificat";
 "Exported keys.asc" = "Keys.asc Exportate";
+ExportKeysFilename = "%@ %u OpenPGP Keys";
 
 
 /* For key creation */
@@ -72,18 +73,22 @@ CheckError_PassphraseMissmatch = "Parolele nu coincid!";
 GPG_NOT_FOUND_TITLE = "GPG Negăsit";
 GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Eroare Configurare GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ah, ceva nu a funcționat corespunzător. GPG a fost identificat în sistemul dvs., dar pare a fi o problemă cu fișierul config. Vă rugăm să ne contactați la http://support.gpgtools.org\n\nDetalii:%@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg nu a fost găsit";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
+
 
 
 /* Mail public key */
 MailKey_Subject = "Public key of %@";
 MailKey_Subject_Your = "My public key to secure our messages";
-MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
-MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\nOS X: GPG Keychain (https://gpgtools.org/#gpgsuite)\nWindows: Kleopatra (http://gpg4win.de/download.html)\nLinux: GnuPG (https://www.gnupg.org/download/supported_systems.html)\niOS: iPGMail (https://itunes.apple.com/us/app/ipgmail/id430780873?mt=8)\nAndroid: OpenKeychain (https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain)\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
+MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Creating new mail...";
 MailKey_Progress_Your = "Creating new mail...";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
@@ -120,7 +125,7 @@ RevokeSubkey_Yes = "Revocare Sub-cheie";
 RevokeSubkey_No = "Anulare";
 
 RevokeSignature_Title = "Revocare Semnătură";
-RevokeSignature_Msg = "Revocându-vă Semnătura, aceasta va fi marcată ca și revocată. Folosiți această opțiune dacă credeți că, cheia a fost furată de la deținătorul cheii, și că deținătorul original nu mai deține controlul cheii sale. Luați în considerare încărcarea cheii dvs. pe serverul de chei, astfel încât alții să fie conștienți de faptul că semnătura dvs. a fost revocată. ";
+RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
 RevokeSignature_Yes = "Revocare Semnătură";
 RevokeSignature_No = "Anulare";
 
@@ -204,10 +209,12 @@ ImportResult_CountRevocationCertificate = "%i certificate de revocare au fost im
 ImportResult_CountProcessed = "Numărul de chei procesate: %i";
 ImportResult_CountImported = "Numărul de chei importate: %i";
 ImportResult_CountUnchanged = "Numărul de chei nemodificate: %i";
+ImportResult_NoKeysImported = "No keys could be imported!";
+
 
 /* Errors */
 ImportKeyError_Title = "Eșuare la importarea unei sau mai multor chei!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit http://support.gpgtools.org/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Importarea a Eșuat!";
 ImportKeyErrorPGP_Msg = "Se pare că încercați să importați un mesaj criptat sau semnat. Pentru a decripta sau verifica aceste tipuri de mesaje, vă rugăm să folosiți GPGServices.";
 ImportKeyErrorNoPGP_Title = "Importarea a eșuat!";
