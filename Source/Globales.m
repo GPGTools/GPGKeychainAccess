@@ -133,7 +133,7 @@ NSString *localized(NSString *key) {
 		}
 	});
 
-	if (self.objectValue) {
+	if ([self.objectValue isKindOfClass:[NSDate class]]) {
 		CGFloat width = cellFrame.size.width;
 		if (width > minWidths[2]) {
 			[formatter setDateStyle:4];
@@ -145,7 +145,7 @@ NSString *localized(NSString *key) {
 			[formatter setDateStyle:1];
 		}
 		
-		self.stringValue = [formatter stringForObjectValue:self.objectValue];
+		self.stringValue = [formatter stringFromDate:self.objectValue];
 	} else {
 		self.stringValue = @"";
 	}
