@@ -33,7 +33,8 @@ NSSet *draggedKeys;
 
 
 - (NSSet *)secretKeys {
-	return [GPGKeyManager sharedInstance].secretKeys;
+	NSSet *secretKeys = [[GPGKeyManager sharedInstance].secretKeys copy];
+	return secretKeys;
 }
 
 - (GPGKey *)defaultKey {
@@ -187,7 +188,8 @@ NSSet *draggedKeys;
 }
 
 - (NSSet *)allKeys {
-	return [GPGKeyManager sharedInstance].allKeys;
+	NSSet *allKeys = [[GPGKeyManager sharedInstance].allKeys copy];
+	return allKeys;
 }
 
 - (NSArray *)filteredKeyList {
