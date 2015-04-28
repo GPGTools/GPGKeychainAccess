@@ -53,6 +53,7 @@
 		30B29BEE19116DF400FC453C /* GKScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B29BED19116DF400FC453C /* GKScripting.m */; };
 		30EA818518A82E17000B4D0A /* GKOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30EA818418A82E17000B4D0A /* GKOutlineView.m */; };
 		30ECA2CA194C8AB800C1E761 /* GKAExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ECA2C9194C8AB800C1E761 /* GKAExtensions.m */; };
+		30F810611AEF9709008B7857 /* GKDateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F810601AEF9709008B7857 /* GKDateCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -308,6 +309,8 @@
 		30EA818418A82E17000B4D0A /* GKOutlineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKOutlineView.m; sourceTree = "<group>"; };
 		30ECA2C8194C8AB800C1E761 /* GKAExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKAExtensions.h; sourceTree = "<group>"; };
 		30ECA2C9194C8AB800C1E761 /* GKAExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKAExtensions.m; sourceTree = "<group>"; };
+		30F8105F1AEF9709008B7857 /* GKDateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKDateCell.h; sourceTree = "<group>"; };
+		30F810601AEF9709008B7857 /* GKDateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKDateCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,8 +335,8 @@
 				3014397317732F800088B59F /* Libmacgpg.framework */,
 				3014397517732F800088B59F /* UnitTest.octest */,
 				3014397717732F800088B59F /* org.gpgtools.Libmacgpg.xpc */,
-				3014397917732F800088B59F /* installerHelper */,
 				3014397B17732F800088B59F /* LeakFinder.app */,
+				3014397917732F800088B59F /* installerHelper */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -408,6 +411,8 @@
 				301214B5196879A300D148B0 /* GKVolumeCollectionView.m */,
 				30B29BEC19116DF400FC453C /* GKScripting.h */,
 				30B29BED19116DF400FC453C /* GKScripting.m */,
+				30F8105F1AEF9709008B7857 /* GKDateCell.h */,
+				30F810601AEF9709008B7857 /* GKDateCell.m */,
 				30ECA2C8194C8AB800C1E761 /* GKAExtensions.h */,
 				30ECA2C9194C8AB800C1E761 /* GKAExtensions.m */,
 				3058A61B19D5B65D008568EA /* PLWeakCompatibilityStubs.h */,
@@ -583,8 +588,8 @@
 		};
 		3014397917732F800088B59F /* installerHelper */ = {
 			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = installerHelper;
+			fileType = wrapper.application;
+			path = GPGTools.app;
 			remoteRef = 3014397817732F800088B59F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -699,6 +704,7 @@
 				3052E177144B021D00D6716A /* KeychainController.m in Sources */,
 				3052E178144B021D00D6716A /* main.m in Sources */,
 				3052E179144B021D00D6716A /* PreferencesController.m in Sources */,
+				30F810611AEF9709008B7857 /* GKDateCell.m in Sources */,
 				3052E17C144B021D00D6716A /* SheetController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
