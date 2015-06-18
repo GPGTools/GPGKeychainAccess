@@ -30,6 +30,8 @@
 	NSSet *revCertCache;
 }
 
+@property (readonly) GPGController *gpgc;
+
 + (id)sharedInstance;
 
 - (NSSet *)selectedKeys;

@@ -159,10 +159,15 @@ NSSet *draggedKeys;
 	}
 	fileName = [fileName stringByAppendingString:@".asc"];
 	
-	GPGController *gc = [GPGController gpgController];
+	GPGController *gc = [[ActionController sharedInstance] gpgc];
+	BOOL oldAsync = gc.async;
+	BOOL oldArmor = gc.useArmor;
 	gc.async = NO;
 	gc.useArmor = YES;
 	NSData *exportedData = [gc exportKeys:draggedKeys allowSecret:NO fullExport:NO];
+	gc.async = oldAsync;
+	gc.useArmor = oldArmor;
+	
 	if ([exportedData length] > 0) {
 		[[NSFileManager defaultManager] createFileAtPath:[dropDestination.path stringByAppendingPathComponent:fileName] contents:exportedData attributes:@{NSFileExtensionHidden: @YES}];
 		

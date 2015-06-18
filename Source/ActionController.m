@@ -29,7 +29,7 @@
 @implementation ActionController
 @synthesize progressText, errorText, keysController, signaturesController,
 			subkeysController, userIDsController, photosController, keyTable,
-			signaturesTable, userIDsTable, subkeysTable;
+			signaturesTable, userIDsTable, subkeysTable, gpgc;
 
 
 #pragma mark General
