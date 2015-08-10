@@ -721,17 +721,17 @@
 											  alternateButton:localized(@"RevokeKey_Yes")
 												  otherButton:nil
 											suppressionButton:localized(@"RevokeKey_Upload")];
+			NSDictionary *userInfo = nil;
 			
 			if (returnCode & SheetSuppressionButton) {
 				returnCode -= SheetSuppressionButton;
-				gpgc.userInfo = @{@"action": @[@(UploadKeyAction)], @"keys":[NSSet setWithObject:key]};
-			} else {
-				gpgc.userInfo = @{};
+				userInfo = @{@"action": @[@(UploadKeyAction)], @"keys":[NSSet setWithObject:key]};
 			}
 			if (returnCode != NSAlertSecondButtonReturn) {
 				return;
 			}
 			
+			gpgc.userInfo = userInfo;
 			self.errorText = nil;
 			self.progressText = localized(@"RevokeKey_Progress");
 			self.errorText = localized(@"RevokeKey_Error");
