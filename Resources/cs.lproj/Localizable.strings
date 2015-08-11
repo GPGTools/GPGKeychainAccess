@@ -19,7 +19,7 @@
 "untitled" = "Beze jména";
 "%@ Revoke certificate" = "%@ zrušit platnost certifikátu";
 "Exported keys.asc" = "Exportované klíče.asc";
-ExportKeysFilename = "%@ %u OpenPGP Keys";
+ExportKeysFilename = "%@ %u klíče OpenPGP";
 
 
 /* For key creation */
@@ -48,11 +48,11 @@ SearchingKeys_Msg = "Hledá se odpovídající klíč(klíče) na klíčovém se
 
 GenerateKey_Progress = "Je třeba vytvořit velké množství náhodných dat. Během vytváření prvočísla je dobré abyste dělali na počítači také něco jiného (psali na klávesnici, hýbali myší, vytěžovali disk). Tyto vaše akce umožní generátoru náhodných čísel získat lepší výsledky.";
 GenerateSubkey_Msg = "Přiřadit podklíč klíči „%@“, %@.";
-GenerateUserID_Msg = "Add User ID to the Key \"%@\", %@.";
+GenerateUserID_Msg = "Přidat UserID klíči „%@“, %@.";
 GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
 GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
 ChangeExpirationDate_Msg = "Změnit datum platnosti „%@“, %@";
-ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubkey: %1$@";
+ChangeSubkeyExpirationDate_Msg = "Změnit datum platnosti „%2$@“, %3$@\nPodklíč: %1$@";
 
 GenerateKey_Error = "Hrome, něco je špatně. Vyskytla se chyba při vytváření klíče.";
 
@@ -76,21 +76,21 @@ GPG_CONFIG_ERROR_TITLE = "Chyba nastavení GPG ";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Knihovna Libmacgpg nebyla nalezena";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
+CODE_SIGN_ERROR_TITLE = "Někdo manipuloval s instalací Klíčenky GPG!";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
-UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_TITLE = "Neznámá chyba GPG";
 UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
 /* Mail public key */
 MailKey_Subject = "Veřejný klíč %@";
-MailKey_Subject_Your = "My public key to secure our messages";
+MailKey_Subject_Your = "Můj veřejný klíč pro zabezpečení našich zpráv";
 MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creating new mail...";
-MailKey_Progress_Your = "Creating new mail...";
+MailKey_Progress = "Vytváří se nová zpráva…";
+MailKey_Progress_Your = "Vytváří se nová zpráva…";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
 
 
@@ -104,14 +104,14 @@ Cancel = "Zrušit";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove User ID";
+RemoveUserID_Title = "Odstranit UserID";
 RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove User ID";
+RemoveUserID_Yes = "Odstranit UserID";
 RemoveUserID_No = "Zrušit";
 
-RevokeUserID_Title = "Revoke User ID";
+RevokeUserID_Title = "Odmítnout UserID";
 RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Yes = "Odmítnout UserID";
 RevokeUserID_No = "Zrušit";
 
 RemoveSubkey_Title = "Odstranit podklíč";
@@ -209,7 +209,7 @@ ImportResult_CountRevocationCertificate = "Importováno %i zneplatněných certi
 ImportResult_CountProcessed = "Zpracované klíče: %i";
 ImportResult_CountImported = "Importované klíče: %i";
 ImportResult_CountUnchanged = "Nezměněné klíče: %i";
-ImportResult_NoKeysImported = "No keys could be imported!";
+ImportResult_NoKeysImported = "Nelze importovat žádný klíč!";
 
 
 /* Errors */
@@ -237,11 +237,11 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "This photo is really large!";
+ChoosePhoto_Large_Message = "Tato fotografie je příliš velká!";
 ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
 ChoosePhoto_Large_Button1 = "Vybrat jiný…";
 ChoosePhoto_Large_Button2 = "Použít tuto fotografii";
-ChoosePhoto_TooLarge_Message = "Your photo is too large!";
+ChoosePhoto_TooLarge_Message = "Vaše fotografie je příliš velká!";
 ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
 
 

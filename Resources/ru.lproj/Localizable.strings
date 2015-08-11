@@ -19,7 +19,7 @@
 "untitled" = "Без имени";
 "%@ Revoke certificate" = "%@ Сертификат отзыва";
 "Exported keys.asc" = "Экспортированные ключи.asc";
-ExportKeysFilename = "%@ %u OpenPGP Keys";
+ExportKeysFilename = "%@ %u ключи OpenPGP";
 
 
 /* For key creation */
@@ -39,12 +39,12 @@ CheckAlert_PassphraseToLong_Title = "Пароль слишком длинный"
 CheckAlert_PassphraseToLong_Message = "Введённый пароль слишком длинный. Введите пароль не длиннее 300 символов.";
 
 
-MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
+MoveSecring_Msg = "Ваши секретные ключи в настоящее время находятся на \"%@\".\nДля перемещения ваших секретных ключей на другой том, выберите целевой том ниже.";
 
 /* For Key-Search */
 "No keys Found" = "Ключи не найдены";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), создан: %@"; /* Format für die gefundenen Schlüssel vom Server. */
-SearchingKeys_Msg = "Осуществляется поиск на серверах. Это может занять некоторое время. Пожалуйста подождите.";
+SearchingKeys_Msg = "Осуществляется поиск на серверах. Это может занять некоторое время. Пожалуйста, подождите.";
 
 GenerateKey_Progress = "Необходимо сгенерировать много случайных чисел. Желательно, что бы Вы выполняли некоторые другие действия (печать на клавиатуре, движения мыши, обращения к дискам) в процессе генерации. Это даст генератору случайных чисел возможность получить лучшую энтропию.";
 GenerateSubkey_Msg = "Добавить subkey ключу \"%@\", %@.";
@@ -71,27 +71,27 @@ CheckError_PassphraseMissmatch = "Пароли не совпадают!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG не найден";
-GPG_NOT_FOUND_MESSAGE = "Ой, что-то пошло совсем не так. Похоже, GPG отсутствует в вашей системе. Пожалуйста переустановите GPG Suite с сайта https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Ой, что-то пошло совсем не так. Похоже, GPG отсутствует в вашей системе. Пожалуйста, переустановите GPG Suite с сайта https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Ошибка настройки GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ой, что-то пошло не так. GPG найден, но есть проблема в файле настроек. Пожалуйста, свяжитесь с нами на сайтеhttps://gpgtools.tenderapp.com.\n\nСведения: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ой, что-то пошло не так. GPG найден, но есть проблема в файле настроек. Пожалуйста, свяжитесь с нами на сайте https://gpgtools.tenderapp.com.\n\nСведения: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg не найдена";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
-CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg не был найден в вашей системе. Пожалуйста, переустановите GPG Suite с сайта https://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Кто-то трогал вашу установку связки ключей GPG!";
+CODE_SIGN_ERROR_MESSAGE = "Чтобы сохранить вас в безопасности, сейчас будет существовать связка ключей GPG!\n\nПожалуйста, переустановите GPG Suite с сайта https://gpgtools.org чтобы быть уверенным, что у вас оригинальная версия от нас!";
 UNKNOWN_GPG_ERROR_TITLE = "Неизвестная ошибка GPG";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ой, что-то пошло не так. GPG выдал неизвестную ошибку. Пожалуйста, свяжитесь с нами на сайте https://gpgtools.tenderapp.com.\n\nСведения: %@";
 
 
 
 /* Mail public key */
 MailKey_Subject = "Публичный ключ %@";
-MailKey_Subject_Your = "My public key to secure our messages";
+MailKey_Subject_Your = "Мой публичный ключ для защиты наших сообщений";
 MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creating new mail...";
-MailKey_Progress_Your = "Creating new mail...";
-MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+MailKey_Progress = "Создаётся новая почта...";
+MailKey_Progress_Your = "Создаётся новая почта...";
+MailKey_Error = "Ой, что-то пошло не так. Возникла проблема при экспорте ключа.";
 
 
 
@@ -104,24 +104,24 @@ Cancel = "Отмена";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove User ID";
+RemoveUserID_Title = "Удалить ID пользователя";
 RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove User ID";
+RemoveUserID_Yes = "Удалить ID пользователя";
 RemoveUserID_No = "Отмена";
 
-RevokeUserID_Title = "Revoke User ID";
+RevokeUserID_Title = "Аннулировать ID пользователя";
 RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Yes = "Аннулировать ID пользователя";
 RevokeUserID_No = "Отмена";
 
-RemoveSubkey_Title = "Remove Subkey";
+RemoveSubkey_Title = "Удалить Subkey";
 RemoveSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
-RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_Yes = "Удалить Subkey";
 RemoveSubkey_No = "Отмена";
 
-RevokeSubkey_Title = "Revoke Subkey";
+RevokeSubkey_Title = "Аннулировать Subkey";
 RevokeSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
-RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_Yes = "Аннулировать Subkey";
 RevokeSubkey_No = "Отмена";
 
 RevokeSignature_Title = "Аннулировать подпись";
@@ -134,12 +134,12 @@ RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing 
 RemoveSignature_Yes = "Удалить подпись";
 RemoveSignature_No = "Отмена";
 
-RemoveLastSelfSignature_Title = "Remove last Self-Signature";
+RemoveLastSelfSignature_Title = "Удалить последнюю самоподпись";
 RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Удалить подпись";
 RemoveLastSelfSignature_No = "Отмена";
 
-RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
+RevokeLastSelfSignature_Title = "Аннулировать последнюю самоподпись";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
 RevokeLastSelfSignature_Yes = "Аннулировать подпись";
 RevokeLastSelfSignature_No = "Отмена";
@@ -148,7 +148,7 @@ RevokeKey_Title = "Внимание! Вы собираетесь аннулир�
 RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Аннулировать ключ";
 RevokeKey_No = "Отмена";
-RevokeKey_Upload = "Upload revoked key";
+RevokeKey_Upload = "Выложить аннулированный ключ";
 
 
 /* Delete warnings */
@@ -158,7 +158,7 @@ DeleteKey_Yes = "Удалить ключ";
 DeleteKey_No = "Отмена";
 
 DeleteKeys_Title = "Удалить публичные ключи";
-DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete those public keys?";
+DeleteKeys_Msg = "Удаление следующих публичных ключей:\n\n%@.\n\nВы уверены, что хотите удалить эти публичные ключи?";
 DeleteKeys_Yes = "Удалить ключи";
 DeleteKeys_No = "Отмена";
 
@@ -186,21 +186,21 @@ ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If 
 ImportRevSig_Yes = "Импортировать";
 ImportRevSig_No = "Отмена";
 
-ImportRandomData_Title = "Warning! Content can probably not be imported.";
-ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
-ImportRandomData_Yes = "Try Import";
+ImportRandomData_Title = "Внимание! Вероятно содержимое может быть не импортировано.";
+ImportRandomData_Msg = "Похоже вы пытаетесь импортировать сообщение, которое не является ключом OpenPGP.\n\nВы уверены, что хотите попробовать импортировать это содержимое?";
+ImportRandomData_Yes = "Попытаться импортировать";
 ImportRandomData_No = "Отмена";
 
-ImportNonImportable_Title = "Warning! Content can probably not be imported.";
-ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
-ImportNonImportable_Yes = "Try Import";
+ImportNonImportable_Title = "Внимание! Вероятно содержимое может быть не импортировано.";
+ImportNonImportable_Msg = "Кажется, вы пытаетесь импортировать подписанное или зашифрованное сообщение.\n\nПодобные сообщения не могут быть импортированы в связку ключей GPG.\n\nВместо этого, пожалуйста, попробуйте расшифровать или проверить сообщение в вопросе с GPGServices.";
+ImportNonImportable_Yes = "Попытаться импортировать";
 ImportNonImportable_No = "Отмена";
 
 
 /* For Import-Results */
 ImportResult_Secret = "ключ %@: секретный ключ \"%@\" импортирован.";
 ImportResult_Public = "ключ %@: публичный ключ \"%@\" импортирован.";
-ImportResult_UserID = "key %@: \"%@\" new User ID(s).";
+ImportResult_UserID = "ключ %@: \"%@\" нов. ID пользователя(ей).";
 ImportResult_Signature = "ключ %@: \"%@\" нов. подпись(-и).";
 ImportResult_Subkey = "ключ %@: \"%@\" нов. subkey(s).";
 ImportResult_KeyNoChanges = "ключ %@: \"%@\" без изменений.";
@@ -209,14 +209,14 @@ ImportResult_CountRevocationCertificate = "%i сертификатов отзы�
 ImportResult_CountProcessed = "Обработано ключей: %i";
 ImportResult_CountImported = "Импортировано ключей: %i";
 ImportResult_CountUnchanged = "Оставлено без неизмений: %i";
-ImportResult_NoKeysImported = "No keys could be imported!";
+ImportResult_NoKeysImported = "Нет ключей, которые могли бы быть импортированы!";
 
 
 /* Errors */
 ImportKeyError_Title = "Ошибка импорта одного или нескольких ключей!";
 ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Ошибка импорта!";
-ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
+ImportKeyErrorPGP_Msg = "Кажется, вы пытаетесь импортировать зашифрованное или подписанное сообщение. Для расшифровки или проверки таких сообщений, пожалуйста, используйте GPGServices.";
 ImportKeyErrorNoPGP_Title = "Ошибка импорта!";
 ImportKeyErrorNoPGP_Msg = "Похоже, что импортируемые данные не являются PGP-данными. Их невозможно обработать.";
 
@@ -237,12 +237,12 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "This photo is really large!";
-ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
+ChoosePhoto_Large_Message = "Эта фотография является действительно большой!";
+ChoosePhoto_Large_Info = "Вам следует использовать фотографию поменьше.\nМы рекомендуем размер меньше, чем 15 КБайт.";
 ChoosePhoto_Large_Button1 = "Выбрать другую...";
 ChoosePhoto_Large_Button2 = "Использовать фото";
-ChoosePhoto_TooLarge_Message = "Your photo is too large!";
-ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
+ChoosePhoto_TooLarge_Message = "Ваша фотография является слишком большой!";
+ChoosePhoto_TooLarge_Info = "Пожалуйста, используйте фотографию меньше, чем 500 КБайт.\nМы рекомендуем размер меньше, чем 15 КБайт.";
 
 
 
@@ -302,20 +302,20 @@ SendKeysToServer_Progress = "Отправка %@ на сервер.";
 SendKeysToServer_Error = "Отправка не удалась.";
 RefreshKeysFromServer_Progress = "Обновление %@ с сервера.";
 RefreshKeysFromServer_Error = "Обновление ключа не удалось.";
-AddSubkey_Progress = "Adding subkey.";
-AddSubkey_Error = "Adding subkey failed.";
-RemoveSubkey_Progress = "Removing subkey.";
-RemoveSubkey_Error = "Removing subkey failed.";
-RevokeSubkey_Progress = "Revoking subkey.";
-RevokeSubkey_Error = "Revoking subkey failed.";
-AddUserID_Progress = "Adding User ID.";
-AddUserID_Error = "Adding User ID failed.";
-RemoveUserID_Progress = "Removing User ID.";
-RemoveUserID_Error = "Removing User ID failed.";
-SetPrimaryUserID_Progress = "Setting primary User ID.";
-SetPrimaryUserID_Error = "Setting primary User ID failed.";
-RevokeUserID_Progress = "Revoking User ID.";
-RevokeUserID_Error = "Revoking User ID failed.";
+AddSubkey_Progress = "Добавление subkey.";
+AddSubkey_Error = "Добавление subkey не удалось.";
+RemoveSubkey_Progress = "Удаление subkey.";
+RemoveSubkey_Error = "Удаление subkey не удалось.";
+RevokeSubkey_Progress = "Аннулирование subkey.";
+RevokeSubkey_Error = "Аннулирование subkey не удалось.";
+AddUserID_Progress = "Добавление ID пользователя.";
+AddUserID_Error = "Добавление ID пользователя не удалось.";
+RemoveUserID_Progress = "Удаление ID пользователя.";
+RemoveUserID_Error = "Удаление ID пользователя не удалось.";
+SetPrimaryUserID_Progress = "Установка основного UserID.";
+SetPrimaryUserID_Error = "Установка основного UserID не удалась.";
+RevokeUserID_Progress = "Аннулирование ID пользователя.";
+RevokeUserID_Error = "Аннулирование ID пользователя не удалось.";
 AddPhoto_Progress = "Добавление фото.";
 AddPhoto_Error = "Добавление фото не удалось.";
 RemovePhoto_Progress = "Удаление фото.";
