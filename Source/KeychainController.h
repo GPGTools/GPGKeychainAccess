@@ -29,7 +29,6 @@
 	NSArray *subkeysSortDescriptors;
 	
 	
-	NSSet *secretKeys;
 	NSArray *filteredKeyList; // Liste der momentan angezeigten Schlüssel.
 	NSArray *filterStrings;
 	

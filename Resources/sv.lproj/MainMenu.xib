@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">101000</int>
 		<string key="IBDocument.SystemVersion">13E28</string>
-		<string key="IBDocument.InterfaceBuilderVersion">6254</string>
+		<string key="IBDocument.InterfaceBuilderVersion">6751</string>
 		<string key="IBDocument.AppKitVersion">1265.21</string>
 		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">6254</string>
+			<string key="NS.object.0">6751</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSArrayController</string>
@@ -2251,7 +2251,7 @@
 																	<int key="NSsFlags">1</int>
 																	<reference key="NSTarget" ref="760465788"/>
 																	<string key="NSAction">_doScroller:</string>
-																	<double key="NSPercent">0.99512195121951219</double>
+																	<double key="NSPercent">0.99755501222493892</double>
 																</object>
 																<object class="NSScroller" id="95059261">
 																	<reference key="NSNextResponder" ref="760465788"/>
@@ -2383,7 +2383,7 @@
 																					<reference key="NSTableView" ref="960229813"/>
 																				</object>
 																				<object class="NSTableColumn" id="604413635">
-																					<double key="NSWidth">138</double>
+																					<double key="NSWidth">135.5</double>
 																					<double key="NSMinWidth">40</double>
 																					<double key="NSMaxWidth">1000</double>
 																					<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -2546,7 +2546,7 @@
 																			<reference key="NSBackgroundColor" ref="428465068"/>
 																			<reference key="NSGridColor" ref="941903720"/>
 																			<double key="NSRowHeight">17</double>
-																			<int key="NSTvFlags">-759169024</int>
+																			<int key="NSTvFlags">-761266176</int>
 																			<reference key="NSDelegate"/>
 																			<reference key="NSDataSource"/>
 																			<int key="NSColumnAutoresizingStyle">5</int>
@@ -2571,7 +2571,6 @@
 																		<reference ref="547091564"/>
 																	</array>
 																	<string key="NSFrame">{{1, 0}, {408, 17}}</string>
-																	<string key="NSBounds">{{0.5, 0}, {408, 17}}</string>
 																	<reference key="NSSuperview" ref="892183847"/>
 																	<reference key="NSNextKeyView" ref="547091564"/>
 																	<reference key="NSDocView" ref="547091564"/>
@@ -2588,8 +2587,8 @@
 																	<int key="NSsFlags">1</int>
 																	<reference key="NSTarget" ref="892183847"/>
 																	<string key="NSAction">_doScroller:</string>
-																	<double key="NSCurValue">0.40000000000000002</double>
-																	<double key="NSPercent">0.99390986601705233</double>
+																	<double key="NSCurValue">0.5</double>
+																	<double key="NSPercent">0.99270072992700731</double>
 																</object>
 																<object class="NSScroller" id="463917557">
 																	<reference key="NSNextResponder" ref="892183847"/>
@@ -3873,6 +3872,16 @@ Y2tlbA</string>
 									<reference key="NSOnImage" ref="734934930"/>
 									<reference key="NSMixedImage" ref="987910177"/>
 								</object>
+								<object class="NSMenuItem" id="530209876">
+									<reference key="NSMenu" ref="466789479"/>
+									<bool key="NSIsAlternate">YES</bool>
+									<string key="NSTitle">Copy Fingerprint</string>
+									<string key="NSKeyEquiv">C</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="734934930"/>
+									<reference key="NSMixedImage" ref="987910177"/>
+								</object>
 								<object class="NSMenuItem" id="307234592">
 									<reference key="NSMenu" ref="466789479"/>
 									<string key="NSTitle">Klistra in</string>
@@ -4951,6 +4960,14 @@ Y2tlbA</string>
 						<reference key="destination" ref="290885951"/>
 					</object>
 					<string key="id">9Ib-uk-P8j</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">copyFingerprint:</string>
+						<reference key="source" ref="520472171"/>
+						<reference key="destination" ref="530209876"/>
+					</object>
+					<string key="id">JXL-rl-Nhn</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -8190,6 +8207,7 @@ Y2tlbA</string>
 							<reference ref="1045899964"/>
 							<reference ref="4662800"/>
 							<reference ref="767533597"/>
+							<reference ref="530209876"/>
 						</array>
 						<reference key="parent" ref="585005772"/>
 					</object>
@@ -10526,6 +10544,11 @@ Y2tlbA</string>
 						<reference key="object" ref="42801787"/>
 						<reference key="parent" ref="770700758"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">r2n-Ip-vne</string>
+						<reference key="object" ref="530209876"/>
+						<reference key="parent" ref="466789479"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -11308,6 +11331,7 @@ Y2tlbA</string>
 				<string key="r0A-3i-riC.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="r0A-3i-riC.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="r0A-3i-riC.showNotes"/>
+				<string key="r2n-Ip-vne.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="rRM-jA-WGg.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="rRM-jA-WGg.showNotes"/>
 				<object class="NSMutableDictionary" key="reo-f1-cjF.IBAttributePlaceholdersKey">

@@ -34,7 +34,7 @@
 
 + (id)sharedInstance;
 
-- (NSSet *)selectedKeys;
+- (NSArray *)selectedKeys;
 - (void)addPhoto:(NSString *)path toKey:(GPGKey *)key;
 - (void)importFromURLs:(NSArray *)urls;
 - (void)importFromData:(NSData *)data;

@@ -50,7 +50,7 @@
 
 #pragma mark Import and Export
 - (IBAction)exportKey:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	NSUInteger count = keys.count;
 	if (count == 0) {
 		return;
@@ -60,7 +60,7 @@
 	sheetController.msgText = nil; //TODO
 	
 	if (count == 1) {
-		sheetController.pattern = [[keys anyObject] shortKeyID];
+		sheetController.pattern = [keys[0] shortKeyID];
 	} else {
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		dateFormatter.dateFormat = @"Y-MM-dd";
@@ -68,7 +68,7 @@
 		sheetController.pattern = [NSString stringWithFormat:localized(@"ExportKeysFilename"), date, count];
 	}
 	
-	[keys enumerateObjectsUsingBlock:^(GPGKey *key, BOOL *stop) {
+	[keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
 		if (key.secret) {
 			sheetController.allowSecretKeyExport = YES;
 			*stop = YES;
@@ -208,7 +208,7 @@
 			stringForPasteboard = subkey.keyID;
 		}
 	} else {
-		NSSet *keys = [self selectedKeys];
+		NSArray *keys = [self selectedKeys];
 		if (keys.count > 0) {
 			gpgc.async = NO;
 			gpgc.useArmor = YES;
@@ -225,6 +225,38 @@
 	}
 	
 }
+- (IBAction)copyFingerprint:(id)sender {
+	NSString *stringForPasteboard = nil;
+	NSResponder *responder = mainWindow.firstResponder;
+	
+	if (responder == appDelegate.userIDTable) {
+		if (userIDsController.selectedObjects.count == 1) {
+			GPGUserID *userID = [userIDsController.selectedObjects objectAtIndex:0];
+			stringForPasteboard = userID.hashID;
+		}
+	} else if (responder == appDelegate.signatureTable) {
+		if (signaturesController.selectedObjects.count == 1) {
+			GPGUserIDSignature *signature = [signaturesController.selectedObjects objectAtIndex:0];
+			stringForPasteboard = signature.primaryKey.fingerprint;
+		}
+	} else if (responder == appDelegate.subkeyTable) {
+		if (subkeysController.selectedObjects.count == 1) {
+			GPGKey *subkey = [subkeysController.selectedObjects objectAtIndex:0];
+			stringForPasteboard = subkey.fingerprint;
+		}
+	} else {
+		NSArray *keys = [self selectedKeys];
+		if (keys.count > 0) {
+			stringForPasteboard = [keys componentsJoinedByString:@"\n"];
+		}
+	}
+	
+	if ([stringForPasteboard length] > 0) {
+		NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+		[pboard declareTypes:[NSArray arrayWithObject:NSStringPboardType] owner:self];
+		[pboard setString:stringForPasteboard forType:NSStringPboardType];
+	}
+}
 - (IBAction)paste:(id)sender {
 	
 	NSPasteboard *pboard = [NSPasteboard generalPasteboard];
@@ -240,12 +272,12 @@
 	}
 }
 - (IBAction)sendKeysPerMail:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	if (keys.count == 0) {
 		return;
 	}
 
-	BOOL yourKey = keys.count == 1 && [keys.anyObject secret];
+	BOOL yourKey = keys.count == 1 && [keys[0] secret];
 	
 	NSString *description = [self descriptionForKeys:keys maxLines:5 withOptions:0];
 	
@@ -297,7 +329,7 @@
 			return;
 		}
 		
-		NSString *path = [NSString stringWithFormat:@"%s/%@.asc", tempDir, keys.count == 1 ? [[keys anyObject] shortKeyID] : localized(@"Keys")];
+		NSString *path = [NSString stringWithFormat:@"%s/%@.asc", tempDir, keys.count == 1 ? [keys[0] shortKeyID] : localized(@"Keys")];
 		NSURL *url = [NSURL fileURLWithPath:path];
 		NSError *error = nil;
 		[data writeToURL:url options:0 error:&error];
@@ -379,7 +411,7 @@
 					 preferences:nil];
 }
 - (IBAction)deleteKey:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	if (keys.count == 0) {
 		return;
 	}
@@ -440,7 +472,7 @@
 		case NSAlertSecondButtonReturn:
 			if (hasSecretKey) {
 				mode = GPGDeleteSecretKey;
-				NSMutableSet *secretKeys = [NSMutableSet set];
+				NSMutableArray *secretKeys = [NSMutableArray array];
 				for (GPGKey *key in keys) {
 					if (key.secret) {
 						[secretKeys addObject:key];
@@ -466,9 +498,9 @@
 
 #pragma mark Key attributes
 - (IBAction)changePassphrase:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] == 1) {
-		GPGKey *key = [[keys anyObject] primaryKey];
+	NSArray *keys = [self selectedKeys];
+	if (keys.count == 1) {
+		GPGKey *key = [keys[0] primaryKey];
 		
 		self.progressText = localized(@"ChangePassphrase_Progress");
 		self.errorText = localized(@"ChangePassphrase_Error");
@@ -476,9 +508,9 @@
 	}
 }
 - (IBAction)setDisabled:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	BOOL disabled = [sender state] == NSOnState;
-	[self setDisabled:disabled forKeys:keys];
+	[self setDisabled:disabled forKeys:[NSSet setWithArray:keys]];
 }
 - (void)setDisabled:(BOOL)disabled forKeys:(NSSet *)keys {
 	if (keys.count == 0) {
@@ -501,9 +533,9 @@
 	[gpgc key:key setDisabled:disabled];
 }
 - (IBAction)setTrust:(NSPopUpButton *)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	NSInteger trust = sender.selectedTag;
-	[self setTrust:trust forKeys:keys];
+	[self setTrust:trust forKeys:[NSSet setWithArray:keys]];
 }
 - (void)setTrust:(NSInteger)trust forKeys:(NSSet *)keys {
 	if (keys.count == 0) {
@@ -527,12 +559,12 @@
 }
 
 - (IBAction)changeExpirationDate:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] != 1) {
+	NSArray *keys = [self selectedKeys];
+	if (keys.count != 1) {
 		return;
 	}
 	GPGKey *subkey = nil;
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = [keys[0] primaryKey];
 	
 	if ([sender tag] == 1 && [[subkeysController selectedObjects] count] == 1) {
 		subkey = [[subkeysController selectedObjects] objectAtIndex:0];
@@ -554,11 +586,11 @@
 	}
 }
 - (IBAction)editAlgorithmPreferences:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] != 1) {
+	NSArray *keys = [self selectedKeys];
+	if (keys.count != 1) {
 		return;
 	}
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = [keys[0] primaryKey];
 	
 	
 	NSArray *algorithmPreferences = [gpgc algorithmPreferencesForKey:key];
@@ -600,7 +632,7 @@
 
 #pragma mark Keys (other)
 - (IBAction)cleanKey:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	
 	self.progressText = localized(@"CleanKey_Progress");
 	self.errorText = localized(@"CleanKey_Error");
@@ -608,18 +640,18 @@
 	[gpgc cleanKeys:keys];
 }
 - (IBAction)minimizeKey:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	
 	self.progressText = localized(@"MinimizeKey_Progress");
 	self.errorText = localized(@"MinimizeKey_Error");
 	[gpgc minimizeKeys:keys];
 }
 - (IBAction)genRevokeCertificate:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] != 1) {
+	NSArray *keys = [self selectedKeys];
+	if (keys.count != 1) {
 		return;
 	}
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = [keys[0] primaryKey];
 
 	[self revCertificateForKey:key customPath:YES];
 }
@@ -684,11 +716,11 @@
 	[gpgc generateRevokeCertificateForKey:key reason:0 description:nil];
 }
 - (IBAction)revokeKey:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] != 1) {
+	NSArray *keys = [self selectedKeys];
+	if (keys.count != 1) {
 		return;
 	}
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = [keys[0] primaryKey];
 
 	[self revokeKey:key generateIfNeeded:YES];
 }
@@ -805,7 +837,7 @@
 	[self receiveKeysFromServer:keyIDs];
 }
 - (IBAction)sendKeysToServer:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	if (keys.count > 0) {
 		self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
 		self.errorText = localized(@"SendKeysToServer_Error");
@@ -813,7 +845,7 @@
 	}
 }
 - (IBAction)refreshKeysFromServer:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	if (keys.count > 0) {
 		self.progressText = [NSString stringWithFormat:localized(@"RefreshKeysFromServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
 		self.errorText = localized(@"RefreshKeysFromServer_Error");
@@ -823,11 +855,11 @@
 
 #pragma mark Subkeys
 - (IBAction)addSubkey:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] != 1) {
+	NSArray *keys = [self selectedKeys];
+	if (keys.count != 1) {
 		return;
 	}
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = [keys[0] primaryKey];
 	
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
@@ -875,11 +907,11 @@
 
 #pragma mark UserIDs
 - (IBAction)addUserID:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] != 1) {
+	NSArray *keys = [self selectedKeys];
+	if (keys.count != 1) {
 		return;
 	}
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = [keys[0] primaryKey];
 	
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
@@ -946,11 +978,11 @@
 	[gpgc addPhotoFromPath:path toKey:key];
 }
 - (IBAction)addPhoto:(id)sender {
-	NSSet *keys = [self selectedKeys];
-	if ([keys count] != 1) {
+	NSArray *keys = [self selectedKeys];
+	if (keys.count != 1) {
 		return;
 	}
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = [keys[0] primaryKey];
 	if (!key.secret) {
 		return;
 	}
@@ -968,8 +1000,8 @@
 }
 - (IBAction)removePhoto:(id)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
-		NSSet *keys = [self selectedKeys];
-		GPGKey *key = [[keys anyObject] primaryKey];
+		NSArray *keys = [self selectedKeys];
+		GPGKey *key = [keys[0] primaryKey];
 		
 		self.progressText = localized(@"RemovePhoto_Progress");
 		self.errorText = localized(@"RemovePhoto_Error");
@@ -978,7 +1010,8 @@
 }
 - (IBAction)setPrimaryPhoto:(id)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
-		GPGKey *key = [[[self selectedKeys] anyObject] primaryKey];
+		NSArray *keys = [self selectedKeys];
+		GPGKey *key = [keys[0] primaryKey];
 		
 		self.progressText = localized(@"SetPrimaryPhoto_Progress");
 		self.errorText = localized(@"SetPrimaryPhoto_Error");
@@ -987,7 +1020,8 @@
 }
 - (IBAction)revokePhoto:(id)sender {
 	if ([photosController selectionIndex] != NSNotFound) {
-		GPGKey *key = [[[self selectedKeys] anyObject] primaryKey];
+		NSArray *keys = [self selectedKeys];
+		GPGKey *key = [keys[0] primaryKey];
 		
 		self.progressText = localized(@"RevokePhoto_Progress");
 		self.errorText = localized(@"RevokePhoto_Error");
@@ -997,7 +1031,7 @@
 
 #pragma mark Signatures
 - (IBAction)addSignature:(id)sender {
-	NSSet *keys = [self selectedKeys];
+	NSArray *keys = [self selectedKeys];
 	if (keys.count != 1) {
 		return;
 	}
@@ -1011,7 +1045,7 @@
 		userID = [objects objectAtIndex:0];
 	}
 	
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = [keys[0] primaryKey];
 	
 	NSSet *secretKeys = [[KeychainController sharedInstance] secretKeys];
 	
@@ -1245,16 +1279,12 @@
 	return nil;
 }
 
-- (NSSet *)selectedKeys {
+- (NSArray *)selectedKeys {
 	NSInteger clickedRow = [keyTable clickedRow];
 	if (clickedRow != -1 && ![keyTable isRowSelected:clickedRow]) {
-		return [NSSet setWithObject:[[keyTable itemAtRow:clickedRow] representedObject]];
+		return @[[[keyTable itemAtRow:clickedRow] representedObject]];
 	} else {
-		NSMutableSet *keySet = [NSMutableSet set];
-		for (GPGKey *key in [keysController selectedObjects]) {
-			[keySet addObject:[key primaryKey]];
-		}
-		return keySet;
+		return [keysController selectedObjects];
 	}
 }
 - (NSArray *)selectedObjectsOf:(NSTableView *)table {
@@ -1298,8 +1328,28 @@
 	}
 	
 	
-    if (selector == @selector(copy:) ||
-		selector == @selector(sendKeysToServer:) ||
+	if (selector == @selector(copy:) ||
+		selector == @selector(copyFingerprint:)) {
+		NSResponder *responder = mainWindow.firstResponder;
+		
+		if (responder == appDelegate.userIDTable) {
+			if (userIDsController.selectedObjects.count == 1) {
+				return YES;
+			}
+		} else if (responder == appDelegate.signatureTable) {
+			if (signaturesController.selectedObjects.count == 1) {
+				return YES;
+			}
+		} else if (responder == appDelegate.subkeyTable) {
+			if (subkeysController.selectedObjects.count == 1) {
+				return YES;
+			}
+		} else if (self.selectedKeys.count > 0) {
+			return YES;
+		}
+		return NO;
+	}
+	else if (selector == @selector(sendKeysToServer:) ||
 		selector == @selector(refreshKeysFromServer:) ||
 		selector == @selector(deleteKey:)) {
 		return self.selectedKeys.count > 0;
@@ -1319,8 +1369,8 @@
 		}
     }
 	else if (selector == @selector(genRevokeCertificate:)) {
-		NSSet *keys = [self selectedKeys];
-		return (keys.count == 1 && ((GPGKey*)[keys anyObject]).secret);
+		NSArray *keys = [self selectedKeys];
+		return (keys.count == 1 && [keys[0] secret]);
     }
 	else if (selector == @selector(editAlgorithmPreferences:)) {
 		return self.selectedKeys.count == 1;
@@ -1425,37 +1475,21 @@
 		}
 	}
 	else if (selector == @selector(revokeKey:)) {
-		NSSet *keys = self.selectedKeys;
+		NSArray *keys = self.selectedKeys;
 		if (keys.count == 1) {
-			return [self canRevokeKey:keys.anyObject];
+			return [self canRevokeKey:keys[0]];
 		}
 		return NO;
 	}
-
+	else if (selector == @selector(cancel:)) {
+		return appDelegate.inspectorVisible;
+	}
+	
 	return YES;
 }
 
 - (BOOL)respondsToSelector:(SEL)selector {
-	if (selector == @selector(copy:)) {
-		NSResponder *responder = mainWindow.firstResponder;
-		
-		if (responder == appDelegate.userIDTable) {
-			if (userIDsController.selectedObjects.count == 1) {
-				return YES;
-			}
-		} else if (responder == appDelegate.signatureTable) {
-			if (signaturesController.selectedObjects.count == 1) {
-				return YES;
-			}
-		} else if (responder == appDelegate.subkeyTable) {
-			if (subkeysController.selectedObjects.count == 1) {
-				return YES;
-			}
-		} else if ([self selectedKeys].count > 0) {
-			return YES;
-		}
-		return NO;
-	} else if (selector == @selector(cancel:)) {
+	if (selector == @selector(cancel:)) {
 		return appDelegate.inspectorVisible;
 	}
 	

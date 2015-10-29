@@ -12,11 +12,11 @@
 		return NSDragOperationNone;
 	}
 	ActionController *actc = [ActionController sharedInstance];
-	NSSet *keys = [actc selectedKeys];
-	if ([keys count] != 1) {
+	NSArray *keys = [actc selectedKeys];
+	if (keys.count != 1) {
 		return NO;
 	}
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = keys[0];
 	if (!key.secret) {
 		return NO;
 	}
@@ -44,11 +44,11 @@
 }
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
 	ActionController *actc = [ActionController sharedInstance];
-	NSSet *keys = [actc selectedKeys];
-	if ([keys count] != 1) {
+	NSArray *keys = [actc selectedKeys];
+	if (keys.count != 1) {
 		return NO;
 	}
-	GPGKey *key = [[keys anyObject] primaryKey];
+	GPGKey *key = keys[0];
 	if (!key.secret) {
 		return NO;
 	}
