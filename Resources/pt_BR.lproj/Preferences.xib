@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">13E28</string>
-		<string key="IBDocument.InterfaceBuilderVersion">6254</string>
+		<string key="IBDocument.SystemVersion">13F34</string>
+		<string key="IBDocument.InterfaceBuilderVersion">6751</string>
 		<string key="IBDocument.AppKitVersion">1265.21</string>
 		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">6254</string>
+			<string key="NS.object.0">6751</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButton</string>
@@ -213,7 +213,7 @@
 						<object class="NSButtonCell" key="NSCell" id="453034332">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Verifica agora</string>
+							<string key="NSContents">Buscar Agora</string>
 							<object class="NSFont" key="NSSupport" id="582340800">
 								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">13</double>
@@ -244,7 +244,7 @@
 						<object class="NSButtonCell" key="NSCell" id="304997418">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Baixar atualizações automaticamente</string>
+							<string key="NSContents">Transferir atualizações automaticamente</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<reference key="NSControlView" ref="178688288"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -273,7 +273,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="924562671">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Verificar se há atualizações:</string>
+							<string key="NSContents">Buscar atualizações:</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<reference key="NSControlView" ref="8447605"/>
 							<reference key="NSBackgroundColor" ref="303703962"/>
@@ -332,7 +332,7 @@
 									<reference ref="273499997"/>
 									<object class="NSMenuItem" id="622644293">
 										<reference key="NSMenu" ref="176419784"/>
-										<string key="NSTitle">Diário</string>
+										<string key="NSTitle">Diariamente</string>
 										<string key="NSKeyEquiv"/>
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
@@ -344,7 +344,7 @@
 									</object>
 									<object class="NSMenuItem" id="34739641">
 										<reference key="NSMenu" ref="176419784"/>
-										<string key="NSTitle">Semanal</string>
+										<string key="NSTitle">Semanalmente</string>
 										<string key="NSKeyEquiv"/>
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
@@ -356,7 +356,7 @@
 									</object>
 									<object class="NSMenuItem" id="306279055">
 										<reference key="NSMenu" ref="176419784"/>
-										<string key="NSTitle">Mensal</string>
+										<string key="NSTitle">Mensalmente</string>
 										<string key="NSKeyEquiv"/>
 										<int key="NSMnemonicLoc">2147483647</int>
 										<reference key="NSOnImage" ref="32782055"/>
@@ -384,7 +384,7 @@
 						<object class="NSButtonCell" key="NSCell" id="190733438">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Verifica automáticamente por atualizações</string>
+							<string key="NSContents">Buscar atualizações automaticamente</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<reference key="NSControlView" ref="270258777"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -417,7 +417,7 @@
 						<object class="NSButtonCell" key="NSCell" id="228590476">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Mostrar chaves revogadas e expiradas no resultado da pesquisa</string>
+							<string key="NSContents">Mostrar chaves revogadas e vencidas nos resultados da busca</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="147587013"/>
@@ -599,7 +599,7 @@
 						<object class="NSButtonCell" key="NSCell" id="572488483">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Mover o chaveiro de chaves secretas</string>
+							<string key="NSContents">Mover secring</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="921930691"/>
@@ -646,7 +646,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="516693414">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">chaveiro de chaves secretas</string>
+							<string key="NSContents">Secring:</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<string key="NSCellIdentifier">_NS:397</string>
 							<reference key="NSControlView" ref="430731973"/>
@@ -688,8 +688,8 @@
 				<object class="NSMutableString" key="NSToolbarItemIdentifier">
 					<characters key="NS.bytes">5B57EC91-4E5F-49EC-BBEF-A3530CACE777</characters>
 				</object>
-				<string key="NSToolbarItemLabel">Chaveiro</string>
-				<string key="NSToolbarItemPaletteLabel">Chaveiro</string>
+				<string key="NSToolbarItemLabel">Keyring</string>
+				<string key="NSToolbarItemPaletteLabel">Keyring</string>
 				<string key="NSToolbarItemToolTip"/>
 				<nil key="NSToolbarItemView"/>
 				<object class="NSCustomResource" key="NSToolbarItemImage">

@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">13E28</string>
-		<string key="IBDocument.InterfaceBuilderVersion">6254</string>
+		<string key="IBDocument.SystemVersion">13F34</string>
+		<string key="IBDocument.InterfaceBuilderVersion">6751</string>
 		<string key="IBDocument.AppKitVersion">1265.21</string>
 		<string key="IBDocument.HIToolboxVersion">698.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">6254</string>
+			<string key="NS.object.0">6751</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSButton</string>
@@ -52,7 +52,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{596, 717}, {401, 90}}</string>
 				<int key="NSWTFlags">1685586944</int>
-				<string key="NSWindowTitle">Preferences</string>
+				<string key="NSWindowTitle">설정</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSToolbar" key="NSViewClass" id="551223660">
 					<string key="NSToolbarIdentifier">FF437343-7809-40CE-ADEE-F501EC69A8A6</string>
@@ -66,8 +66,8 @@
 					<dictionary class="NSMutableDictionary" key="NSToolbarIBIdentifiedItems">
 						<object class="NSToolbarItem" key="609D3507-AAD7-4DE9-9AB3-328CB4D80420" id="634984293">
 							<string key="NSToolbarItemIdentifier">609D3507-AAD7-4DE9-9AB3-328CB4D80420</string>
-							<string key="NSToolbarItemLabel">Key server</string>
-							<string key="NSToolbarItemPaletteLabel">Key server</string>
+							<string key="NSToolbarItemLabel">키 서버</string>
+							<string key="NSToolbarItemPaletteLabel">키 서버</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
@@ -86,8 +86,8 @@
 						</object>
 						<object class="NSToolbarItem" key="8ABDB856-CACE-4F60-A69C-19F79CDA46BE" id="561285712">
 							<string key="NSToolbarItemIdentifier">8ABDB856-CACE-4F60-A69C-19F79CDA46BE</string>
-							<string key="NSToolbarItemLabel">Updates</string>
-							<string key="NSToolbarItemPaletteLabel">Updates</string>
+							<string key="NSToolbarItemLabel">업데이트</string>
+							<string key="NSToolbarItemPaletteLabel">업데이트</string>
 							<string key="NSToolbarItemToolTip"/>
 							<nil key="NSToolbarItemView"/>
 							<object class="NSCustomResource" key="NSToolbarItemImage">
@@ -193,7 +193,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="781330519">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">71435264</int>
-							<string key="NSContents">Last check: </string>
+							<string key="NSContents">마지막 확인:</string>
 							<reference key="NSSupport" ref="26"/>
 							<reference key="NSControlView" ref="85221806"/>
 							<reference key="NSBackgroundColor" ref="303703962"/>
@@ -213,7 +213,7 @@
 						<object class="NSButtonCell" key="NSCell" id="453034332">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Check Now</string>
+							<string key="NSContents">지금 확인</string>
 							<object class="NSFont" key="NSSupport" id="582340800">
 								<bool key="IBIsSystemFont">YES</bool>
 								<double key="NSSize">13</double>
@@ -244,7 +244,7 @@
 						<object class="NSButtonCell" key="NSCell" id="304997418">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Download updates automatically</string>
+							<string key="NSContents">자동으로 업데이트 다운로드</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<reference key="NSControlView" ref="178688288"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -273,7 +273,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="924562671">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Check for Updates:</string>
+							<string key="NSContents">업데이트 확인</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<reference key="NSControlView" ref="8447605"/>
 							<reference key="NSBackgroundColor" ref="303703962"/>
@@ -308,7 +308,7 @@
 							<int key="NSPeriodicInterval">75</int>
 							<object class="NSMenuItem" key="NSMenuItem" id="273499997">
 								<reference key="NSMenu" ref="176419784"/>
-								<string key="NSTitle">Hourly</string>
+								<string key="NSTitle">매시간</string>
 								<string key="NSKeyEquiv"/>
 								<int key="NSKeyEquivModMask">1048576</int>
 								<int key="NSMnemonicLoc">2147483647</int>
@@ -332,7 +332,7 @@
 									<reference ref="273499997"/>
 									<object class="NSMenuItem" id="622644293">
 										<reference key="NSMenu" ref="176419784"/>
-										<string key="NSTitle">Daily</string>
+										<string key="NSTitle">매일</string>
 										<string key="NSKeyEquiv"/>
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
@@ -344,7 +344,7 @@
 									</object>
 									<object class="NSMenuItem" id="34739641">
 										<reference key="NSMenu" ref="176419784"/>
-										<string key="NSTitle">Weekly</string>
+										<string key="NSTitle">매주</string>
 										<string key="NSKeyEquiv"/>
 										<int key="NSKeyEquivModMask">1048576</int>
 										<int key="NSMnemonicLoc">2147483647</int>
@@ -356,7 +356,7 @@
 									</object>
 									<object class="NSMenuItem" id="306279055">
 										<reference key="NSMenu" ref="176419784"/>
-										<string key="NSTitle">Monthly</string>
+										<string key="NSTitle">매월</string>
 										<string key="NSKeyEquiv"/>
 										<int key="NSMnemonicLoc">2147483647</int>
 										<reference key="NSOnImage" ref="32782055"/>
@@ -384,7 +384,7 @@
 						<object class="NSButtonCell" key="NSCell" id="190733438">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">0</int>
-							<string key="NSContents">Automatically check for updates</string>
+							<string key="NSContents">자동으로 업데이트 확인</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<reference key="NSControlView" ref="270258777"/>
 							<int key="NSButtonFlags">1211912448</int>
@@ -417,7 +417,7 @@
 						<object class="NSButtonCell" key="NSCell" id="228590476">
 							<int key="NSCellFlags">-2080374784</int>
 							<int key="NSCellFlags2">268435456</int>
-							<string key="NSContents">Show revoked and expired keys in search results</string>
+							<string key="NSContents">검색 결과에서 만료되고 파기된 키들 보기</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="147587013"/>
@@ -599,7 +599,7 @@
 						<object class="NSButtonCell" key="NSCell" id="572488483">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">134217728</int>
-							<string key="NSContents">Move secring</string>
+							<string key="NSContents">보안 키링 이동</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="921930691"/>
@@ -624,7 +624,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="995764003">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Label</string>
+							<string key="NSContents">라벨</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<string key="NSCellIdentifier">_NS:397</string>
 							<reference key="NSControlView" ref="555471780"/>
@@ -646,7 +646,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="516693414">
 							<int key="NSCellFlags">68157504</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Secring:</string>
+							<string key="NSContents">보안 키링:</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<string key="NSCellIdentifier">_NS:397</string>
 							<reference key="NSControlView" ref="430731973"/>
@@ -668,7 +668,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="797387197">
 							<int key="NSCellFlags">67108864</int>
 							<int key="NSCellFlags2">272891904</int>
-							<string key="NSContents">Bla bla bla</string>
+							<string key="NSContents">어쩌구 저쩌구</string>
 							<reference key="NSSupport" ref="582340800"/>
 							<string key="NSCellIdentifier">_NS:9</string>
 							<reference key="NSControlView" ref="447404679"/>
@@ -688,8 +688,8 @@
 				<object class="NSMutableString" key="NSToolbarItemIdentifier">
 					<characters key="NS.bytes">5B57EC91-4E5F-49EC-BBEF-A3530CACE777</characters>
 				</object>
-				<string key="NSToolbarItemLabel">Keyring</string>
-				<string key="NSToolbarItemPaletteLabel">Keyring</string>
+				<string key="NSToolbarItemLabel">키링</string>
+				<string key="NSToolbarItemPaletteLabel">키링</string>
 				<string key="NSToolbarItemToolTip"/>
 				<nil key="NSToolbarItemView"/>
 				<object class="NSCustomResource" key="NSToolbarItemImage">

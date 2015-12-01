@@ -1,9 +1,9 @@
 /* For Key-Status */
-"Invalid" = "Invalid";
-"Revoked" = "Revoked";
-"Expired" = "Expired";
+"Invalid" = "無効";
+"Revoked" = "失効";
+"Expired" = "期限切れ";
 "Disabled" = "Disabled";
-"Unknown" = "Unknown";
+"Unknown" = "不明";
 "Marginal" = "Marginal";
 "Full" = "Full";
 "Ultimate" = "Ultimate";
@@ -11,40 +11,40 @@
 
 
 /* Long key types */
-"Secret and public key" = "Secret and public key";
-"Public key" = "Public key";
+"Secret and public key" = "秘密鍵と公開鍵";
+"Public key" = "公開鍵";
 
 
 /* For export, as standard File-Name. */
-"untitled" = "untitled";
+"untitled" = "名称未設定";
 "%@ Revoke certificate" = "%@ Revoke certificate";
-"Exported keys.asc" = "Exported keys.asc";
+"Exported keys.asc" = "keys.asc をエクスポートしました";
 ExportKeysFilename = "%@ %u OpenPGP Keys";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No Passphrase";
-CheckAlert_NoPassphrase_Message = "You have entered no passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Button1= "Continue without a passphrase";
-CheckAlert_NoPassphrase_Button2 = "Enter new passphrase";
-CheckAlert_PassphraseShort_Title = "Short Passphrase";
-CheckAlert_PassphraseShort_Message = "You have entered a short passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
-CheckAlert_PassphraseShort_Button1= "Continue with short passphrase";
-CheckAlert_PassphraseShort_Button2 = "Enter new passphrase";
-CheckAlert_PassphraseSimple_Title = "Simple Passphrase";
-CheckAlert_PassphraseSimple_Message = "The passphrase you have entered is too simple. A good passphrase should be alphanumeric and contain at least one special character.";
-CheckAlert_PassphraseSimple_Button1 = "Continue with simple passphrase";
-CheckAlert_PassphraseSimple_Button2 = "Enter new passphrase";
-CheckAlert_PassphraseToLong_Title = "Passphrase too long";
-CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too long. Enter a passphrase with less than 300 characters.";
+CheckAlert_NoPassphrase_Title = "パスフレーズがありません";
+CheckAlert_NoPassphrase_Message = "パスフレーズが入力されていませんが、これはお薦めできません。パスフレーズは少なくとも8文字あった方がよいでしょう。";
+CheckAlert_NoPassphrase_Button1= "パスワード無しで続ける";
+CheckAlert_NoPassphrase_Button2 = "新しくパスワードを入力する";
+CheckAlert_PassphraseShort_Title = "短いパスフレーズ";
+CheckAlert_PassphraseShort_Message = "短いパスフレーズが入力されましたが、これはお薦めできません。パスフレーズは少なくとも8文字あった方がよいでしょう。";
+CheckAlert_PassphraseShort_Button1= "短いパスフレーズのまま続ける";
+CheckAlert_PassphraseShort_Button2 = "新しくパスワードを入力する";
+CheckAlert_PassphraseSimple_Title = "簡単なパスフレーズ";
+CheckAlert_PassphraseSimple_Message = "あなたが入力したパスフレーズは簡単すぎます。英数字と少なくとも1つの特殊な文字を含んでいるのが良いパスフレーズです。";
+CheckAlert_PassphraseSimple_Button1 = "簡単なパスフレーズのまま続ける";
+CheckAlert_PassphraseSimple_Button2 = "新しくパスワードを入力する";
+CheckAlert_PassphraseToLong_Title = "パスフレーズが長すぎます";
+CheckAlert_PassphraseToLong_Message = "入力されたパスフレーズが長すぎます。300文字未満でパスフレーズを入力してください。";
 
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
 /* For Key-Search */
-"No keys Found" = "No keys Found";
+"No keys Found" = "鍵が見付かりませんでした";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
-SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It might take some time, please wait.";
+SearchingKeys_Msg = "鍵サーバから合致する鍵を検索しています。しばらくお待ちください。";
 
 GenerateKey_Progress = "We need to generate a lot of random bytes. It is a good idea to perform some other action (type on the keyboard in an application, move the mouse, utilize the disks) during the prime generation. This gives the random number generator a better chance to gain enough entropy.";
 GenerateSubkey_Msg = "Add subkey to the Key \"%@\", %@.";
@@ -57,22 +57,22 @@ ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubk
 GenerateKey_Error = "Ups, something went wrong. There was a problem creating your key.";
 
 /* Message for incorrect Entries */
-CheckError_NameToShort = "Name must be at least 5 characters long!";
-CheckError_NameToLong = "Name is too long!";
-CheckError_InvalidCharInName = "Invalid character in name!\n\"<\" and \">\" not allowed.";
+CheckError_NameToShort = "名前には少なくとも5文字必要です!";
+CheckError_NameToLong = "名前が長すぎます!";
+CheckError_InvalidCharInName = "名前に使えない文字が含まれています!\n\"<\" と \">\"は使うことができません。";
 CheckError_NameStartWithDigit = "Name may not start with a digit!";
-CheckError_InvalidEmail = "Not a valid email address!";
+CheckError_InvalidEmail = "有効なメールアドレスではありません!";
 CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
 CheckError_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\" not allowed.";
-CheckError_CommentToLong = "Comment is too long!";
+CheckError_CommentToLong = "コメントが長すぎます!";
 CheckError_NoKeyID = "Please enter a valid key ID!";
-CheckError_PassphraseMissmatch = "Your passphrases did not match!";
+CheckError_PassphraseMissmatch = "パスフレーズが合致しません!";
 
 
 /* Message on start, if there are any Problems */
-GPG_NOT_FOUND_TITLE = "GPG Not Found";
+GPG_NOT_FOUND_TITLE = "GPGが見付かりませんでした";
 GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
-GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
+GPG_CONFIG_ERROR_TITLE = "GPG設定エラー";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
@@ -96,58 +96,58 @@ MailKey_Error = "Ups, something went wrong. There was a problem exporting your k
 
 
 /* Those are abvious */
-No = "No";
-Error = "Error";
+No = "いいえ";
+Error = "エラー";
 Warning = "Warning";
-Cancel = "Cancel";
-"Apply to all" = "Apply to all";
+Cancel = "キャンセル";
+"Apply to all" = "全てに適用";
 
 
 /* Warnings */
 RemoveUserID_Title = "Remove User ID";
 RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
 RemoveUserID_Yes = "Remove User ID";
-RemoveUserID_No = "Cancel";
+RemoveUserID_No = "キャンセル";
 
 RevokeUserID_Title = "Revoke User ID";
 RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
 RevokeUserID_Yes = "Revoke User ID";
-RevokeUserID_No = "Cancel";
+RevokeUserID_No = "キャンセル";
 
 RemoveSubkey_Title = "Remove Subkey";
 RemoveSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
 RemoveSubkey_Yes = "Remove Subkey";
-RemoveSubkey_No = "Cancel";
+RemoveSubkey_No = "キャンセル";
 
 RevokeSubkey_Title = "Revoke Subkey";
 RevokeSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
 RevokeSubkey_Yes = "Revoke Subkey";
-RevokeSubkey_No = "Cancel";
+RevokeSubkey_No = "キャンセル";
 
 RevokeSignature_Title = "Revoke Signature";
 RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
 RevokeSignature_Yes = "Revoke Signature";
-RevokeSignature_No = "Cancel";
+RevokeSignature_No = "キャンセル";
 
 RemoveSignature_Title = "Remove Signature";
 RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
 RemoveSignature_Yes = "Remove Signature";
-RemoveSignature_No = "Cancel";
+RemoveSignature_No = "キャンセル";
 
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
 RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Remove Signature";
-RemoveLastSelfSignature_No = "Cancel";
+RemoveLastSelfSignature_No = "キャンセル";
 
 RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
 RevokeLastSelfSignature_Yes = "Revoke Signature";
-RevokeLastSelfSignature_No = "Cancel";
+RevokeLastSelfSignature_No = "キャンセル";
 
 RevokeKey_Title = "Warning! You are about to revoke a key.";
 RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revoke Key";
-RevokeKey_No = "Cancel";
+RevokeKey_No = "キャンセル";
 RevokeKey_Upload = "Upload revoked key";
 
 
@@ -155,23 +155,23 @@ RevokeKey_Upload = "Upload revoked key";
 DeleteKey_Title = "Delete public key";
 DeleteKey_Msg = "You are about to delete the public key of %@.\n\nAre you sure you want to delete this public key?";
 DeleteKey_Yes = "Delete key";
-DeleteKey_No = "Cancel";
+DeleteKey_No = "キャンセル";
 
 DeleteKeys_Title = "Delete public keys";
 DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete those public keys?";
 DeleteKeys_Yes = "Delete keys";
-DeleteKeys_No = "Cancel";
+DeleteKeys_No = "キャンセル";
 
 DeleteSecKey_Title = "Delete secret and public key";
 DeleteSecKey_Msg = "Warning! You are about to delete your secret and public key:\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret key, you will no longer be able to decrypt messages that were encrypted with its public counterpart.\n\nNote that if you have uploaded your public key to the key servers, it will remain valid on the key servers unless you revoke it. In that case before deleting your key pair, please revoke your public key and upload it to the key servers so it will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete this key pair?";
 DeleteSecKey_Yes = "Delete secret and public key";
-DeleteSecKey_No = "Cancel";
+DeleteSecKey_No = "キャンセル";
 DeleteSecKey_SecOnly = "Delete secret key only";
 
 DeleteSecKeys_Title = "Delete secret and public keys";
 DeleteSecKeys_Msg = "Warning! You are about to delete the following secret and public keys:\n\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret keys, you will no longer be able to decrypt messages that were encrypted with their public counterparts.\n\nNote that if you have copied your public keys to any key servers, they will remain valid on the key servers unless you revoke them. In that case before deleting your key pairs, please revoke your public keys and upload them to the key servers so they will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete those key pairs?";
 DeleteSecKeys_Yes = "Delete secret and public keys";
-DeleteSecKeys_No = "Cancel";
+DeleteSecKeys_No = "キャンセル";
 DeleteSecKeys_SecOnly = "Delete secret keys only";
 
 
@@ -183,18 +183,18 @@ BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check
 /* Import warnings */
 ImportRevSig_Title = "Import revocation certificate";
 ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
-ImportRevSig_Yes = "Import";
-ImportRevSig_No = "Cancel";
+ImportRevSig_Yes = "インポート";
+ImportRevSig_No = "キャンセル";
 
 ImportRandomData_Title = "Warning! Content can probably not be imported.";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
 ImportRandomData_Yes = "Try Import";
-ImportRandomData_No = "Cancel";
+ImportRandomData_No = "キャンセル";
 
 ImportNonImportable_Title = "Warning! Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Try Import";
-ImportNonImportable_No = "Cancel";
+ImportNonImportable_No = "キャンセル";
 
 
 /* For Import-Results */
@@ -237,12 +237,12 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "This photo is really large!";
-ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
-ChoosePhoto_Large_Button1 = "Choose another…";
-ChoosePhoto_Large_Button2 = "Use this photo";
-ChoosePhoto_TooLarge_Message = "Your photo is too large!";
-ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
+ChoosePhoto_Large_Message = "かなり大きい写真ですね!";
+ChoosePhoto_Large_Info = "もう少し小さい写真を使うべきです。\n15KBよりも小さいものがよいでしょう。";
+ChoosePhoto_Large_Button1 = "他のを選ぶ...";
+ChoosePhoto_Large_Button2 = "この写真を使う";
+ChoosePhoto_TooLarge_Message = "写真が大きすぎます!";
+ChoosePhoto_TooLarge_Info = "500KBよりも小さい写真を使ってください。\n15KBよりも小さいものがよいでしょう。";
 
 
 
@@ -274,42 +274,42 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Exporting key.";
-ExportKey_Error = "Key export failed.";
-ImportKey_Progress  = "Importing key.";
+ExportKey_Progress = "鍵をエクスポートしています。";
+ExportKey_Error = "鍵のエクスポートに失敗しました。";
+ImportKey_Progress  = "鍵をインポートしています。";
 DeleteSecretKey_Progress = "Deleting secret key.";
 DeleteKeys_Progress = "Deleting key.";
 DeleteKeys_Error = "Deleting key failed.";
-ChangePassphrase_Progress = "Changing Passphrase.";
-ChangePassphrase_Error = "Changing passphrase failed.";
-SetDisabled_Progress = "Enabling/Disabling key.";
-SetDisabled_Error = "Enabling/Disabling key failed.";
+ChangePassphrase_Progress = "パスフレーズを変更しています。";
+ChangePassphrase_Error = "パスフレーズの変更に失敗しました。";
+SetDisabled_Progress = "鍵を有効化/無効化しています。";
+SetDisabled_Error = "鍵の有効化/無効化に失敗しました。";
 SetOwnerTrust_Progress = "Setting owner trust.";
 SetOwnerTrust_Error = "Setting owner trust failed.";
-ChangeExpirationDate_Progress = "Changing expiration date.";
-ChangeExpirationDate_Error = "Changing expiration date failed.";
-SetAlgorithmPreferences_Progress = "Setting algorithm preferences.";
-SetAlgorithmPreferences_Error = "Setting algorithm preferences failed.";
+ChangeExpirationDate_Progress = "有効期限を変更しています。";
+ChangeExpirationDate_Error = "有効期限の変更に失敗しました。";
+SetAlgorithmPreferences_Progress = "アルゴリズムを設定しています。";
+SetAlgorithmPreferences_Error = "アルゴリズムの設定に失敗しました。";
 CleanKey_Progress = "Cleaning key.";
 CleanKey_Error = "Cleaning key failed.";
 MinimizeKey_Progress = "Minimizing key.";
 MinimizeKey_Error = "Minimizing key failed.";
-GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate.";
-GenerateRevokeCertificateForKey_Error = "Generating revoke certificate failed.";
-SearchKeysOnServer_Progress = "Searching for key.";
-SearchKeysOnServer_Error = "Searching for key failed.";
-SendKeysToServer_Progress = "Sending %@ to server.";
-SendKeysToServer_Error = "Sending key failed.";
-RefreshKeysFromServer_Progress = "Refreshing %@ from server.";
-RefreshKeysFromServer_Error = "Refreshing key failed.";
-AddSubkey_Progress = "Adding subkey.";
-AddSubkey_Error = "Adding subkey failed.";
+GenerateRevokeCertificateForKey_Progress = "失効証明書を作成しています。";
+GenerateRevokeCertificateForKey_Error = "失効証明書の作成に失敗しました。";
+SearchKeysOnServer_Progress = "鍵を検索しています。";
+SearchKeysOnServer_Error = "鍵の検索に失敗しました。";
+SendKeysToServer_Progress = "%@ をサーバに送信しています。";
+SendKeysToServer_Error = "鍵の送信に失敗しました。";
+RefreshKeysFromServer_Progress = "サーバから %@ を更新しています。";
+RefreshKeysFromServer_Error = "鍵の更新に失敗しました。";
+AddSubkey_Progress = "副鍵を追加しています。";
+AddSubkey_Error = "副鍵の追加に失敗しました。";
 RemoveSubkey_Progress = "Removing subkey.";
 RemoveSubkey_Error = "Removing subkey failed.";
-RevokeSubkey_Progress = "Revoking subkey.";
-RevokeSubkey_Error = "Revoking subkey failed.";
-AddUserID_Progress = "Adding User ID.";
-AddUserID_Error = "Adding User ID failed.";
+RevokeSubkey_Progress = "副鍵を失効させています。";
+RevokeSubkey_Error = "副鍵の失効に失敗しました。";
+AddUserID_Progress = "ユーザIDを追加しています。";
+AddUserID_Error = "ユーザIDの追加に失敗しました。";
 RemoveUserID_Progress = "Removing User ID.";
 RemoveUserID_Error = "Removing User ID failed.";
 SetPrimaryUserID_Progress = "Setting primary User ID.";
