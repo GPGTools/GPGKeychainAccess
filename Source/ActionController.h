@@ -28,6 +28,8 @@
 	SheetController *sheetController;
 	NSUndoManager *undoManager;
 	NSSet *revCertCache;
+	dispatch_source_t pasteboardTimer;
+	NSPasteboard *generalPboard;
 }
 
 @property (readonly) GPGController *gpgc;

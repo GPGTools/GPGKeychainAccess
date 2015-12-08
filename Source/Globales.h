@@ -28,6 +28,7 @@ extern BOOL showExpertSettings;
 
 BOOL couldContainPGPKey(NSString *string);
 NSString *localized(NSString *key);
+NSString *localizedStringWithFormat(NSString *key, ...);
 
 
 @interface GKAKeyColorTransformer : NSValueTransformer {}

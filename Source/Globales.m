@@ -52,6 +52,16 @@ NSString *localized(NSString *key) {
 	
 	return localized;
 }
+NSString *localizedStringWithFormat(NSString *key, ...) {
+	NSString *localizedFormat = localized(key);
+	
+	va_list args;
+	va_start(args, key);
+	NSString *string = [[NSString alloc] initWithFormat:localizedFormat arguments:args];
+	va_end(args);
+	
+	return string;
+}
 
 
 

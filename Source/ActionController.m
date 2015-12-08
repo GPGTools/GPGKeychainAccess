@@ -344,6 +344,174 @@
 		[service performWithItems:@[message, url]];
 	}
 }
+- (void)checkPasteboardChanges {
+	// This method only works on OS X >= 10.9.
+	
+	static NSInteger changeCount = NSIntegerMax;
+	static NSData *lastData = nil;
+	static NSWindow *sheet = nil;
+	
+	if (generalPboard.changeCount == changeCount) {
+		// The content of the pasteboard have not changed.
+		return;
+	}
+	
+	if ([NSApp modalWindow]) {
+		return;
+	}
+	
+	NSData *pboardData = [generalPboard dataForType:NSStringPboardType];
+	BOOL dataChanged = ![pboardData isEqualToData:lastData];
+	
+	if (sheet) {
+		if (mainWindow.sheets.count != 1) {
+			// Should never happen!
+			return;
+		}
+		if (!dataChanged) {
+			return;
+		}
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			[mainWindow endSheet:mainWindow.sheets[0]];
+		});
+	}
+	
+	
+	changeCount = generalPboard.changeCount;
+	
+	if (!pboardData || !dataChanged) {
+		// Return if we have no string in the pasteboard or
+		//  if the string have not changed.
+		return;
+	}
+	if ([NSApp isActive]) {
+		// GPG Keychain is the active application, probably the user exported a key.
+		return;
+	}
+	
+	
+	lastData = pboardData;
+	
+	
+	GPGStream *stream = [GPGMemoryStream memoryStreamForReading:pboardData];
+	
+	if (stream.isArmored) {
+		stream = [GPGUnArmor unArmor:stream];
+	}
+	
+	
+	// Get a list of all affected keys.
+	// TODO: GPGSignaturePacket get the signed instead of the signer key.
+	NSMutableSet *keyInfos = [NSMutableSet set];
+	NSMutableSet *keyIDs = [NSMutableSet set];
+	NSMutableDictionary *keyInfo = nil;
+	GPGPacketParser *parser = [GPGPacketParser packetParserWithStream:stream];
+	GPGPacket *packet;
+	
+	while ((packet = parser.nextPacket)) {
+		switch (packet.tag) {
+			case GPGPublicKeyPacketTag:
+			case GPGSecretKeyPacketTag:
+				keyInfo = [NSMutableDictionary dictionary];
+				keyInfo[@"packet"] = packet;
+				[keyInfos addObject:keyInfo];
+				break;
+			case GPGUserIDPacketTag:
+				if (keyInfo[@"userID"] == nil) {
+					keyInfo[@"userID"] = [(GPGUserIDPacket *)packet userID];
+				}
+				break;
+			case GPGSignaturePacketTag: {
+				GPGSignaturePacket *signaturePacket = (GPGSignaturePacket *)packet;
+				if (signaturePacket.type == 32 && signaturePacket.keyID) {
+					[keyIDs addObject:signaturePacket.keyID];
+				}
+				break;
+			}
+			default:
+				break;
+		}
+	}
+	if (keyInfos.count == 0 && keyIDs.count == 0) {
+		// No keys to import.
+		return;
+	}
+	
+	NSSet *allKeys = [GPGKeyManager sharedInstance].allKeys;
+	NSMutableSet *keys = [NSMutableSet new];
+	
+		
+	for (keyInfo in keyInfos) {
+		GPGPublicKeyPacket *keyPacket = keyInfo[@"packet"];
+		
+		GPGKey *key = [allKeys member:keyPacket.fingerprint];
+		if (key) {
+			[keys addObject:key];
+		} else {
+			NSDictionary *userIDParts = [keyInfo[@"userID"] splittedUserIDDescription];
+			
+			NSString *keyID = keyPacket.keyID;
+			if (!keyID) {
+				keyID = @"";
+			}
+			NSString *name = userIDParts[@"name"];
+			if (!name) {
+				name = @"";
+			}
+			NSString *email = userIDParts[@"email"];
+			if (!email) {
+				email = @"";
+			}
+			
+			NSDictionary *dict = @{@"keyID": keyID, @"name": name, @"email": email};
+			[keys addObject:dict];
+		}
+		
+		[keyIDs removeObject:keyPacket.keyID];
+	}
+	
+	NSDictionary *keysByKeyID = [GPGKeyManager sharedInstance].keysByKeyID;
+	for (NSString *keyID in keyIDs) {
+		GPGKey *key = keysByKeyID[keyID];
+		if (key) {
+			[keys addObject:key];
+		}
+	}
+	
+	if (keys.count == 0) {
+		// Nothing usefull to import.
+		return;
+	}
+	
+	
+	NSString *description = [self descriptionForKeys:keys maxLines:8 withOptions:0];
+	
+	NSString *title = localized(@"PasteboardKeyFound_Title");
+	NSString *message = localizedStringWithFormat(@"PasteboardKeyFound_Msg", description);
+	NSString *okText = localized(@"PasteboardKeyFound_Yes");
+	NSString *cancelText = localized(@"PasteboardKeyFound_No");
+	
+	
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		
+		NSAlert *alert = [NSAlert new];
+		
+		alert.messageText = title;
+		alert.informativeText = message;
+		[alert addButtonWithTitle:okText];
+		[alert addButtonWithTitle:cancelText];
+		
+		[alert beginSheetModalForWindow:mainWindow completionHandler:^(NSModalResponse returnCode) {
+			[sheet orderOut:nil];
+			sheet = nil;
+			if (returnCode == NSAlertFirstButtonReturn) {
+				[self importFromData:lastData];
+			}
+		}];
+		sheet = alert.window;
+	});
+	
+}
 
 
 #pragma mark Window and display
@@ -1504,6 +1672,7 @@
 - (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSUInteger)lines withOptions:(DescriptionOptions)options {
 	NSMutableString *descriptions = [NSMutableString string];
 	Class gpgKeyClass = [GPGKey class];
+	Class dictionaryClass = [NSDictionary class];
 	NSUInteger i = 0, count = keys.count;
 	if (count == 0) {
 		return @"";
@@ -1527,7 +1696,7 @@
 			break;
 		}
 
-		if (![key isKindOfClass:gpgKeyClass]) {
+		if (![key isKindOfClass:gpgKeyClass] && ![key isKindOfClass:dictionaryClass]) {
 			GPGKeyManager *keyManager = [GPGKeyManager sharedInstance];
 			GPGKey *realKey = [[keyManager allKeysAndSubkeys] member:key];
 			
@@ -1547,30 +1716,37 @@
 		}
 		
 		
-		if ([key isKindOfClass:gpgKeyClass]) {
-			NSUInteger mailFlag = (showEmail && key.email.length) << 1;
+		if ([key isKindOfClass:gpgKeyClass] || [key isKindOfClass:dictionaryClass]) {
+			NSString *name = [key valueForKey:@"name"];
+			NSString *email = [key valueForKey:@"email"];
+			NSString *shortKeyID = [[key valueForKey:@"keyID"] shortKeyID];
+			
+			NSUInteger mailFlag = 0;
+			if (showEmail && email.length) {
+				mailFlag = 2;
+			}
 			
 			switch (showFlags + mailFlag) {
 				case 1:
-					[descriptions appendFormat:@"%@%@", seperator, key.name];
+					[descriptions appendFormat:@"%@%@", seperator, name];
 					break;
 				case 2:
-					[descriptions appendFormat:@"%@%@", seperator, key.email];
+					[descriptions appendFormat:@"%@%@", seperator, email];
 					break;
 				case 3:
-					[descriptions appendFormat:@"%@%@ <%@>", seperator, key.name, key.email];
+					[descriptions appendFormat:@"%@%@ <%@>", seperator, name, email];
 					break;
 				case 4:
-					[descriptions appendFormat:@"%@%@", seperator, key.shortKeyID];
+					[descriptions appendFormat:@"%@%@", seperator, shortKeyID];
 					break;
 				case 5:
-					[descriptions appendFormat:@"%@%@ (%@)", seperator, key.name, key.shortKeyID];
+					[descriptions appendFormat:@"%@%@ (%@)", seperator, name, shortKeyID];
 					break;
 				case 6:
-					[descriptions appendFormat:@"%@%@ (%@)", seperator, key.email, key.shortKeyID];
+					[descriptions appendFormat:@"%@%@ (%@)", seperator, email, shortKeyID];
 					break;
 				default:
-					[descriptions appendFormat:@"%@%@ <%@> (%@)", seperator, key.name, key.email, key.shortKeyID];
+					[descriptions appendFormat:@"%@%@ <%@> (%@)", seperator, name, email, shortKeyID];
 					break;
 			}
 		} else {
@@ -1886,6 +2062,22 @@
 		}
 		
 		sheetController = [SheetController sharedInstance];
+		
+		
+		if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
+			// Pasteboard check.
+			generalPboard = [NSPasteboard generalPasteboard];
+			
+			pasteboardTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0));
+			if (pasteboardTimer) {
+				dispatch_source_set_timer(pasteboardTimer, dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), 0.5 * NSEC_PER_SEC, 0.3 * NSEC_PER_SEC);
+				dispatch_source_set_event_handler(pasteboardTimer, ^{
+					[self checkPasteboardChanges];
+				});
+				dispatch_resume(pasteboardTimer);
+			}
+		}
+		
 	}
 	return self;
 }
