@@ -845,16 +845,21 @@
  
 	if (!customPath || ![self.revCertCache containsObject:key.keyID]) {
 		NSString *path = [[GPGOptions sharedOptions] gpgHome];
-		path = [path stringByAppendingPathComponent:@"RevCerts"];
+		path = [path stringByAppendingPathComponent:@"openpgp-revocs.d"];
+
+		
 		[[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:nil];
-		path = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_rev.asc", key.description.keyID]];
+		path = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.rev", key.description]];
 		
-		NSURL *tmpURL = [NSURL fileURLWithPath:path];
-		
+		NSURL *deafultURL = nil;
+		if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO) {
+			deafultURL = [NSURL fileURLWithPath:path];
+		}
+		 
 		if (url) {
-			url = [NSSet setWithObjects:url, tmpURL, nil];
+			url = [NSSet setWithObjects:url, deafultURL, nil];
 		} else {
-			url = tmpURL;
+			url = [NSSet setWithObjects:deafultURL, nil];
 		}
 		
 		self.revCertCache = nil;
@@ -895,8 +900,13 @@
 
 - (void)revokeKey:(NSObject <KeyFingerprint> *)key generateIfNeeded:(BOOL)generate {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *home = [[GPGOptions sharedOptions] gpgHome];
 	
-	NSString *path = [[[GPGOptions sharedOptions] gpgHome] stringByAppendingPathComponent:[NSString stringWithFormat:@"RevCerts/%@_rev.asc", key.keyID]];
+	NSString *path = [home stringByAppendingPathComponent:[NSString stringWithFormat:@"openpgp-revocs.d/%@.rev", key.description]];
+	
+	if ([fileManager fileExistsAtPath:path] == NO) {
+		path = [home stringByAppendingPathComponent:[NSString stringWithFormat:@"RevCerts/%@_rev.asc", key.keyID]];
+	}
 	
 	
 	__block BOOL haveValidRevCert = NO;
@@ -955,19 +965,32 @@
 - (NSSet *)revCertCache {
 	if (!revCertCache) {
 		NSFileManager *fileManager = [NSFileManager defaultManager];
-		NSString *path = [[[GPGOptions sharedOptions] gpgHome] stringByAppendingPathComponent:@"RevCerts"];
+		NSMutableSet *keyIDs = [NSMutableSet set];
 		
+		NSString *path = [[[GPGOptions sharedOptions] gpgHome] stringByAppendingPathComponent:@"RevCerts"];
 		NSArray *files = [fileManager contentsOfDirectoryAtPath:path error:nil];
+		
 		if (files) {
-			NSMutableSet *keyIDs = [NSMutableSet set];
 			for (NSString *file in files) {
 				if (file.length == 24 && [[file substringFromIndex:16] isEqualToString:@"_rev.asc"]) {
 					[keyIDs addObject:[file substringToIndex:16]];
 				}
 			}
-			
-			revCertCache = [keyIDs copy];
 		}
+		
+		path = [[[GPGOptions sharedOptions] gpgHome] stringByAppendingPathComponent:@"openpgp-revocs.d"];
+		files = [fileManager contentsOfDirectoryAtPath:path error:nil];
+		
+		if (files) {
+			for (NSString *file in files) {
+				if (file.length == 44 && [[file substringFromIndex:40] isEqualToString:@".rev"]) {
+					[keyIDs addObject:[file substringToIndex:40].keyID];
+				}
+			}
+		}
+		
+		revCertCache = [keyIDs copy];
+
 	}
 	return revCertCache;
 }
