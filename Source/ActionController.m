@@ -1949,6 +1949,7 @@
 					[self refreshDisplayedKeys:self];
 					
 					sheetController.msgText = [self importResultWithStatusDict:statusDict];
+					sheetController.title = localized(@"Import results");
 					sheetController.sheetType = SheetTypeShowResult;
 					[sheetController runModalForWindow:mainWindow];
 				}
@@ -1958,7 +1959,8 @@
 				if (gc.error) break;
 				NSArray *keys = gc.lastReturnValue;
 				if ([keys count] == 0) {
-					sheetController.msgText = localized(@"No keys Found");
+					sheetController.title = localized(@"No keys Found");
+					sheetController.msgText = @"";
 					sheetController.sheetType = SheetTypeShowResult;
 					[sheetController runModalForWindow:mainWindow];
 				} else {

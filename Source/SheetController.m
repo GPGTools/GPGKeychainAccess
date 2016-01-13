@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2014
+ Copyright © Roman Zechmeister, 2016
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -190,16 +190,39 @@ modalWindow, foundKeyDicts, hideExtension;
 			self.displayedView = _receiveKeysView;
 			break;
 		case SheetTypeShowResult:
-			self.displayedView = _resultView;
+			if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
+				NSAlert *alert = [NSAlert new];
+				alert.messageText = self.title;
+				alert.informativeText = self.msgText;
+				[alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+					[NSApp stopModal];
+				}];
+				[NSApp runModalForWindow:window];
+				return 0;
+			} else {
+				self.msgText = [NSString stringWithFormat:@"%@\n%@", self.title, self.msgText];
+				self.displayedView = _resultView;
+			}
 			break;
 		case SheetTypeShowFoundKeys:
 			if ([self generateFoundKeyDicts]) {
 				self.displayedView = _foundKeysView;
 			} else {
-				self.msgText = localized(@"No keys Found");
-				self.displayedView = _resultView;
+				self.title = localized(@"No keys Found");
+				if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
+					NSAlert *alert = [NSAlert new];
+					alert.messageText = self.title;
+					alert.informativeText = self.msgText;
+					[alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+						[NSApp stopModal];
+					}];
+					[NSApp runModalForWindow:window];
+					return 0;
+				} else {
+					self.msgText = [NSString stringWithFormat:@"%@\n%@", self.title, self.msgText];
+					self.displayedView = _resultView;
+				}
 			}
-			
 			break;
 		case SheetTypeExpirationDate:
 			[self setStandardExpirationDates];
