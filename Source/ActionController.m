@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2014
+ Copyright © Roman Zechmeister, 2016
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -1357,108 +1357,153 @@
 }
 
 - (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict {
-	int publicKeysCount, publicKeysOk, publicKeysNoChange, secretKeysCount, secretKeysOk, userIDCount, subkeyCount, signatureCount, revocationCount;
-	int flags;
-	NSString *fingerprint, *keyID, *userID;
-	NSArray *importRes = nil;
-	NSMutableArray *lines = [NSMutableArray array];
-	NSMutableDictionary *changedKeys = [NSMutableDictionary dictionary];
-	NSNumber *no = [NSNumber numberWithBool:NO], *yes = [NSNumber numberWithBool:YES];
-	NSSet *allKeys = [(KeychainController *)[KeychainController sharedInstance] allKeys];
 	
-	NSArray *importResList = [statusDict objectForKey:@"IMPORT_RES"];
 	NSArray *importOkList = [statusDict objectForKey:@"IMPORT_OK"];
+	NSMutableDictionary *importStates = [NSMutableDictionary new];
 	
 	for (NSArray *importOk in importOkList) {
-		flags = [[importOk objectAtIndex:0] intValue];
-		fingerprint = [importOk objectAtIndex:1];
+		NSInteger status = [importOk[0] integerValue];
+		NSString *fingerprint = importOk[1];
 		
-		userID = [[allKeys member:fingerprint] userIDDescription];
-		if (!userID) userID = @"";
-		keyID = [fingerprint shortKeyID];
-		
-		
-		if (flags > 0) {
-			if (flags & 1) {
-				if (flags & 16) {
-					[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_Secret"), keyID, userID]];
-				} else {
-					[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_Public"), keyID, userID]];
-				}
-			}
-			if (flags & 2) {
-				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_UserID"), keyID, userID]];
-			}
-			if (flags & 4) {
-				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_Signature"), keyID, userID]];
-			}
-			if (flags & 8) {
-				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_Subkey"), keyID, userID]];
-			}
-			[changedKeys setObject:yes forKey:fingerprint];
-		} else {
-			if ([changedKeys objectForKey:fingerprint] == nil) {
-				[changedKeys setObject:no forKey:fingerprint];
-			}
-		}
+		NSInteger oldStatus = [importStates[fingerprint] integerValue];
+		NSInteger newStatus = oldStatus | status;
+		importStates[fingerprint] = @(newStatus);
 	}
 	
 	
 	
-	for (fingerprint in [changedKeys allKeysForObject:no]) {
-		userID = [[allKeys member:fingerprint] userIDDescription];
-		if (!userID) userID = @"";
-		keyID = [fingerprint shortKeyID];
-		
-		[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_KeyNoChanges"), keyID, userID]];
-	}
-	
-	
-	
-	if ([importResList count] > 0) {
-		importRes = [importResList objectAtIndex:0];
-		
-		publicKeysCount = [[importRes objectAtIndex:0] intValue];
-		publicKeysOk = [[importRes objectAtIndex:2] intValue];
-		publicKeysNoChange = [[importRes objectAtIndex:4] intValue];
-		userIDCount = [[importRes objectAtIndex:5] intValue];
-		subkeyCount = [[importRes objectAtIndex:6] intValue];
-		signatureCount = [[importRes objectAtIndex:7] intValue];
-		revocationCount = [[importRes objectAtIndex:8] intValue];
-		secretKeysCount = [[importRes objectAtIndex:9] intValue];
-		secretKeysOk = [[importRes objectAtIndex:10] intValue];
-		
-		
-		//TODO: More infos.
-		
-		if (revocationCount > 0) {
-			if (revocationCount == 1) {
-				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_OneRevocationCertificate"), @""]];
-			} else {
-				[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountRevocationCertificate"), revocationCount]];
-			}
-		}
-		
-		if ([lines count] > 0) {
-			[lines addObject:@""];
-		}
-		
-		if (publicKeysOk > 0) {
-			[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountImported"), publicKeysOk]];
-		} else if (publicKeysCount > 0 && publicKeysNoChange == 0) {
-			[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_NoKeysImported"), publicKeysOk]];
-			[lines addObject:@""];
-		}
-		if (publicKeysNoChange > 0) {
-			[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountUnchanged"), publicKeysNoChange]];
-		}
-		
-		[lines addObject:[NSString stringWithFormat:localized(@"ImportResult_CountProcessed"), publicKeysCount]];
+	NSMutableArray *secretKeyLines = [NSMutableArray new];
+	NSMutableArray *publicKeyLines = [NSMutableArray new];
+	NSMutableArray *userIdLines = [NSMutableArray new];
+	NSMutableArray *signatureLines = [NSMutableArray new];
+	NSMutableArray *subkeyLines = [NSMutableArray new];
+	NSMutableArray *unchangedLines = [NSMutableArray new];
 
+	
+	const int stateNewKey = 1;
+	const int stateNewUserID = 2;
+	const int stateNewSignature = 4;
+	const int stateNewSubkey = 8;
+	const int statePrivateKey = 16;
+	
+	
+	for (NSString *fingerprint in importStates) {
+		NSInteger status = [importStates[fingerprint] integerValue];
+		NSString *keyDesc = [self descriptionForKey:fingerprint];
+		
+		
+		if (status & stateNewKey) {
+			if (status & statePrivateKey) {
+				[secretKeyLines addObject:keyDesc];
+			} else {
+				[publicKeyLines addObject:keyDesc];
+			}
+		} else if ((status & ~statePrivateKey) == 0) {
+			[unchangedLines addObject:keyDesc];
+		} else {
+			if (status & stateNewUserID) {
+				[userIdLines addObject:keyDesc];
+			} else if (status & stateNewSignature) {
+				[signatureLines addObject:keyDesc];
+			}
+			if (status & stateNewSubkey) {
+				[subkeyLines addObject:keyDesc];
+			}
+		}
+	}
+	
+	NSMutableString *output = [NSMutableString new];
+	
+	if (secretKeyLines.count > 0) {
+		NSString *lines = [secretKeyLines componentsJoinedByString:@"\n"];
+		NSString *key = secretKeyLines.count == 1 ? @"IMPORT_RESULT_NEW_SECRET_KEY" : @"IMPORT_RESULT_NEW_SECRET_KEYS";
+		NSString *string = localizedStringWithFormat(key, lines);
+		
+		[output appendFormat:@"%@\n", string];
+	}
+	if (publicKeyLines.count > 0) {
+		NSString *lines = [publicKeyLines componentsJoinedByString:@"\n"];
+		NSString *key = publicKeyLines.count == 1 ? @"IMPORT_RESULT_NEW_PUBLIC_KEY" : @"IMPORT_RESULT_NEW_PUBLIC_KEYS";
+		NSString *string = localizedStringWithFormat(key, lines);
+		
+		[output appendFormat:@"%@\n", string];
+	}
+	if (userIdLines.count > 0) {
+		NSString *lines = [userIdLines componentsJoinedByString:@"\n"];
+		NSString *key = userIdLines.count == 1 ? @"IMPORT_RESULT_NEW_USER_ID" : @"IMPORT_RESULT_NEW_USER_IDS";
+		NSString *string = localizedStringWithFormat(key, lines);
+		
+		[output appendFormat:@"%@\n", string];
+	}
+	if (signatureLines.count > 0) {
+		NSString *lines = [signatureLines componentsJoinedByString:@"\n"];
+		NSString *key = signatureLines.count == 1 ? @"IMPORT_RESULT_NEW_SIGNATURE" : @"IMPORT_RESULT_NEW_SIGNATURES";
+		NSString *string = localizedStringWithFormat(key, lines);
+		
+		[output appendFormat:@"%@\n", string];
+	}
+	if (subkeyLines.count > 0) {
+		NSString *lines = [subkeyLines componentsJoinedByString:@"\n"];
+		NSString *key = subkeyLines.count == 1 ? @"IMPORT_RESULT_NEW_SUBKEY" : @"IMPORT_RESULT_NEW_SUBKEYS";
+		NSString *string = localizedStringWithFormat(key, lines);
+		
+		[output appendFormat:@"%@\n", string];
+	}
+	if (unchangedLines.count > 0) {
+		NSString *lines = [unchangedLines componentsJoinedByString:@"\n"];
+		NSString *key = unchangedLines.count == 1 ? @"IMPORT_RESULT_UNCHANGED_KEY" : @"IMPORT_RESULT_UNCHANGED_KEYS";
+		NSString *string = localizedStringWithFormat(key, lines);
+		
+		[output appendFormat:@"%@\n", string];
 	}
 	
 	
-	return [lines componentsJoinedByString:@"\n"];
+	NSArray *importResList = [statusDict objectForKey:@"IMPORT_RES"];
+
+	if (importResList.count > 0) {
+		NSArray *importRes = importResList[0];
+		
+		NSInteger publicKeysCount = [importRes[0] integerValue];
+		NSInteger publicKeysOk = [importRes[2] integerValue];
+		NSInteger publicKeysNoChange = [importRes[4] integerValue];
+//		NSInteger userIDCount = [importRes[5] integerValue];
+//		NSInteger subkeyCount = [importRes[6] integerValue];
+//		NSInteger signatureCount = [importRes[7] integerValue];
+		NSInteger revocationCount = [importRes[8] integerValue];
+//		NSInteger secretKeysCount = [importRes[9] integerValue];
+//		NSInteger secretKeysOk = [importRes[10] integerValue];
+//		NSInteger sec_dups = [importRes[11] integerValue];
+//		NSInteger skipped_new_keys = [importRes[12] integerValue];
+//		NSInteger not_imported = [importRes[13] integerValue];
+		
+		if (output.length > 0) {
+			[output appendString:@"\n"];
+		}
+		
+		NSString *key, *string;
+		if (revocationCount > 0) {
+			key = revocationCount == 1 ? @"IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE" : @"IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES";
+			string = localizedStringWithFormat(key, revocationCount);
+			
+			[output appendFormat:@"%@\n", string];
+		}
+		
+		key = publicKeysCount == 1 ? @"IMPORT_RESULT_COUNT_PUBLIC_KEY" : @"IMPORT_RESULT_COUNT_PUBLIC_KEYS";
+		string = localizedStringWithFormat(key, publicKeysCount);
+		[output appendFormat:@"%@\n", string];
+
+		key = publicKeysOk == 1 ? @"IMPORT_RESULT_COUNT_OK_PUBLIC_KEY" : @"IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS";
+		string = localizedStringWithFormat(key, publicKeysOk);
+		[output appendFormat:@"%@\n", string];
+		
+		key = publicKeysNoChange == 1 ? @"IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY" : @"IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS";
+		string = localizedStringWithFormat(key, publicKeysNoChange);
+		[output appendFormat:@"%@\n", string];
+		
+	}
+	
+	return output;
+	
 }
 
 - (NSUndoManager *)undoManager {

@@ -728,7 +728,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "RESOURCES_DIR=\"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\n\n# Link pt.lproj -> pt_BR.lproj\nln -hfs pt_BR.lproj \"$RESOURCES_DIR/pt.lproj\"\n\n# Link en.lproj -> en_US.lproj\nln -hfs en_US.lproj \"$RESOURCES_DIR/en.lproj\"\n# 'en' is our source language, don't change existing strings to not break transifex.\n# 'en' isn't copied into the app.\n# 'en_US' is the \"localized\" 'en' and linked as 'en'.\n\n";
+			shellScript = "RESOURCES_DIR=\"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\"\n\n# Link pt.lproj -> pt_BR.lproj\nln -hfs pt_BR.lproj \"$RESOURCES_DIR/pt.lproj\"\n\n# Link en.lproj -> en_US.lproj\nln -hfs en_US.lproj \"$RESOURCES_DIR/en.lproj\"\n# 'en' is our source language, don't change existing strings to not break transifex.\n# 'en' isn't copied into the app. (Build setting \"EXCLUDED_SOURCE_FILE_NAMES = en.lproj\")\n# 'en_US' is the \"localized\" 'en' and linked as 'en'.\n\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
