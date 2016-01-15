@@ -94,6 +94,12 @@ MailKey_Progress_Your = "Creating new mail...";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
 
 
+/* A key was found in the pasteboard */
+PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
+PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Yes = "Import";
+PasteboardKeyFound_No = "Iptal";
+
 
 /* Those are abvious */
 No = "Hayir";
@@ -115,12 +121,12 @@ RevokeUserID_Yes = "Revoke User ID";
 RevokeUserID_No = "Iptal";
 
 RemoveSubkey_Title = "Remove Subkey";
-RemoveSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
+RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
 RemoveSubkey_Yes = "Remove Subkey";
 RemoveSubkey_No = "Iptal";
 
 RevokeSubkey_Title = "Revoke Subkey";
-RevokeSubkey_Msg = "Caution! Please only proceed if you really know, what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
+RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
 RevokeSubkey_Yes = "Revoke Subkey";
 RevokeSubkey_No = "Iptal";
 
@@ -210,6 +216,32 @@ ImportResult_CountProcessed = "Count of processed keys: %i";
 ImportResult_CountImported = "Count of imported keys: %i";
 ImportResult_CountUnchanged = "Count of unchanged keys: %i";
 ImportResult_NoKeysImported = "No keys could be imported!";
+
+IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
+IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+
+IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
+IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
+IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
+
+
 
 
 /* Errors */

@@ -48,7 +48,7 @@ SearchingKeys_Msg = "Es wird, auf dem Schlüsselserver, nach passenden Schlüsse
 
 GenerateKey_Progress = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
 GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel „%@“, %@ anlegen.";
-GenerateUserID_Msg = "Benutzerkennung zu dem Schlüssel \"%@\", %@ hinzufügen.";
+GenerateUserID_Msg = "Benutzer-ID zu dem Schlüssel \"%@\", %@ hinzufügen.";
 GenerateSignature_Msg = "Mit dem Signieren eines Schlüssels, bestätigst du die Identität des Schlüssel-Eigentümers. Du bestätigst also, dass er wirklich derjenige ist, der er vorgibt zu sein.\nSobald die Signatur hoch geladen ist, ist sie für andere sichtbar.\nAlso: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass dieser Schlüssel wirklich Bob ist.\n\nDu willst folgenden Schlüssel signieren:\n%@";
 GenerateUidSignature_Msg = "Mit dem Belgaubigen einer Benutzer-ID, bestätigst du die Identität des Schlüssel-Eigentümers. Du bestätigst also, dass er wirklich der ist, der er vorgibt zu sein.\nSobald die Beglaubigung hochgeladen ist, ist sie für andere sichtbar.\n\nErklärung: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass dieser Schlüssel wirklich Bobs Schlüssel ist.\n\nDu willst folgenden Schlüssel signieren: %@";
 ChangeExpirationDate_Msg = "Ändern des Verfalldatums von „%@“, %@";
@@ -94,6 +94,12 @@ MailKey_Progress_Your = "Neue E-Mail wird erstellt ...";
 MailKey_Error = "Ups, da ging was schief. Es gab ein Problem beim Export deines Schlüssels.";
 
 
+/* A key was found in the pasteboard */
+PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
+PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Yes = "Importieren";
+PasteboardKeyFound_No = "Abbrechen";
+
 
 /* Those are abvious */
 No = "Nein";
@@ -115,12 +121,12 @@ RevokeUserID_Yes = "Benutzer-ID widerrufen";
 RevokeUserID_No = "Abbrechen";
 
 RemoveSubkey_Title = "Unterschlüssel entfernen";
-RemoveSubkey_Msg = "Achtung! Bitte fahre nur fort, wenn du ganz genau weißt, was du machst.\n\nDas Entfernen dieses Unterschlüssels, kann es unmöglichen machen, mit deinem Schlüssel zu entschlüsseln oder zu signieren.\n\nFalls der Schlüssel mit diesem Unterschlüssel auf den Schlüsselservern existiert, wird dieser Unterschlüssel durch das Entfernen nicht vom Schlüsselserver entfernt. Wir empfehlen den Unterschlüssel stattdessen zu widerrufen und den aktualisierten Schlüssel dann auf den Schlüsselserver zu laden.";
+RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
 RemoveSubkey_Yes = "Unterschlüssel entfernen";
 RemoveSubkey_No = "Abbrechen";
 
 RevokeSubkey_Title = "Unterschlüssel widerrufen";
-RevokeSubkey_Msg = "Achtung! Bitte fahre nur fort, wenn du ganz genau weißt, was du machst.\n\nDas Widerrufen dieses Unterschlüssels, kann es unmöglichen machen, mit deinem Schlüssel zu entschlüsseln oder zu signieren.\n\nFalls der Schlüssel mit diesem Unterschlüssel auf den Schlüsselservern existiert, lade den aktualisierten Schlüssel auf den Schlüsselserver hoch. Erst dann wird der Unterschlüssel im Schlüssel auf dem Schlüsselserver als widerrufen angezeigt.";
+RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
 RevokeSubkey_Yes = "Unterschlüssel widerrufen";
 RevokeSubkey_No = "Abbrechen";
 
@@ -200,7 +206,7 @@ ImportNonImportable_No = "Abbrechen";
 /* For Import-Results */
 ImportResult_Secret = "Schlüssel %@: geheimer Schlüssel „%@“ importiert\n";
 ImportResult_Public = "Schlüssel %@: öffentlicher Schlüssel „%@“ importiert\n";
-ImportResult_UserID = "Schlüssel %@: \"%@\" neue Benutzerkennung(en).";
+ImportResult_UserID = "Schlüssel %@: \"%@\" neue Benutzer-ID(s).";
 ImportResult_Signature = "Schlüssel %@: „%@“ neue Beglaubigung(en)\n";
 ImportResult_Subkey = "Schlüssel %@: „%@“ neue(r) Unterschlüssel\n";
 ImportResult_KeyNoChanges = "Schlüssel %@: „%@“ keine Änderungen.";
@@ -210,6 +216,32 @@ ImportResult_CountProcessed = "Anzahl der verarbeiteten Schlüssel: %i";
 ImportResult_CountImported = "Anzahl der importierten Schlüssel: %i";
 ImportResult_CountUnchanged = "Anzahl der unveränderten Schlüssel: %i";
 ImportResult_NoKeysImported = "Es konnten keine Schlüssel importiert werden!";
+
+IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
+IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+
+IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
+IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
+IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
+
+
 
 
 /* Errors */
@@ -308,14 +340,14 @@ RemoveSubkey_Progress = "Unterschlüssel wird entfernt.";
 RemoveSubkey_Error = "Entfernen des Unterschlüssels fehlgeschlagen.";
 RevokeSubkey_Progress = "Unterschlüssel wird widerrufen.";
 RevokeSubkey_Error = "Widerrufen des Unterschlüssels fehlgeschlagen.";
-AddUserID_Progress = "Benutzerkennung wird hinzugefügt.";
-AddUserID_Error = "Hinzufügen der Benutzerkennung fehlgeschlagen.";
-RemoveUserID_Progress = "Benutzerkennung wird entfernt.";
-RemoveUserID_Error = "Entfernen der Benutzerkennung fehlgeschlagen.";
-SetPrimaryUserID_Progress = "Primäre Benutzerkennung wird festgelegt.";
-SetPrimaryUserID_Error = "Festlegen der primären Benutzerkennung fehlgeschlagen.";
-RevokeUserID_Progress = "Benutzerkennung wird widerrufen.";
-RevokeUserID_Error = "Widerrufen der Benutzerkennung fehlgeschlagen.";
+AddUserID_Progress = "Benutzer-ID wird hinzugefügt.";
+AddUserID_Error = "Hinzufügen der Benutzer-ID fehlgeschlagen.";
+RemoveUserID_Progress = "Benutzer-ID wird entfernt.";
+RemoveUserID_Error = "Entfernen der Benutzer-ID fehlgeschlagen.";
+SetPrimaryUserID_Progress = "Primäre Benutzer-ID wird festgelegt.";
+SetPrimaryUserID_Error = "Festlegen der primären Benutzer-ID fehlgeschlagen.";
+RevokeUserID_Progress = "Benutzer-ID wird widerrufen.";
+RevokeUserID_Error = "Widerrufen der Benutzer-ID fehlgeschlagen.";
 AddPhoto_Progress = "Foto wird hinzugefügt.";
 AddPhoto_Error = "Hinzufügen des Fotos fehlgeschlagen.";
 RemovePhoto_Progress = "Foto wird entfernt.";

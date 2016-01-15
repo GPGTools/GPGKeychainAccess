@@ -94,6 +94,12 @@ MailKey_Progress_Your = "Creando un correo nuevo...";
 MailKey_Error = "Ups, algo salió mal. Hubo un problema al exportar su clave.";
 
 
+/* A key was found in the pasteboard */
+PasteboardKeyFound_Title = "Una o más clave fueron borradas de su portapapeles.";
+PasteboardKeyFound_Msg = "%@\n\n¿Desea importar las clave(s)?";
+PasteboardKeyFound_Yes = "Importar";
+PasteboardKeyFound_No = "Cancelar";
+
 
 /* Those are abvious */
 No = "No";
@@ -115,12 +121,12 @@ RevokeUserID_Yes = "Revocar identificación de usuario";
 RevokeUserID_No = "Cancelar";
 
 RemoveSubkey_Title = "Eliminar subclave";
-RemoveSubkey_Msg = "¡Precaución! Por favor, continúe solamente si de verdad sabe lo que está haciendo.\n\nEliminar una subclave puede destruir todas las capacidades de firmado y descifrado.\n\nSi la clave unida a esta subclave fue subida a los servidores de claves, eliminar la subclave localmente no eliminará la subclave de la clave que está en los servidores de claves. En su lugar, en ese caso por favor revoque localmente la subclave en cuestión y suba la clave actualizada.";
+RemoveSubkey_Msg = "¡Precaución! Por favor, proceda sólo si sabe realmente lo que está haciendo.\n\nEliminar una Subclave puede destruir todas las capacidades de firmado y descifrado.\n\nSi la clave con esta Subclave se subió a los servidores de claves, eliminar la Subclave no la eliminará en la clave presente en los servidores de claves. En ese caso, por favor, en lugar de ello revoque la Subclave en cuestión y suba la clave actualizada.";
 RemoveSubkey_Yes = "Eliminar subclave";
 RemoveSubkey_No = "Cancelar";
 
 RevokeSubkey_Title = "Revocar subclave";
-RevokeSubkey_Msg = "¡Precaución! Por favor, continúe solamente si de verdad sabe lo que está haciendo.\n\nRevocar una subclave puede destruir todas las capacidades de firmado y descifrado.\n\nSi la clave unida a esta subclave fue subida a los servidores de claves, asegúrese de subir la clave actualizada. Sólo entonces la entrada en los servidores de claves reflejará la subclave revocada.";
+RevokeSubkey_Msg = "¡Precaución! Por favor, proceda sólo si realmente sabe lo que está haciendo.\n\nRevocar una Subclave puede destruir todas las capacidades de firmado y descrifrado.\n\nSi la clave con esta Subclave se subió a los servidores de claves, asegúrese de subir la clave actualizada. Sólo así la entrada en los servidores de claves reflejará la Subclave revocada.";
 RevokeSubkey_Yes = "Revocar subclave";
 RevokeSubkey_No = "Cancelar";
 
@@ -210,6 +216,32 @@ ImportResult_CountProcessed = "Recuento de claves procesadas: %i";
 ImportResult_CountImported = "Recuento de claves importadas​​: %i";
 ImportResult_CountUnchanged = "Recuento de claves inalteradas: %i";
 ImportResult_NoKeysImported = "¡No pudo importarse ninguna clave!";
+
+IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
+IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+
+IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
+IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
+IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
+
+
 
 
 /* Errors */

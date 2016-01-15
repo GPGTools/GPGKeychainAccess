@@ -94,6 +94,12 @@ MailKey_Progress_Your = "Création nouveau message ...";
 MailKey_Error = "Oops, quelque chose n'a pas fonctionné correctement lors de l'export de votre clé.";
 
 
+/* A key was found in the pasteboard */
+PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
+PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Yes = "Importation";
+PasteboardKeyFound_No = "Annuler";
+
 
 /* Those are abvious */
 No = "Non";
@@ -115,12 +121,12 @@ RevokeUserID_Yes = "Révoquer l'ID utilisateur";
 RevokeUserID_No = "Annuler";
 
 RemoveSubkey_Title = "Supprimer la sous-clé";
-RemoveSubkey_Msg = "Attention ! Ne continuez cette opération que si vous savez réellement ce que vous faites.\n\nSupprimer une sous-clé peut anéantir toutes les possibilités de signature et de chiffrement.\n\nSi la clé contenant cette sous-clé a été téléversée sur les serveurs de clés, supprimer la sous-clé ne va pas la supprimer de la clé sur le serveur de clés. Dans ce cas, merci de révoquer la sous-clé en question et de la téléverser sur le serveur de clé.";
+RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
 RemoveSubkey_Yes = "Supprimer la sous-clé";
 RemoveSubkey_No = "Annuler";
 
 RevokeSubkey_Title = "Révoquer la sous-clé";
-RevokeSubkey_Msg = "Attention ! Ne continuez cette opération que si vous savez réellement ce que vous faites.\n\nRévoquer une sous-clé peut anéantir toutes les possibilités de signature et de chiffrement.\n\nSi la clé contenant cette sous-clé a été téléversée sur les serveurs de clés, merci de vous assurer de téléverser la clé mise à jour. Ce n'est qu'à partir de ce moment que le serveur de clés reflètera la sous-clé révoquée.";
+RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
 RevokeSubkey_Yes = "Révoquer la sous-clé";
 RevokeSubkey_No = "Annuler";
 
@@ -210,6 +216,32 @@ ImportResult_CountProcessed = "Nombre de clés traitées : %i";
 ImportResult_CountImported = "Nombre de clés importées : %i";
 ImportResult_CountUnchanged = "Nombre de clés inchangées : %i";
 ImportResult_NoKeysImported = "Aucune clé ne peut être importée !";
+
+IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
+IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+
+IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
+IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
+IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
+
+
 
 
 /* Errors */

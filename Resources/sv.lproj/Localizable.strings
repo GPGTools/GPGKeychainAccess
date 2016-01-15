@@ -94,6 +94,12 @@ MailKey_Progress_Your = "Skapar nytt e-postmeddelande...";
 MailKey_Error = "Hoppsan, något gick snett när din nyckel skulle exporteras.";
 
 
+/* A key was found in the pasteboard */
+PasteboardKeyFound_Title = "En eller flera nycklar upptäcktes i urklipp";
+PasteboardKeyFound_Msg = "%@\n\nVill du importera nyckeln/nycklarna?";
+PasteboardKeyFound_Yes = "Importera";
+PasteboardKeyFound_No = "Avbryt";
+
 
 /* Those are abvious */
 No = "Nej";
@@ -115,12 +121,12 @@ RevokeUserID_Yes = "Återkalla användar-ID";
 RevokeUserID_No = "Avbryt";
 
 RemoveSubkey_Title = "Ta bort undernyckel";
-RemoveSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta bort en undernyckel kan förstöra alla signerings- och dekrypteringsfunktioner.\n\nOm nyckeln med denna undernyckel laddades upp till nyckelservarna, kommer borttagningen av undernyckeln inte leda till att den tas bort från nyckeln på nyckelservrarna. Återkalla istället den aktuella undernyckeln och ladda upp den uppdaterade nyckeln.";
+RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
 RemoveSubkey_Yes = "Ta bort undernyckel";
 RemoveSubkey_No = "Avbryt";
 
 RevokeSubkey_Title = "Återkalla undernyckel";
-RevokeSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt återkalla en undernyckel kan förstöra alla signerings- och dekrypteringsfunktioner.\n\nOm nyckeln med denna undernyckel laddades upp till nyckelservrarna bör du se till att ladda upp den uppdaterade nyckeln. Bara då kommer nyckeln på nyckelservrarna spegla den återkallade undernyckeln.";
+RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
 RevokeSubkey_Yes = "Återkalla undernyckel";
 RevokeSubkey_No = "Avbryt";
 
@@ -210,6 +216,32 @@ ImportResult_CountProcessed = "Antal bearbetade nycklar: %i";
 ImportResult_CountImported = "Antal importerade nycklar: %i";
 ImportResult_CountUnchanged = "Antal oförändrade nycklar. %i";
 ImportResult_NoKeysImported = "Inga nycklar kunde importeras!";
+
+IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
+IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+
+IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
+IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
+IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
+
+
 
 
 /* Errors */

@@ -94,6 +94,12 @@ MailKey_Progress_Your = "Criando novo e-mail…";
 MailKey_Error = "Algo deu errado. Houve um problema ao exportar a chave.";
 
 
+/* A key was found in the pasteboard */
+PasteboardKeyFound_Title = "Uma ou mais chaves foram detectadas na área de transferência.";
+PasteboardKeyFound_Msg = "%@\n\nDeseja importá-la(s)?";
+PasteboardKeyFound_Yes = "Importar";
+PasteboardKeyFound_No = "Cancelar";
+
 
 /* Those are abvious */
 No = "Não";
@@ -120,7 +126,7 @@ RemoveSubkey_Yes = "Remover Subchave";
 RemoveSubkey_No = "Cancelar";
 
 RevokeSubkey_Title = "Revogar Subchave";
-RevokeSubkey_Msg = "Atenção! Prossiga apenas se tiver certeza do que está fazendo.\n\nA revogação de uma Subchave pode destruir todos os recursos de assinatura e decriptografia.\n\nSe a chave que contém esta Subchave foi enviada aos servidores de chaves, certifique-se de que a chave atualizada seja enviada. Só assim o registro nos servidores refletirá a Subchave revogada.";
+RevokeSubkey_Msg = "Atenção! Prossiga apenas se tiver certeza do que está fazendo.\n\nA remoção de uma Subchave pode destruir todos os recursos de assinatura e decriptografia.\n\nSe a chave que contém esta Subchave foi enviada aos servidores de chaves, certifique-se de que a chave atualizada seja enviada. Só assim o registro nos servidores refletirá a Subchave revogada.";
 RevokeSubkey_Yes = "Revogar Subchave";
 RevokeSubkey_No = "Cancelar";
 
@@ -210,6 +216,32 @@ ImportResult_CountProcessed = "Contagem de chaves processadas: %i";
 ImportResult_CountImported = "Contagem de chaves importadas: %i";
 ImportResult_CountUnchanged = "Contagem de chaves não alteradas: %i";
 ImportResult_NoKeysImported = "Nenhuma chave pôde ser importada";
+
+IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
+IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+
+IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
+IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
+IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
+IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
+IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
+IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
+IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
+IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
+
+
 
 
 /* Errors */
