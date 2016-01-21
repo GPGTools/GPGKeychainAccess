@@ -1789,7 +1789,7 @@
 	
 	for (__strong GPGKey *key in keys) {
 		if (i >= lines && i > 0) {
-			[descriptions appendFormat:localized(@"%@ and %lu more"), singleLine ? @" " : @"\n" , count - i];
+			[descriptions appendFormat:localized(@"%@and %lu more"), singleLine ? @" " : @"\n" , count - i];
 			break;
 		}
 
