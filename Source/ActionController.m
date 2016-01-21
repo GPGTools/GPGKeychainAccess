@@ -276,6 +276,20 @@
 	if (keys.count == 0) {
 		return;
 	}
+	NSMutableArray *invalidKeys = [NSMutableArray new];
+	for (GPGKey *key in keys) {
+		if (key.validity >= GPGValidityInvalid) {
+			[invalidKeys addObject:key];
+		}
+	}
+	if (invalidKeys.count > 0) {
+		NSString *title = localized(@"MAIL_KEY_INVALID_KEY_SELECTED_TITLE");
+		NSString *message = localizedStringWithFormat(@"MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE", [self descriptionForKeys:invalidKeys maxLines:8 withOptions:0]);
+		[sheetController errorSheetWithMessageText:title infoText:message];
+		return;
+	}
+	
+	
 
 	BOOL yourKey = keys.count == 1 && [keys[0] secret];
 	
@@ -1719,6 +1733,17 @@
 	}
 	else if (selector == @selector(cancel:)) {
 		return appDelegate.inspectorVisible;
+	} else if (selector == @selector(sendKeysPerMail:)) {
+		NSArray *keys = [self selectedKeys];
+		if (keys.count == 0) {
+			return NO;
+		}
+		for (GPGKey *key in keys) {
+			if (key.validity < GPGValidityInvalid) {
+				return YES;
+			}
+		}
+		return NO;
 	}
 	
 	return YES;
