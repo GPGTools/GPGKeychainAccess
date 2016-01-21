@@ -287,7 +287,7 @@ NSSet *draggedKeys;
 				break;
 		}
 
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keysDidChange:) name:GPGKeyManagerKeysDidChangeNotification object:nil];
+		[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(keysDidChange:) name:GPGKeyManagerKeysDidChangeNotification object:nil];
 		@try {
 			GPGKeyManager *keyManager = [GPGKeyManager sharedInstance];
 			if ([[GPGOptions sharedOptions] boolForKey:@"showExpertSettings"]) {
