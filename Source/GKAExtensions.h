@@ -20,6 +20,7 @@
 
 @interface GPGUserID (GKAExtension)
 - (BOOL)isUat;
+- (NSString *)fullUserIDDescription;
 @end
 
 @interface GPGUserIDSignature (GKAExtension)

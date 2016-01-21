@@ -245,6 +245,21 @@
 	objc_removeAssociatedObjects(self);
 	
 }
+- (NSString *)textForFilter {
+	dispatch_semaphore_wait(_textForFilterOnce, DISPATCH_TIME_FOREVER);
+	if(!_textForFilter) {
+		NSMutableString *textForFilter = [[NSMutableString alloc] init];
+		for(GPGKey *key in [self.subkeys arrayByAddingObject:self]) {
+			[textForFilter appendFormat:@"0x%@\n0x%@\n0x%@\n", key.fingerprint, key.keyID, [key.keyID shortKeyID]];
+		}
+		for(GPGUserID *userID in self.userIDs)
+			[textForFilter appendFormat:@"%@\n", userID.fullUserIDDescription];
+		_textForFilter = [textForFilter copy];
+	}
+	dispatch_semaphore_signal(_textForFilterOnce);
+	
+	return _textForFilter;
+}
 
 
 
@@ -276,6 +291,13 @@
 		} else {
 			return _name;
 		}
+	} else {
+		return localized(@"PhotoID");
+	}
+}
+- (NSString *)fullUserIDDescription {
+	if (_userIDDescription) {
+		return _userIDDescription;
 	} else {
 		return localized(@"PhotoID");
 	}
