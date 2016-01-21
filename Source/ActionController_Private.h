@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2014
+ Copyright © Roman Zechmeister, 2016
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -46,7 +46,6 @@ typedef enum {
 @property (strong) NSSet *revCertCache;
 
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
-- (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict;
 - (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSUInteger)lines withOptions:(DescriptionOptions)options;
 
 - (BOOL)warningSheetWithDefault:(BOOL)defaultValue string:(NSString *)string, ...;

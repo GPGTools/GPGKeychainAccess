@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2014
+ Copyright © Roman Zechmeister, 2016
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -82,6 +82,20 @@ NSSet *draggedKeys;
 - (void)selectRow:(NSInteger)row {
 	userChangingSelection = YES;
 	self.selectionIndexPaths = @[[NSIndexPath indexPathWithIndex:row]];
+}
+- (void)selectKeys:(NSSet *)keys {
+	NSArray *list = [[treeController arrangedObjects] childNodes];
+	NSMutableArray *indexPaths = [NSMutableArray new];
+	
+	[list enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+		NSString *fingerprint = [[obj representedObject] description];
+		if ([keys containsObject:fingerprint]) {
+			[indexPaths addObject:[NSIndexPath indexPathWithIndex:idx]];
+		}
+	}];
+	
+	userChangingSelection = YES;
+	self.selectionIndexPaths = indexPaths.copy;
 }
 
 - (BOOL)fetchDetailsForSelectedKey { // Returns YES if the details will be fetched.

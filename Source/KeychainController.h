@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2014
+ Copyright © Roman Zechmeister, 2016
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -58,6 +58,7 @@
 
 - (IBAction)updateFilteredKeyList:(id)sender;
 - (void)selectRow:(NSInteger)row;
+- (void)selectKeys:(NSSet *)keys;
 
 
 
