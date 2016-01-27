@@ -205,7 +205,7 @@
 	} else if (responder == appDelegate.subkeyTable) {
 		if (subkeysController.selectedObjects.count == 1) {
 			GPGKey *subkey = [subkeysController.selectedObjects objectAtIndex:0];
-			stringForPasteboard = subkey.keyID;
+			stringForPasteboard = [[GPGFingerprintTransformer new] transformedValue:subkey.fingerprint];
 		}
 	} else {
 		NSArray *keys = [self selectedKeys];
