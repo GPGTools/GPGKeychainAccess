@@ -1406,13 +1406,15 @@
 		importStates[fingerprint] = @(newStatus);
 		
 		if (oldStatusNumber) {
-			if ((status & stateNewKey) == 0 || (oldStatus & stateNewKey) == 0) {
-				// gpg2 counts every key block, but we want the count of diffeerent keys.
-				// So decrement the key count for multiple key blocks with the same key.
-				
-				// The new key status is sometimes issued twice. Only decrement a single time.
-				publicKeysCount--;
-			}
+			// gpg2 counts every key block, but we want the count of diffeerent keys.
+			// So decrement the key count for multiple key blocks with the same key.
+			
+			// The new key status is sometimes issued twice. Only decrement a single time.
+			publicKeysCount--;
+		}
+		if (status == 17) {
+			// Do not decrement for IMPORT_OK with status 17, because this line is issued in addition to the others.
+			publicKeysCount++;
 		}
 
 	}
