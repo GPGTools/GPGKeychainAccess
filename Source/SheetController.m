@@ -154,7 +154,7 @@ modalWindow, foundKeyDicts, hideExtension;
 	}
 }
 - (NSString *)msgText {
-	return msgText;
+	return msgText ? msgText : @"";
 }
 
 
