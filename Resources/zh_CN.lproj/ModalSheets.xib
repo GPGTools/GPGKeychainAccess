@@ -75,7 +75,7 @@
 					<int key="NSvFlags">256</int>
 					<string key="NSFrameSize">{450, 250}</string>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1920, 1177}}</string>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1418}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
@@ -258,6 +258,28 @@
 				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
+					<object class="NSTextField" id="617224323">
+						<reference key="NSNextResponder" ref="35563123"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{26, 163}, {521, 17}}</string>
+						<reference key="NSSuperview" ref="35563123"/>
+						<reference key="NSNextKeyView" ref="906843354"/>
+						<string key="NSReuseIdentifierKey">_NS:526</string>
+						<string key="NSHuggingPriority">{251, 750}</string>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSTextFieldCell" key="NSCell" id="414275456">
+							<int key="NSCellFlags">68157504</int>
+							<int key="NSCellFlags2">272630784</int>
+							<string key="NSContents">Label</string>
+							<reference key="NSSupport" ref="543533349"/>
+							<string key="NSCellIdentifier">_NS:526</string>
+							<reference key="NSControlView" ref="617224323"/>
+							<reference key="NSBackgroundColor" ref="1011004290"/>
+							<reference key="NSTextColor" ref="400508340"/>
+						</object>
+						<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
+						<int key="NSTextFieldAlignmentRectInsetsVersion">1</int>
+					</object>
 					<object class="NSButton" id="816127520">
 						<reference key="NSNextResponder" ref="35563123"/>
 						<int key="NSvFlags">289</int>
@@ -311,7 +333,7 @@
 						<int key="NSvFlags">266</int>
 						<string key="NSFrame">{{17, 157}, {531, 26}}</string>
 						<reference key="NSSuperview" ref="35563123"/>
-						<reference key="NSNextKeyView" ref="906843354"/>
+						<reference key="NSNextKeyView" ref="617224323"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSPopUpButtonCell" key="NSCell" id="794182683">
 							<int key="NSCellFlags">71303232</int>
@@ -4880,9 +4902,9 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">nextKeyView</string>
 						<reference key="source" ref="35563123"/>
-						<reference key="destination" ref="973194645"/>
+						<reference key="destination" ref="906843354"/>
 					</object>
-					<string key="id">1044</string>
+					<string key="id">Gbx-dn-FcS</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -4972,6 +4994,26 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 						</object>
 					</object>
 					<string key="id">F4X-dP-2nr</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">hidden: showAlgorithmPrefsDropdown</string>
+						<reference key="source" ref="973194645"/>
+						<reference key="destination" ref="899240081"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="973194645"/>
+							<reference key="NSDestination" ref="899240081"/>
+							<string key="NSLabel">hidden: showAlgorithmPrefsDropdown</string>
+							<string key="NSBinding">hidden</string>
+							<string key="NSKeyPath">showAlgorithmPrefsDropdown</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">6gn-nd-oWU</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -5236,6 +5278,38 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">hidden: showAlgorithmPrefsDropdown</string>
+						<reference key="source" ref="617224323"/>
+						<reference key="destination" ref="899240081"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="617224323"/>
+							<reference key="NSDestination" ref="899240081"/>
+							<string key="NSLabel">hidden: showAlgorithmPrefsDropdown</string>
+							<string key="NSBinding">hidden</string>
+							<string key="NSKeyPath">showAlgorithmPrefsDropdown</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">JdV-1K-4at</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: selection.userIDDescription</string>
+						<reference key="source" ref="617224323"/>
+						<reference key="destination" ref="522585251"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="617224323"/>
+							<reference key="NSDestination" ref="522585251"/>
+							<string key="NSLabel">value: selection.userIDDescription</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">selection.userIDDescription</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<string key="id">WKF-HV-Jqi</string>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: representedObject.name</string>
 						<reference key="source" ref="560337778"/>
 						<reference key="destination" ref="720132388"/>
@@ -5429,6 +5503,7 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 							<reference ref="973194645"/>
 							<reference ref="969811115"/>
 							<reference ref="816127520"/>
+							<reference ref="617224323"/>
 						</array>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Edit Algorithm Preferences</string>
@@ -5491,6 +5566,7 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 					<object class="IBObjectRecord">
 						<string key="id">1011</string>
 						<reference key="object" ref="857124998"/>
+						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="794182683"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -6968,6 +7044,19 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 						<reference key="object" ref="147816442"/>
 						<reference key="parent" ref="700133104"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">cS5-Wt-UAn</string>
+						<reference key="object" ref="617224323"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="414275456"/>
+						</array>
+						<reference key="parent" ref="35563123"/>
+					</object>
+					<object class="IBObjectRecord">
+						<string key="id">G4N-H5-en8</string>
+						<reference key="object" ref="414275456"/>
+						<reference key="parent" ref="617224323"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -6979,6 +7068,7 @@ AADzUQABAAAAARbMY3VydgAAAAAAAAABAc0AAA</bytes>
 				<boolean value="NO" key="-3.showNotes"/>
 				<string key="1000.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="1000.showNotes"/>
+				<reference key="1002.IBNSViewMetadataGestureRecognizers" ref="0"/>
 				<string key="1002.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="1002.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="1002.showNotes"/>
@@ -7540,6 +7630,7 @@ qOWkh+S7veaIlui/geenu+aXtuS9v+eUqOatpOmAiemhueOAgg</string>
 				<boolean value="NO" key="EbR-xb-2Ew.showNotes"/>
 				<string key="FWA-34-yOE.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="FWA-34-yOE.showNotes"/>
+				<string key="G4N-H5-en8.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="I0X-YA-0xu.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="Kic-FQ-IzI.CustomClassName">GKVolumeImageView</string>
 				<string key="Kic-FQ-IzI.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7558,6 +7649,7 @@ qOWkh+S7veaIlui/geenu+aXtuS9v+eUqOatpOmAiemhueOAgg</string>
 				<string key="ZSg-F3-kZK.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="c2P-tp-ZVe.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="c3R-Qv-JF7.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="cS5-Wt-UAn.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="eKE-tf-ktq.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="eKE-tf-ktq.showNotes"/>
 				<boolean value="NO" key="f2I-nC-uVX.IBNSControlSetsMaxLayoutWidthAtFirstLayoutMetadataKey"/>

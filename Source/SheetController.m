@@ -547,6 +547,14 @@ modalWindow, foundKeyDicts, hideExtension;
 	}
 }
 
+- (BOOL)showAlgorithmPrefsDropdown {
+	return self.algorithmPreferences.count > 1;
+}
++ (NSSet *)keyPathsForValuesAffectingShowAlgorithmPrefsDropdown {
+	return [NSSet setWithObjects:@"algorithmPreferences", nil];
+}
+
+
 
 // Internal methods //
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
