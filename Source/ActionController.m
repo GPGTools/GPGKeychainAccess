@@ -1257,6 +1257,9 @@
 	sheetController.secretKeys = [secretKeys allObjects];
 	GPGKey *defaultKey = [[KeychainController sharedInstance] defaultKey];
 	if (!defaultKey) {
+		defaultKey = [secretKeys anyObject];
+	}
+	if (!defaultKey) {
 		[sheetController alertSheetForWindow:mainWindow messageText:localized(@"NO_SECRET_KEY_TITLE") infoText:localized(@"NO_SECRET_KEY_MESSAGE") defaultButton:nil alternateButton:nil otherButton:nil suppressionButton:nil];
 		return;
 	}
