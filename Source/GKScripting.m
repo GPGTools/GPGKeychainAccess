@@ -1,12 +1,11 @@
 #import "GKScripting.h"
-#import <Sparkle/Sparkle.h>
 #import "ActionController.h"
 
 @implementation GKCheckForUpdatesCommand
 
 - (id)performDefaultImplementation {
-	SUUpdater *updater = [SUUpdater sharedUpdater];
-	[updater performSelectorOnMainThread:@selector(checkForUpdates:) withObject:nil waitUntilDone:NO];
+	NSRunAlertPanel(@"This version does not support automatic updates.",
+					@"Please go to https://old.gpgtools.org and look for the current version.", nil, nil, nil);
 	return nil;
 }
 

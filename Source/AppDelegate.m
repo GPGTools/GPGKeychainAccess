@@ -24,7 +24,7 @@
 
 
 @implementation GPGKeychainAccessAppDelegate
-@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer, updater, inspectorWindow, inspectorView;
+@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer, inspectorWindow, inspectorView;
 
 - (NSWindow *)window {
     return mainWindow;
@@ -171,14 +171,8 @@
 	
 	if ([pboardType isEqualToString:NSFilenamesPboardType]) {
 		NSArray *fileNames = [pboard propertyListForType:NSFilenamesPboardType];
-		for (NSString *fileName in fileNames) {
-			
-			//TODO: Check if any key to import are available.
-			
-			/*NSString *extension = [fileName pathExtension];
-			if ([extension isEqualToString:@"asc"] || [extension isEqualToString:@"gpgkey"] || [extension isEqualToString:@"gpg"]) {*/
+		if (fileNames.count > 0) {
 			return NSDragOperationCopy;
-			/*}*/
 		}
 	} else if ([pboardType isEqualToString:NSStringPboardType]) {
 		NSString *string = [pboard stringForType:NSStringPboardType];
@@ -221,9 +215,6 @@
 }
 
 
-- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)awindow {
-	return [[ActionController sharedInstance] undoManager];
-}
 
 
 - (void)generateContextMenuForTable:(NSTableView *)table {

@@ -117,9 +117,10 @@
 	
 	
 	[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
-		switch (packet.type) {
-			case GPGSignaturePacket:
-				switch (packet.signatureType) {
+		switch (packet.tag) {
+			case GPGSignaturePacketTag: {
+				GPGSignaturePacket *sigPacket = (GPGSignaturePacket *)packet;
+				switch (sigPacket.type) {
 					case GPGBinarySignature:
 					case GPGTextSignature:
 						containsNonImportable = YES;
@@ -128,8 +129,12 @@
 						if (!keys) {
 							keys = [NSMutableArray array];
 						}
-						GPGKey *key = [[[GPGKeyManager sharedInstance] keysByKeyID] objectForKey:packet.keyID];
-						[keys addObject:key ? key : packet.keyID];
+						
+						if (sigPacket.keyID) {
+							GPGKey *key = [[[GPGKeyManager sharedInstance] keysByKeyID] objectForKey:sigPacket.keyID];
+							[keys addObject:key ? key : sigPacket.keyID];
+						}
+						
 						containsRevSig = YES;
 					} /* no break */
 					case GPGGeneriCertificationSignature:
@@ -146,19 +151,20 @@
 						break;
 				}
 				break;
-			case GPGSecretKeyPacket:
-			case GPGPublicKeyPacket:
-			case GPGSecretSubkeyPacket:
-			case GPGUserIDPacket:
-			case GPGPublicSubkeyPacket:
-			case GPGUserAttributePacket:
+			}
+			case GPGSecretKeyPacketTag:
+			case GPGPublicKeyPacketTag:
+			case GPGSecretSubkeyPacketTag:
+			case GPGUserIDPacketTag:
+			case GPGPublicSubkeyPacketTag:
+			case GPGUserAttributePacketTag:
 				containsImportable = YES;
 				break;
-			case GPGPublicKeyEncryptedSessionKeyPacket:
-			case GPGSymmetricEncryptedSessionKeyPacket:
-			case GPGSymmetricEncryptedDataPacket:
-			case GPGSymmetricEncryptedProtectedDataPacket:
-			case GPGCompressedDataPacket:
+			case GPGPublicKeyEncryptedSessionKeyPacketTag:
+			case GPGSymmetricEncryptedSessionKeyPacketTag:
+			case GPGEncryptedDataPacketTag:
+			case GPGEncryptedProtectedDataPacketTag:
+			case GPGCompressedDataPacketTag:
 				containsNonImportable = YES;
 				break;
 			default:
@@ -638,8 +644,9 @@
 		NSData *data = [NSData dataWithContentsOfFile:path];
 		
 		[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
-			if (packet.type == GPGSignaturePacket && packet.signatureType == GPGRevocationSignature) {
-				if (packet.keyID ) {
+			if (packet.tag == GPGSignaturePacketTag) {
+				GPGSignaturePacket *sigPacket = (GPGSignaturePacket *)packet;
+				if (sigPacket.type == GPGRevocationSignature) {
 					haveValidRevCert = YES;
 					*stop = YES;
 				}
@@ -1147,14 +1154,6 @@
 	return [lines componentsJoinedByString:@"\n"];
 }
 
-- (NSUndoManager *)undoManager {
-	if (!undoManager) {
-		undoManager = [NSUndoManager new];
-		[undoManager setLevelsOfUndo:50];
-	}
-	return [[undoManager retain] autorelease];
-}
-
 - (NSSet *)selectedKeys {
 	NSInteger clickedRow = [keyTable clickedRow];
 	if (clickedRow != -1 && ![keyTable isRowSelected:clickedRow]) {
@@ -1632,7 +1631,6 @@
 		
 		gpgc = [[GPGController gpgController] retain];
 		gpgc.delegate = self;
-		gpgc.undoManager = self.undoManager;
 		gpgc.printVersion = YES;
 		gpgc.async = YES;
 		gpgc.keyserverTimeout = 20;

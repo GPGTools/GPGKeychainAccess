@@ -28,9 +28,8 @@
 @interface SheetController ()
 @property NSView *displayedView;
 @property NSWindow *modalWindow;
-@property (strong) NSArray *foundKeyDicts;
+@property (retain) NSArray *foundKeyDicts;
 @property (strong) NSArray *URLs;
-@property (nonatomic, strong) NSArray *volumes;
 @property (nonatomic, strong) NSDictionary *result;
 @property (nonatomic) BOOL enableOK;
 
@@ -59,7 +58,7 @@
 	expirationDate, minExpirationDate, maxExpirationDate,
 	algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
 	sigType, length, sheetType, URL, URLs,
-	modalWindow, foundKeyDicts, hideExtension;
+	modalWindow, foundKeyDicts, hideExtension, enableOK, result=_result;
 
 
 
@@ -244,10 +243,6 @@
 			return clickedButton; }
 		case SheetTypeAlgorithmPreferences:
 			self.displayedView = editAlgorithmPreferencesView;
-			break;
-		case SheetTypeSelectVolume:
-			[self prepareVolumeCollection];
-			self.displayedView = selectVolumeView;
 			break;
 		default:
 			return -1;
@@ -455,15 +450,6 @@
 					if (![self checkEmailMustSet:NO]) return;
 					if (![self checkComment]) return;
 					break;
-				case SheetTypeSelectVolume: {
-					NSUInteger index = self.selectedVolumeIndexes.firstIndex;
-					if (index < self.volumes.count) {
-						self.result = self.volumes[index];
-						self.URL = self.volumes[index][@"url"];
-					} else {
-						self.result = nil;
-					}
-					break; }
 			}
 		} else { // NSCancelButton
 			self.result = nil;
@@ -668,49 +654,6 @@
 }
 
 
-- (void)prepareVolumeCollection {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSArray *resKeys = @[NSURLVolumeIsLocalKey, NSURLVolumeIsInternalKey, NSURLVolumeIsReadOnlyKey, NSURLVolumeIsBrowsableKey, NSURLVolumeNameKey, NSURLVolumeUUIDStringKey, NSURLEffectiveIconKey];
-	NSArray *urls = [fileManager mountedVolumeURLsIncludingResourceValuesForKeys:resKeys options:NSVolumeEnumerationSkipHiddenVolumes];
-	NSMutableArray *volumeList = [NSMutableArray array];
-	NSUInteger index = NSNotFound;
-	
-	for (NSURL *url in urls) {
-		NSDictionary *values = [url resourceValuesForKeys:resKeys error:nil];
-		BOOL isDefault = [url.path isEqualToString:@"/"];
-		if (!isDefault && (![values[NSURLVolumeIsBrowsableKey] boolValue] || ![values[NSURLVolumeIsLocalKey] boolValue] || [values[NSURLVolumeIsReadOnlyKey] boolValue] || [values[NSURLVolumeIsInternalKey] boolValue])) {
-			continue;
-		}
-		
-		if ([self.URL isEqualTo:url]) {
-			index = volumeList.count;
-		}
-		
-		NSDictionary *volume = @{@"image": values[NSURLEffectiveIconKey],
-								 @"name": isDefault ? localized(@"Local") : values[NSURLVolumeNameKey],
-								 @"UUID": values[NSURLVolumeUUIDStringKey],
-								 @"url": url};
-		
-		[volumeList addObject:volume];
-	}
-	
-	if (index == NSNotFound) {
-		index = volumeList.count;
-		NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:[self.URL.path stringByDeletingLastPathComponent]];
-		[image setSize:NSMakeSize(64, 64)];
-		
-		NSDictionary *volume = [NSDictionary dictionaryWithObjectsAndKeys:self.URL, @"url", self.URL.path.lastPathComponent, @"name", image, @"image", nil];
-		[volumeList addObject:volume];
-	}
-	
-	oldVolumeIndex = index;
-	
-	self.volumes = volumeList;
-	self.selectedVolumeIndexes = [NSIndexSet indexSetWithIndex:index];
-	
-	
-	self.msgText = [NSString stringWithFormat:localized(@"MoveSecring_Msg"), volumeList[index][@"name"]];
-}
 
 
 

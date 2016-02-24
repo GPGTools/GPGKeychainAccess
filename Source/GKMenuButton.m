@@ -19,7 +19,7 @@
 	
     NSEvent *event =  [NSEvent mouseEventWithType:NSLeftMouseDown
                                          location:menuOrigin
-                                    modifierFlags:NSLeftMouseDownMask
+                                    modifierFlags:(int)NSLeftMouseDownMask
                                         timestamp:0
                                      windowNumber:[self.window windowNumber]
                                           context:[self.window graphicsContext]

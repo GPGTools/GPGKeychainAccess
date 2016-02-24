@@ -17,7 +17,6 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-#import <Sparkle/Sparkle.h>
 #import "GKOutlineView.h"
 
 @interface GPGKeychainAccessAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
@@ -28,15 +27,13 @@
 	NSView *inspectorView;
 	
 	BOOL rowWasSelected;
-	SUUpdater *updater;
 }
 
-@property IBOutlet NSWindow *window, *inspectorWindow;
-@property IBOutlet NSView *inspectorView;
-@property IBOutlet GKOutlineView *keyTable;
-@property IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
-@property IBOutlet NSDrawer *drawer;
-@property IBOutlet SUUpdater *updater;
+@property (assign) IBOutlet NSWindow *window, *inspectorWindow;
+@property (assign) IBOutlet NSView *inspectorView;
+@property (assign) IBOutlet GKOutlineView *keyTable;
+@property (assign) IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
+@property (assign) IBOutlet NSDrawer *drawer;
 @property (nonatomic) BOOL inspectorVisible;
 
 

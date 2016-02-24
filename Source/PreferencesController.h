@@ -17,7 +17,6 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-#import <Sparkle/Sparkle.h>
 
 @class GPGOptions;
 
@@ -28,9 +27,10 @@
 	IBOutlet NSView *keyringPreferencesView;
 	
 	NSView *view;
+	NSWindow *window;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (strong) IBOutlet NSWindow *window;
 
 @property (readonly) GPGOptions *options;
 
@@ -41,13 +41,10 @@
 @property (assign) NSString *keyserver;
 
 
-@property (readonly) NSString *secringPath;
-
 
 + (id)sharedInstance;
 - (IBAction)showPreferences:(id)sender;
 - (IBAction)selectTab:(NSToolbarItem *)sender;
 - (IBAction)removeKeyserver:(NSButton *)sender;
-- (IBAction)moveSecring:(id)sender;
 
 @end

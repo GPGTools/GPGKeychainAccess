@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1B4942D217A7ECBB00E189CF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B4942D117A7ECBB00E189CF /* Security.framework */; };
-		300DD0E81853AE9A0057B05F /* How to get the source code in Resources */ = {isa = PBXBuildFile; fileRef = 300DD0E71853AE9A0057B05F /* How to get the source code */; };
-		301214B6196879A300D148B0 /* GKVolumeCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 301214B5196879A300D148B0 /* GKVolumeCollectionView.m */; };
 		3016CBBD1962E546000B42EA /* Keyring.png in Resources */ = {isa = PBXBuildFile; fileRef = 3016CBBC1962E546000B42EA /* Keyring.png */; };
 		3036CB4118A55EC800BBC167 /* GKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3036CB4018A55EC800BBC167 /* GKImageView.m */; };
 		3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3045A758173D0623006E7FDE /* Libmacgpg.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -23,13 +21,10 @@
 		3052E178144B021D00D6716A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3052E169144B021D00D6716A /* main.m */; };
 		3052E179144B021D00D6716A /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3052E16B144B021D00D6716A /* PreferencesController.m */; };
 		3052E17C144B021D00D6716A /* SheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3052E172144B021D00D6716A /* SheetController.m */; };
-		3052E1EE144B02FD00D6716A /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3052E1ED144B02FD00D6716A /* Sparkle.framework */; };
 		3052E20B144B056700D6716A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3052E20A144B056700D6716A /* AddressBook.framework */; };
-		3052E20F144B05AA00D6716A /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3052E1ED144B02FD00D6716A /* Sparkle.framework */; };
 		3052E371144B081700D6716A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3052E31C144B07D200D6716A /* MainMenu.xib */; };
 		3052E372144B081700D6716A /* ModalSheets.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3052E320144B07D200D6716A /* ModalSheets.xib */; };
 		3052E373144B081700D6716A /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3052E324144B07D200D6716A /* Preferences.xib */; };
-		3052E374144B081D00D6716A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3052E318144B07D200D6716A /* InfoPlist.strings */; };
 		3052E375144B081D00D6716A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3052E31A144B07D200D6716A /* Localizable.strings */; };
 		3052E379144B082B00D6716A /* asc.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2CA144B079F00D6716A /* asc.icns */; };
 		3052E37A144B082B00D6716A /* DeleteKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2CB144B079F00D6716A /* DeleteKey.png */; };
@@ -41,7 +36,6 @@
 		3052E380144B082B00D6716A /* Keyserver.png in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2D1144B079F00D6716A /* Keyserver.png */; };
 		3052E381144B082B00D6716A /* Updates.png in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2D2144B079F00D6716A /* Updates.png */; };
 		3052E382144B083100D6716A /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 3052E316144B07D200D6716A /* Credits.rtf */; };
-		3052E383144B083100D6716A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2DC144B07A600D6716A /* dsa_pub.pem */; };
 		3052E385144B083100D6716A /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2E0144B07AC00D6716A /* LICENSE.txt */; };
 		3056FA57189432D90089C960 /* MainMenu.xib.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3052E31E144B07D200D6716A /* MainMenu.xib.strings */; };
 		3056FA58189432D90089C960 /* ModalSheets.xib.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3052E322144B07D200D6716A /* ModalSheets.xib.strings */; };
@@ -100,7 +94,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3052E20F144B05AA00D6716A /* Sparkle.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,14 +103,8 @@
 /* Begin PBXFileReference section */
 		1B4942D117A7ECBB00E189CF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3001FA12189433C40004F44F /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = vi; path = vi.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		3001FA13189433C60004F44F /* gl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = gl; path = gl.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3001FA14189433FB0004F44F /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = vi; path = vi.lproj/ModalSheets.xib; sourceTree = "<group>"; };
-		3001FA15189433FD0004F44F /* gl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = gl; path = gl.lproj/ModalSheets.xib; sourceTree = "<group>"; };
-		3001FA16189434020004F44F /* gl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = gl; path = gl.lproj/Preferences.xib; sourceTree = "<group>"; };
 		3001FA17189434050004F44F /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = vi; path = vi.lproj/Preferences.xib; sourceTree = "<group>"; };
-		300DD0E71853AE9A0057B05F /* How to get the source code */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "How to get the source code"; path = "../../GPGTools_Core/resources/How to get the source code"; sourceTree = "<group>"; };
-		301214B4196879A300D148B0 /* GKVolumeCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKVolumeCollectionView.h; sourceTree = "<group>"; };
-		301214B5196879A300D148B0 /* GKVolumeCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKVolumeCollectionView.m; sourceTree = "<group>"; };
 		3014396917732F800088B59F /* Libmacgpg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Libmacgpg.xcodeproj; path = Dependencies/Libmacgpg/Libmacgpg.xcodeproj; sourceTree = "<group>"; };
 		3016CBBC1962E546000B42EA /* Keyring.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Keyring.png; sourceTree = "<group>"; };
 		301FBB7C17026BC500618850 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
@@ -140,7 +127,6 @@
 		30368DB514CEB52B000BD12A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		30368DB614CEB52B000BD12A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		30368DB714CEB52B000BD12A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
-		30368DB814CEB531000BD12A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30368DB914CEB531000BD12A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30368DBC14CEB538000BD12A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = it; path = it.lproj/Credits.rtf; sourceTree = "<group>"; };
 		3036CB3F18A55EC800BBC167 /* GKImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKImageView.h; sourceTree = "<group>"; };
@@ -151,38 +137,32 @@
 		3050EF9C17026A9300E1F3E6 /* da */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = da; path = da.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3050EF9D17026A9300E1F3E6 /* da */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = da; path = da.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		3050EF9E17026A9300E1F3E6 /* da */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = da; path = da.lproj/Preferences.xib; sourceTree = "<group>"; };
-		3050EFA217026A9D00E1F3E6 /* id_ID */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = id_ID; path = id_ID.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3050EFA317026A9D00E1F3E6 /* id_ID */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = id_ID; path = id_ID.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3050EFA517026AA500E1F3E6 /* id_ID */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = id_ID; path = id_ID.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3050EFA617026AA500E1F3E6 /* id_ID */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = id_ID; path = id_ID.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		3050EFA717026AA500E1F3E6 /* id_ID */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = id_ID; path = id_ID.lproj/Preferences.xib; sourceTree = "<group>"; };
-		3050EFA817026AFF00E1F3E6 /* no */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3050EFA917026B0000E1F3E6 /* no */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = no; path = no.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3050EFAA17026B0C00E1F3E6 /* no */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = no; path = no.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3050EFAB17026B0C00E1F3E6 /* no */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = no; path = no.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		3050EFAC17026B0C00E1F3E6 /* no */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = no; path = no.lproj/Preferences.xib; sourceTree = "<group>"; };
-		3050EFAD17026B1800E1F3E6 /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3050EFAE17026B1800E1F3E6 /* pl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3050EFAF17026B2600E1F3E6 /* pl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = pl; path = pl.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3050EFB017026B2600E1F3E6 /* pl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = pl; path = pl.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		3050EFB117026B2600E1F3E6 /* pl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = pl; path = pl.lproj/Preferences.xib; sourceTree = "<group>"; };
-		3050EFB217026B2C00E1F3E6 /* pt_BR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pt_BR; path = pt_BR.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3050EFB317026B2C00E1F3E6 /* pt_BR */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = pt_BR; path = pt_BR.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3050EFB417026B3700E1F3E6 /* pt_BR */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = pt_BR; path = pt_BR.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3050EFB517026B3700E1F3E6 /* pt_BR */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = pt_BR; path = pt_BR.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		3050EFB617026B3700E1F3E6 /* pt_BR */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = pt_BR; path = pt_BR.lproj/Preferences.xib; sourceTree = "<group>"; };
-		3050EFB717026B3F00E1F3E6 /* sk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3050EFB817026B3F00E1F3E6 /* sk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3050EFB917026B4700E1F3E6 /* sk */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sk; path = sk.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3050EFBA17026B4700E1F3E6 /* sk */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sk; path = sk.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		3050EFBB17026B4700E1F3E6 /* sk */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sk; path = sk.lproj/Preferences.xib; sourceTree = "<group>"; };
-		3050EFBC17026B4F00E1F3E6 /* zh_CN */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3050EFBD17026B4F00E1F3E6 /* zh_CN */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3050EFBE17026B5500E1F3E6 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3050EFBF17026B5500E1F3E6 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		3050EFC017026B5500E1F3E6 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = zh_CN; path = zh_CN.lproj/Preferences.xib; sourceTree = "<group>"; };
 		3050FB771475B0FB00E589AA /* Undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Undo.png; sourceTree = "<group>"; };
-		3052E10A144B016400D6716A /* GPG Keychain Access.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GPG Keychain Access.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3052E10A144B016400D6716A /* GPG Keychain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GPG Keychain.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3052E10E144B016400D6716A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3052E15F144B021D00D6716A /* ActionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionController.h; sourceTree = "<group>"; };
 		3052E160144B021D00D6716A /* ActionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionController.m; sourceTree = "<group>"; };
@@ -198,7 +178,6 @@
 		3052E16C144B021D00D6716A /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Prefix.pch; sourceTree = "<group>"; };
 		3052E171144B021D00D6716A /* SheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetController.h; sourceTree = "<group>"; };
 		3052E172144B021D00D6716A /* SheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetController.m; sourceTree = "<group>"; };
-		3052E1ED144B02FD00D6716A /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = Frameworks/Sparkle.framework; sourceTree = "<group>"; };
 		3052E20A144B056700D6716A /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		3052E2CA144B079F00D6716A /* asc.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = asc.icns; sourceTree = "<group>"; };
 		3052E2CB144B079F00D6716A /* DeleteKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DeleteKey.png; sourceTree = "<group>"; };
@@ -209,11 +188,9 @@
 		3052E2D0144B079F00D6716A /* Import.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Import.png; sourceTree = "<group>"; };
 		3052E2D1144B079F00D6716A /* Keyserver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Keyserver.png; sourceTree = "<group>"; };
 		3052E2D2144B079F00D6716A /* Updates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Updates.png; sourceTree = "<group>"; };
-		3052E2DC144B07A600D6716A /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		3052E2DD144B07A600D6716A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3052E2E0144B07AC00D6716A /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = SOURCE_ROOT; };
 		3052E317144B07D200D6716A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		3052E319144B07D200D6716A /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3052E31B144B07D200D6716A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3052E31D144B07D200D6716A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3052E31F144B07D200D6716A /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
@@ -222,7 +199,6 @@
 		3052E325144B07D200D6716A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/Preferences.xib; sourceTree = "<group>"; };
 		3052E327144B07D200D6716A /* en */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
 		3052E331144B07D900D6716A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = de; path = de.lproj/Credits.rtf; sourceTree = "<group>"; };
-		3052E332144B07D900D6716A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3052E333144B07D900D6716A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3052E334144B07D900D6716A /* de */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = de; path = de.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3052E335144B07D900D6716A /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
@@ -236,7 +212,6 @@
 		3052E346144B07DE00D6716A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/Preferences.xib; sourceTree = "<group>"; };
 		3052E347144B07DE00D6716A /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
 		3052E34D144B07E400D6716A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = fr; path = fr.lproj/Credits.rtf; sourceTree = "<group>"; };
-		3052E34E144B07E400D6716A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3052E34F144B07E400D6716A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3052E350144B07E400D6716A /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3052E351144B07E400D6716A /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
@@ -245,7 +220,6 @@
 		3052E354144B07E400D6716A /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/Preferences.xib; sourceTree = "<group>"; };
 		3052E355144B07E400D6716A /* fr */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
 		3052E35F144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = sv; path = sv.lproj/Credits.rtf; sourceTree = "<group>"; };
-		3052E360144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3052E361144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3052E362144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3052E363144B07E900D6716A /* sv */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
@@ -257,7 +231,6 @@
 		307B007F148EE19400182622 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		307B0081148EE19E00182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		307B0084148EE1F200182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = es; path = Resources/es.lproj/Credits.rtf; sourceTree = SOURCE_ROOT; };
-		307B0086148EE20100182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		307B0088148EE20C00182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = es; path = es.lproj/Credits.rtf; sourceTree = "<group>"; };
 		30867B1914BDFDDE00194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		30867B1A14BDFDDE00194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/ModalSheets.xib; sourceTree = "<group>"; };
@@ -265,16 +238,13 @@
 		30867B1F14BDFDEB00194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		30867B2014BDFDEB00194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		30867B2114BDFDEB00194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
-		30867B2214BDFDF300194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30867B2314BDFDF300194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30867B2614BDFDFA00194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = nl; path = nl.lproj/Credits.rtf; sourceTree = "<group>"; };
 		3096C91A14D167FC00246400 /* Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Info.png; sourceTree = "<group>"; };
-		30AB9CE818E31EB800F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30AB9CE918E31EB800F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30AB9CEA18E31EB800F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		30AB9CF118E31F2000F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ar; path = ar.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		30AC56EB18BB71A30038F224 /* Redo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Redo.png; sourceTree = "<group>"; };
-		30B20F0714B1DAC300E8CCD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30B20F0814B1DAC300E8CCD8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30B20F0914B1DAC300E8CCD8 /* ru */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		30B20F0A14B1DAC300E8CCD8 /* ru */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
@@ -286,27 +256,18 @@
 		30B29BE5191156DE00FC453C /* gka.sdef */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gka.sdef; sourceTree = "<group>"; };
 		30B29BEC19116DF400FC453C /* GKScripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKScripting.h; sourceTree = "<group>"; };
 		30B29BED19116DF400FC453C /* GKScripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKScripting.m; sourceTree = "<group>"; };
-		30C5E409189432F7004AE459 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30C5E40A189432F7004AE459 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30C5E40B189432F7004AE459 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
 		30C5E40C189432F7004AE459 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		30C5E40D189432F7004AE459 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
-		30C5E41318943300004AE459 /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		30C5E41418943300004AE459 /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		30C5E41518943300004AE459 /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/MainMenu.xib.strings; sourceTree = "<group>"; };
-		30C5E41618943300004AE459 /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
-		30C5E41718943300004AE459 /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
 		30D2003F17026A4C00A3A47C /* ca */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ca; path = ca.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		30D2004017026A5400A3A47C /* ca */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ca; path = ca.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		30D2004117026A5400A3A47C /* ca */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ca; path = ca.lproj/Preferences.xib; sourceTree = "<group>"; };
-		30D2004217026A5F00A3A47C /* ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30D2004317026A5F00A3A47C /* ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
-		30D2004417026A6900A3A47C /* cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30D2004517026A6900A3A47C /* cs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30D2004617026A6F00A3A47C /* cs */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = cs; path = cs.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		30D2004717026A6F00A3A47C /* cs */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = cs; path = cs.lproj/ModalSheets.xib; sourceTree = "<group>"; };
 		30D2004817026A6F00A3A47C /* cs */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = cs; path = cs.lproj/Preferences.xib; sourceTree = "<group>"; };
-		30D2004917026A7600A3A47C /* da */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		30D2004A17026A7600A3A47C /* da */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30DC32F717026BEE00EF559F /* id_ID */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id_ID; path = id_ID.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		30DC32F817026BEE00EF559F /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
@@ -337,7 +298,6 @@
 				3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */,
 				3052E20B144B056700D6716A /* AddressBook.framework in Frameworks */,
 				3052E10F144B016400D6716A /* Cocoa.framework in Frameworks */,
-				3052E1EE144B02FD00D6716A /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,10 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				3052E316144B07D200D6716A /* Credits.rtf */,
-				3052E2DC144B07A600D6716A /* dsa_pub.pem */,
 				3052E2DD144B07A600D6716A /* Info.plist */,
 				3052E2E0144B07AC00D6716A /* LICENSE.txt */,
-				300DD0E71853AE9A0057B05F /* How to get the source code */,
 				30B29BE5191156DE00FC453C /* gka.sdef */,
 			);
 			name = Other;
@@ -384,7 +342,7 @@
 		3052E10B144B016400D6716A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3052E10A144B016400D6716A /* GPG Keychain Access.app */,
+				3052E10A144B016400D6716A /* GPG Keychain.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -395,7 +353,6 @@
 				1B4942D117A7ECBB00E189CF /* Security.framework */,
 				3052E20A144B056700D6716A /* AddressBook.framework */,
 				3052E10E144B016400D6716A /* Cocoa.framework */,
-				3052E1ED144B02FD00D6716A /* Sparkle.framework */,
 				3045A758173D0623006E7FDE /* Libmacgpg.framework */,
 			);
 			name = Frameworks;
@@ -423,8 +380,6 @@
 				30EA818418A82E17000B4D0A /* GKOutlineView.m */,
 				3047D38C18B7C626001D9334 /* GKMenuButton.h */,
 				3047D38D18B7C626001D9334 /* GKMenuButton.m */,
-				301214B4196879A300D148B0 /* GKVolumeCollectionView.h */,
-				301214B5196879A300D148B0 /* GKVolumeCollectionView.m */,
 				30B29BEC19116DF400FC453C /* GKScripting.h */,
 				30B29BED19116DF400FC453C /* GKScripting.m */,
 				30ECA2C8194C8AB800C1E761 /* GKAExtensions.h */,
@@ -480,7 +435,6 @@
 		3052E1EC144B02C900D6716A /* Strings */ = {
 			isa = PBXGroup;
 			children = (
-				3052E318144B07D200D6716A /* InfoPlist.strings */,
 				3052E31A144B07D200D6716A /* Localizable.strings */,
 				3052E31E144B07D200D6716A /* MainMenu.xib.strings */,
 				3052E322144B07D200D6716A /* ModalSheets.xib.strings */,
@@ -502,9 +456,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3052E109144B016400D6716A /* GPG Keychain Access */ = {
+		3052E109144B016400D6716A /* GPG Keychain */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3052E128144B016400D6716A /* Build configuration list for PBXNativeTarget "GPG Keychain Access" */;
+			buildConfigurationList = 3052E128144B016400D6716A /* Build configuration list for PBXNativeTarget "GPG Keychain" */;
 			buildPhases = (
 				3052E106144B016400D6716A /* Sources */,
 				3052E107144B016400D6716A /* Frameworks */,
@@ -517,9 +471,9 @@
 			);
 			dependencies = (
 			);
-			name = "GPG Keychain Access";
-			productName = GPGKeychainAccess;
-			productReference = 3052E10A144B016400D6716A /* GPG Keychain Access.app */;
+			name = "GPG Keychain";
+			productName = GPGKeychain;
+			productReference = 3052E10A144B016400D6716A /* GPG Keychain.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -530,7 +484,7 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = 3052E104144B016300D6716A /* Build configuration list for PBXProject "GPGKeychainAccess" */;
+			buildConfigurationList = 3052E104144B016300D6716A /* Build configuration list for PBXProject "GPGKeychain" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -555,7 +509,6 @@
 				ca_ES,
 				"ca@valencia",
 				vi,
-				gl,
 				"ca-ES",
 				ar,
 			);
@@ -570,7 +523,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				3052E109144B016400D6716A /* GPG Keychain Access */,
+				3052E109144B016400D6716A /* GPG Keychain */,
 			);
 		};
 /* End PBXProject section */
@@ -621,13 +574,11 @@
 				3052E371144B081700D6716A /* MainMenu.xib in Resources */,
 				3052E372144B081700D6716A /* ModalSheets.xib in Resources */,
 				3052E373144B081700D6716A /* Preferences.xib in Resources */,
-				3052E374144B081D00D6716A /* InfoPlist.strings in Resources */,
 				3056FA57189432D90089C960 /* MainMenu.xib.strings in Resources */,
 				3052E375144B081D00D6716A /* Localizable.strings in Resources */,
 				3052E379144B082B00D6716A /* asc.icns in Resources */,
 				3052E37A144B082B00D6716A /* DeleteKey.png in Resources */,
 				3052E37B144B082B00D6716A /* Export.png in Resources */,
-				300DD0E81853AE9A0057B05F /* How to get the source code in Resources */,
 				3052E37C144B082B00D6716A /* Generate.png in Resources */,
 				30B29BE6191156DE00FC453C /* gka.sdef in Resources */,
 				3052E37D144B082B00D6716A /* gpgkey.icns in Resources */,
@@ -638,7 +589,6 @@
 				3050FB781475B0FB00E589AA /* Undo.png in Resources */,
 				30AC56EC18BB71A30038F224 /* Redo.png in Resources */,
 				3052E382144B083100D6716A /* Credits.rtf in Resources */,
-				3052E383144B083100D6716A /* dsa_pub.pem in Resources */,
 				3075AFFF18B646C100BEAA71 /* Search.png in Resources */,
 				3052E385144B083100D6716A /* LICENSE.txt in Resources */,
 				3016CBBD1962E546000B42EA /* Keyring.png in Resources */,
@@ -663,7 +613,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "[[ \"$LOCALIZE\" == \"NO\" ]] && exit\n\ncd \"$SRCROOT\"\nalias localizeXIB=Dependencies/GPGTools_Core/bin/localizeXIB\nignoreFile=Dependencies/GPGTools_Core/resources/l10n_ignored_strings.txt\n\n localizeXIB -i $ignoreFile Resources/en.lproj/MainMenu.xib     ar ca cs da de es fr gl id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\n localizeXIB -i $ignoreFile Resources/en.lproj/ModalSheets.xib  ar ca cs da de es fr gl id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\n localizeXIB -i $ignoreFile Resources/en.lproj/Preferences.xib  ar ca cs da de es fr gl id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\n";
+			shellScript = "[[ \"$LOCALIZE\" == \"NO\" ]] && exit 0\n [[ -d \"$DEPLOY_RESOURCES_DIR\" ]] || exit 0\n \n alias localizeXIB=\"$DEPLOY_RESOURCES_DIR/bin/localizeXIB\"\n ignore=\"$DEPLOY_RESOURCES_DIR/config/l10n_ignored_strings.txt\"\n langs=\"ar ca cs da de es fr id_ID it nl no pl pt_BR ro_RO ru sk sv vi zh_CN\"\n sourceDir=Resources/en.lproj\n \n localizeXIB -i \"$ignore\" $sourceDir/MainMenu.xib     $langs || exit 1\n localizeXIB -i \"$ignore\" $sourceDir/ModalSheets.xib  $langs || exit 1\n localizeXIB -i \"$ignore\" $sourceDir/Preferences.xib  $langs || exit 1\n";
 			showEnvVarsInLog = 0;
 		};
 		30D69FC115D6D2E1005B7854 /* Fill Info.plist */ = {
@@ -678,7 +628,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "source \"$SRCROOT/Makefile.config\" || exit 1\n\nPLIST=\"$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH\"\n\n/usr/libexec/PlistBuddy -c \"Set CommitHash \\\"$commitHash\\\"\" -c \"Set BuildNumber \\\"$buildNumber\\\"\" -c \"Set CFBundleVersion \\\"$build_version\\\"\" -c \"Set CFBundleShortVersionString \\\"$version\\\"\" \"$PLIST\" || exit 2\n";
+			shellScript = "if [[ -d \"$DEPLOY_RESOURCES_DIR\" ]] ;then\nsource \"$DEPLOY_RESOURCES_DIR/config/versioning.sh\"\nelse\nsource \"$SRCROOT/Version.config\"\nfi\n[[ -n \"$VERSION\" ]] || { echo \"Missing Version!\"; exit 1; }\n\n\n/usr/libexec/PlistBuddy \\\n-c \"Set CommitHash '${COMMIT_HASH:--}'\" \\\n-c \"Set BuildNumber '${BUILD_NUMBER:-0}'\" \\\n-c \"Set CFBundleVersion '${BUILD_VERSION:-0n}'\" \\\n-c \"Set CFBundleShortVersionString '$VERSION'\" \\\n\"$BUILT_PRODUCTS_DIR/$INFOPLIST_PATH\" || exit 2\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -691,7 +641,6 @@
 				3036CB4118A55EC800BBC167 /* GKImageView.m in Sources */,
 				30ECA2CA194C8AB800C1E761 /* GKAExtensions.m in Sources */,
 				30B29BEE19116DF400FC453C /* GKScripting.m in Sources */,
-				301214B6196879A300D148B0 /* GKVolumeCollectionView.m in Sources */,
 				30EA818518A82E17000B4D0A /* GKOutlineView.m in Sources */,
 				3047D38E18B7C626001D9334 /* GKMenuButton.m in Sources */,
 				3052E173144B021D00D6716A /* ActionController.m in Sources */,
@@ -722,33 +671,6 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		3052E318144B07D200D6716A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3052E319144B07D200D6716A /* en */,
-				3052E332144B07D900D6716A /* de */,
-				3052E34E144B07E400D6716A /* fr */,
-				3052E360144B07E900D6716A /* sv */,
-				307B0086148EE20100182622 /* es */,
-				30B20F0714B1DAC300E8CCD8 /* ru */,
-				30867B2214BDFDF300194AA2 /* nl */,
-				30368DB814CEB531000BD12A /* it */,
-				30D2004217026A5F00A3A47C /* ca */,
-				30D2004417026A6900A3A47C /* cs */,
-				30D2004917026A7600A3A47C /* da */,
-				3050EFA217026A9D00E1F3E6 /* id_ID */,
-				3050EFA817026AFF00E1F3E6 /* no */,
-				3050EFAD17026B1800E1F3E6 /* pl */,
-				3050EFB217026B2C00E1F3E6 /* pt_BR */,
-				3050EFB717026B3F00E1F3E6 /* sk */,
-				3050EFBC17026B4F00E1F3E6 /* zh_CN */,
-				30C5E409189432F7004AE459 /* vi */,
-				30C5E41318943300004AE459 /* gl */,
-				30AB9CE818E31EB800F2864A /* ar */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		3052E31A144B07D200D6716A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -770,7 +692,6 @@
 				3050EFB817026B3F00E1F3E6 /* sk */,
 				3050EFBD17026B4F00E1F3E6 /* zh_CN */,
 				30C5E40A189432F7004AE459 /* vi */,
-				30C5E41418943300004AE459 /* gl */,
 				30AB9CE918E31EB800F2864A /* ar */,
 			);
 			name = Localizable.strings;
@@ -797,7 +718,6 @@
 				3050EFB917026B4700E1F3E6 /* sk */,
 				3050EFBE17026B5500E1F3E6 /* zh_CN */,
 				3001FA12189433C40004F44F /* vi */,
-				3001FA13189433C60004F44F /* gl */,
 				30AB9CF118E31F2000F2864A /* ar */,
 			);
 			name = MainMenu.xib;
@@ -824,7 +744,6 @@
 				301FBB8717026BD800618850 /* no */,
 				301FBB8817026BD800618850 /* cs */,
 				30C5E40B189432F7004AE459 /* vi */,
-				30C5E41518943300004AE459 /* gl */,
 				30AB9CEA18E31EB800F2864A /* ar */,
 			);
 			name = MainMenu.xib.strings;
@@ -851,7 +770,6 @@
 				3050EFBA17026B4700E1F3E6 /* sk */,
 				3050EFBF17026B5500E1F3E6 /* zh_CN */,
 				3001FA14189433FB0004F44F /* vi */,
-				3001FA15189433FD0004F44F /* gl */,
 			);
 			name = ModalSheets.xib;
 			sourceTree = "<group>";
@@ -877,7 +795,6 @@
 				30DC32FA17026BEE00EF559F /* da */,
 				30DC32FE17026BF300EF559F /* zh_CN */,
 				30C5E40C189432F7004AE459 /* vi */,
-				30C5E41618943300004AE459 /* gl */,
 			);
 			name = ModalSheets.xib.strings;
 			sourceTree = "<group>";
@@ -902,7 +819,6 @@
 				3050EFB617026B3700E1F3E6 /* pt_BR */,
 				3050EFBB17026B4700E1F3E6 /* sk */,
 				3050EFC017026B5500E1F3E6 /* zh_CN */,
-				3001FA16189434020004F44F /* gl */,
 				3001FA17189434050004F44F /* vi */,
 			);
 			name = Preferences.xib;
@@ -929,7 +845,6 @@
 				30DC330617026C0300EF559F /* id_ID */,
 				30DC330717026C0300EF559F /* pl */,
 				30C5E40D189432F7004AE459 /* vi */,
-				30C5E41718943300004AE459 /* gl */,
 			);
 			name = Preferences.xib.strings;
 			sourceTree = "<group>";
@@ -949,6 +864,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -956,6 +872,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEPLOY_RESOURCES_DIR = "$(SRCROOT)/Dependencies/DeployResources";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -972,7 +889,6 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -981,6 +897,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -989,6 +906,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEPLOY_RESOURCES_DIR = "$(SRCROOT)/Dependencies/DeployResources";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_ENABLE_OBJC_GC = unsupported;
@@ -1012,7 +930,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks\"",
 					/Library/Frameworks,
 					"\"$(HOME)/Library/Frameworks\"",
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
@@ -1035,7 +952,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks\"",
 					/Library/Frameworks,
 					"\"$(HOME)/Library/Frameworks\"",
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
@@ -1057,6 +973,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1064,6 +981,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEPLOY_RESOURCES_DIR = "$(SRCROOT)/Dependencies/DeployResources";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1091,7 +1009,6 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/Frameworks\"",
 					/Library/Frameworks,
 					"\"$(HOME)/Library/Frameworks\"",
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
@@ -1111,7 +1028,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3052E104144B016300D6716A /* Build configuration list for PBXProject "GPGKeychainAccess" */ = {
+		3052E104144B016300D6716A /* Build configuration list for PBXProject "GPGKeychain" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3052E126144B016400D6716A /* Debug */,
@@ -1121,7 +1038,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3052E128144B016400D6716A /* Build configuration list for PBXNativeTarget "GPG Keychain Access" */ = {
+		3052E128144B016400D6716A /* Build configuration list for PBXNativeTarget "GPG Keychain" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3052E129144B016400D6716A /* Debug */,

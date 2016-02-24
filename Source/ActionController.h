@@ -26,8 +26,20 @@
 @interface ActionController : NSWindowController <GPGControllerDelegate> {
 	GPGController *gpgc;
 	SheetController *sheetController;
-	NSUndoManager *undoManager;
 	NSSet *revCertCache;
+	NSString *progressText;
+	NSString *errorText;
+	
+	NSTreeController *keysController;
+	NSArrayController *signaturesController;
+	NSArrayController *subkeysController;
+	NSArrayController *userIDsController;
+	NSArrayController *photosController;
+	NSOutlineView *keyTable;
+	NSTableView *signaturesTable;
+	NSTableView *userIDsTable;
+	NSTableView *subkeysTable;
+	
 }
 
 + (id)sharedInstance;

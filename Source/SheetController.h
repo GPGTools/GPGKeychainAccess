@@ -38,8 +38,7 @@ typedef enum {
 	SheetTypeOpenPanel,
 	SheetTypeExportKey,
 	SheetTypeOpenPhotoPanel,
-	SheetTypeAlgorithmPreferences,
-	SheetTypeSelectVolume
+	SheetTypeAlgorithmPreferences
 } SheetType;
 
 enum {
@@ -95,9 +94,11 @@ enum {
 	NSArray *URLs;
 	NSWindow *modalWindow;
 	BOOL hideExtension;
+	BOOL enableOK;
 	NSMutableSet *msgTextFields;
 	NSIndexSet *selectedVolumeIndexes;
 	NSUInteger oldVolumeIndex;
+	NSDictionary *_result;
 }
 
 @property (nonatomic, strong) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
@@ -111,7 +112,6 @@ enum {
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, readonly, strong) NSArray *URLs;
 @property (nonatomic, readonly) BOOL hideExtension, enableOK;
-@property (nonatomic, readonly) NSArray *volumes;
 @property (nonatomic, strong) NSIndexSet *selectedVolumeIndexes;
 @property (nonatomic, readonly) NSDictionary *result;
 

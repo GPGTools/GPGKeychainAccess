@@ -33,7 +33,6 @@
 @property (assign) IBOutlet NSTableView *subkeysTable;
 
 @property (strong) NSString *progressText, *errorText;
-@property (strong, readonly) NSUndoManager *undoManager;
 
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
 - (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict;
