@@ -843,13 +843,13 @@ modalWindow, foundKeyDicts, hideExtension;
 		}
 		
 		NSMutableCharacterSet *charSet = [NSMutableCharacterSet characterSetWithRange:(NSRange){128, 65408}];
-		[charSet addCharactersInString:@"01234567890_-+@.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+		[charSet addCharactersInString:@"01234567890_-+.!#$%&'*/=?^`{|}~abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"];
 		[charSet invert];
 		
 		if ([[components objectAtIndex:0] rangeOfCharacterFromSet:charSet].length != 0) {
 			goto emailIsInvalid;
 		}
-		[charSet addCharactersInString:@"+"];
+		[charSet addCharactersInString:@"+!#$%&'*/=?^`{|}~"];
 		if ([[components objectAtIndex:1] rangeOfCharacterFromSet:charSet].length != 0) {
 			goto emailIsInvalid;
 		}
