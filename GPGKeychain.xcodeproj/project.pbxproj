@@ -43,6 +43,7 @@
 		3052E383144B083100D6716A /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2DC144B07A600D6716A /* dsa_pub.pem */; };
 		3052E385144B083100D6716A /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2E0144B07AC00D6716A /* LICENSE.txt */; };
 		3058A61D19D5B65D008568EA /* PLWeakCompatibilityStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */; };
+		306E87271CB2A7E9001C06A0 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 306E87261CB2A7E9001C06A0 /* ScriptingBridge.framework */; };
 		3075AFFF18B646C100BEAA71 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 3075AFFE18B646C100BEAA71 /* Search.png */; };
 		3096C91B14D167FC00246400 /* Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 3096C91A14D167FC00246400 /* Info.png */; };
 		30AC56EC18BB71A30038F224 /* Redo.png in Resources */ = {isa = PBXBuildFile; fileRef = 30AC56EB18BB71A30038F224 /* Redo.png */; };
@@ -259,6 +260,8 @@
 		3052E367144B07E900D6716A /* sv */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.xib.strings; sourceTree = "<group>"; };
 		3058A61B19D5B65D008568EA /* PLWeakCompatibilityStubs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLWeakCompatibilityStubs.h; sourceTree = "<group>"; };
 		3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLWeakCompatibilityStubs.m; sourceTree = "<group>"; };
+		306E87201CB2A7DB001C06A0 /* SBSystemPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBSystemPreferences.h; sourceTree = "<group>"; };
+		306E87261CB2A7E9001C06A0 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		3075AFFE18B646C100BEAA71 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
 		307B007F148EE19400182622 /* es */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ModalSheets.xib.strings; sourceTree = "<group>"; };
 		307B0081148EE19E00182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/ModalSheets.xib; sourceTree = "<group>"; };
@@ -349,6 +352,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				306E87271CB2A7E9001C06A0 /* ScriptingBridge.framework in Frameworks */,
 				1B4942D217A7ECBB00E189CF /* Security.framework in Frameworks */,
 				3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */,
 				3052E20B144B056700D6716A /* AddressBook.framework in Frameworks */,
@@ -407,6 +411,7 @@
 		3052E10D144B016400D6716A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				306E87261CB2A7E9001C06A0 /* ScriptingBridge.framework */,
 				1B4942D117A7ECBB00E189CF /* Security.framework */,
 				3052E20A144B056700D6716A /* AddressBook.framework */,
 				3052E10E144B016400D6716A /* Cocoa.framework */,
@@ -511,6 +516,7 @@
 		3052E201144B04EB00D6716A /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				306E87201CB2A7DB001C06A0 /* SBSystemPreferences.h */,
 				3052E169144B021D00D6716A /* main.m */,
 				3052E16C144B021D00D6716A /* Prefix.pch */,
 			);

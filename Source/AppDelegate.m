@@ -21,6 +21,7 @@
 #import "KeychainController.h"
 #import "ActionController.h"
 #import "PreferencesController.h"
+#import "SBSystemPreferences.h"
 
 
 @implementation GPGKeychainAppDelegate
@@ -281,6 +282,37 @@
 - (IBAction)showSupport:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/home"]];
 }
+- (IBAction)sendReport:(id)sender {
+	SBSystemPreferencesApplication *systemPrefs = [SBApplication applicationWithBundleIdentifier:@"com.apple.systempreferences"];
+	SBElementArray *panes = systemPrefs.panes;
+	SBSystemPreferencesPane *gpgPane = nil;
+	BOOL success = NO;
+	
+	
+	for (SBSystemPreferencesPane *pane in panes) {
+		if ([pane.id isEqualToString:@"org.gpgtools.gpgpreferences"]) {
+			gpgPane = pane;
+			break;
+		}
+	}
+	if (gpgPane) {
+		SBElementArray *anchors = gpgPane.anchors;
+		
+		for (SBSystemPreferencesAnchor *anchor in anchors) {
+			if ([anchor.name isEqualToString:@"Report"]) {
+				[systemPrefs activate];
+				[anchor reveal];
+				success = YES;
+				break;
+			}
+		}
+	}
+	if (success == NO) {
+		[self showSupport:sender];
+	}
+}
+
+
 
 
 @end
