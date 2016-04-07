@@ -299,7 +299,7 @@
 		SBElementArray *anchors = gpgPane.anchors;
 		
 		for (SBSystemPreferencesAnchor *anchor in anchors) {
-			if ([anchor.name isEqualToString:@"Report"]) {
+			if ([anchor.name isEqualToString:@"report"]) {
 				[systemPrefs activate];
 				[anchor reveal];
 				success = YES;
