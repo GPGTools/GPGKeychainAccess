@@ -571,7 +571,6 @@ modalWindow, foundKeyDicts, hideExtension;
 	GPGKeyAlgorithmNameTransformer *algorithmNameTransformer = [GPGKeyAlgorithmNameTransformer new];
 	NSArray *gpgtoolsKeys = @[@"85E38F69046B44C1EC9FB07B76D78F0500D026C4"/*Team*/,
 							  @"55AB1B128F18E135A522A12DDD1C907A50FE9D32"/*Alex*/,
-							  @"DF9F841522268B58929F18019E46E139E8451FBB"/*Kristof*/,
 							  @"608B00ABE1DAA3501C5FF91AE58271326F9F4937"/*Luke*/,
 							  @"BDA498EAC51993F2FC97DAB2DA870C1346A957B0"/*Mento*/,
 							  @"8C371C40B31DA620815E01A9779FEB1392CBBADF"/*Steve*/];
