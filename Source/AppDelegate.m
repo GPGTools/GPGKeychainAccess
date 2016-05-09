@@ -25,7 +25,7 @@
 
 
 @implementation GPGKeychainAppDelegate
-@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer, updater, inspectorWindow, inspectorView;
+@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer, inspectorWindow, inspectorView;
 
 - (NSWindow *)window {
     return mainWindow;

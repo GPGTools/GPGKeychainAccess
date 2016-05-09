@@ -969,9 +969,6 @@
 			<object class="NSCustomObject" id="784260963">
 				<string key="NSClassName">GPGOptions</string>
 			</object>
-			<object class="NSCustomObject" id="627693154">
-				<string key="NSClassName">GPGTSUUpdater</string>
-			</object>
 			<object class="NSDrawer" id="814916585">
 				<nil key="NSNextResponder"/>
 				<string key="NSContentSize">{450, 480}</string>
@@ -982,6 +979,9 @@
 				<double key="NSTrailingOffset">15</double>
 				<nil key="NSParentWindow"/>
 				<nil key="NSDelegate"/>
+			</object>
+			<object class="NSCustomObject" id="343287832">
+				<string key="NSClassName">GPGUpdateController</string>
 			</object>
 			<object class="NSTreeController" id="605920174">
 				<array class="NSMutableArray" key="NSDeclaredKeys">
@@ -5041,14 +5041,6 @@ IGhpbnp1enVmw7xnZW4uA</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">updater</string>
-						<reference key="source" ref="267803462"/>
-						<reference key="destination" ref="627693154"/>
-					</object>
-					<string key="id">vEi-uL-LQr</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
 						<string key="label">inspectorWindow</string>
 						<reference key="source" ref="267803462"/>
 						<reference key="destination" ref="91723200"/>
@@ -6135,22 +6127,6 @@ IGhpbnp1enVmw7xnZW4uA</string>
 						<reference key="destination" ref="499433832"/>
 					</object>
 					<string key="id">sud-Qb-VUc</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">checkForUpdates:</string>
-						<reference key="source" ref="627693154"/>
-						<reference key="destination" ref="342214229"/>
-					</object>
-					<string key="id">1907</string>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">delegate</string>
-						<reference key="source" ref="627693154"/>
-						<reference key="destination" ref="267803462"/>
-					</object>
-					<string key="id">2126</string>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -7661,6 +7637,14 @@ IGhpbnp1enVmw7xnZW4uA</string>
 					<string key="id">jC3-QH-z9B</string>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">checkForUpdates:</string>
+						<reference key="source" ref="343287832"/>
+						<reference key="destination" ref="342214229"/>
+					</object>
+					<string key="id">voR-dW-ly1</string>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: selection.creationDate</string>
 						<reference key="source" ref="610668116"/>
@@ -8652,11 +8636,6 @@ IGhpbnp1enVmw7xnZW4uA</string>
 						<reference key="object" ref="211056066"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Photos Controller</string>
-					</object>
-					<object class="IBObjectRecord">
-						<string key="id">1898</string>
-						<reference key="object" ref="627693154"/>
-						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<string key="id">1955</string>
@@ -10547,6 +10526,11 @@ IGhpbnp1enVmw7xnZW4uA</string>
 						<reference key="object" ref="530209876"/>
 						<reference key="parent" ref="466789479"/>
 					</object>
+					<object class="IBObjectRecord">
+						<string key="id">hUz-ZI-yTw</string>
+						<reference key="object" ref="343287832"/>
+						<reference key="parent" ref="0"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -10636,8 +10620,6 @@ IGhpbnp1enVmw7xnZW4uA</string>
 				<boolean value="NO" key="1863.showNotes"/>
 				<string key="1864.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="1864.showNotes"/>
-				<string key="1898.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<boolean value="NO" key="1898.showNotes"/>
 				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="19.showNotes"/>
 				<string key="1906.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -11250,6 +11232,7 @@ IGhpbnp1enVmw7xnZW4uA</string>
 				<boolean value="NO" key="h9o-8u-Xb6.showNotes"/>
 				<string key="hBF-DM-GTd.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="hBF-DM-GTd.showNotes"/>
+				<string key="hUz-ZI-yTw.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="hXz-JW-tHw.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<reference key="hXz-JW-tHw.IBUserGuides" ref="0"/>
 				<boolean value="NO" key="hXz-JW-tHw.showNotes"/>
