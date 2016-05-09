@@ -27,6 +27,7 @@ typedef enum {
 	DescriptionNoEmail = 16,
 	DescriptionNoName = 32,
 	DescriptionSingleLine = 64,
+	DescriptionIndent = 128
 	
 } DescriptionOptions;
 

@@ -295,7 +295,26 @@ modalWindow, foundKeyDicts, hideExtension;
 				   suppressionButton:suppressionButton];
 }
 
-- (NSInteger)alertSheetForWindow:(NSWindow *)window messageText:(NSString *)messageText infoText:(NSString *)infoText defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton {
+- (NSInteger)alertSheetForWindow:(NSWindow *)window
+					 messageText:(NSString *)messageText
+						infoText:(NSString *)infoText
+				   defaultButton:(NSString *)button1
+				 alternateButton:(NSString *)button2
+					 otherButton:(NSString *)button3
+			   suppressionButton:(NSString *)suppressionButton {
+	return [self alertSheetForWindow:window messageText:messageText infoText:infoText defaultButton:button1 alternateButton:button2 otherButton:button3 suppressionButton:suppressionButton customize:nil];
+}
+
+
+- (NSInteger)alertSheetForWindow:(NSWindow *)window
+					 messageText:(NSString *)messageText
+						infoText:(NSString *)infoText
+				   defaultButton:(NSString *)button1
+				 alternateButton:(NSString *)button2
+					 otherButton:(NSString *)button3
+			   suppressionButton:(NSString *)suppressionButton
+					   customize:(void (^)(NSAlert *))customize {
+	
 	if (![NSThread isMainThread]) {
 		__block NSInteger returnValue;
 		dispatch_sync(dispatch_get_main_queue(), ^{
@@ -324,8 +343,11 @@ modalWindow, foundKeyDicts, hideExtension;
 		// This is a hack to allow, to close the alert with the escape-key.
 		[alert addButtonWithTitle:@"Cancel"]; // Add a cancel button. NSAlert sets the key equivalent automatically to esc.
 		NSButton *button = alert.buttons[alert.buttons.count - 1];
+		// This button causes a "CGAffineTransformInvert: singular matrix." error in the log.
+		// It's ugly but harmless and i don't know a better solution.
 		button.bounds = NSMakeRect(-10, -10, 1, 1); // Hide the button.
 		button.tag = NSAlertFirstButtonReturn; // Set the tag to mtach the real cancel button.
+		button.refusesFirstResponder = YES;
 	}
 	if (suppressionButton) {
 		alert.showsSuppressionButton = YES;
@@ -335,6 +357,9 @@ modalWindow, foundKeyDicts, hideExtension;
 		}
 	}
 	
+	if (customize) {
+		customize(alert);
+	}
 	
 	if (window && window.isVisible && [sheetLock tryLock]) {
 		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];

@@ -39,6 +39,7 @@
 - (NSArray *)selectedKeys;
 - (void)addPhoto:(NSString *)path toKey:(GPGKey *)key;
 - (void)importFromURLs:(NSArray *)urls;
+- (void)importFromURLs:(NSArray *)urls askBeforeOpen:(BOOL)ask;
 - (void)importFromData:(NSData *)data;
 
 - (void)cancelGPGOperation:(id)sender;

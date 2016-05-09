@@ -99,48 +99,107 @@
 	
 	[self importFromURLs:sheetController.URLs];
 }
+
 - (void)importFromURLs:(NSArray *)urls {
+	[self importFromURLs:urls askBeforeOpen:YES];
+}
+
+- (void)importFromURLs:(NSArray *)urls askBeforeOpen:(BOOL)ask {
 	@autoreleasepool {
 		NSMutableData *dataToImport = [NSMutableData data];
+		NSMutableArray *filesToOpen = [NSMutableArray array];
 		
-		for (NSObject *url in urls) {
+		
+		BOOL useGPGServices = YES;
+		BOOL gpgSeriviceInitialized = NO;
+		BOOL haveGPGServices = NO;
+		
+		for (NSURL *url in urls) {
+			NSString *path;
 			if ([url isKindOfClass:[NSURL class]]) {
-				[dataToImport appendData:[NSData dataWithContentsOfURL:(NSURL *)url]];
+				path = [url path];
 			} else if ([url isKindOfClass:[NSString class]]) {
-				[dataToImport appendData:[NSData dataWithContentsOfFile:(NSString *)url]];
+				path = (NSString *)url;
+			} else {
+				continue;
+			}
+			
+			
+			GPGFileStream *stream = [GPGFileStream fileStreamForReadingAtPath:path];
+			if (stream.isArmored) {
+				GPGUnArmor *unArmor = [GPGUnArmor unArmorWithGPGStream:stream];
+				[unArmor decodeAll];
+				stream = [GPGMemoryStream memoryStreamForReading:unArmor.data];
+			}
+			
+			BOOL shouldUseGPGServices = [self shouldUseGPGServicesForStream:stream];
+			if (shouldUseGPGServices && gpgSeriviceInitialized == NO) {
+				gpgSeriviceInitialized = YES;
+				
+				haveGPGServices = [[NSWorkspace sharedWorkspace] launchAppWithBundleIdentifier:@"org.gpgtools.gpgservices"
+																					   options:0
+																additionalEventParamDescriptor:nil
+																			  launchIdentifier:nil];
+				
+				if (haveGPGServices == NO) {
+					useGPGServices = NO;
+				} else if (ask) {
+					NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
+																	messageText:localized(@"OpenWithGPGServices_Title")
+																	   infoText:localized(@"OpenWithGPGServices_Msg")
+																  defaultButton:localized(@"OpenWithGPGServices_Yes")
+																alternateButton:localized(@"OpenWithGPGServices_No")
+																	otherButton:nil
+															  suppressionButton:nil];
+					useGPGServices = (returnCode == NSAlertFirstButtonReturn);
+				}
+			}
+
+			if (shouldUseGPGServices && haveGPGServices) {
+				if (useGPGServices) {
+					[filesToOpen addObject:[NSURL fileURLWithPath:path]];
+				}
+			} else {
+				[dataToImport appendData:stream.readAllData];
 			}
 		}
-		[self importFromData:dataToImport];
+		
+		if (filesToOpen.count > 0) {
+			[[NSWorkspace sharedWorkspace] openURLs:filesToOpen
+							withAppBundleIdentifier:@"org.gpgtools.gpgservices"
+											options:0
+					 additionalEventParamDescriptor:nil
+								  launchIdentifiers:nil];
+		}
+		
+		
+		if (dataToImport.length > 0) {
+			[self importFromData:dataToImport];
+		}
 	}
 }
-- (void)importFromData:(NSData *)data {
-	__block BOOL containsRevSig = NO;
-	__block BOOL containsImportable = NO;
-	__block BOOL containsNonImportable = NO;
-	__block NSMutableArray *keys = nil;
+- (BOOL)shouldUseGPGServicesForStream:(GPGStream *)stream {
 	
+	if (stream.isArmored) {
+		GPGUnArmor *unArmor = [GPGUnArmor unArmorWithGPGStream:stream];
+		
+		[unArmor decodeAll];
+		
+		stream = [GPGMemoryStream memoryStreamForReading:unArmor.data];
+	}
 	
-	[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
+
+	GPGPacketParser *parser = [[GPGPacketParser alloc] initWithStream:stream];
+	GPGPacket *packet;
+	
+	while ((packet = [parser nextPacket])) {
 		switch (packet.tag) {
 			case GPGSignaturePacketTag: {
-				GPGSignaturePacket *sigPacket = (GPGSignaturePacket *)packet;
-				switch (sigPacket.type) {
+				switch (((GPGSignaturePacket *)packet).type) {
 					case GPGBinarySignature:
 					case GPGTextSignature:
-						containsNonImportable = YES;
-						break;
-					case GPGRevocationSignature: {
-						if (!keys) {
-							keys = [NSMutableArray array];
-						}
-						
-						if (sigPacket.keyID) {
-							GPGKey *key = [[[GPGKeyManager sharedInstance] keysByKeyID] objectForKey:sigPacket.keyID];
-							[keys addObject:key ? key : sigPacket.keyID];
-						}
-						
-						containsRevSig = YES;
-					} /* no break */
+						return YES;
+					case GPGRevocationSignature:
 					case GPGGeneriCertificationSignature:
 					case GPGPersonaCertificationSignature:
 					case GPGCasualCertificationSignature:
@@ -150,7 +209,7 @@
 					case GPGDirectKeySignature:
 					case GPGSubkeyRevocationSignature:
 					case GPGCertificationRevocationSignature:
-						containsImportable = YES;
+						return NO;
 					default:
 						break;
 				}
@@ -162,6 +221,114 @@
 			case GPGUserIDPacketTag:
 			case GPGPublicSubkeyPacketTag:
 			case GPGUserAttributePacketTag:
+				return NO;
+			case GPGPublicKeyEncryptedSessionKeyPacketTag:
+			case GPGSymmetricEncryptedSessionKeyPacketTag:
+			case GPGEncryptedDataPacketTag:
+			case GPGEncryptedProtectedDataPacketTag:
+			case GPGCompressedDataPacketTag:
+				return YES;
+			default:
+				break;
+		}
+	}
+	
+	return NO;
+}
+
+
+- (void)importFromData:(NSData *)data {
+	BOOL containsPGP = NO;
+	BOOL containsImportable = NO;
+	GPGPacket *previousPacket = nil;
+	NSMutableData *dataToImport = [NSMutableData data];
+	NSDictionary *action = nil;
+	NSString *myProgressText = localized(@"ImportKey_Progress");
+	NSString *myErrorText = nil;
+	__block NSMutableArray *packets = [NSMutableArray array];
+	NSMutableSet *affectedKeys = [NSMutableSet set];
+	
+	[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
+		[packets addObject:packet];
+	}];
+	
+	for (GPGPacket *packet in packets) {
+		BOOL ignorePacket = NO;
+		containsPGP = YES;
+		
+		switch (packet.tag) {
+			case GPGSignaturePacketTag: {
+				GPGSignaturePacket *sigPacket = (GPGSignaturePacket *)packet;
+				switch (sigPacket.type) {
+					case GPGBinarySignature:
+					case GPGTextSignature:
+						ignorePacket = YES;
+						break;
+					case GPGRevocationSignature: {
+						if (previousPacket.tag != GPGPublicKeyPacketTag &&
+							previousPacket.tag != GPGSecretKeyPacketTag &&
+							sigPacket.keyID)
+						{
+							GPGKey *key = [[[GPGKeyManager sharedInstance] keysByKeyID] objectForKey:sigPacket.keyID];
+							if (key && key.revoked == NO) {
+								
+								NSInteger returnCode;
+								if (packets.count == 1) {
+									returnCode = [sheetController alertSheetForWindow:mainWindow
+																		  messageText:localized(@"RevokeKey_Title")
+																			 infoText:[NSString stringWithFormat:localized(@"RevokeKey_Msg"), [self descriptionForKey:key]]
+																		defaultButton:localized(@"RevokeKey_No")
+																	  alternateButton:localized(@"RevokeKey_Yes")
+																		  otherButton:nil
+																	suppressionButton:localized(@"RevokeKey_Upload")];
+									if (returnCode & SheetSuppressionButton) {
+										returnCode -= SheetSuppressionButton;
+										action = @{@"action": @[@(UploadKeyAction)], @"keys":[NSSet setWithObject:key]};
+										myProgressText = localized(@"RevokeKey_Progress");
+										myErrorText = localized(@"RevokeKey_Error");
+									}
+								} else {
+									returnCode = [sheetController alertSheetForWindow:mainWindow
+																		  messageText:localized(@"RevokeKey_Title")
+																			 infoText:[NSString stringWithFormat:localized(@"RevokeKey_Msg"), [self descriptionForKey:key]]
+																		defaultButton:localized(@"RevokeKey_No")
+																	  alternateButton:localized(@"RevokeKey_Yes")
+																		  otherButton:nil
+																	suppressionButton:nil];
+								}
+								
+								if (returnCode != NSAlertSecondButtonReturn) {
+									ignorePacket = YES;
+								} else {
+									[affectedKeys addObject:key];
+								}
+							}
+						}
+					}
+					case GPGGeneriCertificationSignature:
+					case GPGPersonaCertificationSignature:
+					case GPGCasualCertificationSignature:
+					case GPGPositiveCertificationSignature:
+					case GPGSubkeyBindingSignature:
+					case GPGKeyBindingSignature:
+					case GPGDirectKeySignature:
+					case GPGSubkeyRevocationSignature:
+					case GPGCertificationRevocationSignature:
+						containsImportable = YES;
+						break;
+					default:
+						// Ignore packet?
+						break;
+				}
+				break;
+			}
+			case GPGSecretKeyPacketTag:
+			case GPGPublicKeyPacketTag:
+				[affectedKeys addObject:[(GPGPublicKeyPacket *)packet fingerprint]];
+			case GPGSecretSubkeyPacketTag:
+			case GPGUserIDPacketTag:
+			case GPGPublicSubkeyPacketTag:
+			case GPGUserAttributePacketTag:
 				containsImportable = YES;
 				break;
 			case GPGPublicKeyEncryptedSessionKeyPacketTag:
@@ -169,23 +336,46 @@
 			case GPGEncryptedDataPacketTag:
 			case GPGEncryptedProtectedDataPacketTag:
 			case GPGCompressedDataPacketTag:
-				containsNonImportable = YES;
+				ignorePacket = YES;
 				break;
 			default:
+				// Ignore packet?
 				break;
 		}
-	}];
-	
-	if (containsRevSig) {
-		if ([self warningSheetWithDefault:NO string:@"ImportRevSig", [self descriptionForKeys:keys maxLines:0 withOptions:0]] == NO) {
-			return;
+		
+		if (ignorePacket == NO) {
+			[dataToImport appendData:packet.data];
 		}
+		
+		previousPacket = packet;
 	}
 	
 	
-	self.progressText = localized(@"ImportKey_Progress");
-	gpgc.userInfo = @{@"action": @(ShowResultAction), @"operation": @(ImportOperation), @"containsImportable": @(containsImportable), @"containsNonImportable": @(containsNonImportable)};
-	[gpgc importFromData:data fullImport:showExpertSettings];
+	
+	if (dataToImport.length == 0) {
+		NSString *title, *message;
+		if (containsPGP) {
+			if (containsImportable) {
+				return;
+			} else {
+				title = localized(@"ImportKeyErrorPGP_Title");
+				message = localized(@"ImportKeyErrorPGP_Msg");
+			}
+		} else {
+			title = localized(@"ImportKeyErrorNoPGP_Title");
+			message = localized(@"ImportKeyErrorNoPGP_Msg");
+		}
+		[sheetController errorSheetWithMessageText:title infoText:message];
+	} else {
+		if (action == nil) {
+			action = @{@"action": @(ShowResultAction), @"operation": @(ImportOperation), @"keys": affectedKeys};
+		}
+		
+		self.progressText = myProgressText;
+		self.errorText = myErrorText;
+		gpgc.userInfo = action;
+		[gpgc importFromData:dataToImport fullImport:showExpertSettings];
+	}
 }
 - (IBAction)copy:(id)sender {
 	NSString *stringForPasteboard = nil;
@@ -599,31 +789,42 @@
 	}
 	
 	
-	NSString *title, *message, *button1, *button2, *button3 = nil, *description, *template;
+	NSString *title, *message, *button1, *button2, *button3 = nil, *description, *template, *checkbox = nil;
 	BOOL hasSecretKey = NO;
+	BOOL onlyRevoked = YES;
+	NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize]]};
+
+	NSMutableArray *secretKeys = [NSMutableArray array];
+	NSMutableArray *publicKeys = [NSMutableArray array];
 	
 	for (GPGKey *key in keys) {
 		if (key.secret) {
+			[secretKeys addObject:key];
 			hasSecretKey = YES;
-			break;
+		} else {
+			[publicKeys addObject:key];
+		}
+		if (key.revoked == NO) {
+			onlyRevoked = NO;
 		}
 	}
-	description = [self descriptionForKeys:keys maxLines:8 withOptions:0];
 	
-	
+	if (secretKeys.count > 0 && publicKeys.count > 0) {
+		NSString *secretDescription = [self descriptionForKeys:secretKeys maxLines:8 withOptions:DescriptionIndent];
+		NSString *publicDescription = [self descriptionForKeys:publicKeys maxLines:8 withOptions:DescriptionIndent];
+		description = [NSString stringWithFormat:localized(@"SecretAndPublicKeyListing"), secretDescription, publicDescription];
+	} else {
+		description = [self descriptionForKeys:keys maxLines:8 withOptions:DescriptionIndent];
+	}
 	
 	if (hasSecretKey) {
-		if (keys.count == 1) {
-			template = @"DeleteSecKey";
+		if (onlyRevoked) {
+			template = @"DeleteRevokedSecKey";
 		} else {
-			template = @"DeleteSecKeys";
+			template = @"DeleteSecKey";
 		}
 	} else {
-		if (keys.count == 1) {
-			template = @"DeleteKey";
-		} else {
-			template = @"DeleteKeys";
-		}
+		template = @"DeleteKey";
 	}
 	
 	
@@ -633,35 +834,50 @@
 	if (hasSecretKey) {
 		button2 = localized([template stringByAppendingString:@"_SecOnly"]);
 		button3 = localized([template stringByAppendingString:@"_Yes"]);
+		checkbox = localized([template stringByAppendingString:@"_Checkbox"]);
 	} else {
 		button2 = localized([template stringByAppendingString:@"_Yes"]);
 	}
 	
 	
 	
-	NSInteger result;
-	result = [sheetController alertSheetWithTitle:title
-										  message:message
-									defaultButton:button1
-								  alternateButton:button2
-									  otherButton:button3
-								suppressionButton:nil];
 
+	NSInteger result =
+	[sheetController alertSheetForWindow:mainWindow
+							 messageText:title
+								infoText:message
+						   defaultButton:button1
+						 alternateButton:button2
+							 otherButton:button3
+					   suppressionButton:checkbox
+							   customize:^(NSAlert *alert) {
+								   // Add an invisible view to force a minimum width of the alert.
+								   CGFloat minWidth = [description sizeWithAttributes:attributes].width + 20;
+								   if (minWidth > 1000) {
+									   minWidth = 1000;
+								   }
+								   NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, minWidth, 0)];
+								   alert.accessoryView = view;
+								   
+								   // The checkbox must be checked before the delete buttons are enabled.
+								   if (hasSecretKey) {
+									   NSButtonCell *checkboxCell = alert.suppressionButton.cell;
+									   NSAttributedString *string = [[NSAttributedString alloc] initWithString:checkbox attributes:attributes];
+									   [checkboxCell setAttributedTitle:string];
+									   checkboxCell.state = NSOffState;
+									   [alert.buttons[1] bind:@"enabled" toObject:checkboxCell withKeyPath:@"state" options:nil];
+									   [alert.buttons[2] bind:@"enabled" toObject:checkboxCell withKeyPath:@"state" options:nil];
+								   }
+							   }];
 	
+	result &= ~SheetSuppressionButton;
 	
 	GPGDeleteKeyMode mode;
 	switch (result) {
 		case NSAlertSecondButtonReturn:
 			if (hasSecretKey) {
 				mode = GPGDeleteSecretKey;
-				NSMutableArray *secretKeys = [NSMutableArray array];
-				for (GPGKey *key in keys) {
-					if (key.secret) {
-						[secretKeys addObject:key];
-					}
-				}
 				keys = secretKeys;
-
 			} else {
 				mode = GPGDeletePublicKey;
 			}
@@ -956,7 +1172,6 @@
 			}
 			
 			gpgc.userInfo = userInfo;
-			self.errorText = nil;
 			self.progressText = localized(@"RevokeKey_Progress");
 			self.errorText = localized(@"RevokeKey_Error");
 			
@@ -1787,14 +2002,20 @@
 	NSUInteger showFlags = (!(options & DescriptionNoName)) + ((!(options & DescriptionNoKeyID)) << 2);
 	BOOL showEmail = !(options & DescriptionNoEmail);
 	BOOL singleLine = options & DescriptionSingleLine;
+	BOOL indent = options & DescriptionIndent;
 	
-	NSString *normalSeperator = singleLine ? @", " : @",\n";
-	NSString *lastSeperator = [NSString stringWithFormat:@" %@%@", localized(@"and"), singleLine ? @" " : @"\n"];
+	NSString *lineBreak = indent ? @"\n\t" : @"\n";
+	if (indent) {
+		[descriptions appendString:@"\t"];
+	}
+	
+	NSString *normalSeperator = singleLine ? @", " : [@"," stringByAppendingString:lineBreak];
+	NSString *lastSeperator = [NSString stringWithFormat:@" %@%@", localized(@"and"), singleLine ? @" " : lineBreak];
 	NSString *seperator = @"";
 	
 	for (__strong GPGKey *key in keys) {
 		if (i >= lines && i > 0) {
-			[descriptions appendFormat:localized(@"%@and %lu more"), singleLine ? @" " : @"\n" , count - i];
+			[descriptions appendFormat:localized(@"%@and %lu more"), singleLine ? @" " : lineBreak , count - i];
 			break;
 		}
 
@@ -1816,6 +2037,7 @@
 				seperator = lastSeperator;
 			}
 		}
+		
 		
 		
 		if ([key isKindOfClass:gpgKeyClass] || [key isKindOfClass:dictionaryClass]) {
@@ -1932,18 +2154,8 @@
 	
 	switch ([[userInfo objectForKey:@"operation"] integerValue]) {
 		case ImportOperation:
-			if (![[userInfo objectForKey:@"containsImportable"] boolValue]) {
-				if ([[userInfo objectForKey:@"containsNonImportable"] boolValue]) {
-					title = localized(@"ImportKeyErrorPGP_Title");
-					message = localized(@"ImportKeyErrorPGP_Msg");
-				} else {
-					title = localized(@"ImportKeyErrorNoPGP_Title");
-					message = localized(@"ImportKeyErrorNoPGP_Msg");
-				}
-			} else {
-				title = localized(@"ImportKeyError_Title");
-				message = localized(@"ImportKeyError_Msg");
-			}
+			title = localized(@"ImportKeyError_Title");
+			message = localized(@"ImportKeyError_Msg");
 			break;
 		default:
 			title = self.errorText;
@@ -2000,26 +2212,25 @@
 		oldUserInfo[@"operation"] = @0;
 		
 		
-		NSInteger action = 0;
-		NSArray *actionObject = [oldUserInfo objectForKey:@"action"];
+		NSInteger actionCode = 0;
+		NSArray *action = [oldUserInfo objectForKey:@"action"];
 		
-		if ([actionObject isKindOfClass:[NSArray class]]) {
-			if (actionObject.count > 0) {
-				action = [actionObject[0] integerValue];
-				if (actionObject.count > 1) {
-					actionObject = [actionObject subarrayWithRange:NSMakeRange(1, actionObject.count - 1)];
+		if ([action isKindOfClass:[NSArray class]]) {
+			if (action.count > 0) {
+				actionCode = [action[0] integerValue];
+				
+				if (action.count > 1) {
+					action = [action subarrayWithRange:NSMakeRange(1, action.count - 1)];
 					NSMutableDictionary *tempUserInfo = oldUserInfo.mutableCopy;
-					tempUserInfo[@"action"] = actionObject;
+					tempUserInfo[@"action"] = action;
 					gc.userInfo = tempUserInfo;
 				}
 			}
 		} else {
-			action = [(NSNumber *)actionObject integerValue];
+			actionCode = [(NSNumber *)action integerValue];
 		}
 		
-		
-		
-		switch (action) {
+		switch (actionCode) {
 			case ShowResultAction: {
 				if (gc.error) break;
 				
@@ -2032,6 +2243,7 @@
 					sheetController.title = localized(@"Import results");
 					sheetController.sheetType = SheetTypeShowResult;
 					[sheetController runModalForWindow:mainWindow];
+					affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
 					[[KeychainController sharedInstance] selectKeys:affectedkeys];
 				}
 				break;
@@ -2081,6 +2293,7 @@
 				
 				NSLog(@"Upload %@", keys);
 				[gpgc sendKeysToServer:keys];
+				[[KeychainController sharedInstance] selectKeys:keys];
 				
 				break;
 			}

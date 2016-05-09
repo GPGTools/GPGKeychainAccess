@@ -260,7 +260,7 @@
 
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)filenames {
 	if (![NSApp modalWindow]) {
-		[[ActionController sharedInstance] importFromURLs:filenames];
+		[[ActionController sharedInstance] importFromURLs:filenames askBeforeOpen:NO];
 	}
 }
 
