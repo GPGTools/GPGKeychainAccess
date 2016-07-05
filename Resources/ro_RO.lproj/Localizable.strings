@@ -15,6 +15,12 @@
 "Public key" = "Cheie publică";
 
 
+/* Key descriptions */
+"and" = "and";
+"%@and %lu more" = "%@and %lu more";
+SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+
+
 /* For export, as standard File-Name. */
 "untitled" = "neintitulat";
 "%@ Revoke certificate" = "%@ Revocare certificat";
@@ -92,6 +98,8 @@ MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x
 MailKey_Progress = "Creating new mail...";
 MailKey_Progress_Your = "Creating new mail...";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via mail. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
 /* A key was found in the pasteboard */
@@ -150,35 +158,32 @@ RevokeLastSelfSignature_Msg = "Sunteți pe cale să revocați ultima Auto-Semnă
 RevokeLastSelfSignature_Yes = "Revocare Semnătură";
 RevokeLastSelfSignature_No = "Anulare";
 
-RevokeKey_Title = "Atenție! Sunteți pe cale să revocați o cheie.";
-RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Title = "Warning: You are about to revoke a key";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Upload = "Upload revoked key";
 RevokeKey_Yes = "Revocare Cheie";
 RevokeKey_No = "Anulare";
-RevokeKey_Upload = "Upload revoked key";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Ştergere cheie publică";
-DeleteKey_Msg = "Sunteţi pe cale să ştergeţi cheia publică a %@.\n\nConfirmaţi ştergerea acestei chei publice?";
-DeleteKey_Yes = "Ștergere cheie";
+DeleteKey_Title = "Delete public key(s)";
+DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
+DeleteKey_Yes = "Delete key(s)";
 DeleteKey_No = "Anulare";
 
-DeleteKeys_Title = "Ștergere chei publice";
-DeleteKeys_Msg = "Sunteți pe cale să ștergeți următoarele chei publice:\n\n%@\n\nSunteți sigur că doriți ștergerea acestor chei publice?";
-DeleteKeys_Yes = "Ștergere chei";
-DeleteKeys_No = "Anulare";
-
-DeleteSecKey_Title = "Ștergere cheie secretă și publică";
-DeleteSecKey_Msg = "Atenție! Sunteți pe cale să vă ștergeți cheia secretă și publică:\n%@\n\nȘtergerea unei chei secrete are consecințe majore de care ar trebui să fiți conștienți.\n\nFără cheia secretă nu veți mai putea decripta mesajele criptate cu perechea sa publică.\n\nRețineți că dacă v-ați încărcat cheia publică pe serverul de chei, aceasta va rămâne validă pe serverele de chei, atât timp cât nu o revocați. În acest caz, înainte de a vă șterge perechea de chei, vă rugăm să vă revocați cheia publică și să o încărcați pe serverele de chei, astfel va apare ca și revocată. Revocarea unei chei solicită cheie secretă.\n\nSunteți sigur că doriți ștergerea acestei perechi de chei? ";
-DeleteSecKey_Yes = "Șterge cheia secretă și publică";
+DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
+DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteSecKey_Yes = "Delete key(s)";
+DeleteSecKey_SecOnly = "Delete secret key(s) only";
 DeleteSecKey_No = "Anulare";
-DeleteSecKey_SecOnly = "Șterge doar cheia secretă";
 
-DeleteSecKeys_Title = "Șterge cheile secrete și publice";
-DeleteSecKeys_Msg = "Atenție! Sunteți pe cale să ștergeți următoarele chei secrete și publice:\n\n%@\n\nȘtergerea unei chei secrete are consecințe majore de care ar trebui să fiți conștienți.\n\nFără o cheie secretă, nu veți mai putea decripta mesajele ce au fost criptate cu perechea sa publică\n\nRețineți că dacă v-ați copiat cheile publice pe orice server de chei, acestea vor rămâne valide pe serverele de chei până când le veți revoca. În acest caz, înainte de a vă șterge perechea de chei, vă rugăm să vă revocați cheile publice și să le încărcați pe serverele de chei, astfel încât să fie afișate ca și revocate. Revocarea unei chei solicită o cheie secretă.\n\nSunteți sigur că doriți să ștergeți această pereche de chei?  ";
-DeleteSecKeys_Yes = "Șterge cheile secrete și publice";
-DeleteSecKeys_No = "Anulare";
-DeleteSecKeys_SecOnly = "Șterge numai cheile secrete";
+DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
+DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
+DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
+DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
+DeleteRevokedSecKey_No = "Anulare";
 
 
 /* Bad keyserver */
@@ -204,44 +209,19 @@ ImportNonImportable_No = "Anulare";
 
 
 /* For Import-Results */
-ImportResult_Secret = "cheia %@: cheia secretă \"%@\" a fost importată.";
-ImportResult_Public = "cheia %@: cheia publică \"%@\" a fost importată.";
-ImportResult_UserID = "key %@: \"%@\" new User ID(s).";
-ImportResult_Signature = "cheia %@: \"%@\" semnătură(i) nouă(i).";
-ImportResult_Subkey = "cheia %@: \"%@\" sub-cheie(i) nouă(i)";
-ImportResult_KeyNoChanges = "cheia %@: \"%@\" fără modificări.";
-ImportResult_OneRevocationCertificate = "1 certificat de revocare a fost importat.";
-ImportResult_CountRevocationCertificate = "%i certificate de revocare au fost importate.";
-ImportResult_CountProcessed = "Numărul de chei procesate: %i";
-ImportResult_CountImported = "Numărul de chei importate: %i";
-ImportResult_CountUnchanged = "Numărul de chei nemodificate: %i";
-ImportResult_NoKeysImported = "No keys could be imported!";
+IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
-IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
-IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
-IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
-IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 revocation certificate was imported.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i revocation certificates were imported.";
 
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
-
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
-
-
+IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 key was processed and %i imported.";
+IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i keys were processed and 1 imported.";
+IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i imported.";
 
 
 /* Errors */
@@ -251,6 +231,9 @@ ImportKeyErrorPGP_Title = "Importarea a Eșuat!";
 ImportKeyErrorPGP_Msg = "Se pare că încercați să importați un mesaj criptat sau semnat. Pentru a decripta sau verifica aceste tipuri de mesaje, vă rugăm să folosiți GPGServices.";
 ImportKeyErrorNoPGP_Title = "Importarea a eșuat!";
 ImportKeyErrorNoPGP_Msg = "Se pare că încercați să importați câteva date nelegate de PGP, și nu pot fi procesate.";
+
+NO_SECRET_KEY_TITLE = "No secret key found!";
+NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";

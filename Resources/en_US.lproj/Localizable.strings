@@ -18,7 +18,7 @@
 /* Key descriptions */
 "and" = "and";
 "%@and %lu more" = "%@and %lu more";
-SecretAndPublicKeyListing = "\nSecret keys:\n%@\n\nPublic keys:\n%@";
+SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -159,7 +159,7 @@ RevokeLastSelfSignature_Yes = "Revoke Signature";
 RevokeLastSelfSignature_No = "Cancel";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Upload revoked key";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "Cancel";
@@ -167,19 +167,19 @@ RevokeKey_No = "Cancel";
 
 /* Delete warnings */
 DeleteKey_Title = "Delete public key(s)";
-DeleteKey_Msg = "You are about to delete the following public key(s):\n%@\n\nAre you sure you want to delete the public key(s)?";
+DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
 DeleteKey_Yes = "Delete key(s)";
 DeleteKey_No = "Cancel";
 
 DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
-DeleteSecKey_Msg = "You are about to delete key(s):\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Delete key(s)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
 DeleteSecKey_No = "Cancel";
 
 DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
-DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\nWe recommend not to delete it.";
+DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
 DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
 DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";

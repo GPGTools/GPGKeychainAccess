@@ -15,6 +15,12 @@
 "Public key" = "Kunci publik";
 
 
+/* Key descriptions */
+"and" = "and";
+"%@and %lu more" = "%@and %lu more";
+SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+
+
 /* For export, as standard File-Name. */
 "untitled" = "tanpa judul";
 "%@ Revoke certificate" = "%@ Cabut sertifikat";
@@ -78,25 +84,27 @@ LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg tak ditemukan";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
-UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_TITLE = "Kesalahan GPG Yang Tak Dikenal";
 UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
 /* Mail public key */
-MailKey_Subject = "Public key of %@";
-MailKey_Subject_Your = "My public key to secure our messages";
+MailKey_Subject = "Kunci publik dari %@";
+MailKey_Subject_Your = "Kunci publik saya untuk mengamankan pesan-pesan kita";
 MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Membuat surat baru...";
 MailKey_Progress_Your = "Membuat surat baru...";
-MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+MailKey_Error = "Wah, ada yang salah. Ada masalah saat mengekspor kunci Anda.";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via mail. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
-PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Title = "Satu kunci atau lebih terdeteksi dalam papan klip Anda.";
+PasteboardKeyFound_Msg = "%@\n\nApakah Anda hendak mengimpor kunci tersebut?";
 PasteboardKeyFound_Yes = "Impor";
 PasteboardKeyFound_No = "Batal";
 
@@ -150,40 +158,37 @@ RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature o
 RevokeLastSelfSignature_Yes = "Cabut Tanda Tangan";
 RevokeLastSelfSignature_No = "Batal";
 
-RevokeKey_Title = "Peringatan! Anda akan mencabut sebuah kunci.";
-RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Title = "Warning: You are about to revoke a key";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Upload = "Unggah kunci yang dicabut";
 RevokeKey_Yes = "Cabu Kunci";
 RevokeKey_No = "Batal";
-RevokeKey_Upload = "Unggah kunci yang dicabut";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Hapus kunci publik";
-DeleteKey_Msg = "Kamu akan menghapus kunci publik %@.\n\nApakah kamu yakin ingin menghapus kunci publik ini?";
-DeleteKey_Yes = "Hapus kunci";
+DeleteKey_Title = "Delete public key(s)";
+DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
+DeleteKey_Yes = "Delete key(s)";
 DeleteKey_No = "Batal";
 
-DeleteKeys_Title = "Hapus kunci publik";
-DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete those public keys?";
-DeleteKeys_Yes = "Hapus kunci";
-DeleteKeys_No = "Batal";
-
-DeleteSecKey_Title = "Hapus kunci publik dan rahasia";
-DeleteSecKey_Msg = "Warning! You are about to delete your secret and public key:\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret key, you will no longer be able to decrypt messages that were encrypted with its public counterpart.\n\nNote that if you have uploaded your public key to the key servers, it will remain valid on the key servers unless you revoke it. In that case before deleting your key pair, please revoke your public key and upload it to the key servers so it will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete this key pair?";
-DeleteSecKey_Yes = "Hapus kunci publik dan rahasia";
+DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
+DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteSecKey_Yes = "Delete key(s)";
+DeleteSecKey_SecOnly = "Delete secret key(s) only";
 DeleteSecKey_No = "Batal";
-DeleteSecKey_SecOnly = "Hapus kunci rahasia saja";
 
-DeleteSecKeys_Title = "Hapus kunci publik dan rahasia";
-DeleteSecKeys_Msg = "Warning! You are about to delete the following secret and public keys:\n\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret keys, you will no longer be able to decrypt messages that were encrypted with their public counterparts.\n\nNote that if you have copied your public keys to any key servers, they will remain valid on the key servers unless you revoke them. In that case before deleting your key pairs, please revoke your public keys and upload them to the key servers so they will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete those key pairs?";
-DeleteSecKeys_Yes = "Hapus kunci publik dan rahasia";
-DeleteSecKeys_No = "Batal";
-DeleteSecKeys_SecOnly = "Hapus kunci rahasia saja";
+DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
+DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
+DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
+DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
+DeleteRevokedSecKey_No = "Batal";
 
 
 /* Bad keyserver */
 BadKeyserver_Title = "Server Kunci Jelek";
-BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+BadKeyserver_Msg = "Keyserver yang telah Anda masukkan tidak bekerja.\nHarap periksa alamat Keyserver. Itu mesti berbentuk seperti: hkp://nama.server.kunci.or.id\n\nMungkin juga Keyserver sedang luring. Dalam hal itu, harap pakai Keyserver lain.";
 
 
 /* Import warnings */
@@ -192,65 +197,43 @@ ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If 
 ImportRevSig_Yes = "Impor";
 ImportRevSig_No = "Batal";
 
-ImportRandomData_Title = "Warning! Content can probably not be imported.";
-ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
+ImportRandomData_Title = "Peringatan! Isi mungkin tidak bisa diimpor.";
+ImportRandomData_Msg = "Nampaknya Anda mencoba mengimpor suatu pesan yang bukan sebuah kunci OpenPGP.\n\nAnda yakin ingin mencoba mengimpor isi ini?";
 ImportRandomData_Yes = "Coba Impor";
 ImportRandomData_No = "Batal";
 
-ImportNonImportable_Title = "Warning! Content can probably not be imported.";
+ImportNonImportable_Title = "Peringatan! Isi mungkin tidak bisa diimpor.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Coba Impor";
 ImportNonImportable_No = "Batal";
 
 
 /* For Import-Results */
-ImportResult_Secret = "kunci %@: kunci rahasia \"%@\" diimpor.";
-ImportResult_Public = "kunci %@: kunci publik \"%@\" diimpor.";
-ImportResult_UserID = "key %@: \"%@\" new User ID(s).";
-ImportResult_Signature = "kunci %@: tanda tangan baru \"%@\".";
-ImportResult_Subkey = "kunci %@: subkunci baru \"%@\".";
-ImportResult_KeyNoChanges = "kunci %@: tak ada perubahan \"%@\".";
-ImportResult_OneRevocationCertificate = "1 sertifikat pencabutan diimpor.";
-ImportResult_CountRevocationCertificate = "%i sertifikat pencabutan diimpor.";
-ImportResult_CountProcessed = "Cacah kunci yang diproses: %i";
-ImportResult_CountImported = "Cacah kunci yang diimpor: %i";
-ImportResult_CountUnchanged = "Cacah kunci yang tak berubah: %i";
-ImportResult_NoKeysImported = "Tidak ada kunci yang dapat diimpor!";
+IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
-IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
-IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
-IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
-IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 revocation certificate was imported.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i revocation certificates were imported.";
 
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
-
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
-
-
+IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 key was processed and %i imported.";
+IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i keys were processed and 1 imported.";
+IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i imported.";
 
 
 /* Errors */
 ImportKeyError_Title = "Gagal mengimpor satu kunci atau lebih!";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Seringkali kunci tak dapat diimpor karena kurang tanda-tangan sendiri. Harap kunjungi https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature untuk rincian lebih lanjut dan langkah-langkah bagaimana menyelesaikan masalah ini.";
 ImportKeyErrorPGP_Title = "Impor Gagal!";
-ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
+ImportKeyErrorPGP_Msg = "Tampaknya Anda mencoba mengimpor suatu pesan bertandatangan atau terenkripsi. Untuk mendekripsi atau verifikasi pesan itu harap gunakan GPG Services.";
 ImportKeyErrorNoPGP_Title = "Impor gagal!";
-ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
+ImportKeyErrorNoPGP_Msg = "Tampaknya Anda mencoba mengimpor beberapa data tak terkait PGP yang tak dapat diproses.";
+
+NO_SECRET_KEY_TITLE = "No secret key found!";
+NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";

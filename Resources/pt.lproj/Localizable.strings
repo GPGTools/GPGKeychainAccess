@@ -15,6 +15,12 @@
 "Public key" = "Chave pública";
 
 
+/* Key descriptions */
+"and" = "and";
+"%@and %lu more" = "%@and %lu more";
+SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+
+
 /* For export, as standard File-Name. */
 "untitled" = "sem título";
 "%@ Revoke certificate" = "%@ certificado de revogação";
@@ -92,6 +98,8 @@ MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x
 MailKey_Progress = "Criando novo e-mail…";
 MailKey_Progress_Your = "Criando novo e-mail…";
 MailKey_Error = "Algo deu errado. Houve um problema ao exportar a chave.";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via mail. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
 /* A key was found in the pasteboard */
@@ -150,35 +158,32 @@ RevokeLastSelfSignature_Msg = "Você está prestes a revogar a última Autoassin
 RevokeLastSelfSignature_Yes = "Revogar Assinatura";
 RevokeLastSelfSignature_No = "Cancelar";
 
-RevokeKey_Title = "Aviso: você está prestes a revogar uma chave.";
-RevokeKey_Msg = "Você está prestes a revogar a seguinte chave:\n\n%@\n\nCaso revogue esta chave, você não poderá mais assinar mensagens com ela e outras pessoas não poderão mais enviar mensagens criptografadas com a sua chave para você. Se você enviou a sua chave pública aos servidores de chaves anteriormente, certifique-se de que a chave revogada seja enviada (opção padrão) para alertar outras pessoas sobre a revogação da sua chave.\n\nVocê ainda poderá usar a chave revogada para decriptografar e-mails e arquivos criptografados anteriormente. Para isso, recomendamos que você mantenha a chave revogada nas Chaves GPG.\n\nTem certeza de que deseja revogar esta chave?";
+RevokeKey_Title = "Warning: You are about to revoke a key";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Upload = "Enviar Chave Revogada";
 RevokeKey_Yes = "Revogar Chave";
 RevokeKey_No = "Cancelar";
-RevokeKey_Upload = "Enviar Chave Revogada";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Apagar Chave Pública";
-DeleteKey_Msg = "Você está prestes a apagar a chave pública de %@.\n\nTem certeza de que deseja apagar esta chave pública?";
-DeleteKey_Yes = "Apagar Chave";
+DeleteKey_Title = "Delete public key(s)";
+DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
+DeleteKey_Yes = "Delete key(s)";
 DeleteKey_No = "Cancelar";
 
-DeleteKeys_Title = "Apagar Chaves Públicas";
-DeleteKeys_Msg = "Você está prestes a apagar as seguintes chaves públicas:\n\n%@\n\nTem certeza de que deseja apagar estas chaves públicas?";
-DeleteKeys_Yes = "Apagar Chaves";
-DeleteKeys_No = "Cancelar";
-
-DeleteSecKey_Title = "Apagar Chaves Secreta e Pública";
-DeleteSecKey_Msg = "Aviso: você está prestes a apagar suas chaves secreta e pública:\n%@\n\nO apagamento de uma chave secreta tem consequências importantes das quais você deve estar ciente.\n\nSem a chave secreta, você não poderá mais decriptar as mensagens que foram criptografadas com a contraparte pública.\n\nSe você enviou a sua chave pública aos servidores de chaves anteriormente, ela permanecerá válida nos servidores até que você a revogue. Para que isso aconteça, revogue a sua chave pública e envie-a aos servidores antes de apagar o par de chaves. A revogação de uma chave requer a chave secreta.\n\nTem certeza de que deseja apagar esse par de chaves?";
-DeleteSecKey_Yes = "Apagar Chaves Secreta e Pública";
+DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
+DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteSecKey_Yes = "Delete key(s)";
+DeleteSecKey_SecOnly = "Delete secret key(s) only";
 DeleteSecKey_No = "Cancelar";
-DeleteSecKey_SecOnly = "Apagar Apenas Chave Secreta";
 
-DeleteSecKeys_Title = "Apagar Chaves Secretas e Públicas";
-DeleteSecKeys_Msg = "Aviso: você está prestes a apagar as seguintes chaves secretas e públicas:\n%@\n\nO apagamento de uma chave secreta tem consequências importantes das quais você deve estar ciente.\n\nSem as chaves secretas, você não poderá mais decriptar as mensagens que foram criptografadas com as contrapartes pública.\n\nSe você enviou as suas chaves públicas aos servidores de chaves anteriormente, elas permanecerão válidas nos servidores até que você as revogue. Para que isso aconteça, revogue as suas chaves públicas e envie-as aos servidores antes de apagar os pares de chaves. A revogação de uma chave requer a chave secreta.\n\nTem certeza de que deseja apagar esses pares de chaves?";
-DeleteSecKeys_Yes = "Apagar Chaves Secretas e Públicas";
-DeleteSecKeys_No = "Cancelar";
-DeleteSecKeys_SecOnly = "Apagar Apenas Chaves Secretas";
+DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
+DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
+DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
+DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
+DeleteRevokedSecKey_No = "Cancelar";
 
 
 /* Bad keyserver */
@@ -204,44 +209,19 @@ ImportNonImportable_No = "Cancelar";
 
 
 /* For Import-Results */
-ImportResult_Secret = "chave %@: chave secreta “%@” importada.";
-ImportResult_Public = "chave %@: chave pública “%@” importada.";
-ImportResult_UserID = "chave %@: “%@” novo ID de Usuário.";
-ImportResult_Signature = "chave %@: “%@” nova assinatura.";
-ImportResult_Subkey = "chave %@: “%@” nova subchave.";
-ImportResult_KeyNoChanges = "chave %@: “%@” nenhuma alteração.";
-ImportResult_OneRevocationCertificate = "1 certificado de revogação importado.";
-ImportResult_CountRevocationCertificate = "%i certificados de revogação importados.";
-ImportResult_CountProcessed = "Contagem de chaves processadas: %i";
-ImportResult_CountImported = "Contagem de chaves importadas: %i";
-ImportResult_CountUnchanged = "Contagem de chaves não alteradas: %i";
-ImportResult_NoKeysImported = "Nenhuma chave pôde ser importada";
+IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
-IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
-IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
-IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
-IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 revocation certificate was imported.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i revocation certificates were imported.";
 
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
-
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
-
-
+IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 key was processed and %i imported.";
+IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i keys were processed and 1 imported.";
+IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i imported.";
 
 
 /* Errors */
@@ -251,6 +231,9 @@ ImportKeyErrorPGP_Title = "A Importação Falhou";
 ImportKeyErrorPGP_Msg = "Parece que você está tentando importar uma mensagem assinada ou criptografada. Tente decriptar ou verificar a mensagem usando o GPGServices.";
 ImportKeyErrorNoPGP_Title = "A Importação Falhou";
 ImportKeyErrorNoPGP_Msg = "Parece que você está tentando importar dados que não são relacionados ao PGP e não podem ser processados.";
+
+NO_SECRET_KEY_TITLE = "No secret key found!";
+NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
