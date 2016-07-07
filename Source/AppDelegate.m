@@ -109,23 +109,6 @@
 }
 - (IBAction)showKeyDetails:(id)sender {
 	[self showInspector:-1];
-	return;
-	
-	NSInteger row = keyTable.clickedRow;
-	if (row >= 0) {
-		NSIndexSet *indexes = keyTable.selectedRowIndexes;
-		if (indexes.count == 1 && [indexes containsIndex:row]) {
-			[self showInspector:-1];
-		} else {
-			KeychainController *kc = [KeychainController sharedInstance];
-			[kc selectRow:row];
-			
-			[self showInspector:1];
-		}
-	} else {
-		[self showInspector:-1];
-	}
-	
 }
 
 

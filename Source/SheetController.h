@@ -67,6 +67,7 @@ enum {
 	NSMutableSet *msgTextFields;
 	NSIndexSet *selectedVolumeIndexes;
 	NSUInteger oldVolumeIndex;
+	NSArray *topLevelObjects;
 }
 
 @property (assign) IBOutlet NSWindow *sheetWindow;

@@ -29,9 +29,10 @@
     NSString *keyserverToCheck;
 	
 	NSView *view;
+	NSArray *topLevelObjects;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (strong) IBOutlet NSWindow *window;
 
 @property (weak, readonly) GPGOptions *options;
 
