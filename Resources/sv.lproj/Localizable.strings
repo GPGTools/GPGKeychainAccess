@@ -16,9 +16,9 @@
 
 
 /* Key descriptions */
-"and" = "and";
+"and" = "och";
 "%@and %lu more" = "%@and %lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+SecretAndPublicKeyListing = "Hemliga nycklar:\n\n%@\n\nPublika nycklar:\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -98,7 +98,7 @@ MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x
 MailKey_Progress = "Skapar nytt e-postmeddelande...";
 MailKey_Progress_Your = "Skapar nytt e-postmeddelande...";
 MailKey_Error = "Hoppsan, något gick snett när din nyckel skulle exporteras.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Oanvändbar nyckel vald!";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via mail. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
@@ -158,7 +158,7 @@ RevokeLastSelfSignature_Msg = "Du kommer att återkalla den sista egen-signature
 RevokeLastSelfSignature_Yes = "Återkalla signatur";
 RevokeLastSelfSignature_No = "Avbryt";
 
-RevokeKey_Title = "Warning: You are about to revoke a key";
+RevokeKey_Title = "Varning: Du är på väg att återkalla en nyckel";
 RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Ladda upp återkallad nyckel";
 RevokeKey_Yes = "Återkalla nyckel";
@@ -166,23 +166,23 @@ RevokeKey_No = "Avbryt";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key(s)";
+DeleteKey_Title = "Ta bort publik(a) nyckel/nycklar";
 DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
-DeleteKey_Yes = "Delete key(s)";
+DeleteKey_Yes = "Ta bort nyckel/nycklar";
 DeleteKey_No = "Avbryt";
 
-DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
+DeleteSecKey_Title = "Varning! Du är på väg att ta bort hemlig(a) och publik(a) nyckel/nycklar";
 DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteSecKey_Yes = "Delete key(s)";
-DeleteSecKey_SecOnly = "Delete secret key(s) only";
+DeleteSecKey_Yes = "Ta bort nyckel/nycklar";
+DeleteSecKey_SecOnly = "Ta bort hemlig(a) nyckel/nycklar";
 DeleteSecKey_No = "Avbryt";
 
-DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
+DeleteRevokedSecKey_Title = "Varning: Du är på väg att ta bort återkallade nyckelpar";
 DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
 DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
-DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
+DeleteRevokedSecKey_Yes = "Ta bort dina nyckelpar";
+DeleteRevokedSecKey_SecOnly = "Ta bort hemlig(a) nyckel/nycklar";
 DeleteRevokedSecKey_No = "Avbryt";
 
 
@@ -209,10 +209,10 @@ ImportNonImportable_No = "Avbryt";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
-IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
+IMPORT_RESULT_NEW_KEY = "Du har nu importerat nyckeln\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "Du har nu importerat nycklarna\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "En användar id lades till nyckel/nycklar\n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
 
@@ -232,8 +232,8 @@ ImportKeyErrorPGP_Msg = "Det verkar som att du försöker importera ett kryptera
 ImportKeyErrorNoPGP_Title = "Import misslyckades!";
 ImportKeyErrorNoPGP_Msg = "Det verkar som att du försöker importera data som inte är relaterade till PGP och som inte kan behandlas.";
 
-NO_SECRET_KEY_TITLE = "No secret key found!";
-NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
+NO_SECRET_KEY_TITLE = "Ingen hemlig nyckel hittas!";
+NO_SECRET_KEY_MESSAGE = "Du behöver en hemlig nyckel för att utföra den här åtgärden.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";

@@ -11,14 +11,14 @@
 
 
 /* Long key types */
-"Secret and public key" = "Clés secrète et publique";
+"Secret and public key" = "Clé privée et publique";
 "Public key" = "Clé publique";
 
 
 /* Key descriptions */
-"and" = "and";
-"%@and %lu more" = "%@and %lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+"and" = "et";
+"%@and %lu more" = "%@and %lu de plus";
+SecretAndPublicKeyListing = "Clés privées :\n\n%@\n\nClés publiques :\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -55,8 +55,8 @@ SearchingKeys_Msg = "Nous recherchons la/les clés correspondante(s) sur le serv
 GenerateKey_Progress = "Nous devons générer une grande quantité d'octets aléatoires. Il est utile de faire des actions (taper au clavier, déplacer la souris, utiliser le disque dur) pendant la génération initiale. Ceci permet au générateur de nombre aléatoire de bénéficier d'une meilleure entropie.";
 GenerateSubkey_Msg = "Ajouter sous-clé à la clé \"%@\", %@.";
 GenerateUserID_Msg = "Ajouter l'ID utilisateur à la clé \"%@\", %@.";
-GenerateSignature_Msg = "Signer une clé signifie que vous confirmez que le propriétaire de la clé est bien la personne qu'elle prétend être. Une fois téléversées, les signatures peuvent être vues par les autres utilisateurs.\nDonc si vous signez la clé de Bob et que votre amie Alice n'est pas sûre que Bob soit réellement Bob, Alice voyant que vous avez signé la clé de Bob et considérant que votre clé est digne de confiance, elle en déduit que Bob est bien Bob.\n\nVous allez signer la clé suivante:\n%@";
-GenerateUidSignature_Msg = "Signer un ID utilisateur signifie que vous confirmez que le propriétaire de la clé est bien la personne qu'elle prétend être. \nUne fois téléversées, les signatures peuvent être vues par les autres utilisateurs.\nDonc si vous signez la clé de Bob et que votre amie Alice n'est pas sûre que Bob soit réellement Bob, Alice voyant que vous avez signé la clé de Bob et considérant que votre clé est digne de confiance, elle en déduit que Bob est bien Bob.\n\nVous allez signer la clé suivante :\n%@";
+GenerateSignature_Msg = "Signer une clé signifie que vous confirmez que le propriétaire de la clé est bien la personne qu'elle prétend être. Une fois téléversées, les signatures peuvent être vues par les autres utilisateurs.\nDonc si vous signez la clé de Bob et que votre amie Alice n'est pas sûre que Bob soit réellement Bob, Alice voyant que vous avez signé la clé de Bob et considérant que votre clé est digne de confiance, elle en déduit que Bob est bien Bob.\n\nVous êtes sur le point de signer la clé suivante:\n%@";
+GenerateUidSignature_Msg = "Signer un ID utilisateur signifie que vous confirmez que le propriétaire de la clé est bien la personne qu'elle prétend être. \nUne fois téléversées, les signatures peuvent être vues par les autres utilisateurs.\nDonc si vous signez la clé de Bob et que votre amie Alice n'est pas sûre que Bob soit réellement Bob, Alice voyant que vous avez signé la clé de Bob et considérant que votre clé est digne de confiance, elle en déduit que Bob est bien Bob.\n\nVous êtes sur le point de signer la clé suivante :\n%@";
 ChangeExpirationDate_Msg = "Changer date d'expiration de \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Changer la date d'expiration de \"%2$@\", %3$@\nSous-clé : %1$@";
 
@@ -98,8 +98,8 @@ MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x
 MailKey_Progress = "Création nouveau message ...";
 MailKey_Progress_Your = "Création nouveau message ...";
 MailKey_Error = "Oops, quelque chose n'a pas fonctionné correctement lors de l'export de votre clé.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
-MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via mail. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Clé inutilisable sélectionnée !";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Vous avez sélectionné une clé inutilisable. De telles clés ne peuvent être envoyées par email. Merci de mettre à jour la clé depuis le serveur de clés, afin de voir si elle a été mise à jour.\n\nSinon, entrez en contact avec le propriétaire de la clé et informez-le que l'état de la clé.\n\n%@";
 
 
 /* A key was found in the pasteboard */
@@ -124,7 +124,7 @@ RemoveUserID_Yes = "Supprimer l'ID utilisateur";
 RemoveUserID_No = "Annuler";
 
 RevokeUserID_Title = "Révoquer l'ID utilisateur";
-RevokeUserID_Msg = "Vous êtes en train de révoquer l'ID utilisateur %@ de votre clé %@. Si vous révoquez cet ID utilisateur, vous ne serez plus en mesure d'utiliser cette clé avec le compte mail associé dans Mail.app.\n\nSi la clé avec cet ID utilisateur a été téléversée sur les serveurs de clés, assurez-vous de téléverser la clé mise à jour. Ce n'est qu'à partir de ce moment que le serveur de clés reflètera l'ID utilisateur révoqué.";
+RevokeUserID_Msg = "Vous êtes sur le point de révoquer l'ID utilisateur %@ de votre clé %@. Si vous révoquez cet ID utilisateur, vous ne serez plus en mesure d'utiliser cette clé avec le compte mail associé dans Mail.app.\n\nSi la clé avec cet ID utilisateur a été téléversée sur les serveurs de clés, assurez-vous de téléverser la clé mise à jour. Ce n'est qu'à partir de ce moment que le serveur de clés reflètera l'ID utilisateur révoqué.";
 RevokeUserID_Yes = "Révoquer l'ID utilisateur";
 RevokeUserID_No = "Annuler";
 
@@ -158,31 +158,31 @@ RevokeLastSelfSignature_Msg = "Vous êtes sur le point de révoquer la dernière
 RevokeLastSelfSignature_Yes = "Révoquer la signature";
 RevokeLastSelfSignature_No = "Annuler";
 
-RevokeKey_Title = "Warning: You are about to revoke a key";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Title = "Attention ! Vous êtes sur le point de révoquer une clé.";
+RevokeKey_Msg = "Vous êtes sur le point de révoquer la clé suivante :\n\n%@\n\nUne fois cette clé révoquée, il ne sera plus possible de signer et chiffrer des messages avec ette clé. La clé révoquée pourra toujours être utilisée pour déchiffrer des emails et des fichiers précédemment chiffrés avec cette clé.\n\nNous vous recommandons de ne pas la supprimer.\n\nAfin de communiquer aux autres que votre clé a été révoquée, il est nécessaire de la mettre en ligne sur les serveurs de clés.\n\nÊtes-vous sûr de vouloir révoquer cette clé ?";
 RevokeKey_Upload = "Téléverser la clé révoquée";
 RevokeKey_Yes = "Révoquer la clé";
 RevokeKey_No = "Annuler";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key(s)";
-DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
-DeleteKey_Yes = "Delete key(s)";
+DeleteKey_Title = "Supprimer la/les clé(s) publique(s)";
+DeleteKey_Msg = "Vous êtes sur le point de supprimer la/les clé(s) publique(s) suivante(s) :\n\n%@\n\nÊtes-vous sûr de vouloir supprimer cette/ces clé(s) publique(s) ?";
+DeleteKey_Yes = "Supprimer la/les clé(s)";
 DeleteKey_No = "Annuler";
 
-DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
-DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
-DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteSecKey_Yes = "Delete key(s)";
-DeleteSecKey_SecOnly = "Delete secret key(s) only";
+DeleteSecKey_Title = "Attention ! Vous êtes sur le point de supprimer une/des clé(s) publique(s) et privée(s). ";
+DeleteSecKey_Msg = "Vous êtes sur le point de supprimer votre/vos clé(s) :\n%@\n\nSupprimer une clé privée a des conséquences majeures. Une fois supprimée, le déchiffrement des messages avec cette clé ne sera plus possible. Cela concerne tous les messages qui ont été chiffrés avec cette clé.\n\nNous vous recommandons de ne pas la supprimer.\n\nAfin de communiquer aux autres que votre clé n'est plus utilisée, vous devriez révoquer cette clé au lieu de la supprimer, et mettre en ligne la clé révoquée sur les serveurs de clés. Autrement, les autres pourraient continuer à utiliser cette clé pour chiffrer des messages à votre destination.";
+DeleteSecKey_Checkbox = "Oui, je souhaite supprimer ma clé privée et comprends que je ne serai\nplus en mesure de déchiffrer aucun message qui a été chiffré pour cette clé.";
+DeleteSecKey_Yes = "Supprimer la/les clé(s)";
+DeleteSecKey_SecOnly = "Supprimer la/les clé(s) privée(s) seulement";
 DeleteSecKey_No = "Annuler";
 
-DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
-DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
-DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
-DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
+DeleteRevokedSecKey_Title = "Attention ! Vous êtes sur le point de supprimer une/des paire(s) de clés révoquée(s)";
+DeleteRevokedSecKey_Msg = "Vous êtes sur le point sur supprimer la/les paire(s) de clés révoquées :\n\n%@\n\nLes clés révoquées sont toujours capables de déchiffrer de vieux messages chiffrés pour cette clé.\n\nNous vous recommandons de ne pas la/les supprimer.";
+DeleteRevokedSecKey_Checkbox = "Oui, je souhaite supprimer ma clé privée et comprends que je ne serai\nplus en mesure de déchiffrer aucun message qui a été chiffré pour cette clé.";
+DeleteRevokedSecKey_Yes = "Supprimer la/les paire(s) de clés";
+DeleteRevokedSecKey_SecOnly = "Supprimer la/les clé(s) privée(s) seulement";
 DeleteRevokedSecKey_No = "Annuler";
 
 
@@ -209,19 +209,19 @@ ImportNonImportable_No = "Annuler";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
-IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
+IMPORT_RESULT_NEW_KEY = "Vous avec importé avec succès la clé\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "Vous avez import avec succès les clés\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "Un ID utilisateur a été ajouté aux clés\n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "Une signature a été ajoutée aux clés\n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "Une sous-clé a été ajoutée aux clés\n\n%@";
 
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 revocation certificate was imported.";
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i revocation certificates were imported.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 certificat de révocation a été importé.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i certificats de révocation ont été importés.";
 
-IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 key was processed and %i imported.";
-IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i keys were processed and 1 imported.";
-IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i imported.";
+IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 clé a été traitée et %i importée.";
+IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i clés ont été traitées et 1 importée.";
+IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i clés ont été traitées et %2$i importées.";
 
 
 /* Errors */
@@ -232,8 +232,8 @@ ImportKeyErrorPGP_Msg = "Il semblerait que vous tentiez d'importer un message ch
 ImportKeyErrorNoPGP_Title = "Importation échouée !";
 ImportKeyErrorNoPGP_Msg = "Il semblerait que vous tentiez d'importer des données sans relation avec PGP que nous ne pouvons traiter.";
 
-NO_SECRET_KEY_TITLE = "No secret key found!";
-NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
+NO_SECRET_KEY_TITLE = "Aucune clé secrète trouvée !";
+NO_SECRET_KEY_MESSAGE = "Vous avez besoin d'une clé secrète pour effectuer cette opération.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
