@@ -16,7 +16,7 @@
 
 
 /* Key descriptions */
-"and" = "and";
+"and" = "i";
 "%@and %lu more" = "%@and %lu more";
 SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
 
@@ -54,7 +54,7 @@ SearchingKeys_Msg = "Busquem claus coincidents al servidor de claus. Podria port
 
 GenerateKey_Progress = "Cal generar molts bytes aleatoris. És una bona idea dur a terme alguna altra acció (escriure al teclat en una aplicació, moure el ratolí, usar els discos) durant la primera generació. Això li dóna al generador de nombres aleatoris una millor oportunitat per guanyar suficient entropia.";
 GenerateSubkey_Msg = "Afegeix la subclau a la clau \"%@\", %@";
-GenerateUserID_Msg = "Afegeix la identitat d'usuari a la clau \"%@\", %@.";
+GenerateUserID_Msg = "Afegeix la identitat de l'usuari a la clau \"%@\", %@.";
 GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
 GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
 ChangeExpirationDate_Msg = "Canvi en la data de venciment de \"%@\", %@";
@@ -118,14 +118,14 @@ Cancel = "Cancel·la";
 
 
 /* Warnings */
-RemoveUserID_Title = "Suprimeix la ID d'usuari";
+RemoveUserID_Title = "Suprimeix la identitat de l'usuari";
 RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
-RemoveUserID_Yes = "Suprimeix la ID d'usuari";
+RemoveUserID_Yes = "Suprimeix la identitat de l'usuari";
 RemoveUserID_No = "Cancel·la";
 
-RevokeUserID_Title = "Revoca la ID d'usuari";
+RevokeUserID_Title = "Revoca la identitat de l'usuari";
 RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
-RevokeUserID_Yes = "Revoca la ID d'usuari";
+RevokeUserID_Yes = "Revoca la identitat de l'usuari";
 RevokeUserID_No = "Cancel·la";
 
 RemoveSubkey_Title = "Suprimeix la subclau";
@@ -290,7 +290,7 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 ExportKey_Progress = "Clau exportada.";
-ExportKey_Error = "Clau no importada.";
+ExportKey_Error = "Clau no exportada.";
 ImportKey_Progress  = "Clau importada.";
 DeleteSecretKey_Progress = "Clau secreta suprimida.";
 DeleteKeys_Progress = "Clau suprimida.";
@@ -323,22 +323,22 @@ RemoveSubkey_Progress = "Extrau la subclau.";
 RemoveSubkey_Error = "Error a l'extraure la subclau.";
 RevokeSubkey_Progress = "Suprimeix la subclau.";
 RevokeSubkey_Error = "Error al suprimir la subclau.";
-AddUserID_Progress = "Afegeix la ID de l'usuari.";
-AddUserID_Error = "Ha fallat la'afegit de la ID de l'usuari.";
-RemoveUserID_Progress = "Suprimeix la ID de l'usuari.";
-RemoveUserID_Error = "Ha fallat la supressió de la ID de l'usuari.";
+AddUserID_Progress = "Afegeix la identitat de l'usuari.";
+AddUserID_Error = "Ha fallat a l'afegir la identitat de l'usuari.";
+RemoveUserID_Progress = "Suprimeix la identitat de l'usuari.";
+RemoveUserID_Error = "Ha fallat la supressió de la identitat de l'usuari.";
 SetPrimaryUserID_Progress = "Setting primary User ID.";
 SetPrimaryUserID_Error = "Setting primary User ID failed.";
 RevokeUserID_Progress = "Revoking User ID.";
 RevokeUserID_Error = "Revoking User ID failed.";
-AddPhoto_Progress = "Afegeix la imatge.";
-AddPhoto_Error = "Error a l'afegir la imatge.";
-RemovePhoto_Progress = "Suprimeix la imatge.";
-RemovePhoto_Error = "Error al suprimir la imatge.";
-SetPrimaryPhoto_Progress = "Configura la imatge principal.";
-SetPrimaryPhoto_Error = "Error al configurar la imatge principal.";
-RevokePhoto_Progress = "Revoca la imatge.";
-RevokePhoto_Error = "Error al revocar la imatge.";
+AddPhoto_Progress = "Afegeix la foto.";
+AddPhoto_Error = "Error a l'afegir la foto.";
+RemovePhoto_Progress = "Suprimeix la foto.";
+RemovePhoto_Error = "Error al suprimir la foto.";
+SetPrimaryPhoto_Progress = "Configura la foto principal.";
+SetPrimaryPhoto_Error = "Error al configurar la foto principal.";
+RevokePhoto_Progress = "Revoca la foto.";
+RevokePhoto_Error = "Error al revocar la foto.";
 AddSignature_Progress = "Afegeix una signatura.";
 AddSignature_Error = "Afegeix una signatura fallida.";
 RemoveSignature_Progress = "Suprimeix la signatura.";
