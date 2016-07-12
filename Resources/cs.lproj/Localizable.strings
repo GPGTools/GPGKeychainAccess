@@ -15,6 +15,12 @@
 "Public key" = "Veřejný klíč";
 
 
+/* Key descriptions */
+"and" = "and";
+"%@and %lu more" = "%@and %lu more";
+SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+
+
 /* For export, as standard File-Name. */
 "untitled" = "Beze jména";
 "%@ Revoke certificate" = "%@ zrušit platnost certifikátu";
@@ -71,15 +77,15 @@ CheckError_PassphraseMissmatch = "Vámi zadané fráze nejsou shodné!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG nebylo nalezeno";
-GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Kruciš, něco se skutečně pokazilo. vypadá to, že GPG není ve vašem systému. Nainstalujte prosím GPG Suite z adresy https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Chyba nastavení GPG ";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Kruciš, něco se pokazilo. GPG bylo va vašem systému nalezeno, ale vypadá to, že je problém se souborem nastavení. Obraťte se prosím na https://gpgtools.tenderapp.com.\n\nPodrobnosti: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Knihovna Libmacgpg nebyla nalezena";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Knihovna Libmacgpg nebyla na vašem systému nalezena. Nainstalujte prosím GPG Suite znovu z adresy https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Někdo manipuloval s instalací Klíčenky GPG!";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
 UNKNOWN_GPG_ERROR_TITLE = "Neznámá chyba GPG";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Kruciš, něco se pokazilo. GPG vykázalo neznámou chybu. Obraťte se prosím na https://gpgtools.tenderapp.com.\n\nPodrobnosti: %@";
 
 
 
@@ -91,12 +97,14 @@ MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou c
 MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Vytváří se nová zpráva…";
 MailKey_Progress_Your = "Vytváří se nová zpráva…";
-MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+MailKey_Error = "Kruciš, něco se pokazilo. vyskytl se problém při exporti vašeho klíče.";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via mail. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
-PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Title = "Byl nalezen jeden nebo více klíčů ve vaši schránce";
+PasteboardKeyFound_Msg = "%@\n\nPřejete si importovat klíč(e)?";
 PasteboardKeyFound_Yes = "Importovat";
 PasteboardKeyFound_No = "Zrušit";
 
@@ -150,35 +158,32 @@ RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature o
 RevokeLastSelfSignature_Yes = "Zrušit platnost podpisu";
 RevokeLastSelfSignature_No = "Zrušit";
 
-RevokeKey_Title = "Výstraha: Právě rušíte platnost klíče!";
-RevokeKey_Msg = "You are about to revoke the following key\n\n%@\n\nIf you revoke this key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. If you have previously uploaded your public key to the key servers, make sure to upload the revoked key (option is active by default), so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key to decrypt mails and files that were previously encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Title = "Warning: You are about to revoke a key";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Upload = "Upload revoked key";
 RevokeKey_Yes = "Zrušit platnost klíče";
 RevokeKey_No = "Zrušit";
-RevokeKey_Upload = "Upload revoked key";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Smazat veřejný klíč";
-DeleteKey_Msg = "You are about to delete the public key of %@.\n\nAre you sure you want to delete this public key?";
-DeleteKey_Yes = "Smazat klíč";
+DeleteKey_Title = "Delete public key(s)";
+DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
+DeleteKey_Yes = "Delete key(s)";
 DeleteKey_No = "Zrušit";
 
-DeleteKeys_Title = "Smazat veřejné klíče";
-DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete those public keys?";
-DeleteKeys_Yes = "Smazat klíče";
-DeleteKeys_No = "Zrušit";
-
-DeleteSecKey_Title = "Smazat tajný a veřejný klíč";
-DeleteSecKey_Msg = "Warning! You are about to delete your secret and public key:\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret key, you will no longer be able to decrypt messages that were encrypted with its public counterpart.\n\nNote that if you have uploaded your public key to the key servers, it will remain valid on the key servers unless you revoke it. In that case before deleting your key pair, please revoke your public key and upload it to the key servers so it will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete this key pair?";
-DeleteSecKey_Yes = "Smazat tajný a veřejný klíč";
+DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
+DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteSecKey_Yes = "Delete key(s)";
+DeleteSecKey_SecOnly = "Delete secret key(s) only";
 DeleteSecKey_No = "Zrušit";
-DeleteSecKey_SecOnly = "Smazat pouze tajný klíč";
 
-DeleteSecKeys_Title = "Smazat tajné a veřejné klíče";
-DeleteSecKeys_Msg = "Warning! You are about to delete the following secret and public keys:\n\n%@\n\nDeleting a secret key has major consequences you should be aware of.\n\nWithout the secret keys, you will no longer be able to decrypt messages that were encrypted with their public counterparts.\n\nNote that if you have copied your public keys to any key servers, they will remain valid on the key servers unless you revoke them. In that case before deleting your key pairs, please revoke your public keys and upload them to the key servers so they will show as revoked. Revoking a key requires the secret key.\n\nAre you sure you want to delete those key pairs?";
-DeleteSecKeys_Yes = "Smazat tajný a veřejný klíč";
-DeleteSecKeys_No = "Zrušit";
-DeleteSecKeys_SecOnly = "Smazat pouze tajné klíče";
+DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
+DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
+DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
+DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
+DeleteRevokedSecKey_No = "Zrušit";
 
 
 /* Bad keyserver */
@@ -204,44 +209,19 @@ ImportNonImportable_No = "Zrušit";
 
 
 /* For Import-Results */
-ImportResult_Secret = "klíč %@: tajný klíč „%@“ naimportován.";
-ImportResult_Public = "klíč %@: veřejný klíč „%@“ naimportován.";
-ImportResult_UserID = "key %@: \"%@\" new User ID(s).";
-ImportResult_Signature = "klíč %@: „%@“ nový(é) podpis(y).";
-ImportResult_Subkey = "klíč %@: „%@“ nový(é) podklíč(e).";
-ImportResult_KeyNoChanges = "klíč %@: „%@“ beze změny.";
-ImportResult_OneRevocationCertificate = "Importován 1 zneplatněný certifikát.";
-ImportResult_CountRevocationCertificate = "Importováno %i zneplatněných certifikátů.";
-ImportResult_CountProcessed = "Zpracované klíče: %i";
-ImportResult_CountImported = "Importované klíče: %i";
-ImportResult_CountUnchanged = "Nezměněné klíče: %i";
-ImportResult_NoKeysImported = "Nelze importovat žádný klíč!";
+IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
-IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
-IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
-IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
-IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 revocation certificate was imported.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i revocation certificates were imported.";
 
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
-
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
-
-
+IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 key was processed and %i imported.";
+IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i keys were processed and 1 imported.";
+IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i imported.";
 
 
 /* Errors */
@@ -250,7 +230,10 @@ ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signat
 ImportKeyErrorPGP_Title = "Import selhal!";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import selhal!";
-ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
+ImportKeyErrorNoPGP_Msg = "Vypadá to, že se snažíte importovat nějaká cizí data, která nelze zpracovat.";
+
+NO_SECRET_KEY_TITLE = "No secret key found!";
+NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -270,11 +253,11 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 /* For opening and saving dialogues */
 ChoosePhoto_Large_Message = "Tato fotografie je příliš velká!";
-ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
+ChoosePhoto_Large_Info = "Měl byste použít menší fotografii.\nDoporučujeme velikost nižší než 15 KB.";
 ChoosePhoto_Large_Button1 = "Vybrat jiný…";
 ChoosePhoto_Large_Button2 = "Použít tuto fotografii";
 ChoosePhoto_TooLarge_Message = "Vaše fotografie je příliš velká!";
-ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
+ChoosePhoto_TooLarge_Info = "Použijte prosím fotografii menší než 500 KB.\nDoporučujeme velikost nižší než 15 KB.";
 
 
 
@@ -340,12 +323,12 @@ RemoveSubkey_Progress = "Odstraňuje se podklíč.";
 RemoveSubkey_Error = "Odstraňování podklíče selhalo.";
 RevokeSubkey_Progress = "Ruší se podklíč";
 RevokeSubkey_Error = "Rušení podklíče selhalo.";
-AddUserID_Progress = "Adding User ID.";
-AddUserID_Error = "Adding User ID failed.";
-RemoveUserID_Progress = "Removing User ID.";
-RemoveUserID_Error = "Removing User ID failed.";
-SetPrimaryUserID_Progress = "Setting primary User ID.";
-SetPrimaryUserID_Error = "Setting primary User ID failed.";
+AddUserID_Progress = "Přidává se UserID.";
+AddUserID_Error = "Přidávání UserID selhalo.";
+RemoveUserID_Progress = "Odstraňuje se UserID.";
+RemoveUserID_Error = "Odstraňování UserID selhalo.";
+SetPrimaryUserID_Progress = "Nastavuje se primární UserID.";
+SetPrimaryUserID_Error = "Nastavování promárního UserID selhalo.";
 RevokeUserID_Progress = "Revoking User ID.";
 RevokeUserID_Error = "Revoking User ID failed.";
 AddPhoto_Progress = "Přidává se fotografie.";

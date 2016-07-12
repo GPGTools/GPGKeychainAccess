@@ -1,0 +1,353 @@
+/* For Key-Status */
+"Invalid" = "Inválida";
+"Revoked" = "Revogada";
+"Expired" = "Vencida";
+"Disabled" = "Desativada";
+"Unknown" = "Desconhecida";
+"Marginal" = "Questionável";
+"Full" = "Total";
+"Ultimate" = "Fundamental";
+
+
+
+/* Long key types */
+"Secret and public key" = "Chave secreta e pública";
+"Public key" = "Chave pública";
+
+
+/* Key descriptions */
+"and" = "e";
+"%@and %lu more" = "%@e mais %lu";
+SecretAndPublicKeyListing = "Chaves secretas:\n\n%@\n\nChaves públicas:\n\n%@";
+
+
+/* For export, as standard File-Name. */
+"untitled" = "sem título";
+"%@ Revoke certificate" = "%@ certificado de revogação";
+"Exported keys.asc" = "Chaves exportadas.asc";
+ExportKeysFilename = "%@ %u Chaves OpenPGP";
+
+
+/* For key creation */
+CheckAlert_NoPassphrase_Title = "Nenhuma Frase-senha";
+CheckAlert_NoPassphrase_Message = "Você não digitou uma frase-senha. Isto não é recomendado. Uma frase-senha deve ter ao menos 8 caracteres.";
+CheckAlert_NoPassphrase_Button1= "Continuar sem Frase-senha";
+CheckAlert_NoPassphrase_Button2 = "Digitar Nova Frase-senha";
+CheckAlert_PassphraseShort_Title = "Frase-senha Curta";
+CheckAlert_PassphraseShort_Message = "Você digitou uma frase-senha muito curta. Isto não é recomendado. Uma frase-senha deve ter ao menos 8 caracteres.";
+CheckAlert_PassphraseShort_Button1= "Continuar com Frase-senha Curta";
+CheckAlert_PassphraseShort_Button2 = "Digitar Nova Frase-senha";
+CheckAlert_PassphraseSimple_Title = "Frase-senha Simples";
+CheckAlert_PassphraseSimple_Message = "A frase-senha digitada é muito simples. Uma boa frase-senha deve ser alfanumérica e conter ao menos um caractere especial.";
+CheckAlert_PassphraseSimple_Button1 = "Continuar com Frase-senha Simples";
+CheckAlert_PassphraseSimple_Button2 = "Digitar Nova Frase-senha";
+CheckAlert_PassphraseToLong_Title = "Frase-senha Longa Demais";
+CheckAlert_PassphraseToLong_Message = "A frase-senha é longa demais. Digite uma frase-senha com menos de 300 caracteres.";
+
+
+MoveSecring_Msg = "Suas chaves secretas estão armazenadas atualmente em “%@”.\nPara movê-las para outro volume, selecione-o abaixo.";
+
+/* For Key-Search */
+"No keys Found" = "Nenhuma chave encontrada";
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), criação: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+SearchingKeys_Msg = "Buscando chaves correspondentes no servidor de chaves. Isto pode levar algum tempo. Aguarde.";
+
+GenerateKey_Progress = "É preciso gerar muitos bytes aleatórios. Durante este processo, digite algo em um aplicativo, mova o mouse, use os discos ou realize outras ações para que o gerador de números aleatórios tenha entropia suficiente para gerar o número primo.";
+GenerateSubkey_Msg = "Adicionar subchave à Chave “%@”, %@.";
+GenerateUserID_Msg = "Adicionar ID de usuário à Chave “%@”, %@.";
+GenerateSignature_Msg = "Ao assinar uma chave, você confirma que o proprietário da chave é quem ele diz ser.\n\nPor exemplo, se você assinar a chave de Léo e a sua amiga Carla não estiver certa da identidade dele, ela verá a sua assinatura na chave e, por confiar na sua chave, ela saberá que Léo é, provavelmente, ele mesmo.\n\nUma vez enviadas, as assinaturas podem ser vistas por outras pessoas.\n\nVocê está prestes a assinar a seguinte chave:\n%@";
+GenerateUidSignature_Msg = "Ao assinar um ID de Usuário, você confirma que o proprietário da chave é quem ele diz ser.\n\nPor exemplo, se você assinar a chave de Léo e a sua amiga Carla não estiver certa da identidade dele, ela verá a sua assinatura na chave e, por confiar na sua chave, ela saberá que Léo é, provavelmente, ele mesmo.\n\nUma vez enviadas, as assinaturas podem ser vistas por outras pessoas.\n\nVocê está prestes a assinar o seguinte ID de Usuário:\n%@";
+ChangeExpirationDate_Msg = "Altere o vencimento de “%@”, %@";
+ChangeSubkeyExpirationDate_Msg = "Altere o vencimento de “%2$@”, %3$@\nSubchave: %1$@";
+
+GenerateKey_Error = "Algo deu errado. Houve um problema ao criar a chave.";
+
+/* Message for incorrect Entries */
+CheckError_NameToShort = "O nome deve ter ao menos 5 caracteres.";
+CheckError_NameToLong = "O nome é longo demais.";
+CheckError_InvalidCharInName = "Caractere inválido no nome.\n“<” e “>” não são permitidos.";
+CheckError_NameStartWithDigit = "O nome não pode começar por um digito.";
+CheckError_InvalidEmail = "Endereço de e-mail inválido.";
+CheckError_EmailToLong = "O endereço de e-mail é longo demais.\nO tamanho máximo é de 254 caracteres.";
+CheckError_InvalidCharInComment = "Caractere inválido no comentário.\n“(” e “)” não são permitidos.";
+CheckError_CommentToLong = "O comentário é longo demais.";
+CheckError_NoKeyID = "Digite um ID de chave válido.";
+CheckError_PassphraseMissmatch = "As frases-senhas não coincidem.";
+
+
+/* Message on start, if there are any Problems */
+GPG_NOT_FOUND_TITLE = "GPG Não Encontrado";
+GPG_NOT_FOUND_MESSAGE = "Algo deu muito errado. O GPG parece não estar no sistema. Reinstale a GPG Suite de https://www.gpgtools.org.";
+GPG_CONFIG_ERROR_TITLE = "Erro de Configuração do GPG";
+GPG_CONFIG_ERROR_MESSAGE = "Algo deu errado. O GPG foi encontrado no sistema, mas parece haver um problema com o arquivo de configuração. Contate o suporte em https://gpgtools.tenderapp.com.\n\nDetalhes: %@";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg Não Encontrado";
+LIBMACGPG_NOT_FOUND_MESSAGE = "O Libmacgpg não foi encontrado no sistema. Reinstale a GPG Suite de https://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Alguém adulterou a instalação do GPG Keychain!";
+CODE_SIGN_ERROR_MESSAGE = "Para manter sua segurança, o GPG Keychain será encerrado.\n\nPara certificar-se de que você possui a versão original, reinstale a GPG Suite de https://gpgtools.org.";
+UNKNOWN_GPG_ERROR_TITLE = "Erro GPG Desconhecido";
+UNKNOWN_GPG_ERROR_MESSAGE = "Algo deu errado. O GPG apresentou um erro desconhecido. Contate  o suporte em https://gpgtools.tenderapp.com.\n\nDetalhes: %@";
+
+
+
+/* Mail public key */
+MailKey_Subject = "Chave pública de  %@";
+MailKey_Subject_Your = "Minha chave pública para dar segurança às nossas mensagens";
+MailKey_Message = "Olá,\n\nEm anexo encontra-se a chave pública de\n\n%@\n\nVocê pode usar esta chave para criptografar e dar segurança às mensagens ao comunicar-se com %@.\n\nPara começar a usá-la, é preciso instalar um software OpenPGP no computador. Segue uma lista de opções, dependendo do seu sistema operacional:\n\n%@\n\nImporte a chave pública para o Gerenciador de Chaves OpenPGP local.\n\nAtenciosamente,";
+MailKey_Message_Your = "Olá,\n\nEm anexo encontra-se a minha chave pública:\n\n%@\n\nVocê pode usar esta chave para criptografar e dar segurança às nossas mensagens.\n\nPara começar a usá-la, é preciso instalar um software OpenPGP no computador. Segue uma lista de opções, dependendo do seu sistema operacional:\n\n%@\n\nImporte a chave pública para o Gerenciador de Chaves OpenPGP local.\n\nAguardo nossa primeira troca de mensagens invioláveis.\n\nAtenciosamente,";
+MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Progress = "Criando novo e-mail…";
+MailKey_Progress_Your = "Criando novo e-mail…";
+MailKey_Error = "Algo deu errado. Houve um problema ao exportar a chave.";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Chave não usável selecionada!";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Você selecionou uma chave não usável. Esse tipo de chave não pode ser enviado por e-mail. Atualize a chave do servidor de chaves para verificar se ela foi atualizada.\n\nCaso contrário, contate o proprietário da chave e informe-o sobre o estado da chave.\n\n%@";
+
+
+/* A key was found in the pasteboard */
+PasteboardKeyFound_Title = "Uma ou mais chaves foram detectadas na área de transferência.";
+PasteboardKeyFound_Msg = "%@\n\nDeseja importá-la(s)?";
+PasteboardKeyFound_Yes = "Importar";
+PasteboardKeyFound_No = "Cancelar";
+
+
+/* Those are abvious */
+No = "Não";
+Error = "Erro";
+Warning = "Aviso";
+Cancel = "Cancelar";
+"Apply to all" = "Aplicar a Tudo";
+
+
+/* Warnings */
+RemoveUserID_Title = "Remover ID de Usuário";
+RemoveUserID_Msg = "Você está prestes a remover o ID de Usuário %@ da chave %@. Caso remova este ID de Usuário, você não poderá mais usar esta chave com a respectiva conta de e-mail no Mail.\n\nSe a chave com este ID de Usuário foi enviada aos servidores de chaves, sua remoção não o removerá da chave nos servidores. Para que isso aconteça, revogue o ID de Usuário em questão e envie a chave atualizada.";
+RemoveUserID_Yes = "Remover ID de Usuário";
+RemoveUserID_No = "Cancelar";
+
+RevokeUserID_Title = "Revogar ID de Usuário";
+RevokeUserID_Msg = "Você está prestes a revogar o ID de Usuário %@ da chave %@. Caso revogue este ID de Usuário, você não poderá mais usar esta chave com a respectiva conta de e-mail no Mail.\n\nSe a chave com este ID de Usuário foi enviada aos servidores de chaves, certifique-se de que a chave atualizada seja enviada. Só assim o registro nos servidores refletirá o ID de Usuário revogado.";
+RevokeUserID_Yes = "Revogar ID de Usuário";
+RevokeUserID_No = "Cancelar";
+
+RemoveSubkey_Title = "Remover Subchave";
+RemoveSubkey_Msg = "Atenção! Prossiga apenas se tiver certeza do que está fazendo.\n\nA remoção de uma Subchave pode destruir todos os recursos de assinatura e decriptografia.\n\nSe a chave que contém esta Subchave foi enviada aos servidores de chaves, sua remoção não a removerá da chave nos servidores. Para que isso aconteça, revogue a Subchave em questão e envie a chave atualizada.";
+RemoveSubkey_Yes = "Remover Subchave";
+RemoveSubkey_No = "Cancelar";
+
+RevokeSubkey_Title = "Revogar Subchave";
+RevokeSubkey_Msg = "Atenção! Prossiga apenas se tiver certeza do que está fazendo.\n\nA remoção de uma Subchave pode destruir todos os recursos de assinatura e decriptografia.\n\nSe a chave que contém esta Subchave foi enviada aos servidores de chaves, certifique-se de que a chave atualizada seja enviada. Só assim o registro nos servidores refletirá a Subchave revogada.";
+RevokeSubkey_Yes = "Revogar Subchave";
+RevokeSubkey_No = "Cancelar";
+
+RevokeSignature_Title = "Revogar Assinatura";
+RevokeSignature_Msg = "Use esta opção caso acredite que a chave tenha sido roubada e o proprietário original não a controle mais. Se você enviou a sua assinatura aos servidores de chaves anteriormente, reenvie a chave atualizada para alertar outras pessoas sobre a revogação da sua assinatura.";
+RevokeSignature_Yes = "Revogar Assinatura";
+RevokeSignature_No = "Cancelar";
+
+RemoveSignature_Title = "Remover Assinatura";
+RemoveSignature_Msg = "Tem certeza de que deseja remover esta assinatura? A remoção de uma assinatura a removerá apenas localmente. Ela não pode e não será removida da chave nos servidores. Caso deseje marcar a assinatura como inválida, revogue-a.";
+RemoveSignature_Yes = "Remover Assinatura";
+RemoveSignature_No = "Cancelar";
+
+RemoveLastSelfSignature_Title = "Remover Última Autoassinatura ";
+RemoveLastSelfSignature_Msg = "Você está prestes a remover a última Autoassinatura do ID de Usuário %@. Prossiga apenas se tiver certeza do que está fazendo.\n\nEsta assinatura faz com que o endereço de e-mail, nome e descrição de um ID de Usuário possa ser modificado apenas pelo proprietário.\n\nSe a assinatura estiver faltando, essas informações poderiam ser modificadas sem que ninguém soubesse.";
+RemoveLastSelfSignature_Yes = "Remover Assinatura";
+RemoveLastSelfSignature_No = "Cancelar";
+
+RevokeLastSelfSignature_Title = "Revogar Última Autoassinatura ";
+RevokeLastSelfSignature_Msg = "Você está prestes a revogar a última Autoassinatura do ID de Usuário %@. Prossiga apenas se tiver certeza do que está fazendo.\n\nA revogação da última Autoassinatura do ID de Usuário inutilizará o ID de Usuário. Você não poderá mais usar o ID de Usuário %@ no Mail para assinar e-mails. Outras pessoas não poderão mais enviar mensagens criptografadas para o endereço de e-mail desse ID de Usuário.";
+RevokeLastSelfSignature_Yes = "Revogar Assinatura";
+RevokeLastSelfSignature_No = "Cancelar";
+
+RevokeKey_Title = "Aviso: você está prestes a revogar uma chave.";
+RevokeKey_Msg = "Você está prestes a revogar a seguinte chave:\n\n%@\n\nUma vez revogada, não será mais possível assinar e criptografar mensagens com esta chave. A chave revogada ainda poderá ser usada para decriptografar e-mails e arquivos criptografados anteriormente com a mesma.\n\nÉ recomendável que você não a apague.\n\nPara informar outras pessoas sobre a revogação da chave, é necessário enviá-la aos servidores.\n\nTem certeza de que deseja revogar esta chave?";
+RevokeKey_Upload = "Enviar Chave Revogada";
+RevokeKey_Yes = "Revogar Chave";
+RevokeKey_No = "Cancelar";
+
+
+/* Delete warnings */
+DeleteKey_Title = "Apagar chave(s) pública(s)";
+DeleteKey_Msg = "Você está prestes a apagar a(s) seguinte(s) chave(s) pública(s):\n\n%@\n\nTem certeza de que deseja apagar a(s) chave(s) pública(s)?";
+DeleteKey_Yes = "Apagar chave(s)";
+DeleteKey_No = "Cancelar";
+
+DeleteSecKey_Title = "Aviso: você está prestes a apagar chave(s) secreta(s) e pública(s).";
+DeleteSecKey_Msg = "Você está prestes a apagar a(s) chave(s):\n\n%@\n\nO apagamento de uma chave secreta tem consequências importantes. Depois de apagada, não será mais possível decripografar mensagens com a mesma. Isso envolve todas as mensagens criptografadas com esta chave.\n\nÉ recomendável que você não a apague.\n\nPara informar outras pessoas sobre o desuso da chave, é preferível revogar a chave (em vez de apagá-la) e enviar a chave revogada aos servidores. Caso contrário, outras pessoas ainda poderão usar a chave para criptografar mensagens para você.";
+DeleteSecKey_Checkbox = "Sim, desejo apagar minha chave secreta e entendo que não poderei\nmais decriptografar as mensagens criptografadas com esta chave.";
+DeleteSecKey_Yes = "Apagar Chave(s)";
+DeleteSecKey_SecOnly = "Apagar Apenas Chave(s) Secreta(s)";
+DeleteSecKey_No = "Cancelar";
+
+DeleteRevokedSecKey_Title = "Aviso: você está prestes a apagar par(es) de chaves revogada(s).";
+DeleteRevokedSecKey_Msg = "Você está prestes a apagar o(s) seguinte(s) par(es) de chaves revogada(s):\n\n%@\n\nChaves revogadas ainda podem decriptografar mensagens antigas criptografadas com essas chaves.\n\nÉ recomendável que você não as apague.";
+DeleteRevokedSecKey_Checkbox = "Sim, desejo apagar minha chave secreta e entendo que não poderei\nmais decriptografar as mensagens criptografadas com esta chave.";
+DeleteRevokedSecKey_Yes = "Apagar Par(es) de Chaves";
+DeleteRevokedSecKey_SecOnly = "Apagar Apenas Chave(s) Secreta(s)";
+DeleteRevokedSecKey_No = "Cancelar";
+
+
+/* Bad keyserver */
+BadKeyserver_Title = "Servidor de Chaves Inválido";
+BadKeyserver_Msg = "O Servidor de Chaves digitado não está funcionando.\nVerifique o endereço do servidor, que deve ter o seguinte formato: hkp://some.key.server.org\n\nO Servidor de Chaves também pode estar off-line. Nesse caso, use outro servidor.";
+
+
+/* Import warnings */
+ImportRevSig_Title = "Importar Certificado de Revogação";
+ImportRevSig_Msg = "Você está prestes a importar o Certificado de Revogação de %@. Caso revogue esta chave, você não poderá mais assinar mensagens com ela e outras pessoas não poderão mais enviar mensagens criptografadas com a sua chave para você. Envie a chave revogada aos servidores de chaves para alertar outras pessoas sobre a revogação da sua chave.\n\nVocê ainda poderá usar a chave revogada para decriptografar e-mails e arquivos criptografados anteriormente. Para isso, recomenda-se mantê-la no GPG Keychain.";
+ImportRevSig_Yes = "Importar";
+ImportRevSig_No = "Cancelar";
+
+ImportRandomData_Title = "Aviso: o conteúdo provavelmente não pode ser importado.";
+ImportRandomData_Msg = "Parece que você está tentando importar uma mensagem que não possui uma chave OpenPGP.\n\nTem certeza de que deseja importar esse conteúdo?";
+ImportRandomData_Yes = "Tentar Importar";
+ImportRandomData_No = "Cancelar";
+
+ImportNonImportable_Title = "Aviso: o conteúdo provavelmente não pode ser importado.";
+ImportNonImportable_Msg = "Parece que você está tentando importar uma mensagem assinada ou criptografada.\n\nEssas mensagens não podem ser importadas no GPG Keychain.\n\nTente decriptografar ou verificar a mensagem usando o GPGServices.";
+ImportNonImportable_Yes = "Tentar Importar";
+ImportNonImportable_No = "Cancelar";
+
+
+/* For Import-Results */
+IMPORT_RESULT_NEW_KEY = "A seguinte chave foi importada corretamente\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "As seguintes chaves foram importadas corretamente\n\n%@";
+
+IMPORT_RESULT_NEW_USER_ID = "Um ID de Usuário foi adicionado à(s) seguinte(s) chave(s)\n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "Uma assinatura foi adicionada à(s) seguinte(s) chave(s)\n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "Uma subchave foi adicionada à(s) seguinte(s) chave(s)\n\n%@";
+
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 certificado de revogação foi importado.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i certificados de revogação foram importados.";
+
+IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 chave foi processada e %i foram importadas.";
+IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i chaves foram processadas e 1 foi importada.";
+IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i chaves foram processadas e %2$i foram importadas.";
+
+
+/* Errors */
+ImportKeyError_Title = "Falha ao importar uma ou mais chaves";
+ImportKeyError_Msg = "Às vezes, as chaves não podem ser importadas devido à falta de autoassinatura. Para obter mais detalhes sobre como resolver este problema, visite https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature.";
+ImportKeyErrorPGP_Title = "A Importação Falhou";
+ImportKeyErrorPGP_Msg = "Parece que você está tentando importar uma mensagem assinada ou criptografada. Tente decriptografar ou verificar a mensagem usando o GPGServices.";
+ImportKeyErrorNoPGP_Title = "A Importação Falhou";
+ImportKeyErrorNoPGP_Msg = "Parece que você está tentando importar dados que não são relacionados ao PGP e não podem ser processados.";
+
+NO_SECRET_KEY_TITLE = "Nenhuma chave secreta encontrada!";
+NO_SECRET_KEY_MESSAGE = "Uma chave secreta é necessária para realizar esta operação.";
+
+/* The Algorithms */
+GPG_RSAAlgorithm = "RSA";
+GPG_RSAEncryptOnlyAlgorithm = "RSA-E";
+GPG_RSASignOnlyAlgorithm = "RSA-S";
+GPG_ElgamalEncryptOnlyAlgorithm = "ELG-E";
+GPG_DSAAlgorithm = "DSA";
+GPG_EllipticCurveAlgorithm = "EllipticCurve";
+GPG_ECDSAAlgorithm = "ECDSA";
+GPG_ElgamalAlgorithm = "ELG";
+GPG_DiffieHellmanAlgorithm = "DiffieHellman";
+
+
+/* In Main Window */
+"%i of %i keys listed" = "%i de %i chaves listadas";
+
+
+/* For opening and saving dialogues */
+ChoosePhoto_Large_Message = "Esta foto é grande demais.";
+ChoosePhoto_Large_Info = "Use uma foto menor.\nMenos de 15 KB é o tamanho recomendado.";
+ChoosePhoto_Large_Button1 = "Escolher Outra…";
+ChoosePhoto_Large_Button2 = "Usar Esta Foto";
+ChoosePhoto_TooLarge_Message = "A foto é grande demais.";
+ChoosePhoto_TooLarge_Info = "Use uma foto com menos de 500 KB.\nMenos de 15 KB é o tamanho recomendado.";
+
+
+
+
+CIPHER_ALGO_NONE = "Nenhum";
+CIPHER_ALGO_IDEA = "IDEA";
+CIPHER_ALGO_3DES = "3DES";
+CIPHER_ALGO_CAST5 = "CAST5";
+CIPHER_ALGO_BLOWFISH = "BLOWFISH";
+CIPHER_ALGO_AES = "AES";
+CIPHER_ALGO_AES192 = "AES192";
+CIPHER_ALGO_AES256 = "AES256";
+CIPHER_ALGO_TWOFISH = "TWOFISH";
+CIPHER_ALGO_CAMELLIA128 = "CAMELLIA128";
+CIPHER_ALGO_CAMELLIA192 = "CAMELLIA192";
+CIPHER_ALGO_CAMELLIA256 = "CAMELLIA256";
+DIGEST_ALGO_MD5 = "MD5";
+DIGEST_ALGO_SHA1 = "SHA1";
+DIGEST_ALGO_RMD160 = "RMD160";
+DIGEST_ALGO_SHA256 = "SHA256";
+DIGEST_ALGO_SHA384 = "SHA384";
+DIGEST_ALGO_SHA512 = "SHA512";
+DIGEST_ALGO_SHA224 = "SHA224";
+COMPRESS_ALGO_NONE = "Nenhuma";
+COMPRESS_ALGO_ZIP = "ZIP";
+COMPRESS_ALGO_ZLIB = "ZLIB";
+COMPRESS_ALGO_BZIP2 = "BZIP2";
+
+
+
+
+ExportKey_Progress = "Exportando chave.";
+ExportKey_Error = "A exportação da chave falhou.";
+ImportKey_Progress  = "Importando chave.";
+DeleteSecretKey_Progress = "Apagando chave secreta.";
+DeleteKeys_Progress = "Apagando chave.";
+DeleteKeys_Error = "Falha ao apagar a chave.";
+ChangePassphrase_Progress = "Alterando frase-senha.";
+ChangePassphrase_Error = "A alteração da frase-senha falhou.";
+SetDisabled_Progress = "Ativando/desativando chave.";
+SetDisabled_Error = "A ativação/desativação da chave falhou.";
+SetOwnerTrust_Progress = "Definindo confiança de propriedade.";
+SetOwnerTrust_Error = "Falha ao definir a confiança de propriedade.";
+ChangeExpirationDate_Progress = "Alterando vencimento.";
+ChangeExpirationDate_Error = "Falha ao alterar o vencimento.";
+SetAlgorithmPreferences_Progress = "Definindo preferências do algoritmo.";
+SetAlgorithmPreferences_Error = "Falha ao definir as preferências do algoritmo.";
+CleanKey_Progress = "Limpando chave.";
+CleanKey_Error = "Falha ao limpar a chave.";
+MinimizeKey_Progress = "Minimizando chave.";
+MinimizeKey_Error = "Falha ao minimizar a chave.";
+GenerateRevokeCertificateForKey_Progress = "Gerando certificado de revogação.";
+GenerateRevokeCertificateForKey_Error = "Falha ao gerar o certificado de revogação.";
+SearchKeysOnServer_Progress = "Buscando chave.";
+SearchKeysOnServer_Error = "Falha ao buscar a chave.";
+SendKeysToServer_Progress = "Enviando %@ ao servidor.";
+SendKeysToServer_Error = "Falha ao enviar a chave.";
+RefreshKeysFromServer_Progress = "Atualizando %@ do servidor.";
+RefreshKeysFromServer_Error = "Falha ao atualizar a chave.";
+AddSubkey_Progress = "Adicionando subchave.";
+AddSubkey_Error = "Falha ao adicionar a subchave.";
+RemoveSubkey_Progress = "Removendo subchave.";
+RemoveSubkey_Error = "Falha ao remover a subchave.";
+RevokeSubkey_Progress = "Revogando subchave.";
+RevokeSubkey_Error = "Falha ao revogar a subchave.";
+AddUserID_Progress = "Adicionando ID de Usuário.";
+AddUserID_Error = "Falha ao adicionar o ID de Usuário.";
+RemoveUserID_Progress = "Removendo ID de Usuário.";
+RemoveUserID_Error = "Falha ao remover o ID de Usuário.";
+SetPrimaryUserID_Progress = "Definindo ID de Usuário principal.";
+SetPrimaryUserID_Error = "Falha ao definir o ID de Usuário principal.";
+RevokeUserID_Progress = "Revogando ID de Usuário.";
+RevokeUserID_Error = "Falha ao revogar o ID de Usuário.";
+AddPhoto_Progress = "Adicionando foto.";
+AddPhoto_Error = "Falha ao adicionar a foto.";
+RemovePhoto_Progress = "Removendo foto.";
+RemovePhoto_Error = "Falha ao remover a foto.";
+SetPrimaryPhoto_Progress = "Definindo foto principal.";
+SetPrimaryPhoto_Error = "Falha ao definir a foto principal.";
+RevokePhoto_Progress = "Revogando foto.";
+RevokePhoto_Error = "Falha ao revogar a foto.";
+AddSignature_Progress = "Adicionando assinatura.";
+AddSignature_Error = "Falha ao adicionar a assinatura.";
+RemoveSignature_Progress = "Removendo assinatura.";
+RemoveSignature_Error = "Falha ao remover a assinatura.";
+RevokeSignature_Progress = "Revogando assinatura.";
+RevokeSignature_Error = "Falha ao revogar a assinatura.";
+ReceiveKeysFromServer_Progress = "Recebendo chaves.";
+ReceiveKeysFromServer_Error = "Falha ao receber as chaves.";
+RevokeKey_Progress = "Revogando chave.";
+RevokeKey_Error = "Falha ao revogar a chave.";
+
+

@@ -1174,7 +1174,9 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		sheetLock = [NSLock new];
 		progressSheetLock = [NSLock new];
 		msgTextFields = [[NSMutableSet alloc] init];
-		[NSBundle loadNibNamed:@"ModalSheets" owner:self];
+		NSArray *objects;
+		[[NSBundle mainBundle] loadNibNamed:@"ModalSheets" owner:self topLevelObjects:&objects];
+		topLevelObjects = objects;
 	}
 	return self;
 }

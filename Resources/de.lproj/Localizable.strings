@@ -15,6 +15,12 @@
 "Public key" = "Öffentlicher Schlüssel";
 
 
+/* Key descriptions */
+"and" = "und";
+"%@and %lu more" = "%@und %lu weitere";
+SecretAndPublicKeyListing = "Geheime Schlüssel:\n\n%@\n\nÖffentliche Schlüssel:\n\n%@";
+
+
 /* For export, as standard File-Name. */
 "untitled" = "unbenannt";
 "%@ Revoke certificate" = "%@ Widerrufszertifikat";
@@ -92,11 +98,13 @@ MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x
 MailKey_Progress = "Neue E-Mail wird erstellt ...";
 MailKey_Progress_Your = "Neue E-Mail wird erstellt ...";
 MailKey_Error = "Ups, da ging was schief. Es gab ein Problem beim Export deines Schlüssels.";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unbrauchbarer Schlüssel ausgewählt!";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via mail. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
-PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Title = "Einer oder mehrere Schlüssel wurden in Ihrer Zwischenablage erkannt.";
+PasteboardKeyFound_Msg = "%@\n\nMöchten Sie den (die) Schlüssel importieren?";
 PasteboardKeyFound_Yes = "Importieren";
 PasteboardKeyFound_No = "Abbrechen";
 
@@ -121,12 +129,12 @@ RevokeUserID_Yes = "Benutzer-ID widerrufen";
 RevokeUserID_No = "Abbrechen";
 
 RemoveSubkey_Title = "Unterschlüssel entfernen";
-RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
+RemoveSubkey_Msg = "Achtung! Bitte fahre nur fort, wenn du ganz genau weißt, was du machst.\n\nDas Entfernen dieses Unterschlüssels kann es unmöglich machen, mit deinem Schlüssel zu entschlüsseln oder zu signieren.\n\nFalls der Schlüssel mit diesem Unterschlüssel auf den Schlüsselservern existiert, wird das Entfernen dieses Unterschlüssels nicht den Unterschlüssel von den Schlüsselservern entfernen. In diesem Falle, bitte widerrufe den Unterschlüssel der in Frage steht und lade den aktualisierten Schlüssel auf den Schlüsselserver hoch.";
 RemoveSubkey_Yes = "Unterschlüssel entfernen";
 RemoveSubkey_No = "Abbrechen";
 
 RevokeSubkey_Title = "Unterschlüssel widerrufen";
-RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
+RevokeSubkey_Msg = "Achtung! Bitte fahre nur fort, wenn du ganz genau weißt, was du machst.\n\nDas Widerrufen dieses Unterschlüssels kann es unmöglich machen, mit deinem Schlüssel zu entschlüsseln oder zu signieren.\n\nFalls der Schlüssel mit diesem Unterschlüssel auf den Schlüsselservern existiert, lade den aktualisierten Schlüssel auf den Schlüsselserver hoch. Erst dann wird der Unterschlüssel im Schlüssel auf dem Schlüsselserver als widerrufen angezeigt.";
 RevokeSubkey_Yes = "Unterschlüssel widerrufen";
 RevokeSubkey_No = "Abbrechen";
 
@@ -150,35 +158,32 @@ RevokeLastSelfSignature_Msg = "Du bist dabei die letzte Eigenbeglaubigung von de
 RevokeLastSelfSignature_Yes = "Signatur widerrufen";
 RevokeLastSelfSignature_No = "Abbrechen";
 
-RevokeKey_Title = "Warnung! Sie sind dabei, einen Schlüssel zu widerrufen.";
-RevokeKey_Msg = "Du bist dabei den Schlüssel %@ zu widerrufen.\n\nSobald der Schlüssel widerrufen ist, kannst du damit keine Nachrichten mehr signieren und andere werden dir keine Nachrichten mehr schicken können, die mit diesem Schlüssel verschlüsselt sind. Sofern du deinen öffentlichen Schlüssel auf einen Schlüsselserver geladen hast, stelle bitter sicher, den widerrufenen Schlüssel erneut auf den Schlüsselserver zu laden, damit andere mitbekommen, dass der Schlüssel widerrufen wurde.\n\nDu kannst deinen widerrufenen Schlüssel weiterhin zum Entschlüsseln von Mails und Dateien verwenden, die bis jetzt mit deinem öffentlichen Schlüssel verschlüsselt wurden. Wir empfehlen daher den widerrufenen Schlüssel im GPG Schlüsselbund zu behalten.\n\nWillst du diesen Schlüssel widerrufen?";
+RevokeKey_Title = "Warnung: Sie sind dabei, einen Schlüssel zu widerrufen";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Upload = "Widerrufenen Schlüssel hochladen";
 RevokeKey_Yes = "Schlüssel widerrufen";
 RevokeKey_No = "Abbrechen";
-RevokeKey_Upload = "Widerrufenen Schlüssel hochladen";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Öffentlichen Schlüssel löschen";
-DeleteKey_Msg = "Du bist dabei den öffentlichen Schlüssel von %@ zu löschen.\n\nMöchtest du diesen öffentlichen Schlüssel wirklich löschen?";
+DeleteKey_Title = "Öffentliche(n) Schlüssel löschen";
+DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
 DeleteKey_Yes = "Schlüssel löschen";
 DeleteKey_No = "Abbrechen";
 
-DeleteKeys_Title = "Öffentliche Schlüssel löschen";
-DeleteKeys_Msg = "Du bist dabei die öffentlichen Schlüssel von\n\n%@\n\nzu löschen.\n\nMöchtest du diese öffentlichen Schlüssel wirklich löschen?";
-DeleteKeys_Yes = "Schlüssel löschen";
-DeleteKeys_No = "Abbrechen";
-
-DeleteSecKey_Title = "Geheimen und öffentlichen Schlüssel löschen";
-DeleteSecKey_Msg = "Warnung! Du bist dabei deinen geheimen und öffentlichen Schlüssel zu löschen:\n\n%@\n\nDas Löschen eines geheimen Schlüssels hat gravierende Konsequenzen, die du bedenken solltest.\n\nOhne geheimen Schlüssel wirst du keine Nachrichten mehr entschlüsseln können, die mit dem entsprechenden öffentlichen Schlüssel verschlüsselt wurden.\n\nSofern du deinen Schlüssel auf einen Schlüsselserver geladen hast, wird dieser dort als gültig erscheinen, es sei denn, du widerrufst ihn. In dem Fall, widerrufe zunächst deinen Schlüssel und lade den widerrufenen Schlüssel auf den Schlüsselserver, bevor du dein Schlüsselpaar löschst!\n\nBist du sicher, dass du dieses Schlüsselpaar löschen willst?";
-DeleteSecKey_Yes = "Geheimen und öffentlichen Schlüssel löschen";
+DeleteSecKey_Title = "Warnung! Sie sind dabei, geheime(n) und öffentliche(n) Schlüssel zu löschen";
+DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteSecKey_Yes = "Schlüssel löschen";
+DeleteSecKey_SecOnly = "Nur geheime(n) Schlüssel löschen";
 DeleteSecKey_No = "Abbrechen";
-DeleteSecKey_SecOnly = "Nur geheimen Schlüssel löschen";
 
-DeleteSecKeys_Title = "Geheime und öffentliche Schlüssel löschen";
-DeleteSecKeys_Msg = "Warnung! Du bist dabei folgende geheime und öffentliche Schlüssel zu löschen:\n\n%@\n\nDas Löschen von geheimen Schlüsseln hat gravierende Konsequenzen, die du bedenken solltest.\n\nOhne geheime Schlüssel wirst du keine Nachrichten mehr entschlüsseln können, die mit den entsprechenden öffentlichen Schlüsseln verschlüsselt wurden.\n\nSofern du deine Schlüssel auf einen Schlüsselserver geladen hast, werden diese dort als gültig erscheinen, es sei denn, du widerrufst sie. In dem Fall, widerrufe zunächst deine Schlüssel und lade die widerrufenen Schlüssel auf den Schlüsselserver, bevor du dein Schlüsselpaar löschst!\n\nBist du sicher, dass du diese Schlüsselpaare löschen willst?";
-DeleteSecKeys_Yes = "Geheime und öffentliche Schlüssel löschen";
-DeleteSecKeys_No = "Abbrechen";
-DeleteSecKeys_SecOnly = "Nur geheime Schlüssel löschen";
+DeleteRevokedSecKey_Title = "Warnung: Sie sind dabei, widerrufende(s) Schlüsselpaar(e) zu löschen";
+DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
+DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
+DeleteRevokedSecKey_SecOnly = "Nur geheime(n) Schlüssel löschen";
+DeleteRevokedSecKey_No = "Abbrechen";
 
 
 /* Bad keyserver */
@@ -204,44 +209,19 @@ ImportNonImportable_No = "Abbrechen";
 
 
 /* For Import-Results */
-ImportResult_Secret = "Schlüssel %@: geheimer Schlüssel „%@“ importiert\n";
-ImportResult_Public = "Schlüssel %@: öffentlicher Schlüssel „%@“ importiert\n";
-ImportResult_UserID = "Schlüssel %@: \"%@\" neue Benutzer-ID(s).";
-ImportResult_Signature = "Schlüssel %@: „%@“ neue Beglaubigung(en)\n";
-ImportResult_Subkey = "Schlüssel %@: „%@“ neue(r) Unterschlüssel\n";
-ImportResult_KeyNoChanges = "Schlüssel %@: „%@“ keine Änderungen.";
-ImportResult_OneRevocationCertificate = "1 Widerrufszertifikat importiert.";
-ImportResult_CountRevocationCertificate = "%i Widerrufszertifikate importiert.";
-ImportResult_CountProcessed = "Anzahl der verarbeiteten Schlüssel: %i";
-ImportResult_CountImported = "Anzahl der importierten Schlüssel: %i";
-ImportResult_CountUnchanged = "Anzahl der unveränderten Schlüssel: %i";
-ImportResult_NoKeysImported = "Es konnten keine Schlüssel importiert werden!";
+IMPORT_RESULT_NEW_KEY = "Sie haben den Schlüssel erfolgreich importiert \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "Sie haben die Schlüssel erfolgreich importiert  \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEY = "You have successfully imported the secret key \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEY = "You have successfully imported the public key \n%@";
-IMPORT_RESULT_NEW_USER_ID = "A user id has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature has been added to the following key \n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey has been added to the following key \n%@";
-IMPORT_RESULT_UNCHANGED_KEY = "No changes for key \n%@";
+IMPORT_RESULT_NEW_USER_ID = "Eine Benutzerkennung wurde zum Schlüssel/zu den Schlüsseln hinzugefügt \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "Eine Signatur wurde zum Schlüssel/zu den Schlüsseln hinzugefügt \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "Ein Unterschlüssel wurde zum Schlüssel/zu den Schlüsseln hinzugefügt \n\n%@";
 
-IMPORT_RESULT_NEW_SECRET_KEYS = "You have successfully imported the secret keys \n%@";
-IMPORT_RESULT_NEW_PUBLIC_KEYS = "You have successfully imported the public keys \n%@";
-IMPORT_RESULT_NEW_USER_IDS = "A user id has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SIGNATURES = "A signature has been added to the following keys \n%@";
-IMPORT_RESULT_NEW_SUBKEYS = "A subkey has been added to the following keys \n%@";
-IMPORT_RESULT_UNCHANGED_KEYS = "No changes for keys \n%@";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 Widerrufszertifikat wurde importiert.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i Widerrufszertifikate wurden importiert.";
 
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEY = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEY = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEY = "Unchanged keys: %i";
-
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Revocation certificates imported: %i";
-IMPORT_RESULT_COUNT_PUBLIC_KEYS = "Processed keys: %i";
-IMPORT_RESULT_COUNT_OK_PUBLIC_KEYS = "Imported keys: %i";
-IMPORT_RESULT_COUNT_UNCHANGED_PUBLIC_KEYS = "Unchanged keys: %i";
-
-
+IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 Schlüssel wurde verarbeitet und %i importiert.";
+IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i Schlüssel wurden verarbeitet und 1 importiert.";
+IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i Schlüssel wurden verarbeitet und %2$i importiert.";
 
 
 /* Errors */
@@ -250,7 +230,10 @@ ImportKeyError_Msg = "Oft können Schlüssel nicht importiert werden, weil eine 
 ImportKeyErrorPGP_Title = "Importieren fehlgeschlagen!";
 ImportKeyErrorPGP_Msg = "Du versuchst anscheinend eine signierte oder verschlüsselte Nachricht zu importieren. Solche Nachrichten können nicht in GPG Keychain importiert werden. Stattdessen kannst du die Nachricht mit GPGServices entschlüsseln oder verifizieren.";
 ImportKeyErrorNoPGP_Title = "Importieren fehlgeschlagen!";
-ImportKeyErrorNoPGP_Msg = "Es scheint, du versuchst Daten zu importieren, die kein OpenPGP Daten sind. Sie können daher nicht verarbeitet werden.";
+ImportKeyErrorNoPGP_Msg = "Es scheint als versuchen Sie Daten zu importieren, die keine OpenPGP-Daten sind und daher nicht verarbeitet werden können.";
+
+NO_SECRET_KEY_TITLE = "Kein geheimer Schlüssel gefunden!";
+NO_SECRET_KEY_MESSAGE = "Sie benötigen einen geheimen Schlüssel, um diese Operation auszuführen.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";

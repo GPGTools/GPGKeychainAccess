@@ -730,7 +730,7 @@
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
-	NSInteger keyType, subkeyType;
+	GPGPublicKeyAlgorithm keyType, subkeyType;
 	
 	switch (sheetController.keyType) {
 		default:
@@ -776,10 +776,10 @@
 						   email:sheetController.email
 						 comment:sheetController.comment
 						 keyType:keyType
-					   keyLength:sheetController.length
+					   keyLength:(int)sheetController.length
 					  subkeyType:subkeyType
-					subkeyLength:sheetController.length
-					daysToExpire:sheetController.daysToExpire
+					subkeyLength:(int)sheetController.length
+					daysToExpire:(int)sheetController.daysToExpire
 					 preferences:nil];
 }
 - (IBAction)deleteKey:(id)sender {
@@ -953,7 +953,7 @@
 		gpgc.userInfo = @{@"action": @(SetTrustAction), @"keys": keys, @"trust": @(trust)};
 	}
 	
-	[gpgc key:key setOwnerTrust:trust];
+	[gpgc key:key setOwnerTrust:(GPGValidity)trust];
 }
 
 - (IBAction)changeExpirationDate:(id)sender {
@@ -1497,7 +1497,12 @@
 	
 	self.progressText = localized(@"AddSignature_Progress");
 	self.errorText = localized(@"AddSignature_Error");
-	[gpgc signUserID:[userID hashID] ofKey:key signKey:sheetController.secretKey type:sheetController.sigType local:sheetController.localSig daysToExpire:sheetController.daysToExpire];
+	[gpgc signUserID:[userID hashID]
+			   ofKey:key
+			 signKey:sheetController.secretKey
+				type:(int)sheetController.sigType
+			   local:sheetController.localSig
+		daysToExpire:(int)sheetController.daysToExpire];
 }
 - (IBAction)removeSignature:(id)sender {
 	NSArray *objects = [self selectedObjectsOf:signaturesTable];

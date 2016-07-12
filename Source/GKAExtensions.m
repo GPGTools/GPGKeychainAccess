@@ -242,8 +242,6 @@
 
 - (id)getIvar:(id)key {
     return objc_getAssociatedObject(self, (__bridge const void *)(key));
-	objc_removeAssociatedObjects(self);
-	
 }
 - (NSString *)textForFilter {
 	dispatch_semaphore_wait(_textForFilterOnce, DISPATCH_TIME_FOREVER);
