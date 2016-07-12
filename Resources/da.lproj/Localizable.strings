@@ -16,9 +16,9 @@
 
 
 /* Key descriptions */
-"and" = "and";
-"%@and %lu more" = "%@and %lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+"and" = "og";
+"%@and %lu more" = "%@og %lu mere";
+SecretAndPublicKeyListing = "Private nøgler:\n\n%@\n\nOffentlige nøgler:\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -98,8 +98,8 @@ MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x
 MailKey_Progress = "Opretter ny e-mail...";
 MailKey_Progress_Your = "Opretter ny e-mail...";
 MailKey_Error = "Ups, noget gik galt. Der var problemer med at eksportere din nøgle.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
-MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via mail. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Ubrugelig nøgle valgt!";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
 /* A key was found in the pasteboard */
@@ -158,31 +158,31 @@ RevokeLastSelfSignature_Msg = "Du er ved at tilbagekalde den sidste egen-signatu
 RevokeLastSelfSignature_Yes = "Tilbagekald signatur";
 RevokeLastSelfSignature_No = "Annuller";
 
-RevokeKey_Title = "Warning: You are about to revoke a key";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Title = "Advarsel: Du er ved at tilbagekalde en nøgle";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Upload tilbagekaldt nøgle";
 RevokeKey_Yes = "Tilbagekald nøgle";
 RevokeKey_No = "Annuller";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key(s)";
-DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
-DeleteKey_Yes = "Delete key(s)";
+DeleteKey_Title = "Slet offentlig nøgle(r)";
+DeleteKey_Msg = "Du er ved at slette den følgende offentlige nøgle(r):\n\n%@\n\nEr du sikker på, at du vil slette denne offentlige nøgle(r)?";
+DeleteKey_Yes = "Slet nøgle(r)";
 DeleteKey_No = "Annuller";
 
-DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
-DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
-DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteSecKey_Yes = "Delete key(s)";
-DeleteSecKey_SecOnly = "Delete secret key(s) only";
+DeleteSecKey_Title = "Advarsel! Du er ved at slette private og offentlige nøgle(r)";
+DeleteSecKey_Msg = "Du er ved at slette nøgle(r):\n\n%@\n\nSletning af en privat nøgle har store konsekvenser. Når nøglen er slettet, kan man ikke længere dekryptere beskeder med den. Dette angår alle beskeder, der blev krypteret med nøglen.\n\nVi anbefaler ikke at slette den.\n\nFor at fortælle andre, at denne nøgle ikke længere er i brug, bør du tilbagekalde nøglen i stedet for at slette den, og uploade den tilbagekaldte nøgle til nøgleserverne. Ellers kan andre stadig bruge denne nøgle til at kryptere beskeder til dig.";
+DeleteSecKey_Checkbox = "Ja, jeg vil gerne slette min private nøgle, og jeg forstår, at jeg ikke længere kan dekryptere nogen beskeder, der blev krypteret til denne nøgle.";
+DeleteSecKey_Yes = "Slet nøgle(r)";
+DeleteSecKey_SecOnly = "Slet kun privat nøgle(r)";
 DeleteSecKey_No = "Annuller";
 
-DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
-DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
-DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
-DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
+DeleteRevokedSecKey_Title = "Advarsel: Du er ved at slette tilbagekaldte nøglepar";
+DeleteRevokedSecKey_Msg = "Du er ved at slette følgende tilbagekaldte nøglepar:\n\n%@\n\nTilbagekaldte nøgler kan stadig dekryptere gamle beskeder krypteret til den nøgle.\n\nVi anbefaler ikke at slette den.";
+DeleteRevokedSecKey_Checkbox = "Ja, jeg vil gerne slette min private nøgle, og jeg forstår, at jeg ikke længere kan dekryptere nogen beskeder, der blev krypteret til denne nøgle.";
+DeleteRevokedSecKey_Yes = "Slet dit nøglepar";
+DeleteRevokedSecKey_SecOnly = "Slet kun privat nøgle(r)";
 DeleteRevokedSecKey_No = "Annuller";
 
 
@@ -209,19 +209,19 @@ ImportNonImportable_No = "Annuller";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
-IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
+IMPORT_RESULT_NEW_KEY = "Du har med success importeret nøglen\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "Du har med success importeret nøglerne\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "Et bruger id blev tilføjet nøglerne\n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "En signatur blev tilføjet nøglerne\n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "En undernøgle blev tilføjet nøglerne\n\n%@";
 
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 revocation certificate was imported.";
-IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i revocation certificates were imported.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 tilbagekaldelsescertifikat blev importeret.";
+IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i tilbagekaldelsescertifikater blev importeret.";
 
-IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 key was processed and %i imported.";
-IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i keys were processed and 1 imported.";
-IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i imported.";
+IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 nøgle blev behandlet og %i importeret.";
+IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i nøgler blev behandlet og 1 importeret.";
+IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i nøgler blev behandlet og %2$i importeret.";
 
 
 /* Errors */
@@ -232,8 +232,8 @@ ImportKeyErrorPGP_Msg = "Det ser ud til at du forsøger at importere en kryptere
 ImportKeyErrorNoPGP_Title = "Import mislykkedes!";
 ImportKeyErrorNoPGP_Msg = "Det ser ud til at du forsøger at importere nogle ikke PGP-relaterede data, der ikke kan behandles.";
 
-NO_SECRET_KEY_TITLE = "No secret key found!";
-NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
+NO_SECRET_KEY_TITLE = "Ingen privat nøgle fundet!";
+NO_SECRET_KEY_MESSAGE = "Du skal bruge en privat nøgle til at udføre denne operation.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";

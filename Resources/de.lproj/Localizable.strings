@@ -99,7 +99,7 @@ MailKey_Progress = "Neue E-Mail wird erstellt ...";
 MailKey_Progress_Your = "Neue E-Mail wird erstellt ...";
 MailKey_Error = "Ups, da ging was schief. Es gab ein Problem beim Export deines Schlüssels.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unbrauchbarer Schlüssel ausgewählt!";
-MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via mail. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
 /* A key was found in the pasteboard */
@@ -159,7 +159,7 @@ RevokeLastSelfSignature_Yes = "Signatur widerrufen";
 RevokeLastSelfSignature_No = "Abbrechen";
 
 RevokeKey_Title = "Warnung: Sie sind dabei, einen Schlüssel zu widerrufen";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it's necessary to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Widerrufenen Schlüssel hochladen";
 RevokeKey_Yes = "Schlüssel widerrufen";
 RevokeKey_No = "Abbrechen";
@@ -167,21 +167,21 @@ RevokeKey_No = "Abbrechen";
 
 /* Delete warnings */
 DeleteKey_Title = "Öffentliche(n) Schlüssel löschen";
-DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
+DeleteKey_Msg = "Du bist dabei, folgende(n) öffentliche(n) Schlüssel zu löschen:\n\n%@\n\nMöchtest du diese(n) öffentliche(n) Schlüssel wirklich löschen?";
 DeleteKey_Yes = "Schlüssel löschen";
 DeleteKey_No = "Abbrechen";
 
 DeleteSecKey_Title = "Warnung! Sie sind dabei, geheime(n) und öffentliche(n) Schlüssel zu löschen";
-DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
-DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
+DeleteSecKey_Msg = "Du bist dabei folgende(n) Schlüssel zu löschen:\n\n%@\n\nDas Löschen eines geheimen Schlüssels hat gravierende Konsequenzen, die du bedenken solltest. Ohne geheimen Schlüssel wirst du keine Nachrichten mehr entschlüsseln können, die mit dem entsprechenden öffentlichen Schlüssel verschlüsselt wurden.\n\nWir raten, den Schlüssel nicht zu löschen.\n\nSofern du deinen Schlüssel auf einen Schlüsselserver geladen hast, wird dieser dort als gültig erscheinen, es sei denn, du widerrufst ihn. In dem Fall, widerrufe zunächst deinen Schlüssel und lade den widerrufenen Schlüssel auf den Schlüsselserver, bevor du ihn löschst. Andernfalls werden andere weiter Nachrichten mit diesem Schlüssel verschlüssseln können.";
+DeleteSecKey_Checkbox = "Ja, ich will meinen geheimen Schlüssel löschen und verstehe, dass ich danach nicht mehr in der Lage sein werde, Nachrichten mit diesem Schlüssel zu entschlüsseln";
 DeleteSecKey_Yes = "Schlüssel löschen";
 DeleteSecKey_SecOnly = "Nur geheime(n) Schlüssel löschen";
 DeleteSecKey_No = "Abbrechen";
 
 DeleteRevokedSecKey_Title = "Warnung: Sie sind dabei, widerrufende(s) Schlüsselpaar(e) zu löschen";
-DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
-DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
+DeleteRevokedSecKey_Msg = "Du bist dabei folgende widerrufene Schlüssel zu löschen:\n\n%@\n\nWiderrufene Schlüssel können weiter verwendet werden, um alte Nachrichten zu entschlüsseln.\n\nWir raten, den Schlüssel nicht zu löschen.";
+DeleteRevokedSecKey_Checkbox = "Ja, ich will meinen geheimen Schlüssel löschen und verstehe, dass ich danach nicht mehr in der Lage sein werde, Nachrichten mit diesem Schlüssel zu entschlüsseln.";
+DeleteRevokedSecKey_Yes = "Schlüssel löschen";
 DeleteRevokedSecKey_SecOnly = "Nur geheime(n) Schlüssel löschen";
 DeleteRevokedSecKey_No = "Abbrechen";
 
