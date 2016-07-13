@@ -99,7 +99,7 @@ MailKey_Progress = "Neue E-Mail wird erstellt ...";
 MailKey_Progress_Your = "Neue E-Mail wird erstellt ...";
 MailKey_Error = "Ups, da ging was schief. Es gab ein Problem beim Export deines Schlüssels.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unbrauchbarer Schlüssel ausgewählt!";
-MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du hast einen unbenutzbaren Schlüssel ausgewählt. Der Schlüssel kann daher nicht per E-Mail versendet werden. Bitte aktualisiere den Schlüssel vom Schlüsselserver, um eventuelle Updates des Schlüssels zu erhalten.\n\nAndernfalls setzte dich mit dem Eigentümer des Schlüssel in Verbindung und informiere ihn über den Schlüsselstatus.\n\n%@";
 
 
 /* A key was found in the pasteboard */
@@ -159,7 +159,7 @@ RevokeLastSelfSignature_Yes = "Signatur widerrufen";
 RevokeLastSelfSignature_No = "Abbrechen";
 
 RevokeKey_Title = "Warnung: Sie sind dabei, einen Schlüssel zu widerrufen";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "Du bist dabei den Schlüssel %@ zu widerrufen.\n\nSobald der Schlüssel widerrufen ist, kannst du damit keine Nachrichten mehr signieren und andere werden dir keine Nachrichten mehr schicken können, die mit diesem Schlüssel verschlüsselt sind. Du kannst deinen widerrufenen Schlüssel weiterhin zum Entschlüsseln von Nachrichten verwenden, die bis jetzt mit deinem Schlüssel verschlüsselt wurden.\n\nWir empfehlen daher den widerrufenen Schlüssel in GPG Keychain zu behalten.\n\nUm andere in Kenntnis zu setzen, dass dein Schlüssel widerrufen wurde, raten wir, den widerrufenen Schlüssel auf den Schlüsselserver zu laden.\n\nWillst du diesen Schlüssel widerrufen?";
 RevokeKey_Upload = "Widerrufenen Schlüssel hochladen";
 RevokeKey_Yes = "Schlüssel widerrufen";
 RevokeKey_No = "Abbrechen";
