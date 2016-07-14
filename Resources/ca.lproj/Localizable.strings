@@ -2,7 +2,7 @@
 "Invalid" = "Invàlid";
 "Revoked" = "Revocat";
 "Expired" = "Caducat";
-"Disabled" = "Discapacitat";
+"Disabled" = "Deshabilitat";
 "Unknown" = "Desconegut";
 "Marginal" = "Marginal";
 "Full" = "Complet";
@@ -17,14 +17,14 @@
 
 /* Key descriptions */
 "and" = "i";
-"%@and %lu more" = "%@and %lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+KeyDescriptionAndMore = "%1$@ and %2$lu more";
+SecretAndPublicKeyListing = "Claus secretes:\n\n%@\n\nClaus públiques:\n\n%@";
 
 
 /* For export, as standard File-Name. */
 "untitled" = "sense títol";
 "%@ Revoke certificate" = "Revoca el certificat %@";
-"Exported keys.asc" = "Exporta keys.asc";
+"Exported keys.asc" = "Exportat keys.asc";
 ExportKeysFilename = "%@ %u Claus OpenPGP";
 
 
@@ -34,7 +34,7 @@ CheckAlert_NoPassphrase_Message = "No ha utilitzat cap contrasenya. Una contrase
 CheckAlert_NoPassphrase_Button1= "Continueu sense contrasenya";
 CheckAlert_NoPassphrase_Button2 = "Escriviu una nova contrasenya";
 CheckAlert_PassphraseShort_Title = "Contrasenya curta";
-CheckAlert_PassphraseShort_Message = "Ha utilitzat una contrasenya curta. No és recomanable. Una contrasenya ha de tenir com a mínim 8 caràcters de longitud.";
+CheckAlert_PassphraseShort_Message = "Ha utilitzat una contrasenya curta. Una contrasenya ha de tenir com a mínim 8 caràcters de longitud.";
 CheckAlert_PassphraseShort_Button1= "Continueu amb la contrasenya curta";
 CheckAlert_PassphraseShort_Button2 = "Escriviu una nova contrasenya";
 CheckAlert_PassphraseSimple_Title = "Contrasenya senzilla";
@@ -45,18 +45,18 @@ CheckAlert_PassphraseToLong_Title = "Contrasenya massa llarga";
 CheckAlert_PassphraseToLong_Message = "La contrasenya que s'ha introduït és massa llarg. Introduïu una contrasenya amb menys de 300 caràcters.";
 
 
-MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
+MoveSecring_Msg = "Les claus secretes estan actualment a \"%@\".\nPer moure les claus secretes a un altre volum, seleccioneu un volum de sota.";
 
 /* For Key-Search */
-"No keys Found" = "No s'ha trobat";
+"No keys Found" = "No s'ha trobat les claus";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), creat: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Busquem claus coincidents al servidor de claus. Podria porta el seu temps, espereu.";
 
 GenerateKey_Progress = "Cal generar molts bytes aleatoris. És una bona idea dur a terme alguna altra acció (escriure al teclat en una aplicació, moure el ratolí, usar els discos) durant la primera generació. Això li dóna al generador de nombres aleatoris una millor oportunitat per guanyar suficient entropia.";
 GenerateSubkey_Msg = "Afegeix la subclau a la clau \"%@\", %@";
 GenerateUserID_Msg = "Afegeix la identitat de l'usuari a la clau \"%@\", %@.";
-GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
-GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
+GenerateSignature_Msg = "Quan signeu una clau significa que vosté confirma que el posseedor de la clau és, de fet, qui diu ser.\nUna vegada pujades, altres persones veuen les signatures.\nAixí que si signeu amb la clau de Bob, i la seua amiga Alice no està segura que si Bob és realment Bob, Alice veurà la signatura de vosté en la clau de Bob, i com Alice sap que la clau de vosté és de confiança, sabrà que molt probablement és que Bob, de fet, siga Bob.\nÉs a punt de signar la següent clau:\n%@";
+GenerateUidSignature_Msg = "Quan signeu una identitat d'usuari significa que vosté confirma que el posseedor de la clau és, de fet, qui diu ser.\nUna vegada pujades, altres persones veuen les signatures.\nAixí que si signeu amb la clau de Bob, i la seua amiga Alice no està segura que si Bob és realment Bob, Alice veurà la signatura de vosté en la clau de Bob, i com Alice sap que la clau de vosté és de confiança, sabrà que molt probablement és que Bob, de fet, siga Bob.\nÉs a punt de signar la següent clau:\n%@";
 ChangeExpirationDate_Msg = "Canvi en la data de venciment de \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubkey: %1$@";
 

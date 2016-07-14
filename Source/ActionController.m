@@ -2020,7 +2020,7 @@
 	
 	for (__strong GPGKey *key in keys) {
 		if (i >= lines && i > 0) {
-			[descriptions appendFormat:localized(@"%@and %lu more"), singleLine ? @" " : lineBreak , count - i];
+			[descriptions appendFormat:localized(@"KeyDescriptionAndMore"), singleLine ? @" " : lineBreak , count - i];
 			break;
 		}
 
