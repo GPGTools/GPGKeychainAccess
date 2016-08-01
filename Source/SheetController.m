@@ -208,18 +208,17 @@ modalWindow, foundKeyDicts, hideExtension;
 			if ([self generateFoundKeyDicts]) {
 				self.displayedView = _foundKeysView;
 			} else {
-				self.title = localized(@"No keys Found");
+				self.title = localized(@"KeySearch_NoKeysFound_Title");
 				if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
 					NSAlert *alert = [NSAlert new];
 					alert.messageText = self.title;
-					alert.informativeText = self.msgText;
 					[alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
 						[NSApp stopModal];
 					}];
 					[NSApp runModalForWindow:window];
 					return 0;
 				} else {
-					self.msgText = [NSString stringWithFormat:@"%@\n%@", self.title, self.msgText];
+					self.msgText = [NSString stringWithFormat:@"%@", self.title];
 					self.displayedView = _resultView;
 				}
 			}

@@ -2245,7 +2245,7 @@
 					
 					NSSet *affectedkeys = nil;
 					sheetController.msgText = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
-					sheetController.title = localized(@"Import results");
+					sheetController.title = localized(@"KeySearch_ImportResults_Title");
 					sheetController.sheetType = SheetTypeShowResult;
 					[sheetController runModalForWindow:mainWindow];
 					affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
@@ -2257,7 +2257,7 @@
 				if (gc.error) break;
 				NSArray *keys = gc.lastReturnValue;
 				if ([keys count] == 0) {
-					sheetController.title = localized(@"No keys Found");
+					sheetController.title = localized(@"KeySearch_NoKeysFound_Title");
 					sheetController.msgText = @"";
 					sheetController.sheetType = SheetTypeShowResult;
 					[sheetController runModalForWindow:mainWindow];
