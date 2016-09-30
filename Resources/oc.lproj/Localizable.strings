@@ -48,7 +48,8 @@ CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too lo
 MoveSecring_Msg = "Vòstras claus privadas son emmagazinadas sus \"%@\".\nPer desplaçar vòstras claus privadas sus un autre volum, seleccionatz-lo çaijós.";
 
 /* For Key-Search */
-"No keys Found" = "Pas de clau trobada";
+KeySearch_NoKeysFound_Title = "No keys found";
+KeySearch_ImportResults_Title = "Import results";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), crèa : %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Recercam la(s) clau(s) correspondenta(s) sul servidor de claus. La recèrca pòt prene un certan temps, mercé de pacientar.";
 
@@ -144,7 +145,7 @@ RevokeSignature_Yes = "Revocar la signatura";
 RevokeSignature_No = "Anullar";
 
 RemoveSignature_Title = "Suprimir la signatura";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
 RemoveSignature_Yes = "Suprimir la signatura";
 RemoveSignature_No = "Anullar";
 
@@ -186,9 +187,9 @@ DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
 DeleteRevokedSecKey_No = "Anullar";
 
 
-/* Bad keyserver */
-BadKeyserver_Title = "Marrit servidor de claus";
-BadKeyserver_Msg = "Lo servidor de clau qu'avètz sasit fonciona pas.\nMercé de verificar l'adreça del servidor de claus, se deuriá semblar a ceci : hkp://some.key.server.org\n\nLo servidor de claus poiriá tanben èsser fòra linha, dins aqueste cas, mercé d'utilizar un autre servidor.";
+/* Bad key server */
+BadKeyserver_Title = "Bad key server";
+BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
 /* Import warnings */

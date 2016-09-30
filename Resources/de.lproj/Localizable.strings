@@ -48,7 +48,8 @@ CheckAlert_PassphraseToLong_Message = "Die eingegebene Passphrase ist zu lang. G
 MoveSecring_Msg = "Deine geheimen Schlüssel befinden sich aktuell auf \"%@\".\nUm deine geheimen Schlüssel auf einen anderen Datenträger zu verschieben, wählen Sie unten das Zielvolumen aus.";
 
 /* For Key-Search */
-"No keys Found" = "Keine Schlüssel gefunden";
+KeySearch_NoKeysFound_Title = "Keine Schlüssel gefunden";
+KeySearch_ImportResults_Title = "Ergebnisse des Imports";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), erstellt: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Es wird, auf dem Schlüsselserver, nach passenden Schlüsseln gesucht. Die kann einige Zeit in anspruch nehmen.";
 
@@ -58,7 +59,7 @@ GenerateUserID_Msg = "Benutzer-ID zu dem Schlüssel \"%@\", %@ hinzufügen.";
 GenerateSignature_Msg = "Mit dem Signieren eines Schlüssels, bestätigst du die Identität des Schlüssel-Eigentümers. Du bestätigst also, dass er wirklich derjenige ist, der er vorgibt zu sein.\nSobald die Signatur hoch geladen ist, ist sie für andere sichtbar.\nAlso: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass dieser Schlüssel wirklich Bob ist.\n\nDu willst folgenden Schlüssel signieren:\n%@";
 GenerateUidSignature_Msg = "Mit dem Belgaubigen einer Benutzer-ID, bestätigst du die Identität des Schlüssel-Eigentümers. Du bestätigst also, dass er wirklich der ist, der er vorgibt zu sein.\nSobald die Beglaubigung hochgeladen ist, ist sie für andere sichtbar.\n\nErklärung: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass dieser Schlüssel wirklich Bobs Schlüssel ist.\n\nDu willst folgenden Schlüssel signieren: %@";
 ChangeExpirationDate_Msg = "Ändern des Verfalldatums von „%@“, %@";
-ChangeSubkeyExpirationDate_Msg = "Verfalldatum ändern von \"%2$@\", %3$@\nUnterschlüssel: %1$@";
+ChangeSubkeyExpirationDate_Msg = "Verfallsdatum ändern von \"%2$@\", %3$@\nUnterschlüssel: %1$@";
 
 GenerateKey_Error = "Ups, da ging was schief. Es gab ein Problem bei der Erstellung deines Schlüssels.";
 
@@ -103,8 +104,8 @@ MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du hast einen unbenutzbaren Schlüssel 
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "Einer oder mehrere Schlüssel wurden in Ihrer Zwischenablage erkannt.";
-PasteboardKeyFound_Msg = "%@\n\nMöchten Sie den (die) Schlüssel importieren?";
+PasteboardKeyFound_Title = "Einer oder mehrere Schlüssel wurden in deiner Zwischenablage gefunden.";
+PasteboardKeyFound_Msg = "%@\n\nMöchtest du den Schlüssel importieren?";
 PasteboardKeyFound_Yes = "Importieren";
 PasteboardKeyFound_No = "Abbrechen";
 
@@ -158,7 +159,7 @@ RevokeLastSelfSignature_Msg = "Du bist dabei die letzte Eigenbeglaubigung von de
 RevokeLastSelfSignature_Yes = "Signatur widerrufen";
 RevokeLastSelfSignature_No = "Abbrechen";
 
-RevokeKey_Title = "Warnung: Sie sind dabei, einen Schlüssel zu widerrufen";
+RevokeKey_Title = "Warnung: Du bist dabei, einen Schlüssel zu widerrufen";
 RevokeKey_Msg = "Du bist dabei den Schlüssel %@ zu widerrufen.\n\nSobald der Schlüssel widerrufen ist, kannst du damit keine Nachrichten mehr signieren und andere werden dir keine Nachrichten mehr schicken können, die mit diesem Schlüssel verschlüsselt sind. Du kannst deinen widerrufenen Schlüssel weiterhin zum Entschlüsseln von Nachrichten verwenden, die bis jetzt mit deinem Schlüssel verschlüsselt wurden.\n\nWir empfehlen daher den widerrufenen Schlüssel in GPG Keychain zu behalten.\n\nUm andere in Kenntnis zu setzen, dass dein Schlüssel widerrufen wurde, raten wir, den widerrufenen Schlüssel auf den Schlüsselserver zu laden.\n\nWillst du diesen Schlüssel widerrufen?";
 RevokeKey_Upload = "Widerrufenen Schlüssel hochladen";
 RevokeKey_Yes = "Schlüssel widerrufen";
@@ -186,9 +187,9 @@ DeleteRevokedSecKey_SecOnly = "Nur geheime(n) Schlüssel löschen";
 DeleteRevokedSecKey_No = "Abbrechen";
 
 
-/* Bad keyserver */
+/* Bad key server */
 BadKeyserver_Title = "Falscher Schlüsselserver";
-BadKeyserver_Msg = "Der eingegebene Schlüsselserver funktioniert nicht.\nBitte überprüfen Sie die Adresse des Schlüsselservers. Sie sollte ungefähr so aussehen: hkp://some.key.server.org\n\nEs könnte sein, dass der Schlüsselserver offline ist. Benutzen Sie in diesem Fall bitte einen anderen Schlüsselserver.";
+BadKeyserver_Msg = "Der eingegebene Schlüsselserver funktioniert nicht.\nBitte überprüfe die Adresse des Schlüsselservers. Sie sollte ungefähr so aussehen: hkp://some.key.server.org\n\nEs könnte sein, dass der Schlüsselserver offline ist. In dem Fall, benutze bitte einen anderen Schlüsselserver.";
 
 
 /* Import warnings */

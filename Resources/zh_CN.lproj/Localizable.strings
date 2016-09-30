@@ -48,7 +48,8 @@ CheckAlert_PassphraseToLong_Message = "您输入的口令过长。请输入少�
 MoveSecring_Msg = "您的私钥当前位于 \"%@\"。\n要将私钥移动至其它卷，请在下方选择目标卷。";
 
 /* For Key-Search */
-"No keys Found" = "没有发现密匙";
+KeySearch_NoKeysFound_Title = "No keys found";
+KeySearch_ImportResults_Title = "Import results";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit)，已创建：%@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "我们正在密匙服务器上搜索匹配的密匙。可能需要花费一些时间，请耐心等待！";
 
@@ -144,7 +145,7 @@ RevokeSignature_Yes = "吊销签名";
 RevokeSignature_No = "取消";
 
 RemoveSignature_Title = "Remove Signature";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
 RemoveSignature_Yes = "Remove Signature";
 RemoveSignature_No = "取消";
 
@@ -186,9 +187,9 @@ DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
 DeleteRevokedSecKey_No = "取消";
 
 
-/* Bad keyserver */
-BadKeyserver_Title = "Bad Keyserver";
-BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+/* Bad key server */
+BadKeyserver_Title = "Bad key server";
+BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
 /* Import warnings */

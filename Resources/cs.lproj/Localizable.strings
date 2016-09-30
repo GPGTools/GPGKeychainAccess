@@ -48,7 +48,8 @@ CheckAlert_PassphraseToLong_Message = "Zadal jste příliš dlouhou frázi. Zade
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
 /* For Key-Search */
-"No keys Found" = "Žádné klíče nebyly nalezeny";
+KeySearch_NoKeysFound_Title = "No keys found";
+KeySearch_ImportResults_Title = "Import results";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bitů), vytvořeno: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Hledá se odpovídající klíč(klíče) na klíčovém serveru. Zabere nějaký čas, prosím počkejte.";
 
@@ -144,7 +145,7 @@ RevokeSignature_Yes = "Zrušit platnost podpisu";
 RevokeSignature_No = "Zrušit";
 
 RemoveSignature_Title = "Odstranit podpis";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
 RemoveSignature_Yes = "Odstranit podpis";
 RemoveSignature_No = "Zrušit";
 
@@ -186,9 +187,9 @@ DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
 DeleteRevokedSecKey_No = "Zrušit";
 
 
-/* Bad keyserver */
-BadKeyserver_Title = "Chybný klíčový server";
-BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+/* Bad key server */
+BadKeyserver_Title = "Bad key server";
+BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
 /* Import warnings */

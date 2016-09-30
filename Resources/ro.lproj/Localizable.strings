@@ -48,7 +48,8 @@ CheckAlert_PassphraseToLong_Message = "Parola introdusă este prea lungă. Intro
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
 /* For Key-Search */
-"No keys Found" = "Nici-o cheie Găsită";
+KeySearch_NoKeysFound_Title = "No keys found";
+KeySearch_ImportResults_Title = "Import results";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), creată: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Căutăm cheia(le) potrivită(e) pe serverul de chei. Ar putea dura ceva timp, vă rugăm aşteptaţi.";
 
@@ -144,7 +145,7 @@ RevokeSignature_Yes = "Revocare Semnătură";
 RevokeSignature_No = "Anulare";
 
 RemoveSignature_Title = "Eliminare Semnătură";
-RemoveSignature_Msg = "Sunteți sigur că doriți eliminarea acestei Semnături? Eliminând o Semnătură, va elimina Semnătura numai local. Nu va fi, și nici nu va putea fie eliminată din cheia de pe Serverul de chei. În schimb, vă rugăm să vă Revocați semnătura dacă doriți să o marcați ca și invalidă.";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
 RemoveSignature_Yes = "Eliminare Semnătură";
 RemoveSignature_No = "Anulare";
 
@@ -186,9 +187,9 @@ DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
 DeleteRevokedSecKey_No = "Anulare";
 
 
-/* Bad keyserver */
-BadKeyserver_Title = "Server de chei Eronat";
-BadKeyserver_Msg = "Serverul de chei pe care l-ați introdus, nu funcționează.\nVă rugăm să verificați adresa Serverului de chei. Ar trebui să fie de forma: hkp://some.key.server.org\n\nServerul de chei ar putea fi de altfel, oprit. În acest caz, vă rugăm să folosiți un alt Server de chei. ";
+/* Bad key server */
+BadKeyserver_Title = "Bad key server";
+BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
 /* Import warnings */

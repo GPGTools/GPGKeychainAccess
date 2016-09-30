@@ -30,11 +30,11 @@ ExportKeysFilename = "%@ %u Chaves OpenPGP";
 
 /* For key creation */
 CheckAlert_NoPassphrase_Title = "Nenhuma Frase-senha";
-CheckAlert_NoPassphrase_Message = "Você não digitou uma frase-senha. Isto não é recomendado. Uma frase-senha deve ter ao menos 8 caracteres.";
+CheckAlert_NoPassphrase_Message = "Você não digitou uma frase-senha. Isso não é recomendado. Uma frase-senha deve ter ao menos 8 caracteres.";
 CheckAlert_NoPassphrase_Button1= "Continuar sem Frase-senha";
 CheckAlert_NoPassphrase_Button2 = "Digitar Nova Frase-senha";
 CheckAlert_PassphraseShort_Title = "Frase-senha Curta";
-CheckAlert_PassphraseShort_Message = "Você digitou uma frase-senha muito curta. Isto não é recomendado. Uma frase-senha deve ter ao menos 8 caracteres.";
+CheckAlert_PassphraseShort_Message = "Você digitou uma frase-senha muito curta. Isso não é recomendado. Uma frase-senha deve ter ao menos 8 caracteres.";
 CheckAlert_PassphraseShort_Button1= "Continuar com Frase-senha Curta";
 CheckAlert_PassphraseShort_Button2 = "Digitar Nova Frase-senha";
 CheckAlert_PassphraseSimple_Title = "Frase-senha Simples";
@@ -48,11 +48,12 @@ CheckAlert_PassphraseToLong_Message = "A frase-senha é longa demais. Digite uma
 MoveSecring_Msg = "Suas chaves secretas estão armazenadas atualmente em “%@”.\nPara movê-las para outro volume, selecione-o abaixo.";
 
 /* For Key-Search */
-"No keys Found" = "Nenhuma chave encontrada";
+KeySearch_NoKeysFound_Title = "Nenhuma Chave Encontrada";
+KeySearch_ImportResults_Title = "Resultados da Importação";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), criação: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Buscando chaves correspondentes no servidor de chaves. Isto pode levar algum tempo. Aguarde.";
 
-GenerateKey_Progress = "É preciso gerar muitos bytes aleatórios. Durante este processo, digite algo em um aplicativo, mova o mouse, use os discos ou realize outras ações para que o gerador de números aleatórios tenha entropia suficiente para gerar o número primo.";
+GenerateKey_Progress = "É preciso gerar muitos bytes aleatórios. Durante esse processo, digite algo em um aplicativo, mova o mouse, use os discos ou realize outras ações para que o gerador de números aleatórios tenha entropia suficiente para gerar o número primo.";
 GenerateSubkey_Msg = "Adicionar subchave à Chave “%@”, %@.";
 GenerateUserID_Msg = "Adicionar ID de usuário à Chave “%@”, %@.";
 GenerateSignature_Msg = "Ao assinar uma chave, você confirma que o proprietário da chave é quem ele diz ser.\n\nPor exemplo, se você assinar a chave de Léo e a sua amiga Carla não estiver certa da identidade dele, ela verá a sua assinatura na chave e, por confiar na sua chave, ela saberá que Léo é, provavelmente, ele mesmo.\n\nUma vez enviadas, as assinaturas podem ser vistas por outras pessoas.\n\nVocê está prestes a assinar a seguinte chave:\n%@";
@@ -149,7 +150,7 @@ RemoveSignature_Yes = "Remover Assinatura";
 RemoveSignature_No = "Cancelar";
 
 RemoveLastSelfSignature_Title = "Remover Última Autoassinatura ";
-RemoveLastSelfSignature_Msg = "Você está prestes a remover a última Autoassinatura do ID de Usuário %@. Prossiga apenas se tiver certeza do que está fazendo.\n\nEsta assinatura faz com que o endereço de e-mail, nome e descrição de um ID de Usuário possa ser modificado apenas pelo proprietário.\n\nSe a assinatura estiver faltando, essas informações poderiam ser modificadas sem que ninguém soubesse.";
+RemoveLastSelfSignature_Msg = "Você está prestes a remover a última Autoassinatura do ID de Usuário %@. Prossiga apenas se tiver certeza do que está fazendo.\n\nEsta assinatura faz com que o endereço de e-mail, nome e descrição de um ID de Usuário possam ser modificados apenas pelo proprietário.\n\nSe a assinatura estiver faltando, essas informações poderiam ser modificadas sem que ninguém soubesse.";
 RemoveLastSelfSignature_Yes = "Remover Assinatura";
 RemoveLastSelfSignature_No = "Cancelar";
 
@@ -168,7 +169,7 @@ RevokeKey_No = "Cancelar";
 /* Delete warnings */
 DeleteKey_Title = "Apagar chave(s) pública(s)";
 DeleteKey_Msg = "Você está prestes a apagar a(s) seguinte(s) chave(s) pública(s):\n\n%@\n\nTem certeza de que deseja apagar a(s) chave(s) pública(s)?";
-DeleteKey_Yes = "Apagar chave(s)";
+DeleteKey_Yes = "Apagar Chave(s)";
 DeleteKey_No = "Cancelar";
 
 DeleteSecKey_Title = "Aviso: você está prestes a apagar chave(s) secreta(s) e pública(s).";
@@ -186,7 +187,7 @@ DeleteRevokedSecKey_SecOnly = "Apagar Apenas Chave(s) Secreta(s)";
 DeleteRevokedSecKey_No = "Cancelar";
 
 
-/* Bad keyserver */
+/* Bad key server */
 BadKeyserver_Title = "Servidor de Chaves Inválido";
 BadKeyserver_Msg = "O Servidor de Chaves digitado não está funcionando.\nVerifique o endereço do servidor, que deve ter o seguinte formato: hkp://some.key.server.org\n\nO Servidor de Chaves também pode estar off-line. Nesse caso, use outro servidor.";
 
@@ -203,7 +204,7 @@ ImportRandomData_Yes = "Tentar Importar";
 ImportRandomData_No = "Cancelar";
 
 ImportNonImportable_Title = "Aviso: o conteúdo provavelmente não pode ser importado.";
-ImportNonImportable_Msg = "Parece que você está tentando importar uma mensagem assinada ou criptografada.\n\nEssas mensagens não podem ser importadas no GPG Keychain.\n\nTente decriptografar ou verificar a mensagem usando o GPGServices.";
+ImportNonImportable_Msg = "Parece que você está tentando importar uma mensagem assinada ou criptografada.\n\nEssas mensagens não podem ser importadas no GPG Keychain.\n\nTente decriptografar ou verificar a mensagem usando os GPGServices.";
 ImportNonImportable_Yes = "Tentar Importar";
 ImportNonImportable_No = "Cancelar";
 
@@ -226,13 +227,13 @@ IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i chaves foram processadas e %2$i
 
 /* Errors */
 ImportKeyError_Title = "Falha ao importar uma ou mais chaves";
-ImportKeyError_Msg = "Às vezes, as chaves não podem ser importadas devido à falta de autoassinatura. Para obter mais detalhes sobre como resolver este problema, visite https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature.";
+ImportKeyError_Msg = "Às vezes, as chaves não podem ser importadas devido à falta de autoassinatura. Para obter mais detalhes sobre como resolver esse problema, visite https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature.";
 ImportKeyErrorPGP_Title = "A Importação Falhou";
-ImportKeyErrorPGP_Msg = "Parece que você está tentando importar uma mensagem assinada ou criptografada. Tente decriptografar ou verificar a mensagem usando o GPGServices.";
+ImportKeyErrorPGP_Msg = "Parece que você está tentando importar uma mensagem assinada ou criptografada. Tente decriptografar ou verificar a mensagem usando os GPGServices.";
 ImportKeyErrorNoPGP_Title = "A Importação Falhou";
 ImportKeyErrorNoPGP_Msg = "Parece que você está tentando importar dados que não são relacionados ao PGP e não podem ser processados.";
 
-NO_SECRET_KEY_TITLE = "Nenhuma chave secreta encontrada!";
+NO_SECRET_KEY_TITLE = "Nenhuma chave secreta encontrada";
 NO_SECRET_KEY_MESSAGE = "Uma chave secreta é necessária para realizar esta operação.";
 
 /* The Algorithms */
@@ -253,11 +254,11 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 /* For opening and saving dialogues */
 ChoosePhoto_Large_Message = "Esta foto é grande demais.";
-ChoosePhoto_Large_Info = "Use uma foto menor.\nMenos de 15 KB é o tamanho recomendado.";
+ChoosePhoto_Large_Info = "Use uma foto menor.\nO tamanho recomendado é de menos de 15 KB.";
 ChoosePhoto_Large_Button1 = "Escolher Outra…";
 ChoosePhoto_Large_Button2 = "Usar Esta Foto";
 ChoosePhoto_TooLarge_Message = "A foto é grande demais.";
-ChoosePhoto_TooLarge_Info = "Use uma foto com menos de 500 KB.\nMenos de 15 KB é o tamanho recomendado.";
+ChoosePhoto_TooLarge_Info = "Use uma foto com menos de 500 KB.\nO tamanho recomendado é de menos de 15 KB.";
 
 
 

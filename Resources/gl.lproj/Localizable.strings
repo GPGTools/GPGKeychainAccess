@@ -48,7 +48,8 @@ CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too lo
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
 /* For Key-Search */
-"No keys Found" = "No keys Found";
+KeySearch_NoKeysFound_Title = "No keys found";
+KeySearch_ImportResults_Title = "Import results";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It might take some time, please wait.";
 
@@ -144,7 +145,7 @@ RevokeSignature_Yes = "Revoke Signature";
 RevokeSignature_No = "Cancel";
 
 RemoveSignature_Title = "Remove Signature";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
 RemoveSignature_Yes = "Remove Signature";
 RemoveSignature_No = "Cancel";
 
@@ -186,9 +187,9 @@ DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
 DeleteRevokedSecKey_No = "Cancel";
 
 
-/* Bad keyserver */
-BadKeyserver_Title = "Bad Keyserver";
-BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+/* Bad key server */
+BadKeyserver_Title = "Bad key server";
+BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
 /* Import warnings */

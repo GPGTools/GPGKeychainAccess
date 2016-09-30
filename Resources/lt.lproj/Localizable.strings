@@ -16,7 +16,7 @@
 
 
 /* Key descriptions */
-"and" = "and";
+"and" = "ir";
 KeyDescriptionAndMore = "%1$@ and %2$lu more";
 SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
 
@@ -31,7 +31,7 @@ ExportKeysFilename = "%@ %u OpenPGP Keys";
 /* For key creation */
 CheckAlert_NoPassphrase_Title = "No Passphrase";
 CheckAlert_NoPassphrase_Message = "Jūs neįrašėte jokios slaptafrazės. Ji yra rekomenduojama. Slaptafrazė turėtų būti bent 8 simbolių ilgio.";
-CheckAlert_NoPassphrase_Button1= "Continue without a passphrase";
+CheckAlert_NoPassphrase_Button1= "Tęsti be slaptafrazės";
 CheckAlert_NoPassphrase_Button2 = "Enter new passphrase";
 CheckAlert_PassphraseShort_Title = "Short Passphrase";
 CheckAlert_PassphraseShort_Message = "You have entered a short passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
@@ -48,7 +48,8 @@ CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too lo
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
 /* For Key-Search */
-"No keys Found" = "No keys Found";
+KeySearch_NoKeysFound_Title = "No keys found";
+KeySearch_ImportResults_Title = "Import results";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It might take some time, please wait.";
 
@@ -60,7 +61,7 @@ GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key o
 ChangeExpirationDate_Msg = "Change expiration date of \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubkey: %1$@";
 
-GenerateKey_Error = "Ups, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "Ups, kažkas nutiko. Kuriant jūsų raktą, atsirado problemų.";
 
 /* Message for incorrect Entries */
 CheckError_NameToShort = "Name must be at least 5 characters long!";
@@ -72,7 +73,7 @@ CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
 CheckError_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\" not allowed.";
 CheckError_CommentToLong = "Comment is too long!";
 CheckError_NoKeyID = "Please enter a valid key ID!";
-CheckError_PassphraseMissmatch = "Your passphrases did not match!";
+CheckError_PassphraseMissmatch = "Jūsų slaptafrazės nesutampa!";
 
 
 /* Message on start, if there are any Problems */
@@ -80,11 +81,11 @@ GPG_NOT_FOUND_TITLE = "GPG Not Found";
 GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
-LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg nerasta";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg jūsų sistemoje nerasta. Prašome iš naujo įdiegti GPG Suite iš https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
-UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_TITLE = "Nežinoma GPG klaida";
 UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
@@ -97,7 +98,7 @@ MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou c
 MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Creating new mail...";
 MailKey_Progress_Your = "Creating new mail...";
-MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+MailKey_Error = "Ups, kažkas nutiko. Eksportuojant jūsų raktą, atsirado problemų.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
@@ -106,14 +107,14 @@ MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such
 PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
 PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
 PasteboardKeyFound_Yes = "Import";
-PasteboardKeyFound_No = "Cancel";
+PasteboardKeyFound_No = "Atsisakyti";
 
 
 /* Those are abvious */
 No = "No";
-Error = "Error";
+Error = "Klaida";
 Warning = "Įspėjimas";
-Cancel = "Cancel";
+Cancel = "Atsisakyti";
 "Apply to all" = "Apply to all";
 
 
@@ -121,91 +122,91 @@ Cancel = "Cancel";
 RemoveUserID_Title = "Remove User ID";
 RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
 RemoveUserID_Yes = "Remove User ID";
-RemoveUserID_No = "Cancel";
+RemoveUserID_No = "Atsisakyti";
 
 RevokeUserID_Title = "Revoke User ID";
 RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
 RevokeUserID_Yes = "Revoke User ID";
-RevokeUserID_No = "Cancel";
+RevokeUserID_No = "Atsisakyti";
 
 RemoveSubkey_Title = "Remove Subkey";
 RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
 RemoveSubkey_Yes = "Remove Subkey";
-RemoveSubkey_No = "Cancel";
+RemoveSubkey_No = "Atsisakyti";
 
 RevokeSubkey_Title = "Revoke Subkey";
 RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
 RevokeSubkey_Yes = "Revoke Subkey";
-RevokeSubkey_No = "Cancel";
+RevokeSubkey_No = "Atsisakyti";
 
-RevokeSignature_Title = "Revoke Signature";
+RevokeSignature_Title = "Panaikinti parašą";
 RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
-RevokeSignature_Yes = "Revoke Signature";
-RevokeSignature_No = "Cancel";
+RevokeSignature_Yes = "Panaikinti parašą";
+RevokeSignature_No = "Atsisakyti";
 
-RemoveSignature_Title = "Remove Signature";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the Keyservers. Please instead Revoke your signature if you want to mark it as invalid.";
-RemoveSignature_Yes = "Remove Signature";
-RemoveSignature_No = "Cancel";
+RemoveSignature_Title = "Šalinti parašą";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Yes = "Šalinti parašą";
+RemoveSignature_No = "Atsisakyti";
 
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
 RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
-RemoveLastSelfSignature_Yes = "Remove Signature";
-RemoveLastSelfSignature_No = "Cancel";
+RemoveLastSelfSignature_Yes = "Šalinti parašą";
+RemoveLastSelfSignature_No = "Atsisakyti";
 
 RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
-RevokeLastSelfSignature_Yes = "Revoke Signature";
-RevokeLastSelfSignature_No = "Cancel";
+RevokeLastSelfSignature_Yes = "Panaikinti parašą";
+RevokeLastSelfSignature_No = "Atsisakyti";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
 RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Upload revoked key";
-RevokeKey_Yes = "Revoke Key";
-RevokeKey_No = "Cancel";
+RevokeKey_Yes = "Panaikinti raktą";
+RevokeKey_No = "Atsisakyti";
 
 
 /* Delete warnings */
 DeleteKey_Title = "Delete public key(s)";
 DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
 DeleteKey_Yes = "Delete key(s)";
-DeleteKey_No = "Cancel";
+DeleteKey_No = "Atsisakyti";
 
 DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
 DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Delete key(s)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
-DeleteSecKey_No = "Cancel";
+DeleteSecKey_No = "Atsisakyti";
 
 DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
 DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
 DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
 DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
-DeleteRevokedSecKey_No = "Cancel";
+DeleteRevokedSecKey_No = "Atsisakyti";
 
 
-/* Bad keyserver */
-BadKeyserver_Title = "Bad Keyserver";
-BadKeyserver_Msg = "The Keyserver you have entered is not working.\nPlease check the Keyserver address. It should look something like: hkp://some.key.server.org\n\nThe Keyserver could also be offline. In that case, please use another Keyserver.";
+/* Bad key server */
+BadKeyserver_Title = "Bad key server";
+BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
 /* Import warnings */
 ImportRevSig_Title = "Import revocation certificate";
 ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Import";
-ImportRevSig_No = "Cancel";
+ImportRevSig_No = "Atsisakyti";
 
 ImportRandomData_Title = "Warning! Content can probably not be imported.";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
 ImportRandomData_Yes = "Try Import";
-ImportRandomData_No = "Cancel";
+ImportRandomData_No = "Atsisakyti";
 
 ImportNonImportable_Title = "Warning! Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Try Import";
-ImportNonImportable_No = "Cancel";
+ImportNonImportable_No = "Atsisakyti";
 
 
 /* For Import-Results */
@@ -225,11 +226,11 @@ IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i im
 
 
 /* Errors */
-ImportKeyError_Title = "Failed to import one or more keys!";
+ImportKeyError_Title = "Nepavyko importuoti vieno ar daugiau raktų!";
 ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
-ImportKeyErrorPGP_Title = "Import Failed!";
+ImportKeyErrorPGP_Title = "Importavimas nepavyko!";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
-ImportKeyErrorNoPGP_Title = "Import failed!";
+ImportKeyErrorNoPGP_Title = "Importavimas nepavyko!";
 ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
 
 NO_SECRET_KEY_TITLE = "No secret key found!";
@@ -252,17 +253,17 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "This photo is really large!";
-ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
-ChoosePhoto_Large_Button1 = "Choose another…";
-ChoosePhoto_Large_Button2 = "Use this photo";
-ChoosePhoto_TooLarge_Message = "Your photo is too large!";
-ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
+ChoosePhoto_Large_Message = "Ši nuotrauka yra tikrai didelė!";
+ChoosePhoto_Large_Info = "Jūs turėtumėte naudoti mažesnę nuotrauką.\nRekomenduojame mažesnį nei 15 KB dydį.";
+ChoosePhoto_Large_Button1 = "Pasirinkti kitą...";
+ChoosePhoto_Large_Button2 = "Naudoti šią nuotrauką";
+ChoosePhoto_TooLarge_Message = "Jūsų nuotrauka per didelė!";
+ChoosePhoto_TooLarge_Info = "Prašome naudoti nuotrauką, kuri mažesnė nei 500 KB.\nRekomenduojame mažesnį nei 15 KB dydį.";
 
 
 
 
-CIPHER_ALGO_NONE = "None";
+CIPHER_ALGO_NONE = "Nėra";
 CIPHER_ALGO_IDEA = "IDEA";
 CIPHER_ALGO_3DES = "3DES";
 CIPHER_ALGO_CAST5 = "CAST5";
@@ -281,7 +282,7 @@ DIGEST_ALGO_SHA256 = "SHA256";
 DIGEST_ALGO_SHA384 = "SHA384";
 DIGEST_ALGO_SHA512 = "SHA512";
 DIGEST_ALGO_SHA224 = "SHA224";
-COMPRESS_ALGO_NONE = "None";
+COMPRESS_ALGO_NONE = "Nėra";
 COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
@@ -289,14 +290,14 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Exporting key.";
-ExportKey_Error = "Key export failed.";
-ImportKey_Progress  = "Importing key.";
+ExportKey_Progress = "Raktas eksportuojamas.";
+ExportKey_Error = "Rakto eksportavimas nepavyko.";
+ImportKey_Progress  = "Raktas importuojamas.";
 DeleteSecretKey_Progress = "Deleting secret key.";
-DeleteKeys_Progress = "Deleting key.";
-DeleteKeys_Error = "Deleting key failed.";
-ChangePassphrase_Progress = "Changing Passphrase.";
-ChangePassphrase_Error = "Changing passphrase failed.";
+DeleteKeys_Progress = "Raktas ištrinamas.";
+DeleteKeys_Error = "Rakto ištrynimas nepavyko.";
+ChangePassphrase_Progress = "Keičiama slaptafrazė.";
+ChangePassphrase_Error = "Slaptafrazės keitimas nepavyko.";
 SetDisabled_Progress = "Enabling/Disabling key.";
 SetDisabled_Error = "Enabling/Disabling key failed.";
 SetOwnerTrust_Progress = "Setting owner trust.";

@@ -48,7 +48,8 @@ CheckAlert_PassphraseToLong_Message = "Hasło które wpisałeś jest za długie.
 MoveSecring_Msg = "Twoje tajne/prywatne klucze są w \"%@\".\nAby przenieść te klucze na inny nośnik proszę go wybierz poniżej.";
 
 /* For Key-Search */
-"No keys Found" = "Nie znaleziono żadnych kluczy";
+KeySearch_NoKeysFound_Title = "No keys found";
+KeySearch_ImportResults_Title = "Import results";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), utworzono: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Szukamy odpowiedniego klucza(y) na serwerze kluczy. Może to zająć trochę czasu, proszę czekać.";
 
@@ -144,7 +145,7 @@ RevokeSignature_Yes = "Unieważnij Podpis";
 RevokeSignature_No = "Anuluj";
 
 RemoveSignature_Title = "Usuń Podpis";
-RemoveSignature_Msg = "Czy jesteś pewny, że chcesz usunąć ten Podpis? Usunięcie Podpisu usunie go jedynie lokalnie. Nie będzie i nie może być on usunięty z klucza na serwerze kluczy. Zamiast tego unieważnij swój podpis jeśli chcesz jego oznaczyć jako nieważny.";
+RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
 RemoveSignature_Yes = "Usuń Podpis";
 RemoveSignature_No = "Anuluj";
 
@@ -186,9 +187,9 @@ DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
 DeleteRevokedSecKey_No = "Anuluj";
 
 
-/* Bad keyserver */
-BadKeyserver_Title = "Zły Serwer Kluczy";
-BadKeyserver_Msg = "Serwer Kluczy który wpisałeś nie działa.\nProszę sprawdź adres Serwera Kluczy. Powinno to wyglądać następująco: hkp://jakis.serwer.kluczy.org\n\nSerwer Kluczy może być tymczasowo poza zasięgiem. W tym przypadku spróbuj innego Serwera.";
+/* Bad key server */
+BadKeyserver_Title = "Bad key server";
+BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
 /* Import warnings */

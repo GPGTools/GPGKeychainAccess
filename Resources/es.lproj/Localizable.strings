@@ -48,7 +48,8 @@ CheckAlert_PassphraseToLong_Message = "La frase-contraseña que ha introducido e
 MoveSecring_Msg = "Sus claves secretas (privadas) residen actualmente en \"%@\".\nPara mover sus claves secretas a otro volumen, seleccione el volumen objetivo debajo.";
 
 /* For Key-Search */
-"No keys Found" = "No se encontraron claves";
+KeySearch_NoKeysFound_Title = "No se encontraron claves";
+KeySearch_ImportResults_Title = "Importar resultados";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), creada: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Estamos buscando clave(s) coincidente(s) en el servidor de claves. Podría tomar algún tiempo, por favor espere.";
 
@@ -144,7 +145,7 @@ RevokeSignature_Yes = "Revocar firma";
 RevokeSignature_No = "Cancelar";
 
 RemoveSignature_Title = "Eliminar firma";
-RemoveSignature_Msg = "¿Está seguro de que quiere eliminar esta firma? Eliminar una firma sólo eliminará la firma localmente. No la eliminará, y no puede hacerlo, de la clave en los servidores de claves. Si lo que quiere es marcarla como no válida, en lugar de esto por favor revoque su firma.";
+RemoveSignature_Msg = "¿Está seguro de que quiere eliminar esta firma? Eliminar una firma sólo eliminará la firma localmente. No la eliminará, y no puede hacerlo, de la clave en los servidores de claves. Si lo que quiere es marcarla como no válida, en lugar de esto, por favor, revoque su firma.";
 RemoveSignature_Yes = "Eliminar firma";
 RemoveSignature_No = "Cancelar";
 
@@ -186,7 +187,7 @@ DeleteRevokedSecKey_SecOnly = "Borrar sólo la(s) clave(s) secreta(s) (privadas)
 DeleteRevokedSecKey_No = "Cancelar";
 
 
-/* Bad keyserver */
+/* Bad key server */
 BadKeyserver_Title = "Servidor de claves erróneo";
 BadKeyserver_Msg = "El servidor de claves que ha introducido no está funcionando.\nPor favor compruebe la dirección del servidor de claves. Debe parecerse a algo como: hkp://some.key.server.org\n\nEl servidor de claves también podría estar desconectado. En ese caso, por favor use otro servidor de claves.";
 
