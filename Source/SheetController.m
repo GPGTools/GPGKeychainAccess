@@ -338,22 +338,29 @@ modalWindow, foundKeyDicts, hideExtension;
 	if (button3) {
 		[alert addButtonWithTitle:button3];
 	}
-	if ([button1 isEqualTo:localized(@"Cancel")]) {
-		// This is a hack to allow, to close the alert with the escape-key.
-		[alert addButtonWithTitle:@"Cancel"]; // Add a cancel button. NSAlert sets the key equivalent automatically to esc.
-		NSButton *button = alert.buttons[alert.buttons.count - 1];
-		// This button causes a "CGAffineTransformInvert: singular matrix." error in the log.
-		// It's ugly but harmless and i don't know a better solution.
-		button.bounds = NSMakeRect(-10, -10, 1, 1); // Hide the button.
-		button.tag = NSAlertFirstButtonReturn; // Set the tag to mtach the real cancel button.
-		button.refusesFirstResponder = YES;
-	}
 	if (suppressionButton) {
 		alert.showsSuppressionButton = YES;
 		if ([suppressionButton length] > 0) {
 			alert.suppressionButton.title = suppressionButton;
 			alert.suppressionButton.state = NSOnState;
 		}
+	}
+	
+	
+	if ([button1 isEqualTo:localized(@"Cancel")]) {
+		// This is a hack to allow, to close the alert with the escape-key.
+		[alert addButtonWithTitle:@"Cancel"]; // Add a cancel button. NSAlert sets the key equivalent automatically to esc.
+		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.
+
+		NSButton *button = alert.buttons[alert.buttons.count - 1];
+		
+		// This button causes a "CGAffineTransformInvert: singular matrix." error in the log.
+		// It's ugly but harmless and i don't know a better solution.
+		button.bounds = NSMakeRect(-10, -10, 1, 1); // Hide the button.
+		button.tag = NSAlertFirstButtonReturn; // Set the tag to mtach the real cancel button.
+		button.refusesFirstResponder = YES;
+	} else {
+		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.
 	}
 	
 	if (customize) {

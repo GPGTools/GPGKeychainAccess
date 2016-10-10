@@ -851,13 +851,49 @@
 							 otherButton:button3
 					   suppressionButton:checkbox
 							   customize:^(NSAlert *alert) {
-								   // Add an invisible view to force a minimum width of the alert.
+								   
+								   // Add minimum and maximum width constraints to the alert.
+								   NSWindow *window = alert.window;
+								   NSView *contentView = window.contentView;
+								   CGFloat screenWidth = window.screen.frame.size.width;
+								   NSView *textField = nil;
+								   
+								   for (NSView *subview in contentView.subviews) {
+									   if ([subview isKindOfClass:[NSTextField class]]) {
+										   textField = subview; // The minimum width will be set on a text field.
+										   break;
+									   }
+								   }
+								   
+								   if (!textField) { // No text field? Should be impossible.
+									   textField = contentView; // Set minimum width on the content view.
+								   }
+								   
+								   NSDictionary *views = @{@"content": contentView, @"text": textField};
+								   
+								   // Calulate widths.
 								   CGFloat minWidth = [description sizeWithAttributes:attributes].width + 20;
 								   if (minWidth > 1000) {
 									   minWidth = 1000;
 								   }
-								   NSView *view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, minWidth, 0)];
-								   alert.accessoryView = view;
+								   if (screenWidth < 200) {
+									   screenWidth = 200;
+								   }
+								   if (minWidth > screenWidth) {
+									   minWidth = screenWidth;
+								   }
+								   
+								   // Add constraints.
+								   NSString *format = [NSString stringWithFormat:@"[text(>=%f@999)]", minWidth];
+								   NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
+								   [contentView addConstraints:constraints];
+
+								   format = [NSString stringWithFormat:@"[content(<=%f)]", screenWidth];
+								   constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
+								   [contentView addConstraints:constraints];
+								   
+								   
+								   
 								   
 								   // The checkbox must be checked before the delete buttons are enabled.
 								   if (hasSecretKey) {
