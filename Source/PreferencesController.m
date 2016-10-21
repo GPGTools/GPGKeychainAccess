@@ -221,20 +221,9 @@ static PreferencesController *_sharedInstance = nil;
 				 keyringPreferencesView, @"keyring",
 				 nil];
 	}
-
-	[view removeFromSuperview];
 	view = [views objectForKey:sender.itemIdentifier];
 	
-	[[NSAnimationContext currentContext] setDuration:0.1];
-	
-	NSRect viewFrame = [window frameRectForContentRect:[view frame]];
-	NSRect windowFrame = [window frame];
-    windowFrame.origin.y -= viewFrame.size.height - windowFrame.size.height;
-	windowFrame.size = viewFrame.size;
-	
-	[window setFrame:windowFrame display:YES animate:YES];
-	
-	[[window contentView] addSubview:view];
+	[window setContentView:view];
 	[window setTitle:sender.label];
 }
 
