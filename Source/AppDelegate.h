@@ -23,7 +23,7 @@
 	BOOL rowWasSelected;
 }
 
-@property (assign) IBOutlet NSWindow *window, *inspectorWindow;
+@property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSView *inspectorView;
 @property (weak) IBOutlet GKOutlineView *keyTable;
 @property (weak) IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;

@@ -25,7 +25,7 @@
 
 
 @implementation GPGKeychainAppDelegate
-@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer, inspectorWindow, inspectorView;
+@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer, inspectorView;
 
 - (NSWindow *)window {
     return mainWindow;
@@ -36,21 +36,32 @@
 
 
 - (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize {
+
+	// Force the minimum drawer size. Contraints are not working, so do it manually.
+	CGFloat minWidth = inspectorView.fittingSize.width;
+	if (contentSize.width < minWidth) {
+		contentSize.width = minWidth;
+		NSSize minContentSize = drawer.minContentSize;
+		minContentSize.width = minWidth;
+		drawer.minContentSize = minContentSize;
+	}
+	
+	// Save the current size.
 	[[GPGOptions sharedOptions] setValue:@(contentSize.width) forKey:@"drawerWidth"];
+	
+	
 	return contentSize;
 }
 
 - (BOOL)inspectorVisible {
-	return drawer.state || inspectorWindow.isVisible;
+	return drawer.state;
 }
 - (void)setInspectorVisible:(BOOL)inspectorVisible {
 	[self showInspector:inspectorVisible];
 }
 
 - (void)showInspector:(int)show {
-	BOOL isDrawer, isVisible;
-	isDrawer = drawer.state;
-	isVisible = isDrawer || inspectorWindow.isVisible;
+	BOOL isVisible = drawer.state;
 	
 	if (show == -1) {
 		show = !isVisible;
@@ -60,30 +71,58 @@
 		if (!isVisible) {
 			NSRect windowFrame = self.window.frame;
 			CGFloat drawerWidth = drawer.contentSize.width;
-			CGFloat minSpace = drawer.minContentSize.width + 10;
 			CGFloat spaceLeft = windowFrame.origin.x;
-			CGFloat spaceRight = self.window.screen.frame.size.width - windowFrame.origin.x - windowFrame.size.width;
+			CGFloat screenWidth = self.window.screen.frame.size.width;
+			CGFloat spaceRight = screenWidth - windowFrame.origin.x - windowFrame.size.width;
 			
-			isDrawer = spaceRight >= minSpace || spaceLeft >= minSpace;
-			
-			if (isDrawer) {
-				CGFloat maxSpace = MAX(spaceRight, spaceLeft) - 10;
-				if (drawerWidth > maxSpace) {
-					NSSize size = drawer.contentSize;
-					size.width = maxSpace;
-					drawer.contentSize = size;
+			BOOL right = spaceRight >= spaceLeft;
+		
+			CGFloat maxSpace = MAX(spaceRight, spaceLeft) - 10;
+			if (drawerWidth > maxSpace) {
+				CGFloat minWidth = inspectorView.fittingSize.width;
+				
+				if (minWidth <= maxSpace) {
+					// Left or right is enough space for the minimum sized drawer.
+					// Only need to shrink the drawer.
+					NSSize contentSize = drawer.contentSize;
+					contentSize.width = maxSpace;
+					drawer.contentSize = contentSize;
+				} else {
+					NSSize contentSize = drawer.contentSize;
+					contentSize.width = minWidth;
+					drawer.contentSize = contentSize;
+					
+					if (spaceRight + spaceLeft - 10 >= minWidth) {
+						// Move the main window.
+						CGFloat diff = minWidth - maxSpace;
+						windowFrame.origin.x -= (right ? diff : -diff);
+					} else {
+						// Shrink the main window.
+						windowFrame.size.width = screenWidth - minWidth - 10;
+						
+						if (right) {
+							windowFrame.origin.x = 0;
+						} else {
+							windowFrame.origin.x = minWidth + 10;
+						}
+					}
+					
+					// Animate shrink and/or move.
+					NSDictionary *windowResize = @{NSViewAnimationTargetKey: self.window,
+												   NSViewAnimationEndFrameKey: [NSValue valueWithRect:windowFrame]};
+
+					NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:@[windowResize]];
+					
+					[animation setAnimationBlockingMode: NSAnimationNonblocking];
+					[animation setAnimationCurve: NSAnimationEaseIn];
+					[animation setDuration:0.5];
+					[animation startAnimation];
 				}
-				[drawer setContentView:inspectorView];
-				[drawer open];
-			} else {
-				[inspectorWindow setContentView:inspectorView];
-				[inspectorWindow makeKeyAndOrderFront:nil];
 			}
+			[drawer open];
 		}
-	} else if (isDrawer) {
-		[drawer close];
 	} else {
-		[inspectorWindow close];
+		[drawer close];
 	}
 }
 - (IBAction)toggleInspector:(id)sender {
@@ -127,7 +166,6 @@
 	[keyTable setTarget:self];
 	
 	
-	drawer.delegate = self;
 	NSNumber *drawerWidth = [[GPGOptions sharedOptions] valueForKey:@"drawerWidth"];
 	if (drawerWidth) {
 		NSSize size = drawer.contentSize;
