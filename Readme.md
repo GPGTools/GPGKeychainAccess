@@ -42,3 +42,4 @@ System Requirements
 * Mac OS X >= 10.6
 * Libmacgpg
 * GnuPG
+* Xcode
