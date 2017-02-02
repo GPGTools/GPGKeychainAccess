@@ -95,7 +95,7 @@ MailKey_Subject = "%@ 的公钥";
 MailKey_Subject_Your = "My public key to secure our messages";
 MailKey_Message = "您好，\n\n在此附件中您可找到\n\n%@ 的公钥\n\n您可以使用此公钥将写给 %@ 的消息安全加密。\n\n要开始使用该公钥，您的计算机需要安装 OpenPGP。您可在下方找到针对你系统的可能安装方案：\n\n%@\n\n请将此公钥导入到你本地的 OpenPGP 密钥管理器中。\n\n此致";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "正在创建新邮件...";
 MailKey_Progress_Your = "正在创建新邮件...";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
@@ -164,6 +164,11 @@ RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoke
 RevokeKey_Upload = "Upload revoked key";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "取消";
+
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
+OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
+OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_No = "取消";
 
 
 /* Delete warnings */

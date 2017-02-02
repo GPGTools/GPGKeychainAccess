@@ -6,7 +6,7 @@
 "Unknown" = "Tuntematon";
 "Marginal" = "Marginaali";
 "Full" = "Täysi";
-"Ultimate" = "Ultimate";
+"Ultimate" = "Täysi";
 
 
 
@@ -16,9 +16,9 @@
 
 
 /* Key descriptions */
-"and" = "and";
+"and" = "ja";
 KeyDescriptionAndMore = "%1$@ and %2$lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+SecretAndPublicKeyListing = "Salaiset avaimet:\n\n%@\n\nJulkiset avaimet:\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -48,14 +48,14 @@ CheckAlert_PassphraseToLong_Message = "Syöttämäsi salasanalause on liian pitk
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
 /* For Key-Search */
-KeySearch_NoKeysFound_Title = "No keys found";
-KeySearch_ImportResults_Title = "Import results";
+KeySearch_NoKeysFound_Title = "Avaimia ei löytynyt";
+KeySearch_ImportResults_Title = "Tuo löydetyt";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bittiä), luonut: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Etsimme toisiaan vastaavia avaimia avainpalvelimelta. Haku voi kestää jonkin aikaa, ole hyvä ja odota.";
 
 GenerateKey_Progress = "We need to generate a lot of random bytes. It is a good idea to perform some other action (type on the keyboard in an application, move the mouse, utilize the disks) during the prime generation. This gives the random number generator a better chance to gain enough entropy.";
 GenerateSubkey_Msg = "Add subkey to the Key \"%@\", %@.";
-GenerateUserID_Msg = "Add User ID to the Key \"%@\", %@.";
+GenerateUserID_Msg = "Lisää käyttäjätunniste avaimeen \"%@\", %@.";
 GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
 GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
 ChangeExpirationDate_Msg = "Muuta \"%@\", %@ :n vanhentumispäivä ";
@@ -79,27 +79,27 @@ CheckError_PassphraseMissmatch = "Salasanalauseesi eivät täsmänneet!";
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG:tä ei löydy";
 GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
-GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
+GPG_CONFIG_ERROR_TITLE = "GPG-asetusvirhe";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg -kirjastoa ei löydy";
 LIBMACGPG_NOT_FOUND_MESSAGE = "\nLibmacgpg -kirjastoa ei löydynyt järjestelmästäsi. Ole hyvä ja uudelleenasenna GPG Suite sivustolta https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
+CODE_SIGN_ERROR_TITLE = "Joku on muokannut asennettua GPG Keychain - ohjelmistoasi!";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
-UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_TITLE = "Tuntematon GPG-virhe";
 UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
 /* Mail public key */
-MailKey_Subject = "Public key of %@";
-MailKey_Subject_Your = "My public key to secure our messages";
+MailKey_Subject = "%@ :n julkinen avain";
+MailKey_Subject_Your = "Viestiemme salaamiseen tarkoitettu julkinen avaimeni";
 MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Luodaan uutta sähköpostia...";
 MailKey_Progress_Your = "Luodaan uutta sähköpostia...";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Käyttökelvoton avain valittu!";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
@@ -115,18 +115,18 @@ No = "Ei";
 Error = "Virhe";
 Warning = "Varoitus";
 Cancel = "Peruuta";
-"Apply to all" = "Apply to all";
+"Apply to all" = "Käytä kaikkiin";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove User ID";
+RemoveUserID_Title = "Poista käyttäjätunniste";
 RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove User ID";
+RemoveUserID_Yes = "Poista käyttäjätunniste";
 RemoveUserID_No = "Peruutettu";
 
-RevokeUserID_Title = "Revoke User ID";
+RevokeUserID_Title = "Kumoa käyttäjätunniste";
 RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Yes = "Kumoa käyttäjätunniste";
 RevokeUserID_No = "Peruutettu";
 
 RemoveSubkey_Title = "Remove Subkey";
@@ -134,78 +134,83 @@ RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are
 RemoveSubkey_Yes = "Remove Subkey";
 RemoveSubkey_No = "Peruutettu";
 
-RevokeSubkey_Title = "Revoke Subkey";
+RevokeSubkey_Title = "Kumoa aliavain";
 RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
-RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_Yes = "Kumoa aliavain";
 RevokeSubkey_No = "Peruutettu";
 
-RevokeSignature_Title = "Revoke Signature";
+RevokeSignature_Title = "Kumoa allekirjoitus";
 RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
-RevokeSignature_Yes = "Revoke Signature";
+RevokeSignature_Yes = "Kumoa allekirjoitus";
 RevokeSignature_No = "Peruutettu";
 
-RemoveSignature_Title = "Remove Signature";
+RemoveSignature_Title = "Poista allekirjoitus";
 RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
-RemoveSignature_Yes = "Remove Signature";
+RemoveSignature_Yes = "Poista allekirjoitus";
 RemoveSignature_No = "Peruutettu";
 
-RemoveLastSelfSignature_Title = "Remove last Self-Signature";
+RemoveLastSelfSignature_Title = "Poista viimeisin oma-allekirjoitus";
 RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
-RemoveLastSelfSignature_Yes = "Remove Signature";
+RemoveLastSelfSignature_Yes = "Poista allekirjoitus";
 RemoveLastSelfSignature_No = "Peruutettu";
 
-RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
+RevokeLastSelfSignature_Title = "Peru viimeisin oma-allekirjoitus";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
-RevokeLastSelfSignature_Yes = "Revoke Signature";
+RevokeLastSelfSignature_Yes = "Kumoa allekirjoitus";
 RevokeLastSelfSignature_No = "Peruutettu";
 
-RevokeKey_Title = "Warning: You are about to revoke a key";
+RevokeKey_Title = "Varoitus: olet kumoamassa avainta";
 RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Upload revoked key";
-RevokeKey_Yes = "Revoke Key";
+RevokeKey_Yes = "Kumoa avain";
 RevokeKey_No = "Peruutettu";
+
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
+OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
+OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_No = "Peru";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key(s)";
+DeleteKey_Title = "Poista julkinen avain/avaimet";
 DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
-DeleteKey_Yes = "Delete key(s)";
+DeleteKey_Yes = "Poista avain/avaimet";
 DeleteKey_No = "Peruutettu";
 
-DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
+DeleteSecKey_Title = "Varoitus! Olet poistamassa salaista ja julkista avainta tai -avaimia";
 DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteSecKey_Yes = "Delete key(s)";
-DeleteSecKey_SecOnly = "Delete secret key(s) only";
+DeleteSecKey_Yes = "Poista avain/avaimet";
+DeleteSecKey_SecOnly = "Poista vain salainen avain/avaimet";
 DeleteSecKey_No = "Peruutettu";
 
-DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
+DeleteRevokedSecKey_Title = "Varoitus: Olet poistamassa kumottua avainparia tai -pareja";
 DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
 DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
-DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
+DeleteRevokedSecKey_Yes = "Poista avainpari tai -parit";
+DeleteRevokedSecKey_SecOnly = "Poista vain salainen avain/avaimet";
 DeleteRevokedSecKey_No = "Peruuta";
 
 
 /* Bad key server */
-BadKeyserver_Title = "Bad key server";
+BadKeyserver_Title = "Epäkelpo avainpalvelin";
 BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
 /* Import warnings */
-ImportRevSig_Title = "Import revocation certificate";
+ImportRevSig_Title = "Tuo kumoamisvarmenne";
 ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Tuo";
 ImportRevSig_No = "Peruutettu";
 
 ImportRandomData_Title = "Warning! Content can probably not be imported.";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
-ImportRandomData_Yes = "Try Import";
+ImportRandomData_Yes = "Yritä tuontia";
 ImportRandomData_No = "Peruutettu";
 
 ImportNonImportable_Title = "Warning! Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
-ImportNonImportable_Yes = "Try Import";
+ImportNonImportable_Yes = "Yritä tuontia";
 ImportNonImportable_No = "Peruutettu";
 
 
@@ -228,13 +233,13 @@ IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i im
 /* Errors */
 ImportKeyError_Title = "Failed to import one or more keys!";
 ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
-ImportKeyErrorPGP_Title = "Import Failed!";
+ImportKeyErrorPGP_Title = "Tuonti epäonnistui!";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
-ImportKeyErrorNoPGP_Title = "Import failed!";
+ImportKeyErrorNoPGP_Title = "Tuonti epäonnistui!";
 ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
 
-NO_SECRET_KEY_TITLE = "No secret key found!";
-NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
+NO_SECRET_KEY_TITLE = "Salattua avainta ei löydy!";
+NO_SECRET_KEY_MESSAGE = "Toiminnon suorittaminen vaatii salaisen avaimen.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -255,9 +260,9 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 /* For opening and saving dialogues */
 ChoosePhoto_Large_Message = "This photo is really large!";
 ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
-ChoosePhoto_Large_Button1 = "Choose another…";
-ChoosePhoto_Large_Button2 = "Use this photo";
-ChoosePhoto_TooLarge_Message = "Your photo is too large!";
+ChoosePhoto_Large_Button1 = "Valitse toinen...";
+ChoosePhoto_Large_Button2 = "Käytä tätä valokuvaa";
+ChoosePhoto_TooLarge_Message = "Kuva on liian iso!";
 ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
 
 

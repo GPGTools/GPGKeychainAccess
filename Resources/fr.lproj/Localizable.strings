@@ -95,7 +95,7 @@ MailKey_Subject = "Clé publique de %@";
 MailKey_Subject_Your = "Ma clé publique pour sécuriser nos échanges";
 MailKey_Message = "Bonjour,\n\nVeuillez trouver ci-jointe la clé publique de \n\n%@\n\nVous pouvez utiliser cette clé pour chiffrer et signer les messages envoyés à %@.\n\nPour commencer à l'utiliser vous devez installer un logiciel OpenPGP sur votre ordinateur. Ci-dessous une liste des solutions possibles en fonction de votre système d'exploitation :\n\n%@\n\nMerci d'importer cette clé dans votre gestionnaire local de clé OpenPGP.\n\nCordialement,";
 MailKey_Message_Your = "Bonjour,\n\nVeuillez trouver ci-jointe ma clé publique\n\n%@\n\nVous pouvez utiliser cette clé pour chiffrer et signer nos échanges.\n\nPour commencer à l'utiliser, vous devez installer un logiciel OpenPGP sur votre ordinateur. Ci-dessous une liste des solutions possibles en fonction de votre système d'exploitation :\n\n%@\n\nMerci d'importer cette clé dans votre gestionnaire local de clé OpenPGP.\n\nImpatient de pouvoir échanger des messages sûrs entre nous !\n\nCordialement,";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Création nouveau message ...";
 MailKey_Progress_Your = "Création nouveau message ...";
 MailKey_Error = "Oops, quelque chose n'a pas fonctionné correctement lors de l'export de votre clé.";
@@ -164,6 +164,11 @@ RevokeKey_Msg = "Vous êtes sur le point de révoquer la clé suivante :\n\n%@\n
 RevokeKey_Upload = "Téléverser la clé révoquée";
 RevokeKey_Yes = "Révoquer la clé";
 RevokeKey_No = "Annuler";
+
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
+OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
+OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_No = "Annuler";
 
 
 /* Delete warnings */

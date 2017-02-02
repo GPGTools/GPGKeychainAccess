@@ -18,7 +18,7 @@
 /* Key descriptions */
 "and" = "och";
 KeyDescriptionAndMore = "%1$@ och %2$lu mer";
-SecretAndPublicKeyListing = "Hemliga nycklar:\n\n%@\n\nPublika nycklar:\n\n%@";
+SecretAndPublicKeyListing = "Privata nycklar:\n\n%@\n\nPublika nycklar:\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -95,12 +95,12 @@ MailKey_Subject = "Publik nyckel för %@";
 MailKey_Subject_Your = "Min publika nyckel för att säkra våra meddelanden";
 MailKey_Message = "Hej,\n\nsom bilaga kommer du att se den publika nyckeln för\n\n%@\n\nDu kan använda den här nyckeln för att kryptera och säkra meddelanden när du skriver till %@.\n\nFör att börja använda den behöver du installera ett OpenPGP-program på din dator. Här är en lista med möjliga alternativ för ditt operativsystem:\n\n%@\n\nImportera den publika nyckeln till din lokalt installerade OpenPGP-nyckelhanterare.\n\nMed vänliga hälsningar";
 MailKey_Message_Your = "Hej,\n\nsom bilaga kommer du att se min publika nyckel\n\n%@\n\nDu kan använda den här nyckeln för att kryptera och säkra våra meddelanden.\n\nFör att börja använda den behöver du installera ett OpenPGP-program på din dator. Här är en lista med möjliga alternativ för ditt operativsystem:\n\n%@\n\nImportera den publika nyckeln till din lokalt installerade OpenPGP-nyckelhanterare.\n\nSer fram emot att utväxla avlyssningssäkra meddelanden med dig.\n\nMed vänliga hälsningar";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Skapar nytt e-postmeddelande...";
 MailKey_Progress_Your = "Skapar nytt e-postmeddelande...";
 MailKey_Error = "Hoppsan, något gick snett när din nyckel skulle exporteras.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Oanvändbar nyckel vald!";
-MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du har markerat en oanvändbar nyckel. Sådana nycklar kan inte skickas via e-post. Uppdatera nyckeln från nyckelservrarna för att se om den har uppdaterats.\n\nKontakta annars nyckelns ägare och informera dem om nyckelns skick.\n\n%@";
 
 
 /* A key was found in the pasteboard */
@@ -130,12 +130,12 @@ RevokeUserID_Yes = "Återkalla användar-ID";
 RevokeUserID_No = "Avbryt";
 
 RemoveSubkey_Title = "Ta bort undernyckel";
-RemoveSubkey_Msg = "Försiktig! Vänligen fortsätt endast om du verkligen vet vad du gör.\n\nTa bort en undernyckel kan förstöra alla signering- och dekrypteringkapacitet.\n\nOm nyckeln med denna undernyckel laddades upp till de viktigaste servrar, borttagning av undernyckeln kommer inte att ta bort undernyckeln från nyckeln på nyckelservrarna . I så fall ska du istället återkalla undernyckeln i fråga och ladda upp uppdaterad nyckel.";
+RemoveSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta bort en undernyckel kan förstöra alla signerings- och dekrypteringsfunktioner.\n\nOm nyckeln med denna undernyckel laddades upp till nyckelservarna, kommer borttagningen av undernyckeln inte leda till att den tas bort från nyckeln på nyckelservrarna. Återkalla istället den aktuella undernyckeln och ladda upp den uppdaterade nyckeln.";
 RemoveSubkey_Yes = "Ta bort undernyckel";
 RemoveSubkey_No = "Avbryt";
 
 RevokeSubkey_Title = "Återkalla undernyckel";
-RevokeSubkey_Msg = "Försiktig! Vänligen fortsätt endast om du verkligen vet vad du gör.\n\nÅterkallande av en undernyckel kan förstöra alla signering- och dekrypteringkapacitet.\n\nOm nyckeln med denna undernyckel laddades upp till de viktigaste servrar, se till att ladda upp uppdaterad nyckel. Först då kommer inträde på nyckelservrarna återspeglar den återkallade nyckeln.";
+RevokeSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta återkalla en undernyckel kan förstöra alla signerings- och dekrypteringsfunktioner.\n\nOm nyckeln med denna undernyckel laddades upp till nyckelservarna, se till att ladda upp den uppdaterade nyckeln. Bara då kommer nyckeln på nyckelservrarna återspegla den återkallade undernyckeln.\n";
 RevokeSubkey_Yes = "Återkalla undernyckel";
 RevokeSubkey_No = "Avbryt";
 
@@ -145,7 +145,7 @@ RevokeSignature_Yes = "Återkalla signatur";
 RevokeSignature_No = "Avbryt";
 
 RemoveSignature_Title = "Ta bort signatur";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Msg = "Är du säker på att du vill ta bort den här signaturen? Att ta bort en signatur kommer endast att ta bort den lokalt. Den kommer inte att tas bort, och kan inte tas bort, från nyckeln på nyckelservrarna. Återkalla istället din signatur om du vill märka den som ogiltig.";
 RemoveSignature_Yes = "Ta bort signatur";
 RemoveSignature_No = "Avbryt";
 
@@ -160,36 +160,41 @@ RevokeLastSelfSignature_Yes = "Återkalla signatur";
 RevokeLastSelfSignature_No = "Avbryt";
 
 RevokeKey_Title = "Varning: Du är på väg att återkalla en nyckel";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "Du kommer att återkalla följande nyckel:\n\n%@\n\nNär den återkallats kommer det inte längre vara möjligt att signera och kryptera meddelanden med denna nyckel. Den återkallade nyckeln kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats med den nyckeln.\n\nVi rekommenderar att den inte raderas.\n\nFör att uppmärksamma andra att denna nyckel har återkallats rekommenderas det att ladda upp den till nyckelservrarna. \n\nÄr du säker på att du vill återkalla den här nyckeln?";
 RevokeKey_Upload = "Ladda upp återkallad nyckel";
 RevokeKey_Yes = "Återkalla nyckel";
 RevokeKey_No = "Avbryt";
+
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
+OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
+OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_No = "Avbryt";
 
 
 /* Delete warnings */
 DeleteKey_Title = "Ta bort publik(a) nyckel/nycklar";
 DeleteKey_Msg = "Du kommer att radera följande publika nycklar:\n\n%@\n\nÄr du säker på att du vill radera dessa publika nycklar?";
-DeleteKey_Yes = "Ta bort nyckel/nycklar";
+DeleteKey_Yes = "Radera nyckel/nycklar";
 DeleteKey_No = "Avbryt";
 
-DeleteSecKey_Title = "Varning! Du är på väg att ta bort hemlig(a) och publik(a) nyckel/nycklar";
-DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
-DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteSecKey_Yes = "Ta bort nyckel/nycklar";
-DeleteSecKey_SecOnly = "Ta bort hemlig(a) nyckel/nycklar";
+DeleteSecKey_Title = "Varning! Du kommer att radera privata och publika nycklar";
+DeleteSecKey_Msg = "Du kommer att radera nyckeln/nycklarna:\n\n%@\n\nAtt radera en privat nyckel har allvarliga konsekvenser. När den raderats kommer det inte längre vara möjligt att dekryptera meddelanden med denna nyckel. Detta rör samtliga meddelanden som krypterades med denna nyckel.\n\nVi rekommenderar att den inte raderas.\n\nFör att uppmärksamma andra att denna nyckel inte längre används, bör du återkalla nyckeln istället för att radera den och ladda upp den återkallade nyckeln till nyckelservrarna. Annars kommer kanske andra kommer att använda denna nyckel för att kryptera meddelanden till dig.";
+DeleteSecKey_Checkbox = "Ja, jag vill radera min privata nyckel och förstår att jag inte längre\nkan dekryptera några meddelanden som krypterades med denna nyckel.";
+DeleteSecKey_Yes = "Radera nyckel/nycklar";
+DeleteSecKey_SecOnly = "Radera endast privata nycklar";
 DeleteSecKey_No = "Avbryt";
 
-DeleteRevokedSecKey_Title = "Varning: Du är på väg att ta bort återkallade nyckelpar";
-DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
-DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteRevokedSecKey_Yes = "Ta bort dina nyckelpar";
-DeleteRevokedSecKey_SecOnly = "Ta bort hemlig(a) nyckel/nycklar";
+DeleteRevokedSecKey_Title = "Varning: Du kommer att radera återkallade nyckelpar";
+DeleteRevokedSecKey_Msg = "Du kommer att radera följande återkallade nyckelpar:\n\n%@\n\nÅterkallade nycklar kan fortfarande dekryptera gamla meddelanden som krypterats till den nyckeln.\n\nVi rekommenderar att den inte raderas.";
+DeleteRevokedSecKey_Checkbox = "Ja, jag vill radera min privata nyckel och förstår att jag inte längre\nkan dekryptera några meddelanden som krypterades med denna nyckel.";
+DeleteRevokedSecKey_Yes = "Radera dina nyckelpar";
+DeleteRevokedSecKey_SecOnly = "Radera endast privata nycklar";
 DeleteRevokedSecKey_No = "Avbryt";
 
 
 /* Bad key server */
 BadKeyserver_Title = "Dålig nyckelserver";
-BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
+BadKeyserver_Msg = "Den nyckelserver du angivit fungerar inte.\nKontrollera nyckelserverns adress. Den borde se ut ungefär som hkp://some.key.server.org\n\nNyckelservern kan också vara offline. Använd i så fall en annan nyckelserver.";
 
 
 /* Import warnings */
@@ -220,9 +225,9 @@ IMPORT_RESULT_NEW_SUBKEY = "En undernyckel har lagts till följande nycklar\n\n%
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 återkallelsecertifikat importerades.";
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i återkallelsecertifikat importerades.";
 
-IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 key was processed and %i imported.";
-IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i keys were processed and 1 imported.";
-IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i imported.";
+IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 nyckel bearbetades och  %i importerades.";
+IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i nycklar bearbetades och 1 importerades.";
+IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i nycklar bearbetades och %2$i importerades.";
 
 
 /* Errors */
@@ -231,10 +236,10 @@ ImportKeyError_Msg = "Ofta kan nycklar inte importeras eftersom en egen-signatur
 ImportKeyErrorPGP_Title = "Import misslyckades!";
 ImportKeyErrorPGP_Msg = "Det verkar som att du försöker importera ett krypterat eller signerat meddelande. Använd GPGServices för att dekryptera eller verifiera sådana meddelanden.";
 ImportKeyErrorNoPGP_Title = "Import misslyckades!";
-ImportKeyErrorNoPGP_Msg = "Det verkar som att du försöker importera data som inte är relaterade till PGP och som inte kan behandlas.";
+ImportKeyErrorNoPGP_Msg = "Det verkar som att du försöker importera data som inte är relaterade till PGP och som inte kan bearbetas.";
 
-NO_SECRET_KEY_TITLE = "Ingen hemlig nyckel hittas!";
-NO_SECRET_KEY_MESSAGE = "Du behöver en hemlig nyckel för att utföra den här åtgärden.";
+NO_SECRET_KEY_TITLE = "Ingen privat nyckel hittades!";
+NO_SECRET_KEY_MESSAGE = "Du behöver en privat nyckel för att utföra den här åtgärden.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";

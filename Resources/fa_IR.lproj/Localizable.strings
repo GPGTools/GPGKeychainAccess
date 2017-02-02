@@ -1,48 +1,48 @@
 /* For Key-Status */
-"Invalid" = "غير صالح";
-"Revoked" = "رُفض";
-"Expired" = "انتهت مدة صلاحية";
-"Disabled" = "عطُل";
-"Unknown" = "غير معروف";
-"Marginal" = "هامشي";
-"Full" = "كامل";
-"Ultimate" = "نهائي";
+"Invalid" = "نامعتبر";
+"Revoked" = "ابطال شده";
+"Expired" = "منقضی شده";
+"Disabled" = "غیر فعال شده";
+"Unknown" = "ناشناخته";
+"Marginal" = "حاشیه‌ای";
+"Full" = "کامل";
+"Ultimate" = "نهایی";
 
 
 
 /* Long key types */
-"Secret and public key" = "المفتاح السري والعمومي";
-"Public key" = "المفتاح العمومي";
+"Secret and public key" = "کلید محرمانه و عمومی";
+"Public key" = "کلید عمومی";
 
 
 /* Key descriptions */
-"and" = "and";
+"and" = "و";
 KeyDescriptionAndMore = "%1$@ and %2$lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+SecretAndPublicKeyListing = "کلیدهای محرمانه:\n\n%@\n\nکلیدهای عمومی:\n\n%@";
 
 
 /* For export, as standard File-Name. */
-"untitled" = "بدون عنوان";
-"%@ Revoke certificate" = "%@ رفض الشهادة";
-"Exported keys.asc" = "تصدير keys.asc";
+"untitled" = "بی‌نام";
+"%@ Revoke certificate" = "%@ Revoke certificate";
+"Exported keys.asc" = "keys.asc صادر شده";
 ExportKeysFilename = "%@ %u OpenPGP Keys";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "لا توجد كلمة المرور";
-CheckAlert_NoPassphrase_Message = "You have entered no passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Button1= "Continue without a passphrase";
-CheckAlert_NoPassphrase_Button2 = "أدخل كلمة مرور جديدة";
-CheckAlert_PassphraseShort_Title = "كلمة مرور قصيرة";
-CheckAlert_PassphraseShort_Message = "You have entered a short passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
-CheckAlert_PassphraseShort_Button1= "الاستمرار مع عبارة مرور قصيرة";
-CheckAlert_PassphraseShort_Button2 = "أدخل كلمة مرور جديدة";
-CheckAlert_PassphraseSimple_Title = "عبارة مرور بسيطة";
-CheckAlert_PassphraseSimple_Message = "The passphrase you have entered is too simple. A good passphrase should be alphanumeric and contain at least one special character.";
-CheckAlert_PassphraseSimple_Button1 = "Continue with simple passphrase";
-CheckAlert_PassphraseSimple_Button2 = "أدخل عبارة مرور جديدة";
-CheckAlert_PassphraseToLong_Title = "Passphrase too long";
-CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too long. Enter a passphrase with less than 300 characters.";
+CheckAlert_NoPassphrase_Title = "بدون عبارت رمز";
+CheckAlert_NoPassphrase_Message = "شما هیچ عبارت رمزی وارد نکرده‌اید. این کار توصیه نمی‌شود. یک عبارت رمز باید حداقل طول 8 کاراکتر داشته باشد.";
+CheckAlert_NoPassphrase_Button1= "بدون یک عبارت رمز ادامه بده";
+CheckAlert_NoPassphrase_Button2 = "عبارت رمز جدید را وارد کنید";
+CheckAlert_PassphraseShort_Title = "عبارت رمز کوتاه";
+CheckAlert_PassphraseShort_Message = "شما عبارت رمز کوتاهی وارد کرده‌اید. این کار توصیه نمی‌شود. یک عبارت رمز باید حداقل طول 8 کاراکتر داشته باشد.";
+CheckAlert_PassphraseShort_Button1= "با عبارت رمز کوتاه ادامه دهید";
+CheckAlert_PassphraseShort_Button2 = "عبارت رمز جدید را وارد کنید";
+CheckAlert_PassphraseSimple_Title = "عبارت رمز ساده";
+CheckAlert_PassphraseSimple_Message = "عبارت رمزی که شما وارد کرده‌اید بسیار ساده است. یک عبارت رمز باید از حروف الفبا و اعداد تشکیل شده باشد و حداقل یک کاراکتر ویژه داشته باشد.";
+CheckAlert_PassphraseSimple_Button1 = "با عبارت رمز ساده ادامه دهید";
+CheckAlert_PassphraseSimple_Button2 = "عبارت رمز جدید را وارد کنید";
+CheckAlert_PassphraseToLong_Title = "عبارت رمز بسیار بلند است";
+CheckAlert_PassphraseToLong_Message = "عبارت رمزی که شما وارد کرده‌اید بسیار بلند است. عبارت رمزی وارد کنید که کمتر از 300 کاراکتر طول داشته باشد.";
 
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
@@ -50,7 +50,7 @@ MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your se
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "No keys found";
 KeySearch_ImportResults_Title = "Import results";
-FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), نُشئت: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It might take some time, please wait.";
 
 GenerateKey_Progress = "We need to generate a lot of random bytes. It is a good idea to perform some other action (type on the keyboard in an application, move the mouse, utilize the disks) during the prime generation. This gives the random number generator a better chance to gain enough entropy.";
@@ -64,22 +64,22 @@ ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubk
 GenerateKey_Error = "Ups, something went wrong. There was a problem creating your key.";
 
 /* Message for incorrect Entries */
-CheckError_NameToShort = "يجب أن يكون الإسم 5 أحرف على الأقل!";
-CheckError_NameToLong = "الإسم طويل جدا!";
+CheckError_NameToShort = "Name must be at least 5 characters long!";
+CheckError_NameToLong = "Name is too long!";
 CheckError_InvalidCharInName = "Invalid character in name!\n\"<\" and \">\" not allowed.";
-CheckError_NameStartWithDigit = "قد لا يبدأ الإسم برقم!";
-CheckError_InvalidEmail = "عنوان بريد إلكتروني غير صالح!";
-CheckError_EmailToLong = "عنوان البريد الإلكتروني طويل جدا!\nالطول الاقصى هو 254.";
+CheckError_NameStartWithDigit = "Name may not start with a digit!";
+CheckError_InvalidEmail = "Not a valid email address!";
+CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
 CheckError_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\" not allowed.";
-CheckError_CommentToLong = "تعليق طويل جدا!";
+CheckError_CommentToLong = "Comment is too long!";
 CheckError_NoKeyID = "Please enter a valid key ID!";
 CheckError_PassphraseMissmatch = "Your passphrases did not match!";
 
 
 /* Message on start, if there are any Problems */
-GPG_NOT_FOUND_TITLE = "لم يتم العثور على GPG";
+GPG_NOT_FOUND_TITLE = "GPG Not Found";
 GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
-GPG_CONFIG_ERROR_TITLE = "خطأ في اعداد GPG";
+GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
@@ -106,90 +106,90 @@ MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such
 /* A key was found in the pasteboard */
 PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
 PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
-PasteboardKeyFound_Yes = "استيراد";
-PasteboardKeyFound_No = "إلغاء";
+PasteboardKeyFound_Yes = "وارد کردن";
+PasteboardKeyFound_No = "Cancel";
 
 
 /* Those are abvious */
-No = "لا";
-Error = "خطأ";
-Warning = "تحذير";
-Cancel = "إلغاء";
-"Apply to all" = "طَبق على الجميع";
+No = "No";
+Error = "Error";
+Warning = "Warning";
+Cancel = "Cancel";
+"Apply to all" = "Apply to all";
 
 
 /* Warnings */
 RemoveUserID_Title = "Remove User ID";
 RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
 RemoveUserID_Yes = "Remove User ID";
-RemoveUserID_No = "إلغاء";
+RemoveUserID_No = "Cancel";
 
 RevokeUserID_Title = "Revoke User ID";
 RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
 RevokeUserID_Yes = "Revoke User ID";
-RevokeUserID_No = "إلغاء";
+RevokeUserID_No = "Cancel";
 
 RemoveSubkey_Title = "Remove Subkey";
 RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
 RemoveSubkey_Yes = "Remove Subkey";
-RemoveSubkey_No = "إلغاء";
+RemoveSubkey_No = "Cancel";
 
 RevokeSubkey_Title = "Revoke Subkey";
 RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
 RevokeSubkey_Yes = "Revoke Subkey";
-RevokeSubkey_No = "إلغاء";
+RevokeSubkey_No = "Cancel";
 
 RevokeSignature_Title = "Revoke Signature";
 RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
 RevokeSignature_Yes = "Revoke Signature";
-RevokeSignature_No = "إلغاء";
+RevokeSignature_No = "Cancel";
 
 RemoveSignature_Title = "Remove Signature";
 RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
 RemoveSignature_Yes = "Remove Signature";
-RemoveSignature_No = "إلغاء";
+RemoveSignature_No = "Cancel";
 
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
 RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Remove Signature";
-RemoveLastSelfSignature_No = "إلغاء";
+RemoveLastSelfSignature_No = "Cancel";
 
 RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
 RevokeLastSelfSignature_Yes = "Revoke Signature";
-RevokeLastSelfSignature_No = "إلغاء";
+RevokeLastSelfSignature_No = "Cancel";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
 RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Upload revoked key";
 RevokeKey_Yes = "Revoke Key";
-RevokeKey_No = "إلغاء";
+RevokeKey_No = "Cancel";
 
 OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
 OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
 OpenWithGPGServices_Yes = "Open GPGServices";
-OpenWithGPGServices_No = "إلغاء";
+OpenWithGPGServices_No = "Cancel";
 
 
 /* Delete warnings */
 DeleteKey_Title = "Delete public key(s)";
 DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
 DeleteKey_Yes = "Delete key(s)";
-DeleteKey_No = "إلغاء";
+DeleteKey_No = "Cancel";
 
 DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
 DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Delete key(s)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
-DeleteSecKey_No = "إلغاء";
+DeleteSecKey_No = "Cancel";
 
 DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
 DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
 DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
 DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
-DeleteRevokedSecKey_No = "إلغاء";
+DeleteRevokedSecKey_No = "Cancel";
 
 
 /* Bad key server */
@@ -200,18 +200,18 @@ BadKeyserver_Msg = "The key server you have entered is not working.\nPlease chec
 /* Import warnings */
 ImportRevSig_Title = "Import revocation certificate";
 ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
-ImportRevSig_Yes = "استيراد";
-ImportRevSig_No = "إلغاء";
+ImportRevSig_Yes = "وارد کردن";
+ImportRevSig_No = "Cancel";
 
 ImportRandomData_Title = "Warning! Content can probably not be imported.";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
 ImportRandomData_Yes = "Try Import";
-ImportRandomData_No = "إلغاء";
+ImportRandomData_No = "Cancel";
 
 ImportNonImportable_Title = "Warning! Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Try Import";
-ImportNonImportable_No = "إلغاء";
+ImportNonImportable_No = "Cancel";
 
 
 /* For Import-Results */
@@ -261,14 +261,14 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 ChoosePhoto_Large_Message = "This photo is really large!";
 ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
 ChoosePhoto_Large_Button1 = "Choose another…";
-ChoosePhoto_Large_Button2 = "استخدم هذه الصورة";
+ChoosePhoto_Large_Button2 = "Use this photo";
 ChoosePhoto_TooLarge_Message = "Your photo is too large!";
 ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
 
 
 
 
-CIPHER_ALGO_NONE = "لا شيء";
+CIPHER_ALGO_NONE = "None";
 CIPHER_ALGO_IDEA = "IDEA";
 CIPHER_ALGO_3DES = "3DES";
 CIPHER_ALGO_CAST5 = "CAST5";
@@ -287,7 +287,7 @@ DIGEST_ALGO_SHA256 = "SHA256";
 DIGEST_ALGO_SHA384 = "SHA384";
 DIGEST_ALGO_SHA512 = "SHA512";
 DIGEST_ALGO_SHA224 = "SHA224";
-COMPRESS_ALGO_NONE = "لا شيء";
+COMPRESS_ALGO_NONE = "None";
 COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
@@ -295,13 +295,13 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "تصدير المفتاح.";
-ExportKey_Error = "فشل تصدير المفتاح.";
-ImportKey_Progress  = "جاري استيراد المفتاح.";
-DeleteSecretKey_Progress = "جاري حذف المفتاح السري.";
-DeleteKeys_Progress = "جاري حذف المفتاح.";
-DeleteKeys_Error = "فشل حذف المفتاح.";
-ChangePassphrase_Progress = "جاري تغيير كلمة المرور.";
+ExportKey_Progress = "Exporting key.";
+ExportKey_Error = "Key export failed.";
+ImportKey_Progress  = "Importing key.";
+DeleteSecretKey_Progress = "Deleting secret key.";
+DeleteKeys_Progress = "Deleting key.";
+DeleteKeys_Error = "Deleting key failed.";
+ChangePassphrase_Progress = "Changing Passphrase.";
 ChangePassphrase_Error = "Changing passphrase failed.";
 SetDisabled_Progress = "Enabling/Disabling key.";
 SetDisabled_Error = "Enabling/Disabling key failed.";

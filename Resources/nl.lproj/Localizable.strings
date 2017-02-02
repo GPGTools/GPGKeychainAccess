@@ -16,9 +16,9 @@
 
 
 /* Key descriptions */
-"and" = "and";
-KeyDescriptionAndMore = "%1$@ and %2$lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+"and" = "en";
+KeyDescriptionAndMore = "%1$@ en %2$lu meer";
+SecretAndPublicKeyListing = "Geheime sleutels:\n\n%@\n\nPublieke sleutels:\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -41,25 +41,25 @@ CheckAlert_PassphraseSimple_Title = "Simpel wachtwoord";
 CheckAlert_PassphraseSimple_Message = "Het wachtwoord wat je in hebt gevuld is te simpel. Een goed wachtwoord dient alfanummeriek te zijn en in ieder geval 1 speciaal karakter te bevatten.";
 CheckAlert_PassphraseSimple_Button1 = "Doorgaan met simpel wachtwoord";
 CheckAlert_PassphraseSimple_Button2 = "Vul een nieuw wachtwoord in";
-CheckAlert_PassphraseToLong_Title = "Passphrase too long";
-CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too long. Enter a passphrase with less than 300 characters.";
+CheckAlert_PassphraseToLong_Title = "Wachtwoord is te lang";
+CheckAlert_PassphraseToLong_Message = "Het wachtwoord dat u heeft ingevoerd is te lang. Voer een wachtwoord in met minder dan 300 tekens.";
 
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
 /* For Key-Search */
-KeySearch_NoKeysFound_Title = "No keys found";
-KeySearch_ImportResults_Title = "Import results";
+KeySearch_NoKeysFound_Title = "Geen sleutels gevonden";
+KeySearch_ImportResults_Title = "Importeer resultaten";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), aangemaakt: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "We zoeken naar bijpassende sleutel(s) op de keys server. Dit kan even duren, even geduld.";
 
 GenerateKey_Progress = "We moeten veel willekeurige bytes genereren. Het is aan te bevelen om iets anders uit te voeren (Typ op het toetsenbord in een applicatie, het bewegen van de muis, of de harde schijf benaderen) tijdens deze eerste generatie. Dit is nodig om het systeem betere willekeurige data te laten genereren.";
 GenerateSubkey_Msg = "Voeg subsleutel toe aan de sleutel \"%@\", %@.";
-GenerateUserID_Msg = "Add User ID to the Key \"%@\", %@.";
-GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
-GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
+GenerateUserID_Msg = "Voeg gebruikers-ID toe aan sleutel \"%@\", %@.";
+GenerateSignature_Msg = "Het ondertekenen van een sleutel betekent dat u bevestigt dat de eigenaar van de sleutel inderdaad de persoon is die hij/zij beweert te zijn.\nAls uw handtekening is geüpload, kan deze door anderen worden bekeken.\nDus, als u Bob's sleutel ondertekent, en uw vriendin Alice weet niet zeker of Bob daadwerkelijk Bob is, dan kan Alice uw handtekening zien in Bob's publieke sleutel, en omdat Alice weet dat jouw sleutel te vertrouwen is, weet zij ook dat Bob waarschijnlijk daadwerkelijk Bob is, omdat jij dat hebt geverifieerd.\n\nU staat op het punt de volgende sleutel te ondertekenen:\n%@";
+GenerateUidSignature_Msg = "Het ondertekenen van een gebruikers-ID betekent dat u bevestigt dat de eigenaar van de sleutel inderdaad de persoon is die hij/zij beweert te zijn.\nAls uw handtekening is geüpload, kan deze door anderen worden bekeken.\nDus, als u Bob's sleutel ondertekent, en uw vriendin Alice weet niet zeker of Bob daadwerkelijk Bob is, dan kan Alice uw handtekening zien in Bob's publieke sleutel, en omdat Alice weet dat jouw sleutel te vertrouwen is, weet zij ook dat Bob waarschijnlijk daadwerkelijk Bob is, omdat jij dat hebt geverifieerd.\n\nU staat op het punt de volgende gebruikers-ID te ondertekenen:\n%@";
 ChangeExpirationDate_Msg = "Verander vervaldatum van \"%@\", %@";
-ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubkey: %1$@";
+ChangeSubkeyExpirationDate_Msg = "Wijzig vervaldatum van \"%2$@\", %3$@\nSubsleutel: %1$@";
 
 GenerateKey_Error = "Oeps, iets ging verkeerd. Er was een probleem met het genereren van je sleutel.";
 
@@ -69,7 +69,7 @@ CheckError_NameToLong = "Naam is te lang!";
 CheckError_InvalidCharInName = "Ongeldig karakter in naam!\n\"<\" en \">\" niet toegestaan.";
 CheckError_NameStartWithDigit = "Naam mag niet met een nummer beginnen!";
 CheckError_InvalidEmail = "Geen valide email adres!";
-CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
+CheckError_EmailToLong = "E-mailadres is te lang.\nMaximale toegestane lengte is 254 tekens.";
 CheckError_InvalidCharInComment = "Ongeldig karakter in opmerking!\n\"(\" en \")\" niet toegestaan.";
 CheckError_CommentToLong = "Opmerking is te lang!";
 CheckError_NoKeyID = "Vul een valide sleutel ID in!";
@@ -78,34 +78,34 @@ CheckError_PassphraseMissmatch = "Je wachtwoorden zijn niet gelijk!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG Niet gevonden";
-GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oeps, er is iets fout gegaan. Het lijkt erop dat GPG niet op uw systeem staat. Installeer GPG suite opnieuw van https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG Configuratie fout";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
-LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain!";
-CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from https://gpgtools.org to be sure you have an original version from us!";
-UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oeps, er is iets fout gegaan. GPG is wel gevonden op uw systeem, maar er lijkt een probleem te zijn met het configuratiebestand. Neem alstublieft contact met ons op via https://gpgtools.tenderapp.com.\n\nDetails: %@";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg is niet gevonden";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg is niet gevonden op uw systeem. Installeer GPG Suite opnieuw via https://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Iemand heeft iets aangepast aan uw installatie van GPG Keychain!";
+CODE_SIGN_ERROR_MESSAGE = "Voor uw de veiligheid zal GPG Keychain per direct afsluiten!\n\nHerinstalleer GPG Suite via https://gpgtools.org om zeker te weten dat u een originele versie van onze software installeert.";
+UNKNOWN_GPG_ERROR_TITLE = "Onbekende GPG fout";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oeps, er is iets fout gegaan. GPG geeft een onbekende foutmelding. Neem alstublieft contact met ons op via https://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
 /* Mail public key */
-MailKey_Subject = "Public key of %@";
-MailKey_Subject_Your = "My public key to secure our messages";
-MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
-MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creating new mail...";
-MailKey_Progress_Your = "Creating new mail...";
-MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
-MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
+MailKey_Subject = "Publieke sleutel van %@";
+MailKey_Subject_Your = "Mijn publieke sleutel om ons gesprek te versleutelen";
+MailKey_Message = "Goedendag,\n\nIn de bijlagen vind u de publieke sleutel van\n\n%@\n\nU kunt deze sleutel gebruiken om berichten te versleutelen als u communiceert met %@.\n\nOm hier gebruik van te maken moet u OpenGPG software installeren op uw computer. Hieronder vind u een lijst met beschikbare softwarepakketten voor uw besturingssysteem:\n\n%@\n\nImporteer deze publieke sleutel naar uw lokale OpenPGP Key-Manager.\n\nMet vriendelijke groet.";
+MailKey_Message_Your = "Goedendag,\n\nIn de bijlagen vind u mijn publieke sleutel\n\n%@\n\nU kunt deze sleutel gebruiken om berichten voor mij te versleutelen als u met mij communiceert.\n\nOm hier gebruik van te maken moet u OpenGPG software installeren op uw computer. Hieronder vind u een lijst met beschikbare softwarepakketten voor uw besturingssysteem:\n\n%@\n\nImporteer deze publieke sleutel naar uw lokale OpenPGP Key-Manager.\n\nIk zie er naar uit om berichten met u uit te wisselen, zonder afgetapt te worden.\n\nMet vriendelijke groet.";
+MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Progress = "Opstellen van een nieuwe mail...";
+MailKey_Progress_Your = "Opstellen van een nieuwe mail...";
+MailKey_Error = "Oeps, iets ging verkeerd. Er was een probleem met het exporteren van je sleutel.";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Er is een onbruikbare sleutel geselecteerd!";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "U heeft een onbruikbare sleutel geselecteerd. Deze sleutels kunnen niet via e-mail verzonden worden. Update de sleutel vanaf de key server om te controleren of deze geüpdatet is. \n\nProbeer anders in contact te komen met de eigenaar van de sleutel en breng hem op de hoogte van de status van zijn sleutel.\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
-PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Title = "Één of meer sleutel zijn gedetecteerd in uw klembord.";
+PasteboardKeyFound_Msg = "%@\n\nWilt u deze sleutel(s) importeren?";
 PasteboardKeyFound_Yes = "Importeren";
 PasteboardKeyFound_No = "Annuleer";
 
@@ -119,44 +119,44 @@ Cancel = "Annuleer";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove User ID";
-RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove User ID";
+RemoveUserID_Title = "Verwijder gebruiker-ID";
+RemoveUserID_Msg = "U staat op het punt het gebruiker-ID %@ van uw sleutel %@ te verwijderen. Als u dit gebruikers-ID verwijdert kunt u niet langer van deze sleutel gebruik maken in Mail.app.\n\nAls de sleutel met dit gebruiker-ID is geupload naar een key server, dan zal het verwijderen van dit gebruiker-ID niet het gebruiker-ID van de key server verwijderen. Trek in dat geval het gebruiker-ID terug, en upload de nieuwe sleutel.";
+RemoveUserID_Yes = "Verwijder gebruiker-ID";
 RemoveUserID_No = "Annuleer";
 
-RevokeUserID_Title = "Revoke User ID";
-RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Title = "Trek gebruiker-ID in";
+RevokeUserID_Msg = "U staat op het punt het gebruiker-ID %@ van uw sleutel %@ in te trekken. Als u dit gebruikers-ID intrekt kunt u niet langer van deze sleutel gebruik maken in Mail.app.\n\nAls de sleutel met dit gebruiker-ID is geupload naar een key server, vergeet dan niet de nieuwe sleutel te uploaden. Alleen dan zal de key server laten zien dat uw gebruiker-ID is ingetrokken.";
+RevokeUserID_Yes = "Trek gebruiker-ID in";
 RevokeUserID_No = "Annuleer";
 
-RemoveSubkey_Title = "Remove Subkey";
-RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
-RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_Title = "Verwijder subsleutel";
+RemoveSubkey_Msg = "Waarschuwing! Ga alleen door als u zeker weet wat u doet.\n\nDoor het verwijderen van een subsleutel kunt u al uw handtekeningen en mogelijkheden toe ontsleutelen verliezen.\n\nAls de sleutel met deze subsleutel is geupload naar een key server, dan zal het verwijderen van de subsleutel niet van de key server verwijderd worden. Trek in dat geval de subsleutel n en upload de nieuwe sleutel.";
+RemoveSubkey_Yes = "Verwijder subsleutel";
 RemoveSubkey_No = "Annuleer";
 
-RevokeSubkey_Title = "Revoke Subkey";
-RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
-RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_Title = "Trek subsleutel in";
+RevokeSubkey_Msg = "Waarschuwing! Ga alleen door als u zeker weet wat u doet.\n\nDoor het intrekken van een subsleutel kunt u al uw handtekeningen en mogelijkheden toe ontsleutelen verliezen.\n\nAls de sleutel met deze subsleutel is geupload naar een key server, upload dan de nieuwe sleutel ook naar die key server. Alleen dan zal de subsleutel op de key server worden ingetrokken.";
+RevokeSubkey_Yes = "Trek subsleutel in";
 RevokeSubkey_No = "Annuleer";
 
-RevokeSignature_Title = "Revoke Signature";
-RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
-RevokeSignature_Yes = "Revoke Signature";
+RevokeSignature_Title = "Trek handtekening in";
+RevokeSignature_Msg = "Het intrekken van uw handtekening zal deze markeren als ingetrokken. Gebruik deze optie als u denkt dat de sleutel gestolen is van diens eigenaar en dat de originele eigenaar deze sleutel niet langer in bezit heeft. Als u voorheen een handtekening heeft geupload naar een key server, upload dit dan ook naar de key server zodat anderen op de hoogte worden gebracht dat uw handtekening is ingetrokken.";
+RevokeSignature_Yes = "Trek handtekening in";
 RevokeSignature_No = "Annuleer";
 
-RemoveSignature_Title = "Remove Signature";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
-RemoveSignature_Yes = "Remove Signature";
+RemoveSignature_Title = "Verwijder handtekening";
+RemoveSignature_Msg = "Weet u zeker dat u deze handtekening wilt verwijderen? Het verwijderen van een handtekening zal alleen lokaal plaatsvinden. Dit kan niet verwijderd worden op een key server. In plaats daarvan moet u uw handtekening intrekken om deze als ongeldig te markeren.";
+RemoveSignature_Yes = "Verwijder handtekening";
 RemoveSignature_No = "Annuleer";
 
-RemoveLastSelfSignature_Title = "Remove last Self-Signature";
+RemoveLastSelfSignature_Title = "Verwijder laatste eigen-handtekening";
 RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
-RemoveLastSelfSignature_Yes = "Remove Signature";
+RemoveLastSelfSignature_Yes = "Verwijder handtekening";
 RemoveLastSelfSignature_No = "Annuleer";
 
-RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
+RevokeLastSelfSignature_Title = "Trek laatste eigen-handtekening in";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
-RevokeLastSelfSignature_Yes = "Revoke Signature";
+RevokeLastSelfSignature_Yes = "Trek handtekening in";
 RevokeLastSelfSignature_No = "Annuleer";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
@@ -164,6 +164,11 @@ RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoke
 RevokeKey_Upload = "Upload revoked key";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "Annuleer";
+
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
+OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
+OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_No = "Annuleer";
 
 
 /* Delete warnings */
@@ -230,11 +235,11 @@ ImportKeyError_Title = "Failed to import one or more keys!";
 ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Import Failed!";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
-ImportKeyErrorNoPGP_Title = "Import failed!";
+ImportKeyErrorNoPGP_Title = "Importeren mislukt!";
 ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
 
-NO_SECRET_KEY_TITLE = "No secret key found!";
-NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
+NO_SECRET_KEY_TITLE = "Geen private sleutel gevonden!";
+NO_SECRET_KEY_MESSAGE = "Uw private sleutel is nodig om deze handeling uit te voeren.";
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -253,12 +258,12 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 
 
 /* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "This photo is really large!";
-ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
+ChoosePhoto_Large_Message = "Deze afbeelding is erg groot!";
+ChoosePhoto_Large_Info = "U moet een kleinere foto kiezen.\nWe bevelen een grootte aan van minder dan 15 KB.";
 ChoosePhoto_Large_Button1 = "Kies andere afbeelding…";
 ChoosePhoto_Large_Button2 = "Gebruik deze afbeelding";
-ChoosePhoto_TooLarge_Message = "Your photo is too large!";
-ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
+ChoosePhoto_TooLarge_Message = "Uw foto is te groot!";
+ChoosePhoto_TooLarge_Info = "Kies een foto van minder dan 500 KB.\nWe bevelen een grootte aan van minder dan 15 KB.";
 
 
 
@@ -303,7 +308,7 @@ SetDisabled_Error = "Het Inschakelen/Uitschakelen van sleutel is mislukt.";
 SetOwnerTrust_Progress = "Bezig met het zetten van de \"owner trust\".";
 SetOwnerTrust_Error = "Het zetten van de \"owner trust\" is mislukt.";
 ChangeExpirationDate_Progress = "Bezig met veranderen van de vervaldatum.";
-ChangeExpirationDate_Error = "Changing expiration date failed.";
+ChangeExpirationDate_Error = "Veranderen van vervaldatum mislukt.";
 SetAlgorithmPreferences_Progress = "Bezig met het toepassen van de algoritme voorkeuren.";
 SetAlgorithmPreferences_Error = "Het zetten van de algoritme voorkeuren is mislukt.";
 CleanKey_Progress = "Bezig met het schoonmaken van de sleutel.";
@@ -314,9 +319,9 @@ GenerateRevokeCertificateForKey_Progress = "Bezig met genereren van intrek certi
 GenerateRevokeCertificateForKey_Error = "Genereren van het intrek certificaat is mislukt.";
 SearchKeysOnServer_Progress = "Zoekt naar sleutel.";
 SearchKeysOnServer_Error = "Zoeken naar sleutel is mislukt.";
-SendKeysToServer_Progress = "Sending %@ to server.";
+SendKeysToServer_Progress = "%@ aan het versturen naar de server.";
 SendKeysToServer_Error = "Versturen van sleutel is mislukt.";
-RefreshKeysFromServer_Progress = "Refreshing %@ from server.";
+RefreshKeysFromServer_Progress = "%@ aan het updaten van server.";
 RefreshKeysFromServer_Error = "Verversen van sleutel is mislukt.";
 AddSubkey_Progress = "Bezig met toevoegen van subsleutel.";
 AddSubkey_Error = "Toevoegen van sleutel is mislukt.";
@@ -324,14 +329,14 @@ RemoveSubkey_Progress = "Bezig met verwijderen van subsleutel.";
 RemoveSubkey_Error = "Verwijderen van subsleutel is mislukt.";
 RevokeSubkey_Progress = "Bezig met terugtrekken subsleutel.";
 RevokeSubkey_Error = "Terugtrekken van subsleutel mislukt.";
-AddUserID_Progress = "Adding User ID.";
-AddUserID_Error = "Adding User ID failed.";
-RemoveUserID_Progress = "Removing User ID.";
-RemoveUserID_Error = "Removing User ID failed.";
-SetPrimaryUserID_Progress = "Setting primary User ID.";
-SetPrimaryUserID_Error = "Setting primary User ID failed.";
-RevokeUserID_Progress = "Revoking User ID.";
-RevokeUserID_Error = "Revoking User ID failed.";
+AddUserID_Progress = "Gebruikers-ID aan het toevoegen.";
+AddUserID_Error = "Toevoegen van gebruikers-ID mislukt.";
+RemoveUserID_Progress = "Verwijderen van gebruikers-ID.";
+RemoveUserID_Error = "Verwijderen van gebruikers-ID mislukt.";
+SetPrimaryUserID_Progress = "Instellen van primair gebruikers-ID.";
+SetPrimaryUserID_Error = "Instellen van primair gebruikers-ID mislukt.";
+RevokeUserID_Progress = "Intrekken van gebruikers-ID.";
+RevokeUserID_Error = "Intrekken van gebruikers-ID mislukt.";
 AddPhoto_Progress = "Bezig met toevoegen van afbeelding.";
 AddPhoto_Error = "Toevoegen afbeelding mislukt.";
 RemovePhoto_Progress = "Bezig met verwijderen afbeelding.";
@@ -348,7 +353,7 @@ RevokeSignature_Progress = "Bezig met terugtrekken handtekening.";
 RevokeSignature_Error = "Het terugtrekken van de handtekening is mislukt.";
 ReceiveKeysFromServer_Progress = "Bezig met ontvangen van sleutels.";
 ReceiveKeysFromServer_Error = "Het ontvangen van de sleutels is mislukt.";
-RevokeKey_Progress = "Revoking key.";
-RevokeKey_Error = "Revoking key failed.";
+RevokeKey_Progress = "Sleutel aan het intrekken.";
+RevokeKey_Error = "Intrekken van sleutel mislukt.";
 
 

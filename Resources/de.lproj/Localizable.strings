@@ -56,8 +56,8 @@ SearchingKeys_Msg = "Es wird, auf dem Schlüsselserver, nach passenden Schlüsse
 GenerateKey_Progress = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
 GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel „%@“, %@ anlegen.";
 GenerateUserID_Msg = "Benutzer-ID zu dem Schlüssel \"%@\", %@ hinzufügen.";
-GenerateSignature_Msg = "Mit dem Signieren eines Schlüssels, bestätigst du die Identität des Schlüssel-Eigentümers. Du bestätigst also, dass er wirklich derjenige ist, der er vorgibt zu sein.\nSobald die Signatur hoch geladen ist, ist sie für andere sichtbar.\nAlso: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass dieser Schlüssel wirklich Bob ist.\n\nDu willst folgenden Schlüssel signieren:\n%@";
-GenerateUidSignature_Msg = "Mit dem Belgaubigen einer Benutzer-ID, bestätigst du die Identität des Schlüssel-Eigentümers. Du bestätigst also, dass er wirklich der ist, der er vorgibt zu sein.\nSobald die Beglaubigung hochgeladen ist, ist sie für andere sichtbar.\n\nErklärung: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass dieser Schlüssel wirklich Bobs Schlüssel ist.\n\nDu willst folgenden Schlüssel signieren: %@";
+GenerateSignature_Msg = "Mit dem Signieren eines Schlüssels bestätigst du die Identität des Schlüssel-Besitzers. Du bekundigst, dass er wirklich der ist, der er vorgibt zu sein. Wenn du die Signatur auf die Schlüsselserver hochgelädst, ist sie für andere sichtbar.\n\nBeispiel: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel, den sie von Bob hat, wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass der fragliche Schlüssel wirklich von Bob ist.\n\nFolgender Schlüssel wird signiert:\n%@";
+GenerateUidSignature_Msg = "Mit dem Signieren einer Benutzer-ID, bestätigst du die Identität des Schlüssel-Besitzers. Du bekundigst, dass er wirklich der ist, der er vorgibt zu sein. Wenn du die Signatur auf die Schlüsselserver hochlädst, ist sie für andere sichtbar.\n\nBeispiel: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel, den sie von Bob hat, wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass der fragliche Schlüssel wirklich Bobs Schlüssel ist.\n\nFolgende Benutzer-ID wird signiert: %@";
 ChangeExpirationDate_Msg = "Ändern des Verfalldatums von „%@“, %@";
 ChangeSubkeyExpirationDate_Msg = "Verfallsdatum ändern von \"%2$@\", %3$@\nUnterschlüssel: %1$@";
 
@@ -95,7 +95,7 @@ MailKey_Subject = "Öffentlicher Schlüssel von %@";
 MailKey_Subject_Your = "Mein öffentlicher Schlüssel zum Verschlüsseln unserer Nachrichten";
 MailKey_Message = "Hi\n\nim Anhang findest du den öffentlichen Schlüssel von\n\n%@\n\nDu kannst diesen Schlüssel verwenden, um Nachrichten an %@ zu verschlüsseln.\n\nDamit du sicher kommunizieren kannst, musst du eine OpenPGP Software auf deinem Computer installieren.\nHier eine Liste möglicher Lösungen für dein System:\n\n%@\n\nBitte importiere den öffentlichen Schlüssel in deine lokale OpenPGP Schlüsselverwaltung.\n\nViele Grüße";
 MailKey_Message_Your = "Hi\n\nim Anhang findest du meinen öffentlichen Schlüssel\n\n%@\n\nDu kannst diesen Schlüssel verwenden, um unsere Nachrichten zu verschlüsseln.\n\nDamit du sicher kommunizieren kannst, musst du eine OpenPGP Software auf deinem Computer installieren. Hier eine Liste möglicher Lösungen für dein System:\n\n%@\n\nBitte importiere den öffentlichen Schlüssel in deine lokale OpenPGP Schlüsselverwaltung.\n\nIch freue mich auf abhörsichere Kommunikation mit dir.\n\nViele Grüße";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Neue E-Mail wird erstellt ...";
 MailKey_Progress_Your = "Neue E-Mail wird erstellt ...";
 MailKey_Error = "Ups, da ging was schief. Es gab ein Problem beim Export deines Schlüssels.";
@@ -164,6 +164,11 @@ RevokeKey_Msg = "Du bist dabei den Schlüssel %@ zu widerrufen.\n\nSobald der Sc
 RevokeKey_Upload = "Widerrufenen Schlüssel hochladen";
 RevokeKey_Yes = "Schlüssel widerrufen";
 RevokeKey_No = "Abbrechen";
+
+OpenWithGPGServices_Title = "Du versucht eine OpenPGP Nachricht zu importieren, die kein Schlüssel ist.";
+OpenWithGPGServices_Msg = "Um diese Nachricht zu entschlüsseln oder verifizieren, kannst du sie an GPGServices weiterleiten.";
+OpenWithGPGServices_Yes = "GPGServices öffnen";
+OpenWithGPGServices_No = "Abbrechen";
 
 
 /* Delete warnings */

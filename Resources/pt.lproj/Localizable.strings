@@ -95,7 +95,7 @@ MailKey_Subject = "Chave pública de  %@";
 MailKey_Subject_Your = "Minha chave pública para dar segurança às nossas mensagens";
 MailKey_Message = "Olá,\n\nEm anexo encontra-se a chave pública de\n\n%@\n\nVocê pode usar esta chave para criptografar e dar segurança às mensagens ao comunicar-se com %@.\n\nPara começar a usá-la, é preciso instalar um software OpenPGP no computador. Segue uma lista de opções, dependendo do seu sistema operacional:\n\n%@\n\nImporte a chave pública para o Gerenciador de Chaves OpenPGP local.\n\nAtenciosamente,";
 MailKey_Message_Your = "Olá,\n\nEm anexo encontra-se a minha chave pública:\n\n%@\n\nVocê pode usar esta chave para criptografar e dar segurança às nossas mensagens.\n\nPara começar a usá-la, é preciso instalar um software OpenPGP no computador. Segue uma lista de opções, dependendo do seu sistema operacional:\n\n%@\n\nImporte a chave pública para o Gerenciador de Chaves OpenPGP local.\n\nAguardo nossa primeira troca de mensagens invioláveis.\n\nAtenciosamente,";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Criando novo e-mail…";
 MailKey_Progress_Your = "Criando novo e-mail…";
 MailKey_Error = "Algo deu errado. Houve um problema ao exportar a chave.";
@@ -120,12 +120,12 @@ Cancel = "Cancelar";
 
 /* Warnings */
 RemoveUserID_Title = "Remover ID de Usuário";
-RemoveUserID_Msg = "Você está prestes a remover o ID de Usuário %@ da chave %@. Caso remova este ID de Usuário, você não poderá mais usar esta chave com a respectiva conta de e-mail no Mail.\n\nSe a chave com este ID de Usuário foi enviada aos servidores de chaves, sua remoção não o removerá da chave nos servidores. Para que isso aconteça, revogue o ID de Usuário em questão e envie a chave atualizada.";
+RemoveUserID_Msg = "Você está prestes a remover o ID de Usuário %@ da chave %@. Caso remova este ID de Usuário, você não poderá mais usar esta chave com a respectiva conta de e‑mail no Mail.\n\nSe a chave com este ID de Usuário foi enviada aos servidores de chaves, sua remoção não o removerá da chave nos servidores. Para que isso aconteça, revogue o ID de Usuário em questão e envie a chave atualizada.";
 RemoveUserID_Yes = "Remover ID de Usuário";
 RemoveUserID_No = "Cancelar";
 
 RevokeUserID_Title = "Revogar ID de Usuário";
-RevokeUserID_Msg = "Você está prestes a revogar o ID de Usuário %@ da chave %@. Caso revogue este ID de Usuário, você não poderá mais usar esta chave com a respectiva conta de e-mail no Mail.\n\nSe a chave com este ID de Usuário foi enviada aos servidores de chaves, certifique-se de que a chave atualizada seja enviada. Só assim o registro nos servidores refletirá o ID de Usuário revogado.";
+RevokeUserID_Msg = "Você está prestes a revogar o ID de Usuário %@ da chave %@. Caso revogue este ID de Usuário, você não poderá mais usar esta chave com a respectiva conta de e‑mail no Mail.\n\nSe a chave com este ID de Usuário foi enviada aos servidores de chaves, certifique-se de que a chave atualizada seja enviada. Só assim o registro nos servidores refletirá o ID de Usuário revogado.";
 RevokeUserID_Yes = "Revogar ID de Usuário";
 RevokeUserID_No = "Cancelar";
 
@@ -164,6 +164,11 @@ RevokeKey_Msg = "Você está prestes a revogar a seguinte chave:\n\n%@\n\nUma ve
 RevokeKey_Upload = "Enviar Chave Revogada";
 RevokeKey_Yes = "Revogar Chave";
 RevokeKey_No = "Cancelar";
+
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
+OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
+OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_No = "Cancelar";
 
 
 /* Delete warnings */

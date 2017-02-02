@@ -95,7 +95,7 @@ MailKey_Subject = "Offentlig nøkkel for %@";
 MailKey_Subject_Your = "Min offentlige nøkkel for å sikre meldinger";
 MailKey_Message = "Hei,\n\nvedlagt vil du finne den offentlige nøkkelen til\n\n%@\n\nDu kan bruke denne nøkkelen til å kryptere og sikre meldinger når du skriver til %@.\n\nFor å ta den i bruk må du installere OpenGPG-programvare på din datamaskin. Under finner du en liste over tilgjengelig løsninger for ditt operativsystem:\n\n%@\n\nVennligst importer den offentlige nøkkelen til din lokale OpenGPG Nøkkelbehandler.\n\nVennlig hilsen";
 MailKey_Message_Your = "Hei,\n\nvedlagt finner du min offentlige nøkkel\n\n%@\n\nDu kan bruke denne til å kryptere og sikre våre meldinger.\n\nFor å ta den i bruk må du installere OpenGPG-programvare på din datamaskin. Under finner du en liste over tilgjengelig løsninger for ditt operativsystem:\n\n%@\n\nVennligst importer den offentlige nøkkelen til din lokale OpenGPG Nøkkelbehandler.\n\nVennlig hilsen";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Oppretter ny e-post...";
 MailKey_Progress_Your = "Oppretter ny e-post";
 MailKey_Error = "Oisann, noe gikk galt. Det oppsto et problem ved eksport av din nøkkel.";
@@ -164,6 +164,11 @@ RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoke
 RevokeKey_Upload = "Upload revoked key";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "Avbryt";
+
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
+OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
+OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_No = "Avbryt";
 
 
 /* Delete warnings */

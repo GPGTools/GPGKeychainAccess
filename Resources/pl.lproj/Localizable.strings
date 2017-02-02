@@ -16,9 +16,9 @@
 
 
 /* Key descriptions */
-"and" = "and";
-KeyDescriptionAndMore = "%1$@ and %2$lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+"and" = "i";
+KeyDescriptionAndMore = "%1$@ i %2$lu więcej";
+SecretAndPublicKeyListing = "Klucze prywatne:\n\n%@\n\nKlucze publiczne:\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -48,8 +48,8 @@ CheckAlert_PassphraseToLong_Message = "Hasło które wpisałeś jest za długie.
 MoveSecring_Msg = "Twoje tajne/prywatne klucze są w \"%@\".\nAby przenieść te klucze na inny nośnik proszę go wybierz poniżej.";
 
 /* For Key-Search */
-KeySearch_NoKeysFound_Title = "No keys found";
-KeySearch_ImportResults_Title = "Import results";
+KeySearch_NoKeysFound_Title = "Nie znaleziono żadnych  kluczy";
+KeySearch_ImportResults_Title = "Wyniki importowania";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), utworzono: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Szukamy odpowiedniego klucza(y) na serwerze kluczy. Może to zająć trochę czasu, proszę czekać.";
 
@@ -95,7 +95,7 @@ MailKey_Subject = "Klucz publiczny %@";
 MailKey_Subject_Your = "Mój klucz publiczny, aby zabezpieczyć nasze wiadomości";
 MailKey_Message = "Cześć,\n\nw załączniku znajdziesz klucz publiczny\n\n%@\n\nMożesz używać tego klucza do szyfrowania i zabezpieczania wiadomości które piszesz do %@.\n\nAby zacząć go używać będziesz musiał/a zainstalować oprogramowanie OpenPGP na Twoim komputerze. Poniżej znajdziesz listę możliwych programów dla Twojego systemu operacyjnego:\n\n%@\n\nProszę importuj załączony klucz publiczny do Twojego lokalnego menadżera kluczy OpenPGP.\n\nPozdrawiam";
 MailKey_Message_Your = "Cześć,\n\nw załączniku znajdziesz mój klucz publiczny\n\n%@\n\nMożesz używać tego klucza do szyfrowania i zabezpieczania wiadomości które piszesz do mnie.\n\nAby zacząć go używać będziesz musiał/a zainstalować oprogramowanie OpenPGP na Twoim komputerze. Poniżej znajdziesz listę możliwych programów dla Twojego systemu operacyjnego:\n\n%@\n\nProszę importuj załączony klucz publiczny do Twojego lokalnego menadżera kluczy OpenPGP.\n\nNie mogę się doczekać, aby pisać z Tobą wiadomości prywatnie.\n\nPozdrawiam";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Tworzenie nowego maila...";
 MailKey_Progress_Your = "Tworzenie nowego maila...";
 MailKey_Error = "Ups, coś poszło nie tak. Wystąpił błąd podczas eksportowania Twojego klucza.";
@@ -105,7 +105,7 @@ MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such
 
 /* A key was found in the pasteboard */
 PasteboardKeyFound_Title = "One or more keys were detected in your clipboard.";
-PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Msg = "%@\n\nCzy chcesz zaimportować klucz(e)?";
 PasteboardKeyFound_Yes = "Import";
 PasteboardKeyFound_No = "Anuluj";
 
@@ -164,6 +164,11 @@ RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoke
 RevokeKey_Upload = "Wyślij unieważniony klucz";
 RevokeKey_Yes = "Unieważnij Klucz";
 RevokeKey_No = "Anuluj";
+
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
+OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
+OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_No = "Anuluj";
 
 
 /* Delete warnings */
