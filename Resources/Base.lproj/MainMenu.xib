@@ -285,7 +285,7 @@
                                                 </binding>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn identifier="shortKeyID" editable="NO" width="80" minWidth="75" maxWidth="90" id="1345" userLabel="Table Column - Key ID">
+                                        <tableColumn identifier="shortKeyID" editable="NO" width="80" minWidth="75" maxWidth="90" hidden="YES" id="1345" userLabel="Table Column - Key ID">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Key ID">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -311,13 +311,13 @@
                                                 </binding>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn identifier="fingerprint" editable="NO" width="390" minWidth="10" maxWidth="420" hidden="YES" id="600">
+                                        <tableColumn identifier="fingerprint" editable="NO" width="390" minWidth="10" maxWidth="420" id="600">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Fingerprint">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="601">
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingHead" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="601">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -338,7 +338,7 @@
                                                 </binding>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn identifier="simpleValidity" editable="NO" width="80" minWidth="50" maxWidth="100" id="B8o-iP-n7s">
+                                        <tableColumn identifier="simpleValidity" editable="NO" width="50" minWidth="50" maxWidth="100" id="B8o-iP-n7s">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Validity">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -393,7 +393,7 @@
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="589">
+                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="589">
                             <rect key="frame" x="1" y="469" width="870" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
