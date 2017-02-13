@@ -60,7 +60,7 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="KeyList" headerView="591" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="598" id="590" customClass="GKOutlineView">
-                                    <rect key="frame" x="0.0" y="0.0" width="865" height="19"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1145" height="19"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1662,7 +1662,7 @@ IA
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lPK-aM-tXG">
-                                        <rect key="frame" x="17" y="260" width="410" height="167"/>
+                                        <rect key="frame" x="17" y="236" width="410" height="191"/>
                                         <clipView key="contentView" id="97f-Hf-HbR">
                                             <rect key="frame" x="1" y="17" width="408" height="168"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1855,296 +1855,241 @@ IA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
-                                    <box title="Details" translatesAutoresizingMaskIntoConstraints="NO" id="2Ha-Cm-RIf">
-                                        <rect key="frame" x="14" y="13" width="416" height="208"/>
-                                        <view key="contentView">
-                                            <rect key="frame" x="2" y="2" width="412" height="191"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zq7-YH-dos">
-                                                    <rect key="frame" x="14" y="123" width="70" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Length:" id="OKr-Er-bYv">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jhi-P8-cIV">
-                                                    <rect key="frame" x="14" y="167" width="70" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Created:" id="Tbr-iD-p4P">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="57z-Pi-DXi">
-                                                    <rect key="frame" x="14" y="145" width="70" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Expires:" id="2ES-fd-JVm">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cKP-rP-5jm">
-                                                    <rect key="frame" x="14" y="57" width="70" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Validity:" id="KDn-fR-tAD">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Pi-KA-Xg6">
-                                                    <rect key="frame" x="88" y="123" width="127" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="4EA-Zv-CT2">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="925" name="value" keyPath="selection.length" id="WKK-Ep-hIk">
-                                                            <dictionary key="options">
-                                                                <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zq7-YH-dos">
+                                        <rect key="frame" x="15" y="127" width="70" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Length:" id="OKr-Er-bYv">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jhi-P8-cIV">
+                                        <rect key="frame" x="15" y="171" width="70" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Created:" id="Tbr-iD-p4P">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="57z-Pi-DXi">
+                                        <rect key="frame" x="15" y="149" width="70" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Expires:" id="2ES-fd-JVm">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cKP-rP-5jm">
+                                        <rect key="frame" x="15" y="61" width="70" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Validity:" id="KDn-fR-tAD">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Pi-KA-Xg6">
+                                        <rect key="frame" x="89" y="127" width="127" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="4EA-Zv-CT2">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="925" name="value" keyPath="selection.length" id="WKK-Ep-hIk">
+                                                <dictionary key="options">
+                                                    <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                                <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d88-ar-7Qy">
-                                                    <rect key="frame" x="14" y="101" width="70" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Algorithm:" id="cEN-yv-emX">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FUX-Nu-alZ">
-                                                    <rect key="frame" x="88" y="101" width="127" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="wEV-4q-2PJ">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="925" name="value" keyPath="selection.algorithm" id="nv9-hG-0ZK">
-                                                            <dictionary key="options">
-                                                                <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="d88-ar-7Qy">
+                                        <rect key="frame" x="15" y="105" width="70" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Algorithm:" id="cEN-yv-emX">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FUX-Nu-alZ">
+                                        <rect key="frame" x="89" y="105" width="127" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="wEV-4q-2PJ">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="925" name="value" keyPath="selection.algorithm" id="nv9-hG-0ZK">
+                                                <dictionary key="options">
+                                                    <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                                <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                                <string key="NSValueTransformerName">GPGKeyAlgorithmNameTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hXz-JW-tHw">
-                                                    <rect key="frame" x="88" y="167" width="148" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="06. September 2010 12:24" id="h8r-QF-Jyd">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="925" name="value" keyPath="selection.creationDate" id="gAz-Rs-5g2">
-                                                            <dictionary key="options">
-                                                                <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
+                                                    <string key="NSValueTransformerName">GPGKeyAlgorithmNameTransformer</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hXz-JW-tHw">
+                                        <rect key="frame" x="89" y="171" width="148" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="06. September 2010 12:24" id="h8r-QF-Jyd">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="925" name="value" keyPath="selection.creationDate" id="gAz-Rs-5g2">
+                                                <dictionary key="options">
+                                                    <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                                <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                            </dictionary>
-                                                        </binding>
-                                                        <outlet property="formatter" destination="1504" id="pks-hB-JOS"/>
-                                                    </connections>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iVb-VL-z0g">
-                                                    <rect key="frame" x="88" y="145" width="148" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="06. September 2010 12:24" id="2tq-Sy-bpp">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="925" name="value" keyPath="selection.expirationDate" id="E31-0K-3Xk">
-                                                            <dictionary key="options">
-                                                                <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
+                                                </dictionary>
+                                            </binding>
+                                            <outlet property="formatter" destination="1504" id="pks-hB-JOS"/>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iVb-VL-z0g">
+                                        <rect key="frame" x="89" y="149" width="148" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="06. September 2010 12:24" id="2tq-Sy-bpp">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="925" name="value" keyPath="selection.expirationDate" id="E31-0K-3Xk">
+                                                <dictionary key="options">
+                                                    <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                                <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                            </dictionary>
-                                                        </binding>
-                                                        <outlet property="formatter" destination="1504" id="a8i-w1-Yfh"/>
-                                                    </connections>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r0A-3i-riC">
-                                                    <rect key="frame" x="88" y="57" width="127" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="aNa-Nc-dDH">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="925" name="value" keyPath="selection.self" id="a7u-2Q-UKR">
-                                                            <dictionary key="options">
-                                                                <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
+                                                </dictionary>
+                                            </binding>
+                                            <outlet property="formatter" destination="1504" id="a8i-w1-Yfh"/>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r0A-3i-riC">
+                                        <rect key="frame" x="89" y="61" width="127" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="aNa-Nc-dDH">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="925" name="value" keyPath="selection.self" id="a7u-2Q-UKR">
+                                                <dictionary key="options">
+                                                    <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                                <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
 IA
 </string>
-                                                                <string key="NSValueTransformerName">GPGValidityDescriptionTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iMS-dA-UCg">
-                                                    <rect key="frame" x="14" y="79" width="70" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Fingerprint:" id="0ZY-mY-j9o">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="U0V-lx-X25">
-                                                    <rect key="frame" x="88" y="79" width="309" height="14"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="14" id="Il9-cj-RTM"/>
-                                                        <constraint firstAttribute="width" priority="251" constant="500" id="K6e-fq-kDB"/>
-                                                    </constraints>
-                                                    <textFieldCell key="cell" controlSize="small" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="VyE-3c-LKe">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="925" name="value" keyPath="selection.fingerprint" id="Qnh-Uz-CrN">
-                                                            <dictionary key="options">
-                                                                <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                                <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
-IA
-</string>
-                                                                <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
-IA
-</string>
-                                                                <string key="NSValueTransformerName">GKFingerprintTransformer</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0VN-Nu-uzZ">
-                                                    <rect key="frame" x="88" y="35" width="127" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="1ut-YF-lBQ">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="925" name="value" keyPath="selection.capabilities" id="9Gm-cl-ojo">
-                                                            <dictionary key="options">
-                                                                <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
-IA
-</string>
-                                                                <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
-IA
-</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j21-FN-3lh">
-                                                    <rect key="frame" x="14" y="13" width="70" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Card:" id="Ku9-HS-B7u">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="73e-Di-qk5">
-                                                    <rect key="frame" x="88" y="13" width="127" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="MNV-Ry-zQK">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                    <connections>
-                                                        <binding destination="925" name="value" keyPath="selection.cardID" id="BDE-eK-amR">
-                                                            <dictionary key="options">
-                                                                <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
-IA
-</string>
-                                                                <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
-IA
-</string>
-                                                            </dictionary>
-                                                        </binding>
-                                                    </connections>
-                                                </textField>
-                                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-8u-Xb6">
-                                                    <rect key="frame" x="14" y="35" width="70" height="14"/>
-                                                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Capabilities:" id="8WA-8D-3tk">
-                                                        <font key="font" metaFont="smallSystem"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
-                                            </subviews>
-                                        </view>
+                                                    <string key="NSValueTransformerName">GPGValidityDescriptionTransformer</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iMS-dA-UCg">
+                                        <rect key="frame" x="15" y="83" width="70" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Fingerprint:" id="0ZY-mY-j9o">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="U0V-lx-X25">
+                                        <rect key="frame" x="89" y="83" width="127" height="14"/>
                                         <constraints>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="width" secondItem="j21-FN-3lh" secondAttribute="width" id="1Cy-ab-4AM"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="width" secondItem="57z-Pi-DXi" secondAttribute="width" id="5Qj-Vt-Czb"/>
-                                            <constraint firstItem="0VN-Nu-uzZ" firstAttribute="baseline" secondItem="h9o-8u-Xb6" secondAttribute="baseline" id="6yZ-Nz-fhH"/>
-                                            <constraint firstItem="hXz-JW-tHw" firstAttribute="baseline" secondItem="jhi-P8-cIV" secondAttribute="baseline" id="8fR-gw-W5f"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="leading" secondItem="zq7-YH-dos" secondAttribute="leading" id="8iu-Kw-2yd"/>
-                                            <constraint firstItem="73e-Di-qk5" firstAttribute="leading" secondItem="U0V-lx-X25" secondAttribute="leading" id="BZn-rg-wsJ"/>
-                                            <constraint firstItem="73e-Di-qk5" firstAttribute="baseline" secondItem="j21-FN-3lh" secondAttribute="baseline" id="Bg8-tL-xnp"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="baseline" secondItem="FUX-Nu-alZ" secondAttribute="baseline" id="H8s-hu-RBM"/>
-                                            <constraint firstAttribute="bottom" secondItem="j21-FN-3lh" secondAttribute="bottom" constant="11" id="HpD-Hd-zaG"/>
-                                            <constraint firstItem="73e-Di-qk5" firstAttribute="leading" secondItem="FUX-Nu-alZ" secondAttribute="leading" id="LiA-fI-cec"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="leading" secondItem="jhi-P8-cIV" secondAttribute="leading" id="Mq7-Q1-qpd"/>
-                                            <constraint firstItem="cKP-rP-5jm" firstAttribute="top" secondItem="iMS-dA-UCg" secondAttribute="bottom" constant="8" id="NH9-If-5eF"/>
-                                            <constraint firstItem="57z-Pi-DXi" firstAttribute="baseline" secondItem="iVb-VL-z0g" secondAttribute="baseline" id="VWK-nt-Ztt"/>
-                                            <constraint firstItem="cKP-rP-5jm" firstAttribute="baseline" secondItem="r0A-3i-riC" secondAttribute="baseline" id="WTA-gz-2l2"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="width" secondItem="zq7-YH-dos" secondAttribute="width" id="Wck-zg-ptP"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="leading" secondItem="h9o-8u-Xb6" secondAttribute="leading" id="Xgx-g5-9MG"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="width" secondItem="cKP-rP-5jm" secondAttribute="width" id="ZuK-fr-hFV"/>
-                                            <constraint firstItem="57z-Pi-DXi" firstAttribute="top" secondItem="jhi-P8-cIV" secondAttribute="bottom" constant="8" id="ap3-1e-A9T"/>
-                                            <constraint firstItem="iMS-dA-UCg" firstAttribute="baseline" secondItem="U0V-lx-X25" secondAttribute="baseline" id="eVs-PF-kc8"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="width" secondItem="iMS-dA-UCg" secondAttribute="width" id="erT-mg-sLY"/>
-                                            <constraint firstAttribute="trailing" secondItem="U0V-lx-X25" secondAttribute="trailing" constant="16" id="fht-5W-fk7"/>
-                                            <constraint firstItem="zq7-YH-dos" firstAttribute="top" secondItem="57z-Pi-DXi" secondAttribute="bottom" constant="8" id="hSM-h8-6Q9"/>
-                                            <constraint firstItem="3Pi-KA-Xg6" firstAttribute="baseline" secondItem="zq7-YH-dos" secondAttribute="baseline" id="hVh-g6-e4x"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="leading" secondItem="cKP-rP-5jm" secondAttribute="leading" id="i96-Zw-P3A"/>
-                                            <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="jhi-P8-cIV" secondAttribute="trailing" constant="8" id="irh-lu-LFK"/>
-                                            <constraint firstItem="73e-Di-qk5" firstAttribute="leading" secondItem="0VN-Nu-uzZ" secondAttribute="leading" id="jDX-q9-mmC"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="width" secondItem="jhi-P8-cIV" secondAttribute="width" id="mdY-Tz-bHo"/>
-                                            <constraint firstItem="73e-Di-qk5" firstAttribute="leading" secondItem="3Pi-KA-Xg6" secondAttribute="leading" id="ooW-Yu-Zu6"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="leading" secondItem="57z-Pi-DXi" secondAttribute="leading" id="qDG-LY-1pJ"/>
-                                            <constraint firstItem="73e-Di-qk5" firstAttribute="leading" secondItem="iVb-VL-z0g" secondAttribute="leading" id="s8J-Jm-kDR"/>
-                                            <constraint firstItem="73e-Di-qk5" firstAttribute="leading" secondItem="r0A-3i-riC" secondAttribute="leading" id="sFZ-Tk-fK1"/>
-                                            <constraint firstItem="jhi-P8-cIV" firstAttribute="top" secondItem="2Ha-Cm-RIf" secondAttribute="top" constant="25" id="t38-mS-A1c"/>
-                                            <constraint firstItem="jhi-P8-cIV" firstAttribute="leading" secondItem="2Ha-Cm-RIf" secondAttribute="leading" constant="15" id="tEx-KA-ChG"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="width" secondItem="h9o-8u-Xb6" secondAttribute="width" id="uEY-90-wxT"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="leading" secondItem="iMS-dA-UCg" secondAttribute="leading" id="uMW-ff-kYz"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="leading" secondItem="j21-FN-3lh" secondAttribute="leading" id="vTk-uu-6yq"/>
-                                            <constraint firstItem="j21-FN-3lh" firstAttribute="top" secondItem="h9o-8u-Xb6" secondAttribute="bottom" constant="8" id="vkz-ge-1jB"/>
-                                            <constraint firstItem="h9o-8u-Xb6" firstAttribute="top" secondItem="cKP-rP-5jm" secondAttribute="bottom" constant="8" id="vz2-Yf-uEI"/>
-                                            <constraint firstItem="iMS-dA-UCg" firstAttribute="top" secondItem="d88-ar-7Qy" secondAttribute="bottom" constant="8" id="xQb-ow-lF4"/>
-                                            <constraint firstItem="73e-Di-qk5" firstAttribute="leading" secondItem="hXz-JW-tHw" secondAttribute="leading" id="xXi-aD-VWv"/>
-                                            <constraint firstItem="d88-ar-7Qy" firstAttribute="top" secondItem="zq7-YH-dos" secondAttribute="bottom" constant="8" id="xzn-s4-xYN"/>
+                                            <constraint firstAttribute="height" constant="14" id="Il9-cj-RTM"/>
                                         </constraints>
-                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </box>
+                                        <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="VyE-3c-LKe">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="925" name="value" keyPath="selection.fingerprint" id="Qnh-Uz-CrN">
+                                                <dictionary key="options">
+                                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                    <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                                    <string key="NSValueTransformerName">GKFingerprintTransformer</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0VN-Nu-uzZ">
+                                        <rect key="frame" x="89" y="39" width="127" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="1ut-YF-lBQ">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="925" name="value" keyPath="selection.capabilities" id="9Gm-cl-ojo">
+                                                <dictionary key="options">
+                                                    <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="j21-FN-3lh">
+                                        <rect key="frame" x="15" y="17" width="70" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Card:" id="Ku9-HS-B7u">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="73e-Di-qk5">
+                                        <rect key="frame" x="89" y="17" width="127" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" id="MNV-Ry-zQK">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                        <connections>
+                                            <binding destination="925" name="value" keyPath="selection.cardID" id="BDE-eK-amR">
+                                                <dictionary key="options">
+                                                    <string key="NSMultipleValuesPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                                    <string key="NSNoSelectionPlaceholder" base64-UTF8="YES">
+IA
+</string>
+                                                </dictionary>
+                                            </binding>
+                                        </connections>
+                                    </textField>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-8u-Xb6">
+                                        <rect key="frame" x="15" y="39" width="70" height="14"/>
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Capabilities:" id="8WA-8D-3tk">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="iKI-hJ-DAw" customClass="GKMenuButton">
-                                        <rect key="frame" x="37" y="229" width="21" height="23"/>
+                                        <rect key="frame" x="37" y="205" width="21" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="21" id="7Lt-zZ-Qzm"/>
                                         </constraints>
@@ -2159,7 +2104,7 @@ IA
                                         </connections>
                                     </button>
                                     <button translatesAutoresizingMaskIntoConstraints="NO" id="5vH-ru-YLL">
-                                        <rect key="frame" x="17" y="229" width="21" height="23"/>
+                                        <rect key="frame" x="17" y="205" width="21" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23" id="ZbX-DW-qyo"/>
                                             <constraint firstAttribute="width" constant="21" id="bnG-mM-z8d"/>
@@ -2190,18 +2135,54 @@ IA
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="2Ha-Cm-RIf" firstAttribute="top" secondItem="5vH-ru-YLL" secondAttribute="bottom" constant="8" symbolic="YES" id="1ff-5h-uQe"/>
+                                    <constraint firstItem="h9o-8u-Xb6" firstAttribute="top" secondItem="cKP-rP-5jm" secondAttribute="bottom" constant="8" id="01x-UH-rGd"/>
+                                    <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="FUX-Nu-alZ" secondAttribute="leading" id="0Bt-vh-3Nm"/>
+                                    <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="U0V-lx-X25" secondAttribute="leading" id="0q0-sj-a6B"/>
                                     <constraint firstAttribute="trailing" secondItem="lPK-aM-tXG" secondAttribute="trailing" constant="17" id="1wV-JX-fax"/>
                                     <constraint firstItem="iKI-hJ-DAw" firstAttribute="leading" secondItem="5vH-ru-YLL" secondAttribute="trailing" constant="-1" id="386-Kp-ggY"/>
-                                    <constraint firstAttribute="bottom" secondItem="2Ha-Cm-RIf" secondAttribute="bottom" constant="17" id="42O-Qi-0vD"/>
-                                    <constraint firstItem="lPK-aM-tXG" firstAttribute="trailing" secondItem="2Ha-Cm-RIf" secondAttribute="trailing" id="5Lh-2n-go2"/>
+                                    <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="3Pi-KA-Xg6" secondAttribute="leading" id="49D-yY-aFw"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="iMS-dA-UCg" secondAttribute="width" id="4eB-ib-T9S"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="leading" secondItem="d88-ar-7Qy" secondAttribute="leading" id="628-gg-yAH"/>
+                                    <constraint firstItem="cKP-rP-5jm" firstAttribute="baseline" secondItem="r0A-3i-riC" secondAttribute="baseline" id="6Pc-N1-7QY"/>
+                                    <constraint firstItem="73e-Di-qk5" firstAttribute="baseline" secondItem="j21-FN-3lh" secondAttribute="baseline" id="7pX-Y8-bjO"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="h9o-8u-Xb6" secondAttribute="width" id="Ama-fq-BcK"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="top" secondItem="57z-Pi-DXi" secondAttribute="bottom" constant="8" id="C1v-z6-EE5"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="d88-ar-7Qy" secondAttribute="width" id="EJg-3w-Li1"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="57z-Pi-DXi" secondAttribute="width" id="Iux-C4-2Pb"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="j21-FN-3lh" secondAttribute="width" id="Kn0-dg-F8Q"/>
                                     <constraint firstItem="5vH-ru-YLL" firstAttribute="top" secondItem="lPK-aM-tXG" secondAttribute="bottom" constant="8" id="L0C-fU-Xwz"/>
                                     <constraint firstItem="iKI-hJ-DAw" firstAttribute="baseline" secondItem="5vH-ru-YLL" secondAttribute="baseline" id="MxJ-tR-rHc"/>
-                                    <constraint firstItem="5vH-ru-YLL" firstAttribute="leading" secondItem="2Ha-Cm-RIf" secondAttribute="leading" id="Ycf-ts-q7o"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="leading" secondItem="57z-Pi-DXi" secondAttribute="leading" id="Nor-vc-5si"/>
+                                    <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="r0A-3i-riC" secondAttribute="leading" id="O4Y-Re-PkW"/>
+                                    <constraint firstItem="57z-Pi-DXi" firstAttribute="top" secondItem="jhi-P8-cIV" secondAttribute="bottom" constant="8" id="PGE-tM-1eU"/>
+                                    <constraint firstItem="iMS-dA-UCg" firstAttribute="top" secondItem="d88-ar-7Qy" secondAttribute="bottom" constant="8" id="PgK-3t-iPM"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="leading" secondItem="h9o-8u-Xb6" secondAttribute="leading" id="R6B-sc-Sai"/>
+                                    <constraint firstAttribute="bottom" secondItem="j21-FN-3lh" secondAttribute="bottom" constant="17" id="RT9-Qu-e7c"/>
+                                    <constraint firstItem="cKP-rP-5jm" firstAttribute="top" secondItem="iMS-dA-UCg" secondAttribute="bottom" constant="8" id="Usp-m0-V6P"/>
+                                    <constraint firstItem="iVb-VL-z0g" firstAttribute="baseline" secondItem="57z-Pi-DXi" secondAttribute="baseline" id="VvV-G7-NKs"/>
+                                    <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="jhi-P8-cIV" secondAttribute="trailing" constant="8" id="WX9-IS-3aa"/>
+                                    <constraint firstItem="d88-ar-7Qy" firstAttribute="top" secondItem="zq7-YH-dos" secondAttribute="bottom" constant="8" id="Xn1-5X-NIH"/>
+                                    <constraint firstItem="d88-ar-7Qy" firstAttribute="baseline" secondItem="FUX-Nu-alZ" secondAttribute="baseline" id="YCF-VR-On7"/>
+                                    <constraint firstItem="h9o-8u-Xb6" firstAttribute="baseline" secondItem="0VN-Nu-uzZ" secondAttribute="baseline" id="YHD-Aa-vwD"/>
+                                    <constraint firstItem="jhi-P8-cIV" firstAttribute="top" secondItem="5vH-ru-YLL" secondAttribute="bottom" constant="20" id="cjQ-SH-fqJ"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="jhi-P8-cIV" secondAttribute="width" id="deW-gK-efm"/>
                                     <constraint firstItem="lPK-aM-tXG" firstAttribute="top" secondItem="5vi-Q7-seJ" secondAttribute="top" constant="6" id="eg8-5x-bD1"/>
                                     <constraint firstItem="lPK-aM-tXG" firstAttribute="leading" secondItem="5vi-Q7-seJ" secondAttribute="leading" constant="17" id="hfC-ea-RW4"/>
+                                    <constraint firstItem="iMS-dA-UCg" firstAttribute="baseline" secondItem="U0V-lx-X25" secondAttribute="baseline" id="jBZ-kQ-dYE"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="cKP-rP-5jm" secondAttribute="width" id="k9c-Y7-v8T"/>
+                                    <constraint firstItem="jhi-P8-cIV" firstAttribute="baseline" secondItem="hXz-JW-tHw" secondAttribute="baseline" id="mU2-Ar-kju"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="baseline" secondItem="3Pi-KA-Xg6" secondAttribute="baseline" id="mnS-LU-48A"/>
                                     <constraint firstItem="iKI-hJ-DAw" firstAttribute="top" secondItem="5vH-ru-YLL" secondAttribute="top" id="n1e-ms-hEZ"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="leading" secondItem="jhi-P8-cIV" secondAttribute="leading" id="n57-nA-cNu"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="leading" secondItem="j21-FN-3lh" secondAttribute="leading" id="pqW-Vr-Eur"/>
+                                    <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="iVb-VL-z0g" secondAttribute="leading" id="rZH-Ax-Qgu"/>
+                                    <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="0VN-Nu-uzZ" secondAttribute="leading" id="tSR-oj-oTo"/>
                                     <constraint firstItem="lPK-aM-tXG" firstAttribute="leading" secondItem="5vH-ru-YLL" secondAttribute="leading" id="tjW-jY-fgt"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="leading" secondItem="iMS-dA-UCg" secondAttribute="leading" id="ubb-oI-o9C"/>
+                                    <constraint firstItem="zq7-YH-dos" firstAttribute="leading" secondItem="cKP-rP-5jm" secondAttribute="leading" id="y18-n7-rku"/>
+                                    <constraint firstItem="j21-FN-3lh" firstAttribute="top" secondItem="h9o-8u-Xb6" secondAttribute="bottom" constant="8" id="y8J-C4-9jf"/>
+                                    <constraint firstItem="jhi-P8-cIV" firstAttribute="leading" secondItem="5vi-Q7-seJ" secondAttribute="leading" constant="17" id="zlu-5q-gMa"/>
+                                    <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="73e-Di-qk5" secondAttribute="leading" id="znA-Od-qzZ"/>
                                 </constraints>
                             </view>
                         </tabViewItem>
