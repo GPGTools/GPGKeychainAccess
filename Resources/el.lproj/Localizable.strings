@@ -58,26 +58,26 @@ GenerateSubkey_Msg = "Προσθήκη υποκλειδιού στο κλειδ�
 GenerateUserID_Msg = "Προσθήκη ταυτότητας χρήστη στο κλειδί \"%@\", %@.";
 GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
 GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
-ChangeExpirationDate_Msg = "Change expiration date of \"%@\", %@";
-ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubkey: %1$@";
+ChangeExpirationDate_Msg = "Αλλαγή ημερομηνίας λήξης από \"%@\", %@";
+ChangeSubkeyExpirationDate_Msg = "Αλλαγή ημερομηνίας λήξης από \"%2$@\", %3$@\nΥποκλειδί:  %1$@";
 
-GenerateKey_Error = "Ups, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "Ωπ, κάτι πήγε στραβά. Πρόβλημα στην δημιουργία του κλειδιού σας.";
 
 /* Message for incorrect Entries */
-CheckError_NameToShort = "Name must be at least 5 characters long!";
-CheckError_NameToLong = "Name is too long!";
-CheckError_InvalidCharInName = "Invalid character in name!\n\"<\" and \">\" not allowed.";
-CheckError_NameStartWithDigit = "Name may not start with a digit!";
-CheckError_InvalidEmail = "Not a valid email address!";
-CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
-CheckError_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\" not allowed.";
-CheckError_CommentToLong = "Comment is too long!";
-CheckError_NoKeyID = "Please enter a valid key ID!";
-CheckError_PassphraseMissmatch = "Your passphrases did not match!";
+CheckError_NameToShort = "Το όνομα πρέπει να είναι τουλάχιστον 5 χαρακτήρες!";
+CheckError_NameToLong = "Πολύ μεγάλο όνομα!";
+CheckError_InvalidCharInName = "Μη έγκυρος χαρακτήρας στο όνομα!\n\"<\" and \">\" δεν επιτρέπεται.";
+CheckError_NameStartWithDigit = "Το όνομα δεν μπορεί να ξεκινήσει με ψηφίο!";
+CheckError_InvalidEmail = "Η email address δεν είναι έγκυρη!";
+CheckError_EmailToLong = "Πολύ μεγάλη email address!\nΤο μέγιστο μήκος είναι 254.";
+CheckError_InvalidCharInComment = "Μη έγκυρος χαρακτήρας στο σχόλιο!\n\"(\" and \")\" δεν επιτρέπεται.";
+CheckError_CommentToLong = "Πολύ μεγάλο όνομα!";
+CheckError_NoKeyID = "Παρακαλώ εισάγετε μία έγκυρη ταυτότητα κλειδιού!";
+CheckError_PassphraseMissmatch = "Η συνθηματική σας φράση δεν ταιριάζει!";
 
 
 /* Message on start, if there are any Problems */
-GPG_NOT_FOUND_TITLE = "GPG Not Found";
+GPG_NOT_FOUND_TITLE = "Δεν βρέθηκε GPG";
 GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
 GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at https://gpgtools.tenderapp.com.\n\nDetails: %@";
@@ -91,13 +91,13 @@ UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown er
 
 
 /* Mail public key */
-MailKey_Subject = "Public key of %@";
+MailKey_Subject = "Δημόσιο  κλειδί από %@";
 MailKey_Subject_Your = "My public key to secure our messages";
 MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creating new mail...";
-MailKey_Progress_Your = "Creating new mail...";
+MailKey_Progress = "Δημιουργία νέου mail...";
+MailKey_Progress_Your = "Δημιουργία νέου mail...";
 MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected!";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
@@ -111,58 +111,58 @@ PasteboardKeyFound_No = "Ακύρωση";
 
 
 /* Those are abvious */
-No = "No";
-Error = "Error";
-Warning = "Warning";
+No = "Όχι";
+Error = "Σφάλμα";
+Warning = "Προειδοποίηση";
 Cancel = "Ακύρωση";
-"Apply to all" = "Apply to all";
+"Apply to all" = "Εφαρμογή σε όλους";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove User ID";
+RemoveUserID_Title = "Αφαίρεση ταυτότητας Χρήστη";
 RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove User ID";
+RemoveUserID_Yes = "Αφαίρεση ταυτότητας Χρήστη";
 RemoveUserID_No = "Ακύρωση";
 
-RevokeUserID_Title = "Revoke User ID";
+RevokeUserID_Title = "Ανάκληση ταυτότητας Χρήστη";
 RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Yes = "Ανάκληση ταυτότητας Χρήστη";
 RevokeUserID_No = "Ακύρωση";
 
-RemoveSubkey_Title = "Remove Subkey";
+RemoveSubkey_Title = "Αφαίρεση Υποκλειδιού";
 RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
-RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_Yes = "Αφαίρεση Υποκλειδιού";
 RemoveSubkey_No = "Ακύρωση";
 
-RevokeSubkey_Title = "Revoke Subkey";
+RevokeSubkey_Title = "Ανάκληση Υποκλειδιού";
 RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
-RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_Yes = "Ανάκληση Υποκλειδιού";
 RevokeSubkey_No = "Ακύρωση";
 
-RevokeSignature_Title = "Revoke Signature";
+RevokeSignature_Title = "Ανάκληση Υπογραφής";
 RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
-RevokeSignature_Yes = "Revoke Signature";
+RevokeSignature_Yes = "Ανάκληση Υπογραφής";
 RevokeSignature_No = "Ακύρωση";
 
-RemoveSignature_Title = "Remove Signature";
+RemoveSignature_Title = "Αφαίρεση Υπογραφής";
 RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
-RemoveSignature_Yes = "Remove Signature";
+RemoveSignature_Yes = "Αφαίρεση Υπογραφής";
 RemoveSignature_No = "Ακύρωση";
 
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
 RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
-RemoveLastSelfSignature_Yes = "Remove Signature";
+RemoveLastSelfSignature_Yes = "Αφαίρεση Υπογραφής";
 RemoveLastSelfSignature_No = "Ακύρωση";
 
 RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
-RevokeLastSelfSignature_Yes = "Revoke Signature";
+RevokeLastSelfSignature_Yes = "Ανάκληση Υπογραφής";
 RevokeLastSelfSignature_No = "Ακύρωση";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
 RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Upload revoked key";
-RevokeKey_Yes = "Revoke Key";
+RevokeKey_Yes = "Ανάκληση κλειδιού";
 RevokeKey_No = "Ακύρωση";
 
 OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
@@ -174,26 +174,26 @@ OpenWithGPGServices_No = "Ακύρωση";
 /* Delete warnings */
 DeleteKey_Title = "Delete public key(s)";
 DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
-DeleteKey_Yes = "Delete key(s)";
+DeleteKey_Yes = "Διαγραφή κλειδιού(ών)";
 DeleteKey_No = "Ακύρωση";
 
 DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
 DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
-DeleteSecKey_Yes = "Delete key(s)";
-DeleteSecKey_SecOnly = "Delete secret key(s) only";
+DeleteSecKey_Yes = "Διαγραφή κλειδιού(ών)";
+DeleteSecKey_SecOnly = "Διαγραφή κλειδιού(ών) μόνο";
 DeleteSecKey_No = "Ακύρωση";
 
 DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
 DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
 DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
-DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
+DeleteRevokedSecKey_SecOnly = "Διαγραφή κλειδιού(ών) μόνο";
 DeleteRevokedSecKey_No = "Ακύρωση";
 
 
 /* Bad key server */
-BadKeyserver_Title = "Bad key server";
+BadKeyserver_Title = "Κακό κλειδί εξυπηρετητή";
 BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
@@ -205,12 +205,12 @@ ImportRevSig_No = "Ακύρωση";
 
 ImportRandomData_Title = "Warning! Content can probably not be imported.";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
-ImportRandomData_Yes = "Try Import";
+ImportRandomData_Yes = "Προσπάθεια εισαγωγής";
 ImportRandomData_No = "Ακύρωση";
 
 ImportNonImportable_Title = "Warning! Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
-ImportNonImportable_Yes = "Try Import";
+ImportNonImportable_Yes = "Προσπάθεια εισαγωγής";
 ImportNonImportable_No = "Ακύρωση";
 
 
