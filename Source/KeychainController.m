@@ -24,11 +24,15 @@
 
 //KeychainController kümmert sich um das anzeigen und Filtern der Schlüssel-Liste.
 
-
 @implementation KeychainController
 @synthesize filterStrings, userIDsSortDescriptors, subkeysSortDescriptors, keysSortDescriptors, showSecretKeysOnly;
 NSLock *updateLock;
-NSSet *draggedKeys;
+
+
+- (void)awakeFromNib {
+	[keyTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+	[keyTable setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
+}
 
 
 
@@ -56,53 +60,39 @@ NSSet *draggedKeys;
 }
 
 
-- (NSArray *)selectionIndexPaths {
-	return _selectionIndexPaths;
+- (NSIndexSet *)selectionIndexes {
+	return _selectionIndexes;
 }
-- (void)setSelectionIndexPaths:(NSArray *)value {
-	if (!userChangingSelection && _selectionIndexPaths.count > 0 && value.count > 0 && [[value objectAtIndex:0] indexAtPosition:0] == 0) {
-		NSUInteger index = [[_selectionIndexPaths objectAtIndex:0] indexAtPosition:0];
-		if (index != NSNotFound) {
-			GPGKey *selectedKey = [[[[treeController arrangedObjects] childNodes] objectAtIndex:0] representedObject];
-			if (![selectedKey isEqualTo:[[keyTable itemAtRow:index] representedObject]]) {
-				if (index >= filteredKeyList.count) {
-					index = filteredKeyList.count - 1;
-				}
-				value = @[[NSIndexPath indexPathWithIndex:index]];
-			}
-		}
-	}
-	userChangingSelection = NO;
-	if (_selectionIndexPaths != value) {
-		_selectionIndexPaths = value;
+- (void)setSelectionIndexes:(NSIndexSet *)indexes {
+	if (_selectionIndexes != indexes) {
+		_selectionIndexes = indexes;
 		
 		[self fetchDetailsForSelectedKey];
 	}
 }
-- (void)selectRow:(NSInteger)row {
-	userChangingSelection = YES;
-	self.selectionIndexPaths = @[[NSIndexPath indexPathWithIndex:row]];
-}
+
+
+
 - (void)selectKeys:(NSSet *)keys {
-	NSArray *list = [[treeController arrangedObjects] childNodes];
-	NSMutableArray *indexPaths = [NSMutableArray new];
+	NSArray *list = [keysController arrangedObjects];
+	NSMutableIndexSet *indexes = [NSMutableIndexSet new];
 	
 	[list enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-		NSString *fingerprint = [[obj representedObject] description];
+		NSString *fingerprint = [obj description];
 		if ([keys containsObject:fingerprint]) {
-			[indexPaths addObject:[NSIndexPath indexPathWithIndex:idx]];
+			[indexes addIndex:idx];
 		}
 	}];
 	
-	userChangingSelection = YES;
-	self.selectionIndexPaths = indexPaths.copy;
+
+	self.selectionIndexes = indexes.copy;
 }
 
 - (BOOL)fetchDetailsForSelectedKey { // Returns YES if the details will be fetched.
-	if (_selectionIndexPaths.count == 1) {
-		NSUInteger index = [[_selectionIndexPaths objectAtIndex:0] indexAtPosition:0];
+	if (_selectionIndexes.count == 1) {
+		NSUInteger index = [_selectionIndexes firstIndex];
 		if (index != NSNotFound && (NSInteger)index != -1) {
-			GPGKey *key = [[[[treeController.arrangedObjects childNodes] objectAtIndex:index] representedObject] primaryKey];
+			GPGKey *key = [[keysController.arrangedObjects objectAtIndex:index] primaryKey];
 			key = [self.allKeys member:key];
 			if (key && !key.primaryUserID.signatures) {
 				[[GPGKeyManager sharedInstance] loadSignaturesAndAttributesForKeys:[NSSet setWithObject:key] completionHandler:nil];
@@ -113,11 +103,6 @@ NSSet *draggedKeys;
 	return NO;
 }
 
-
-
-- (BOOL)selectionShouldChangeInOutlineView:(NSOutlineView *)outlineView {
-	userChangingSelection = YES;
-	return YES;
 // NSTableView delegate.
 - (NSString *)tableView:(NSTableView *)tableView typeSelectStringForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
 	if ([tableColumn.identifier isEqualToString:@"name"]) {
@@ -126,51 +111,51 @@ NSSet *draggedKeys;
 	return nil;
 }
 
-// NSOutlineView delegate.
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldReorderColumn:(NSInteger)columnIndex toColumn:(NSInteger)newColumnIndex {
-	return columnIndex != 0 && newColumnIndex != 0;
-}
+
 
 //Für Drag & Drop.
-- (BOOL)outlineView:(NSOutlineView *)outlineView writeItems:(NSArray*)items toPasteboard:(NSPasteboard *)pasteboard {
-	NSMutableSet *keys = [NSMutableSet setWithCapacity:[items count]];
-	
-	for (NSTreeNode *node in items) {
-		[keys addObject:[[node representedObject] primaryKey]];
-	}
-	draggedKeys = keys;
-	
-	NSPoint mousePoint = [mainWindow mouseLocationOutsideOfEventStream];
-	
-	NSScrollView *scrollView = [outlineView enclosingScrollView];
-	NSRect visibleRect = [scrollView documentVisibleRect];
-	NSRect scrollFrame = [scrollView frame];
-	
-	
-	NSPoint imagePoint;
-	imagePoint.x = mousePoint.x - scrollFrame.origin.x + visibleRect.origin.x - 40;
-	imagePoint.y = scrollFrame.size.height - mousePoint.y + scrollFrame.origin.y + visibleRect.origin.y;
 
-	NSEvent *event = [NSEvent mouseEventWithType:NSLeftMouseDown location:mousePoint modifierFlags:0 timestamp:0 windowNumber:[mainWindow windowNumber] context:nil eventNumber:0 clickCount:0 pressure:1];
+
+- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
+	if (rowIndexes.count == 0) {
+		return NO;
+	}
 	
-	NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-    [pboard declareTypes:[NSArray arrayWithObject:NSFilesPromisePboardType] owner:self];
-    [pboard setPropertyList:[NSArray arrayWithObject:@"asc"] forType:NSFilesPromisePboardType];
+	[pboard declareTypes:@[NSFilesPromisePboardType] owner:tableView];
 	
-	NSImage *image = [NSImage imageNamed:@"asc"];
-	[image setSize:(NSSize){56, 56}];
-	
-	[outlineView dragImage:image at:imagePoint offset:(NSSize){0, 0} event:event pasteboard:pboard source:self slideBack:YES];
-	
-	draggedKeys = nil;
-	
+	[pboard setPropertyList:@[@"asc"]
+					forType:NSFilesPromisePboardType];
+
 	return YES;
 }
 
-- (NSArray *)namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination {
+
+- (void)tableView:(NSTableView *)tableView draggingSession:(NSDraggingSession *)session willBeginAtPoint:(NSPoint)screenPoint forRowIndexes:(NSIndexSet *)rowIndexes {
+	
+	// Set the dragging image to the *.asc file icon.
+	[session enumerateDraggingItemsWithOptions:NSDraggingItemEnumerationConcurrent
+									   forView:nil
+									   classes:[NSArray arrayWithObject:[NSPasteboardItem class]]
+								 searchOptions:nil
+									usingBlock:^(NSDraggingItem *draggingItem, NSInteger idx, BOOL *stop) {
+										NSRect frame;
+										frame.size.width = 56;
+										frame.size.height = 56;
+										frame.origin.x = session.draggingLocation.x - 28;
+										frame.origin.y = session.draggingLocation.y - 28;
+										
+										[draggingItem setDraggingFrame:frame contents:[NSImage imageNamed:@"asc"]];
+									}];
+	
+}
+
+
+- (NSArray *)tableView:(NSTableView *)tableView namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 	NSString *fileName;
-	if ([draggedKeys count] == 1) {
-		fileName = [[draggedKeys anyObject] shortKeyID];
+	
+	NSArray *draggedKeys = [keysController.arrangedObjects objectsAtIndexes:indexSet];
+	if (draggedKeys.count == 1) {
+		fileName = [draggedKeys[0] shortKeyID];
 	} else {
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		dateFormatter.dateFormat = @"Y-MM-dd";
@@ -191,11 +176,15 @@ NSSet *draggedKeys;
 	if ([exportedData length] > 0) {
 		[[NSFileManager defaultManager] createFileAtPath:[dropDestination.path stringByAppendingPathComponent:fileName] contents:exportedData attributes:@{NSFileExtensionHidden: @YES}];
 		
-		return [NSArray arrayWithObject:fileName];
+		return @[fileName];
 	} else {
 		return nil;
 	}
 }
+
+
+
+
 
 
 
@@ -311,8 +300,6 @@ NSSet *draggedKeys;
 		
 		self.keysSortDescriptors = [NSArray arrayWithObject:nameSort];
 		
-		[keyTable selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-
 		
 		self = [super init];
 	}

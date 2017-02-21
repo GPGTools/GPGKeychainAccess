@@ -134,10 +134,10 @@
 
 
 
-- (IBAction)singleClick:(NSOutlineView *)sender {
+- (IBAction)singleClick:(NSTableView *)sender {
 	rowWasSelected = [keyTable clickedRowWasSelected];
 }
-- (IBAction)doubleClick:(NSOutlineView *)sender {
+- (IBAction)doubleClick:(NSTableView *)sender {
 	if (keyTable.clickedRow >= 0) {
 		if (keyTable.selectedRowIndexes.count > 1 ? [keyTable clickedRowWasSelected] : rowWasSelected) {
 			[self showInspector:-1];

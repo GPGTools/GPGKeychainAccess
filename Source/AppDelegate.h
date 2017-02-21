@@ -17,7 +17,7 @@
  Programm erhalten haben. Falls nicht, siehe <http://www.gnu.org/licenses/>.
 */
 
-#import "GKOutlineView.h"
+#import "GKTableView.h"
 
 @interface GPGKeychainAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
 	BOOL rowWasSelected;
@@ -25,7 +25,7 @@
 
 @property (assign) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSView *inspectorView;
-@property (weak) IBOutlet GKOutlineView *keyTable;
+@property (weak) IBOutlet GKTableView *keyTable;
 @property (weak) IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
 @property (weak) IBOutlet NSDrawer *drawer;
 @property (nonatomic) BOOL inspectorVisible;

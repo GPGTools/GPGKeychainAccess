@@ -1797,7 +1797,7 @@
 - (NSArray *)selectedKeys {
 	NSInteger clickedRow = [keyTable clickedRow];
 	if (clickedRow != -1 && ![keyTable isRowSelected:clickedRow]) {
-		return @[[[keyTable itemAtRow:clickedRow] representedObject]];
+		return @[[keysController.arrangedObjects objectAtIndex:clickedRow]];
 	} else {
 		return [keysController selectedObjects];
 	}

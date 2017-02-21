@@ -32,12 +32,12 @@ typedef enum {
 } DescriptionOptions;
 
 
-@property (weak) IBOutlet NSTreeController *keysController;
+@property (weak) IBOutlet NSArrayController *keysController;
 @property (weak) IBOutlet NSArrayController *signaturesController;
 @property (weak) IBOutlet NSArrayController *subkeysController;
 @property (weak) IBOutlet NSArrayController *userIDsController;
 @property (weak) IBOutlet NSArrayController *photosController;
-@property (weak) IBOutlet NSOutlineView *keyTable;
+@property (weak) IBOutlet NSTableView *keyTable;
 @property (weak) IBOutlet NSTableView *signaturesTable;
 @property (weak) IBOutlet NSTableView *userIDsTable;
 @property (weak) IBOutlet NSTableView *subkeysTable;

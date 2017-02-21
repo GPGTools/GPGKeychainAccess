@@ -1,6 +1,6 @@
-#import "GKOutlineView.h"
+#import "GKTableView.h"
 
-@implementation GKOutlineView
+@implementation GKTableView
 @synthesize clickedRowWasSelected;
 
 - (void)mouseDown:(NSEvent *)theEvent {
@@ -8,7 +8,5 @@
 	clickedRowWasSelected = [[self selectedRowIndexes] containsIndex:row];
 	[super mouseDown:theEvent];
 }
-
-
 
 @end

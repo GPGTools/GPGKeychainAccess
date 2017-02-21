@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-@interface GKOutlineView : NSOutlineView {
+@interface GKTableView : NSTableView {
 	BOOL clickedRowWasSelected;
 }
 @property BOOL clickedRowWasSelected;

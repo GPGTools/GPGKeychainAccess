@@ -59,7 +59,7 @@
                             <rect key="frame" x="1" y="17" width="883" height="471"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="KeyList" headerView="591" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="598" id="590" customClass="GKOutlineView">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="KeyList" headerView="591" id="590" customClass="GKTableView">
                                     <rect key="frame" x="0.0" y="0.0" width="1145" height="19"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
@@ -345,7 +345,7 @@
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
-                                            <levelIndicatorCell key="dataCell" state="on" alignment="left" maxValue="4" warningValue="2" criticalValue="1" id="qYj-ng-B8r"/>
+                                            <levelIndicatorCell key="dataCell" lineBreakMode="truncatingTail" state="on" alignment="left" maxValue="4" warningValue="2" criticalValue="1" id="qYj-ng-B8r"/>
                                             <sortDescriptor key="sortDescriptorPrototype" selector="compareValidity:" sortKey="validity"/>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
@@ -390,7 +390,7 @@
                                         <outlet property="delegate" destination="666" id="668"/>
                                         <outlet property="menu" destination="1955" id="1959"/>
                                     </connections>
-                                </outlineView>
+                                </tableView>
                             </subviews>
                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
@@ -503,13 +503,13 @@
             <connections>
                 <outlet property="delegate" destination="494" id="1897"/>
             </connections>
-            <point key="canvasLocation" x="4.5" y="71.5"/>
+            <point key="canvasLocation" x="-40.5" y="10.5"/>
         </window>
         <customObject id="666" customClass="KeychainController">
             <connections>
                 <outlet property="keyTable" destination="590" id="1916"/>
+                <outlet property="keysController" destination="663" id="8Fu-Ek-KmN"/>
                 <outlet property="numberOfKeysLabel" destination="734" id="736"/>
-                <outlet property="treeController" destination="663" id="WJI-gc-g5c"/>
             </connections>
         </customObject>
         <customObject id="ONB-dh-h3M" userLabel="GPGOptions" customClass="GPGOptions"/>
@@ -524,7 +524,7 @@
             </connections>
         </drawer>
         <customObject id="hUz-ZI-yTw" customClass="GPGUpdateController"/>
-        <treeController objectClassName="GPGKey" editable="NO" childrenKeyPath="children" selectsInsertedObjects="NO" id="663">
+        <arrayController objectClassName="GPGKey" editable="NO" selectsInsertedObjects="NO" id="663" userLabel="Keys Controller">
             <declaredKeys>
                 <string>algorithm</string>
                 <string>primaryKey.name</string>
@@ -559,10 +559,10 @@
             </declaredKeys>
             <connections>
                 <binding destination="666" name="contentArray" keyPath="filteredKeyList" id="2007"/>
-                <binding destination="666" name="sortDescriptors" keyPath="keysSortDescriptors" previousBinding="J42-KY-ejC" id="I4T-mD-HdA"/>
-                <binding destination="666" name="selectionIndexPaths" keyPath="selectionIndexPaths" id="J42-KY-ejC"/>
+                <binding destination="666" name="sortDescriptors" keyPath="keysSortDescriptors" previousBinding="GXr-wN-qjO" id="DH7-pT-Mrk"/>
+                <binding destination="666" name="selectionIndexes" keyPath="selectionIndexes" id="GXr-wN-qjO"/>
             </connections>
-        </treeController>
+        </arrayController>
         <arrayController objectClassName="GKUserID" editable="NO" id="959" userLabel="UserIDs Controller">
             <declaredKeys>
                 <string>invalid</string>

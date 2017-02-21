@@ -19,10 +19,10 @@
 
 #import "Globales.h"
 
-@interface KeychainController : NSObject <NSOutlineViewDelegate> {
+@interface KeychainController : NSObject <NSTableViewDelegate, NSTableViewDataSource> {
     IBOutlet NSTextField *numberOfKeysLabel;
-	IBOutlet NSOutlineView *keyTable;
-	IBOutlet NSTreeController *treeController;
+	IBOutlet NSTableView *keyTable;
+	IBOutlet NSArrayController *keysController;
 	
 	NSArray *keysSortDescriptors;
 	NSArray *userIDsSortDescriptors;
@@ -32,13 +32,11 @@
 	NSArray *filteredKeyList; // Liste der momentan angezeigten Schlüssel.
 	NSArray *filterStrings;
 	
-	NSArray *_selectionIndexPaths;
+	NSIndexSet *_selectionIndexes;
 	
 	BOOL showSecretKeysOnly;
 	
 	NSSet *oldAllKeys;
-	
-	BOOL userChangingSelection;
 }
 
 @property (weak, readonly) NSSet *secretKeys;
@@ -48,7 +46,7 @@
 @property (strong) NSArray *keysSortDescriptors;
 @property (strong) NSArray *userIDsSortDescriptors;
 @property (strong) NSArray *subkeysSortDescriptors;
-@property (nonatomic, strong) NSArray *selectionIndexPaths;
+@property (nonatomic, strong) NSIndexSet *selectionIndexes;
 @property BOOL showSecretKeysOnly;
 @property (weak, readonly) GPGKey *defaultKey;
 
@@ -57,7 +55,6 @@
 
 
 - (IBAction)updateFilteredKeyList:(id)sender;
-- (void)selectRow:(NSInteger)row;
 - (void)selectKeys:(NSSet *)keys;
 
 
