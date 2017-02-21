@@ -39,3 +39,6 @@ NSString *localizedStringWithFormat(NSString *key, ...);
 
 @interface GKFingerprintTransformer : GPGFingerprintTransformer
 @end
+
+@interface GKFixedFingerprintTransformer : GKFingerprintTransformer
+@end

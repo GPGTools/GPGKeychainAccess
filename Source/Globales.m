@@ -118,4 +118,90 @@ NSString *localizedStringWithFormat(NSString *key, ...) {
 }
 @end
 
+@implementation GKFixedFingerprintTransformer
+- (id)transformedValue:(id)value {
+//	return [super transformedValue:value];
+	
+	static NSDictionary *fixedAttributes = nil, *normalAttributes = nil, *boldFixedAttributes = nil, *boldNormalAttributes = nil;
+	
+
+	
+	if (!fixedAttributes) {
+		CGFloat fontSize = [NSFont systemFontSize];
+		NSFont *systemFont = [NSFont systemFontOfSize:fontSize];
+		NSFont *boldSystemFont = [NSFont boldSystemFontOfSize:fontSize];
+		NSDictionary *defaultAttributes = @{NSFontAttributeName: systemFont};
+		
+		CGFloat maxWidth = 0;
+		for (NSString *character in @[@"0", @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"A", @"B", @"C", @"D", @"E", @"F"]) {
+			maxWidth = MAX([character sizeWithAttributes:defaultAttributes].width, maxWidth);
+		}
+		
+		NSFontDescriptor *fontDescriptor = [systemFont.fontDescriptor fontDescriptorByAddingAttributes:@{NSFontFixedAdvanceAttribute: @(maxWidth - 0.8)}];
+		NSFontDescriptor *boldFontDescriptor = [boldSystemFont.fontDescriptor fontDescriptorByAddingAttributes:@{NSFontFixedAdvanceAttribute: @(maxWidth - 0.8)}];
+		
+		
+		NSMutableParagraphStyle *paragraphSytle = [NSMutableParagraphStyle new];
+		paragraphSytle.lineBreakMode = NSLineBreakByTruncatingHead;
+		
+		normalAttributes     = @{NSFontAttributeName: systemFont,
+								 NSParagraphStyleAttributeName: paragraphSytle};
+		
+		boldNormalAttributes = @{NSFontAttributeName: boldSystemFont,
+								 NSParagraphStyleAttributeName: paragraphSytle};
+		
+		fixedAttributes      = @{NSFontAttributeName: [NSFont fontWithDescriptor:fontDescriptor size:fontSize],
+								 NSParagraphStyleAttributeName: paragraphSytle};
+		
+		boldFixedAttributes  = @{NSFontAttributeName: [NSFont fontWithDescriptor:boldFontDescriptor size:fontSize],
+								 NSParagraphStyleAttributeName: paragraphSytle};
+
+	}
+	
+	
+	NSDictionary *fixed = fixedAttributes, *normal = normalAttributes;
+	
+	if ([value respondsToSelector:@selector(secret)] && [value secret]) {
+		fixed = boldFixedAttributes;
+		normal = boldNormalAttributes;
+	}
+	
+	
+	
+	NSString *fingerprint = [super transformedValue:value];
+	
+	
+	
+	
+	NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:fingerprint attributes:fixed];
+	
+	
+	
+	
+	
+	NSUInteger length = fingerprint.length;
+	NSRange searchRange = NSMakeRange(0, length);
+	NSRange foundRange;
+	while (searchRange.location < length) {
+		searchRange.length = length - searchRange.location;
+		foundRange = [fingerprint rangeOfString:@" " options:0 range:searchRange];
+		if (foundRange.location != NSNotFound) {
+			searchRange.location = foundRange.location + foundRange.length;
+			
+			[string setAttributes:normal range:foundRange];
+		} else {
+			break;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	return string;
+}
+@end
+
+
 

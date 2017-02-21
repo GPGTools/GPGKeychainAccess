@@ -311,7 +311,7 @@
                                                 </binding>
                                             </connections>
                                         </tableColumn>
-                                        <tableColumn identifier="fingerprint" editable="NO" width="390" minWidth="10" maxWidth="420" id="600">
+                                        <tableColumn identifier="fingerprint" editable="NO" width="390" minWidth="40" maxWidth="430" id="600">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Fingerprint">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -322,18 +322,19 @@
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
+                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="fingerprint"/>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.fingerprint" id="mcV-bI-y7U">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                        <string key="NSValueTransformerName">GKFingerprintTransformer</string>
-                                                    </dictionary>
-                                                </binding>
                                                 <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1894"/>
                                                 <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2113">
                                                     <dictionary key="options">
                                                         <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                                <binding destination="663" name="value" keyPath="arrangedObjects.self" id="j5s-hC-299">
+                                                    <dictionary key="options">
+                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                        <string key="NSValueTransformerName">GKFixedFingerprintTransformer</string>
                                                     </dictionary>
                                                 </binding>
                                             </connections>
