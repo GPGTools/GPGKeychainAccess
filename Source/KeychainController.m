@@ -118,6 +118,12 @@ NSSet *draggedKeys;
 - (BOOL)selectionShouldChangeInOutlineView:(NSOutlineView *)outlineView {
 	userChangingSelection = YES;
 	return YES;
+// NSTableView delegate.
+- (NSString *)tableView:(NSTableView *)tableView typeSelectStringForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+	if ([tableColumn.identifier isEqualToString:@"name"]) {
+		return [keysController.arrangedObjects[row] name];
+	}
+	return nil;
 }
 
 // NSOutlineView delegate.
