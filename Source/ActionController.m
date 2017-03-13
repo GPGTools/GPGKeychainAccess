@@ -1893,6 +1893,8 @@
 	else if (selector == @selector(addSignature:)) {
 		if (tag == 1) {
 			return [self selectedObjectsOf:userIDsTable].count == 1;
+		} else {
+			return self.selectedKeys.count == 1;
 		}
 	}
 	else if (selector == @selector(removeUserID:)) {
