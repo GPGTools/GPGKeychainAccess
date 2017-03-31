@@ -383,7 +383,8 @@ modalWindow, foundKeyDicts, hideExtension;
 	return clickedButton;
 }
 
-- (void)showProgressSheet {
+- (BOOL)showProgressSheet {
+	BOOL result = NO;
 	[progressSheetLock lock];
 	if (numberOfProgressSheets == 0) { //Nur anzeigen wenn das progressSheet nicht bereits angezeigt wird.
 		oldDisplayedView = displayedView; //displayedView sichern.
@@ -392,11 +393,14 @@ modalWindow, foundKeyDicts, hideExtension;
 			oldDisplayedView = nil;
 			[NSApp beginSheet:_sheetWindow modalForWindow:mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
 		}
+		result = YES;
 	}
 	numberOfProgressSheets++;
 	[progressSheetLock unlock];
+	return result;
 }
-- (void)endProgressSheet {
+- (BOOL)endProgressSheet {
+	BOOL result = NO;
 	[progressSheetLock lock];
 	numberOfProgressSheets--;
 	if (numberOfProgressSheets == 0) { //Nur ausführen wenn das progressSheet angezeigt wird.
@@ -407,8 +411,12 @@ modalWindow, foundKeyDicts, hideExtension;
 			[_sheetWindow orderOut:self]; // und ausblenden.
 			[sheetLock unlock];
 		}
+		result = YES;
+	} else if (numberOfProgressSheets < 0) {
+		numberOfProgressSheets = 0;
 	}
 	[progressSheetLock unlock];
+	return result;
 }
 
 - (void)runSavePanelWithAccessoryView:(NSView *)accessoryView {
@@ -1027,39 +1035,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		}
 	}
 	return NO;
-}
-
-
-// NSOpenSavePanelDelegate
-- (BOOL)panel:(NSOpenPanel *)sender validateURL:(NSURL *)url error:(NSError **)outError {
-	if (self.sheetType == SheetTypeOpenPhotoPanel) {
-		
-		NSString *path = [url path];
-		unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
-		if (filesize > 500 * 1000) { //Bilder über 500 KB sind zu gross. (Meiner Meinung nach.)
-			[self alertSheetForWindow:sender
-						  messageText:localized(@"ChoosePhoto_TooLarge_Message")
-							 infoText:localized(@"ChoosePhoto_TooLarge_Info")
-						defaultButton:nil
-					  alternateButton:nil
-						  otherButton:nil
-					suppressionButton:nil];
-			return NO;
-		} else if (filesize > 15 * 1000) { //Bei Bildern über 15 KB nachfragen.
-			NSInteger retVal =  [self alertSheetForWindow:sender
-											  messageText:localized(@"ChoosePhoto_Large_Message")
-												 infoText:localized(@"ChoosePhoto_Large_Info")
-											defaultButton:localized(@"ChoosePhoto_Large_Button1")
-										  alternateButton:localized(@"ChoosePhoto_Large_Button2")
-											  otherButton:nil
-										suppressionButton:nil];
-			if (retVal == NSAlertFirstButtonReturn) {
-				return NO;
-			}
-		}
-		
-	}
-	return YES;
 }
 
 

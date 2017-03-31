@@ -19,6 +19,8 @@
 
 #import "Globales.h"
 
+@class GKPhotoPopoverController;
+
 
 @interface ActionController ()
 
@@ -36,11 +38,14 @@ typedef enum {
 @property (weak) IBOutlet NSArrayController *signaturesController;
 @property (weak) IBOutlet NSArrayController *subkeysController;
 @property (weak) IBOutlet NSArrayController *userIDsController;
-@property (weak) IBOutlet NSArrayController *photosController;
 @property (weak) IBOutlet NSTableView *keyTable;
 @property (weak) IBOutlet NSTableView *signaturesTable;
 @property (weak) IBOutlet NSTableView *userIDsTable;
 @property (weak) IBOutlet NSTableView *subkeysTable;
+
+@property (weak) IBOutlet GKPhotoPopoverController *photoPopoverController;
+@property (weak) IBOutlet NSPopover *photoPopover;
+
 
 @property (strong) NSString *progressText, *errorText;
 @property (strong, readonly) NSUndoManager *undoManager;
@@ -56,6 +61,10 @@ typedef enum {
 @end
 
 typedef void (^actionCallback)(GPGController *gc, id value, NSDictionary *userInfo);
+typedef void (^cancelCallback)();
+
+
+
 enum {
 	NoAction = 0,
 	ShowResultAction,

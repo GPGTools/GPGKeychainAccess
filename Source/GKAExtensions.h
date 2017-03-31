@@ -16,6 +16,9 @@
 - (NSString *)longType;
 - (NSString *)userIDAndKeyID;
 - (NSString *)simpleValidity;
+- (NSImage *)photo;
+- (GPGUserID *)photoID;
+@property BOOL isRefreshing;
 @end
 
 @interface GPGUserID (GKAExtension)

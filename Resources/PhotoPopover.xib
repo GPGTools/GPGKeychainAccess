@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="GKPhotoPopoverController">
+            <connections>
+                <outlet property="view" destination="c22-O7-iKe" id="Nfz-c9-12x"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="GKPhotoPopoverView">
+            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ghG-Ep-EY3">
+                    <rect key="frame" x="10" y="10" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="400" id="aFU-Bh-MfY"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="cqW-MU-WrI"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="400" id="iOX-rl-OQg"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="uqm-fU-3HJ"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" id="uGZ-Mk-bFx"/>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="photoID.image" id="JRM-6g-daq"/>
+                    </connections>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="ghG-Ep-EY3" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="10" id="1yA-3C-h2y"/>
+                <constraint firstAttribute="centerX" secondItem="ghG-Ep-EY3" secondAttribute="centerX" id="Et8-AT-hZU"/>
+                <constraint firstItem="ghG-Ep-EY3" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="10" id="R7r-5D-QwW"/>
+                <constraint firstAttribute="centerY" secondItem="ghG-Ep-EY3" secondAttribute="centerY" id="ahg-uH-TAR"/>
+            </constraints>
+            <point key="canvasLocation" x="62" y="215"/>
+        </customView>
+    </objects>
+</document>

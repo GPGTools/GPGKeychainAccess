@@ -18,18 +18,19 @@
 */
 
 #import "Globales.h"
-
+#import "GKMenuButton.h"
 
 @class SheetController;
 
 
-@interface ActionController : NSWindowController <GPGControllerDelegate> {
+@interface ActionController : NSWindowController <GPGControllerDelegate, NSPopoverDelegate, GKMenuButtonDelegate> {
 	GPGController *gpgc;
 	SheetController *sheetController;
 	NSUndoManager *undoManager;
 	NSSet *revCertCache;
 	dispatch_source_t pasteboardTimer;
 	NSPasteboard *generalPboard;
+	NSMutableArray *cancelCallbacks;
 }
 
 @property (readonly) GPGController *gpgc;
@@ -43,7 +44,7 @@
 - (void)importFromData:(NSData *)data;
 
 - (void)cancelGPGOperation:(id)sender;
-
+- (void)closePhotoPopover;
 
 - (IBAction)generateNewKey:(id)sender;
 - (IBAction)delete:(id)sender;
@@ -54,7 +55,7 @@
 - (IBAction)addPhoto:(id)sender;
 - (IBAction)removePhoto:(id)sender;
 - (IBAction)revokePhoto:(id)sender;
-- (IBAction)setPrimaryPhoto:(id)sender;
+- (IBAction)photoClicked:(id)sender;
 - (IBAction)exportKey:(id)sender;
 - (IBAction)importKey:(id)sender;
 - (IBAction)addSignature:(id)sender;

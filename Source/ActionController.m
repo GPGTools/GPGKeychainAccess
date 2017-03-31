@@ -23,16 +23,22 @@
 #import "SheetController.h"
 #import "AppDelegate.h"
 #import "GKAExtensions.h"
+#import "GKPhotoPopoverController.h"
 
 
 
 @implementation ActionController
 @synthesize progressText, errorText, keysController, signaturesController,
-			subkeysController, userIDsController, photosController, keyTable,
+			subkeysController, userIDsController, keyTable,
 			signaturesTable, userIDsTable, subkeysTable, gpgc;
 
 
 #pragma mark General
+- (void)awakeFromNib {
+	userIDsTable.doubleAction = @selector(userIDDoubleClick:);
+	userIDsTable.target = self;
+}
+
 - (IBAction)delete:(id)sender {
 	NSResponder *responder = mainWindow.firstResponder;
 	
@@ -1411,6 +1417,7 @@
 	
 	self.progressText = localized(@"AddSubkey_Progress");
 	self.errorText = localized(@"AddSubkey_Error");
+	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)removeSubkey:(id)sender {
@@ -1427,6 +1434,7 @@
 	
 	self.progressText = localized(@"RemoveSubkey_Progress");
 	self.errorText = localized(@"RemoveSubkey_Error");
+	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc removeSubkey:subkey fromKey:key];
 }
 - (IBAction)revokeSubkey:(id)sender {
@@ -1443,6 +1451,7 @@
 	
 	self.progressText = localized(@"RevokeSubkey_Progress");
 	self.errorText = localized(@"RevokeSubkey_Error");
+	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc revokeSubkey:subkey fromKey:key reason:0 description:nil];
 }
 
@@ -1464,6 +1473,7 @@
 	self.progressText = localized(@"AddUserID_Progress");
 	self.errorText = localized(@"AddUserID_Error");
 	gpgc.userInfo = @{@"action": @(SetPrimaryUserIDAction), @"userID": key.primaryUserID};
+	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
 - (IBAction)removeUserID:(id)sender {
@@ -1474,12 +1484,13 @@
 	GPGUserID *userID = [objects objectAtIndex:0];
 	GPGKey *key = userID.primaryKey;
 	
-	if ([self warningSheetWithDefault:NO string:@"RemoveUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+	if (userID.isUat == NO && [self warningSheetWithDefault:NO string:@"RemoveUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
 	}
 	
 	self.progressText = localized(@"RemoveUserID_Progress");
 	self.errorText = localized(@"RemoveUserID_Error");
+	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc removeUserID:userID.hashID fromKey:key];
 }
 - (IBAction)setPrimaryUserID:(id)sender {
@@ -1492,6 +1503,7 @@
 	
 	self.progressText = localized(@"SetPrimaryUserID_Progress");
 	self.errorText = localized(@"SetPrimaryUserID_Error");
+	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc setPrimaryUserID:userID.hashID ofKey:key];
 }
 - (IBAction)revokeUserID:(id)sender {
@@ -1502,21 +1514,144 @@
 	GPGUserID *userID = [objects objectAtIndex:0];
 	GPGKey *key = userID.primaryKey;
 	
-	if ([self warningSheetWithDefault:NO string:@"RevokeUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
+	if (userID.isUat == NO && [self warningSheetWithDefault:NO string:@"RevokeUserID", userID.userIDDescription, key.keyID.shortKeyID] == NO) {
 		return;
 	}
 	
 	self.progressText = localized(@"RevokeUserID_Progress");
 	self.errorText = localized(@"RevokeUserID_Error");
+	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc revokeUserID:[userID hashID] fromKey:key reason:0 description:nil];
 }
 
 #pragma mark Photos
 - (void)addPhoto:(NSString *)path toKey:(GPGKey *)key {
-	
 	self.progressText = localized(@"AddPhoto_Progress");
 	self.errorText = localized(@"AddPhoto_Error");
-	[gpgc addPhotoFromPath:path toKey:key];
+	
+	
+	void (^failed)(NSString *) = ^(NSString *message) {
+		[sheetController errorSheetWithMessageText:localized(@"AddPhoto_Error") infoText:localized(message)];
+	};
+	
+	
+	NSData *data = [NSData dataWithContentsOfFile:path];
+	if (!data) {
+		failed(@"");
+		return;
+	}
+	
+	CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef) data, nil);
+	if (!source) {
+		failed(@"");
+		return;
+	}
+
+	NSString *imageType = (__bridge NSString *)CGImageSourceGetType(source);
+	if (!imageType) {
+		CFRelease(source);
+		failed(@"");
+		return;
+	}
+	
+	if ([imageType isEqualToString:@"public.jpeg"]) {
+		unsigned long long filesize = [[[[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil] objectForKey:NSFileSize] unsignedLongLongValue];
+		if (filesize < 15000) {
+			// No need to shrink the image.
+			CFRelease(source);
+			[gpgc addPhotoFromPath:path toKey:key];
+			return;
+		}
+	}
+	// The image isn't a JPEG or is too large.
+	// Shrink and convert it.
+	
+	
+	CGImageRef inputImage = CGImageSourceCreateImageAtIndex(source, 0, nil);
+	CFRelease(source);
+	if (!inputImage) {
+		failed(@"");
+		return;
+	}
+	
+	
+	// Calculate new size.
+	size_t width = CGImageGetWidth(inputImage);
+	size_t height = CGImageGetHeight(inputImage);
+	size_t max = MAX(width, height);
+	if (max > 250) {
+		// Images is larger than 250px. Resize it.
+		double scale = 250.0 / max ;
+		width *= scale;
+		height *= scale;
+	}
+	
+	
+	// Use different color spaces for grayscale and RGB.
+	BOOL isGrayscale = CGColorSpaceGetNumberOfComponents(CGImageGetColorSpace(inputImage)) == 1;
+	
+	CGContextRef context;
+	CGColorSpaceRef colorSpace;
+	
+	if (isGrayscale) {
+		colorSpace =  CGColorSpaceCreateDeviceGray();
+		context = CGBitmapContextCreate(nil, width, height, 8, 0, colorSpace, (CGBitmapInfo)kCGImageAlphaNone);
+	} else {
+		colorSpace =  CGColorSpaceCreateDeviceRGB();
+		context = CGBitmapContextCreate(nil, width, height, 8, 0, colorSpace, (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
+	}
+	
+	CGColorSpaceRelease(colorSpace);
+	if (!context) {
+		CFRelease(inputImage);
+		failed(@"");
+		return;
+	}
+	
+	
+	// High quality scaling.
+	CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+	
+	
+	CGContextDrawImage(context, CGRectMake(0, 0, width, height), inputImage);
+	CFRelease(inputImage);
+	CGImageRef scaledImage = CGBitmapContextCreateImage(context);
+	
+	
+	// Qulaity 35% and porgressive.
+	NSDictionary *properties = @{
+								 (__bridge NSString *)kCGImageDestinationLossyCompressionQuality: @(0.35),
+								 (__bridge NSString *)kCGImagePropertyJFIFDictionary: @{(__bridge NSString *)kCGImagePropertyJFIFIsProgressive: @YES}
+								};
+
+	
+	// Get a temp file name.
+	NSString *fileName = [NSString stringWithFormat:@"%@_gpg_tmp.jpg", [[NSProcessInfo processInfo] globallyUniqueString]];
+	NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
+
+	
+	// Save the image.
+	CGImageDestinationRef imgDest = CGImageDestinationCreateWithURL((__bridge CFURLRef)fileURL, kUTTypeJPEG, 1, nil);
+	CGImageDestinationAddImage(imgDest, scaledImage, (__bridge CFDictionaryRef)properties);
+	BOOL sucess = CGImageDestinationFinalize(imgDest);
+	
+	if (sucess) {
+		[self showProgressUntilKeyIsRefreshed:key];
+		
+		actionCallback callback = ^(GPGController *gc, id value, NSDictionary *userInfo) {
+			[[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
+		};
+		gpgc.userInfo = @{@"action": @[callback]};
+		
+		[gpgc addPhotoFromPath:[fileURL path] toKey:key];
+	} else {
+		failed(@"");
+		[[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
+	}
+	
+	CFRelease(imgDest);
+	CFRelease(scaledImage);
+	CFRelease(context);
 }
 - (IBAction)addPhoto:(id)sender {
 	NSArray *keys = [self selectedKeys];
@@ -1527,10 +1662,13 @@
 	if (!key.secret) {
 		return;
 	}
+	if (key.photoID) {
+		return;
+	}
 	
-	sheetController.title = nil; //TODO
-	sheetController.msgText = nil; //TODO
-	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"jpg", @"jpeg", nil];;
+	sheetController.title = nil;
+	sheetController.msgText = localized(@"AddPhoto_SelectMessage");
+	sheetController.allowedFileTypes = @[@"jpg", @"jpeg", @"png", @"tif", @"tiff", @"gif"];
 	
 	sheetController.sheetType = SheetTypeOpenPhotoPanel;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
@@ -1540,35 +1678,64 @@
 	[self addPhoto:[sheetController.URL path] toKey:key];
 }
 - (IBAction)removePhoto:(id)sender {
-	if ([photosController selectionIndex] != NSNotFound) {
-		NSArray *keys = [self selectedKeys];
-		GPGKey *key = [keys[0] primaryKey];
-		
-		self.progressText = localized(@"RemovePhoto_Progress");
-		self.errorText = localized(@"RemovePhoto_Error");
-		[gpgc removeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key];
+	NSArray *keys = self.selectedKeys;
+	if (keys.count != 1) {
+		return;
 	}
-}
-- (IBAction)setPrimaryPhoto:(id)sender {
-	if ([photosController selectionIndex] != NSNotFound) {
-		NSArray *keys = [self selectedKeys];
-		GPGKey *key = [keys[0] primaryKey];
-		
-		self.progressText = localized(@"SetPrimaryPhoto_Progress");
-		self.errorText = localized(@"SetPrimaryPhoto_Error");
-		[gpgc setPrimaryUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] ofKey:key];
-	}
+	GPGKey *key = [keys[0] primaryKey];
+	
+	self.progressText = localized(@"RemovePhoto_Progress");
+	self.errorText = localized(@"RemovePhoto_Error");
+
+	[self showProgressUntilKeyIsRefreshed:key];
+	[gpgc removeUserID:key.photoID.hashID fromKey:key];
 }
 - (IBAction)revokePhoto:(id)sender {
-	if ([photosController selectionIndex] != NSNotFound) {
-		NSArray *keys = [self selectedKeys];
-		GPGKey *key = [keys[0] primaryKey];
-		
-		self.progressText = localized(@"RevokePhoto_Progress");
-		self.errorText = localized(@"RevokePhoto_Error");
-		[gpgc revokeUserID:[[[photosController selectedObjects] objectAtIndex:0] hashID] fromKey:key reason:0 description:nil];
+	NSArray *keys = self.selectedKeys;
+	if (keys.count != 1) {
+		return;
+	}
+	GPGKey *key = [keys[0] primaryKey];
+	
+	self.progressText = localized(@"RevokePhoto_Progress");
+	self.errorText = localized(@"RevokePhoto_Error");
+	
+	[self showProgressUntilKeyIsRefreshed:key];
+	[gpgc revokeUserID:key.photoID.hashID fromKey:key reason:0 description:nil];
+}
+- (IBAction)photoClicked:(id)sender {
+	if (self.photoPopover.shown) {
+		[self closePhotoPopover];
+		return;
+	}
+	NSArray *keys = self.selectedKeys;
+	if (keys.count != 1) {
+		return;
+	}
+	GPGKey *key = [keys[0] primaryKey];
+	
+	if (key.photoID) {
+		// The key has a photo, show it in a popover.
+		self.photoPopoverController.photoID = key.photoID;
+		[self.photoPopover showRelativeToRect:NSZeroRect ofView:sender preferredEdge:NSMinYEdge];
+		return;
+	}
+	
+	if (key.secret) {
+		[self addPhoto:self];
 	}
 }
+- (IBAction)userIDDoubleClick:(id)sender {
+	if (userIDsTable.clickedRow >= 0 && userIDsTable.selectedRowIndexes.count == 1) {
+		NSUInteger index = userIDsTable.selectedRowIndexes.firstIndex;
+		GPGUserID *userID = userIDsController.arrangedObjects[index];
+		if (userID.isUat) {
+			self.photoPopoverController.photoID = userID;
+			[self.photoPopover showRelativeToRect:[userIDsTable rectOfRow:index] ofView:userIDsTable preferredEdge:NSMinYEdge];
+		}
+	}
+}
+
 
 #pragma mark Signatures
 - (IBAction)addSignature:(id)sender {
@@ -1697,12 +1864,49 @@
 
 
 #pragma mark Miscellaneous :)
+
+- (void)showProgressUntilKeyIsRefreshed:(GPGKey *)key {
+	sheetController.progressText = self.progressText;
+	[sheetController showProgressSheet];
+	
+	key.isRefreshing = YES;
+	
+	keyUpdateCallback keyChangeBlock = ^(NSArray *keys) {
+		if (!keys || [keys containsObject:key]) {
+			if ([[[GPGKeyManager sharedInstance].allKeys member:key] isRefreshing] == NO) {
+				[sheetController endProgressSheet];
+				[cancelCallbacks removeAllObjects];
+				return YES;
+			}
+		}
+		return NO;
+	};
+	cancelCallback cancelBlock = ^() {
+		[sheetController endProgressSheet];
+		[[KeychainController sharedInstance] removeKeyUpdateCallback:keyChangeBlock];
+	};
+	[cancelCallbacks addObject:cancelBlock];
+	[[KeychainController sharedInstance] addKeyUpdateCallback:keyChangeBlock];
+}
+
 - (void)cancelGPGOperation:(id)sender {
 	[gpgc cancel];
+	for (cancelCallback callback in cancelCallbacks) {
+		callback();
+	}
+	[cancelCallbacks removeAllObjects];
 }
 
 - (void)cancel:(id)sender {
-	appDelegate.inspectorVisible = NO;
+	if (self.photoPopover.shown) {
+		[self closePhotoPopover];
+	} else {
+		appDelegate.inspectorVisible = NO;
+	}
+}
+
+- (void)closePhotoPopover {
+	[self.photoPopover close];
 }
 
 
@@ -2174,6 +2378,10 @@
 			NSString *shortKeyID = [[key valueForKey:@"keyID"] shortKeyID];
 			
 			NSUInteger mailFlag = 0;
+			if (name.length == 0) {
+				name = email;
+				email = nil;
+			}
 			if (showEmail && email.length) {
 				mailFlag = 2;
 			}
@@ -2249,7 +2457,7 @@
 #pragma mark Delegate
 - (void)gpgControllerOperationDidStart:(GPGController *)gc {
 	sheetController.progressText = self.progressText;
-	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:YES];
+	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:NO];
 }
 
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
@@ -2492,7 +2700,21 @@
 	
 }
 
+- (BOOL)popoverShouldClose:(NSPopover *)popover {
+	return YES;
+}
 
+- (BOOL)menuButtonShouldShowMenu:(GKMenuButton *)menuButton {
+	NSArray *keys = self.selectedKeys;
+	if (keys.count == 1) {
+		GPGKey *key = keys[0];
+		if (key.secret && !key.photoID) {
+			[self photoClicked:menuButton];
+			return NO;
+		}
+	}
+	return YES;
+}
 
 #pragma mark Singleton: alloc, init etc.
 + (instancetype)sharedInstance {
@@ -2523,7 +2745,8 @@
 		}
 		
 		sheetController = [SheetController sharedInstance];
-		
+
+		cancelCallbacks = [NSMutableArray array];
 		
 		if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
 			// Pasteboard check.

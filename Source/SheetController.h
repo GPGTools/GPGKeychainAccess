@@ -129,8 +129,8 @@ enum {
 + (id)sharedInstance;
 
 
-- (void)showProgressSheet;
-- (void)endProgressSheet;
+- (BOOL)showProgressSheet;
+- (BOOL)endProgressSheet;
 
 - (IBAction)buttonClicked:(NSButton *)sender;
 - (IBAction)advancedButton:(NSButton *)sender;

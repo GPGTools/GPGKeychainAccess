@@ -19,6 +19,8 @@
 
 #import "Globales.h"
 
+typedef BOOL (^keyUpdateCallback)(NSArray *keys);
+
 @interface KeychainController : NSObject <NSTableViewDelegate, NSTableViewDataSource> {
     IBOutlet NSTextField *numberOfKeysLabel;
 	IBOutlet NSTableView *keyTable;
@@ -37,6 +39,8 @@
 	BOOL showSecretKeysOnly;
 	
 	NSSet *oldAllKeys;
+
+	NSMutableArray *keyUpdateCallbacks;
 }
 
 @property (weak, readonly) NSSet *secretKeys;
@@ -57,7 +61,8 @@
 - (IBAction)updateFilteredKeyList:(id)sender;
 - (void)selectKeys:(NSSet *)keys;
 
-
+- (void)addKeyUpdateCallback:(keyUpdateCallback)callback;
+- (void)removeKeyUpdateCallback:(keyUpdateCallback)callback;
 
 @end
 

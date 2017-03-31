@@ -66,6 +66,7 @@ NSLock *updateLock;
 - (void)setSelectionIndexes:(NSIndexSet *)indexes {
 	if (_selectionIndexes != indexes) {
 		_selectionIndexes = indexes;
+		[[ActionController sharedInstance] closePhotoPopover];
 		
 		[self fetchDetailsForSelectedKey];
 	}
@@ -185,6 +186,16 @@ NSLock *updateLock;
 
 
 
+- (void)addKeyUpdateCallback:(keyUpdateCallback)callback {
+	if (keyUpdateCallbacks == nil) {
+		keyUpdateCallbacks = [NSMutableArray array];
+	}
+	[keyUpdateCallbacks addObject:callback];
+}
+
+- (void)removeKeyUpdateCallback:(keyUpdateCallback)callback {
+	[keyUpdateCallbacks removeObject:callback];
+}
 
 
 
@@ -198,6 +209,14 @@ NSLock *updateLock;
 	if (![self fetchDetailsForSelectedKey]) {
 		[self willChangeValueForKey:@"allKeys"];
 		[self didChangeValueForKey:@"allKeys"];
+		
+		NSArray *keys = notification.userInfo[@"affectedKeys"];
+		NSArray *callbacksToIterate = [keyUpdateCallbacks copy];
+		for (keyUpdateCallback callback in callbacksToIterate) {
+			if (callback(keys)) {
+				[keyUpdateCallbacks removeObject:callback];
+			}
+		}
 	}
 }
 
