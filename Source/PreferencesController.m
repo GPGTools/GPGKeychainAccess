@@ -337,10 +337,12 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
 		// currently available in common defaults and add the new keyserver.
 		NSArray *defaultKeyservers = [self.options valueInCommonDefaultsForKey:@"keyservers"];
 		NSMutableArray *updatedDefaultKeyservers = [NSMutableArray array];
-		if([defaultKeyservers count])
+		if (defaultKeyservers.count) {
 			[updatedDefaultKeyservers addObjectsFromArray:defaultKeyservers];
-		
-		[updatedDefaultKeyservers addObject:gc.keyserver];
+		}
+		if (gc.keyserver) {
+			[updatedDefaultKeyservers addObject:gc.keyserver];
+		}
 		[self.options setValueInCommonDefaults:updatedDefaultKeyservers forKey:@"keyservers"];
 	}
 }
