@@ -50,6 +50,12 @@
 
 #pragma mark Import and Export
 - (IBAction)exportKey:(id)sender {
+	[self exportKeyCompact:NO];
+}
+- (IBAction)exportCompact:(id)sender {
+	[self exportKeyCompact:YES];
+}
+- (void)exportKeyCompact:(BOOL)compact {
 	NSArray *keys = [self selectedKeys];
 	NSUInteger count = keys.count;
 	if (count == 0) {
@@ -83,9 +89,88 @@
 	
 	self.progressText = localized(@"ExportKey_Progress");
 	self.errorText = localized(@"ExportKey_Error");
-	gpgc.useArmor = sheetController.exportFormat != 0;
-	gpgc.userInfo = @{@"action": @(SaveDataToURLAction), @"URL": sheetController.URL, @"hideExtension": @(sheetController.hideExtension)};
-	[gpgc exportKeys:keys allowSecret:sheetController.allowSecretKeyExport fullExport:NO];
+	
+	BOOL armor = sheetController.exportFormat != 0;
+	BOOL exportSecretKey = sheetController.allowSecretKeyExport;
+	GPGExportOptions options = exportSecretKey ? GPGExportSecretKeys : 0;
+	
+	
+	if (compact) {
+		// Export minimal and remove all photos.
+		options |= GPGExportMinimal;
+		gpgc.useArmor = NO;
+		
+		gpgc.userInfo = @{@"action": @[^(GPGController *gc, id value, NSDictionary *userInfo) {
+			if (![value isKindOfClass:[NSData class]]) {
+				[sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:@""];
+				return;
+			}
+			
+			
+			// Remove the phtos with all attached signatures.
+			NSMutableData *resultData = [NSMutableData data];
+			__block BOOL removeSignatures = NO;
+			[GPGPacket enumeratePacketsWithData:value block:^(GPGPacket *packet, BOOL *stop) {
+				if (packet.tag == GPGUserAttributePacketTag) {
+					removeSignatures = YES;
+					return;
+				} else if (removeSignatures) {
+					if (packet.tag == GPGSignaturePacketTag) {
+						return;
+					} else {
+						removeSignatures = NO;
+					}
+				}
+				[resultData appendData:packet.data];
+			}];
+			
+			
+			if (resultData.length < 10) {
+				// Something went wrong.
+				[sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:@""];
+				return;
+			}
+			
+			
+			if (armor) {
+				// Convert to ASCII armored format with crc.
+				UInt32 crc = [resultData crc24];
+				UInt8 crcBytes[3];
+				crcBytes[0] = crc >> 16;
+				crcBytes[1] = crc >> 8;
+				crcBytes[2] = crc;
+				NSData *crcData = [[NSData dataWithBytes:crcBytes length:3] base64EncodedDataWithOptions:0];
+				
+				NSData *base64Data = [resultData base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength | NSDataBase64EncodingEndLineWithLineFeed];
+				
+				NSString *blockType = exportSecretKey ? @"PRIVATE" : @"PUBLIC";
+				
+				
+				NSMutableData *data = [NSMutableData data];
+				[data appendData:[@"-----BEGIN PGP " UTF8Data]];
+				[data appendData:[blockType UTF8Data]];
+				[data appendData:[@" KEY BLOCK-----\n\n" UTF8Data]];
+				[data appendData:base64Data];
+				[data appendData:[@"\n=" UTF8Data]];
+				[data appendData:crcData];
+				[data appendData:[@"-----END PGP " UTF8Data]];
+				[data appendData:[blockType UTF8Data]];
+				[data appendData:[@" KEY BLOCK-----\n\n" UTF8Data]];
+				
+				resultData = data;
+			}
+			
+			// Save the exported key(s).
+			NSFileManager *fileManager = [NSFileManager defaultManager];
+			[fileManager createFileAtPath:sheetController.URL.path contents:resultData attributes:@{NSFileExtensionHidden: @(sheetController.hideExtension)}];
+		}]};
+	} else {
+		// Normal export (not compact).
+		gpgc.useArmor = armor;
+		gpgc.userInfo = @{@"action": @(SaveDataToURLAction), @"URL": sheetController.URL, @"hideExtension": @(sheetController.hideExtension)};
+	}
+
+	[gpgc exportKeys:keys options:options];
 }
 - (IBAction)importKey:(id)sender {
 	sheetController.title = nil; //TODO
@@ -2256,24 +2341,38 @@
 		
 		
 		NSInteger actionCode = 0;
-		NSArray *action = [oldUserInfo objectForKey:@"action"];
+		NSArray *actions = [oldUserInfo objectForKey:@"action"];
+		id action = nil;
+		actionCallback callback = nil;
 		
-		if ([action isKindOfClass:[NSArray class]]) {
-			if (action.count > 0) {
-				actionCode = [action[0] integerValue];
+		if ([actions isKindOfClass:[NSArray class]]) {
+			if (actions.count > 0) {
+				action = actions[0];
 				
-				if (action.count > 1) {
-					action = [action subarrayWithRange:NSMakeRange(1, action.count - 1)];
+				if (actions.count > 1) {
+					NSArray *newActions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
 					NSMutableDictionary *tempUserInfo = oldUserInfo.mutableCopy;
-					tempUserInfo[@"action"] = action;
+					tempUserInfo[@"action"] = newActions;
 					gc.userInfo = tempUserInfo;
 				}
 			}
 		} else {
-			actionCode = [(NSNumber *)action integerValue];
+			action = actions;
 		}
 		
+		if ([action isKindOfClass:NSClassFromString(@"NSBlock")]) {
+			actionCode = CallbackAction;
+			callback = action;
+		} else {
+			actionCode = [action integerValue];
+		}
+
+		
 		switch (actionCode) {
+			case CallbackAction: {
+				callback(gc, value, oldUserInfo);
+				break;
+			}
 			case ShowResultAction: {
 				if (gc.error) break;
 				

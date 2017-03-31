@@ -55,6 +55,7 @@ typedef enum {
 
 @end
 
+typedef void (^actionCallback)(GPGController *gc, id value, NSDictionary *userInfo);
 enum {
 	NoAction = 0,
 	ShowResultAction,
@@ -65,7 +66,8 @@ enum {
 	SetTrustAction,
 	SetDisabledAction,
 	RevCertificateAction,
-	RevokeKeyAction
+	RevokeKeyAction,
+	CallbackAction
 };
 
 enum {
