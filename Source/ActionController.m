@@ -666,9 +666,7 @@
 		if (!dataChanged) {
 			return;
 		}
-		dispatch_sync(dispatch_get_main_queue(), ^{
-			[mainWindow endSheet:mainWindow.sheets[0]];
-		});
+		[mainWindow endSheet:mainWindow.sheets[0]];
 	}
 	
 	
@@ -787,24 +785,22 @@
 	NSString *cancelText = localized(@"PasteboardKeyFound_No");
 	
 	
-	dispatch_sync(dispatch_get_main_queue(), ^{
-		
-		NSAlert *alert = [NSAlert new];
-		
-		alert.messageText = title;
-		alert.informativeText = message;
-		[alert addButtonWithTitle:okText];
-		[alert addButtonWithTitle:cancelText];
-		
-		[alert beginSheetModalForWindow:mainWindow completionHandler:^(NSModalResponse returnCode) {
-			[sheet orderOut:nil];
-			sheet = nil;
-			if (returnCode == NSAlertFirstButtonReturn) {
-				[self importFromData:lastData];
-			}
-		}];
-		sheet = alert.window;
-	});
+	
+	NSAlert *alert = [NSAlert new];
+	
+	alert.messageText = title;
+	alert.informativeText = message;
+	[alert addButtonWithTitle:okText];
+	[alert addButtonWithTitle:cancelText];
+	
+	[alert beginSheetModalForWindow:mainWindow completionHandler:^(NSModalResponse returnCode) {
+		[sheet orderOut:nil];
+		sheet = nil;
+		if (returnCode == NSAlertFirstButtonReturn) {
+			[self importFromData:lastData];
+		}
+	}];
+	sheet = alert.window;
 	
 }
 
@@ -2752,9 +2748,9 @@
 			// Pasteboard check.
 			generalPboard = [NSPasteboard generalPasteboard];
 			
-			pasteboardTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0));
+			pasteboardTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
 			if (pasteboardTimer) {
-				dispatch_source_set_timer(pasteboardTimer, dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), 0.5 * NSEC_PER_SEC, 0.3 * NSEC_PER_SEC);
+				dispatch_source_set_timer(pasteboardTimer, dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), 1 * NSEC_PER_SEC, 0.8 * NSEC_PER_SEC);
 				dispatch_source_set_event_handler(pasteboardTimer, ^{
 					[self checkPasteboardChanges];
 				});
