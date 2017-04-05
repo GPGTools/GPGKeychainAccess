@@ -2297,7 +2297,7 @@ IA
                             </menuItem>
                             <menuItem title="Export Compact…" keyEquivalent="E" id="OC1-ix-FSO">
                                 <connections>
-                                    <action selector="exportCompact:" target="-1" id="1zs-Jm-LeF"/>
+                                    <action selector="exportCompact:" target="-1" id="SfB-Vb-VzQ"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="OCw-XG-FDI"/>
@@ -2409,10 +2409,90 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Key" id="1594">
                         <items>
+                            <menuItem title="Import…" keyEquivalent="o" id="luD-qc-OxA">
+                                <connections>
+                                    <action selector="importKey:" target="-1" id="bgL-kx-Q7J"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Export…" keyEquivalent="e" id="Ynt-7H-I4Q">
+                                <connections>
+                                    <action selector="exportKey:" target="-1" id="2pr-eu-tSk"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Export Compact…" keyEquivalent="E" id="nlU-nH-KPf">
+                                <connections>
+                                    <action selector="exportCompact:" target="-1" id="4Nx-YW-UQl"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Mail Public Key…" keyEquivalent="M" id="UEm-EK-QZv">
+                                <connections>
+                                    <action selector="sendKeysPerMail:" target="-1" id="g2v-bQ-iP1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1864"/>
                             <menuItem title="Sign…" keyEquivalent="s" id="1597">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="addSignature:" target="-1" id="1631"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Generate Revoke Certificate…" id="1914">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="genRevokeCertificate:" target="-1" id="1915"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Revoke…" id="sS9-so-7Oh">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="revokeKey:" target="-1" id="vS2-O8-dpB"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1598"/>
+                            <menuItem title="Send public key to key server" keyEquivalent="k" id="1599">
+                                <connections>
+                                    <action selector="sendKeysToServer:" target="-1" id="1629"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Lookup key on key server…" keyEquivalent="f" id="1601">
+                                <connections>
+                                    <action selector="searchKeys:" target="-1" id="1632"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Update from key server" keyEquivalent="u" id="1602">
+                                <connections>
+                                    <action selector="refreshKeysFromServer:" target="-1" id="1636"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="1606">
+                                <connections>
+                                    <binding destination="ONB-dh-h3M" name="hidden" keyPath="showExpertSettings" id="3nO-tw-zfy">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Clean" id="1862">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="cleanKey:" target="-1" id="1865"/>
+                                    <binding destination="ONB-dh-h3M" name="hidden" keyPath="showExpertSettings" id="eu5-6b-i6Z">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Minimize" id="1863">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="minimizeKey:" target="-1" id="1866"/>
+                                    <binding destination="ONB-dh-h3M" name="hidden" keyPath="showExpertSettings" id="QLq-6a-yhx">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </menuItem>
                             <menuItem title="Algorithm Preferences…" id="1935">
@@ -2432,53 +2512,6 @@ CA
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
                                     </binding>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Generate Revoke Certificate…" id="1914">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="genRevokeCertificate:" target="-1" id="1915"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Revoke…" id="sS9-so-7Oh">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="revokeKey:" target="-1" id="vS2-O8-dpB"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="1598"/>
-                            <menuItem title="Clean" id="1862">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="cleanKey:" target="-1" id="1865"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Minimize" id="1863">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="minimizeKey:" target="-1" id="1866"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="1864"/>
-                            <menuItem title="Mail Public Key…" keyEquivalent="M" id="UEm-EK-QZv">
-                                <connections>
-                                    <action selector="sendKeysPerMail:" target="-1" id="g2v-bQ-iP1"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="1606"/>
-                            <menuItem title="Send public key to key server" keyEquivalent="k" id="1599">
-                                <connections>
-                                    <action selector="sendKeysToServer:" target="-1" id="1629"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Lookup key on key server…" keyEquivalent="f" id="1601">
-                                <connections>
-                                    <action selector="searchKeys:" target="-1" id="1632"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Update from key server" keyEquivalent="u" id="1602">
-                                <connections>
-                                    <action selector="refreshKeysFromServer:" target="-1" id="1636"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -2527,7 +2560,7 @@ CA
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-462" y="-299"/>
+            <point key="canvasLocation" x="-1740" y="-1310"/>
         </menu>
         <menu id="1955" userLabel="Key Menu">
             <items>
