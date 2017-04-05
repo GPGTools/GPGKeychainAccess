@@ -30,16 +30,16 @@ ExportKeysFilename = "%@ %u OpenPGP nøgler";
 
 /* For key creation */
 CheckAlert_NoPassphrase_Title = "Intet kodeord";
-CheckAlert_NoPassphrase_Message = "Du har ikke angivet et kodeord, hvilket anbefales. Et kodeord bør være mindst otte tegn langt.";
+CheckAlert_NoPassphrase_Message = "Du har ikke angivet et kodeord. Dette kan ikke anbefales. Kodeord bør være mindst 8 tegn lange.";
 CheckAlert_NoPassphrase_Button1= "Fortsæt uden et kodeord";
 CheckAlert_NoPassphrase_Button2 = "Angiv nyt kodeord";
 CheckAlert_PassphraseShort_Title = "Kort kodeord";
-CheckAlert_PassphraseShort_Message = "Du har angivet et kort kodeord. Dette frarådes. Et kodeord bør være mindst otte tegn langt.";
-CheckAlert_PassphraseShort_Button1= "Fortsæt med et kort kodeord";
+CheckAlert_PassphraseShort_Message = "Du har angivet et kort kodeord. Dette frarådes. Et kodeord bør være mindst 8 tegn langt.";
+CheckAlert_PassphraseShort_Button1= "Fortsæt med kort kodeord";
 CheckAlert_PassphraseShort_Button2 = "Angiv nyt kodeord";
 CheckAlert_PassphraseSimple_Title = "Simpelt kodeord";
 CheckAlert_PassphraseSimple_Message = "Det angivne kodeord er for simpelt. Et godt kodeord bør indeholde både bogstaver, tal og mindst et specialtegn.";
-CheckAlert_PassphraseSimple_Button1 = "Fortsæt med et simpelt kodeord";
+CheckAlert_PassphraseSimple_Button1 = "Fortsæt med simpelt kodeord";
 CheckAlert_PassphraseSimple_Button2 = "Angiv nyt kodeord";
 CheckAlert_PassphraseToLong_Title = "Kodeordet er for langt";
 CheckAlert_PassphraseToLong_Message = "Det angivne kodeord er for langt. Angiv et kodeord med færre end 300 tegn.";
@@ -135,7 +135,7 @@ RemoveSubkey_Yes = "Tilbagekald undernøgle";
 RemoveSubkey_No = "Annuller";
 
 RevokeSubkey_Title = "Tilbagekald undernøgle";
-RevokeSubkey_Msg = "Advarsel! Fortsæt kun, hvis du virkelig ved, hvad du laver.\n\nHvis du tilbagekalder en undernøgle kan det ødelægge al signering og dekryptering.\n\nHvis nøglen men denne undernøgle er blevet uploadet til nøgleserverne, skal du huske at uploade den opdaterede nøgle. Først da vil nøglen på nøgleserverne afspejle den tilbagekaldte undernøgle.";
+RevokeSubkey_Msg = "Advarsel: Fortsæt kun, hvis du virkelig ved, hvad du laver.\n\nHvis du tilbagekalder en undernøgle kan det ødelægge evnen til at signere med denne undernøgle, og andre kan muligvis ikke længere kryptere beskeder til denne undernøgle.\n\nHvis nøglen er blevet uploadet til nøgleserverne, skal du huske at uploade den opdaterede nøgle. Først da vil nøglen på nøgleserverne afspejle den tilbagekaldte undernøgle.";
 RevokeSubkey_Yes = "Tilbagekald undernøgle";
 RevokeSubkey_No = "Annuller";
 
@@ -177,8 +177,8 @@ DeleteKey_Msg = "Du er ved at slette den følgende offentlige nøgle(r):\n\n%@\n
 DeleteKey_Yes = "Slet nøgle(r)";
 DeleteKey_No = "Annuller";
 
-DeleteSecKey_Title = "Advarsel! Du er ved at slette private og offentlige nøgle(r)";
-DeleteSecKey_Msg = "Du er ved at slette nøgle(r):\n\n%@\n\nSletning af en privat nøgle har store konsekvenser. Når nøglen er slettet, kan man ikke længere dekryptere beskeder med den. Dette angår alle beskeder, der blev krypteret med nøglen.\n\nVi anbefaler ikke at slette den.\n\nFor at fortælle andre, at denne nøgle ikke længere er i brug, bør du tilbagekalde nøglen i stedet for at slette den, og uploade den tilbagekaldte nøgle til nøgleserverne. Ellers kan andre stadig bruge denne nøgle til at kryptere beskeder til dig.";
+DeleteSecKey_Title = "Advarsel: Du er ved at slette private og offentlige nøgler";
+DeleteSecKey_Msg = "Du er ved at slette nøgler:\n\n%@\n\nSletning af en privat nøgle har store konsekvenser. Når nøglen er slettet, kan man ikke længere dekryptere beskeder med den. Dette angår alle beskeder, der blev krypteret med nøglen.\n\nVi anbefaler ikke at slette den.\n\nFor at fortælle andre, at denne nøgle ikke længere er i brug, bør du tilbagekalde nøglen i stedet for at slette den, og uploade den tilbagekaldte nøgle til nøgleserverne. Ellers kan andre stadig bruge denne nøgle til at kryptere beskeder til dig.";
 DeleteSecKey_Checkbox = "Ja, jeg vil gerne slette min private nøgle, og jeg forstår, at jeg ikke længere kan dekryptere nogen beskeder, der blev krypteret til denne nøgle.";
 DeleteSecKey_Yes = "Slet nøgle(r)";
 DeleteSecKey_SecOnly = "Slet kun privat nøgle(r)";
@@ -203,20 +203,20 @@ ImportRevSig_Msg = "Du er ved at importere et tilbagekaldelsescertifikat for %@.
 ImportRevSig_Yes = "Importér";
 ImportRevSig_No = "Annuller";
 
-ImportRandomData_Title = "Advarsel! Indholdet kan sandsynligvis ikke importeres.";
+ImportRandomData_Title = "Advarsel: Indholdet kan sandsynligvis ikke importeres.";
 ImportRandomData_Msg = "Det ser ud til at du forsøger at importere en besked, der ikke er en OpenPGP nøgle.\n\nEr du sikker på at du vil forsøge at importere dette?";
 ImportRandomData_Yes = "Forsøg at importere";
 ImportRandomData_No = "Annuller";
 
-ImportNonImportable_Title = "Advarsel! Indholdet kan sandsynligvis ikke importeres.";
+ImportNonImportable_Title = "Advarsel: Indholdet kan sandsynligvis ikke importeres.";
 ImportNonImportable_Msg = "Det ser ud til at du forsøger at importere en signeret eller krypteret besked.\n\nSådanne beskeder kan ikke importeres i GPG Nøglering.\n\nPrøv i stedet at dekryptere eller verificere beskeden med GPGServices.";
 ImportNonImportable_Yes = "Forsøg at importere";
 ImportNonImportable_No = "Annuller";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "Du har med success importeret nøglen\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "Du har med success importeret nøglerne\n\n%@";
+IMPORT_RESULT_NEW_KEY = "Du har importeret nøglen\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "Du har importeret nøglerne\n\n%@";
 
 IMPORT_RESULT_NEW_USER_ID = "Et bruger id blev tilføjet nøglerne\n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "En signatur blev tilføjet nøglerne\n\n%@";
@@ -257,14 +257,6 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 "%i of %i keys listed" = "%i af %i nøgler vist";
 
 
-/* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "Dette billede er virkeligt stort!";
-ChoosePhoto_Large_Info = "Du bør bruge et mindre billede.\nVi anbefaler en størrelse på mindre end 15 KB.";
-ChoosePhoto_Large_Button1 = "Vælg et andet...";
-ChoosePhoto_Large_Button2 = "Brug dette billede";
-ChoosePhoto_TooLarge_Message = "Dit billede er for stort!";
-ChoosePhoto_TooLarge_Info = "Brug et billede, der er mindre end 500 KB.\nVi anbefaler en størrelse på mindre end 15 KB.";
-
 
 
 
@@ -295,65 +287,66 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Eksporterer nøgle.";
+ExportKey_Progress = "Eksporterer nøgle...";
 ExportKey_Error = "Eksport af nøgle mislykkedes.";
-ImportKey_Progress  = "Importerer nøgle.";
-DeleteSecretKey_Progress = "Sletter privat nøgle.";
-DeleteKeys_Progress = "Sletter nøgle.";
+ImportKey_Progress  = "Importerer nøgle...";
+DeleteSecretKey_Progress = "Sletter privat nøgle...";
+DeleteKeys_Progress = "Sletter nøgle...";
 DeleteKeys_Error = "Sletning af nøgle mislykkedes.";
-ChangePassphrase_Progress = "Ændrer kodeord.";
+ChangePassphrase_Progress = "Ændrer kodeord...";
 ChangePassphrase_Error = "Ændring af kodeord mislykkedes.";
-SetDisabled_Progress = "Aktiverer/deaktiverer nøgle.";
+SetDisabled_Progress = "Aktiverer/deaktiverer nøgle...";
 SetDisabled_Error = "Aktivering/deaktivering af nøgle mislykkedes.";
-SetOwnerTrust_Progress = "Indstiller ejerfortrolighed.";
+SetOwnerTrust_Progress = "Indstiller ejerfortrolighed...";
 SetOwnerTrust_Error = "Indstilling af ejerfortrolighed mislykkedes.";
-ChangeExpirationDate_Progress = "Ændrer udløbsdato.";
+ChangeExpirationDate_Progress = "Ændrer udløbsdato...";
 ChangeExpirationDate_Error = "Ændring af udløbsdato mislykkedes.";
-SetAlgorithmPreferences_Progress = "Sætter algoritmeindstillinger.";
+SetAlgorithmPreferences_Progress = "Sætter algoritmeindstillinger...";
 SetAlgorithmPreferences_Error = "Algoritmeindstilling mislykkedes.";
-CleanKey_Progress = "Renser nøgle.";
+CleanKey_Progress = "Renser nøgle...";
 CleanKey_Error = "Rensning af nøgle mislykkedes.";
-MinimizeKey_Progress = "Minimerer nøgle.";
+MinimizeKey_Progress = "Minimerer nøgle...";
 MinimizeKey_Error = "Minimering af nøgle mislykkedes.";
-GenerateRevokeCertificateForKey_Progress = "Laver tilbagekaldelsescertifikat.";
+GenerateRevokeCertificateForKey_Progress = "Genererer tilbagekaldelsescertifikat...";
 GenerateRevokeCertificateForKey_Error = "Oprettelse af tilbagekaldelsescertifikat mislykkedes.";
-SearchKeysOnServer_Progress = "Søger efter nøgle.";
+SearchKeysOnServer_Progress = "Søger efter nøgle...";
 SearchKeysOnServer_Error = "Søgen efter nøgle mislykkedes.";
-SendKeysToServer_Progress = "Sender %@ til server.";
+SendKeysToServer_Progress = "Sender %@ til server...";
 SendKeysToServer_Error = "Afsendelse af nøgle mislykkedes.";
-RefreshKeysFromServer_Progress = "Opdaterer %@ fra server.";
+RefreshKeysFromServer_Progress = "Opdaterer %@ fra server...";
 RefreshKeysFromServer_Error = "Fornyelse af nøgle mislykkedes.";
-AddSubkey_Progress = "Tilføjer undernøgle.";
+AddSubkey_Progress = "Tilføjer undernøgle...";
 AddSubkey_Error = "Tilføjelse af undernøgle mislykkedes.";
-RemoveSubkey_Progress = "Fjerner undernøgle.";
+RemoveSubkey_Progress = "Fjerner undernøgle...";
 RemoveSubkey_Error = "Fjernelse af undernøgle mislykkedes.";
-RevokeSubkey_Progress = "Tilbagekalder undernøgle.";
+RevokeSubkey_Progress = "Tilbagekalder undernøgle...";
 RevokeSubkey_Error = "Tilbagekaldelse af undernøgle mislykkedes.";
-AddUserID_Progress = "Tilføjer bruger ID.";
+AddUserID_Progress = "Tilføjer bruger ID...";
 AddUserID_Error = "Tilføjelse af bruger ID mislykkedes.";
-RemoveUserID_Progress = "Fjerner bruger ID.";
+RemoveUserID_Progress = "Fjerner bruger ID...";
 RemoveUserID_Error = "Fjernelse af bruger ID mislykkedes.";
-SetPrimaryUserID_Progress = "Indstiller primært bruger ID.";
+SetPrimaryUserID_Progress = "Indstiller primært bruger ID...";
 SetPrimaryUserID_Error = "Indstilling af primært bruger ID mislykkedes.";
-RevokeUserID_Progress = "Tilbagekalder bruger ID.";
+RevokeUserID_Progress = "Tilbagekalder bruger ID...";
 RevokeUserID_Error = "Tilbagekaldelse af bruger ID mislykkedes.";
-AddPhoto_Progress = "Tilføjer billede.";
+AddPhoto_Progress = "Tilføjer billede...";
 AddPhoto_Error = "Tilføjelse af billede mislykkedes.";
-RemovePhoto_Progress = "Fjerner billede.";
+AddPhoto_SelectMessage = "Choose photo…";
+RemovePhoto_Progress = "Fjerner billede...";
 RemovePhoto_Error = "Fjernelse af billede mislykkedes.";
-SetPrimaryPhoto_Progress = "Indstiller primært billede.";
+SetPrimaryPhoto_Progress = "Indstiller primært billede...";
 SetPrimaryPhoto_Error = "Indstilling af primært billede mislykkedes.";
-RevokePhoto_Progress = "Tilbagekalder billede.";
+RevokePhoto_Progress = "Tilbagekalder billede...";
 RevokePhoto_Error = "Tilbagekaldelse af billede mislykkedes.";
-AddSignature_Progress = "Tilføjer signatur.";
+AddSignature_Progress = "Tilføjer signatur...";
 AddSignature_Error = "Tilføjelse af signatur mislykkedes.";
-RemoveSignature_Progress = "Fjerner signatur.";
+RemoveSignature_Progress = "Fjerner signatur...";
 RemoveSignature_Error = "Fjernelse af signatur mislykkedes.";
-RevokeSignature_Progress = "Tilbagekalder signatur.";
+RevokeSignature_Progress = "Tilbagekalder signatur...";
 RevokeSignature_Error = "Fjernelse af signatur mislykkedes.";
-ReceiveKeysFromServer_Progress = "Modtager signaturer.";
+ReceiveKeysFromServer_Progress = "Modtager nøgler...";
 ReceiveKeysFromServer_Error = "Modtagelse af signaturer mislykkedes.";
-RevokeKey_Progress = "Tilbagekalder nøgle.";
+RevokeKey_Progress = "Tilbagekalder nøgle...";
 RevokeKey_Error = "Tilbagekaldelse af nøgle mislykkedes.";
 
 

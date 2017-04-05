@@ -29,20 +29,20 @@ ExportKeysFilename = "%@ %u clés OpenPGP";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Pas de phrase secrète";
-CheckAlert_NoPassphrase_Message = "Vous n'avez pas saisi de phrase secrète. Ceci n'est pas recommandé. Une phrase secrète doit comporter au minimum 8 caractères.";
-CheckAlert_NoPassphrase_Button1= "Continuer sans phrase secrète";
-CheckAlert_NoPassphrase_Button2 = "Saisir une nouvelle phrase secrète";
-CheckAlert_PassphraseShort_Title = "Phrase secrète courte";
-CheckAlert_PassphraseShort_Message = "Vous avez saisi de phrase secrète trop courte. Ceci n'est pas recommandé. Une phrase secrète doit comporter au minimum 8 caractères.";
-CheckAlert_PassphraseShort_Button1= "Continuer avec phrase secrète courte";
-CheckAlert_PassphraseShort_Button2 = "Saisir une nouvelle phrase secrète";
-CheckAlert_PassphraseSimple_Title = "Phrase secrète simple";
-CheckAlert_PassphraseSimple_Message = "Vous avez saisi de phrase secrète trop simple. Une phrase secrète doit être alphanumérique et comporter au minimum 1 caractère spécial.";
-CheckAlert_PassphraseSimple_Button1 = "Continuer avec phrase secrète simple";
-CheckAlert_PassphraseSimple_Button2 = "Saisir une nouvelle phrase secrète";
-CheckAlert_PassphraseToLong_Title = "Phrase secrète trop longue";
-CheckAlert_PassphraseToLong_Message = "La phrase secrète saisie est trop longue. Entrez une phrase secrète de moins de 300 caractères.";
+CheckAlert_NoPassphrase_Title = "No password";
+CheckAlert_NoPassphrase_Message = "You have entered no password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Button1= "Continue without a password";
+CheckAlert_NoPassphrase_Button2 = "Enter new password";
+CheckAlert_PassphraseShort_Title = "Short password";
+CheckAlert_PassphraseShort_Message = "You have entered a short password. This is not recommended. A password should at least be 8 characters long.";
+CheckAlert_PassphraseShort_Button1= "Continue with short password";
+CheckAlert_PassphraseShort_Button2 = "Enter new password";
+CheckAlert_PassphraseSimple_Title = "Simple password";
+CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
+CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
+CheckAlert_PassphraseSimple_Button2 = "Enter new password";
+CheckAlert_PassphraseToLong_Title = "Password too long";
+CheckAlert_PassphraseToLong_Message = "The password you have entered is too long. Enter a password with less than 300 characters.";
 
 
 MoveSecring_Msg = "Vos clés privées sont stockées sur \"%@\".\nPour déplacer vos clés privées sur un autre volume, sélectionnez-le ci-dessous.";
@@ -55,9 +55,9 @@ SearchingKeys_Msg = "Nous recherchons la/les clés correspondante(s) sur le serv
 
 GenerateKey_Progress = "Nous devons générer une grande quantité d'octets aléatoires. Il est utile de faire des actions (taper au clavier, déplacer la souris, utiliser le disque dur) pendant la génération initiale. Ceci permet au générateur de nombre aléatoire de bénéficier d'une meilleure entropie.";
 GenerateSubkey_Msg = "Ajouter sous-clé à la clé \"%@\", %@.";
-GenerateUserID_Msg = "Ajouter l'ID utilisateur à la clé \"%@\", %@.";
+GenerateUserID_Msg = "Ajouter identifiant d'usager à la clé \"%@\", %@.";
 GenerateSignature_Msg = "Signer une clé signifie que vous confirmez que le propriétaire de la clé est bien la personne qu'elle prétend être. Une fois téléversées, les signatures peuvent être vues par les autres utilisateurs.\nDonc si vous signez la clé de Bob et que votre amie Alice n'est pas sûre que Bob soit réellement Bob, Alice voyant que vous avez signé la clé de Bob et considérant que votre clé est digne de confiance, elle en déduit que Bob est bien Bob.\n\nVous êtes sur le point de signer la clé suivante:\n%@";
-GenerateUidSignature_Msg = "Signer un ID utilisateur signifie que vous confirmez que le propriétaire de la clé est bien la personne qu'elle prétend être. \nUne fois téléversées, les signatures peuvent être vues par les autres utilisateurs.\nDonc si vous signez la clé de Bob et que votre amie Alice n'est pas sûre que Bob soit réellement Bob, Alice voyant que vous avez signé la clé de Bob et considérant que votre clé est digne de confiance, elle en déduit que Bob est bien Bob.\n\nVous êtes sur le point de signer la clé suivante :\n%@";
+GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
 ChangeExpirationDate_Msg = "Changer date d'expiration de \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Changer la date d'expiration de \"%2$@\", %3$@\nSous-clé : %1$@";
 
@@ -73,7 +73,7 @@ CheckError_EmailToLong = "Adresse email trop longue !\nLa longueur maximale est 
 CheckError_InvalidCharInComment = "Caractère invalide dans commentaire !\n\"(\" et \")\" non permis.";
 CheckError_CommentToLong = "Commentaire trop long !";
 CheckError_NoKeyID = "Prière entrer un identifiant de clé valide !";
-CheckError_PassphraseMissmatch = "Vos mots de passe ne correspondent pas !";
+CheckError_PassphraseMissmatch = "Your passwords did not match!";
 
 
 /* Message on start, if there are any Problems */
@@ -119,23 +119,23 @@ Cancel = "Annuler";
 
 
 /* Warnings */
-RemoveUserID_Title = "Supprimer l'ID utilisateur";
-RemoveUserID_Msg = "Vous êtes en train de supprimer l'ID utilisateur %@ de votre clé %@. Si vous supprimez cet ID utilisateur, vous ne serez plus en mesure d'utiliser cette clé avec le compte mail associé dans Mail.app.\n\nSi la clé avec cet ID utilisateur a été téléversée sur les serveurs de clés, supprimer l'ID utilisateur ne va pas supprimer l'ID utilisateur des clés sur le serveur de clés. À la place, révoquez l'ID utilisateur en question et téléversez la clé mise à jour.";
-RemoveUserID_Yes = "Supprimer l'ID utilisateur";
+RemoveUserID_Title = "Remove user ID";
+RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove user ID";
 RemoveUserID_No = "Annuler";
 
-RevokeUserID_Title = "Révoquer l'ID utilisateur";
-RevokeUserID_Msg = "Vous êtes sur le point de révoquer l'ID utilisateur %@ de votre clé %@. Si vous révoquez cet ID utilisateur, vous ne serez plus en mesure d'utiliser cette clé avec le compte mail associé dans Mail.app.\n\nSi la clé avec cet ID utilisateur a été téléversée sur les serveurs de clés, assurez-vous de téléverser la clé mise à jour. Ce n'est qu'à partir de ce moment que le serveur de clés reflètera l'ID utilisateur révoqué.";
-RevokeUserID_Yes = "Révoquer l'ID utilisateur";
+RevokeUserID_Title = "Revoke user ID";
+RevokeUserID_Msg = "You are about to revoke user ID %@ from your key %@. If you revoke this user ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this user ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked user ID.";
+RevokeUserID_Yes = "Revoke user ID";
 RevokeUserID_No = "Annuler";
 
 RemoveSubkey_Title = "Supprimer la sous-clé";
-RemoveSubkey_Msg = "Attention ! Ne continuez cette opération que si vous savez réellement ce que vous faites. \n\nSupprimer une sous-clé peut anéantir toutes les possibilités de signature et de chiffrement. \n\nSi la clé contenant cette sous-clé a été téléversée sur les serveurs de clés, supprimer la sous-clé ne va pas la supprimer de la clé sur le serveur de clés. Dans ce cas, merci de révoquer la sous-clé en question et de la téléverser.";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the keyserver.";
 RemoveSubkey_Yes = "Supprimer la sous-clé";
 RemoveSubkey_No = "Annuler";
 
 RevokeSubkey_Title = "Révoquer la sous-clé";
-RevokeSubkey_Msg = "Attention ! Ne continuez cette opération que si vous savez réellement ce que vous faites. \n\nRévoquer une sous-clé peut anéantir toutes les possibilités de signature et de chiffrement. \n\nSi la clé contenant cette sous-clé a été téléversée sur les serveurs de clés, merci de vous assurer de téléverser la clé mise à jour. Ce n'est qu'à partir de ce moment que le serveur de clés reflètera la sous-clé révoquée.";
+RevokeSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nIn case this key has been uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will show the revoked subkey.";
 RevokeSubkey_Yes = "Révoquer la sous-clé";
 RevokeSubkey_No = "Annuler";
 
@@ -145,22 +145,22 @@ RevokeSignature_Yes = "Révoquer la signature";
 RevokeSignature_No = "Annuler";
 
 RemoveSignature_Title = "Supprimer la signature";
-RemoveSignature_Msg = "Êtes-vous sûr de vouloir supprimer cette signature ? Supprimer une signature ne la supprime que localement. Elle ne sera pas et ne peut pas être supprimée des serveurs de clés. Merci de plutôt la révoquer si vous souhaitez marquer cette signature comme invalide.";
+RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
 RemoveSignature_Yes = "Supprimer la signature";
 RemoveSignature_No = "Annuler";
 
 RemoveLastSelfSignature_Title = "Supprimer la dernière auto-signature";
-RemoveLastSelfSignature_Msg = "Vous êtes sur le point de supprimer la dernière auto-signature de l'ID utilisateur %@. Merci de ne continuer cette opération que si vous savez réellement ce que vous faites.\n\nCette signature assure que l'adresse email, le nom et la description d'un ID utilisateur ne peuvent être modifiés que par son propriétaire.\n\nSi cette signature est manquante, une personne pourrait modifier ces informations sans aucun moyen de s'en apercevoir.";
+RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Supprimer la signature";
 RemoveLastSelfSignature_No = "Annuler";
 
 RevokeLastSelfSignature_Title = "Révoquer la dernière auto-signature";
-RevokeLastSelfSignature_Msg = "Vous êtes sur le point de révoquer la dernière auto-signature de l'ID utilisateur %@. Merci de ne continuer cette opération que si vous êtes sûr de ce que vous faites.\n\nRévoquer la dernière auto-signature d'un ID utilisateur va le rendre inutilisable. Vous ne serez plus en mesure d'utiliser cet ID utilisateur %@ pour signer des messages dans Mail.app. Les autres ne seront plus en mesure de chiffrer les messages à destination de l'adresse email de cet ID utilisateur.";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last self-signature of a user ID will render that user ID useless. You will no longer be able to use user ID %@ in Mail.app to sign emails.";
 RevokeLastSelfSignature_Yes = "Révoquer la signature";
 RevokeLastSelfSignature_No = "Annuler";
 
 RevokeKey_Title = "Attention ! Vous êtes sur le point de révoquer une clé.";
-RevokeKey_Msg = "Vous êtes sur le point de révoquer la clé suivante :\n\n%@\n\nUne fois cette clé révoquée, il ne sera plus possible de signer et chiffrer des messages avec ette clé. La clé révoquée pourra toujours être utilisée pour déchiffrer des emails et des fichiers précédemment chiffrés avec cette clé.\n\nNous vous recommandons de ne pas la supprimer.\n\nAfin de communiquer aux autres que votre clé a été révoquée, il est nécessaire de la mettre en ligne sur les serveurs de clés.\n\nÊtes-vous sûr de vouloir révoquer cette clé ?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Téléverser la clé révoquée";
 RevokeKey_Yes = "Révoquer la clé";
 RevokeKey_No = "Annuler";
@@ -177,8 +177,8 @@ DeleteKey_Msg = "Vous êtes sur le point de supprimer la/les clé(s) publique(s)
 DeleteKey_Yes = "Supprimer la/les clé(s)";
 DeleteKey_No = "Annuler";
 
-DeleteSecKey_Title = "Attention ! Vous êtes sur le point de supprimer une/des clé(s) publique(s) et privée(s). ";
-DeleteSecKey_Msg = "Vous êtes sur le point de supprimer votre/vos clé(s) :\n%@\n\nSupprimer une clé privée a des conséquences majeures. Une fois supprimée, le déchiffrement des messages avec cette clé ne sera plus possible. Cela concerne tous les messages qui ont été chiffrés avec cette clé.\n\nNous vous recommandons de ne pas la supprimer.\n\nAfin de communiquer aux autres que votre clé n'est plus utilisée, vous devriez révoquer cette clé au lieu de la supprimer, et mettre en ligne la clé révoquée sur les serveurs de clés. Autrement, les autres pourraient continuer à utiliser cette clé pour chiffrer des messages à votre destination.";
+DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = "Oui, je souhaite supprimer ma clé privée et comprends que je ne serai\nplus en mesure de déchiffrer aucun message qui a été chiffré pour cette clé.";
 DeleteSecKey_Yes = "Supprimer la/les clé(s)";
 DeleteSecKey_SecOnly = "Supprimer la/les clé(s) privée(s) seulement";
@@ -199,26 +199,26 @@ BadKeyserver_Msg = "Le serveur de clé que vous avez saisi ne fonctionne pas.\nM
 
 /* Import warnings */
 ImportRevSig_Title = "Importer le certificat de révocation";
-ImportRevSig_Msg = "Vous êtes sur le point d'importer un certificat de révocation pour %@. Si vous révoquez votre clé, vous ne serez plus en mesure de signer des messages avec cette clé et les autres ne pourront plus vous envoyer de messages chiffrés avec cette clé. Pensez à téléverser votre clé révoquée sur le serveur de clés pour que les autres soient avertis que votre clé a été révoquée.\n\nVous pourrez continuer à utiliser votre clé révoquée pour déchiffrer les messages et fichiers qui ont été chiffrés avec elle. Pour cette raison, nous vous recommandons de conserver votre clé révoquée dans GPG Keychain.";
+ImportRevSig_Msg = "You are about to import a revocation certificate for %@. If you revoke your key, you will no longer be able to sign messages using your key and others will no longer be able to send you messages encrypted to your key. Consider uploading your revoked key to the key servers so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting emails and files that were encrypted with your key. It is recommended to keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Importer";
 ImportRevSig_No = "Annuler";
 
-ImportRandomData_Title = "Attention ! Ce contenu ne peut probablement pas être importé.";
+ImportRandomData_Title = "Warning: Content can probably not be imported.";
 ImportRandomData_Msg = "Il semblerait que vous tentiez d'importer un message qui n'est pas une clé OpenPGP.\n\nÊtes-vous sûr de vouloir importer ce contenu ?";
 ImportRandomData_Yes = "Essayer l'importation";
 ImportRandomData_No = "Annuler";
 
-ImportNonImportable_Title = "Attention ! Ce contenu ne peut probablement pas être importé.";
+ImportNonImportable_Title = "Warning: Content can probably not be imported.";
 ImportNonImportable_Msg = "Il semblerait que vous tentiez d'importer un message chiffré ou signé.\n\nCe type de message ne peut être importé dans GPG Keychain.\n\nÀ la place, pour déchiffrer ou vérifier ce type de message, merci d'utiliser GPGServices.";
 ImportNonImportable_Yes = "Essayer l'importation";
 ImportNonImportable_No = "Annuler";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "Vous avec importé avec succès la clé\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "Vous avez import avec succès les clés\n\n%@";
+IMPORT_RESULT_NEW_KEY = "You have imported the key \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "You have imported the keys \n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "Un ID utilisateur a été ajouté aux clés\n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "Une signature a été ajoutée aux clés\n\n%@";
 IMPORT_RESULT_NEW_SUBKEY = "Une sous-clé a été ajoutée aux clés\n\n%@";
 
@@ -257,14 +257,6 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 "%i of %i keys listed" = "%i clés sur %i listées";
 
 
-/* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "Cette photo est très lourde !";
-ChoosePhoto_Large_Info = "Vous devriez utiliser une plus petite photo.\nNous recommandons un poids de moins de 15 Ko.";
-ChoosePhoto_Large_Button1 = "Choisissez un(e) autre…";
-ChoosePhoto_Large_Button2 = "Utiliser cette photo";
-ChoosePhoto_TooLarge_Message = "Votre photo est trop lourde !";
-ChoosePhoto_TooLarge_Info = "Merci d'utiliser une photo de moins de 500 Ko.\nNous recommandons un poids de moins de 15 Ko.";
-
 
 
 
@@ -295,65 +287,66 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Export de la clé.";
+ExportKey_Progress = "Exporting key…";
 ExportKey_Error = "L'export de la clé a échoué.";
-ImportKey_Progress  = "Import de la clé.";
-DeleteSecretKey_Progress = "Effacement de la clé secrète.";
-DeleteKeys_Progress = "Effacement de la clé.";
+ImportKey_Progress  = "Importing key…";
+DeleteSecretKey_Progress = "Deleting secret key…";
+DeleteKeys_Progress = "Deleting key…";
 DeleteKeys_Error = "L'effacement de la clé a échoué.";
-ChangePassphrase_Progress = "Changement de la phrase secrète.";
-ChangePassphrase_Error = "Le changement de la phrase secrète a échoué.";
-SetDisabled_Progress = "Activation/désactivation de la clé.";
+ChangePassphrase_Progress = "Changing password…";
+ChangePassphrase_Error = "Changing password failed.";
+SetDisabled_Progress = "Enabling/Disabling key…";
 SetDisabled_Error = "Activation/désactivation de la clé a échoué.";
-SetOwnerTrust_Progress = "Paramètrage de la confiance du propriétaire.";
+SetOwnerTrust_Progress = "Setting owner trust…";
 SetOwnerTrust_Error = "Paramètrage de la confiance du propriétaire a échoué.";
-ChangeExpirationDate_Progress = "Changement de la date d'expiration.";
+ChangeExpirationDate_Progress = "Changing expiration date…";
 ChangeExpirationDate_Error = "La modification de la date d'expiration a échouée.";
-SetAlgorithmPreferences_Progress = "Paramètrage des préférences de l'algorithme.";
+SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
 SetAlgorithmPreferences_Error = "Paramètrage des préférences de l'algorithme a échoué.";
-CleanKey_Progress = "Nettoyage de la clé.";
+CleanKey_Progress = "Cleaning key…";
 CleanKey_Error = "Nettoyage de la clé a échoué.";
-MinimizeKey_Progress = "Minimisation de la clé.";
+MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Minimisation de la clé a échoué.";
-GenerateRevokeCertificateForKey_Progress = "Génération du certificat de révocation.";
+GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate…";
 GenerateRevokeCertificateForKey_Error = "Génération du certificat de révocation a échoué.";
-SearchKeysOnServer_Progress = "Recherche de la clé.";
+SearchKeysOnServer_Progress = "Searching for key…";
 SearchKeysOnServer_Error = "Recherche de la clé a échouée.";
-SendKeysToServer_Progress = "Envoi de %@ au serveur.";
+SendKeysToServer_Progress = "Sending %@ to server…";
 SendKeysToServer_Error = "Envoi de la clé a échoué.";
-RefreshKeysFromServer_Progress = "Rafraichissement de %@ depuis le serveur.";
+RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
 RefreshKeysFromServer_Error = "Rafraichissement de la clé a échoué.";
-AddSubkey_Progress = "Ajout de la sous-clé.";
+AddSubkey_Progress = "Adding subkey…";
 AddSubkey_Error = "Ajout de la sous-clé a échoué.";
-RemoveSubkey_Progress = "Suppression de la sous-clé.";
+RemoveSubkey_Progress = "Removing subkey…";
 RemoveSubkey_Error = "Suppression de la sous-clé a échoué.";
-RevokeSubkey_Progress = "Révocation de la sous-clé.";
+RevokeSubkey_Progress = "Revoking subkey…";
 RevokeSubkey_Error = "Révocation de la sous-clé a échoué.";
-AddUserID_Progress = "Ajout de l'ID utilisateur.";
-AddUserID_Error = "Ajout de l'ID utilisateur a échoué.";
-RemoveUserID_Progress = "Suppression de l'ID utilisateur.";
-RemoveUserID_Error = "Suppression de l'ID utilisateur a échoué.";
-SetPrimaryUserID_Progress = "Désignation de l'ID utilisateur primaire.";
-SetPrimaryUserID_Error = "Désignation de l'ID utilisateur primaire a échoué.";
-RevokeUserID_Progress = "Révocation de l'ID utilisateur.";
-RevokeUserID_Error = "Révocation de l'ID utilisateur a échoué.";
-AddPhoto_Progress = "Ajout de la photo.";
+AddUserID_Progress = "Adding user ID…";
+AddUserID_Error = "Adding user ID failed.";
+RemoveUserID_Progress = "Removing user ID…";
+RemoveUserID_Error = "Removing user ID failed.";
+SetPrimaryUserID_Progress = "Setting primary user ID…";
+SetPrimaryUserID_Error = "Setting primary user ID failed.";
+RevokeUserID_Progress = "Revoking user ID…";
+RevokeUserID_Error = "Revoking user ID failed.";
+AddPhoto_Progress = "Adding photo…";
 AddPhoto_Error = "L'ajout de la photo a échoué.";
-RemovePhoto_Progress = "Suppression de la photo.";
+AddPhoto_SelectMessage = "Choose photo…";
+RemovePhoto_Progress = "Removing photo…";
 RemovePhoto_Error = "La suppression de la photo a échoué.";
-SetPrimaryPhoto_Progress = "Paramétrage de la photo principale.";
+SetPrimaryPhoto_Progress = "Setting primary photo…";
 SetPrimaryPhoto_Error = "Le paramétrage de la photo primaire a échoué.";
-RevokePhoto_Progress = "Révocation de la photo.";
+RevokePhoto_Progress = "Revoking photo…";
 RevokePhoto_Error = "La révocation de la photo a échoué.";
-AddSignature_Progress = "Ajout de la signature.";
-AddSignature_Error = "L'ajout de la signature a échoué.";
-RemoveSignature_Progress = "Suppression de la signature.";
+AddSignature_Progress = "Signing…";
+AddSignature_Error = "Signing failed.";
+RemoveSignature_Progress = "Removing signature…";
 RemoveSignature_Error = "La suppression de la signature a échoué.";
-RevokeSignature_Progress = "Révocation de la signature.";
+RevokeSignature_Progress = "Revoking signature…";
 RevokeSignature_Error = " La révocation de la signature a échoué.";
-ReceiveKeysFromServer_Progress = "Réception des clés.";
+ReceiveKeysFromServer_Progress = "Receiving keys…";
 ReceiveKeysFromServer_Error = "La réception des clés a échoué.";
-RevokeKey_Progress = "Révocation de la clé.";
+RevokeKey_Progress = "Revoking key…";
 RevokeKey_Error = "La révocation de la clé a échoué.";
 
 

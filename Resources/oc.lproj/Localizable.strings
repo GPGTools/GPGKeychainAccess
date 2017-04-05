@@ -29,20 +29,20 @@ ExportKeysFilename = "%@ %u claus OpenPGP";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Pas de frasa secreta";
-CheckAlert_NoPassphrase_Message = "You have entered no passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Button1= "Contunhar sens frasa secreta";
-CheckAlert_NoPassphrase_Button2 = "Sasir una novèla frasa secreta";
-CheckAlert_PassphraseShort_Title = "Frasa secreta tròp corta";
-CheckAlert_PassphraseShort_Message = "You have entered a short passphrase. This is not recommended. A passphrase should be at least 8 characters long.";
-CheckAlert_PassphraseShort_Button1= "Contunhar amb frasa secreta tròp corta";
-CheckAlert_PassphraseShort_Button2 = "Sasir una novèla frasa secreta";
-CheckAlert_PassphraseSimple_Title = "Frasa secreta tròp simpla";
-CheckAlert_PassphraseSimple_Message = "The passphrase you have entered is too simple. A good passphrase should be alphanumeric and contain at least one special character.";
-CheckAlert_PassphraseSimple_Button1 = "Contunhar amb frasa secreta tròp simpla";
-CheckAlert_PassphraseSimple_Button2 = "Sasir una novèla frasa secreta";
-CheckAlert_PassphraseToLong_Title = "Frasa secreta tròp longa";
-CheckAlert_PassphraseToLong_Message = "The passphrase you have entered is too long. Enter a passphrase with less than 300 characters.";
+CheckAlert_NoPassphrase_Title = "No password";
+CheckAlert_NoPassphrase_Message = "You have entered no password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Button1= "Continue without a password";
+CheckAlert_NoPassphrase_Button2 = "Enter new password";
+CheckAlert_PassphraseShort_Title = "Short password";
+CheckAlert_PassphraseShort_Message = "You have entered a short password. This is not recommended. A password should at least be 8 characters long.";
+CheckAlert_PassphraseShort_Button1= "Continue with short password";
+CheckAlert_PassphraseShort_Button2 = "Enter new password";
+CheckAlert_PassphraseSimple_Title = "Simple password";
+CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
+CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
+CheckAlert_PassphraseSimple_Button2 = "Enter new password";
+CheckAlert_PassphraseToLong_Title = "Password too long";
+CheckAlert_PassphraseToLong_Message = "The password you have entered is too long. Enter a password with less than 300 characters.";
 
 
 MoveSecring_Msg = "Vòstras claus privadas son emmagazinadas sus \"%@\".\nPer desplaçar vòstras claus privadas sus un autre volum, seleccionatz-lo çaijós.";
@@ -55,9 +55,9 @@ SearchingKeys_Msg = "Recercam la(s) clau(s) correspondenta(s) sul servidor de cl
 
 GenerateKey_Progress = "Nos cal generar una granda quantitat d'octets aleatòris. Es utile de far d'accions (picar al clavièr, desplaçar la mirga, utilizar lo disc dur) pendent la generacion iniciala. Aquò permet al generador de nombre aleatòri de beneficiar d'una mehora entropia.";
 GenerateSubkey_Msg = "Apondre sosclau a la clau \"%@\", %@.";
-GenerateUserID_Msg = "Apondre l'ID utilizaire a la clau \"%@\", %@.";
+GenerateUserID_Msg = "Add user ID to the Key \"%@\", %@.";
 GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
-GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
+GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
 ChangeExpirationDate_Msg = "Change expiration date of \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubkey: %1$@";
 
@@ -73,7 +73,7 @@ CheckError_EmailToLong = "Adreça email tròp longa !\nLa longor maximala es de 
 CheckError_InvalidCharInComment = "Caractèr invalid dins comentari !\n\"(\" e \")\" pas permés.";
 CheckError_CommentToLong = "Comentari tròp long !";
 CheckError_NoKeyID = "Mercé d'entrar un identificant de clau valida !";
-CheckError_PassphraseMissmatch = "Vòstres senhals correspondon pas !";
+CheckError_PassphraseMissmatch = "Your passwords did not match!";
 
 
 /* Message on start, if there are any Problems */
@@ -119,23 +119,23 @@ Cancel = "Anullar";
 
 
 /* Warnings */
-RemoveUserID_Title = "Suprimir l'ID utilizaire";
-RemoveUserID_Msg = "Sètz a suprimir l'ID utilizaire %@ de vòstra clau %@. Se suprimissètz aqueste ID utilizaire, seretz pas mai en mesura d'utilizar aquesta clau amb lo compte mail associat dins Mail.app.\n\nSe la clau amb aqueste ID utilizaire es estada mandada suls servidors de claus, suprimir l'ID utilizaire va pas suprimir l'ID utilizaire de las claus sul servidor de claus. A la plaça, revocatz l'ID utilizaire en question e mandatz la clau mesa a jorn.";
-RemoveUserID_Yes = "Suprimir l'ID utilizaire";
+RemoveUserID_Title = "Remove user ID";
+RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove user ID";
 RemoveUserID_No = "Anullar";
 
-RevokeUserID_Title = "Revocar l'ID utilizaire";
-RevokeUserID_Msg = "Sètz a revocar l'ID utilizaire %@ de vòstra clau %@. Se revocatz aqueste ID utilizaire, seretz pas mai en mesura d'utilizar aquesta clau amb lo compte mail associat dins Mail.app.\n\nSe la clau amb aqueste ID utilizaire es estada mandada suls servidors de claus, asseguratz-vos de mandar la clau mesa a jorn. Es sonque a partir d'aqueste moment que lo servidor de claus reflectarà l'ID utilizaire revocat.";
-RevokeUserID_Yes = "Revocar l'ID utilizaire";
+RevokeUserID_Title = "Revoke user ID";
+RevokeUserID_Msg = "You are about to revoke user ID %@ from your key %@. If you revoke this user ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this user ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked user ID.";
+RevokeUserID_Yes = "Revoke user ID";
 RevokeUserID_No = "Anullar";
 
 RemoveSubkey_Title = "Suprimir la sosclau";
-RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the keyserver.";
 RemoveSubkey_Yes = "Suprimir la sosclau";
 RemoveSubkey_No = "Anullar";
 
 RevokeSubkey_Title = "Revocar la sosclau";
-RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
+RevokeSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nIn case this key has been uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will show the revoked subkey.";
 RevokeSubkey_Yes = "Revocar la sosclau";
 RevokeSubkey_No = "Anullar";
 
@@ -145,22 +145,22 @@ RevokeSignature_Yes = "Revocar la signatura";
 RevokeSignature_No = "Anullar";
 
 RemoveSignature_Title = "Suprimir la signatura";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
 RemoveSignature_Yes = "Suprimir la signatura";
 RemoveSignature_No = "Anullar";
 
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
-RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
+RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Suprimir la signatura";
 RemoveLastSelfSignature_No = "Anullar";
 
 RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
-RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last self-signature of a user ID will render that user ID useless. You will no longer be able to use user ID %@ in Mail.app to sign emails.";
 RevokeLastSelfSignature_Yes = "Revocar la signatura";
 RevokeLastSelfSignature_No = "Anullar";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Mandar la clau revocada";
 RevokeKey_Yes = "Revocar la clau";
 RevokeKey_No = "Anullar";
@@ -177,8 +177,8 @@ DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nA
 DeleteKey_Yes = "Delete key(s)";
 DeleteKey_No = "Anullar";
 
-DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
-DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Delete key(s)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
@@ -199,26 +199,26 @@ BadKeyserver_Msg = "The key server you have entered is not working.\nPlease chec
 
 /* Import warnings */
 ImportRevSig_Title = "Importar lo certificat de revocacion";
-ImportRevSig_Msg = "Sètz a mand d'importar un certificat de revocacion per %@. Se revocatz vòstra clau, seretz pas mai en mesura de signer des messatges amb aquesta clau e los autres vos poiràn pas mai mandar de messatges chifrats amb aquesta clau. Pensatz a mandar vòstra clau revocada sul servidor de claus per que los autres sián avertis que vòstra clau es estada revocada.\n\nPoiretz contunhar d'utilizar vòstra clau revocada per deschifrar los messatges e fichièrs que son estats chifrats amb ela. Per aquesta rason, vos recomandam de conservar vòstra clau revocada dins GPG Keychain.";
+ImportRevSig_Msg = "You are about to import a revocation certificate for %@. If you revoke your key, you will no longer be able to sign messages using your key and others will no longer be able to send you messages encrypted to your key. Consider uploading your revoked key to the key servers so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting emails and files that were encrypted with your key. It is recommended to keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Importar";
 ImportRevSig_No = "Anullar";
 
-ImportRandomData_Title = "Atencion ! Aqueste contengut pòt probablement pas èsser importat.";
+ImportRandomData_Title = "Warning: Content can probably not be imported.";
 ImportRandomData_Msg = "Sembla qu'ensajatz d'importar un messatge qu'es pas una clau OpenPGP.\n\nSètz segur que volètz importar aqueste contengut ?";
 ImportRandomData_Yes = "Ensajar l'importacion";
 ImportRandomData_No = "Anullar";
 
-ImportNonImportable_Title = "Atencion ! Aqueste contengut pòt probablament pas èsser importat.";
+ImportNonImportable_Title = "Warning: Content can probably not be imported.";
 ImportNonImportable_Msg = "Sembla qu'ensajatz d'importar un messatge chifrat o signat.\n\nCe type de messatge pòt pas èsser importat dins GPG Keychain.\n\nÀ la place, per deschifrar o verificar ce type de messatge, mercé d'utilizar GPGServicis.";
 ImportNonImportable_Yes = "Ensajar l'importacion";
 ImportNonImportable_No = "Anullar";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
-IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
+IMPORT_RESULT_NEW_KEY = "You have imported the key \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "You have imported the keys \n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
 
@@ -257,14 +257,6 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 "%i of %i keys listed" = "%i claus sus %i listadas";
 
 
-/* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "Aquesta fòto es tròp pesuga !";
-ChoosePhoto_Large_Info = "Vos caldriá utilizar una fòto mai pichona.\nRecomandam un pes de mens de 15 Ko.";
-ChoosePhoto_Large_Button1 = "Causissètz un(a) autre(a)…";
-ChoosePhoto_Large_Button2 = "Utilizatz aquesta fòto";
-ChoosePhoto_TooLarge_Message = "Vòstra  fòto es tròp pesuga !";
-ChoosePhoto_TooLarge_Info = "Mercé d'utilizar una fòto de mens de 500 Ko.\nRecomandam un pes de mens de 15 Ko.";
-
 
 
 
@@ -295,65 +287,66 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Exportacion clau.";
+ExportKey_Progress = "Exporting key…";
 ExportKey_Error = "L'exportacion de la clau a fracassat.";
-ImportKey_Progress  = "Importacion clau.";
-DeleteSecretKey_Progress = "Escafament de la clau secreta.";
-DeleteKeys_Progress = "Escafament de la clau.";
+ImportKey_Progress  = "Importing key…";
+DeleteSecretKey_Progress = "Deleting secret key…";
+DeleteKeys_Progress = "Deleting key…";
 DeleteKeys_Error = "L'escafament de la clau a fracassat.";
-ChangePassphrase_Progress = "Cambiament de la frasa secreta.";
-ChangePassphrase_Error = "Lo cambiament de la frasa secreta a fracassat.";
-SetDisabled_Progress = "Activacion/desactivacion de la clau.";
+ChangePassphrase_Progress = "Changing password…";
+ChangePassphrase_Error = "Changing password failed.";
+SetDisabled_Progress = "Enabling/Disabling key…";
 SetDisabled_Error = "Activacion/desactivacion de la clau a fracassat.";
-SetOwnerTrust_Progress = "Parametratge de la fisança del proprietari.";
+SetOwnerTrust_Progress = "Setting owner trust…";
 SetOwnerTrust_Error = "Parametratge de la fisança del proprietari a fracassat.";
-ChangeExpirationDate_Progress = "Cambiament de la data d'expiracion.";
+ChangeExpirationDate_Progress = "Changing expiration date…";
 ChangeExpirationDate_Error = "Changing expiration date failed.";
-SetAlgorithmPreferences_Progress = "Parametratge de las preferéncias de l'algoritme.";
+SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
 SetAlgorithmPreferences_Error = "Parametratge de las preferéncias de l'algoritme a fracassat.";
-CleanKey_Progress = "Netejatge de la clau.";
+CleanKey_Progress = "Cleaning key…";
 CleanKey_Error = "Netejatge de la clau a fracassat.";
-MinimizeKey_Progress = "Minimizacion de la clau.";
+MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Minimizacion de la clau a fracassat.";
-GenerateRevokeCertificateForKey_Progress = "Generacion del certificat de revocacion.";
+GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate…";
 GenerateRevokeCertificateForKey_Error = "Generacion del certificat de revocacion a fracassat.";
-SearchKeysOnServer_Progress = "Recèrca de la clau.";
+SearchKeysOnServer_Progress = "Searching for key…";
 SearchKeysOnServer_Error = "Recèrca de la clau a fracassat.";
-SendKeysToServer_Progress = "Mandadís de %@ al servidor.";
+SendKeysToServer_Progress = "Sending %@ to server…";
 SendKeysToServer_Error = "Mandadís de la clau a fracassat.";
-RefreshKeysFromServer_Progress = "Refrescament de %@ dempuèi lo servidor.";
+RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
 RefreshKeysFromServer_Error = "Refrescament de la clau a fracassat.";
-AddSubkey_Progress = "Apondon de la sosclau.";
+AddSubkey_Progress = "Adding subkey…";
 AddSubkey_Error = "Apondon de la sosclau a fracassat.";
-RemoveSubkey_Progress = "Supression de la sosclau.";
+RemoveSubkey_Progress = "Removing subkey…";
 RemoveSubkey_Error = "Supression de la sosclau a fracassat.";
-RevokeSubkey_Progress = "Revocacion de la sosclau.";
+RevokeSubkey_Progress = "Revoking subkey…";
 RevokeSubkey_Error = "Revocacion de la sosclau a fracassat.";
-AddUserID_Progress = "Apondon de l'ID utilizaire.";
-AddUserID_Error = "Apondon de l'ID utilizaire a fracassat.";
-RemoveUserID_Progress = "Supression de l'ID utilizaire.";
-RemoveUserID_Error = "Supression de l'ID utilizaire a fracassat.";
-SetPrimaryUserID_Progress = "Designacion de l'ID utilizaire primaire.";
-SetPrimaryUserID_Error = "Designacion de l'ID utilizaire primaire a fracassat.";
-RevokeUserID_Progress = "Revocacion de l'ID utilizaire.";
-RevokeUserID_Error = "Revocacion de l'ID utilizaire a fracassat.";
-AddPhoto_Progress = "Apondon de la fòto.";
+AddUserID_Progress = "Adding user ID…";
+AddUserID_Error = "Adding user ID failed.";
+RemoveUserID_Progress = "Removing user ID…";
+RemoveUserID_Error = "Removing user ID failed.";
+SetPrimaryUserID_Progress = "Setting primary user ID…";
+SetPrimaryUserID_Error = "Setting primary user ID failed.";
+RevokeUserID_Progress = "Revoking user ID…";
+RevokeUserID_Error = "Revoking user ID failed.";
+AddPhoto_Progress = "Adding photo…";
 AddPhoto_Error = "L'apondon de la fòto a fracassat.";
-RemovePhoto_Progress = "Supression de la fòto.";
+AddPhoto_SelectMessage = "Choose photo…";
+RemovePhoto_Progress = "Removing photo…";
 RemovePhoto_Error = "La supression de la fòto a fracassat.";
-SetPrimaryPhoto_Progress = "Parametratge de la fòto principala.";
+SetPrimaryPhoto_Progress = "Setting primary photo…";
 SetPrimaryPhoto_Error = "Setting primary photo failed.";
-RevokePhoto_Progress = "Revocacion de la fòto.";
+RevokePhoto_Progress = "Revoking photo…";
 RevokePhoto_Error = "Fracàs de la revocacion de la fòto.";
-AddSignature_Progress = "Apondon de la signatura.";
-AddSignature_Error = "Adding Signature failed.";
-RemoveSignature_Progress = "Removing signature.";
+AddSignature_Progress = "Signing…";
+AddSignature_Error = "Signing failed.";
+RemoveSignature_Progress = "Removing signature…";
 RemoveSignature_Error = "Removing signature failed.";
-RevokeSignature_Progress = "Revocacion de la signatura.";
+RevokeSignature_Progress = "Revoking signature…";
 RevokeSignature_Error = "Fracàs de la revocacion de la signatura.";
-ReceiveKeysFromServer_Progress = "Recepcion de las claus.";
+ReceiveKeysFromServer_Progress = "Receiving keys…";
 ReceiveKeysFromServer_Error = "Recepcion de las claus a fracassat.";
-RevokeKey_Progress = "Revocacion de la clau.";
+RevokeKey_Progress = "Revoking key…";
 RevokeKey_Error = "Revocacion de la clau a fracassat.";
 
 

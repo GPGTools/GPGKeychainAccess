@@ -29,20 +29,20 @@ ExportKeysFilename = "%@ %u OpenPGP Keys";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Nici-o Parolă";
-CheckAlert_NoPassphrase_Message = "Nu aţi introdus nici-o parolă. Aceast lucru nu se recomandă. O parolă ar trebui să aibă cel puţin 8 caractere.";
-CheckAlert_NoPassphrase_Button1= "Continuaţi fără o parolă";
-CheckAlert_NoPassphrase_Button2 = "Introduceţi o nouă parolă";
-CheckAlert_PassphraseShort_Title = "Parolă Scurtă";
-CheckAlert_PassphraseShort_Message = "Aţi introdus o parolă scurtă. Acest lucru nu este recomandat. O parolă trebuie să conţină cel puţin 8 caractere.";
-CheckAlert_PassphraseShort_Button1= "Continuaţi cu parola scurtă";
-CheckAlert_PassphraseShort_Button2 = "Introduceţi o nouă parolă";
-CheckAlert_PassphraseSimple_Title = "Parolă Simplă";
-CheckAlert_PassphraseSimple_Message = "Aţi introdus o parolă prea simplă. O parolă bună, ar trebui să fie de formă alfa-numerică, şi să conţină cel puţin un caracter special.";
-CheckAlert_PassphraseSimple_Button1 = "Continuaţi cu parola simplă";
-CheckAlert_PassphraseSimple_Button2 = "Introduceţi o parolă";
-CheckAlert_PassphraseToLong_Title = "Parola este prea lungă";
-CheckAlert_PassphraseToLong_Message = "Parola introdusă este prea lungă. Introduceți o parolă de maxim 300 de caractere.";
+CheckAlert_NoPassphrase_Title = "No password";
+CheckAlert_NoPassphrase_Message = "You have entered no password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Button1= "Continue without a password";
+CheckAlert_NoPassphrase_Button2 = "Enter new password";
+CheckAlert_PassphraseShort_Title = "Short password";
+CheckAlert_PassphraseShort_Message = "You have entered a short password. This is not recommended. A password should at least be 8 characters long.";
+CheckAlert_PassphraseShort_Button1= "Continue with short password";
+CheckAlert_PassphraseShort_Button2 = "Enter new password";
+CheckAlert_PassphraseSimple_Title = "Simple password";
+CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
+CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
+CheckAlert_PassphraseSimple_Button2 = "Enter new password";
+CheckAlert_PassphraseToLong_Title = "Password too long";
+CheckAlert_PassphraseToLong_Message = "The password you have entered is too long. Enter a password with less than 300 characters.";
 
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
@@ -55,9 +55,9 @@ SearchingKeys_Msg = "Căutăm cheia(le) potrivită(e) pe serverul de chei. Ar pu
 
 GenerateKey_Progress = "Trebuie să generăm o multitudine de biți aleatori. Ar fi o idee bună să vă ocupați de o altă acțiune (tastarea într-o aplicație, mișcarea mouse-ului, folosirea unităților drive) în timpul generării fundamentale. Aceasta oferă generatorului de număr aleator, o șansă mai bună pentru a dobândi destulă entropie. ";
 GenerateSubkey_Msg = "Adăugați o sub-cheie, Cheii \"%@\", %@.";
-GenerateUserID_Msg = "Add User ID to the Key \"%@\", %@.";
+GenerateUserID_Msg = "Add user ID to the Key \"%@\", %@.";
 GenerateSignature_Msg = "Semnarea cheii înseamnă că, confirmați faptul că deținătorul cheii este întradevăr cine susține că este.\nOdată încărcate, semnăturile pot fi vizualizate de către alții.\nDeci dacă semnați ca și Cheia lui Bob, și prietena dvs. Alice nu știe sigur dacă Bob este chiar Bob, Alice vă va vedea semnătura dvs. în Cheia lui Bob, și din moment ce Alice știe că, cheia dvs. este de încredere, cunoaște faptul că Bob, cel mai probabil este întradevăr Bob.\n\nSunteți pe cale să semnați următoarea cheie:\n%@";
-GenerateUidSignature_Msg = "Signing a User ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following User ID:\n%@";
+GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
 ChangeExpirationDate_Msg = "Schimbați data expirării a \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubkey: %1$@";
 
@@ -73,7 +73,7 @@ CheckError_EmailToLong = "Adresa de email este prea lungă!\nLungimea max este 2
 CheckError_InvalidCharInComment = "Caracter invalid în comentariu!\n\"<\" și \">\" nu este permis.";
 CheckError_CommentToLong = "Comentariul este prea lung!";
 CheckError_NoKeyID = "Vă rugăm să introduceți un ID valid pentru cheie!";
-CheckError_PassphraseMissmatch = "Parolele nu coincid!";
+CheckError_PassphraseMissmatch = "Your passwords did not match!";
 
 
 /* Message on start, if there are any Problems */
@@ -119,23 +119,23 @@ Cancel = "Anulare";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove User ID";
-RemoveUserID_Msg = "You are about to remove User ID %@ from your key %@. If you remove this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, removing the User ID will not remove the User ID from the key on the key servers. Please instead revoke the User ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove User ID";
+RemoveUserID_Title = "Remove user ID";
+RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove user ID";
 RemoveUserID_No = "Anulare";
 
-RevokeUserID_Title = "Revoke User ID";
-RevokeUserID_Msg = "You are about to revoke User ID %@ from your key %@. If you revoke this User ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this User ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked User ID.";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Title = "Revoke user ID";
+RevokeUserID_Msg = "You are about to revoke user ID %@ from your key %@. If you revoke this user ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this user ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked user ID.";
+RevokeUserID_Yes = "Revoke user ID";
 RevokeUserID_No = "Anulare";
 
 RemoveSubkey_Title = "Eliminare Sub-cheie";
-RemoveSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRemoving a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, removing the Subkey will not remove the Subkey from the key on the key servers. In that case, please instead revoke the Subkey in question and upload the updated key.";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the keyserver.";
 RemoveSubkey_Yes = "Eliminare Sub-cheie";
 RemoveSubkey_No = "Anulare";
 
 RevokeSubkey_Title = "Revocare Sub-cheie";
-RevokeSubkey_Msg = "Caution! Please only proceed if you really know what you are doing.\n\nRevoking a Subkey can destroy all signing and decrypting capabilities.\n\nIf the key with this Subkey was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked Subkey.";
+RevokeSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nIn case this key has been uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will show the revoked subkey.";
 RevokeSubkey_Yes = "Revocare Sub-cheie";
 RevokeSubkey_No = "Anulare";
 
@@ -145,22 +145,22 @@ RevokeSignature_Yes = "Revocare Semnătură";
 RevokeSignature_No = "Anulare";
 
 RemoveSignature_Title = "Eliminare Semnătură";
-RemoveSignature_Msg = "Are you sure you want to remove this Signature? Removing a Signature will only remove the Signature locally. It will not and can not be removed from the key on the key servers. Please instead Revoke your signature if you want to mark it as invalid.";
+RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
 RemoveSignature_Yes = "Eliminare Semnătură";
 RemoveSignature_No = "Anulare";
 
 RemoveLastSelfSignature_Title = "Eliminare ultima Auto-Semnătură";
-RemoveLastSelfSignature_Msg = "Sunteți pe cale să eliminați ultima Auto-Semnătură a ID-ului de Utilizator %@. Vă rugăm să continuați doar dacă știți exact ceea ce faceți.\n\nAceastă semnătură asigură faptul că adresa de email, numele și descrierea unui ID-Utilizator, pot fi modificate numai de către deținătorul ei.\n\nDacă această semnătură lipsește, cineva ar putea modifica aceste informații și nu se va putea ști ce s-a întâmplat.";
+RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Eliminare Semnătură";
 RemoveLastSelfSignature_No = "Anulare";
 
 RevokeLastSelfSignature_Title = "Revocare ultima Auto-Semnătură";
-RevokeLastSelfSignature_Msg = "Sunteți pe cale să revocați ultima Auto-Semnătură a ID-ului de Utilizator %@. Vă rugăm să continuați doar dacă știți exact ceea ce faceți.\n\nRevocând ultima Auto-Semnătură a unui ID-Utilizator, se va transpune în inutilitatea acelui ID-Utilizator. Nu veți mai putea utiliza ID-ul de Utilizator %@ în Mail.app sau la semnarea mail-urilor. Alții nu vor mai putea să cripteze către adresa de email a acestui ID-Utilizator. ";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last self-signature of a user ID will render that user ID useless. You will no longer be able to use user ID %@ in Mail.app to sign emails.";
 RevokeLastSelfSignature_Yes = "Revocare Semnătură";
 RevokeLastSelfSignature_No = "Anulare";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Upload revoked key";
 RevokeKey_Yes = "Revocare Cheie";
 RevokeKey_No = "Anulare";
@@ -177,8 +177,8 @@ DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nA
 DeleteKey_Yes = "Delete key(s)";
 DeleteKey_No = "Anulare";
 
-DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
-DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Delete key(s)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
@@ -199,26 +199,26 @@ BadKeyserver_Msg = "The key server you have entered is not working.\nPlease chec
 
 /* Import warnings */
 ImportRevSig_Title = "Importare certificate de revocare";
-ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
+ImportRevSig_Msg = "You are about to import a revocation certificate for %@. If you revoke your key, you will no longer be able to sign messages using your key and others will no longer be able to send you messages encrypted to your key. Consider uploading your revoked key to the key servers so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting emails and files that were encrypted with your key. It is recommended to keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Importare";
 ImportRevSig_No = "Anulare";
 
-ImportRandomData_Title = "Atenție! Conținutul, probabil nu va putea fi importat.";
+ImportRandomData_Title = "Warning: Content can probably not be imported.";
 ImportRandomData_Msg = "Se pare că încercați să importați un mesaj ce nu este o cheie OpenPGP.\n\nSunteți sigur că doriți să încercați importarea acestui conținut?";
 ImportRandomData_Yes = "Încearcă Importarea";
 ImportRandomData_No = "Anulare";
 
-ImportNonImportable_Title = "Atenție! Conținutul, probabil nu va putea fi importat.";
+ImportNonImportable_Title = "Warning: Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Încearcă Importarea";
 ImportNonImportable_No = "Anulare";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
-IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
+IMPORT_RESULT_NEW_KEY = "You have imported the key \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "You have imported the keys \n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
 
@@ -257,14 +257,6 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 "%i of %i keys listed" = "%i din %i chei listate";
 
 
-/* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "This photo is really large!";
-ChoosePhoto_Large_Info = "You should use a smaller photo.\nWe recommend a size of less than 15 KB.";
-ChoosePhoto_Large_Button1 = "Alegeți alta...";
-ChoosePhoto_Large_Button2 = "Utilizez această imagine";
-ChoosePhoto_TooLarge_Message = "Your photo is too large!";
-ChoosePhoto_TooLarge_Info = "Please use a photo smaller than 500 KB.\nWe recommend a size of less than 15 KB.";
-
 
 
 
@@ -295,65 +287,66 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Exportare cheie.";
+ExportKey_Progress = "Exporting key…";
 ExportKey_Error = "Exportarea cheii a eșuat.";
-ImportKey_Progress  = "Importare cheie.";
-DeleteSecretKey_Progress = "Se șterge cheia secretă.";
-DeleteKeys_Progress = "Ștergere cheie";
+ImportKey_Progress  = "Importing key…";
+DeleteSecretKey_Progress = "Deleting secret key…";
+DeleteKeys_Progress = "Deleting key…";
 DeleteKeys_Error = "Ștergerea cheii a eșuat.";
-ChangePassphrase_Progress = "Schimbare Parolă.";
-ChangePassphrase_Error = "Schimbarea parolei a eșuat.";
-SetDisabled_Progress = "Activare/Dezactivare cheie.";
+ChangePassphrase_Progress = "Changing password…";
+ChangePassphrase_Error = "Changing password failed.";
+SetDisabled_Progress = "Enabling/Disabling key…";
 SetDisabled_Error = "Activarea/Dezactivarea cheii a eșuat.";
-SetOwnerTrust_Progress = "Stabilirea încrederii deținătorului.";
+SetOwnerTrust_Progress = "Setting owner trust…";
 SetOwnerTrust_Error = "Stabilirea încrederii deținătorului a eșuat.";
-ChangeExpirationDate_Progress = "Schimbarea datei de expirare.";
+ChangeExpirationDate_Progress = "Changing expiration date…";
 ChangeExpirationDate_Error = "Schimbarea datei de expirare a eșuat.";
-SetAlgorithmPreferences_Progress = "Stabilirea preferințelor de algoritm.";
+SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
 SetAlgorithmPreferences_Error = "Stabilirea preferințelor de algoritm a eșuat.";
-CleanKey_Progress = "Curățare cheie.";
+CleanKey_Progress = "Cleaning key…";
 CleanKey_Error = "Curățarea cheii a eșuat.";
-MinimizeKey_Progress = "Minimalizare cheie.";
+MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Minimalizarea cheii a eșuat.";
-GenerateRevokeCertificateForKey_Progress = "Generare certificate de revocare.";
+GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate…";
 GenerateRevokeCertificateForKey_Error = "Generarea certificatului de revocare a eșuat.";
-SearchKeysOnServer_Progress = "Căutare cheie.";
+SearchKeysOnServer_Progress = "Searching for key…";
 SearchKeysOnServer_Error = "Căutarea cheii a eșuat.";
-SendKeysToServer_Progress = "Trimitere %@ către server.";
+SendKeysToServer_Progress = "Sending %@ to server…";
 SendKeysToServer_Error = "Trimiterea cheii a eșuat.";
-RefreshKeysFromServer_Progress = "Actualizare %@ din server.";
+RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
 RefreshKeysFromServer_Error = "Actualizarea cheii a eșuat.";
-AddSubkey_Progress = "Adăugare sub-cheie.";
+AddSubkey_Progress = "Adding subkey…";
 AddSubkey_Error = "Adăugarea cheii a eșuat.";
-RemoveSubkey_Progress = "Eliminare sub-cheie.";
+RemoveSubkey_Progress = "Removing subkey…";
 RemoveSubkey_Error = "Eliminarea sub-cheii a eșuat.";
-RevokeSubkey_Progress = "Revocare sub-cheie.";
+RevokeSubkey_Progress = "Revoking subkey…";
 RevokeSubkey_Error = "Revocarea sub-cheii a eșuat.";
-AddUserID_Progress = "Adding User ID.";
-AddUserID_Error = "Adding User ID failed.";
-RemoveUserID_Progress = "Removing User ID.";
-RemoveUserID_Error = "Removing User ID failed.";
-SetPrimaryUserID_Progress = "Setting primary User ID.";
-SetPrimaryUserID_Error = "Setting primary User ID failed.";
-RevokeUserID_Progress = "Revoking User ID.";
-RevokeUserID_Error = "Revoking User ID failed.";
-AddPhoto_Progress = "Adăugare foto.";
+AddUserID_Progress = "Adding user ID…";
+AddUserID_Error = "Adding user ID failed.";
+RemoveUserID_Progress = "Removing user ID…";
+RemoveUserID_Error = "Removing user ID failed.";
+SetPrimaryUserID_Progress = "Setting primary user ID…";
+SetPrimaryUserID_Error = "Setting primary user ID failed.";
+RevokeUserID_Progress = "Revoking user ID…";
+RevokeUserID_Error = "Revoking user ID failed.";
+AddPhoto_Progress = "Adding photo…";
 AddPhoto_Error = "Adăugarea foto a eșuat. ";
-RemovePhoto_Progress = "Eliminare foto.";
+AddPhoto_SelectMessage = "Choose photo…";
+RemovePhoto_Progress = "Removing photo…";
 RemovePhoto_Error = "Eliminarea foto a eșuat.";
-SetPrimaryPhoto_Progress = "Stabilirea fotografiei principale.";
+SetPrimaryPhoto_Progress = "Setting primary photo…";
 SetPrimaryPhoto_Error = "Stabilirea fotografiei principale a eșuat.";
-RevokePhoto_Progress = "Revocare foto.";
+RevokePhoto_Progress = "Revoking photo…";
 RevokePhoto_Error = "Revocarea fotografiei a eșuat.";
-AddSignature_Progress = "Adăugare Semnătură.";
-AddSignature_Error = "Adăugarea Semnăturii a eșuat.";
-RemoveSignature_Progress = "Eliminare semnătură.";
+AddSignature_Progress = "Signing…";
+AddSignature_Error = "Signing failed.";
+RemoveSignature_Progress = "Removing signature…";
 RemoveSignature_Error = "Eliminarea semnăturii a eșuat.";
-RevokeSignature_Progress = "Revocare semnătură.";
+RevokeSignature_Progress = "Revoking signature…";
 RevokeSignature_Error = "Revocarea semnăturii a eșuat.";
-ReceiveKeysFromServer_Progress = "Recepționare chei.";
+ReceiveKeysFromServer_Progress = "Receiving keys…";
 ReceiveKeysFromServer_Error = "Recepționarea cheilor a eșuat.";
-RevokeKey_Progress = "Se revocă cheia.";
+RevokeKey_Progress = "Revoking key…";
 RevokeKey_Error = "Revocarea cheii a eșuat.";
 
 

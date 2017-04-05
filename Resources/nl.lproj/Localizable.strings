@@ -29,20 +29,20 @@ ExportKeysFilename = "%@ %u OpenPGP Keys";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Geen wachtwoord";
-CheckAlert_NoPassphrase_Message = "Je hebt geen wachtwoord ingevuld. Dit is niet aanbevolen. Een wachtwoord dient minimaal 8 karakters lang te zijn.";
-CheckAlert_NoPassphrase_Button1= "Doorgaan zonder een wachtwoord";
-CheckAlert_NoPassphrase_Button2 = "Vul een nieuw wachtwoord in";
-CheckAlert_PassphraseShort_Title = "Kort Wachtwoord";
-CheckAlert_PassphraseShort_Message = "Je hebt een kort wachtwoord ingevuld. Dit is niet aanbevolen. Een wachtwoord dient minimaal 8 karakters lang te zijn.";
-CheckAlert_PassphraseShort_Button1= "Doorgaan met een kort wachtwoord";
-CheckAlert_PassphraseShort_Button2 = "Vul een nieuw wachtwoord in";
-CheckAlert_PassphraseSimple_Title = "Simpel wachtwoord";
-CheckAlert_PassphraseSimple_Message = "Het wachtwoord wat je in hebt gevuld is te simpel. Een goed wachtwoord dient alfanummeriek te zijn en in ieder geval 1 speciaal karakter te bevatten.";
-CheckAlert_PassphraseSimple_Button1 = "Doorgaan met simpel wachtwoord";
-CheckAlert_PassphraseSimple_Button2 = "Vul een nieuw wachtwoord in";
-CheckAlert_PassphraseToLong_Title = "Wachtwoord is te lang";
-CheckAlert_PassphraseToLong_Message = "Het wachtwoord dat u heeft ingevoerd is te lang. Voer een wachtwoord in met minder dan 300 tekens.";
+CheckAlert_NoPassphrase_Title = "No password";
+CheckAlert_NoPassphrase_Message = "You have entered no password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Button1= "Continue without a password";
+CheckAlert_NoPassphrase_Button2 = "Enter new password";
+CheckAlert_PassphraseShort_Title = "Short password";
+CheckAlert_PassphraseShort_Message = "You have entered a short password. This is not recommended. A password should at least be 8 characters long.";
+CheckAlert_PassphraseShort_Button1= "Continue with short password";
+CheckAlert_PassphraseShort_Button2 = "Enter new password";
+CheckAlert_PassphraseSimple_Title = "Simple password";
+CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
+CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
+CheckAlert_PassphraseSimple_Button2 = "Enter new password";
+CheckAlert_PassphraseToLong_Title = "Password too long";
+CheckAlert_PassphraseToLong_Message = "The password you have entered is too long. Enter a password with less than 300 characters.";
 
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
@@ -55,9 +55,9 @@ SearchingKeys_Msg = "We zoeken naar bijpassende sleutel(s) op de keys server. Di
 
 GenerateKey_Progress = "We moeten veel willekeurige bytes genereren. Het is aan te bevelen om iets anders uit te voeren (Typ op het toetsenbord in een applicatie, het bewegen van de muis, of de harde schijf benaderen) tijdens deze eerste generatie. Dit is nodig om het systeem betere willekeurige data te laten genereren.";
 GenerateSubkey_Msg = "Voeg subsleutel toe aan de sleutel \"%@\", %@.";
-GenerateUserID_Msg = "Voeg gebruikers-ID toe aan sleutel \"%@\", %@.";
+GenerateUserID_Msg = "Voeg gebruikers ID toe aan de sleutel \"%@\", %@.";
 GenerateSignature_Msg = "Het ondertekenen van een sleutel betekent dat u bevestigt dat de eigenaar van de sleutel inderdaad de persoon is die hij/zij beweert te zijn.\nAls uw handtekening is geüpload, kan deze door anderen worden bekeken.\nDus, als u Bob's sleutel ondertekent, en uw vriendin Alice weet niet zeker of Bob daadwerkelijk Bob is, dan kan Alice uw handtekening zien in Bob's publieke sleutel, en omdat Alice weet dat jouw sleutel te vertrouwen is, weet zij ook dat Bob waarschijnlijk daadwerkelijk Bob is, omdat jij dat hebt geverifieerd.\n\nU staat op het punt de volgende sleutel te ondertekenen:\n%@";
-GenerateUidSignature_Msg = "Het ondertekenen van een gebruikers-ID betekent dat u bevestigt dat de eigenaar van de sleutel inderdaad de persoon is die hij/zij beweert te zijn.\nAls uw handtekening is geüpload, kan deze door anderen worden bekeken.\nDus, als u Bob's sleutel ondertekent, en uw vriendin Alice weet niet zeker of Bob daadwerkelijk Bob is, dan kan Alice uw handtekening zien in Bob's publieke sleutel, en omdat Alice weet dat jouw sleutel te vertrouwen is, weet zij ook dat Bob waarschijnlijk daadwerkelijk Bob is, omdat jij dat hebt geverifieerd.\n\nU staat op het punt de volgende gebruikers-ID te ondertekenen:\n%@";
+GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
 ChangeExpirationDate_Msg = "Verander vervaldatum van \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Wijzig vervaldatum van \"%2$@\", %3$@\nSubsleutel: %1$@";
 
@@ -73,7 +73,7 @@ CheckError_EmailToLong = "E-mailadres is te lang.\nMaximale toegestane lengte is
 CheckError_InvalidCharInComment = "Ongeldig karakter in opmerking!\n\"(\" en \")\" niet toegestaan.";
 CheckError_CommentToLong = "Opmerking is te lang!";
 CheckError_NoKeyID = "Vul een valide sleutel ID in!";
-CheckError_PassphraseMissmatch = "Je wachtwoorden zijn niet gelijk!";
+CheckError_PassphraseMissmatch = "Your passwords did not match!";
 
 
 /* Message on start, if there are any Problems */
@@ -119,23 +119,23 @@ Cancel = "Annuleer";
 
 
 /* Warnings */
-RemoveUserID_Title = "Verwijder gebruiker-ID";
-RemoveUserID_Msg = "U staat op het punt het gebruiker-ID %@ van uw sleutel %@ te verwijderen. Als u dit gebruikers-ID verwijdert kunt u niet langer van deze sleutel gebruik maken in Mail.app.\n\nAls de sleutel met dit gebruiker-ID is geupload naar een key server, dan zal het verwijderen van dit gebruiker-ID niet het gebruiker-ID van de key server verwijderen. Trek in dat geval het gebruiker-ID terug, en upload de nieuwe sleutel.";
-RemoveUserID_Yes = "Verwijder gebruiker-ID";
+RemoveUserID_Title = "Remove user ID";
+RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove user ID";
 RemoveUserID_No = "Annuleer";
 
-RevokeUserID_Title = "Trek gebruiker-ID in";
-RevokeUserID_Msg = "U staat op het punt het gebruiker-ID %@ van uw sleutel %@ in te trekken. Als u dit gebruikers-ID intrekt kunt u niet langer van deze sleutel gebruik maken in Mail.app.\n\nAls de sleutel met dit gebruiker-ID is geupload naar een key server, vergeet dan niet de nieuwe sleutel te uploaden. Alleen dan zal de key server laten zien dat uw gebruiker-ID is ingetrokken.";
-RevokeUserID_Yes = "Trek gebruiker-ID in";
+RevokeUserID_Title = "Revoke user ID";
+RevokeUserID_Msg = "You are about to revoke user ID %@ from your key %@. If you revoke this user ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this user ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked user ID.";
+RevokeUserID_Yes = "Revoke user ID";
 RevokeUserID_No = "Annuleer";
 
 RemoveSubkey_Title = "Verwijder subsleutel";
-RemoveSubkey_Msg = "Waarschuwing! Ga alleen door als u zeker weet wat u doet.\n\nDoor het verwijderen van een subsleutel kunt u al uw handtekeningen en mogelijkheden toe ontsleutelen verliezen.\n\nAls de sleutel met deze subsleutel is geupload naar een key server, dan zal het verwijderen van de subsleutel niet van de key server verwijderd worden. Trek in dat geval de subsleutel n en upload de nieuwe sleutel.";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the keyserver.";
 RemoveSubkey_Yes = "Verwijder subsleutel";
 RemoveSubkey_No = "Annuleer";
 
 RevokeSubkey_Title = "Trek subsleutel in";
-RevokeSubkey_Msg = "Waarschuwing! Ga alleen door als u zeker weet wat u doet.\n\nDoor het intrekken van een subsleutel kunt u al uw handtekeningen en mogelijkheden toe ontsleutelen verliezen.\n\nAls de sleutel met deze subsleutel is geupload naar een key server, upload dan de nieuwe sleutel ook naar die key server. Alleen dan zal de subsleutel op de key server worden ingetrokken.";
+RevokeSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nIn case this key has been uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will show the revoked subkey.";
 RevokeSubkey_Yes = "Trek subsleutel in";
 RevokeSubkey_No = "Annuleer";
 
@@ -145,22 +145,22 @@ RevokeSignature_Yes = "Trek handtekening in";
 RevokeSignature_No = "Annuleer";
 
 RemoveSignature_Title = "Verwijder handtekening";
-RemoveSignature_Msg = "Weet u zeker dat u deze handtekening wilt verwijderen? Het verwijderen van een handtekening zal alleen lokaal plaatsvinden. Dit kan niet verwijderd worden op een key server. In plaats daarvan moet u uw handtekening intrekken om deze als ongeldig te markeren.";
+RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
 RemoveSignature_Yes = "Verwijder handtekening";
 RemoveSignature_No = "Annuleer";
 
 RemoveLastSelfSignature_Title = "Verwijder laatste eigen-handtekening";
-RemoveLastSelfSignature_Msg = "You are about to remove the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of a User-ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there's no way of knowing if that happened.";
+RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Verwijder handtekening";
 RemoveLastSelfSignature_No = "Annuleer";
 
 RevokeLastSelfSignature_Title = "Trek laatste eigen-handtekening in";
-RevokeLastSelfSignature_Msg = "You are about to revoke the last Self-Signature of User-ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last Self-Signature of a User-ID will render that User-ID useless. You will no longer be able to use User-ID %@ in Mail.app to sign mails. Others will no longer be able to encrypt to the mail address of this User-ID.";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last self-signature of a user ID will render that user ID useless. You will no longer be able to use user ID %@ in Mail.app to sign emails.";
 RevokeLastSelfSignature_Yes = "Trek handtekening in";
 RevokeLastSelfSignature_No = "Annuleer";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, signing and encrypting messages with this key will no longer be possible. The revoked key can still be used to decrypt mails and files, previously encrypted with that key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Upload revoked key";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "Annuleer";
@@ -177,8 +177,8 @@ DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nA
 DeleteKey_Yes = "Delete key(s)";
 DeleteKey_No = "Annuleer";
 
-DeleteSecKey_Title = "Warning! You are about to delete secret and public key(s)";
-DeleteSecKey_Msg = "You are about to delete key(s):\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\n be able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Delete key(s)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
@@ -199,26 +199,26 @@ BadKeyserver_Msg = "The key server you have entered is not working.\nPlease chec
 
 /* Import warnings */
 ImportRevSig_Title = "Import revocation certificate";
-ImportRevSig_Msg = "You are about to import a revocation Certificate for %@. If you revoke your key, you'll no longer be able to sign messages using that key and others will no longer be able to send you messages encrypted with your key. Consider uploading your revoked key to the key server so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting mails and files that were encrypted with your key. That's why we recommend that you keep the revoked key in GPG Keychain.";
+ImportRevSig_Msg = "You are about to import a revocation certificate for %@. If you revoke your key, you will no longer be able to sign messages using your key and others will no longer be able to send you messages encrypted to your key. Consider uploading your revoked key to the key servers so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting emails and files that were encrypted with your key. It is recommended to keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Importeren";
 ImportRevSig_No = "Annuleer";
 
-ImportRandomData_Title = "Warning! Content can probably not be imported.";
+ImportRandomData_Title = "Warning: Content can probably not be imported.";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
 ImportRandomData_Yes = "Try Import";
 ImportRandomData_No = "Annuleer";
 
-ImportNonImportable_Title = "Warning! Content can probably not be imported.";
+ImportNonImportable_Title = "Warning: Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Try Import";
 ImportNonImportable_No = "Annuleer";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "You have successfully imported the key \n\n%@";
-IMPORT_RESULT_NEW_KEYS = "You have successfully imported the keys \n\n%@";
+IMPORT_RESULT_NEW_KEY = "You have imported the key \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "You have imported the keys \n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user id was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
 
@@ -257,14 +257,6 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 "%i of %i keys listed" = "Toont %i van de %i sleutels";
 
 
-/* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "Deze afbeelding is erg groot!";
-ChoosePhoto_Large_Info = "U moet een kleinere foto kiezen.\nWe bevelen een grootte aan van minder dan 15 KB.";
-ChoosePhoto_Large_Button1 = "Kies andere afbeelding…";
-ChoosePhoto_Large_Button2 = "Gebruik deze afbeelding";
-ChoosePhoto_TooLarge_Message = "Uw foto is te groot!";
-ChoosePhoto_TooLarge_Info = "Kies een foto van minder dan 500 KB.\nWe bevelen een grootte aan van minder dan 15 KB.";
-
 
 
 
@@ -295,65 +287,66 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Bezig met exporteren van sleutel.";
+ExportKey_Progress = "Exporting key…";
 ExportKey_Error = "Exporteren van sleutel mislukt.";
-ImportKey_Progress  = "Bezig met importeren van sleutel.";
-DeleteSecretKey_Progress = "Bezig verwijderd geheime sleutel.";
-DeleteKeys_Progress = "Bezig met verwijderen sleutel.";
+ImportKey_Progress  = "Importing key…";
+DeleteSecretKey_Progress = "Deleting secret key…";
+DeleteKeys_Progress = "Deleting key…";
 DeleteKeys_Error = "Verwijderen sleutel mislukt.";
-ChangePassphrase_Progress = "Bezig met veranderen wachtwoord.";
-ChangePassphrase_Error = "Veranderen van wachtwoord mislukt.";
-SetDisabled_Progress = "Inschakelen/Uitschakelen van sleutel.";
+ChangePassphrase_Progress = "Changing password…";
+ChangePassphrase_Error = "Changing password failed.";
+SetDisabled_Progress = "Enabling/Disabling key…";
 SetDisabled_Error = "Het Inschakelen/Uitschakelen van sleutel is mislukt.";
-SetOwnerTrust_Progress = "Bezig met het zetten van de \"owner trust\".";
+SetOwnerTrust_Progress = "Setting owner trust…";
 SetOwnerTrust_Error = "Het zetten van de \"owner trust\" is mislukt.";
-ChangeExpirationDate_Progress = "Bezig met veranderen van de vervaldatum.";
+ChangeExpirationDate_Progress = "Changing expiration date…";
 ChangeExpirationDate_Error = "Veranderen van vervaldatum mislukt.";
-SetAlgorithmPreferences_Progress = "Bezig met het toepassen van de algoritme voorkeuren.";
+SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
 SetAlgorithmPreferences_Error = "Het zetten van de algoritme voorkeuren is mislukt.";
-CleanKey_Progress = "Bezig met het schoonmaken van de sleutel.";
+CleanKey_Progress = "Cleaning key…";
 CleanKey_Error = "Schoonmaken van de sleutel is mislukt.";
-MinimizeKey_Progress = "Bezig met het minimaliseren van de sleutel.";
+MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Minimaliseren van de sleutel is mislukt.";
-GenerateRevokeCertificateForKey_Progress = "Bezig met genereren van intrek certificaat.";
+GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate…";
 GenerateRevokeCertificateForKey_Error = "Genereren van het intrek certificaat is mislukt.";
-SearchKeysOnServer_Progress = "Zoekt naar sleutel.";
+SearchKeysOnServer_Progress = "Searching for key…";
 SearchKeysOnServer_Error = "Zoeken naar sleutel is mislukt.";
-SendKeysToServer_Progress = "%@ aan het versturen naar de server.";
+SendKeysToServer_Progress = "Sending %@ to server…";
 SendKeysToServer_Error = "Versturen van sleutel is mislukt.";
-RefreshKeysFromServer_Progress = "%@ aan het updaten van server.";
+RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
 RefreshKeysFromServer_Error = "Verversen van sleutel is mislukt.";
-AddSubkey_Progress = "Bezig met toevoegen van subsleutel.";
+AddSubkey_Progress = "Adding subkey…";
 AddSubkey_Error = "Toevoegen van sleutel is mislukt.";
-RemoveSubkey_Progress = "Bezig met verwijderen van subsleutel.";
+RemoveSubkey_Progress = "Removing subkey…";
 RemoveSubkey_Error = "Verwijderen van subsleutel is mislukt.";
-RevokeSubkey_Progress = "Bezig met terugtrekken subsleutel.";
+RevokeSubkey_Progress = "Revoking subkey…";
 RevokeSubkey_Error = "Terugtrekken van subsleutel mislukt.";
-AddUserID_Progress = "Gebruikers-ID aan het toevoegen.";
-AddUserID_Error = "Toevoegen van gebruikers-ID mislukt.";
-RemoveUserID_Progress = "Verwijderen van gebruikers-ID.";
-RemoveUserID_Error = "Verwijderen van gebruikers-ID mislukt.";
-SetPrimaryUserID_Progress = "Instellen van primair gebruikers-ID.";
-SetPrimaryUserID_Error = "Instellen van primair gebruikers-ID mislukt.";
-RevokeUserID_Progress = "Intrekken van gebruikers-ID.";
-RevokeUserID_Error = "Intrekken van gebruikers-ID mislukt.";
-AddPhoto_Progress = "Bezig met toevoegen van afbeelding.";
+AddUserID_Progress = "Adding user ID…";
+AddUserID_Error = "Adding user ID failed.";
+RemoveUserID_Progress = "Removing user ID…";
+RemoveUserID_Error = "Removing user ID failed.";
+SetPrimaryUserID_Progress = "Setting primary user ID…";
+SetPrimaryUserID_Error = "Setting primary user ID failed.";
+RevokeUserID_Progress = "Revoking user ID…";
+RevokeUserID_Error = "Revoking user ID failed.";
+AddPhoto_Progress = "Adding photo…";
 AddPhoto_Error = "Toevoegen afbeelding mislukt.";
-RemovePhoto_Progress = "Bezig met verwijderen afbeelding.";
+AddPhoto_SelectMessage = "Choose photo…";
+RemovePhoto_Progress = "Removing photo…";
 RemovePhoto_Error = "Verwijderen afbeelding mislukt.";
-SetPrimaryPhoto_Progress = "Bezig met zetten primaire afbeelding.";
+SetPrimaryPhoto_Progress = "Setting primary photo…";
 SetPrimaryPhoto_Error = "Het zetten van primaire afbeelding mislukt.";
-RevokePhoto_Progress = "Bezig met intrekken afbeelding.";
+RevokePhoto_Progress = "Revoking photo…";
 RevokePhoto_Error = "Intrekken afbeelding mislukt.";
-AddSignature_Progress = "Bezig met toevoegen handtekening.";
-AddSignature_Error = "Het toevoegen van de handtekening is mislukt.";
-RemoveSignature_Progress = "Bezig met verwijderen handtekening.";
+AddSignature_Progress = "Signing…";
+AddSignature_Error = "Signing failed.";
+RemoveSignature_Progress = "Removing signature…";
 RemoveSignature_Error = "Het verwijderen van de handtekening is mislukt.";
-RevokeSignature_Progress = "Bezig met terugtrekken handtekening.";
+RevokeSignature_Progress = "Revoking signature…";
 RevokeSignature_Error = "Het terugtrekken van de handtekening is mislukt.";
-ReceiveKeysFromServer_Progress = "Bezig met ontvangen van sleutels.";
+ReceiveKeysFromServer_Progress = "Receiving keys…";
 ReceiveKeysFromServer_Error = "Het ontvangen van de sleutels is mislukt.";
-RevokeKey_Progress = "Sleutel aan het intrekken.";
+RevokeKey_Progress = "Revoking key…";
 RevokeKey_Error = "Intrekken van sleutel mislukt.";
 
 

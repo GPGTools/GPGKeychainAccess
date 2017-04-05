@@ -17,7 +17,7 @@
 
 /* Key descriptions */
 "and" = "och";
-KeyDescriptionAndMore = "%1$@ och %2$lu mer";
+KeyDescriptionAndMore = "%1$@ och %2$lu fler";
 SecretAndPublicKeyListing = "Privata nycklar:\n\n%@\n\nPublika nycklar:\n\n%@";
 
 
@@ -29,20 +29,20 @@ ExportKeysFilename = "%@ %u OpenPGP-nycklar";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Ingen lösenordsfras";
-CheckAlert_NoPassphrase_Message = "Du har inte angivit någon lösenordsfras. Detta rekommenderas inte. En lösenordsfras bör vara minst 8 tecken lång.";
-CheckAlert_NoPassphrase_Button1= "Fortsätt utan en lösenordsfras";
-CheckAlert_NoPassphrase_Button2 = "Ange en ny lösenordsfras";
-CheckAlert_PassphraseShort_Title = "Kort lösenordsfras";
-CheckAlert_PassphraseShort_Message = "Du har angivit en kort lösenordsfras. Detta rekommenderas inte. En lösenordsfras bör vara minst 8 tecken lång.";
-CheckAlert_PassphraseShort_Button1= "Fortsätt med kort lösenordsfras";
-CheckAlert_PassphraseShort_Button2 = "Ange en ny lösenordsfras";
-CheckAlert_PassphraseSimple_Title = "Enkel lösenordsfras";
-CheckAlert_PassphraseSimple_Message = "Lösenordsfrasen du angav är för enkel. En bra lösenordsfras bör innehålla både bokstäver och siffror och minst ett specialtecken.";
-CheckAlert_PassphraseSimple_Button1 = "Fortsätt med enkel lösenordsfras";
-CheckAlert_PassphraseSimple_Button2 = "Ange en ny lösenordsfras";
-CheckAlert_PassphraseToLong_Title = "Lösenordsfras för lång";
-CheckAlert_PassphraseToLong_Message = "Lösenordsfrasen du angav är för lång. Ange en lösenordsfras med färre än 300 tecken.";
+CheckAlert_NoPassphrase_Title = "Inget lösenord";
+CheckAlert_NoPassphrase_Message = "Du har inte angivit något lösenord. Detta rekommenderas inte. Lösenord bör vara minst 8 tecken långa.";
+CheckAlert_NoPassphrase_Button1= "Fortsätt utan ett lösenord";
+CheckAlert_NoPassphrase_Button2 = "Ange nytt lösenord";
+CheckAlert_PassphraseShort_Title = "Kort lösenord";
+CheckAlert_PassphraseShort_Message = "Du har angivit ett kort lösenord. Detta rekommenderas inte. Ett lösenord bör vara minst 8 tecken långt.";
+CheckAlert_PassphraseShort_Button1= "Fortsätt med enkelt lösenord";
+CheckAlert_PassphraseShort_Button2 = "Ange nytt lösenord";
+CheckAlert_PassphraseSimple_Title = "Enkelt lösenord";
+CheckAlert_PassphraseSimple_Message = "Lösenordet du angav är för enkelt. Ett bra lösenord bör innehålla både bokstäver, siffror och minst ett specialtecken.";
+CheckAlert_PassphraseSimple_Button1 = "Fortsätt med enkelt lösenord";
+CheckAlert_PassphraseSimple_Button2 = "Ange nytt lösenord";
+CheckAlert_PassphraseToLong_Title = "Lösenord för långt";
+CheckAlert_PassphraseToLong_Message = "Lösenordet som du angivit är för långt. Ange ett lösenord med färre än 300 tecken.";
 
 
 MoveSecring_Msg = "Dina privata nycklar finns för närvarande på \"%@\".\nFör att flytta dina privata nycklar till en annan volym markerar du målvolymen nedan.";
@@ -73,7 +73,7 @@ CheckError_EmailToLong = "E-postadressen är för lång!\nMax antal tecken är 2
 CheckError_InvalidCharInComment = "Ogiltiga tecken i kommentaren!\n\"(\" och \")\" tillåts ej.";
 CheckError_CommentToLong = "Kommentaren är för lång!";
 CheckError_NoKeyID = "Ange ett giltigt nyckel-ID!";
-CheckError_PassphraseMissmatch = "Dina lösenordsfraser stämde inte överens!";
+CheckError_PassphraseMissmatch = "Dina lösenord matchar inte!";
 
 
 /* Message on start, if there are any Problems */
@@ -82,9 +82,9 @@ GPG_NOT_FOUND_MESSAGE = "Hoppsan, något gick riktigt snett. Det verkar som om G
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfel";
 GPG_CONFIG_ERROR_MESSAGE = "Hoppsan, något gick snett. GPG har hittats på ditt system men det verkar vara ett problem med konfigurationsfilen. Kontakta oss på https://gpgtools.tenderapp.com.\n\nDetaljer: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg hittades inte";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg hittades inte på ditt system. Installera GPG Suite från https://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg hittades inte på ditt system. Installera om GPG Suite från https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Någon har mixtrat med din installation av GPG Keychain!";
-CODE_SIGN_ERROR_MESSAGE = "För att skydda dig kommer GPG Keychain nu att avslutas!\n\nInstallera GPG Suite från https://gpgtools.org för att försäkra dig om att du har en äkta version från oss!";
+CODE_SIGN_ERROR_MESSAGE = "För att skydda dig kommer GPG Keychain nu att avslutas!\n\nInstallera om GPG Suite från https://gpgtools.org för att försäkra dig om att du har en äkta version från oss!";
 UNKNOWN_GPG_ERROR_TITLE = "Okänt GPG-fel";
 UNKNOWN_GPG_ERROR_MESSAGE = "Hoppsan, något gick snett. GPG stötte på ett okänt fel. Kontakta oss på https://gpgtools.tenderapp.com.\n\nDetaljer: %@";
 
@@ -120,7 +120,7 @@ Cancel = "Avbryt";
 
 /* Warnings */
 RemoveUserID_Title = "Ta bort användar-ID";
-RemoveUserID_Msg = "Du kommer att ta bort användar-ID %@ från din nyckel %@. Om du tar bort detta användar-ID kommer du inte längre att kunna använda denna nyckel med det tillhörande e-postkontot i Mail.app.\n\nOm nyckeln med detta användar-ID laddades upp till nyckelservarna kommer ett borttagande av användar-ID:t inte leda till att det tas bort på nyckelservrarna. Återkalla istället det aktuella användar-ID:t och ladda upp den uppdaterade nyckeln.";
+RemoveUserID_Msg = "Du kommer att ta bort användar-ID %@ från din nyckel %@. Efter borttagandet kommer du inte längre att kunna använda denna nyckel med det tillhörande e-postkontot i Mail.app.\n\nOm nyckeln med detta användar-ID laddades upp till nyckelservarna kommer ett borttagande av användar-ID:t inte leda till att det tas bort på nyckelservrarna. Återkalla istället det aktuella användar-ID:t och ladda upp den uppdaterade nyckeln.";
 RemoveUserID_Yes = "Ta bort användar-ID";
 RemoveUserID_No = "Avbryt";
 
@@ -130,12 +130,12 @@ RevokeUserID_Yes = "Återkalla användar-ID";
 RevokeUserID_No = "Avbryt";
 
 RemoveSubkey_Title = "Ta bort undernyckel";
-RemoveSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta bort en undernyckel kan förstöra alla signerings- och dekrypteringsfunktioner.\n\nOm nyckeln med denna undernyckel laddades upp till nyckelservarna, kommer borttagningen av undernyckeln inte leda till att den tas bort från nyckeln på nyckelservrarna. Återkalla istället den aktuella undernyckeln och ladda upp den uppdaterade nyckeln.";
+RemoveSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta bort en undernyckel kan förstöra alla signerings- och dekrypteringsfunktioner.\n\nOm nyckeln med denna undernyckel laddades upp till nyckelservarna, kommer borttagningen av undernyckeln inte leda till att den tas bort från nyckeln på nyckelservrarna. För att uppmärksamma andra att de inte längre ska använda denna undernyckel, återkalla istället den aktuella undernyckeln och ladda upp den uppdaterade nyckeln till nyckelservern.";
 RemoveSubkey_Yes = "Ta bort undernyckel";
 RemoveSubkey_No = "Avbryt";
 
 RevokeSubkey_Title = "Återkalla undernyckel";
-RevokeSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta återkalla en undernyckel kan förstöra alla signerings- och dekrypteringsfunktioner.\n\nOm nyckeln med denna undernyckel laddades upp till nyckelservarna, se till att ladda upp den uppdaterade nyckeln. Bara då kommer nyckeln på nyckelservrarna återspegla den återkallade undernyckeln.\n";
+RevokeSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta återkalla en undernyckel kan möjligheten att signera med denna undernyckel och andra kanske inte längre kommer kunna kryptera meddelanden med denna undernyckel.\n\nOm nyckeln med denna undernyckel laddades upp till nyckelservarna, se till att ladda upp den uppdaterade nyckeln. Bara då kommer nyckeln på nyckelservrarna återspegla den återkallade undernyckeln.";
 RevokeSubkey_Yes = "Återkalla undernyckel";
 RevokeSubkey_No = "Avbryt";
 
@@ -155,7 +155,7 @@ RemoveLastSelfSignature_Yes = "Ta bort signatur";
 RemoveLastSelfSignature_No = "Avbryt";
 
 RevokeLastSelfSignature_Title = "Återkalla den sista egen-signaturen";
-RevokeLastSelfSignature_Msg = "Du kommer att återkalla den sista egen-signaturen för användar-ID %@. Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt återkalla den sista egen-signaturen för ett användar-ID leder till att ID:t blir obrukbart. Du kommer inte längre att kunna använda användar-ID %@ i Mail.app för att signera e-postmeddelanden. Andra kommer inte längre att kunna kryptera till den e-postadress som hör till detta användar-ID.";
+RevokeLastSelfSignature_Msg = "Du kommer att återkalla den sista egen-signaturen för användar-ID %@. Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt återkalla den sista egen-signaturen för ett användar-ID leder till att ID:t blir obrukbart. Du kommer inte längre att kunna använda användar-ID %@ i Mail.app för att signera e-postmeddelanden.";
 RevokeLastSelfSignature_Yes = "Återkalla signatur";
 RevokeLastSelfSignature_No = "Avbryt";
 
@@ -165,20 +165,20 @@ RevokeKey_Upload = "Ladda upp återkallad nyckel";
 RevokeKey_Yes = "Återkalla nyckel";
 RevokeKey_No = "Avbryt";
 
-OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
-OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
-OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_Title = "OpenPGP-meddelandet som du försökte att importera är ingen nyckel.";
+OpenWithGPGServices_Msg = "Du kan vidarebefordra meddelandet till GPGServices för att dekryptera eller verifiera meddelandet.";
+OpenWithGPGServices_Yes = "Öppna GPGServices";
 OpenWithGPGServices_No = "Avbryt";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Ta bort publik(a) nyckel/nycklar";
+DeleteKey_Title = "Radera publik(a) nyckel/nycklar";
 DeleteKey_Msg = "Du kommer att radera följande publika nycklar:\n\n%@\n\nÄr du säker på att du vill radera dessa publika nycklar?";
 DeleteKey_Yes = "Radera nyckel/nycklar";
 DeleteKey_No = "Avbryt";
 
 DeleteSecKey_Title = "Varning! Du kommer att radera privata och publika nycklar";
-DeleteSecKey_Msg = "Du kommer att radera nyckeln/nycklarna:\n\n%@\n\nAtt radera en privat nyckel har allvarliga konsekvenser. När den raderats kommer det inte längre vara möjligt att dekryptera meddelanden med denna nyckel. Detta rör samtliga meddelanden som krypterades med denna nyckel.\n\nVi rekommenderar att den inte raderas.\n\nFör att uppmärksamma andra att denna nyckel inte längre används, bör du återkalla nyckeln istället för att radera den och ladda upp den återkallade nyckeln till nyckelservrarna. Annars kommer kanske andra kommer att använda denna nyckel för att kryptera meddelanden till dig.";
+DeleteSecKey_Msg = "Du kommer att radera nycklarna:\n\n%@\n\nAtt radera en privat nyckel har allvarliga konsekvenser. När den raderats kommer det inte längre vara möjligt att dekryptera meddelanden med denna nyckel. Detta rör samtliga meddelanden som krypterades med denna nyckel.\n\nVi rekommenderar att den inte raderas.\n\nFör att uppmärksamma andra att denna nyckel inte längre används, bör du återkalla nyckeln istället för att radera den och ladda upp den återkallade nyckeln till nyckelservrarna. Annars kommer andra kanske att använda denna nyckel för att kryptera meddelanden till dig.";
 DeleteSecKey_Checkbox = "Ja, jag vill radera min privata nyckel och förstår att jag inte längre\nkan dekryptera några meddelanden som krypterades med denna nyckel.";
 DeleteSecKey_Yes = "Radera nyckel/nycklar";
 DeleteSecKey_SecOnly = "Radera endast privata nycklar";
@@ -215,10 +215,10 @@ ImportNonImportable_No = "Avbryt";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "Du har nu importerat nyckeln\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "Du har nu importerat nycklarna\n\n%@";
+IMPORT_RESULT_NEW_KEY = "Du har importerat nyckeln\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "Du har importerat nycklarna\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "En användar id lades till nyckel/nycklar\n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "Ett användar-ID lades till nyckel/nycklar\n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "En signatur har lagts till följande nycklar\n\n%@";
 IMPORT_RESULT_NEW_SUBKEY = "En undernyckel har lagts till följande nycklar\n\n%@";
 
@@ -257,14 +257,6 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 "%i of %i keys listed" = "%i av %i nycklar listade";
 
 
-/* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "Det här fotot är riktigt stort!";
-ChoosePhoto_Large_Info = "Du borde använda ett mindre foto.\nVi rekommenderar en storlek på 15 KB eller mindre.";
-ChoosePhoto_Large_Button1 = "Välj ett annat…";
-ChoosePhoto_Large_Button2 = "Använd det här fotot";
-ChoosePhoto_TooLarge_Message = "Ditt foto är för stort!";
-ChoosePhoto_TooLarge_Info = "Använd ett foto som är mindre än 500 KB.\nVi rekommenderar en storlek på 15 KB eller mindre.";
-
 
 
 
@@ -295,65 +287,66 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Exporterar nyckel.";
+ExportKey_Progress = "Exporterar nyckel…";
 ExportKey_Error = "Det gick inte att exportera nyckel.";
-ImportKey_Progress  = "Importerar nyckel.";
-DeleteSecretKey_Progress = "Raderar privat nyckel.";
-DeleteKeys_Progress = "Raderar nyckel.";
+ImportKey_Progress  = "Importerar nyckel…";
+DeleteSecretKey_Progress = "Raderar privat nyckel…";
+DeleteKeys_Progress = "Raderar nyckel…";
 DeleteKeys_Error = "Det gick inte att radera nyckel.";
-ChangePassphrase_Progress = "Byter lösenordsfras.";
-ChangePassphrase_Error = "Det gick inte att byta lösenordsfras.";
-SetDisabled_Progress = "Aktiverar/avaktiverar nyckel.";
+ChangePassphrase_Progress = "Ändrar lösenord…";
+ChangePassphrase_Error = "Det gick inte att byta lösenord.";
+SetDisabled_Progress = "Aktiverar/avaktiverar nyckel…";
 SetDisabled_Error = "Det gick inte att aktivera/avaktivera nyckel.";
-SetOwnerTrust_Progress = "Ställer in ägarförtroende.";
+SetOwnerTrust_Progress = "Ställer in ägarförtroende…";
 SetOwnerTrust_Error = "Det gick inte att ställa in ägarförtroende";
-ChangeExpirationDate_Progress = "Ändrar utgångsdatum.";
+ChangeExpirationDate_Progress = "Ändrar utgångsdatum…";
 ChangeExpirationDate_Error = "Det gick inte att ändra utgångsdatum.";
-SetAlgorithmPreferences_Progress = "Ändrar algoritminställningar.";
+SetAlgorithmPreferences_Progress = "Ändrar algoritminställningar…";
 SetAlgorithmPreferences_Error = "Det gick inte att ändra algoritminställningar.";
-CleanKey_Progress = "Rensar nyckel.";
+CleanKey_Progress = "Rensar nyckel…";
 CleanKey_Error = "Det gick inte att rensa nyckel.";
-MinimizeKey_Progress = "Minimerar nyckel.";
+MinimizeKey_Progress = "Minimerar nyckel…";
 MinimizeKey_Error = "Det gick inte att minimera nyckel.";
-GenerateRevokeCertificateForKey_Progress = "Skapar återkallelsecertifikat.";
+GenerateRevokeCertificateForKey_Progress = "Skapar återkallelsecertifikat…";
 GenerateRevokeCertificateForKey_Error = "Det gick inte att skapa ett återkallelsecertifikat.";
-SearchKeysOnServer_Progress = "Söker efter nyckel.";
+SearchKeysOnServer_Progress = "Söker efter nyckel…";
 SearchKeysOnServer_Error = "Det gick inte att söka efter nyckel.";
-SendKeysToServer_Progress = "Skickar %@ till nyckelserver";
+SendKeysToServer_Progress = "Skickar %@ till nyckelserver…";
 SendKeysToServer_Error = "Det gick inte att skicka nyckel.";
-RefreshKeysFromServer_Progress = "Uppdaterar %@ från server.";
+RefreshKeysFromServer_Progress = "Uppdaterar %@ från server…";
 RefreshKeysFromServer_Error = "Det gick inte att uppdatera nyckel.";
-AddSubkey_Progress = "Lägger till undernyckel.";
+AddSubkey_Progress = "Lägger till undernyckel…";
 AddSubkey_Error = "Det gick inte att lägga till undernyckel.";
-RemoveSubkey_Progress = "Tar bort undernyckel.";
+RemoveSubkey_Progress = "Tar bort undernyckel…";
 RemoveSubkey_Error = "Det gick inte att ta bort undernyckel.";
-RevokeSubkey_Progress = "Återkallar undernyckel.";
+RevokeSubkey_Progress = "Återkallar undernyckel…";
 RevokeSubkey_Error = "Det gick inte att återkalla undernyckel.";
-AddUserID_Progress = "Lägger till användar-ID.";
+AddUserID_Progress = "Lägger till användar-ID…";
 AddUserID_Error = "Det gick inte att lägga till användar-ID.";
-RemoveUserID_Progress = "Tar bort användar-ID.";
+RemoveUserID_Progress = "Tar bort användar-ID…";
 RemoveUserID_Error = "Det gick inte att ta bort användar-ID.";
 SetPrimaryUserID_Progress = "Ställer in primärt användar-ID.";
 SetPrimaryUserID_Error = "Det gick inte att ställa in primärt användar-ID.";
 RevokeUserID_Progress = "Återkallar användar-ID.";
 RevokeUserID_Error = "Det gick inte att återkalla användar-ID.";
-AddPhoto_Progress = "Lägger till foto.";
+AddPhoto_Progress = "Lägger till foto…";
 AddPhoto_Error = "Det gick inte att lägga till foto.";
-RemovePhoto_Progress = "Tar bort foto.";
+AddPhoto_SelectMessage = "Choose photo…";
+RemovePhoto_Progress = "Tar bort foto…";
 RemovePhoto_Error = "Det gick inte att ta bort foto.";
-SetPrimaryPhoto_Progress = "Ställer in primärt foto.";
+SetPrimaryPhoto_Progress = "Ställer in primärt foto…";
 SetPrimaryPhoto_Error = "Det gick inte att ställa in primärt foto.";
-RevokePhoto_Progress = "Återkallar foto.";
+RevokePhoto_Progress = "Återkallar foto…";
 RevokePhoto_Error = "Det gick inte att återkalla foto.";
-AddSignature_Progress = "Lägger till signatur.";
-AddSignature_Error = "Det gick inte att lägga till signatur.";
-RemoveSignature_Progress = "Tar bort signatur.";
+AddSignature_Progress = "Signerar…";
+AddSignature_Error = "Det gick inte att signera.";
+RemoveSignature_Progress = "Tar bort signatur…";
 RemoveSignature_Error = "Det gick inte att ta bort signatur.";
-RevokeSignature_Progress = "Återkallar signatur.";
+RevokeSignature_Progress = "Återkallar signatur…";
 RevokeSignature_Error = "Det gick inte att återkalla signatur.";
-ReceiveKeysFromServer_Progress = "Tar emot nycklar.";
+ReceiveKeysFromServer_Progress = "Tar emot nycklar…";
 ReceiveKeysFromServer_Error = "Det gick inte att ta emot nycklar.";
-RevokeKey_Progress = "Återkallar nyckel.";
+RevokeKey_Progress = "Återkallar nyckel…";
 RevokeKey_Error = "Det gick inte att återkalla nyckel.";
 
 

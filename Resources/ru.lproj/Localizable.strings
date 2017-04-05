@@ -29,20 +29,20 @@ ExportKeysFilename = "%@ %u ключи OpenPGP";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Пароль не указан";
-CheckAlert_NoPassphrase_Message = "Вы не указали пароль. Это не рекомендуется. Пароль должен быть не менее 8 символов.";
-CheckAlert_NoPassphrase_Button1= "Продолжить без пароля";
-CheckAlert_NoPassphrase_Button2 = "Введите новый пароль";
-CheckAlert_PassphraseShort_Title = "Короткий пароль";
-CheckAlert_PassphraseShort_Message = "Вы ввели короткий пароль. Это не рекомендуется. Пароль должен быть не менее 8 символов.";
-CheckAlert_PassphraseShort_Button1= "Продолжить с коротким паролем";
-CheckAlert_PassphraseShort_Button2 = "Введите новый пароль";
-CheckAlert_PassphraseSimple_Title = "Простой пароль";
-CheckAlert_PassphraseSimple_Message = "Введенный пароль слишком прост. Хороший пароль сочетает в себе цифры, заглавные и строчные буквы, и хотя бы один специальный символ.";
-CheckAlert_PassphraseSimple_Button1 = "Продолжить с простым паролем";
-CheckAlert_PassphraseSimple_Button2 = "Введите новый пароль";
-CheckAlert_PassphraseToLong_Title = "Пароль слишком длинный";
-CheckAlert_PassphraseToLong_Message = "Введённый пароль слишком длинный. Введите пароль не длиннее 300 символов.";
+CheckAlert_NoPassphrase_Title = "No password";
+CheckAlert_NoPassphrase_Message = "You have entered no password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Button1= "Continue without a password";
+CheckAlert_NoPassphrase_Button2 = "Enter new password";
+CheckAlert_PassphraseShort_Title = "Short password";
+CheckAlert_PassphraseShort_Message = "You have entered a short password. This is not recommended. A password should at least be 8 characters long.";
+CheckAlert_PassphraseShort_Button1= "Continue with short password";
+CheckAlert_PassphraseShort_Button2 = "Enter new password";
+CheckAlert_PassphraseSimple_Title = "Simple password";
+CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
+CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
+CheckAlert_PassphraseSimple_Button2 = "Enter new password";
+CheckAlert_PassphraseToLong_Title = "Password too long";
+CheckAlert_PassphraseToLong_Message = "The password you have entered is too long. Enter a password with less than 300 characters.";
 
 
 MoveSecring_Msg = "Ваши секретные ключи в настоящее время находятся на \"%@\".\nДля перемещения ваших секретных ключей на другой том, выберите целевой том ниже.";
@@ -55,9 +55,9 @@ SearchingKeys_Msg = "Осуществляется поиск на сервера
 
 GenerateKey_Progress = "Необходимо сгенерировать много случайных чисел. Желательно, что бы Вы выполняли некоторые другие действия (печать на клавиатуре, движения мыши, обращения к дискам) в процессе генерации. Это даст генератору случайных чисел возможность получить лучшую энтропию.";
 GenerateSubkey_Msg = "Добавить subkey ключу \"%@\", %@.";
-GenerateUserID_Msg = "Добавить ID пользователя к Ключу \"%@\", %@.";
+GenerateUserID_Msg = "Добавить ID пользователя ключу \"%@\", %@.";
 GenerateSignature_Msg = "Подписывая ключ, вы подтверждаете, что данные о его владельце верны.\nБудучи загруженной на сервер, подпись будет видна всем пользователям.\nТак, если вы подписали ключ Пети, то ваша знакомая Катя, доверяя вашей подписи, сможет быть уверена, что ключ действительно принадлежит Пете.\n\nВы собираетесь подписать следующий ключ:\n%@";
-GenerateUidSignature_Msg = "Подписывая идентификатор пользователя, вы подтверждаете, что данные о владельце ключа верны.\nБудучи загруженной на сервер, подпись будет видна всем пользователям. Так, если вы подписали ключ Пети, то ваша знакомая Катя, доверяя вашей подписи, сможет быть уверена, что ключ действительно принадлежит Пете.\n\nВы собираетесь подписать следующий идентификатор: %@";
+GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
 ChangeExpirationDate_Msg = "Изменить срок годности \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Изменить срок годности \"%2$@\", %3$@\nSubkey: %1$@";
 
@@ -73,7 +73,7 @@ CheckError_EmailToLong = "Адрес Email слишком длинный!\nМа�
 CheckError_InvalidCharInComment = "Недопустимый знак в комментарии!\n\"(\" и \")\" недопустимы.";
 CheckError_CommentToLong = "Комментарий слишком длинный!";
 CheckError_NoKeyID = "Введите правильный ID ключа!";
-CheckError_PassphraseMissmatch = "Пароли не совпадают!";
+CheckError_PassphraseMissmatch = "Your passwords did not match!";
 
 
 /* Message on start, if there are any Problems */
@@ -119,23 +119,23 @@ Cancel = "Отмена";
 
 
 /* Warnings */
-RemoveUserID_Title = "Удалить ID пользователя";
-RemoveUserID_Msg = "Вы собираетесь удалить ID пользователя %@ из вашего ключа %@. Если удалить этот идентификатор пользователя, вы больше не будете иметь возможность использовать этот ключ с соответствующей учётной записью электронной почты в Mail.app.\n\nЕсли ключ с таким идентификатором пользователя был загружен на сервер ключей, то удаление идентификатора пользователя не удалит идентификатор пользователя из ключа на сервере ключей. Пожалуйста, в вопросе вместо этого, отзовите идентификатор пользователя и загрузите обновлённый ключ.";
-RemoveUserID_Yes = "Удалить ID пользователя";
+RemoveUserID_Title = "Remove user ID";
+RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
+RemoveUserID_Yes = "Remove user ID";
 RemoveUserID_No = "Отмена";
 
-RevokeUserID_Title = "Аннулировать ID пользователя";
-RevokeUserID_Msg = "Вы собираетесь отозвать ID пользователя %@ из вашего ключа %@. Если отозвать этот идентификатор пользователя, вы больше не будете иметь возможность использовать этот ключ с соответствующей учётной записью электронной почты в Mail.app.\n\nЕсли ключ с таким идентификатором пользователя был загружен на сервер ключей, убедитесь, чтобы был загружен обновлённый ключ. Только в этом случае запись на серверах ключей отразит отозванный идентификатор пользователя.";
-RevokeUserID_Yes = "Аннулировать ID пользователя";
+RevokeUserID_Title = "Revoke user ID";
+RevokeUserID_Msg = "You are about to revoke user ID %@ from your key %@. If you revoke this user ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this user ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked user ID.";
+RevokeUserID_Yes = "Revoke user ID";
 RevokeUserID_No = "Отмена";
 
 RemoveSubkey_Title = "Удалить Subkey";
-RemoveSubkey_Msg = "Внимание! Действуйте только если вы действительно знаете, что вы делаете.\n\nУдаление подключа может уничтожить все возможности подписи и дешифрования.\n\nЕсли ключ с этим подключём был загружен на сервер ключей, то удаление подключа не удалит подключ из ключа на сервере ключей. Пожалуйста, в этом случае в вопросе вместо этого, отзовите подключ и загрузите обновлённый ключ.";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the keyserver.";
 RemoveSubkey_Yes = "Удалить Subkey";
 RemoveSubkey_No = "Отмена";
 
 RevokeSubkey_Title = "Аннулировать Subkey";
-RevokeSubkey_Msg = "Внимание! Действуйте только если вы действительно знаете, что вы делаете.\n\nОтзыв подключа может уничтожить все возможности подписи и дешифрования.\n\nЕсли ключ с этим подключём был загружен на сервер ключей, убедитесь, чтобы был загружен обновлённый ключ. Только в этом случае, запись на серверах ключей отразит отозванный подключ.";
+RevokeSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nIn case this key has been uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will show the revoked subkey.";
 RevokeSubkey_Yes = "Аннулировать Subkey";
 RevokeSubkey_No = "Отмена";
 
@@ -145,29 +145,29 @@ RevokeSignature_Yes = "Аннулировать подпись";
 RevokeSignature_No = "Отмена";
 
 RemoveSignature_Title = "Удалить подпись";
-RemoveSignature_Msg = "Вы уверены, что хотите удалить эту подпись? Удаление подписи только удалит подпись на локальном уровне. Она не будет и не может быть удалена из ключа на сервере ключей. Пожалуйста, вместо этого, отзовите свою подпись, если вы хотите пометить её как недействительную.";
+RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
 RemoveSignature_Yes = "Удалить подпись";
 RemoveSignature_No = "Отмена";
 
 RemoveLastSelfSignature_Title = "Удалить последнюю самоподпись";
-RemoveLastSelfSignature_Msg = "Вы собираетесь удалить последнюю самоподпись из идентификатора пользователя %@. Действуйте только если вы действительно знаете, что вы делаете.\n\nЭта подпись гарантирует, что адрес электронной почты, имя и описание ID пользователя могут быть изменены только их владельцем.\n\nЕсли эта подпись отсутствует, кто-то может изменить эту информацию, и нет никакого способа узнать, если это произошло.";
+RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Удалить подпись";
 RemoveLastSelfSignature_No = "Отмена";
 
 RevokeLastSelfSignature_Title = "Аннулировать последнюю самоподпись";
-RevokeLastSelfSignature_Msg = "Вы собираетесь отозвать последнюю самоподпись из идентификатора пользователя %@. Действуйте только если вы действительно знаете, что вы делаете.\n\nОтзыв последней самоподписи идентификатора пользователя приведёт к бесполезности ID пользователя. Вы больше не будете иметь возможность использовать идентификатор пользователя %@ в Mail.app чтобы подписать почту. Другие больше не будут иметь возможности шифровать на почтовый адрес этого ID пользователя.";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last self-signature of a user ID will render that user ID useless. You will no longer be able to use user ID %@ in Mail.app to sign emails.";
 RevokeLastSelfSignature_Yes = "Аннулировать подпись";
 RevokeLastSelfSignature_No = "Отмена";
 
 RevokeKey_Title = "Внимание: Вы собираетесь отозвать ключ";
-RevokeKey_Msg = "Вы собираетесь отозвать следующий ключ:\n\n%@\n\nПосле его отзыва подпись и шифрование сообщений с помощью этого ключа больше не будет возможным. Отозванный ключ всё ещё может быть использован для расшифровки писем и файлов, зашифрованных с помощью этого ключа.\n\nМы рекомендуем не удалять его.\n\nДля того, чтобы сообщить другим, что ваш ключ был отозван, рекомендуется загрузить его на сервер ключей.\n\nВы уверены, что хотите отозвать этот ключ?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Upload = "Выложить аннулированный ключ";
 RevokeKey_Yes = "Аннулировать ключ";
 RevokeKey_No = "Отмена";
 
-OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key.";
-OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
-OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_Title = "OpenPGP сообщение, которое вы пытались импортировать, не является ключём.";
+OpenWithGPGServices_Msg = "Вы можете переслать сообщение в GPGServices для того, чтобы расшифровать или проверить его.";
+OpenWithGPGServices_Yes = "Открыть GPGServices";
 OpenWithGPGServices_No = "Отмена";
 
 
@@ -177,8 +177,8 @@ DeleteKey_Msg = "Удаление следующих публичных ключ
 DeleteKey_Yes = "Удалить ключ/ключи";
 DeleteKey_No = "Отмена";
 
-DeleteSecKey_Title = "Внимание! Вы собираетесь удалить секретный и публичный ключ/ключи";
-DeleteSecKey_Msg = "Вы собираетесь удалить ключ(и):\n\n%@\n\nУдаление секретного ключа имеет серьёзные последствия. После удаления дешифрование сообщений этим ключом больше не будет возможным. Это касается всех сообщений, которые были зашифрованы этим ключём.\n\nМы рекомендуем не удалять его.\n\nДля того, чтобы сообщить другим, что этот ключ больше не используется, вы должны отозвать ключ вместо того, чтобы удалить его и загрузить отозванный ключ на сервер ключей. В противном случае другие могут по-прежнему использовать этот ключ для шифрования сообщений вам.";
+DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = "Да, я хочу удалить свой секретный ключ и понимаю, что я больше не смогу расшифровать все сообщения, которые были зашифрованы этим ключём.";
 DeleteSecKey_Yes = "Удалить ключ/ключи";
 DeleteSecKey_SecOnly = "Удалить только секретный ключ/ключи";
@@ -199,26 +199,26 @@ BadKeyserver_Msg = "Сервер ключей, который вы ввели, �
 
 /* Import warnings */
 ImportRevSig_Title = "Импорт сертификата отзыва";
-ImportRevSig_Msg = "Вы собираетесь импортировать сертификат отзыва для %@. Если вы отзовёте свой ключ, вы больше не будете иметь возможности подписывать сообщения, используя этот ключ, и другие больше не будут иметь возможности посылать вам сообщения, зашифрованные с помощью вашего ключа. Рассмотрите загрузку вашего отозванного ключа на сервер ключей, чтобы другие были осведомлены, что ключ был отозван.\n\nВы всё ещё будете в состоянии использовать отозванные ключи для расшифровки писем и файлов, которые были зашифрованы с помощью вашего ключа. Именно поэтому мы рекомендуем вам держать отозванные ключи в GPG Keychain.";
+ImportRevSig_Msg = "You are about to import a revocation certificate for %@. If you revoke your key, you will no longer be able to sign messages using your key and others will no longer be able to send you messages encrypted to your key. Consider uploading your revoked key to the key servers so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting emails and files that were encrypted with your key. It is recommended to keep the revoked key in GPG Keychain.";
 ImportRevSig_Yes = "Импортировать";
 ImportRevSig_No = "Отмена";
 
-ImportRandomData_Title = "Внимание! Вероятно содержимое может быть не импортировано.";
+ImportRandomData_Title = "Warning: Content can probably not be imported.";
 ImportRandomData_Msg = "Похоже вы пытаетесь импортировать сообщение, которое не является ключом OpenPGP.\n\nВы уверены, что хотите попробовать импортировать это содержимое?";
 ImportRandomData_Yes = "Попытаться импортировать";
 ImportRandomData_No = "Отмена";
 
-ImportNonImportable_Title = "Внимание! Вероятно содержимое может быть не импортировано.";
+ImportNonImportable_Title = "Warning: Content can probably not be imported.";
 ImportNonImportable_Msg = "Кажется, вы пытаетесь импортировать подписанное или зашифрованное сообщение.\n\nПодобные сообщения не могут быть импортированы в связку ключей GPG.\n\nВместо этого, пожалуйста, попробуйте расшифровать или проверить сообщение в вопросе с GPGServices.";
 ImportNonImportable_Yes = "Попытаться импортировать";
 ImportNonImportable_No = "Отмена";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "Вы успешно импортировали ключ\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "Вы успешно импортировали ключи\n\n%@";
+IMPORT_RESULT_NEW_KEY = "You have imported the key \n\n%@";
+IMPORT_RESULT_NEW_KEYS = "You have imported the keys \n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "Идентификатор пользователя был добавлен в ключ/ключи\n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "Подпись была добавлена в ключ/ключи\n\n%@";
 IMPORT_RESULT_NEW_SUBKEY = "Subkey был добавлен в ключ/ключи\n\n%@";
 
@@ -257,14 +257,6 @@ GPG_DiffieHellmanAlgorithm = "DiffieHellman";
 "%i of %i keys listed" = "показано %i из %i ключей";
 
 
-/* For opening and saving dialogues */
-ChoosePhoto_Large_Message = "Эта фотография является действительно большой!";
-ChoosePhoto_Large_Info = "Вам следует использовать фотографию поменьше.\nМы рекомендуем размер меньше, чем 15 КБайт.";
-ChoosePhoto_Large_Button1 = "Выбрать другую...";
-ChoosePhoto_Large_Button2 = "Использовать фото";
-ChoosePhoto_TooLarge_Message = "Ваша фотография является слишком большой!";
-ChoosePhoto_TooLarge_Info = "Пожалуйста, используйте фотографию меньше, чем 500 КБайт.\nМы рекомендуем размер меньше, чем 15 КБайт.";
-
 
 
 
@@ -295,65 +287,66 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Экспорт ключа.";
+ExportKey_Progress = "Exporting key…";
 ExportKey_Error = "Экспорт ключа не удалось.";
-ImportKey_Progress  = "Импорт ключа.";
-DeleteSecretKey_Progress = "Удаление секретный ключа.";
-DeleteKeys_Progress = "Удаление ключа.";
+ImportKey_Progress  = "Importing key…";
+DeleteSecretKey_Progress = "Deleting secret key…";
+DeleteKeys_Progress = "Deleting key…";
 DeleteKeys_Error = "Удаление ключа не удалось.";
-ChangePassphrase_Progress = "Изменение пароля.";
-ChangePassphrase_Error = "Ошибка изменения пароля.";
-SetDisabled_Progress = "Активация/Деактивация ключа.";
+ChangePassphrase_Progress = "Changing password…";
+ChangePassphrase_Error = "Changing password failed.";
+SetDisabled_Progress = "Enabling/Disabling key…";
 SetDisabled_Error = "Активация/Деактивация ключа не удалась.";
-SetOwnerTrust_Progress = "Указание уровня доверия.";
+SetOwnerTrust_Progress = "Setting owner trust…";
 SetOwnerTrust_Error = "Указание уровня доверия не удалось.";
-ChangeExpirationDate_Progress = "Изменение срока годности.";
+ChangeExpirationDate_Progress = "Changing expiration date…";
 ChangeExpirationDate_Error = "Изменение срока годности не удалось.";
-SetAlgorithmPreferences_Progress = "Указание настроек алгоритма.";
+SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
 SetAlgorithmPreferences_Error = "Указание настроек алгоритма не удалось.";
-CleanKey_Progress = "Очистка ключа.";
+CleanKey_Progress = "Cleaning key…";
 CleanKey_Error = "Очистка ключа не удалась.";
-MinimizeKey_Progress = "Минимизация ключа.";
+MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Минимизация ключа не удалась.";
-GenerateRevokeCertificateForKey_Progress = "Генерация сертификата отзыва.";
+GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate…";
 GenerateRevokeCertificateForKey_Error = "Генерация сертификата отзыва не удалась.";
-SearchKeysOnServer_Progress = "Поиск ключа.";
+SearchKeysOnServer_Progress = "Searching for key…";
 SearchKeysOnServer_Error = "Ошибка поиск ключа.";
-SendKeysToServer_Progress = "Отправка %@ на сервер.";
+SendKeysToServer_Progress = "Sending %@ to server…";
 SendKeysToServer_Error = "Отправка не удалась.";
-RefreshKeysFromServer_Progress = "Обновление %@ с сервера.";
+RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
 RefreshKeysFromServer_Error = "Обновление ключа не удалось.";
-AddSubkey_Progress = "Добавление subkey.";
+AddSubkey_Progress = "Adding subkey…";
 AddSubkey_Error = "Добавление subkey не удалось.";
-RemoveSubkey_Progress = "Удаление subkey.";
+RemoveSubkey_Progress = "Removing subkey…";
 RemoveSubkey_Error = "Удаление subkey не удалось.";
-RevokeSubkey_Progress = "Аннулирование subkey.";
+RevokeSubkey_Progress = "Revoking subkey…";
 RevokeSubkey_Error = "Аннулирование subkey не удалось.";
-AddUserID_Progress = "Добавление ID пользователя.";
-AddUserID_Error = "Добавление ID пользователя не удалось.";
-RemoveUserID_Progress = "Удаление ID пользователя.";
-RemoveUserID_Error = "Удаление ID пользователя не удалось.";
-SetPrimaryUserID_Progress = "Установка основного UserID.";
-SetPrimaryUserID_Error = "Установка основного UserID не удалась.";
-RevokeUserID_Progress = "Аннулирование ID пользователя.";
-RevokeUserID_Error = "Аннулирование ID пользователя не удалось.";
-AddPhoto_Progress = "Добавление фото.";
+AddUserID_Progress = "Adding user ID…";
+AddUserID_Error = "Adding user ID failed.";
+RemoveUserID_Progress = "Removing user ID…";
+RemoveUserID_Error = "Removing user ID failed.";
+SetPrimaryUserID_Progress = "Setting primary user ID…";
+SetPrimaryUserID_Error = "Setting primary user ID failed.";
+RevokeUserID_Progress = "Revoking user ID…";
+RevokeUserID_Error = "Revoking user ID failed.";
+AddPhoto_Progress = "Adding photo…";
 AddPhoto_Error = "Добавление фото не удалось.";
-RemovePhoto_Progress = "Удаление фото.";
+AddPhoto_SelectMessage = "Choose photo…";
+RemovePhoto_Progress = "Removing photo…";
 RemovePhoto_Error = "Удаление фото не удалось.";
-SetPrimaryPhoto_Progress = "Установка основной фотографии.";
+SetPrimaryPhoto_Progress = "Setting primary photo…";
 SetPrimaryPhoto_Error = "Установка основной фотографии не удалась.";
-RevokePhoto_Progress = "Аннулирование фотографии.";
+RevokePhoto_Progress = "Revoking photo…";
 RevokePhoto_Error = "Аннулирование фотографии не удалось.";
-AddSignature_Progress = "Подписание.";
-AddSignature_Error = "Подписание не удалось.";
-RemoveSignature_Progress = "Удаление подписи.";
+AddSignature_Progress = "Signing…";
+AddSignature_Error = "Signing failed.";
+RemoveSignature_Progress = "Removing signature…";
 RemoveSignature_Error = "Удаление подписи не удалось.";
-RevokeSignature_Progress = "Аннулирование подписи.";
+RevokeSignature_Progress = "Revoking signature…";
 RevokeSignature_Error = "Аннулирование подписи не удалось.";
-ReceiveKeysFromServer_Progress = "Получение ключей.";
+ReceiveKeysFromServer_Progress = "Receiving keys…";
 ReceiveKeysFromServer_Error = "Получение ключей не удалось.";
-RevokeKey_Progress = "Аннулирование ключа.";
+RevokeKey_Progress = "Revoking key…";
 RevokeKey_Error = "Аннулирование ключа не удалось.";
 
 
