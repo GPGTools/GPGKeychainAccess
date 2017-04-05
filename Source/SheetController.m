@@ -39,7 +39,7 @@
 - (void)setStandardExpirationDates;
 - (void)setDataFromAddressBook;
 - (BOOL)checkName;
-- (BOOL)checkEmailMustSet:(BOOL)mustSet;
+- (BOOL)checkEmail;
 - (BOOL)checkComment;
 - (BOOL)checkPassphrase;
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
@@ -495,7 +495,7 @@ modalWindow, foundKeyDicts, hideExtension;
 			switch (self.sheetType) {
 				case SheetTypeNewKey:
 					if (![self checkName]) return;
-					if (![self checkEmailMustSet:NO]) return;
+					if (![self checkEmail]) return;
 					if (![self checkComment]) return;
 					if (![self checkPassphrase]) return;
 					break;
@@ -520,7 +520,7 @@ modalWindow, foundKeyDicts, hideExtension;
 				}
 				case SheetTypeAddUserID:
 					if (![self checkName]) return;
-					if (![self checkEmailMustSet:NO]) return;
+					if (![self checkEmail]) return;
 					if (![self checkComment]) return;
 					break;
 				case SheetTypeSelectVolume: {
@@ -830,7 +830,10 @@ modalWindow, foundKeyDicts, hideExtension;
 
 // Checks //
 - (BOOL)checkName {
-	if ([self.name length] < 5) {
+	if (self.name.length == 0) {
+		return YES;
+	}
+	if (self.name.length < 5) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameToShort"), nil, nil, nil);
 		return NO;
 	}
@@ -848,13 +851,13 @@ modalWindow, foundKeyDicts, hideExtension;
 	}
 	return YES;
 }
-- (BOOL)checkEmailMustSet:(BOOL)mustSet {
+- (BOOL)checkEmail {
 	{
 		if (!self.email) {
 			self.email = @"";
 		}
 		
-		if (!mustSet && [self.email length] == 0) {
+		if (self.name.length > 0 && self.email.length == 0) {
 			return YES;
 		}
 		if ([self.email length] > 254) {
