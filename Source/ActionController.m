@@ -2473,11 +2473,13 @@
 	
 	
 	NSLog(@"Exception: %@", e.description);
-
+	
+	[self cancelGPGOperation:nil];
+	
 	if ([e isKindOfClass:[GPGException class]]) {
 		ex = (GPGException *)e;
 		gpgTask = ex.gpgTask;
-		if (ex.errorCode == GPGErrorCancelled) {
+		if ((ex.errorCode & 0xFFFF) == GPGErrorCancelled) {
 			return;
 		}
 		NSLog(@"Error text: %@\nStatus text: %@", gpgTask.errText, gpgTask.statusText);
