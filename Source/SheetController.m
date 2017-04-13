@@ -830,14 +830,11 @@ modalWindow, foundKeyDicts, hideExtension;
 
 // Checks //
 - (BOOL)checkName {
+	self.name = [self.name stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\t "]];
 	if (self.name.length == 0) {
 		return YES;
 	}
-	if (self.name.length < 5) {
-		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameToShort"), nil, nil, nil);
-		return NO;
-	}
-	if ([self.name length] > 500) {
+	if (self.name.length > 500) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameToLong"), nil, nil, nil);
 		return NO;
 	}
