@@ -831,6 +831,13 @@ modalWindow, foundKeyDicts, hideExtension;
 // Checks //
 - (BOOL)checkName {
 	self.name = [self.name stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\t "]];
+
+	if (self.sheetType == SheetTypeAddUserID && ![[[GPGController gpgVersion] substringToIndex:3] isEqualToString:@"2.1"]) {
+		if (self.name.length < 5) {
+			NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameTooShort"), nil, nil, nil);
+			return NO;
+		}
+	}
 	if (self.name.length == 0) {
 		return YES;
 	}
