@@ -2149,9 +2149,30 @@
 		}
 		return NO;
 	}
-	else if (selector == @selector(sendKeysToServer:) ||
-		selector == @selector(refreshKeysFromServer:) ||
-		selector == @selector(deleteKey:)) {
+	else if (selector == @selector(sendKeysToServer:)) {
+		if (self.selectedKeys.count == 0) {
+			return NO;
+		}
+		if ([(NSObject *)item isKindOfClass:[NSMenuItem class]]) {
+			NSMenuItem *menuItem = (id)item;
+			BOOL secSelected = NO;
+			for (GPGKey *key in self.selectedKeys) {
+				if (key.secret) {
+					secSelected = YES;
+					break;
+				}
+			}
+			if (secSelected) {
+				menuItem.title = localized(@"SendPublicKeyToKeyserver_MenuItem");
+			} else {
+				menuItem.title = localized(@"SendToKeyserver_MenuItem");
+			}
+		}
+		return YES;
+	}
+	else if (selector == @selector(exportKey:) ||
+			 selector == @selector(exportCompact:) ||
+			 selector == @selector(deleteKey:)) {
 		return self.selectedKeys.count > 0;
     }
 	else if (selector == @selector(paste:)) {

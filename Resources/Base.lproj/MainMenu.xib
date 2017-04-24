@@ -503,7 +503,7 @@
             <connections>
                 <outlet property="delegate" destination="494" id="1897"/>
             </connections>
-            <point key="canvasLocation" x="49.5" y="10.5"/>
+            <point key="canvasLocation" x="-90" y="-115"/>
         </window>
         <customObject id="666" customClass="KeychainController">
             <connections>
@@ -2295,9 +2295,15 @@ IA
                                     <action selector="exportKey:" target="-1" id="1663"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Export Compact…" keyEquivalent="E" id="OC1-ix-FSO">
+                            <menuItem title="Compact Export…" keyEquivalent="E" id="tiH-XA-eMr">
                                 <connections>
-                                    <action selector="exportCompact:" target="-1" id="SfB-Vb-VzQ"/>
+                                    <action selector="exportCompact:" target="1178" id="pFu-0Y-rSy"/>
+                                    <binding destination="663" name="enabled" keyPath="canRemove" id="wQa-mM-DKd"/>
+                                    <binding destination="ONB-dh-h3M" name="hidden" keyPath="showExpertSettings" previousBinding="wQa-mM-DKd" id="aVn-iy-kKn">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="OCw-XG-FDI"/>
@@ -2419,9 +2425,15 @@ CA
                                     <action selector="exportKey:" target="-1" id="2pr-eu-tSk"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Export Compact…" keyEquivalent="E" id="nlU-nH-KPf">
+                            <menuItem title="Compact Export…" keyEquivalent="E" id="nlU-nH-KPf">
                                 <connections>
                                     <action selector="exportCompact:" target="-1" id="4Nx-YW-UQl"/>
+                                    <binding destination="663" name="enabled" keyPath="canRemove" id="DSf-75-bK8"/>
+                                    <binding destination="ONB-dh-h3M" name="hidden" keyPath="showExpertSettings" previousBinding="DSf-75-bK8" id="XRD-tZ-Z0l">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </menuItem>
                             <menuItem title="Mail Public Key…" keyEquivalent="M" id="UEm-EK-QZv">
@@ -2449,7 +2461,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="1598"/>
-                            <menuItem title="Send public key to key server" keyEquivalent="k" id="1599">
+                            <menuItem title="### UPLOAD KEY" keyEquivalent="k" id="1599">
                                 <connections>
                                     <action selector="sendKeysToServer:" target="-1" id="1629"/>
                                 </connections>
@@ -2477,7 +2489,8 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="cleanKey:" target="-1" id="1865"/>
-                                    <binding destination="ONB-dh-h3M" name="hidden" keyPath="showExpertSettings" id="eu5-6b-i6Z">
+                                    <binding destination="663" name="enabled" keyPath="canRemove" id="gxe-TK-sVW"/>
+                                    <binding destination="ONB-dh-h3M" name="hidden" keyPath="showExpertSettings" previousBinding="gxe-TK-sVW" id="k0F-mu-Mum">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -2488,7 +2501,8 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="minimizeKey:" target="-1" id="1866"/>
-                                    <binding destination="ONB-dh-h3M" name="hidden" keyPath="showExpertSettings" id="QLq-6a-yhx">
+                                    <binding destination="663" name="enabled" keyPath="canRemove" id="MZg-YU-HDE"/>
+                                    <binding destination="ONB-dh-h3M" name="hidden" keyPath="showExpertSettings" previousBinding="MZg-YU-HDE" id="KiL-iF-cyd">
                                         <dictionary key="options">
                                             <string key="NSValueTransformerName">NSNegateBoolean</string>
                                         </dictionary>
@@ -2560,7 +2574,7 @@ CA
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-1740" y="-1310"/>
+            <point key="canvasLocation" x="-420" y="-506"/>
         </menu>
         <menu id="1955" userLabel="Key Menu">
             <items>
@@ -2579,7 +2593,7 @@ CA
                 <menuItem isSeparatorItem="YES" id="CDZ-vm-BU3">
                     <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                 </menuItem>
-                <menuItem title="Send public key to key server" id="1968">
+                <menuItem title="### UPLOAD KEY" id="1968">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="sendKeysToServer:" target="-1" id="1969"/>
