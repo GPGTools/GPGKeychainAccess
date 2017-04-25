@@ -64,7 +64,6 @@ enum {
 	NSURL *URL;
 	NSArray *URLs;
 	BOOL hideExtension;
-	NSMutableSet *msgTextFields;
 	NSIndexSet *selectedVolumeIndexes;
 	NSUInteger oldVolumeIndex;
 	NSArray *topLevelObjects;
@@ -83,9 +82,9 @@ enum {
 
 //Views die im Sheet angezeigt werden können.
 @property (assign) IBOutlet NSView *progressView;
-@property (assign) IBOutlet NSTextField *progressTextField;
 @property (assign) IBOutlet NSView *genNewKeyView;
 @property (assign) IBOutlet NSView *genNewKey_advancedSubview;
+@property (assign) IBOutlet NSLayoutConstraint *genNewKey_advancedConstraint;
 @property (assign) IBOutlet NSView *generateSubkeyView;
 @property (assign) IBOutlet NSView *generateUserIDView;
 @property (assign) IBOutlet NSView *generateSignatureView;

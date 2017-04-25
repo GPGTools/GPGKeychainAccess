@@ -65,58 +65,12 @@ modalWindow, foundKeyDicts, hideExtension;
 
 
 
-- (void)addObserver:(id)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
-	if ([@"msgText" isEqualToString:keyPath]) {
-		NSObject *object = [observer object];
-		if ([object isKindOfClass:[NSTextField class]]) {
-			[msgTextFields addObject:object];
-		}
-	}
-	[super addObserver:observer forKeyPath:keyPath options:options context:context];
-}
-
 - (void)setProgressText:(NSString *)value {
 	if (value == nil) {
 		value = @"";
 	}
 	if (value != progressText) {
 		progressText = value;
-		
-		
-		// Resize the progress text-field to fit the text.
-		NSDictionary *attributes = @{NSFontAttributeName: [NSFont labelFontOfSize:14]};
-		NSAttributedString *aString = [[NSAttributedString alloc] initWithString:value attributes:attributes];
-		
-		NSRect fieldFrame = _progressTextField.frame;
-		NSRect superFrame = _progressView.frame;
-		
-		NSUInteger lines = value.lines;
-		CGFloat width = 1000;
-		CGFloat height = 10000;
-		if (lines <= 1) {
-			width = 500;
-		}
-		
-		
-		NSSize size = [aString boundingRectWithSize:NSMakeSize(width, height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading].size;
-		width = size.width;
-		height = size.height;
-		
-		if (height < 100) {
-			height = 100;
-		} else if (height > 500) {
-			height = 500;
-		}
-		if (width < 400) {
-			width = 400;
-		}
-		
-		height -= fieldFrame.size.height;
-		width -= fieldFrame.size.width;
-		
-		superFrame.size.height += height + 5;
-		superFrame.size.width += width + 20;
-		_progressView.frame = superFrame;
 	}
 }
 - (NSString *)progressText {
@@ -129,28 +83,6 @@ modalWindow, foundKeyDicts, hideExtension;
 	}
 	if (value != msgText) {
 		msgText = value;
-		
-		
-		// Resize all message text-fields to fit the message.
-		NSDictionary *attributes = @{NSFontAttributeName: [NSFont labelFontOfSize:13]};
-		NSAttributedString *aString = [[NSAttributedString alloc] initWithString:value attributes:attributes];
-		
-		for (NSTextField *field in msgTextFields) {
-			NSView *superview = field.superview;
-			NSRect fieldFrame = field.frame;
-			NSRect superFrame = superview.frame;
-			
-			CGFloat newHeight = [aString boundingRectWithSize:NSMakeSize(fieldFrame.size.width, 10000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading].size.height;
-			if (newHeight < 30) {
-				newHeight = 30;
-			} else if (newHeight > 500) {
-				newHeight = 500;
-			}
-			CGFloat difference = newHeight - fieldFrame.size.height;
-			
-			superFrame.size.height += difference;
-			superview.frame = superFrame;
-		}
 	}
 }
 - (NSString *)msgText {
@@ -765,20 +697,30 @@ modalWindow, foundKeyDicts, hideExtension;
 }
 
 - (void)showAdvanced:(BOOL)show animate:(BOOL)animate {
-	NSRect newFrame = _sheetWindow.frame;
+	static NSUInteger fullHeight = 0;
 	
-	CGFloat height = [_genNewKey_advancedSubview frame].size.height;
-	newFrame.size.height += show ? height : -height;
-	newFrame.origin.y -= show ? height : -height;
-	
-	if (!show) {
-		[_genNewKey_advancedSubview setHidden:YES];
-	}
-	[_sheetWindow setFrame:newFrame display:YES animate:animate];
-	if (show) {
-		[_genNewKey_advancedSubview setHidden:NO];
+	NSLayoutConstraint *constraint;
+	if (animate) {
+		constraint = self.genNewKey_advancedConstraint.animator;
+	} else {
+		constraint = self.genNewKey_advancedConstraint;
 	}
 	
+	if (fullHeight == 0) {
+		fullHeight = constraint.constant;
+	}
+	
+	if (show == NO) {
+		[self.sheetWindow endEditingFor:nil];
+	}
+	
+	constraint.constant = show ? fullHeight : 0;
+	
+	for (NSControl *subview in self.genNewKey_advancedSubview.subviews) {
+		if ([subview respondsToSelector:@selector(setEnabled:)]) {
+			subview.enabled = show;
+		}
+	}
 }
 
 
@@ -1150,7 +1092,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		
 		sheetLock = [NSLock new];
 		progressSheetLock = [NSLock new];
-		msgTextFields = [[NSMutableSet alloc] init];
 		NSArray *objects;
 		[[NSBundle mainBundle] loadNibNamed:@"ModalSheets" owner:self topLevelObjects:&objects];
 		topLevelObjects = objects;
