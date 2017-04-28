@@ -87,6 +87,47 @@ NSLock *updateLock;
 	
 
 	self.selectionIndexes = indexes.copy;
+	if (indexes.count > 0) {
+		// Determine range of selected rows.
+		__block CGFloat minY = CGFLOAT_MAX;
+		__block CGFloat maxY = 0;
+		[indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+			NSRect rowRect = [keyTable rectOfRow:idx];
+			minY = MIN(minY, rowRect.origin.y);
+			maxY = MAX(maxY, rowRect.origin.y);
+		}];
+		minY -= 1;
+		maxY += keyTable.rowHeight + 2;
+		
+		// Calculate origins and sizes.
+		CGFloat selectionHeight = maxY - minY;
+		NSClipView *clipView = keyTable.enclosingScrollView.contentView;
+		NSRect clipRect = clipView.documentVisibleRect;
+		CGFloat clipHeight = clipRect.size.height;
+		CGFloat headerHeight = keyTable.headerView.frame.size.height;
+		CGFloat visibleHeight = clipHeight - headerHeight;
+		CGFloat clipMinY = clipRect.origin.y + headerHeight;
+		CGFloat clipMaxY = clipMinY + visibleHeight;
+		
+		// Determine scoll location.
+		CGFloat scrollToY = NAN;
+		if (selectionHeight > visibleHeight) {
+			scrollToY = minY;
+		} else if (clipMinY > minY) {
+			scrollToY = minY;
+		} else if (clipMaxY < maxY) {
+			scrollToY = maxY - visibleHeight;
+		}
+		
+		// Scroll if necessary.
+		if (!isnan(scrollToY)) {
+			scrollToY -= headerHeight;
+			if (scrollToY > keyTable.frame.size.height) {
+				scrollToY = keyTable.frame.size.height;
+			}
+			[keyTable scrollPoint:NSMakePoint(0, scrollToY)];
+		}
+	}
 }
 
 - (BOOL)fetchDetailsForSelectedKey { // Returns YES if the details will be fetched.
