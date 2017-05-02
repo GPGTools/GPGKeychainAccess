@@ -91,7 +91,7 @@ NSLock *updateLock;
 		// Determine range of selected rows.
 		__block CGFloat minY = CGFLOAT_MAX;
 		__block CGFloat maxY = 0;
-		[indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+		[indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
 			NSRect rowRect = [keyTable rectOfRow:idx];
 			minY = MIN(minY, rowRect.origin.y);
 			maxY = MAX(maxY, rowRect.origin.y);
