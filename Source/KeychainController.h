@@ -60,6 +60,7 @@ typedef BOOL (^keyUpdateCallback)(NSArray *keys);
 
 - (IBAction)updateFilteredKeyList:(id)sender;
 - (void)selectKeys:(NSSet *)keys;
+- (void)keysDidChange:(NSArray *)keys;
 
 - (void)addKeyUpdateCallback:(keyUpdateCallback)callback;
 - (void)removeKeyUpdateCallback:(keyUpdateCallback)callback;

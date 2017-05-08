@@ -2541,7 +2541,14 @@
 	GPGController *gc = [args objectForKey:@"GPGController"];
 	id value = [args objectForKey:@"value"];
 
-	[sheetController endProgressSheet];
+	
+	__block BOOL ended = NO;
+	void (^endProgressSheet)() = ^void() {
+		if (ended == NO) {
+			ended = YES;
+			[sheetController endProgressSheet];
+		}
+	};
 	
 	
 	
@@ -2597,6 +2604,7 @@
 		
 		switch (actionCode) {
 			case CallbackAction: {
+				endProgressSheet();
 				callback(gc, value, oldUserInfo);
 				break;
 			}
@@ -2608,16 +2616,22 @@
 					[self refreshDisplayedKeys:self];
 					
 					NSSet *affectedkeys = nil;
-					sheetController.msgText = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
+					NSString *message = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
+					affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
+					[[KeychainController sharedInstance] keysDidChange:affectedkeys.allObjects];
+					endProgressSheet();
+
+					sheetController.msgText = message;
 					sheetController.title = localized(@"KeySearch_ImportResults_Title");
 					sheetController.sheetType = SheetTypeShowResult;
 					[sheetController runModalForWindow:mainWindow];
-					affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
+					
 					[[KeychainController sharedInstance] selectKeys:affectedkeys];
 				}
 				break;
 			}
 			case ShowFoundKeysAction: {
+				endProgressSheet();
 				if (gc.error) break;
 				NSArray *keys = gc.lastReturnValue;
 				if ([keys count] == 0) {
@@ -2636,6 +2650,7 @@
 				break;
 			}
 			case SaveDataToURLAction: { // Saves value to one or more files (@"URL"). You can specify @"hideExtension".
+				endProgressSheet();
 				if (gc.error) break;
 				
 				NSSet *urls = [oldUserInfo objectForKey:@"URL"];
@@ -2654,6 +2669,7 @@
 				break;
 			}
 			case UploadKeyAction: {
+				endProgressSheet();
 				NSSet *keys = oldUserInfo[@"keys"];
 				if (gc.error || !keys) break;
 				
@@ -2667,6 +2683,7 @@
 				break;
 			}
 			case SetPrimaryUserIDAction: {
+				endProgressSheet();
 				if (gc.error) break;
 				
 				GPGUserID *userID = [oldUserInfo objectForKey:@"userID"];
@@ -2677,6 +2694,7 @@
 				break;
 			}
 			case SetTrustAction: {
+				endProgressSheet();
 				NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
 				NSInteger trust = [[oldUserInfo objectForKey:@"trust"] integerValue];
 				
@@ -2684,6 +2702,7 @@
 				break;
 			}
 			case SetDisabledAction: {
+				endProgressSheet();
 				NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
 				BOOL disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
 				
@@ -2691,6 +2710,7 @@
 				break;
 			}
 			case RevCertificateAction: {
+				endProgressSheet();
 				NSSet *keys = oldUserInfo[@"keys"];
 				if (gc.error || !keys) break;
 				
@@ -2705,6 +2725,7 @@
 				break;
 			}
 			case RevokeKeyAction: {
+				endProgressSheet();
 				NSSet *keys = oldUserInfo[@"keys"];
 				if (gc.error || !keys) break;
 				
@@ -2715,6 +2736,8 @@
 			default:
 				break;
 		}
+		endProgressSheet();
+
 	} while (reEvaluate);
 	
 }

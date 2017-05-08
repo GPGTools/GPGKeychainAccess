@@ -246,12 +246,11 @@ NSLock *updateLock;
 	}
 }
 
-- (void)keysDidChange:(NSNotification *)notification {
+- (void)keysDidChange:(NSArray *)keys {
+	[self willChangeValueForKey:@"allKeys"];
+	[self didChangeValueForKey:@"allKeys"];
+	
 	if (![self fetchDetailsForSelectedKey]) {
-		[self willChangeValueForKey:@"allKeys"];
-		[self didChangeValueForKey:@"allKeys"];
-		
-		NSArray *keys = notification.userInfo[@"affectedKeys"];
 		NSArray *callbacksToIterate = [keyUpdateCallbacks copy];
 		for (keyUpdateCallback callback in callbacksToIterate) {
 			if (callback(keys)) {
@@ -259,6 +258,9 @@ NSLock *updateLock;
 			}
 		}
 	}
+}
+- (void)keysDidChangeNotification:(NSNotification *)notification {
+	[self keysDidChange:notification.userInfo[@"affectedKeys"]];
 }
 
 - (NSSet *)allKeys {
@@ -342,7 +344,7 @@ NSLock *updateLock;
 				break;
 		}
 
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keysDidChange:) name:GPGKeyManagerKeysDidChangeNotification object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keysDidChangeNotification:) name:GPGKeyManagerKeysDidChangeNotification object:nil];
 		@try {
 			GPGKeyManager *keyManager = [GPGKeyManager sharedInstance];
 			if ([[GPGOptions sharedOptions] boolForKey:@"showExpertSettings"]) {
