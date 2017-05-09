@@ -18,7 +18,7 @@
                 <outlet property="delegate" destination="494" id="2005"/>
             </connections>
         </customObject>
-        <customObject id="1178" customClass="ActionController">
+        <customObject id="1178" userLabel="ActionController" customClass="ActionController">
             <connections>
                 <outlet property="keyTable" destination="590" id="1979"/>
                 <outlet property="keysController" destination="663" id="1193"/>
@@ -629,7 +629,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="481"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <tabView identifier="inspectorTabs" wantsLayer="YES" controlSize="small" initialItem="Am0-3B-MhY" translatesAutoresizingMaskIntoConstraints="NO" id="reo-f1-cjF">
+                <tabView identifier="inspectorTabs" controlSize="small" initialItem="Am0-3B-MhY" translatesAutoresizingMaskIntoConstraints="NO" id="reo-f1-cjF">
                     <rect key="frame" x="8" y="5" width="464" height="471"/>
                     <constraints>
                         <constraint firstAttribute="width" priority="252" constant="100" id="zam-H7-dGq"/>
@@ -1266,7 +1266,7 @@ IA
                                                         <rect key="frame" x="20" y="31" width="410" height="144"/>
                                                         <clipView key="contentView" id="cYY-Bm-u71">
                                                             <rect key="frame" x="1" y="0.0" width="408" height="143"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" headerView="grl-ch-lFh" id="6Ho-ob-hmK" userLabel="UserIDs Table">
                                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="120"/>
@@ -1471,7 +1471,7 @@ IA
                                                         <rect key="frame" x="20" y="51" width="410" height="175"/>
                                                         <clipView key="contentView" id="Rjj-nQ-dJc">
                                                             <rect key="frame" x="1" y="0.0" width="408" height="174"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" headerView="kNE-rm-6Iw" id="4f6-IT-Ksz" userLabel="Signatures Table">
                                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="151"/>
@@ -1621,10 +1621,7 @@ IA
                                                         </tableHeaderView>
                                                     </scrollView>
                                                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nfb-Te-zdk">
-                                                        <rect key="frame" x="17" y="232" width="416" height="14"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="412" id="LPU-Zs-zvw"/>
-                                                        </constraints>
+                                                        <rect key="frame" x="18" y="232" width="64" height="14"/>
                                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Signatures:" id="T7w-sb-pO9">
                                                             <font key="font" metaFont="smallSystem"/>
                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1644,7 +1641,6 @@ IA
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="uaG-RE-Oc3" firstAttribute="top" secondItem="6ed-9H-8QU" secondAttribute="top" constant="20" symbolic="YES" id="1hb-c0-OhW"/>
-                                                    <constraint firstItem="nfb-Te-zdk" firstAttribute="centerX" secondItem="uaG-RE-Oc3" secondAttribute="centerX" id="Bk8-R5-dPM"/>
                                                     <constraint firstItem="uaG-RE-Oc3" firstAttribute="leading" secondItem="CDf-ni-Qfh" secondAttribute="leading" id="IU1-Cw-pgb"/>
                                                     <constraint firstAttribute="trailing" secondItem="uaG-RE-Oc3" secondAttribute="trailing" constant="20" symbolic="YES" id="Mx6-ZY-dHj"/>
                                                     <constraint firstItem="QKE-JS-WGL" firstAttribute="leading" secondItem="6ed-9H-8QU" secondAttribute="leading" constant="204" id="OZI-By-mvy"/>
@@ -1653,6 +1649,7 @@ IA
                                                     <constraint firstItem="QKE-JS-WGL" firstAttribute="top" secondItem="6ed-9H-8QU" secondAttribute="top" constant="91" id="eoX-aF-v2A"/>
                                                     <constraint firstItem="nfb-Te-zdk" firstAttribute="top" secondItem="6ed-9H-8QU" secondAttribute="top" id="h5L-fA-dpR"/>
                                                     <constraint firstAttribute="bottom" secondItem="CDf-ni-Qfh" secondAttribute="bottom" constant="20" symbolic="YES" id="hC0-cV-t7V"/>
+                                                    <constraint firstItem="uaG-RE-Oc3" firstAttribute="leading" secondItem="nfb-Te-zdk" secondAttribute="leading" id="xdy-6G-zuQ"/>
                                                 </constraints>
                                             </customView>
                                         </subviews>
@@ -1682,7 +1679,7 @@ IA
                                         <rect key="frame" x="17" y="236" width="410" height="191"/>
                                         <clipView key="contentView" id="97f-Hf-HbR">
                                             <rect key="frame" x="1" y="0.0" width="408" height="190"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" headerView="NzI-w2-TNg" id="Phv-dG-mjf">
                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="167"/>

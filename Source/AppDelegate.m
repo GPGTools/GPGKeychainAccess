@@ -119,6 +119,7 @@
 					[animation startAnimation];
 				}
 			}
+			drawer.contentView.window.nextResponder = [ActionController sharedInstance];
 			[drawer open];
 		}
 	} else {
