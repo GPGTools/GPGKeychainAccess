@@ -63,30 +63,16 @@
 }
 - (void)exportKeyCompact:(BOOL)compact {
 	NSArray *keys = [self selectedKeys];
-	NSUInteger count = keys.count;
-	if (count == 0) {
+	if (keys.count == 0) {
 		return;
 	}
 	
 	sheetController.title = nil; //TODO
 	sheetController.msgText = nil; //TODO
 	
-	if (count == 1) {
-		sheetController.pattern = [keys[0] shortKeyID];
-	} else {
-		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.dateFormat = @"Y-MM-dd";
-		NSString *date = [dateFormatter stringFromDate:[NSDate date]];
-		sheetController.pattern = [NSString stringWithFormat:localized(@"ExportKeysFilename"), date, count];
-	}
 	
-	[keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
-		if (key.secret) {
-			sheetController.allowSecretKeyExport = YES;
-			*stop = YES;
-		}
-	}];
-	
+	sheetController.keys = keys;
+	sheetController.pattern = nil;	
 	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
 	sheetController.sheetType = SheetTypeExportKey;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
@@ -97,7 +83,7 @@
 	self.errorText = localized(@"ExportKey_Error");
 	
 	BOOL armor = sheetController.exportFormat != 0;
-	BOOL exportSecretKey = sheetController.allowSecretKeyExport;
+	BOOL exportSecretKey = sheetController.exportSecretKey;
 	GPGExportOptions options = exportSecretKey ? GPGExportSecretKeys : 0;
 	
 	
@@ -2646,6 +2632,7 @@
 					if ([sheetController runModalForWindow:mainWindow] != NSOKButton || sheetController.keys.count == 0) break;
 					
 					[self receiveKeysFromServer:sheetController.keys];
+					sheetController.keys = nil;
 				}
 				break;
 			}

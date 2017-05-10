@@ -55,7 +55,8 @@ enum {
 	NSInteger numberOfProgressSheets; //Anzahl der angeforderten progressSheets.
 	
 	NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
-	BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload;
+	NSString *_pubFilename, *_secFilename;
+	BOOL hasExpirationDate, exportSecretKey, localSig, allowEdit, autoUpload;
 	NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 	NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
 	NSInteger exportFormat, keyType, sigType, length, sheetType;
@@ -103,7 +104,7 @@ enum {
 
 
 @property (nonatomic, strong) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
-@property (nonatomic) BOOL hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload;
+@property (nonatomic) BOOL hasExpirationDate, exportSecretKey, localSig, allowEdit, autoUpload;
 @property (nonatomic, strong) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 @property (nonatomic, strong) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
 @property (nonatomic) NSInteger exportFormat, keyType, sigType, length, sheetType;

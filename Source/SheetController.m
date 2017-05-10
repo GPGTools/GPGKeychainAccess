@@ -44,7 +44,7 @@
 - (BOOL)checkPassphrase;
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 - (BOOL)generateFoundKeyDicts;
-- (void)runSavePanelWithAccessoryView:(NSView *)accessoryView;
+- (void)runSavePanel;
 - (void)runOpenPanelWithAccessoryView:(NSView *)accessoryView;
 @end
 
@@ -56,7 +56,7 @@
 
 @implementation SheetController
 @synthesize name, email, comment, passphrase, confirmPassphrase, pattern, title,
-hasExpirationDate, allowSecretKeyExport, localSig, allowEdit, autoUpload,
+hasExpirationDate, localSig, allowEdit, autoUpload,
 expirationDate, minExpirationDate, maxExpirationDate,
 algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
 sigType, length, sheetType, URL, URLs,
@@ -183,7 +183,7 @@ modalWindow, foundKeyDicts, hideExtension;
 			self.displayedView = _generateSignatureView;
 			break;
 		case SheetTypeSavePanel:
-			[self runSavePanelWithAccessoryView:nil];
+			[self runSavePanel];
 			
 			return clickedButton;
 		case SheetTypeOpenPanel:
@@ -192,9 +192,7 @@ modalWindow, foundKeyDicts, hideExtension;
 			
 			return clickedButton;
 		case SheetTypeExportKey: {
-			BOOL showAccessoryView = self.allowSecretKeyExport;
-			self.allowSecretKeyExport = NO;
-			[self runSavePanelWithAccessoryView:showAccessoryView ? _exportKeyOptionsView : nil];
+			[self runSavePanel];
 			
 			return clickedButton; }
 		case SheetTypeAlgorithmPreferences:
@@ -351,7 +349,51 @@ modalWindow, foundKeyDicts, hideExtension;
 	return result;
 }
 
-- (void)runSavePanelWithAccessoryView:(NSView *)accessoryView {
+- (void)runSavePanel {
+	NSString *filename;
+	NSView *accessoryView = nil;
+	__block BOOL allowSecretKeyExport = NO;
+	_pubFilename = nil;
+	_secFilename = nil;
+	
+	if (!self.pattern && self.keys) {
+		NSUInteger count = self.keys.count;
+		
+		[self.keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
+			if (key.secret) {
+				allowSecretKeyExport = YES;
+				*stop = YES;
+			}
+		}];
+
+		if (allowSecretKeyExport) {
+			accessoryView = _exportKeyOptionsView;
+		}
+		
+		if (count == 1) {
+			GPGKey *key = self.keys[0];
+			
+			NSString *description = [NSString stringWithFormat:@"%@ (%@)", key.name, key.shortKeyID];
+			filename = localizedStringWithFormat(@"ExportPublicKeyFilename", description);
+			
+			if (allowSecretKeyExport) {
+				_pubFilename = filename;
+				_secFilename = localizedStringWithFormat(@"ExportSecretKeyFilename", description);
+			}
+		} else {
+			NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+			dateFormatter.dateFormat = @"Y-MM-dd";
+			NSString *date = [dateFormatter stringFromDate:[NSDate date]];
+			filename = [NSString stringWithFormat:localized(@"ExportKeysFilename"), date, count];
+		}
+		
+	} else {
+		filename = self.pattern ? self.pattern : @"";
+	}
+	
+	
+	
+	
 	NSSavePanel *panel = [NSSavePanel savePanel];
 	
 	if ([panel respondsToSelector:@selector(setShowsTagField:)]) {
@@ -361,7 +403,7 @@ modalWindow, foundKeyDicts, hideExtension;
 	panel.allowsOtherFileTypes = YES;
 	panel.canSelectHiddenExtension = YES;
 	panel.allowedFileTypes = self.allowedFileTypes;
-	panel.nameFieldStringValue = self.pattern ? self.pattern : @"";
+	panel.nameFieldStringValue = filename;
 	
 	panel.accessoryView = accessoryView; //First the accessoryView is set...
 	self.exportFormat = 1; //then exportFormat is set!
@@ -959,6 +1001,20 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	}
 	[(NSSavePanel *)[_exportKeyOptionsView window] setAllowedFileTypes:extensions];
 }
+- (BOOL)exportSecretKey {
+	return exportSecretKey;
+}
+- (void)setExportSecretKey:(BOOL)value {
+	exportSecretKey = value;
+	
+	NSSavePanel *panel = (id)_exportKeyOptionsView.window;
+	NSString *filename = panel.nameFieldStringValue;
+	
+	if ([_pubFilename isEqualToString:filename] || [_secFilename isEqualToString:filename]) {
+		panel.nameFieldStringValue = exportSecretKey ? _secFilename : _pubFilename;
+	}
+}
+
 
 
 
