@@ -1367,10 +1367,72 @@
 }
 - (IBAction)sendKeysToServer:(id)sender {
 	NSArray *keys = [self selectedKeys];
-	if (keys.count > 0) {
-		self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
+	if (keys.count == 0) {
+		return;
+	}
+	
+	__block BOOL canceled = NO;
+	NSString *progressString = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKeys:keys maxLines:3 withOptions:0]);
+	
+	void (^performUpload)() = ^() {
+		self.progressText = progressString;
 		self.errorText = localized(@"SendKeysToServer_Error");
+		
+		actionCallback callback = ^(GPGController *gc, id value, NSDictionary *userInfo) {
+			[sheetController endProgressSheet];
+			if (!gc.error) {
+				[sheetController alertSheetWithTitle:localized(@"UploadSuccess_Title")
+											 message:localizedStringWithFormat(@"UploadSuccess_Msg", [self descriptionForKeys:keys maxLines:8 withOptions:0])
+									   defaultButton:nil
+									 alternateButton:nil
+										 otherButton:nil
+								   suppressionButton:nil];
+			}
+		};
+		gpgc.userInfo = @{@"action": @[[callback copy]]};
 		[gpgc sendKeysToServer:keys];
+	};
+	
+	
+	
+	if ([gpgc respondsToSelector:@selector(keysExistOnServer:callback:)]) {
+		NSArray *publicKeys = [keys filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(GPGKey *key, NSDictionary *bindings) {
+			return !key.secret;
+		}]];
+		
+		if (publicKeys.count > 0) {
+			cancelCallback cancelBlock = ^() {
+				canceled = YES;
+				[sheetController endProgressSheet];
+			};
+			[cancelCallbacks addObject:[cancelBlock copy]];
+			
+			sheetController.progressText = progressString;
+			[sheetController showProgressSheet];
+			[gpgc keysExistOnServer:publicKeys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
+				void (^block)() = ^{
+					[cancelCallbacks removeAllObjects];
+					if (nonExistingKeys.count > 0) {
+						[sheetController endProgressSheet];
+						NSString *description = [self descriptionForKeys:nonExistingKeys maxLines:8 withOptions:0];
+						[sheetController errorSheetWithMessageText:localized(@"FirstUploadForeignKey_Title")
+														  infoText:localizedStringWithFormat(@"FirstUploadForeignKey_Msg", description)];
+					} else {
+						performUpload();
+					}
+				};
+				
+				if (!canceled) {
+					if ([NSThread isMainThread]) {
+						block();
+					} else {
+						dispatch_async(dispatch_get_main_queue(), block);
+					}
+				}
+			}];
+		}
+	} else {
+		performUpload();
 	}
 }
 - (IBAction)refreshKeysFromServer:(id)sender {
@@ -1623,7 +1685,7 @@
 		actionCallback callback = ^(GPGController *gc, id value, NSDictionary *userInfo) {
 			[[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
 		};
-		gpgc.userInfo = @{@"action": @[callback]};
+		gpgc.userInfo = @{@"action": @[[callback copy]]};
 		
 		[gpgc addPhotoFromPath:[fileURL path] toKey:key];
 	} else {
@@ -1867,7 +1929,7 @@
 		[sheetController endProgressSheet];
 		[[KeychainController sharedInstance] removeKeyUpdateCallback:keyChangeBlock];
 	};
-	[cancelCallbacks addObject:cancelBlock];
+	[cancelCallbacks addObject:[cancelBlock copy]];
 	[[KeychainController sharedInstance] addKeyUpdateCallback:keyChangeBlock];
 }
 

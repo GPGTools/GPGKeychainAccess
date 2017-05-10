@@ -170,6 +170,9 @@ OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order t
 OpenWithGPGServices_Yes = "Open GPGServices";
 OpenWithGPGServices_No = "Cancel";
 
+FirstUploadForeignKey_Title = "Public key not allowed on key servers";
+FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers:\n\n%@\n\nSome key owners intentionally do not upload their public key. In order to respect that decision, you can not upload this public key. In case you think this is an error, please get in touch with the key owner.";
+
 
 /* Delete warnings */
 DeleteKey_Title = "Delete public key(s)";
@@ -212,6 +215,13 @@ ImportNonImportable_Title = "Warning: Content can probably not be imported.";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Try Import";
 ImportNonImportable_No = "Cancel";
+
+
+
+/* Results */
+UploadSuccess_Title = "Successfully sent";
+UploadSuccess_Msg = "The following public keys have been sent to the key servers:\n\n%@\n\nPlease allow some time for the change to be synced across existing key servers.";
+
 
 
 /* For Import-Results */
