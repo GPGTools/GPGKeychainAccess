@@ -610,7 +610,8 @@
 			return;
 		}
 		
-		NSString *path = [NSString stringWithFormat:@"%s/%@.asc", tempDir, keys.count == 1 ? [keys[0] shortKeyID] : localized(@"Keys")];
+		
+		NSString *path = [NSString stringWithFormat:@"%s/%@.asc", tempDir, filenameForExportedKeys(keys, nil)];
 		NSURL *url = [NSURL fileURLWithPath:path];
 		NSError *error = nil;
 		[data writeToURL:url options:0 error:&error];

@@ -193,18 +193,7 @@ NSLock *updateLock;
 
 
 - (NSArray *)tableView:(NSTableView *)tableView namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
-	NSString *fileName;
-	
 	NSArray *draggedKeys = [keysController.arrangedObjects objectsAtIndexes:indexSet];
-	if (draggedKeys.count == 1) {
-		fileName = [draggedKeys[0] shortKeyID];
-	} else {
-		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.dateFormat = @"Y-MM-dd";
-		NSString *date = [dateFormatter stringFromDate:[NSDate date]];
-		fileName = [NSString stringWithFormat:localized(@"ExportKeysFilename"), date, draggedKeys.count];
-	}
-	fileName = [fileName stringByAppendingString:@".asc"];
 	
 	GPGController *gc = [[ActionController sharedInstance] gpgc];
 	BOOL oldAsync = gc.async;
@@ -215,10 +204,21 @@ NSLock *updateLock;
 	gc.async = oldAsync;
 	gc.useArmor = oldArmor;
 	
-	if ([exportedData length] > 0) {
-		[[NSFileManager defaultManager] createFileAtPath:[dropDestination.path stringByAppendingPathComponent:fileName] contents:exportedData attributes:@{NSFileExtensionHidden: @YES}];
+	if (exportedData.length > 0) {
+		NSString *filename = filenameForExportedKeys(draggedKeys, nil);
+		NSString *fullFilename = [filename stringByAppendingString:@".asc"];
+		NSString *path = dropDestination.path;
 		
-		return @[fileName];
+		NSUInteger i = 2;
+		while ([[NSFileManager defaultManager] fileExistsAtPath:[path stringByAppendingPathComponent:fullFilename]]) {
+			fullFilename = [filename stringByAppendingFormat:@" %lu.asc", i];
+			i++;
+		}
+		
+		
+		[[NSFileManager defaultManager] createFileAtPath:[path stringByAppendingPathComponent:fullFilename] contents:exportedData attributes:@{NSFileExtensionHidden: @YES}];
+		
+		return @[filename];
 	} else {
 		return nil;
 	}

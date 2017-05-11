@@ -351,48 +351,30 @@ modalWindow, foundKeyDicts, hideExtension;
 
 - (void)runSavePanel {
 	NSString *filename;
-	NSView *accessoryView = nil;
-	__block BOOL allowSecretKeyExport = NO;
 	_pubFilename = nil;
 	_secFilename = nil;
 	
 	if (!self.pattern && self.keys) {
-		NSUInteger count = self.keys.count;
+		NSString *secFilename = nil;
+		filename = filenameForExportedKeys(self.keys, &secFilename);
 		
-		[self.keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
-			if (key.secret) {
-				allowSecretKeyExport = YES;
-				*stop = YES;
-			}
-		}];
-
-		if (allowSecretKeyExport) {
-			accessoryView = _exportKeyOptionsView;
+		if (secFilename) {
+			_secFilename = secFilename;
+			_pubFilename = filename;
 		}
-		
-		if (count == 1) {
-			GPGKey *key = self.keys[0];
-			
-			NSString *description = [NSString stringWithFormat:@"%@ (%@)", key.name, key.shortKeyID];
-			filename = localizedStringWithFormat(@"ExportPublicKeyFilename", description);
-			
-			if (allowSecretKeyExport) {
-				_pubFilename = filename;
-				_secFilename = localizedStringWithFormat(@"ExportSecretKeyFilename", description);
-			}
-		} else {
-			NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-			dateFormatter.dateFormat = @"Y-MM-dd";
-			NSString *date = [dateFormatter stringFromDate:[NSDate date]];
-			filename = [NSString stringWithFormat:localized(@"ExportKeysFilename"), date, count];
-		}
-		
 	} else {
 		filename = self.pattern ? self.pattern : @"";
 	}
 	
-	
-	
+	__block NSView *accessoryView = nil;
+	[keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
+		if (key.secret) {
+			accessoryView = _exportKeyOptionsView;
+			*stop = YES;
+		}
+	}];
+
+
 	
 	NSSavePanel *panel = [NSSavePanel savePanel];
 	

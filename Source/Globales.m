@@ -65,6 +65,37 @@ NSString *localizedStringWithFormat(NSString *key, ...) {
 
 
 
+NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename) {
+	NSString *filename;
+	NSUInteger count = keys.count;
+	__block BOOL hasSecKey = NO;
+	
+	[keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
+		if (key.secret) {
+			hasSecKey = YES;
+			*stop = YES;
+		}
+	}];
+	
+	if (count == 1) {
+		GPGKey *key = keys[0];
+		
+		NSString *description = [NSString stringWithFormat:@"%@ (%@)", key.name, key.shortKeyID];
+		filename = localizedStringWithFormat(@"ExportPublicKeyFilename", description);
+		
+		if (hasSecKey && secFilename) {
+			*secFilename = localizedStringWithFormat(@"ExportSecretKeyFilename", description);
+		}
+	} else {
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		dateFormatter.dateFormat = @"Y-MM-dd";
+		NSString *date = [dateFormatter stringFromDate:[NSDate date]];
+		filename = [NSString stringWithFormat:localized(@"ExportKeysFilename"), date, count];
+	}
+
+	return filename;
+}
+
 
 
 
