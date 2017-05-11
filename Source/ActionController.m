@@ -865,7 +865,6 @@
 	NSString *title, *message, *button1, *button2, *button3 = nil, *description, *template, *checkbox = nil;
 	BOOL hasSecretKey = NO;
 	BOOL onlyRevoked = YES;
-	NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:[NSFont smallSystemFontSize]]};
 
 	NSMutableArray *secretKeys = [NSMutableArray array];
 	NSMutableArray *publicKeys = [NSMutableArray array];
@@ -912,9 +911,6 @@
 		button2 = localized([template stringByAppendingString:@"_Yes"]);
 	}
 	
-	
-	
-
 	NSInteger result =
 	[sheetController alertSheetForWindow:mainWindow
 							 messageText:title
@@ -924,55 +920,115 @@
 							 otherButton:button3
 					   suppressionButton:checkbox
 							   customize:^(NSAlert *alert) {
-								   
 								   // Add minimum and maximum width constraints to the alert.
 								   NSWindow *window = alert.window;
 								   NSView *contentView = window.contentView;
-								   CGFloat screenWidth = window.screen.frame.size.width;
 								   NSView *textField = nil;
+								   NSView *checkBoxButton;
 								   
-								   for (NSView *subview in contentView.subviews) {
-									   if ([subview isKindOfClass:[NSTextField class]]) {
-										   textField = subview; // The minimum width will be set on a text field.
-										   break;
-									   }
-								   }
 								   
-								   if (!textField) { // No text field? Should be impossible.
-									   textField = contentView; // Set minimum width on the content view.
-								   }
+								   NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+								   paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+								   NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:NSFont.smallSystemFontSize],
+																NSParagraphStyleAttributeName: paragraphStyle};
 								   
-								   NSDictionary *views = @{@"content": contentView, @"text": textField};
-								   
+
 								   // Calulate widths.
 								   CGFloat minWidth = [description sizeWithAttributes:attributes].width + 20;
+								   CGFloat maxWidth = window.screen.frame.size.width;
 								   if (minWidth > 1000) {
 									   minWidth = 1000;
 								   }
-								   if (screenWidth < 200) {
-									   screenWidth = 200;
+								   if (maxWidth < 200) {
+									   maxWidth = 200;
+								   } else if (maxWidth > 700) {
+									   maxWidth = 700;
 								   }
-								   if (minWidth > screenWidth) {
-									   minWidth = screenWidth;
+								   if (minWidth > maxWidth) {
+									   minWidth = maxWidth;
 								   }
 								   
-								   // Add constraints.
+								   
+								   for (NSView *subview in contentView.subviews) {
+									   if ([subview isKindOfClass:[NSTextField class]] && [[(NSTextField *)subview stringValue] isEqualToString:message]) {
+										   textField = subview; // The minimum width will be set the message text field.
+										   break;
+									   }
+								   }
+								   if (!textField) { // No text field? Should be impossible.
+									   textField = contentView; // Set minimum width on the content view.
+								   }
+								   checkBoxButton = checkbox ? alert.suppressionButton : contentView; // contentView is only set because a dictionary doesn't allow nil.
+								   NSDictionary *views = @{@"content": contentView, @"text": textField, @"checkbox": checkBoxButton};
+
+								   
+								   // Add minimum width constraint
 								   NSString *format = [NSString stringWithFormat:@"[text(>=%f@999)]", minWidth];
 								   NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
 								   [contentView addConstraints:constraints];
 
-								   format = [NSString stringWithFormat:@"[content(<=%f)]", screenWidth];
+								   // and maximum width constraint.
+								   format = [NSString stringWithFormat:@"[content(<=%f)]", maxWidth];
 								   constraints = [NSLayoutConstraint constraintsWithVisualFormat:format options:0 metrics:nil views:views];
 								   [contentView addConstraints:constraints];
 								   
 								   
 								   
-								   
-								   // The checkbox must be checked before the delete buttons are enabled.
 								   if (hasSecretKey) {
+									   NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:checkbox attributes:attributes];
+
+									   NSRect frame = alert.suppressionButton.frame;
+									   NSInteger maxCheckboxWidth = maxWidth - frame.origin.x - 40;
+									   
+									   // The checkbox would be to wide for the window.
+									   if (maxCheckboxWidth < frame.size.width) {
+										   NSMutableArray *lineEnds = [NSMutableArray new];
+										   NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:attributedString];
+										   NSTextContainer *textContainer = [[NSTextContainer alloc] initWithContainerSize:NSMakeSize(maxCheckboxWidth, CGFLOAT_MAX)];
+										   NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+										   
+										   [layoutManager addTextContainer:textContainer];
+										   [textStorage addLayoutManager:layoutManager];
+										   
+										   textContainer.lineFragmentPadding = 0;
+										   
+										   // Get the lines for the desired width.
+										   NSUInteger lastGlyph = NSMaxRange([layoutManager glyphRangeForCharacterRange:NSMakeRange(0, checkbox.length) actualCharacterRange:nil]);
+										   NSUInteger glyphIndex = 0;
+										   while (glyphIndex < lastGlyph) {
+											   NSRange lineFragmentGlyphRange;
+											   [layoutManager lineFragmentRectForGlyphAtIndex:glyphIndex effectiveRange:&lineFragmentGlyphRange];
+											   glyphIndex = NSMaxRange(lineFragmentGlyphRange);
+											   [lineEnds addObject:@([layoutManager characterIndexForGlyphAtIndex:glyphIndex])];
+										   }
+										   
+										   // Add necessary line breaks.
+										   if (lineEnds.count > 1) {
+											   NSMutableString *newString = [NSMutableString new];
+											   NSUInteger lineStart = 0;
+											   for (NSNumber *lineEndValue in lineEnds) {
+												   NSUInteger lineEnd = lineEndValue.unsignedIntegerValue;
+												   NSString *line = [checkbox substringWithRange:NSMakeRange(lineStart, lineEnd - lineStart)];
+												   [newString appendFormat:@"%@\n", line];
+												   lineStart = lineEnd;
+											   }
+											   [newString replaceCharactersInRange:NSMakeRange(newString.length - 1, 1) withString:@""];
+											   attributedString = [[NSAttributedString alloc] initWithString:newString attributes:attributes];
+											   
+											   // Set checkbox height, so all lines will fit.
+											   CGFloat height = [layoutManager usedRectForTextContainer:textContainer].size.height;
+											   frame.size.height = height;
+											   alert.suppressionButton.frame = frame;
+											   
+											   constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[text]-20-[checkbox]" options:0 metrics:nil views:views];
+											   [contentView addConstraints:constraints];
+										   }
+									   }
+									   
+									   // The checkbox must be checked before the delete buttons are enabled.
 									   NSButtonCell *checkboxCell = alert.suppressionButton.cell;
-									   NSAttributedString *string = [[NSAttributedString alloc] initWithString:checkbox attributes:attributes];
-									   [checkboxCell setAttributedTitle:string];
+									   checkboxCell.lineBreakMode = NSLineBreakByCharWrapping;
+									   [checkboxCell setAttributedTitle:attributedString];
 									   checkboxCell.state = NSOffState;
 									   [alert.buttons[1] bind:@"enabled" toObject:checkboxCell withKeyPath:@"state" options:nil];
 									   [alert.buttons[2] bind:@"enabled" toObject:checkboxCell withKeyPath:@"state" options:nil];
