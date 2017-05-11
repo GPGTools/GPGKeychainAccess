@@ -1855,18 +1855,35 @@
 	}
 	
 	GPGKey *key = [keys[0] primaryKey];
-	
-	NSSet *secretKeys = [[KeychainController sharedInstance] secretKeys];
-	
-	sheetController.secretKeys = [secretKeys allObjects];
-	GPGKey *defaultKey = [[KeychainController sharedInstance] defaultKey];
-	if (!defaultKey) {
-		defaultKey = [secretKeys anyObject];
-	}
-	if (!defaultKey) {
-		[sheetController alertSheetForWindow:mainWindow messageText:localized(@"NO_SECRET_KEY_TITLE") infoText:localized(@"NO_SECRET_KEY_MESSAGE") defaultButton:nil alternateButton:nil otherButton:nil suppressionButton:nil];
+	if (key.validity >= GPGValidityInvalid) {
 		return;
 	}
+	
+	
+	NSSet *secretKeys = [[KeychainController sharedInstance] secretKeys];
+	NSMutableArray *usableSecretKeys = [NSMutableArray new];
+	for (GPGKey *secretKey in secretKeys) {
+		
+		if (secretKey.validity >= GPGValidityInvalid) {
+			continue;
+		}
+		if (secretKey.canAnySign == NO) {
+			continue;
+		}
+		
+		[usableSecretKeys addObject:secretKey];
+	}
+	if (usableSecretKeys.count == 0) {
+		[sheetController errorSheetWithMessageText:localized(@"NO_SECRET_KEY_TITLE") infoText:localized(@"NO_SECRET_KEY_MESSAGE")];
+		return;
+	}
+
+	
+	GPGKey *defaultKey = [[KeychainController sharedInstance] defaultKey];
+	if (!defaultKey) {
+		defaultKey = usableSecretKeys[0];
+	}
+	sheetController.secretKeys = [usableSecretKeys copy];
 	sheetController.secretKey = defaultKey;
 	
 	
@@ -2303,9 +2320,15 @@
 	}
 	else if (selector == @selector(addSignature:)) {
 		if (tag == 1) {
-			return [self selectedObjectsOf:userIDsTable].count == 1;
+			if ([self selectedObjectsOf:userIDsTable].count != 1) {
+				return NO;
+			}
+		}
+		NSArray *keys = self.selectedKeys;
+		if (keys.count != 1 || [keys[0] validity] >= GPGValidityInvalid) {
+			return NO;
 		} else {
-			return self.selectedKeys.count == 1;
+			return YES;
 		}
 	}
 	else if (selector == @selector(removeUserID:)) {
