@@ -722,8 +722,17 @@ modalWindow, foundKeyDicts, hideExtension;
 
 - (void)showAdvanced:(BOOL)show animate:(BOOL)animate {
 	static NSUInteger fullHeight = 0;
-	
 	NSLayoutConstraint *constraint;
+	
+	[NSAnimationContext beginGrouping];
+
+	if (show) {
+		[[NSAnimationContext currentContext] setCompletionHandler:^{
+			[self.sheetWindow recalculateKeyViewLoop];
+		}];
+	}
+
+	
 	if (animate) {
 		constraint = self.genNewKey_advancedConstraint.animator;
 	} else {
@@ -745,6 +754,7 @@ modalWindow, foundKeyDicts, hideExtension;
 			subview.enabled = show;
 		}
 	}
+	[NSAnimationContext endGrouping];
 }
 
 

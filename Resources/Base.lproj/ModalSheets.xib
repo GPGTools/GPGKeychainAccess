@@ -1106,8 +1106,10 @@ Gw
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <accessibility description="Full name"/>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="name" id="903"/>
+                                <outlet property="nextKeyView" destination="872" id="eZR-mp-wKD"/>
                             </connections>
                         </textField>
                         <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="872">
@@ -1117,19 +1119,23 @@ Gw
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </comboBoxCell>
+                            <accessibility description="Email address"/>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="email" previousBinding="898" id="899"/>
                                 <binding destination="-2" name="contentValues" keyPath="emailAddresses" id="898"/>
+                                <outlet property="nextKeyView" destination="1357" id="sKp-lk-QRx"/>
                             </connections>
                         </comboBox>
                         <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1153">
                             <rect key="frame" x="20" y="11" width="13" height="13"/>
-                            <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="60BABE80-0640-4E3F-B38F-CDCE8A5F9BF6" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
+                            <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="68C5FDB9-5C3F-49C4-B60A-3C5CD735A0C9" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
                                 <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <accessibility description="Advanced options"/>
                             <connections>
                                 <action selector="advancedButton:" target="-2" id="1158"/>
+                                <outlet property="nextKeyView" destination="871" id="wAv-l7-dP9"/>
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="751" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1155">
@@ -1148,6 +1154,7 @@ Gw
                             </buttonCell>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="autoUpload" id="1359"/>
+                                <outlet property="nextKeyView" destination="1153" id="Beb-Jp-ULW"/>
                             </connections>
                         </button>
                     </subviews>
@@ -1193,9 +1200,10 @@ Gw
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
+                            <accessibility description="Comment"/>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="comment" id="907"/>
-                                <outlet property="nextKeyView" destination="870" id="893"/>
+                                <outlet property="nextKeyView" destination="859" id="7xJ-NJ-JWd"/>
                             </connections>
                         </textField>
                         <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="859">
@@ -1212,9 +1220,10 @@ Gw
                                     </items>
                                 </menu>
                             </popUpButtonCell>
+                            <accessibility description="Key type"/>
                             <connections>
                                 <binding destination="-2" name="selectedTag" keyPath="keyType" id="908"/>
-                                <outlet property="nextKeyView" destination="860" id="1056"/>
+                                <outlet property="nextKeyView" destination="865" id="ZEW-qe-ek2"/>
                             </connections>
                         </popUpButton>
                         <comboBox verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="860">
@@ -1227,6 +1236,7 @@ Gw
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </comboBoxCell>
+                            <accessibility description="Length"/>
                             <connections>
                                 <binding destination="-2" name="contentValues" keyPath="availableLengths" id="900"/>
                                 <binding destination="-2" name="value" keyPath="length" previousBinding="900" id="901"/>
@@ -1244,12 +1254,13 @@ Gw
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             </datePickerCell>
+                            <accessibility description="Expiration date"/>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="expirationDate" previousBinding="905" id="906"/>
                                 <binding destination="-2" name="enabled" keyPath="hasExpirationDate" id="902"/>
                                 <binding destination="-2" name="maxValue" keyPath="maxExpirationDate" id="904"/>
                                 <binding destination="-2" name="minValue" keyPath="minExpirationDate" previousBinding="904" id="905"/>
-                                <outlet property="nextKeyView" destination="859" id="892"/>
+                                <outlet property="nextKeyView" destination="915" id="VWi-TJ-YCW"/>
                             </connections>
                         </datePicker>
                         <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="862">
@@ -1284,7 +1295,7 @@ Gw
                             </buttonCell>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="hasExpirationDate" id="897"/>
-                                <outlet property="nextKeyView" destination="861" id="896"/>
+                                <outlet property="nextKeyView" destination="861" id="75J-M1-1r8"/>
                             </connections>
                         </button>
                     </subviews>
@@ -1312,6 +1323,9 @@ Gw
                         <constraint firstItem="864" firstAttribute="baseline" secondItem="860" secondAttribute="baseline" id="xGv-ok-QN8"/>
                         <constraint firstItem="859" firstAttribute="leading" secondItem="862" secondAttribute="trailing" constant="6" id="xII-qS-7ye"/>
                     </constraints>
+                    <connections>
+                        <outlet property="nextKeyView" destination="871" id="5vC-b8-gOf"/>
+                    </connections>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="912">
                     <rect key="frame" x="0.0" y="42" width="450" height="60"/>
@@ -1334,8 +1348,10 @@ Gw
                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                 </allowedInputSourceLocales>
                             </secureTextFieldCell>
+                            <accessibility description="Passphrase"/>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="passphrase" id="936"/>
+                                <outlet property="nextKeyView" destination="914" id="xcT-Dw-Y5W"/>
                             </connections>
                         </secureTextField>
                         <secureTextField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="914">
@@ -1348,6 +1364,7 @@ Gw
                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                 </allowedInputSourceLocales>
                             </secureTextFieldCell>
+                            <accessibility description="Confirm"/>
                             <connections>
                                 <binding destination="-2" name="value" keyPath="confirmPassphrase" id="937"/>
                                 <outlet property="nextKeyView" destination="921" id="1064"/>
@@ -1374,6 +1391,9 @@ Gw
                         <constraint firstItem="914" firstAttribute="leading" secondItem="915" secondAttribute="leading" id="rQ4-TQ-16r"/>
                         <constraint firstItem="915" firstAttribute="top" secondItem="912" secondAttribute="top" id="t2F-AN-fSD"/>
                     </constraints>
+                    <connections>
+                        <outlet property="nextKeyView" destination="915" id="dc6-YS-3Vo"/>
+                    </connections>
                 </customView>
                 <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="921">
                     <rect key="frame" x="315" y="11" width="121" height="32"/>
@@ -1389,7 +1409,7 @@ DQ
                     </buttonCell>
                     <connections>
                         <action selector="buttonClicked:" target="-2" id="1088"/>
-                        <outlet property="nextKeyView" destination="859" id="1065"/>
+                        <outlet property="nextKeyView" destination="922" id="LKy-tA-90j"/>
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="922">
@@ -1406,6 +1426,7 @@ Gw
                     </buttonCell>
                     <connections>
                         <action selector="buttonClicked:" target="-2" id="1086"/>
+                        <outlet property="nextKeyView" destination="870" id="gse-dI-5Py"/>
                     </connections>
                 </button>
             </subviews>
@@ -2118,7 +2139,7 @@ DQ
         </arrayController>
     </objects>
     <resources>
-        <image name="60BABE80-0640-4E3F-B38F-CDCE8A5F9BF6" width="1" height="1">
+        <image name="68C5FDB9-5C3F-49C4-B60A-3C5CD735A0C9" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
