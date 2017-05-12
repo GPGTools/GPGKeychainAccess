@@ -281,14 +281,16 @@
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
-	_didFinishLaunching = YES;
+	if (_shouldTerminate) {
+		[NSApp terminate:nil];
+	}
 }
 
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)filenames {
 	if (![NSApp modalWindow]) {
 		BOOL onlyGPGServicesUsed = [[ActionController sharedInstance] importFromURLs:filenames askBeforeOpen:NO];
-		if (!_didFinishLaunching && onlyGPGServicesUsed) {
-			[NSApp terminate:nil];
+		if (onlyGPGServicesUsed) {
+			_shouldTerminate = YES;
 		}
 	}
 }

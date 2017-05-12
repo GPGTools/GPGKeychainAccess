@@ -21,7 +21,7 @@
 
 @interface GPGKeychainAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
 	BOOL rowWasSelected;
-	BOOL _didFinishLaunching;
+	BOOL _shouldTerminate;
 }
 
 @property (assign) IBOutlet NSWindow *window;
