@@ -181,7 +181,8 @@
 	[self importFromURLs:urls askBeforeOpen:YES];
 }
 
-- (void)importFromURLs:(NSArray *)urls askBeforeOpen:(BOOL)ask {
+- (BOOL)importFromURLs:(NSArray *)urls askBeforeOpen:(BOOL)ask {
+	BOOL onlyGPGServicesUsed = NO;
 	@autoreleasepool {
 		NSMutableData *dataToImport = [NSMutableData data];
 		NSMutableArray *filesToOpen = [NSMutableArray array];
@@ -247,13 +248,15 @@
 											options:0
 					 additionalEventParamDescriptor:nil
 								  launchIdentifiers:nil];
+			if (dataToImport.length == 0) {
+				onlyGPGServicesUsed = YES;
+			}
 		}
-		
-		
 		if (dataToImport.length > 0) {
 			[self importFromData:dataToImport];
 		}
 	}
+	return onlyGPGServicesUsed;
 }
 - (BOOL)shouldUseGPGServicesForStream:(GPGStream *)stream {
 	
