@@ -803,7 +803,6 @@
 #pragma mark Keys
 - (IBAction)generateNewKey:(id)sender {
 	sheetController.sheetType = SheetTypeNewKey;
-	sheetController.autoUpload = NO;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
@@ -838,15 +837,20 @@
 	}
 	gpgc.passphrase = passphrase;
 	
-	NSMutableArray *actions = [NSMutableArray array];
 	
-	[actions addObject:@(RevCertificateAction)];
 	
-	if (sheetController.autoUpload) {
-		[actions addObject:@(UploadKeyAction)];
-	}
-	
-	gpgc.userInfo = @{@"action": actions, @"operation": @(NewKeyOperation), @"passphrase": passphrase};
+	actionCallback uploadCallback = [^(GPGController *gc, NSString *fingerprint, NSDictionary *userInfo) {
+		if (gc.error) {
+			return;
+		}
+		if ([self warningSheetWithDefault:NO string:@"NewKeyWantToUpload"]) {
+			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:fingerprint]);;
+			self.errorText = localized(@"SendKeysToServer_Error");
+			NSLog(@"Upload");
+			// [gpgc sendKeysToServer:@[key]];
+		}
+	} copy];
+	gpgc.userInfo = @{@"action": @[uploadCallback]};
 	
 	
 	[gpgc generateNewKeyWithName:sheetController.name
@@ -1534,6 +1538,20 @@
 	
 	self.progressText = localized(@"AddSubkey_Progress");
 	self.errorText = localized(@"AddSubkey_Error");
+	
+	actionCallback uploadCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
+		if (gc.error) {
+			return;
+		}
+		if ([self warningSheetWithDefault:NO string:@"NewSubkeyWantToUpload"]) {
+			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
+			self.errorText = localized(@"SendKeysToServer_Error");
+			[gpgc sendKeysToServer:@[key]];
+		}
+	} copy];
+	
+	gpgc.userInfo = @{@"action": @[uploadCallback]};
+	
 	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
 }
@@ -1579,8 +1597,9 @@
 		return;
 	}
 	GPGKey *key = [keys[0] primaryKey];
-	
-	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), [key userIDDescription], key.keyID.shortKeyID];
+	GPGUserID *userID = key.primaryUserID;
+
+	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), key.userIDDescription, key.keyID.shortKeyID];
 	
 	sheetController.sheetType = SheetTypeAddUserID;
 	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
@@ -1589,7 +1608,28 @@
 	
 	self.progressText = localized(@"AddUserID_Progress");
 	self.errorText = localized(@"AddUserID_Error");
-	gpgc.userInfo = @{@"action": @(SetPrimaryUserIDAction), @"userID": key.primaryUserID};
+	
+	actionCallback primaryUserIDCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
+		if (gc.error) {
+			return;
+		}
+		self.progressText = localized(@"SetPrimaryUserID_Progress");
+		self.errorText = localized(@"SetPrimaryUserID_Error");
+		[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
+	} copy];
+	actionCallback uploadCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
+		if (gc.error) {
+			return;
+		}
+		if ([self warningSheetWithDefault:NO string:@"NewUserIDWantToUpload"]) {
+			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
+			self.errorText = localized(@"SendKeysToServer_Error");
+			[gpgc sendKeysToServer:@[key]];
+		}
+	} copy];
+	
+	gpgc.userInfo = @{@"action": @[primaryUserIDCallback, uploadCallback]};
+
 	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
@@ -2706,15 +2746,6 @@
 		self.errorText = nil;
 		
 		
-		switch ([oldUserInfo[@"operation"] integerValue]) {
-			case NewKeyOperation:
-				if (value) {
-					oldUserInfo[@"keys"] = [NSSet setWithObject:value];
-				} else {
-					[oldUserInfo removeObjectForKey:@"keys"];
-				}
-				break;
-		}
 		oldUserInfo[@"operation"] = @0;
 		
 		
@@ -2827,17 +2858,6 @@
 				
 				break;
 			}
-			case SetPrimaryUserIDAction: {
-				endProgressSheet();
-				if (gc.error) break;
-				
-				GPGUserID *userID = [oldUserInfo objectForKey:@"userID"];
-				self.progressText = localized(@"SetPrimaryUserID_Progress");
-				self.errorText = localized(@"SetPrimaryUserID_Error");
-				[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
-				
-				break;
-			}
 			case SetTrustAction: {
 				endProgressSheet();
 				NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
@@ -2852,21 +2872,6 @@
 				BOOL disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
 				
 				[self setDisabled:disabled forKeys:keys];
-				break;
-			}
-			case RevCertificateAction: {
-				endProgressSheet();
-				NSSet *keys = oldUserInfo[@"keys"];
-				if (gc.error || !keys) break;
-				
-				GPGKey *key = [keys anyObject];
-				
-				self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKey:key]];
-				self.errorText = localized(@"SendKeysToServer_Error");
-				
-				gc.passphrase = oldUserInfo[@"passphrase"];
-				[self revCertificateForKey:key customPath:NO];
-				
 				break;
 			}
 			case RevokeKeyAction: {

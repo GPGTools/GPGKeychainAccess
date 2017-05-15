@@ -56,7 +56,7 @@
 
 @implementation SheetController
 @synthesize name, email, comment, passphrase, confirmPassphrase, pattern, title,
-hasExpirationDate, localSig, allowEdit, autoUpload,
+hasExpirationDate, localSig, allowEdit,
 expirationDate, minExpirationDate, maxExpirationDate,
 algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
 sigType, length, sheetType, URL, URLs,
@@ -214,14 +214,20 @@ modalWindow, foundKeyDicts, hideExtension;
 	[self alertSheetForWindow:mainWindow messageText:messageText infoText:infoText defaultButton:nil alternateButton:nil otherButton:nil suppressionButton:nil];
 }
 
-- (NSInteger)alertSheetWithTitle:(NSString *)theTitle message:(NSString *)message defaultButton:(NSString *)button1 alternateButton:(NSString *)button2 otherButton:(NSString *)button3 suppressionButton:(NSString *)suppressionButton {
+- (NSInteger)alertSheetWithTitle:(NSString *)theTitle
+						 message:(NSString *)message
+				   defaultButton:(NSString *)button1
+				 alternateButton:(NSString *)button2
+					 otherButton:(NSString *)button3
+			   suppressionButton:(NSString *)suppressionButton {
 	return [self alertSheetForWindow:mainWindow
 						 messageText:theTitle
 							infoText:message
 					   defaultButton:button1
 					 alternateButton:button2
 						 otherButton:button3
-				   suppressionButton:suppressionButton];
+				   suppressionButton:suppressionButton
+						   customize:nil];
 }
 
 - (NSInteger)alertSheetForWindow:(NSWindow *)window
@@ -231,7 +237,14 @@ modalWindow, foundKeyDicts, hideExtension;
 				 alternateButton:(NSString *)button2
 					 otherButton:(NSString *)button3
 			   suppressionButton:(NSString *)suppressionButton {
-	return [self alertSheetForWindow:window messageText:messageText infoText:infoText defaultButton:button1 alternateButton:button2 otherButton:button3 suppressionButton:suppressionButton customize:nil];
+	return [self alertSheetForWindow:window
+						 messageText:messageText
+							infoText:infoText
+					   defaultButton:button1
+					 alternateButton:button2
+						 otherButton:button3
+				   suppressionButton:suppressionButton
+						   customize:nil];
 }
 
 
@@ -254,10 +267,10 @@ modalWindow, foundKeyDicts, hideExtension;
 	
 	NSAlert *alert = [[NSAlert alloc] init];
 	if (messageText) {
-		[alert setMessageText:messageText];
+		alert.messageText = messageText;
 	}
 	if (infoText) {
-		[alert setInformativeText:infoText];
+		alert.informativeText = infoText;
 	}
 	if (button1) {
 		[alert addButtonWithTitle:button1];

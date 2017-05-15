@@ -71,10 +71,8 @@ enum {
 	ShowFoundKeysAction,
 	SaveDataToURLAction,
 	UploadKeyAction,
-	SetPrimaryUserIDAction,
 	SetTrustAction,
 	SetDisabledAction,
-	RevCertificateAction,
 	RevokeKeyAction,
 	CallbackAction
 };

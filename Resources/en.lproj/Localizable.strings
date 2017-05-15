@@ -174,6 +174,24 @@ FirstUploadForeignKey_Title = "Public key not allowed on key servers";
 FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers:\n\n%@\n\nSome key owners intentionally do not upload their public key. In order to respect that decision, you can not upload this public key. In case you think this is an error, please get in touch with the key owner.";
 
 
+NewKeyWantToUpload_Title = "Upload key";
+NewKeyWantToUpload_Msg = "Your OpenPGP key has been successfully created.\n\nUploading your public key to the key servers, allows your friends to easily find and download your public key. Then, creating an encrypted message for you is simple. Besides that, the public key is used for verification of received messages which are signed. So in order to verify messages your friends receive from you, they need to have your public key.\n\nShould you not want to use the key servers, please consider attaching your public key to all your signed emails.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoke but not removed. So keep that in mind when uploading a public key.\n\nDo you want to upload your public key?";
+NewKeyWantToUpload_Yes = "Upload Public Key";
+NewKeyWantToUpload_No = "Cancel";
+
+NewUserIDWantToUpload_Title = "Upload key";
+NewUserIDWantToUpload_Msg = "You successfully added a user ID.\n\nTo have this change reflected on the key servers you need to upload this updated version of your public key.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoke but not removed. So keep that in mind when uploading a public key.\n\nDo you want to upload your public key?";
+NewUserIDWantToUpload_Yes = "Upload Public Key";
+NewUserIDWantToUpload_No = "Cancel";
+
+NewSubkeyWantToUpload_Title = "Upload key";
+NewSubkeyWantToUpload_Msg = "You successfully added a subkey.\n\nTo have this change reflected on the key servers you need to upload this updated version of your public key.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoke but not removed. So keep that in mind when uploading a public key.\n\nDo you want to upload your public key?";
+NewSubkeyWantToUpload_Yes = "Upload Public Key";
+NewSubkeyWantToUpload_No = "Cancel";
+
+
+
+
 /* Delete warnings */
 DeleteKey_Title = "Delete public key(s)";
 DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";

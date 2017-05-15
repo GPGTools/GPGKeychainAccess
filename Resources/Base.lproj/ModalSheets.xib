@@ -1066,7 +1066,7 @@ Gw
             <point key="canvasLocation" x="-48" y="428"/>
         </customView>
         <customView id="855" userLabel="New Key">
-            <rect key="frame" x="0.0" y="0.0" width="450" height="406"/>
+            <rect key="frame" x="0.0" y="0.0" width="450" height="384"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="751" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="921">
@@ -1283,7 +1283,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" preferredMaxLayoutWidth="412" translatesAutoresizingMaskIntoConstraints="NO" id="866">
-                    <rect key="frame" x="19" y="369" width="414" height="17"/>
+                    <rect key="frame" x="19" y="347" width="414" height="17"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="410" id="1cW-kM-AJn"/>
                     </constraints>
@@ -1294,7 +1294,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="867">
-                    <rect key="frame" x="18" y="330" width="99" height="17"/>
+                    <rect key="frame" x="18" y="308" width="99" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="878">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1302,7 +1302,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="868">
-                    <rect key="frame" x="18" y="299" width="99" height="17"/>
+                    <rect key="frame" x="18" y="277" width="99" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Email:" id="877">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1310,7 +1310,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="751" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="870">
-                    <rect key="frame" x="123" y="327" width="307" height="22"/>
+                    <rect key="frame" x="123" y="305" width="307" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="875">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1322,7 +1322,7 @@ Gw
                     </connections>
                 </textField>
                 <comboBox verticalHuggingPriority="751" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="872">
-                    <rect key="frame" x="123" y="295" width="310" height="26"/>
+                    <rect key="frame" x="123" y="273" width="310" height="26"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" numberOfVisibleItems="5" id="873">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1336,7 +1336,7 @@ Gw
                 </comboBox>
                 <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1153">
                     <rect key="frame" x="20" y="194" width="13" height="13"/>
-                    <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="54F03D1B-B6D6-4031-BC0A-E3C1B9162F25" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
+                    <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="5608E629-4CCD-43A1-9FDA-DCD784D5B7E8" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
                         <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -1353,18 +1353,9 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1357">
-                    <rect key="frame" x="121" y="275" width="131" height="18"/>
-                    <buttonCell key="cell" type="check" title="Upload public key" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1358">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="autoUpload" id="1359"/>
-                    </connections>
-                </button>
             </subviews>
             <constraints>
+                <constraint firstItem="915" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="8" id="0ar-kP-14n"/>
                 <constraint firstItem="913" firstAttribute="leading" secondItem="867" secondAttribute="leading" id="3vP-nH-KZy"/>
                 <constraint firstAttribute="trailing" secondItem="1152" secondAttribute="trailing" id="5eR-h1-yAB"/>
                 <constraint firstItem="866" firstAttribute="top" secondItem="855" secondAttribute="top" constant="20" id="5wO-0h-aPw"/>
@@ -1387,11 +1378,9 @@ Gw
                 <constraint firstItem="1155" firstAttribute="leading" secondItem="1153" secondAttribute="trailing" constant="7" id="RXi-rH-Dxr"/>
                 <constraint firstItem="915" firstAttribute="leading" secondItem="870" secondAttribute="leading" id="TUf-Ck-4LR"/>
                 <constraint firstAttribute="trailing" secondItem="870" secondAttribute="trailing" constant="20" id="TkJ-ZT-DUv"/>
-                <constraint firstItem="1357" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="8" id="UsN-3s-Y5D"/>
                 <constraint firstItem="914" firstAttribute="top" secondItem="915" secondAttribute="bottom" constant="8" id="XfD-Ig-WPB"/>
                 <constraint firstItem="915" firstAttribute="width" secondItem="870" secondAttribute="width" id="a4w-Lh-vbu"/>
                 <constraint firstItem="922" firstAttribute="top" secondItem="1152" secondAttribute="bottom" constant="2" id="asV-K2-OCB"/>
-                <constraint firstItem="915" firstAttribute="top" secondItem="1357" secondAttribute="bottom" constant="8" id="dvv-rq-yHV"/>
                 <constraint firstItem="867" firstAttribute="leading" secondItem="855" secondAttribute="leading" constant="20" id="e0a-fQ-fHs"/>
                 <constraint firstItem="871" firstAttribute="width" secondItem="914" secondAttribute="width" id="e6l-sm-DVk"/>
                 <constraint firstAttribute="trailing" secondItem="921" secondAttribute="trailing" constant="20" id="ebR-D2-c9z"/>
@@ -1401,7 +1390,6 @@ Gw
                 <constraint firstItem="867" firstAttribute="baseline" secondItem="870" secondAttribute="baseline" id="gAy-RI-1di"/>
                 <constraint firstItem="870" firstAttribute="top" secondItem="866" secondAttribute="bottom" constant="20" id="gR0-Jn-NjD"/>
                 <constraint firstItem="1152" firstAttribute="leading" secondItem="855" secondAttribute="leading" id="hKU-vr-6MB"/>
-                <constraint firstItem="1357" firstAttribute="leading" secondItem="872" secondAttribute="leading" id="iHB-O0-ooe"/>
                 <constraint firstItem="869" firstAttribute="leading" secondItem="913" secondAttribute="leading" id="qkv-6d-naT"/>
                 <constraint firstItem="916" firstAttribute="baseline" secondItem="915" secondAttribute="baseline" id="sm9-cF-Y8l"/>
                 <constraint firstItem="913" firstAttribute="baseline" secondItem="914" secondAttribute="baseline" id="ujl-mz-SxD"/>
@@ -2097,7 +2085,7 @@ DQ
         </arrayController>
     </objects>
     <resources>
-        <image name="54F03D1B-B6D6-4031-BC0A-E3C1B9162F25" width="1" height="1">
+        <image name="5608E629-4CCD-43A1-9FDA-DCD784D5B7E8" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
