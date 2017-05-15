@@ -38,8 +38,10 @@
 #warning This code is required until jenkins is up to date.
 	userIDsTable.doubleAction = @selector(userIDDoubleClick:);
 	userIDsTable.target = self;
+	userIDsTable.action = nil;
 	signaturesTable.doubleAction = @selector(signatureDoubleClick:);
 	signaturesTable.target = self;
+	signaturesTable.action = nil;
 }
 
 - (IBAction)delete:(id)sender {
