@@ -924,19 +924,34 @@
 							 otherButton:button3
 					   suppressionButton:checkbox
 							   customize:^(NSAlert *alert) {
-								   // Add minimum and maximum width constraints to the alert.
 								   NSWindow *window = alert.window;
 								   NSView *contentView = window.contentView;
 								   NSView *textField = nil;
 								   NSView *checkBoxButton;
-								   
+								   NSAttributedString *attributedString;
 								   
 								   NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
 								   paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
 								   NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:NSFont.smallSystemFontSize],
 																NSParagraphStyleAttributeName: paragraphStyle};
-								   
 
+								   
+								   if (NSAppKitVersionNumber > NSAppKitVersionNumber10_10) {
+									   if (hasSecretKey) {
+										   attributedString = [[NSAttributedString alloc] initWithString:checkbox attributes:attributes];
+										   // The checkbox must be checked before the delete buttons are enabled.
+										   NSButtonCell *checkboxCell = alert.suppressionButton.cell;
+										   checkboxCell.lineBreakMode = NSLineBreakByCharWrapping;
+										   [checkboxCell setAttributedTitle:attributedString];
+										   checkboxCell.state = NSOffState;
+										   [alert.buttons[1] bind:@"enabled" toObject:checkboxCell withKeyPath:@"state" options:nil];
+										   [alert.buttons[2] bind:@"enabled" toObject:checkboxCell withKeyPath:@"state" options:nil];
+									   }
+									   
+									   return;
+								   }
+
+								   
 								   // Calulate widths.
 								   CGFloat minWidth = [description sizeWithAttributes:attributes].width + 20;
 								   CGFloat maxWidth = window.screen.frame.size.width;
