@@ -936,7 +936,7 @@
 																NSParagraphStyleAttributeName: paragraphStyle};
 
 								   
-								   if (NSAppKitVersionNumber > NSAppKitVersionNumber10_10) {
+								   if (NSAppKitVersionNumber > /*NSAppKitVersionNumber10_10*/1343) {
 									   if (hasSecretKey) {
 										   attributedString = [[NSAttributedString alloc] initWithString:checkbox attributes:attributes];
 										   // The checkbox must be checked before the delete buttons are enabled.
@@ -994,8 +994,6 @@
 								   
 								   
 								   if (hasSecretKey) {
-									   NSAttributedString *attributedString = [[NSAttributedString alloc] initWithString:checkbox attributes:attributes];
-
 									   NSRect frame = alert.suppressionButton.frame;
 									   NSInteger maxCheckboxWidth = maxWidth - frame.origin.x - 40;
 									   
