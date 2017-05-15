@@ -34,11 +34,6 @@
 
 
 #pragma mark General
-- (void)awakeFromNib {
-	userIDsTable.doubleAction = @selector(userIDDoubleClick:);
-	userIDsTable.target = self;
-}
-
 - (IBAction)delete:(id)sender {
 	NSResponder *responder = mainWindow.firstResponder;
 	
@@ -2033,6 +2028,46 @@
 	self.errorText = localized(@"RevokeSignature_Error");
 	[gpgc revokeSignature:signature fromUserID:userID ofKey:key reason:0 description:nil];
 }
+- (IBAction)showKeyForSignature:(id)sender {
+	NSArray *signatures = [self selectedObjectsOf:signaturesTable];
+	if (signatures.count != 1) {
+		return;
+	}
+	GPGUserIDSignature *signature = signatures[0];
+	if (!signature.primaryKey) {
+		return;
+	}
+	[[KeychainController sharedInstance] selectKeys:[NSSet setWithObject:signature.primaryKey]];
+}
+- (IBAction)receiveKeyForSignature:(id)sender {
+	NSArray *signatures = [self selectedObjectsOf:signaturesTable];
+	if (signatures.count != 1) {
+		return;
+	}
+	GPGUserIDSignature *signature = signatures[0];
+	NSString *keyID = signature.primaryKey ? signature.primaryKey.fingerprint : signature.keyID;
+	
+	self.progressText = localized(@"ReceiveKeysFromServer_Progress");
+	self.errorText = localized(@"ReceiveKeysFromServer_Error");
+	
+	[self showProgressUntilKeyIsRefreshed:[keysController selectedObjects][0]];
+	
+	[gpgc receiveKeysFromServer:@[keyID]];
+}
+- (IBAction)signatureDoubleClick:(id)sender {
+	if (signaturesTable.clickedRow < 0 || signaturesTable.selectedRowIndexes.count != 1) {
+		return;
+	}
+	
+	NSUInteger index = signaturesTable.selectedRowIndexes.firstIndex;
+	GPGUserIDSignature *signature = signaturesController.arrangedObjects[index];
+	
+	if (signature.primaryKey) {
+		[self showKeyForSignature:sender];
+	} else {
+		[self receiveKeyForSignature:sender];
+	}
+}
 
 
 
@@ -2490,7 +2525,8 @@
 	}
 	else if (selector == @selector(cancel:)) {
 		return appDelegate.inspectorVisible;
-	} else if (selector == @selector(sendKeysPerMail:)) {
+	}
+	else if (selector == @selector(sendKeysPerMail:)) {
 		NSArray *keys = [self selectedKeys];
 		if (keys.count == 0) {
 			return NO;
@@ -2502,7 +2538,22 @@
 		}
 		return NO;
 	}
-	
+	else if (selector == @selector(showKeyForSignature:)) {
+		NSArray *signatures = [self selectedObjectsOf:signaturesTable];
+		if (signatures.count != 1) {
+			return NO;
+		}
+		GPGUserIDSignature *signature = signatures[0];
+		if (!signature.primaryKey || [signature.primaryKey isEqual:[keysController selectedObjects][0]]) {
+			return NO;
+		}
+		return YES;
+	}
+	else if (selector == @selector(receiveKeyForSignature:)) {
+		NSArray *signatures = [self selectedObjectsOf:signaturesTable];
+		return signatures.count == 1;
+	}
+
 	return YES;
 }
 

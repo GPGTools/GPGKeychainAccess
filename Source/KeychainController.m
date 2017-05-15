@@ -76,13 +76,12 @@ NSLock *updateLock;
 
 - (void)selectKeys:(NSSet *)keys {
 	NSArray *list = [keysController arrangedObjects];
-	NSMutableIndexSet *indexes = [NSMutableIndexSet new];
+	NSSet *fingerprints = [keys valueForKey:@"description"];
 	
-	[list enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+	NSIndexSet *indexes = [list indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 		NSString *fingerprint = [obj description];
-		if ([keys containsObject:fingerprint]) {
-			[indexes addIndex:idx];
-		}
+		BOOL result = [fingerprints containsObject:fingerprint];
+		return result;
 	}];
 	
 
@@ -127,6 +126,8 @@ NSLock *updateLock;
 			}
 			[keyTable scrollPoint:NSMakePoint(0, scrollToY)];
 		}
+		[mainWindow makeFirstResponder:keyTable];
+		
 	}
 }
 

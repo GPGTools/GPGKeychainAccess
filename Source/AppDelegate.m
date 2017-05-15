@@ -160,12 +160,7 @@
 
 - (void)awakeFromNib {
 	GPGDebugLog(@"GPGKeychainAppDelegate awakeFromNib");
-	
-	
-	[keyTable setAction:@selector(singleClick:)];
-	[keyTable setDoubleAction:@selector(doubleClick:)];
-	[keyTable setTarget:self];
-	
+		
 	
 	NSNumber *drawerWidth = [[GPGOptions sharedOptions] valueForKey:@"drawerWidth"];
 	if (drawerWidth) {

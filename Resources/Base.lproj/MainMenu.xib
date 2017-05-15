@@ -58,7 +58,7 @@
                         <rect key="frame" x="20" y="44" width="1065" height="489"/>
                         <clipView key="contentView" id="vCm-4D-amE">
                             <rect key="frame" x="1" y="0.0" width="1063" height="488"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="KeyList" headerView="591" id="590" customClass="GKTableView">
                                     <rect key="frame" x="0.0" y="0.0" width="1063" height="465"/>
@@ -387,6 +387,8 @@
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
+                                        <action trigger="doubleAction" selector="doubleClick:" target="494" id="RFb-pL-84M"/>
+                                        <action selector="singleClick:" target="494" id="5n1-lw-i5B"/>
                                         <outlet property="dataSource" destination="666" id="1896"/>
                                         <outlet property="delegate" destination="666" id="668"/>
                                         <outlet property="menu" destination="1955" id="1959"/>
@@ -629,6 +631,21 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="481"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gY-vC-Ziv">
+                    <rect key="frame" x="159" y="402" width="162" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please select a single key." id="Hdk-AS-Gac">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="663" name="hidden" keyPath="selectionIndexes" id="eqz-18-bCB">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">GKOnlyOneSelectionIndexTransformer</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
                 <tabView identifier="inspectorTabs" controlSize="small" initialItem="Am0-3B-MhY" translatesAutoresizingMaskIntoConstraints="NO" id="reo-f1-cjF">
                     <rect key="frame" x="8" y="5" width="464" height="471"/>
                     <constraints>
@@ -1266,7 +1283,7 @@ IA
                                                         <rect key="frame" x="20" y="31" width="410" height="144"/>
                                                         <clipView key="contentView" id="cYY-Bm-u71">
                                                             <rect key="frame" x="1" y="0.0" width="408" height="143"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" headerView="grl-ch-lFh" id="6Ho-ob-hmK" userLabel="UserIDs Table">
                                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="120"/>
@@ -1340,6 +1357,7 @@ IA
                                                                         </tableColumn>
                                                                     </tableColumns>
                                                                     <connections>
+                                                                        <action trigger="doubleAction" selector="userIDDoubleClick:" target="1178" id="A6Y-kv-6tg"/>
                                                                         <outlet property="menu" destination="mZG-ya-btz" id="VEs-Ec-LVE"/>
                                                                     </connections>
                                                                 </tableView>
@@ -1471,7 +1489,7 @@ IA
                                                         <rect key="frame" x="20" y="51" width="410" height="175"/>
                                                         <clipView key="contentView" id="Rjj-nQ-dJc">
                                                             <rect key="frame" x="1" y="0.0" width="408" height="174"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" headerView="kNE-rm-6Iw" id="4f6-IT-Ksz" userLabel="Signatures Table">
                                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="151"/>
@@ -1602,6 +1620,7 @@ IA
                                                                         </tableColumn>
                                                                     </tableColumns>
                                                                     <connections>
+                                                                        <action trigger="doubleAction" selector="signatureDoubleClick:" target="1178" id="FjY-Wq-SAu"/>
                                                                         <outlet property="menu" destination="dHV-oT-ZLr" id="OA2-WQ-eMY"/>
                                                                     </connections>
                                                                 </tableView>
@@ -2208,21 +2227,6 @@ IA
                         </binding>
                     </connections>
                 </tabView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gY-vC-Ziv">
-                    <rect key="frame" x="159" y="402" width="162" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please select a single key." id="Hdk-AS-Gac">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="663" name="hidden" keyPath="selectionIndexes" id="eqz-18-bCB">
-                            <dictionary key="options">
-                                <string key="NSValueTransformerName">GKOnlyOneSelectionIndexTransformer</string>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="reo-f1-cjF" firstAttribute="leading" secondItem="U2l-O3-zDl" secondAttribute="leading" constant="15" id="23M-eI-qk1"/>
@@ -2772,10 +2776,22 @@ CA
         </menu>
         <menu id="dHV-oT-ZLr" userLabel="Signature Menu">
             <items>
+                <menuItem title="Show key" id="KfJ-Yu-mMQ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showKeyForSignature:" target="1178" id="0jL-84-zOZ"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Receive key" id="Xnd-zv-KNS">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="receiveKeyForSignature:" target="1178" id="mju-xI-za7"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="Remove" id="xPP-j5-iuz">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="removeSignature:" target="1178" id="2KC-fK-v2f"/>
+                        <action selector="removeSignature:" target="1178" id="U0H-mi-WKX"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Revoke" id="bDr-uB-4z9">
