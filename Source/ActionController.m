@@ -1523,6 +1523,8 @@
 		return;
 	}
 	GPGKey *key = [keys[0] primaryKey];
+	__block BOOL keyExistsOnServer = NO;
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
@@ -1538,6 +1540,10 @@
 		if (gc.error) {
 			return;
 		}
+		
+		// Wait for keysExistOnServer.
+		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
 		if ([self warningSheetWithDefault:NO string:@"NewSubkeyWantToUpload"]) {
 			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
 			self.errorText = localized(@"SendKeysToServer_Error");
@@ -1548,6 +1554,12 @@
 	gpgc.userInfo = @{@"action": @[uploadCallback]};
 	
 	[self showProgressUntilKeyIsRefreshed:key];
+	
+	[gpgc keysExistOnServer:keys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
+		keyExistsOnServer = existingKeys.count == 1;
+		dispatch_semaphore_signal(semaphore);
+	}];
+	
 	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)removeSubkey:(id)sender {
@@ -1593,6 +1605,8 @@
 	}
 	GPGKey *key = [keys[0] primaryKey];
 	GPGUserID *userID = key.primaryUserID;
+	__block BOOL keyExistsOnServer = NO;
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), key.userIDDescription, key.keyID.shortKeyID];
 	
@@ -1616,7 +1630,11 @@
 		if (gc.error) {
 			return;
 		}
-		if ([self warningSheetWithDefault:NO string:@"NewUserIDWantToUpload"]) {
+		
+		// Wait for keysExistOnServer.
+		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+		if ([self warningSheetWithDefault:keyExistsOnServer string:@"NewUserIDWantToUpload"]) {
 			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
 			self.errorText = localized(@"SendKeysToServer_Error");
 			[gpgc sendKeysToServer:@[key]];
@@ -1626,6 +1644,12 @@
 	gpgc.userInfo = @{@"action": @[primaryUserIDCallback, uploadCallback]};
 
 	[self showProgressUntilKeyIsRefreshed:key];
+	
+	[gpgc keysExistOnServer:keys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
+		keyExistsOnServer = existingKeys.count == 1;
+		dispatch_semaphore_signal(semaphore);
+	}];
+
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
 - (IBAction)removeUserID:(id)sender {
@@ -2080,21 +2104,25 @@
 	
 	key.isRefreshing = YES;
 	
+	__block BOOL canceled = NO;
+	
 	keyUpdateCallback keyChangeBlock = ^(NSArray *keys) {
 		if (!keys || [keys containsObject:key]) {
 			if ([[[GPGKeyManager sharedInstance].allKeys member:key] isRefreshing] == NO) {
+				canceled = YES;
 				[sheetController endProgressSheet];
-				[cancelCallbacks removeAllObjects];
 				return YES;
 			}
 		}
 		return NO;
 	};
-	cancelCallback cancelBlock = ^() {
-		[sheetController endProgressSheet];
-		[[KeychainController sharedInstance] removeKeyUpdateCallback:keyChangeBlock];
-	};
-	[cancelCallbacks addObject:[cancelBlock copy]];
+	cancelCallback cancelBlock = [^() {
+		if (!canceled) {
+			[sheetController endProgressSheet];
+			[[KeychainController sharedInstance] removeKeyUpdateCallback:keyChangeBlock];
+		}
+	} copy];
+	[cancelCallbacks addObject:cancelBlock];
 	[[KeychainController sharedInstance] addKeyUpdateCallback:keyChangeBlock];
 }
 
@@ -2685,22 +2713,26 @@
 	message = [[NSString alloc] initWithFormat:message arguments:args];
 	va_end(args);
 	
-	NSString *button1, *button2;
+	NSString *button1, *button2, *cancelButton;
 	if (defaultValue) {
-		button1 = @"_Yes";
-		button2 = @"_No";
+		button1 = localized([string stringByAppendingString:@"_Yes"]);
+		button2 = localized([string stringByAppendingString:@"_No"]);
+		cancelButton = button2;
 	} else {
-		button1 = @"_No";
-		button2 = @"_Yes";
+		button1 = localized([string stringByAppendingString:@"_No"]);
+		button2 = localized([string stringByAppendingString:@"_Yes"]);
+		cancelButton = button1;
 	}
 	
 	returnCode = [sheetController alertSheetForWindow:mainWindow
 										  messageText:localized([string stringByAppendingString:@"_Title"])
 											 infoText:message
-										defaultButton:localized([string stringByAppendingString:button1])
-									  alternateButton:localized([string stringByAppendingString:button2])
+										defaultButton:button1
+									  alternateButton:button2
 										  otherButton:nil
-									suppressionButton:nil];
+									suppressionButton:nil
+										 cancelButton:cancelButton
+											customize:nil];
 	
 	return (returnCode == (defaultValue ? NSAlertFirstButtonReturn : NSAlertSecondButtonReturn));
 }
@@ -2785,6 +2817,7 @@
 		}
 	};
 	
+	[cancelCallbacks removeAllObjects];
 	
 	
 	do {

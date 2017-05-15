@@ -247,6 +247,25 @@ modalWindow, foundKeyDicts, hideExtension;
 						   customize:nil];
 }
 
+- (NSInteger)alertSheetForWindow:(NSWindow *)window
+					 messageText:(NSString *)messageText
+						infoText:(NSString *)infoText
+				   defaultButton:(NSString *)button1
+				 alternateButton:(NSString *)button2
+					 otherButton:(NSString *)button3
+			   suppressionButton:(NSString *)suppressionButton
+					   customize:(void (^)(NSAlert *))customize {
+	return [self alertSheetForWindow:window
+						 messageText:messageText
+							infoText:infoText
+					   defaultButton:button1
+					 alternateButton:button2
+						 otherButton:button3
+				   suppressionButton:suppressionButton
+						cancelButton:nil
+						   customize:customize];
+}
+
 
 - (NSInteger)alertSheetForWindow:(NSWindow *)window
 					 messageText:(NSString *)messageText
@@ -255,6 +274,7 @@ modalWindow, foundKeyDicts, hideExtension;
 				 alternateButton:(NSString *)button2
 					 otherButton:(NSString *)button3
 			   suppressionButton:(NSString *)suppressionButton
+					cancelButton:(NSString *)cancelButton
 					   customize:(void (^)(NSAlert *))customize {
 	
 	if (![NSThread isMainThread]) {
@@ -290,7 +310,20 @@ modalWindow, foundKeyDicts, hideExtension;
 	}
 	
 	
-	if ([button1 isEqualTo:localized(@"Cancel")]) {
+	NSInteger cancelButtonTag = 0;
+	if (cancelButton) {
+		if ([button1 isEqualToString:cancelButton]) {
+			cancelButtonTag = NSAlertFirstButtonReturn;
+		} else if ([button2 isEqualToString:cancelButton]) {
+			cancelButtonTag = NSAlertSecondButtonReturn;
+		} else if ([button3 isEqualToString:cancelButton]) {
+			cancelButtonTag = NSAlertThirdButtonReturn;
+		}
+	} else if ([button1 isEqual:localized(@"Cancel")]) {
+		cancelButtonTag = NSAlertFirstButtonReturn;
+	}
+	
+	if (cancelButtonTag != 0) {
 		// This is a hack to allow, to close the alert with the escape-key.
 		[alert addButtonWithTitle:@"Cancel"]; // Add a cancel button. NSAlert sets the key equivalent automatically to esc.
 		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.
@@ -300,7 +333,7 @@ modalWindow, foundKeyDicts, hideExtension;
 		// This button causes a "CGAffineTransformInvert: singular matrix." error in the log.
 		// It's ugly but harmless and i don't know a better solution.
 		button.bounds = NSMakeRect(-10, -10, 1, 1); // Hide the button.
-		button.tag = NSAlertFirstButtonReturn; // Set the tag to mtach the real cancel button.
+		button.tag = cancelButtonTag; // Set the tag to mtach the real cancel button.
 		button.refusesFirstResponder = YES;
 	} else {
 		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.

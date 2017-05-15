@@ -232,7 +232,7 @@ NSLock *updateLock;
 	if (keyUpdateCallbacks == nil) {
 		keyUpdateCallbacks = [NSMutableArray array];
 	}
-	[keyUpdateCallbacks addObject:callback];
+	[keyUpdateCallbacks addObject:[callback copy]];
 }
 
 - (void)removeKeyUpdateCallback:(keyUpdateCallback)callback {
