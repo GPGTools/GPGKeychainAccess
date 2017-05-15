@@ -43,3 +43,9 @@ NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename);
 
 @interface GKFixedFingerprintTransformer : GKFingerprintTransformer
 @end
+
+@interface GKOnlyOneSelectionIndexTransformer : NSValueTransformer {}
+@end
+
+@interface GKNotOneSelectionIndexTransformer : NSValueTransformer {}
+@end

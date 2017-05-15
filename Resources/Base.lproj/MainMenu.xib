@@ -58,7 +58,7 @@
                         <rect key="frame" x="20" y="44" width="1065" height="489"/>
                         <clipView key="contentView" id="vCm-4D-amE">
                             <rect key="frame" x="1" y="0.0" width="1063" height="488"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="KeyList" headerView="591" id="590" customClass="GKTableView">
                                     <rect key="frame" x="0.0" y="0.0" width="1063" height="465"/>
@@ -1266,7 +1266,7 @@ IA
                                                         <rect key="frame" x="20" y="31" width="410" height="144"/>
                                                         <clipView key="contentView" id="cYY-Bm-u71">
                                                             <rect key="frame" x="1" y="0.0" width="408" height="143"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" headerView="grl-ch-lFh" id="6Ho-ob-hmK" userLabel="UserIDs Table">
                                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="120"/>
@@ -1471,7 +1471,7 @@ IA
                                                         <rect key="frame" x="20" y="51" width="410" height="175"/>
                                                         <clipView key="contentView" id="Rjj-nQ-dJc">
                                                             <rect key="frame" x="1" y="0.0" width="408" height="174"/>
-                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" headerView="kNE-rm-6Iw" id="4f6-IT-Ksz" userLabel="Signatures Table">
                                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="151"/>
@@ -1679,7 +1679,7 @@ IA
                                         <rect key="frame" x="17" y="236" width="410" height="191"/>
                                         <clipView key="contentView" id="97f-Hf-HbR">
                                             <rect key="frame" x="1" y="0.0" width="408" height="190"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" headerView="NzI-w2-TNg" id="Phv-dG-mjf">
                                                     <rect key="frame" x="0.0" y="0.0" width="408" height="167"/>
@@ -2200,13 +2200,37 @@ IA
                             </view>
                         </tabViewItem>
                     </tabViewItems>
+                    <connections>
+                        <binding destination="663" name="hidden" keyPath="selectionIndexes" id="g9U-B7-bDp">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">GKNotOneSelectionIndexTransformer</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
                 </tabView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gY-vC-Ziv">
+                    <rect key="frame" x="159" y="402" width="162" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Please select a single key." id="Hdk-AS-Gac">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="663" name="hidden" keyPath="selectionIndexes" id="eqz-18-bCB">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">GKOnlyOneSelectionIndexTransformer</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="reo-f1-cjF" firstAttribute="leading" secondItem="U2l-O3-zDl" secondAttribute="leading" constant="15" id="23M-eI-qk1"/>
                 <constraint firstItem="reo-f1-cjF" firstAttribute="top" secondItem="U2l-O3-zDl" secondAttribute="top" constant="8" id="UCc-Dv-NnJ"/>
                 <constraint firstAttribute="bottom" secondItem="reo-f1-cjF" secondAttribute="bottom" constant="15" id="X9p-iO-Iff"/>
+                <constraint firstItem="4gY-vC-Ziv" firstAttribute="top" secondItem="U2l-O3-zDl" secondAttribute="top" constant="62" id="aX0-ZD-ZMm"/>
                 <constraint firstAttribute="trailing" secondItem="reo-f1-cjF" secondAttribute="trailing" constant="15" id="bhB-yK-Hc5"/>
+                <constraint firstItem="4gY-vC-Ziv" firstAttribute="centerX" secondItem="U2l-O3-zDl" secondAttribute="centerX" id="jsK-Xh-bOW"/>
                 <constraint firstItem="reo-f1-cjF" firstAttribute="centerX" secondItem="U2l-O3-zDl" secondAttribute="centerX" id="max-KS-fYg"/>
             </constraints>
             <point key="canvasLocation" x="36" y="-78.5"/>

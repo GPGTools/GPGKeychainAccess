@@ -234,5 +234,22 @@ NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename) {
 }
 @end
 
+@implementation GKOnlyOneSelectionIndexTransformer
+- (id)transformedValue:(NSIndexSet *)value {
+	if (![value isKindOfClass:[NSIndexSet class]]) {
+		return @NO;
+	}
+	return @(value.count == 1);
+}
+@end
+
+@implementation GKNotOneSelectionIndexTransformer
+- (id)transformedValue:(NSIndexSet *)value {
+	if (![value isKindOfClass:[NSIndexSet class]]) {
+		return @YES;
+	}
+	return @(value.count != 1);
+}
+@end
 
 
