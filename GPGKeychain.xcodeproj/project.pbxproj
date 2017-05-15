@@ -25,7 +25,6 @@
 		3052E178144B021D00D6716A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3052E169144B021D00D6716A /* main.m */; };
 		3052E179144B021D00D6716A /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3052E16B144B021D00D6716A /* PreferencesController.m */; };
 		3052E17C144B021D00D6716A /* SheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3052E172144B021D00D6716A /* SheetController.m */; };
-		3052E20B144B056700D6716A /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3052E20A144B056700D6716A /* AddressBook.framework */; };
 		3052E371144B081700D6716A /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3052E31C144B07D200D6716A /* MainMenu.xib */; };
 		3052E372144B081700D6716A /* ModalSheets.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3052E320144B07D200D6716A /* ModalSheets.xib */; };
 		3052E373144B081700D6716A /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3052E324144B07D200D6716A /* Preferences.xib */; };
@@ -67,13 +66,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 1B46CFCC161555DF00CF9C5F;
 			remoteInfo = org.gpgtools.Libmacgpg.xpc;
-		};
-		3014397817732F800088B59F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3014396917732F800088B59F /* Libmacgpg.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 30DF7CB816D39EAA00C8225C;
-			remoteInfo = installerHelper;
 		};
 		3014397A17732F800088B59F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -276,7 +268,6 @@
 				306E87271CB2A7E9001C06A0 /* ScriptingBridge.framework in Frameworks */,
 				1B4942D217A7ECBB00E189CF /* Security.framework in Frameworks */,
 				3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */,
-				3052E20B144B056700D6716A /* AddressBook.framework in Frameworks */,
 				3052E10F144B016400D6716A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,7 +282,6 @@
 				3084CA881C0CAB570084723D /* UnitTests.xctest */,
 				3014397717732F800088B59F /* org.gpgtools.Libmacgpg.xpc */,
 				3014397B17732F800088B59F /* LeakFinder.app */,
-				3014397917732F800088B59F /* GPGTools.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -516,13 +506,6 @@
 			fileType = "compiled.mach-o.executable";
 			path = org.gpgtools.Libmacgpg.xpc;
 			remoteRef = 3014397617732F800088B59F /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3014397917732F800088B59F /* GPGTools.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = GPGTools.app;
-			remoteRef = 3014397817732F800088B59F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		3014397B17732F800088B59F /* LeakFinder.app */ = {
