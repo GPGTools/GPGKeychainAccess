@@ -34,6 +34,14 @@
 
 
 #pragma mark General
+- (void)awakeFromNib {
+#warning This code is required until jenkins is up to date.
+	userIDsTable.doubleAction = @selector(userIDDoubleClick:);
+	userIDsTable.target = self;
+	signaturesTable.doubleAction = @selector(signatureDoubleClick:);
+	signaturesTable.target = self;
+}
+
 - (IBAction)delete:(id)sender {
 	NSResponder *responder = mainWindow.firstResponder;
 	

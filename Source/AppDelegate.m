@@ -160,7 +160,12 @@
 
 - (void)awakeFromNib {
 	GPGDebugLog(@"GPGKeychainAppDelegate awakeFromNib");
-		
+	
+#warning This code is required until jenkins is up to date.
+	keyTable.action = @selector(singleClick:);
+	keyTable.doubleAction = @selector(doubleClick:);
+	keyTable.target = self;
+
 	
 	NSNumber *drawerWidth = [[GPGOptions sharedOptions] valueForKey:@"drawerWidth"];
 	if (drawerWidth) {
