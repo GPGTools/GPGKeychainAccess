@@ -1944,31 +1944,24 @@
 		return;
 	}
 	
+	NSSet *usableSecretKeys = [[KeychainController sharedInstance].secretKeys objectsPassingTest:^BOOL(GPGKey *secretKey, BOOL *stop) {
+		return secretKey.validity < GPGValidityInvalid && secretKey.canAnySign;
+	}];
 	
-	NSSet *secretKeys = [[KeychainController sharedInstance] secretKeys];
-	NSMutableArray *usableSecretKeys = [NSMutableArray new];
-	for (GPGKey *secretKey in secretKeys) {
-		
-		if (secretKey.validity >= GPGValidityInvalid) {
-			continue;
-		}
-		if (secretKey.canAnySign == NO) {
-			continue;
-		}
-		
-		[usableSecretKeys addObject:secretKey];
-	}
 	if (usableSecretKeys.count == 0) {
 		[sheetController errorSheetWithMessageText:localized(@"NO_SECRET_KEY_TITLE") infoText:localized(@"NO_SECRET_KEY_MESSAGE")];
 		return;
 	}
 
+	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+	NSArray *secretKeys = [usableSecretKeys sortedArrayUsingDescriptors:@[descriptor]];
+
 	
-	GPGKey *defaultKey = [[KeychainController sharedInstance] defaultKey];
+	GPGKey *defaultKey = [KeychainController sharedInstance].defaultKey;
 	if (!defaultKey) {
-		defaultKey = usableSecretKeys[0];
+		defaultKey = secretKeys[0];
 	}
-	sheetController.secretKeys = [usableSecretKeys copy];
+	sheetController.secretKeys = secretKeys;
 	sheetController.secretKey = defaultKey;
 	
 	
