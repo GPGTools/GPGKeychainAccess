@@ -32,7 +32,7 @@ typedef BOOL (^keyUpdateCallback)(NSArray *keys);
 	
 	
 	NSArray *filteredKeyList; // Liste der momentan angezeigten Schlüssel.
-	NSArray *filterStrings;
+	NSString *_searchString;
 	
 	NSIndexSet *_selectionIndexes;
 	
@@ -46,7 +46,8 @@ typedef BOOL (^keyUpdateCallback)(NSArray *keys);
 @property (weak, readonly) NSSet *secretKeys;
 @property (weak, readonly) NSArray *filteredKeyList;
 @property (weak, readonly) NSSet *allKeys;
-@property (strong) NSArray *filterStrings;
+@property (readonly) NSString *noKeysFoundMessage;
+@property (strong) NSString *searchString;
 @property (strong) NSArray *keysSortDescriptors;
 @property (strong) NSArray *userIDsSortDescriptors;
 @property (strong) NSArray *subkeysSortDescriptors;
@@ -58,7 +59,6 @@ typedef BOOL (^keyUpdateCallback)(NSArray *keys);
 
 
 
-- (IBAction)updateFilteredKeyList:(id)sender;
 - (void)selectKeys:(NSSet *)keys;
 - (void)keysDidChange:(NSArray *)keys;
 

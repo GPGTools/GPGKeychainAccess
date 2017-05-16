@@ -24,8 +24,14 @@
 
 //KeychainController kümmert sich um das anzeigen und Filtern der Schlüssel-Liste.
 
+@interface KeychainController ()
+@property (strong, readwrite) NSString *noKeysFoundMessage;
+@end
+
+
+
 @implementation KeychainController
-@synthesize filterStrings, userIDsSortDescriptors, subkeysSortDescriptors, keysSortDescriptors, showSecretKeysOnly;
+@synthesize searchString=_searchString, userIDsSortDescriptors, subkeysSortDescriptors, keysSortDescriptors, showSecretKeysOnly, noKeysFoundMessage;
 NSLock *updateLock;
 
 
@@ -240,13 +246,6 @@ NSLock *updateLock;
 }
 
 
-
-- (IBAction)updateFilteredKeyList:(id)sender {
-	if ([sender isKindOfClass:[NSTextField class]]) {
-		self.filterStrings = [[sender stringValue] componentsSeparatedByString:@" "];
-	}
-}
-
 - (void)keysDidChange:(NSArray *)keys {
 	[self willChangeValueForKey:@"allKeys"];
 	[self didChangeValueForKey:@"allKeys"];
@@ -270,14 +269,18 @@ NSLock *updateLock;
 }
 
 - (NSArray *)filteredKeyList {
-	NSSet *filteredKeys = [self.allKeys objectsPassingTest:^BOOL(GPGKey *key, BOOL *stop) {
+	
+	NSArray *filterStrings = [_searchString componentsSeparatedByString:@" "];
+	
+	NSSet *allKeys = self.allKeys;
+	NSSet *filteredKeys = [allKeys objectsPassingTest:^BOOL(GPGKey *key, BOOL *stop) {
 		if (showSecretKeysOnly && !key.secret) {
 			return NO;
 		}
 		if (filterStrings.count > 0) {
 			for (NSString *searchString in filterStrings) {
-				if ([searchString length] > 0) {
-					if ([[key textForFilter] rangeOfString:searchString options:NSCaseInsensitiveSearch].length == 0) {
+				if (searchString.length > 0) {
+					if ([key.textForFilter rangeOfString:searchString options:NSCaseInsensitiveSearch].length == 0) {
 						return NO;
 					}
 				}
@@ -286,16 +289,21 @@ NSLock *updateLock;
 		return YES;
 	}];
 	
-	
 	filteredKeyList = [filteredKeys allObjects];
 	
 	[numberOfKeysLabel setStringValue:[NSString stringWithFormat:localized(@"%i of %i keys listed"), filteredKeyList.count, self.allKeys.count]];
 	
+	if (filteredKeyList.count == 0 && allKeys.count > 0) {
+		self.noKeysFoundMessage = localizedStringWithFormat(showSecretKeysOnly ? @"FilterNoResults" : @"FilterNoResultsSecOnly", _searchString);
+	} else {
+		self.noKeysFoundMessage = nil;
+	}
+	
 	return filteredKeyList;
 }
 
-+ (NSSet*)keyPathsForValuesAffectingFilteredKeyList {
-	return [NSSet setWithObjects:@"allKeys", @"filterStrings", @"showSecretKeysOnly", nil];
++ (NSSet *)keyPathsForValuesAffectingFilteredKeyList {
+	return [NSSet setWithObjects:@"allKeys", @"searchString", @"showSecretKeysOnly", nil];
 }
 
 
