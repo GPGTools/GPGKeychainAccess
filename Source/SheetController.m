@@ -24,6 +24,7 @@
 #import "GKAExtensions.h"
 #import "AppDelegate.h"
 #import <objc/runtime.h>
+#import "Mail.h"
 
 
 @interface SheetController ()
@@ -712,10 +713,10 @@ modalWindow, foundKeyDicts, hideExtension;
 - (void)setDataFromAddressBook {
 	@autoreleasepool {
 		NSString *userName = nil;
-		NSMutableArray *mailAddresses = [NSMutableArray array];
+		NSMutableSet *mailAddresses = [NSMutableSet new];
 		
 		
-		// Get name and email-addresses from Mail.
+		// Get name and email-addresses from Mail via Accounts.plist.
 		@try {
 			NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Library/Mail/V2/MailData/Accounts.plist"];
 			NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
@@ -724,29 +725,40 @@ modalWindow, foundKeyDicts, hideExtension;
 			
 			for (NSDictionary *account in mailAccounts) {
 				[mailAddresses addObjectsFromArray:[account objectForKey:@"EmailAddresses"]];
-				if (!userName) {
+				if (userName.length == 0) {
 					userName = [account objectForKey:@"FullUserName"];
 				}
 			}
 			
-		}
-		@catch (id e) {}
+		} @catch (id e) {}
+		
+		// Get name and email-addresses from Mail via ScriptingBridge.
+		@try {
+			MailApplication *mail = [SBApplication applicationWithBundleIdentifier:@"com.apple.Mail"];
+			if (mail.running) {
+				SBElementArray *accounts = [mail accounts];
+				for (MailAccount *account in accounts) {
+					[mailAddresses addObjectsFromArray:account.emailAddresses];
+					if (userName.length == 0) {
+						userName = account.fullName;
+					}
+				}
+			}
+		} @catch (id e) {}
 		
 		
-		if (userName) {
-			self.name = userName;
-		} else {
-			self.name = @"";
-		}
+		NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+		NSArray *sortedAddresses = [mailAddresses sortedArrayUsingDescriptors:@[descriptor]];
+		self.emailAddresses = sortedAddresses;
 		
-		self.emailAddresses = mailAddresses;
-		
-		if (mailAddresses.count > 0) {
-			self.email = [mailAddresses objectAtIndex:0];
+		if (sortedAddresses.count > 0) {
+			self.email = sortedAddresses[0];
 		} else {
 			self.email = @"";
 		}
-	
+		
+		self.name = userName ? userName : @"";
+
 	}
 }
 
