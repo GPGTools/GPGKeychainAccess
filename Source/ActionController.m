@@ -2759,235 +2759,225 @@
 
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
 	gc.passphrase = nil;
-	NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:gc, @"GPGController", e, @"exception", nil]; // Do not use @{} for this dcit!
-	[self performSelectorOnMainThread:@selector(gpgControllerOperationThrownException:) withObject:args waitUntilDone:NO];
-}
-
-- (void)gpgControllerOperationThrownException:(NSDictionary *)args {
-	GPGController *gc = [args objectForKey:@"GPGController"];
-	NSException *e = [args objectForKey:@"exception"];
 	
-	NSString *title, *message;
-	GPGException *ex = nil;
-	GPGTask *gpgTask = nil;
-	NSDictionary *userInfo = gc.userInfo;
-	
-	
-	NSLog(@"Exception: %@", e.description);
-	
-	[self cancelGPGOperation:nil];
-	
-	if ([e isKindOfClass:[GPGException class]]) {
-		ex = (GPGException *)e;
-		gpgTask = ex.gpgTask;
-		if ((ex.errorCode & 0xFFFF) == GPGErrorCancelled) {
-			return;
-		}
-		NSLog(@"Error text: %@\nStatus text: %@", gpgTask.errText, gpgTask.statusText);
-	}
-	
-	
-	switch ([[userInfo objectForKey:@"operation"] integerValue]) {
-		case ImportOperation:
-			title = localized(@"ImportKeyError_Title");
-			message = localized(@"ImportKeyError_Msg");
-			break;
-		default:
-			title = self.errorText;
-			if (gpgTask) {
-				NSString *errText = gpgTask.errText;
-				if (errText.length > 1000) {
-					errText = [NSString stringWithFormat:@"%@\n…\n%@", [errText substringToIndex:400], [errText substringFromIndex:errText.length - 400]];
-				}
-				message = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, errText];
-			} else {
-				message = [NSString stringWithFormat:@"%@", e.description];
+	dispatch_async(dispatch_get_main_queue(), ^{
+		NSString *title, *message;
+		GPGException *ex = nil;
+		GPGTask *gpgTask = nil;
+		NSDictionary *userInfo = gc.userInfo;
+		
+		
+		NSLog(@"Exception: %@", e.description);
+		
+		[self cancelGPGOperation:nil];
+		
+		if ([e isKindOfClass:[GPGException class]]) {
+			ex = (GPGException *)e;
+			gpgTask = ex.gpgTask;
+			if ((ex.errorCode & 0xFFFF) == GPGErrorCancelled) {
+				return;
 			}
-			break;
-	}
-	
-	
-	[sheetController errorSheetWithMessageText:title infoText:message];
+			NSLog(@"Error text: %@\nStatus text: %@", gpgTask.errText, gpgTask.statusText);
+		}
+		
+		
+		switch ([[userInfo objectForKey:@"operation"] integerValue]) {
+			case ImportOperation:
+				title = localized(@"ImportKeyError_Title");
+				message = localized(@"ImportKeyError_Msg");
+				break;
+			default:
+				title = self.errorText;
+				if (gpgTask) {
+					NSString *errText = gpgTask.errText;
+					if (errText.length > 1000) {
+						errText = [NSString stringWithFormat:@"%@\n…\n%@", [errText substringToIndex:400], [errText substringFromIndex:errText.length - 400]];
+					}
+					message = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, errText];
+				} else {
+					message = [NSString stringWithFormat:@"%@", e.description];
+				}
+				break;
+		}
+		
+		
+		[sheetController errorSheetWithMessageText:title infoText:message];
+	});
 }
 
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	gc.passphrase = nil;
-	NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:gc, @"GPGController", value, @"value", nil]; // Do not use @{} for this dcit!
-	[self performSelectorOnMainThread:@selector(gpgControllerOperationDidFinish:) withObject:args waitUntilDone:NO];
-}
-
-- (void)gpgControllerOperationDidFinish:(NSDictionary *)args {
-	BOOL reEvaluate;
-	GPGController *gc = [args objectForKey:@"GPGController"];
-	id value = [args objectForKey:@"value"];
-
-	
-	__block BOOL ended = NO;
-	void (^endProgressSheet)() = ^void() {
-		if (ended == NO) {
-			ended = YES;
-			[sheetController endProgressSheet];
-		}
-	};
-	
 	[cancelCallbacks removeAllObjects];
 	
-	
-	do {
-		reEvaluate = NO;
+	dispatch_async(dispatch_get_main_queue(), ^{
+		BOOL reEvaluate;
 		
-		NSMutableDictionary *oldUserInfo = [NSMutableDictionary dictionaryWithDictionary:gc.userInfo];
-		
-		gc.userInfo = nil;
-		self.progressText = nil;
-		self.errorText = nil;
-		
-		
-		oldUserInfo[@"operation"] = @0;
-		
-		
-		NSInteger actionCode = 0;
-		NSArray *actions = [oldUserInfo objectForKey:@"action"];
-		id action = nil;
-		actionCallback callback = nil;
-		
-		if ([actions isKindOfClass:[NSArray class]]) {
-			if (actions.count > 0) {
-				action = actions[0];
-				
-				if (actions.count > 1) {
-					NSArray *newActions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
-					NSMutableDictionary *tempUserInfo = oldUserInfo.mutableCopy;
-					tempUserInfo[@"action"] = newActions;
-					gc.userInfo = tempUserInfo;
-				}
+		__block BOOL ended = NO;
+		void (^endProgressSheet)() = ^void() {
+			if (ended == NO) {
+				ended = YES;
+				[sheetController endProgressSheet];
 			}
-		} else {
-			action = actions;
-		}
+		};
 		
-		if ([action isKindOfClass:NSClassFromString(@"NSBlock")]) {
-			actionCode = CallbackAction;
-			callback = action;
-		} else {
-			actionCode = [action integerValue];
-		}
-
-		
-		switch (actionCode) {
-			case CallbackAction: {
-				endProgressSheet();
-				callback(gc, value, oldUserInfo);
-				break;
-			}
-			case ShowResultAction: {
-				if (gc.error) break;
-				
-				NSDictionary *statusDict = gc.statusDict;
-				if (statusDict) {
-					[self refreshDisplayedKeys:self];
+		do {
+			reEvaluate = NO;
+			
+			NSMutableDictionary *oldUserInfo = [NSMutableDictionary dictionaryWithDictionary:gc.userInfo];
+			
+			gc.userInfo = nil;
+			self.progressText = nil;
+			self.errorText = nil;
+			
+			
+			oldUserInfo[@"operation"] = @0;
+			
+			
+			NSInteger actionCode = 0;
+			NSArray *actions = [oldUserInfo objectForKey:@"action"];
+			id action = nil;
+			actionCallback callback = nil;
+			
+			if ([actions isKindOfClass:[NSArray class]]) {
+				if (actions.count > 0) {
+					action = actions[0];
 					
-					NSSet *affectedkeys = nil;
-					NSString *message = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
-					affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
-					[[KeychainController sharedInstance] keysDidChange:affectedkeys.allObjects];
+					if (actions.count > 1) {
+						NSArray *newActions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
+						NSMutableDictionary *tempUserInfo = oldUserInfo.mutableCopy;
+						tempUserInfo[@"action"] = newActions;
+						gc.userInfo = tempUserInfo;
+					}
+				}
+			} else {
+				action = actions;
+			}
+			
+			if ([action isKindOfClass:NSClassFromString(@"NSBlock")]) {
+				actionCode = CallbackAction;
+				callback = action;
+			} else {
+				actionCode = [action integerValue];
+			}
+			
+			
+			switch (actionCode) {
+				case CallbackAction: {
 					endProgressSheet();
-
-					sheetController.msgText = message;
-					sheetController.title = localized(@"KeySearch_ImportResults_Title");
-					sheetController.sheetType = SheetTypeShowResult;
-					[sheetController runModalForWindow:mainWindow];
+					callback(gc, value, oldUserInfo);
+					break;
+				}
+				case ShowResultAction: {
+					if (gc.error) break;
 					
-					[[KeychainController sharedInstance] selectKeys:affectedkeys];
+					NSDictionary *statusDict = gc.statusDict;
+					if (statusDict) {
+						[self refreshDisplayedKeys:self];
+						
+						NSSet *affectedkeys = nil;
+						NSString *message = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
+						affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
+						[[KeychainController sharedInstance] keysDidChange:affectedkeys.allObjects];
+						endProgressSheet();
+						
+						sheetController.msgText = message;
+						sheetController.title = localized(@"KeySearch_ImportResults_Title");
+						sheetController.sheetType = SheetTypeShowResult;
+						[sheetController runModalForWindow:mainWindow];
+						
+						[[KeychainController sharedInstance] selectKeys:affectedkeys];
+					}
+					break;
 				}
-				break;
-			}
-			case ShowFoundKeysAction: {
-				endProgressSheet();
-				if (gc.error) break;
-				NSArray *keys = gc.lastReturnValue;
-				if ([keys count] == 0) {
-					sheetController.title = localized(@"KeySearch_NoKeysFound_Title");
-					sheetController.msgText = @"";
-					sheetController.sheetType = SheetTypeShowResult;
-					[sheetController runModalForWindow:mainWindow];
-				} else {
-					sheetController.keys = keys;
+				case ShowFoundKeysAction: {
+					endProgressSheet();
+					if (gc.error) break;
+					NSArray *keys = gc.lastReturnValue;
+					if ([keys count] == 0) {
+						sheetController.title = localized(@"KeySearch_NoKeysFound_Title");
+						sheetController.msgText = @"";
+						sheetController.sheetType = SheetTypeShowResult;
+						[sheetController runModalForWindow:mainWindow];
+					} else {
+						sheetController.keys = keys;
+						
+						sheetController.sheetType = SheetTypeShowFoundKeys;
+						if ([sheetController runModalForWindow:mainWindow] != NSOKButton || sheetController.keys.count == 0) break;
+						
+						[self receiveKeysFromServer:sheetController.keys];
+						sheetController.keys = nil;
+					}
+					break;
+				}
+				case SaveDataToURLAction: { // Saves value to one or more files (@"URL"). You can specify @"hideExtension".
+					endProgressSheet();
+					if (gc.error) break;
 					
-					sheetController.sheetType = SheetTypeShowFoundKeys;
-					if ([sheetController runModalForWindow:mainWindow] != NSOKButton || sheetController.keys.count == 0) break;
+					NSSet *urls = [oldUserInfo objectForKey:@"URL"];
+					NSNumber *hideExtension = @([[oldUserInfo objectForKey:@"hideExtension"] boolValue]);
+					if ([urls isKindOfClass:[NSURL class]]) {
+						urls = [NSSet setWithObject:urls];
+					}
 					
-					[self receiveKeysFromServer:sheetController.keys];
-					sheetController.keys = nil;
+					NSFileManager *fileManager = [NSFileManager defaultManager];
+					for (NSURL *url in urls) {
+						[fileManager createFileAtPath:url.path contents:value attributes:@{NSFileExtensionHidden: hideExtension}];
+					}
+					
+					reEvaluate = YES;
+					
+					break;
 				}
-				break;
-			}
-			case SaveDataToURLAction: { // Saves value to one or more files (@"URL"). You can specify @"hideExtension".
-				endProgressSheet();
-				if (gc.error) break;
-				
-				NSSet *urls = [oldUserInfo objectForKey:@"URL"];
-				NSNumber *hideExtension = @([[oldUserInfo objectForKey:@"hideExtension"] boolValue]);
-				if ([urls isKindOfClass:[NSURL class]]) {
-					urls = [NSSet setWithObject:urls];
+				case UploadKeyAction: {
+					endProgressSheet();
+					NSSet *keys = oldUserInfo[@"keys"];
+					if (gc.error || !keys) break;
+					
+					self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
+					self.errorText = localized(@"SendKeysToServer_Error");
+					
+					NSLog(@"Upload %@", keys);
+					[gpgc sendKeysToServer:keys];
+					[[KeychainController sharedInstance] selectKeys:keys];
+					
+					break;
 				}
-				
-				NSFileManager *fileManager = [NSFileManager defaultManager];
-				for (NSURL *url in urls) {
-					[fileManager createFileAtPath:url.path contents:value attributes:@{NSFileExtensionHidden: hideExtension}];
+				case SetTrustAction: {
+					endProgressSheet();
+					NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
+					NSInteger trust = [[oldUserInfo objectForKey:@"trust"] integerValue];
+					
+					[self setTrust:trust forKeys:keys];
+					break;
 				}
-
-				reEvaluate = YES;
-				
-				break;
+				case SetDisabledAction: {
+					endProgressSheet();
+					NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
+					BOOL disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
+					
+					[self setDisabled:disabled forKeys:keys];
+					break;
+				}
+				case RevokeKeyAction: {
+					endProgressSheet();
+					NSSet *keys = oldUserInfo[@"keys"];
+					if (gc.error || !keys) break;
+					
+					[self revokeKey:[keys anyObject] generateIfNeeded:NO];
+					
+					break;
+				}
+				default:
+					break;
 			}
-			case UploadKeyAction: {
-				endProgressSheet();
-				NSSet *keys = oldUserInfo[@"keys"];
-				if (gc.error || !keys) break;
-				
-				self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
-				self.errorText = localized(@"SendKeysToServer_Error");
-				
-				NSLog(@"Upload %@", keys);
-				[gpgc sendKeysToServer:keys];
-				[[KeychainController sharedInstance] selectKeys:keys];
-				
-				break;
-			}
-			case SetTrustAction: {
-				endProgressSheet();
-				NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
-				NSInteger trust = [[oldUserInfo objectForKey:@"trust"] integerValue];
-				
-				[self setTrust:trust forKeys:keys];
-				break;
-			}
-			case SetDisabledAction: {
-				endProgressSheet();
-				NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
-				BOOL disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
-				
-				[self setDisabled:disabled forKeys:keys];
-				break;
-			}
-			case RevokeKeyAction: {
-				endProgressSheet();
-				NSSet *keys = oldUserInfo[@"keys"];
-				if (gc.error || !keys) break;
-				
-				[self revokeKey:[keys anyObject] generateIfNeeded:NO];
-				
-				break;
-			}
-			default:
-				break;
-		}
-		endProgressSheet();
-
-	} while (reEvaluate);
-	
+			endProgressSheet();
+			
+		} while (reEvaluate);
+		
+		
+	});
 }
+
 
 - (BOOL)popoverShouldClose:(NSPopover *)popover {
 	return YES;
