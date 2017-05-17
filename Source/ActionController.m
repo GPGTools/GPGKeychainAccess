@@ -1616,7 +1616,7 @@
 	GPGKey *key = [keys[0] primaryKey];
 	GPGUserID *userID = key.primaryUserID;
 	__block BOOL keyExistsOnServer = NO;
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	__block int64_t runningTasks = 2;
 
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), key.userIDDescription, key.keyID.shortKeyID];
 	
@@ -1628,6 +1628,14 @@
 	self.progressText = localized(@"AddUserID_Progress");
 	self.errorText = localized(@"AddUserID_Error");
 	
+	
+	void (^uploadBlock)() = ^() {
+		if ([self warningSheetWithDefault:keyExistsOnServer string:@"NewUserIDWantToUpload"]) {
+			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
+			self.errorText = localized(@"SendKeysToServer_Error");
+			[gpgc sendKeysToServer:@[key]];
+		}
+	};
 	actionCallback primaryUserIDCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
 		if (gc.error) {
 			return;
@@ -1636,28 +1644,30 @@
 		self.errorText = localized(@"SetPrimaryUserID_Error");
 		[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
 	} copy];
-	actionCallback uploadCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
+	actionCallback finishedCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
 		if (gc.error) {
 			return;
 		}
 		
-		// Wait for keysExistOnServer.
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-		if ([self warningSheetWithDefault:keyExistsOnServer string:@"NewUserIDWantToUpload"]) {
-			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
-			self.errorText = localized(@"SendKeysToServer_Error");
-			[gpgc sendKeysToServer:@[key]];
+		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
+			// keysExistOnServer is already finished.
+			uploadBlock();
 		}
 	} copy];
 	
-	gpgc.userInfo = @{@"action": @[primaryUserIDCallback, uploadCallback]};
+	
+	
+	gpgc.userInfo = @{@"action": @[primaryUserIDCallback, finishedCallback]};
 
 	[self showProgressUntilKeyIsRefreshed:key];
 	
 	[gpgc keysExistOnServer:keys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
 		keyExistsOnServer = existingKeys.count == 1;
-		dispatch_semaphore_signal(semaphore);
+		
+		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
+			// setPrimaryUserID is already finished.
+			uploadBlock();
+		}
 	}];
 
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
