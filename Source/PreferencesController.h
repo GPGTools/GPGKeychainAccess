@@ -30,6 +30,7 @@
 	
 	NSView *view;
 	NSArray *topLevelObjects;
+	BOOL _testingServer;
 }
 
 @property (strong) IBOutlet NSWindow *window;
