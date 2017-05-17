@@ -2319,6 +2319,9 @@
 			}
 		}
 	}
+	if (output.length == 0) {
+		[output appendString:localized(@"IMPORT_RESULT_NOTHING_IMPORTED")];
+	}
 	
 	return output;
 	
