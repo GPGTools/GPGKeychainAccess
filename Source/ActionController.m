@@ -1555,6 +1555,7 @@
 	};
 	actionCallback finishedCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
 		if (gc.error) {
+			[sheetController endProgressSheet];
 			return;
 		}
 		
@@ -1647,6 +1648,7 @@
 	};
 	actionCallback primaryUserIDCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
 		if (gc.error) {
+			[sheetController endProgressSheet];
 			return;
 		}
 		self.progressText = localized(@"SetPrimaryUserID_Progress");
@@ -1655,6 +1657,7 @@
 	} copy];
 	actionCallback finishedCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
 		if (gc.error) {
+			[sheetController endProgressSheet];
 			return;
 		}
 		
