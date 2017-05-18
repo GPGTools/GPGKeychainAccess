@@ -851,8 +851,7 @@
 		if ([self warningSheetWithDefault:NO string:@"NewKeyWantToUpload"]) {
 			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:fingerprint]);;
 			self.errorText = localized(@"SendKeysToServer_Error");
-			NSLog(@"Upload");
-			// [gpgc sendKeysToServer:@[key]];
+			[gpgc sendKeysToServer:@[fingerprint]];
 		}
 	} copy];
 	gpgc.userInfo = @{@"action": @[uploadCallback]};
