@@ -1533,7 +1533,7 @@
 	}
 	GPGKey *key = [keys[0] primaryKey];
 	__block BOOL keyExistsOnServer = NO;
-	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	__block int64_t runningTasks = 2;
 	
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
@@ -1545,28 +1545,38 @@
 	self.progressText = localized(@"AddSubkey_Progress");
 	self.errorText = localized(@"AddSubkey_Error");
 	
-	actionCallback uploadCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
-		if (gc.error) {
-			return;
-		}
-		
-		// Wait for keysExistOnServer.
-		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-
-		if ([self warningSheetWithDefault:NO string:@"NewSubkeyWantToUpload"]) {
+	
+	void (^uploadBlock)() = ^() {
+		if ([self warningSheetWithDefault:keyExistsOnServer string:@"NewSubkeyWantToUpload"]) {
 			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
 			self.errorText = localized(@"SendKeysToServer_Error");
 			[gpgc sendKeysToServer:@[key]];
 		}
+	};
+	actionCallback finishedCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
+		if (gc.error) {
+			return;
+		}
+		
+		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
+			// keysExistOnServer is already finished.
+			uploadBlock();
+		}
 	} copy];
 	
-	gpgc.userInfo = @{@"action": @[uploadCallback]};
+
+
+	gpgc.userInfo = @{@"action": @[finishedCallback]};
 	
 	[self showProgressUntilKeyIsRefreshed:key];
 	
 	[gpgc keysExistOnServer:keys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
 		keyExistsOnServer = existingKeys.count == 1;
-		dispatch_semaphore_signal(semaphore);
+		
+		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
+			// addSubkeyToKey is already finished.
+			uploadBlock();
+		}
 	}];
 	
 	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
