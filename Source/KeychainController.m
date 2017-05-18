@@ -294,7 +294,7 @@ NSLock *updateLock;
 	[numberOfKeysLabel setStringValue:[NSString stringWithFormat:localized(@"%i of %i keys listed"), filteredKeyList.count, self.allKeys.count]];
 	
 	if (filteredKeyList.count == 0 && allKeys.count > 0) {
-		self.noKeysFoundMessage = localizedStringWithFormat(showSecretKeysOnly ? @"FilterNoResults" : @"FilterNoResultsSecOnly", _searchString);
+		self.noKeysFoundMessage = localizedStringWithFormat(showSecretKeysOnly ? @"FilterNoResultsSecOnly" : @"FilterNoResults", _searchString);
 	} else {
 		self.noKeysFoundMessage = nil;
 	}

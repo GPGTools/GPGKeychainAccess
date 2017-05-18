@@ -427,39 +427,52 @@
                             <binding destination="666" name="value" keyPath="showSecretKeysOnly" id="1383"/>
                         </connections>
                     </button>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gyf-RV-W6u">
-                        <rect key="frame" x="26" y="491" width="1053" height="17"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Label" id="5CQ-wj-HUT">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="HYp-ea-h18">
+                        <rect key="frame" x="20" y="44" width="1065" height="489"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gyf-RV-W6u">
+                                <rect key="frame" x="18" y="235" width="1029" height="19"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="5CQ-wj-HUT">
+                                    <font key="font" metaFont="systemBold" size="15"/>
+                                    <color key="textColor" white="0.29610093661717007" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="666" name="value" keyPath="noKeysFoundMessage" id="rlp-Zr-odf">
+                                        <dictionary key="options">
+                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Gyf-RV-W6u" firstAttribute="leading" secondItem="HYp-ea-h18" secondAttribute="leading" constant="20" id="TWJ-3f-soW"/>
+                            <constraint firstAttribute="trailing" secondItem="Gyf-RV-W6u" secondAttribute="trailing" constant="20" id="nfN-hK-a2K"/>
+                            <constraint firstItem="Gyf-RV-W6u" firstAttribute="centerY" secondItem="HYp-ea-h18" secondAttribute="centerY" id="zuN-qq-40S"/>
+                        </constraints>
                         <connections>
-                            <binding destination="666" name="hidden" keyPath="noKeysFoundMessage" id="tHS-wy-047">
+                            <binding destination="666" name="hidden" keyPath="noKeysFoundMessage" id="3sB-Wg-sPf">
                                 <dictionary key="options">
                                     <string key="NSValueTransformerName">NSIsNil</string>
                                 </dictionary>
                             </binding>
-                            <binding destination="666" name="value" keyPath="noKeysFoundMessage" id="rlp-Zr-odf">
-                                <dictionary key="options">
-                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                </dictionary>
-                            </binding>
                         </connections>
-                    </textField>
+                    </customView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Gyf-RV-W6u" firstAttribute="leading" secondItem="587" secondAttribute="leading" constant="8" id="1mE-19-Nj3"/>
                     <constraint firstItem="734" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="19" id="2cy-jN-ghO"/>
+                    <constraint firstItem="HYp-ea-h18" firstAttribute="width" secondItem="587" secondAttribute="width" id="2xD-z0-2G0"/>
                     <constraint firstAttribute="bottom" secondItem="1380" secondAttribute="bottom" constant="20" symbolic="YES" id="ARp-3v-9CY"/>
-                    <constraint firstItem="Gyf-RV-W6u" firstAttribute="top" secondItem="587" secondAttribute="top" constant="25" id="CIG-7O-UtT"/>
+                    <constraint firstItem="HYp-ea-h18" firstAttribute="leading" secondItem="587" secondAttribute="leading" id="G7R-AM-1sD"/>
                     <constraint firstItem="587" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" symbolic="YES" id="IVG-X1-OBh"/>
                     <constraint firstItem="734" firstAttribute="top" secondItem="587" secondAttribute="bottom" constant="8" symbolic="YES" id="KST-14-tYj"/>
                     <constraint firstAttribute="trailing" secondItem="587" secondAttribute="trailing" constant="20" symbolic="YES" id="KWL-tt-QCg"/>
                     <constraint firstItem="587" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" symbolic="YES" id="h2h-Ob-0lG"/>
-                    <constraint firstItem="Gyf-RV-W6u" firstAttribute="trailing" secondItem="587" secondAttribute="trailing" constant="-8" id="o3l-H7-YO1"/>
                     <constraint firstItem="1380" firstAttribute="trailing" secondItem="587" secondAttribute="trailing" id="p2W-OX-Kx2"/>
                     <constraint firstItem="734" firstAttribute="baseline" secondItem="1380" secondAttribute="baseline" id="tZf-v9-4hi"/>
+                    <constraint firstItem="HYp-ea-h18" firstAttribute="top" secondItem="587" secondAttribute="top" id="uXj-gg-0LF"/>
+                    <constraint firstItem="HYp-ea-h18" firstAttribute="height" secondItem="587" secondAttribute="height" id="xTa-u6-VUP"/>
                 </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="4AAAD79F-CE85-4575-92B9-E91BA1C2FB23" displayMode="iconAndLabel" sizeMode="regular" id="718">
@@ -534,7 +547,7 @@
             <connections>
                 <outlet property="delegate" destination="494" id="1897"/>
             </connections>
-            <point key="canvasLocation" x="-90" y="-115"/>
+            <point key="canvasLocation" x="-90.5" y="-115.5"/>
         </window>
         <customObject id="666" customClass="KeychainController">
             <connections>
