@@ -19,6 +19,7 @@
                 <outlet property="generateSignatureView" destination="367" id="413"/>
                 <outlet property="generateSubkeyView" destination="170" id="269"/>
                 <outlet property="generateUserIDView" destination="115" id="164"/>
+                <outlet property="generateUserID_CommentConstraint" destination="wyj-6W-XO5" id="ZV1-2D-nHc"/>
                 <outlet property="keyLengthFormatter" destination="49" id="51"/>
                 <outlet property="progressIndicator" destination="308" id="316"/>
                 <outlet property="progressView" destination="270" id="309"/>
@@ -995,6 +996,14 @@ Gw
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="enabled" keyPath="disableUserIDCommentsField" id="ll6-jS-A6o">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="hidden" keyPath="disableUserIDCommentsField" previousBinding="ll6-jS-A6o" id="v41-aU-Gnz"/>
+                    </connections>
                 </textField>
                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="146">
                     <rect key="frame" x="91" y="109" width="339" height="22"/>
@@ -1008,7 +1017,7 @@ Gw
                         <outlet property="nextKeyView" destination="718" id="809"/>
                     </connections>
                 </textField>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="148">
+                <textField verticalHuggingPriority="750" verticalCompressionResistancePriority="752" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="148">
                     <rect key="frame" x="91" y="51" width="339" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="149">
                         <font key="font" metaFont="system"/>
@@ -1017,6 +1026,12 @@ Gw
                     </textFieldCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="comment" id="161"/>
+                        <binding destination="-2" name="enabled" keyPath="disableUserIDCommentsField" id="bUM-9E-2dD">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
+                        <binding destination="-2" name="hidden" keyPath="disableUserIDCommentsField" previousBinding="bUM-9E-2dD" id="YK2-nl-pxb"/>
                         <outlet property="nextKeyView" destination="146" id="544"/>
                     </connections>
                 </textField>
@@ -1051,6 +1066,7 @@ Gw
                 <constraint firstItem="141" firstAttribute="baseline" secondItem="140" secondAttribute="baseline" id="ZbK-XR-BTs"/>
                 <constraint firstItem="142" firstAttribute="leading" secondItem="115" secondAttribute="leading" constant="20" id="b5v-zN-4Pg"/>
                 <constraint firstItem="718" firstAttribute="top" secondItem="146" secondAttribute="bottom" constant="8" id="beD-mq-HR1"/>
+                <constraint firstItem="141" firstAttribute="top" secondItem="718" secondAttribute="bottom" priority="751" constant="11" id="djS-Uw-CzI"/>
                 <constraint firstItem="145" firstAttribute="width" secondItem="142" secondAttribute="width" id="f1D-lb-ZMN"/>
                 <constraint firstAttribute="trailing" secondItem="146" secondAttribute="trailing" constant="20" id="fi6-dY-P2R"/>
                 <constraint firstItem="144" firstAttribute="leading" secondItem="115" secondAttribute="leading" constant="20" id="ijh-OE-IEr"/>
@@ -1058,7 +1074,7 @@ Gw
                 <constraint firstItem="148" firstAttribute="width" secondItem="146" secondAttribute="width" id="qja-WQ-pOT"/>
                 <constraint firstItem="144" firstAttribute="top" secondItem="115" secondAttribute="top" constant="20" id="sEf-mC-dp8"/>
                 <constraint firstItem="718" firstAttribute="leading" secondItem="143" secondAttribute="trailing" constant="8" id="wv2-MG-cD0"/>
-                <constraint firstItem="148" firstAttribute="top" secondItem="718" secondAttribute="bottom" constant="8" id="wyj-6W-XO5"/>
+                <constraint firstItem="148" firstAttribute="top" secondItem="718" secondAttribute="bottom" priority="999" constant="8" id="wyj-6W-XO5"/>
                 <constraint firstAttribute="bottom" secondItem="141" secondAttribute="bottom" constant="19" id="z90-pK-Xk6"/>
             </constraints>
             <connections>
@@ -1337,7 +1353,7 @@ Gw
                 </comboBox>
                 <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1153">
                     <rect key="frame" x="20" y="194" width="13" height="13"/>
-                    <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="79F6F57C-9B2C-4E36-B3FC-9150248A6A3B" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
+                    <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="1E4E2D48-4A33-42C8-894B-FFC732A7F260" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
                         <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -2086,7 +2102,7 @@ DQ
         </arrayController>
     </objects>
     <resources>
-        <image name="79F6F57C-9B2C-4E36-B3FC-9150248A6A3B" width="1" height="1">
+        <image name="1E4E2D48-4A33-42C8-894B-FFC732A7F260" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

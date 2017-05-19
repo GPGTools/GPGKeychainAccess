@@ -88,6 +88,7 @@ enum {
 @property (assign) IBOutlet NSLayoutConstraint *genNewKey_advancedConstraint;
 @property (assign) IBOutlet NSView *generateSubkeyView;
 @property (assign) IBOutlet NSView *generateUserIDView;
+@property (assign) IBOutlet NSLayoutConstraint *generateUserID_CommentConstraint;
 @property (assign) IBOutlet NSView *generateSignatureView;
 @property (assign) IBOutlet NSView *changeExpirationDateView;
 @property (assign) IBOutlet NSView *searchKeysView;
@@ -117,6 +118,8 @@ enum {
 @property (nonatomic, strong, readonly) NSArray *volumes;
 @property (nonatomic, strong) NSIndexSet *selectedVolumeIndexes;
 @property (nonatomic, strong, readonly) NSDictionary *result;
+@property (nonatomic, readonly) BOOL disableUserIDCommentsField;
+
 
 
 - (NSInteger)runModal;

@@ -35,6 +35,8 @@
 @property (nonatomic, strong) NSArray *volumes;
 @property (nonatomic, strong) NSDictionary *result;
 @property (nonatomic) BOOL enableOK;
+@property (nonatomic) BOOL disableUserIDCommentsField;
+
 
 - (void)runAndWait;
 - (void)setStandardExpirationDates;
@@ -162,6 +164,14 @@ modalWindow, foundKeyDicts, hideExtension;
 			self.displayedView = _changeExpirationDateView;
 			break;
 		case SheetTypeAddUserID:
+			if (showExpertSettings) {
+				self.disableUserIDCommentsField = NO;
+				self.generateUserID_CommentConstraint.priority = 999;
+			} else {
+				self.disableUserIDCommentsField = YES;
+				self.generateUserID_CommentConstraint.priority = 1;
+			}
+			
 			[self setDataFromAddressBook];
 			self.comment = @"";
 			
