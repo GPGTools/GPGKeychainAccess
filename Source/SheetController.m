@@ -887,10 +887,6 @@ modalWindow, foundKeyDicts, hideExtension;
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_InvalidCharInName"), nil, nil, nil);
 		return NO;
 	}
-	if ([self.name characterAtIndex:0] <= '9' && [self.name characterAtIndex:0] >= '0') {
-		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_NameStartWithDigit"), nil, nil, nil);
-		return NO;
-	}
 	return YES;
 }
 - (BOOL)checkEmail {
