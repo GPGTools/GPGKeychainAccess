@@ -279,7 +279,6 @@ static PreferencesController *_sharedInstance = nil;
 }
 
 static NSString * const kKeyserver = @"keyserver";
-static NSString * const kAutoKeyLocate = @"auto-key-locate";
 
 - (NSString *)keyserver {
     return !self.keyserverToCheck ? [self.options valueForKey:kKeyserver] : self.keyserverToCheck;
@@ -294,15 +293,6 @@ static NSString * const kAutoKeyLocate = @"auto-key-locate";
     
     // assign a server name to the "keyserver" option
     [self.options setValue:keyserver forKey:kKeyserver];
-    
-    NSArray *autoklOptions = [self.options valueForKey:kAutoKeyLocate];
-    if (!autoklOptions || ![autoklOptions containsObject:kKeyserver]) {
-        // lead with the literal value "keyserver" in the auto-key-locate option
-        NSMutableArray *newOptions = [NSMutableArray arrayWithObject:kKeyserver];
-        if (autoklOptions)
-            [newOptions addObjectsFromArray:autoklOptions];
-        [self.options setValue:newOptions forKey:kAutoKeyLocate];
-    }
 }
 
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
