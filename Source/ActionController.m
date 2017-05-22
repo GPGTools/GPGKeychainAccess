@@ -33,6 +33,11 @@
 			signaturesTable, userIDsTable, subkeysTable, gpgc;
 
 
+static NSString * const dealsWithErrorsKey = @"dealsWithErrors";
+static NSString * const actionKey = @"action";
+
+
+
 #pragma mark General
 - (void)awakeFromNib {
 #warning This code is required until jenkins is up to date.
@@ -1425,15 +1430,39 @@
 		return;
 	}
 	
-	gpgc.userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:ShowFoundKeysAction] forKey:@"action"];
 	
+	actionCallback callback = [^(GPGController *gc, NSString *fingerprint, NSDictionary *userInfo) {
+		if (gc.error) {
+			if ([gc.error isKindOfClass:[GPGException class]] && [(GPGException *)gc.error errorCode] == GPGErrorCancelled) {
+				return;
+			}
+			NSString *title = localized(@"KeyserverSearchError_Title");
+			NSString *message = [self errorMessageFromException:gc.error gpgTask:gc.gpgTask description:localized(@"KeyserverSearchError_Msg")];
+			
+			[sheetController errorSheetWithMessageText:title infoText:message];
+			return;
+		}
+		
+		NSArray *keys = gc.lastReturnValue;
+		if (keys.count == 0) {
+			sheetController.title = localized(@"KeySearch_NoKeysFound_Title");
+			sheetController.msgText = @"";
+			sheetController.sheetType = SheetTypeShowResult;
+			[sheetController runModalForWindow:mainWindow];
+		} else {
+			sheetController.keys = keys;
+			sheetController.sheetType = SheetTypeShowFoundKeys;
+			if ([sheetController runModalForWindow:mainWindow] == NSOKButton && sheetController.keys.count > 0) {
+				[self receiveKeysFromServer:sheetController.keys];
+			}
+			sheetController.keys = nil;
+		}
+	} copy];
+	
+	gpgc.userInfo = @{actionKey: @[callback], dealsWithErrorsKey: @YES};
 	self.progressText = localized(@"SearchKeysOnServer_Progress");
-	self.errorText = localized(@"SearchKeysOnServer_Error");
-	
-	
 	
 	NSString *pattern = sheetController.pattern;
-	
 	[gpgc searchKeysOnServer:pattern];
 }
 - (IBAction)receiveKeys:(id)sender {
@@ -2796,27 +2825,21 @@
 		}
 		
 		
-		switch ([[userInfo objectForKey:@"operation"] integerValue]) {
-			case ImportOperation:
-				title = localized(@"ImportKeyError_Title");
-				message = localized(@"ImportKeyError_Msg");
-				break;
-			default:
-				title = self.errorText;
-				if (gpgTask) {
-					NSString *errText = gpgTask.errText;
-					if (errText.length > 1000) {
-						errText = [NSString stringWithFormat:@"%@\n…\n%@", [errText substringToIndex:400], [errText substringFromIndex:errText.length - 400]];
-					}
-					message = [NSString stringWithFormat:@"%@\n\nError text:\n%@", e.description, errText];
-				} else {
-					message = [NSString stringWithFormat:@"%@", e.description];
-				}
-				break;
+		if (![userInfo[dealsWithErrorsKey] boolValue]) {
+			switch ([[userInfo objectForKey:@"operation"] integerValue]) {
+				case ImportOperation:
+					title = localized(@"ImportKeyError_Title");
+					message = localized(@"ImportKeyError_Msg");
+					break;
+				default:
+					title = self.errorText;
+					message = [self errorMessageFromException:e gpgTask:gpgTask description:nil];
+					break;
+			}
+			
+			[sheetController errorSheetWithMessageText:title infoText:message];
 		}
 		
-		
-		[sheetController errorSheetWithMessageText:title infoText:message];
 	});
 }
 
@@ -2901,26 +2924,6 @@
 						[sheetController runModalForWindow:mainWindow];
 						
 						[[KeychainController sharedInstance] selectKeys:affectedkeys];
-					}
-					break;
-				}
-				case ShowFoundKeysAction: {
-					endProgressSheet();
-					if (gc.error) break;
-					NSArray *keys = gc.lastReturnValue;
-					if ([keys count] == 0) {
-						sheetController.title = localized(@"KeySearch_NoKeysFound_Title");
-						sheetController.msgText = @"";
-						sheetController.sheetType = SheetTypeShowResult;
-						[sheetController runModalForWindow:mainWindow];
-					} else {
-						sheetController.keys = keys;
-						
-						sheetController.sheetType = SheetTypeShowFoundKeys;
-						if ([sheetController runModalForWindow:mainWindow] != NSOKButton || sheetController.keys.count == 0) break;
-						
-						[self receiveKeysFromServer:sheetController.keys];
-						sheetController.keys = nil;
 					}
 					break;
 				}
@@ -3009,6 +3012,26 @@
 	}
 	return YES;
 }
+
+- (NSString *)errorMessageFromException:(NSException *)exception gpgTask:(GPGTask *)task description:(NSString *)description {
+	NSString *message;
+	
+	if (task) {
+		NSString *errText = task.errText;
+		if (errText.length > 1000) {
+			errText = [NSString stringWithFormat:@"%@\n…\n%@", [errText substringToIndex:400], [errText substringFromIndex:errText.length - 400]];
+		}
+		message = [NSString stringWithFormat:@"%@\nError text:\n%@", exception.description, errText];
+	} else {
+		message = exception.description;
+	}
+	if (description.length > 0) {
+		message = [NSString stringWithFormat:@"%@\n\n%@\n%@", description, localized(@"Details:"), message];
+	}
+
+	return message;
+}
+
 
 #pragma mark Singleton: alloc, init etc.
 + (instancetype)sharedInstance {

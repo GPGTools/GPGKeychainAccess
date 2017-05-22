@@ -68,7 +68,6 @@ typedef void (^cancelCallback)();
 enum {
 	NoAction = 0,
 	ShowResultAction,
-	ShowFoundKeysAction,
 	SaveDataToURLAction,
 	UploadKeyAction,
 	SetTrustAction,

@@ -259,6 +259,7 @@ IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i im
 IMPORT_RESULT_NOTHING_IMPORTED = "No keys imported.";
 
 /* Errors */
+"Details:" = "Details:";
 ImportKeyError_Title = "Failed to import one or more keys!";
 ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Import Failed!";
@@ -268,6 +269,12 @@ ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP re
 
 NO_SECRET_KEY_TITLE = "No secret key found!";
 NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
+
+KeyserverSearchError_Title = "Searching for key failed.";
+KeyserverSearchError_Msg = "Please repeat your search and see if it works then. Should the problem persist, file a support request via System Preferences > GPG Suite > Send Report. Please copy the entire error message into the description field and add the search term you used for your query. We recommend to include the debug log, since that provides additional helpful information to solve your problem.";
+
+
+
 
 /* The Algorithms */
 GPG_RSAAlgorithm = "RSA";
@@ -338,7 +345,6 @@ MinimizeKey_Error = "Minimizing key failed.";
 GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate…";
 GenerateRevokeCertificateForKey_Error = "Generating revoke certificate failed.";
 SearchKeysOnServer_Progress = "Searching for key…";
-SearchKeysOnServer_Error = "Searching for key failed.";
 SendKeysToServer_Progress = "Sending %@ to server…";
 SendKeysToServer_Error = "Sending key failed.";
 RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
