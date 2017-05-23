@@ -70,8 +70,6 @@ enum {
 	ShowResultAction,
 	SaveDataToURLAction,
 	UploadKeyAction,
-	SetTrustAction,
-	SetDisabledAction,
 	RevokeKeyAction,
 	CallbackAction
 };

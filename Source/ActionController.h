@@ -30,7 +30,7 @@
 	NSSet *revCertCache;
 	dispatch_source_t pasteboardTimer;
 	NSPasteboard *generalPboard;
-	NSMutableArray *cancelCallbacks;
+	NSMutableDictionary *cancelCallbacks;
 }
 
 @property (readonly) GPGController *gpgc;
@@ -69,7 +69,7 @@
 - (IBAction)revokeSignature:(id)sender;
 - (IBAction)revokeSubkey:(id)sender;
 - (IBAction)revokeUserID:(id)sender;
-- (IBAction)setDisabled:(id)sender;
+- (IBAction)setDisabled:(NSButton *)sender;
 - (IBAction)setPrimaryUserID:(id)sender;
 - (IBAction)setTrust:(NSPopUpButton *)sender;
 - (IBAction)deleteKey:(id)sender;

@@ -1100,54 +1100,30 @@ static NSString * const actionKey = @"action";
 		[gpgc changePassphraseForKey:key];
 	}
 }
-- (IBAction)setDisabled:(id)sender {
+- (IBAction)setDisabled:(NSButton *)sender {
 	NSArray *keys = [self selectedKeys];
-	BOOL disabled = [sender state] == NSOnState;
-	[self setDisabled:disabled forKeys:[NSSet setWithArray:keys]];
-}
-- (void)setDisabled:(BOOL)disabled forKeys:(NSSet *)keys {
-	if (keys.count == 0) {
+	if (keys.count != 1) {
 		return;
 	}
+	GPGKey *key = keys[0];
+	BOOL disabled = [sender state] == NSOnState;
+	
 	self.progressText = localized(@"SetDisabled_Progress");
 	self.errorText = localized(@"SetDisabled_Error");
-	
-	GPGKey *key = keys.anyObject;
-	
-	if (keys.count > 1) {
-		if (![keys isKindOfClass:[NSMutableSet class]]) {
-			keys = [keys mutableCopy];
-		}
-		[(NSMutableSet *)keys removeObject:key];
-		
-		gpgc.userInfo = @{@"action": @(SetDisabledAction), @"keys": keys, @"disabled": @(disabled)};
-	}
-	
+	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc key:key setDisabled:disabled];
 }
 - (IBAction)setTrust:(NSPopUpButton *)sender {
 	NSArray *keys = [self selectedKeys];
-	NSInteger trust = sender.selectedTag;
-	[self setTrust:trust forKeys:[NSSet setWithArray:keys]];
-}
-- (void)setTrust:(NSInteger)trust forKeys:(NSSet *)keys {
-	if (keys.count == 0) {
+	if (keys.count != 1) {
 		return;
 	}
+	GPGKey *key = keys[0];
+	NSInteger trust = sender.selectedTag;
+	
 	self.progressText = localized(@"SetOwnerTrust_Progress");
 	self.errorText = localized(@"SetOwnerTrust_Error");
-	
-	GPGKey *key = keys.anyObject;
-	
-	if (keys.count > 1) {
-		if (![keys isKindOfClass:[NSMutableSet class]]) {
-			keys = [keys mutableCopy];
-		}
-		[(NSMutableSet *)keys removeObject:key];
-		
-		gpgc.userInfo = @{@"action": @(SetTrustAction), @"keys": keys, @"trust": @(trust)};
-	}
-	
+	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc key:key setOwnerTrust:(GPGValidity)trust];
 }
 
@@ -1175,6 +1151,8 @@ static NSString * const actionKey = @"action";
 	if ([sheetController runModalForWindow:mainWindow] == NSOKButton) {
 		self.progressText = localized(@"ChangeExpirationDate_Progress");
 		self.errorText = localized(@"ChangeExpirationDate_Error");
+		
+		[self showProgressUntilKeyIsRefreshed:key];
 		[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:sheetController.daysToExpire];
 	}
 }
@@ -1515,13 +1493,15 @@ static NSString * const actionKey = @"action";
 				canceled = YES;
 				[sheetController endProgressSheet];
 			};
-			[cancelCallbacks addObject:[cancelBlock copy]];
+			
+			NSString *cancelKey = [[NSProcessInfo processInfo] globallyUniqueString];
+			[cancelCallbacks setObject:[cancelBlock copy] forKey:cancelKey];
 			
 			sheetController.progressText = progressString;
 			[sheetController showProgressSheet];
 			[gpgc keysExistOnServer:publicKeys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
 				void (^block)() = ^{
-					[cancelCallbacks removeAllObjects];
+					[cancelCallbacks removeObjectForKey:cancelKey];
 					if (nonExistingKeys.count > 0) {
 						[sheetController endProgressSheet];
 						NSString *description = [self descriptionForKeys:nonExistingKeys maxLines:8 withOptions:0];
@@ -2158,12 +2138,12 @@ static NSString * const actionKey = @"action";
 	
 	key.isRefreshing = YES;
 	
-	__block BOOL canceled = NO;
+	NSString *cancelKey = [[NSProcessInfo processInfo] globallyUniqueString];
 	
 	keyUpdateCallback keyChangeBlock = ^(NSArray *keys) {
 		if (!keys || [keys containsObject:key]) {
 			if ([[[GPGKeyManager sharedInstance].allKeys member:key] isRefreshing] == NO) {
-				canceled = YES;
+				[cancelCallbacks removeObjectForKey:cancelKey];
 				[sheetController endProgressSheet];
 				return YES;
 			}
@@ -2171,20 +2151,20 @@ static NSString * const actionKey = @"action";
 		return NO;
 	};
 	cancelCallback cancelBlock = [^() {
-		if (!canceled) {
-			[sheetController endProgressSheet];
-			[[KeychainController sharedInstance] removeKeyUpdateCallback:keyChangeBlock];
-		}
+		[sheetController endProgressSheet];
+		[[KeychainController sharedInstance] removeKeyUpdateCallback:keyChangeBlock];
 	} copy];
-	[cancelCallbacks addObject:cancelBlock];
+	
+	[cancelCallbacks setObject:cancelBlock forKey:cancelKey];
+
 	[[KeychainController sharedInstance] addKeyUpdateCallback:keyChangeBlock];
 }
 
 - (void)cancelGPGOperation:(id)sender {
 	[gpgc cancel];
-	for (cancelCallback callback in cancelCallbacks) {
+	[cancelCallbacks enumerateKeysAndObjectsUsingBlock:^(id key, cancelCallback callback, BOOL *stop) {
 		callback();
-	}
+	}];
 	[cancelCallbacks removeAllObjects];
 }
 
@@ -2845,7 +2825,6 @@ static NSString * const actionKey = @"action";
 
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	gc.passphrase = nil;
-	[cancelCallbacks removeAllObjects];
 	
 	dispatch_async(dispatch_get_main_queue(), ^{
 		BOOL reEvaluate;
@@ -2960,22 +2939,6 @@ static NSString * const actionKey = @"action";
 					
 					break;
 				}
-				case SetTrustAction: {
-					endProgressSheet();
-					NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
-					NSInteger trust = [[oldUserInfo objectForKey:@"trust"] integerValue];
-					
-					[self setTrust:trust forKeys:keys];
-					break;
-				}
-				case SetDisabledAction: {
-					endProgressSheet();
-					NSMutableSet *keys = [oldUserInfo objectForKey:@"keys"];
-					BOOL disabled = [[oldUserInfo objectForKey:@"disabled"] boolValue];
-					
-					[self setDisabled:disabled forKeys:keys];
-					break;
-				}
 				case RevokeKeyAction: {
 					endProgressSheet();
 					NSSet *keys = oldUserInfo[@"keys"];
@@ -3063,7 +3026,7 @@ static NSString * const actionKey = @"action";
 		
 		sheetController = [SheetController sharedInstance];
 
-		cancelCallbacks = [NSMutableArray array];
+		cancelCallbacks = [NSMutableDictionary new];
 		
 		if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
 			// Pasteboard check.
