@@ -1127,7 +1127,7 @@ static NSString * const actionKey = @"action";
 	[gpgc key:key setOwnerTrust:(GPGValidity)trust];
 }
 
-- (IBAction)changeExpirationDate:(id)sender {
+- (IBAction)changeExpirationDate:(NSButton *)sender {
 	NSArray *keys = [self selectedKeys];
 	if (keys.count != 1) {
 		return;
@@ -1148,13 +1148,51 @@ static NSString * const actionKey = @"action";
 	}
 	
 	sheetController.sheetType = SheetTypeExpirationDate;
-	if ([sheetController runModalForWindow:mainWindow] == NSOKButton) {
-		self.progressText = localized(@"ChangeExpirationDate_Progress");
-		self.errorText = localized(@"ChangeExpirationDate_Error");
-		
-		[self showProgressUntilKeyIsRefreshed:key];
-		[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:sheetController.daysToExpire];
+	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		return;
 	}
+	
+	self.progressText = localized(@"ChangeExpirationDate_Progress");
+	self.errorText = localized(@"ChangeExpirationDate_Error");
+	
+	
+	__block int64_t runningTasks = 2;
+	__block BOOL keyExistsOnServer = NO;
+	void (^uploadBlock)() = ^() {
+		if ([self warningSheetWithDefault:keyExistsOnServer string:@"ExpirationDateChangedWantToUpload"]) {
+			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
+			self.errorText = localized(@"SendKeysToServer_Error");
+			[gpgc sendKeysToServer:@[key]];
+		}
+	};
+	actionCallback finishedCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
+		if (gc.error) {
+			[sheetController endProgressSheet];
+			return;
+		}
+		
+		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
+			// keysExistOnServer is already finished.
+			uploadBlock();
+		}
+	} copy];
+	
+	
+	
+	gpgc.userInfo = @{@"action": @[finishedCallback]};
+	
+	[self showProgressUntilKeyIsRefreshed:key];
+	
+	[gpgc keysExistOnServer:keys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
+		keyExistsOnServer = existingKeys.count == 1;
+		
+		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
+			// setExpirationDateForSubkey is already finished.
+			uploadBlock();
+		}
+	}];
+	
+	[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)editAlgorithmPreferences:(id)sender {
 	NSArray *keys = [self selectedKeys];

@@ -61,7 +61,7 @@
 - (IBAction)addSignature:(id)sender;
 - (IBAction)addSubkey:(id)sender;
 - (IBAction)addUserID:(id)sender;
-- (IBAction)changeExpirationDate:(id)sender;
+- (IBAction)changeExpirationDate:(NSButton *)sender;
 - (IBAction)changePassphrase:(id)sender;
 - (IBAction)removeSignature:(id)sender;
 - (IBAction)removeSubkey:(id)sender;
