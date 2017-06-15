@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16C68" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16C68" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
         <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SheetController">
@@ -66,11 +66,11 @@
                     </connections>
                 </datePicker>
                 <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="426">
-                    <rect key="frame" x="255" y="13" width="181" height="32"/>
+                    <rect key="frame" x="253" y="13" width="183" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="6OV-mf-wXb"/>
                     </constraints>
-                    <buttonCell key="cell" type="push" title="Change expiration date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="427">
+                    <buttonCell key="cell" type="push" title="Change Expiration Date" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="427">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -82,7 +82,7 @@ DQ
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="425">
-                    <rect key="frame" x="147" y="13" width="108" height="32"/>
+                    <rect key="frame" x="145" y="13" width="108" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="Xvg-Jh-KtR"/>
                     </constraints>
@@ -330,7 +330,7 @@ NOTE: Your secret key must not be shared with others. Only use this option for b
                     <rect key="frame" x="20" y="52" width="613" height="228"/>
                     <clipView key="contentView" id="TGf-KA-htd">
                         <rect key="frame" x="1" y="1" width="611" height="226"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" id="974">
                                 <rect key="frame" x="0.0" y="0.0" width="611" height="226"/>
@@ -600,11 +600,11 @@ IMPORTANT: After moving your secret keys, you will always need the new target vo
                     </connections>
                 </datePicker>
                 <button verticalHuggingPriority="750" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="377">
-                    <rect key="frame" x="426" y="12" width="156" height="32"/>
+                    <rect key="frame" x="424" y="12" width="158" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="iqZ-oz-n0e"/>
                     </constraints>
-                    <buttonCell key="cell" type="push" title="Generate signature" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="378">
+                    <buttonCell key="cell" type="push" title="Generate Signature" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="378">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -616,7 +616,7 @@ DQ
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="376">
-                    <rect key="frame" x="318" y="12" width="108" height="32"/>
+                    <rect key="frame" x="316" y="12" width="108" height="32"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="EGD-Q8-Bag"/>
                     </constraints>
@@ -1026,12 +1026,12 @@ Gw
                     </textFieldCell>
                     <connections>
                         <binding destination="-2" name="value" keyPath="comment" id="161"/>
+                        <binding destination="-2" name="hidden" keyPath="disableUserIDCommentsField" previousBinding="bUM-9E-2dD" id="YK2-nl-pxb"/>
                         <binding destination="-2" name="enabled" keyPath="disableUserIDCommentsField" id="bUM-9E-2dD">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                             </dictionary>
                         </binding>
-                        <binding destination="-2" name="hidden" keyPath="disableUserIDCommentsField" previousBinding="bUM-9E-2dD" id="YK2-nl-pxb"/>
                         <outlet property="nextKeyView" destination="146" id="544"/>
                     </connections>
                 </textField>
@@ -1353,7 +1353,7 @@ Gw
                 </comboBox>
                 <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1153">
                     <rect key="frame" x="20" y="194" width="13" height="13"/>
-                    <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="1E4E2D48-4A33-42C8-894B-FFC732A7F260" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
+                    <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="buttonCell:1154:image" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
                         <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -1418,7 +1418,7 @@ Gw
             <connections>
                 <outlet property="nextKeyView" destination="870" id="yo0-78-T2E"/>
             </connections>
-            <point key="canvasLocation" x="-161" y="100"/>
+            <point key="canvasLocation" x="315" y="117"/>
         </customView>
         <customView id="270" userLabel="Progress">
             <rect key="frame" x="0.0" y="0.0" width="450" height="140"/>
@@ -1481,7 +1481,7 @@ Gw
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="nNB-dE-FkY"/>
                     </constraints>
-                    <buttonCell key="cell" type="push" title="Search key" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="481">
+                    <buttonCell key="cell" type="push" title="Search" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="481">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                         <string key="keyEquivalent" base64-UTF8="YES">
@@ -1508,34 +1508,30 @@ Gw
                         <action selector="buttonClicked:" target="-2" id="1089"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="478">
-                    <rect key="frame" x="18" y="55" width="50" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Search:" id="483">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" preferredMaxLayoutWidth="412" translatesAutoresizingMaskIntoConstraints="NO" id="476">
                     <rect key="frame" x="18" y="94" width="414" height="17"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="410" id="U0n-Uu-nyI"/>
                     </constraints>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Search for key on key server." id="485">
-                        <font key="font" metaFont="system"/>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Search for public key" id="485">
+                        <font key="font" metaFont="systemBold"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="474">
-                    <rect key="frame" x="74" y="52" width="356" height="22"/>
+                    <rect key="frame" x="20" y="52" width="410" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="487">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="pattern" id="562"/>
+                        <binding destination="-2" name="value" keyPath="pattern" id="FsT-ha-Sbf">
+                            <dictionary key="options">
+                                <string key="NSNullPlaceholder">Search for name, email or fingerprint.</string>
+                            </dictionary>
+                        </binding>
                     </connections>
                 </textField>
             </subviews>
@@ -1543,21 +1539,19 @@ Gw
                 <constraint firstItem="476" firstAttribute="top" secondItem="471" secondAttribute="top" constant="20" id="26V-Fp-Kgj"/>
                 <constraint firstAttribute="trailing" secondItem="474" secondAttribute="trailing" constant="20" id="337-oo-nrE"/>
                 <constraint firstAttribute="trailing" secondItem="480" secondAttribute="trailing" constant="20" id="6x5-qA-fYa"/>
-                <constraint firstItem="474" firstAttribute="leading" secondItem="478" secondAttribute="trailing" constant="8" id="C8s-zK-wT5"/>
                 <constraint firstAttribute="trailing" secondItem="476" secondAttribute="trailing" constant="20" id="KN8-rr-jgA"/>
+                <constraint firstItem="474" firstAttribute="leading" secondItem="471" secondAttribute="leading" constant="20" id="Kxd-Ew-3wB"/>
                 <constraint firstItem="479" firstAttribute="top" secondItem="474" secondAttribute="bottom" constant="11" id="bBn-Xh-zr7"/>
                 <constraint firstAttribute="bottom" secondItem="479" secondAttribute="bottom" constant="20" id="e9B-rh-aUl"/>
                 <constraint firstItem="476" firstAttribute="leading" secondItem="471" secondAttribute="leading" constant="20" id="eAF-gV-JNa"/>
-                <constraint firstItem="478" firstAttribute="leading" secondItem="471" secondAttribute="leading" constant="20" id="lLZ-Xa-0Wd"/>
                 <constraint firstItem="474" firstAttribute="top" secondItem="476" secondAttribute="bottom" constant="20" id="lck-2t-qBh"/>
                 <constraint firstItem="480" firstAttribute="leading" secondItem="479" secondAttribute="trailing" constant="12" id="lgg-a2-kPx"/>
                 <constraint firstItem="480" firstAttribute="baseline" secondItem="479" secondAttribute="baseline" id="m6J-KU-MYH"/>
-                <constraint firstItem="474" firstAttribute="baseline" secondItem="478" secondAttribute="baseline" id="sHB-Oe-nd5"/>
             </constraints>
             <connections>
                 <outlet property="nextKeyView" destination="474" id="837"/>
             </connections>
-            <point key="canvasLocation" x="-280" y="182"/>
+            <point key="canvasLocation" x="-280" y="181.5"/>
         </customView>
         <customView id="527" userLabel="Receive Keys ">
             <rect key="frame" x="0.0" y="0.0" width="450" height="131"/>
@@ -2102,7 +2096,7 @@ DQ
         </arrayController>
     </objects>
     <resources>
-        <image name="1E4E2D48-4A33-42C8-894B-FFC732A7F260" width="1" height="1">
+        <image name="buttonCell:1154:image" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
