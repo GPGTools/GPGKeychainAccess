@@ -359,40 +359,30 @@ static NSString * const actionKey = @"action";
 							previousPacket.tag != GPGSecretKeyPacketTag &&
 							sigPacket.keyID)
 						{
-							GPGKey *key = [[[GPGKeyManager sharedInstance] keysByKeyID] objectForKey:sigPacket.keyID];
+							
+							GPGKey *key = [GPGKeyManager sharedInstance].keysByKeyID[sigPacket.keyID];
 							if (key && key.revoked == NO) {
 								
-								NSInteger returnCode;
-								if (packets.count == 1) {
-									returnCode = [sheetController alertSheetForWindow:mainWindow
+								NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
 																		  messageText:localized(@"RevokeKey_Title")
-																			 infoText:[NSString stringWithFormat:localized(@"RevokeKey_Msg"), [self descriptionForKey:key]]
-																		defaultButton:localized(@"RevokeKey_No")
-																	  alternateButton:localized(@"RevokeKey_Yes")
-																		  otherButton:nil
-																	suppressionButton:localized(@"RevokeKey_Upload")];
-									if (returnCode & SheetSuppressionButton) {
-										returnCode -= SheetSuppressionButton;
-										action = @{@"action": @[@(UploadKeyAction)], @"keys":[NSSet setWithObject:key]};
-										myProgressText = localized(@"RevokeKey_Progress");
-										myErrorText = localized(@"RevokeKey_Error");
-									}
-								} else {
-									returnCode = [sheetController alertSheetForWindow:mainWindow
-																		  messageText:localized(@"RevokeKey_Title")
-																			 infoText:[NSString stringWithFormat:localized(@"RevokeKey_Msg"), [self descriptionForKey:key]]
-																		defaultButton:localized(@"RevokeKey_No")
-																	  alternateButton:localized(@"RevokeKey_Yes")
-																		  otherButton:nil
-																	suppressionButton:nil];
-								}
+																				   infoText:[NSString stringWithFormat:localized(@"RevokeKey_Msg"), [self descriptionForKey:key]]
+																			  defaultButton:localized(@"RevokeKey_No")
+																			alternateButton:localized(@"RevokeKey_Yes")
+																				otherButton:nil
+																		  suppressionButton:nil];
 								
 								if (returnCode != NSAlertSecondButtonReturn) {
 									ignorePacket = YES;
 								} else {
+									if (packets.count == 1) {
+										action = @{@"action": @[[self uploadCallbackForKey:key string:@"RevokedKeyWantToUpload"]]};
+										myProgressText = localized(@"RevokeKey_Progress");
+										myErrorText = localized(@"RevokeKey_Error");
+									}
 									[affectedKeys addObject:key];
 								}
 							}
+							
 						}
 					}
 					case GPGGeneriCertificationSignature:
@@ -1155,42 +1145,7 @@ static NSString * const actionKey = @"action";
 	self.progressText = localized(@"ChangeExpirationDate_Progress");
 	self.errorText = localized(@"ChangeExpirationDate_Error");
 	
-	
-	__block int64_t runningTasks = 2;
-	__block BOOL keyExistsOnServer = NO;
-	void (^uploadBlock)() = ^() {
-		if ([self warningSheetWithDefault:keyExistsOnServer string:@"ExpirationDateChangedWantToUpload"]) {
-			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
-			self.errorText = localized(@"SendKeysToServer_Error");
-			[gpgc sendKeysToServer:@[key]];
-		}
-	};
-	actionCallback finishedCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
-		if (gc.error) {
-			[sheetController endProgressSheet];
-			return;
-		}
-		
-		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
-			// keysExistOnServer is already finished.
-			uploadBlock();
-		}
-	} copy];
-	
-	
-	
-	gpgc.userInfo = @{@"action": @[finishedCallback]};
-	
-	[self showProgressUntilKeyIsRefreshed:key];
-	
-	[gpgc keysExistOnServer:keys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
-		keyExistsOnServer = existingKeys.count == 1;
-		
-		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
-			// setExpirationDateForSubkey is already finished.
-			uploadBlock();
-		}
-	}];
+	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"ExpirationDateChangedWantToUpload"]]};
 	
 	[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:sheetController.daysToExpire];
 }
@@ -1339,7 +1294,7 @@ static NSString * const actionKey = @"action";
 	[self revokeKey:key generateIfNeeded:YES];
 }
 
-- (void)revokeKey:(NSObject <KeyFingerprint> *)key generateIfNeeded:(BOOL)generate {
+- (void)revokeKey:(GPGKey *)key generateIfNeeded:(BOOL)generate {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *home = [[GPGOptions sharedOptions] gpgHome];
 	
@@ -1371,21 +1326,17 @@ static NSString * const actionKey = @"action";
 												defaultButton:localized(@"RevokeKey_No")
 											  alternateButton:localized(@"RevokeKey_Yes")
 												  otherButton:nil
-											suppressionButton:localized(@"RevokeKey_Upload")];
-			NSDictionary *userInfo = nil;
+											suppressionButton:nil];
 			
-			if (returnCode & SheetSuppressionButton) {
-				returnCode -= SheetSuppressionButton;
-				userInfo = @{@"action": @[@(UploadKeyAction)], @"keys":[NSSet setWithObject:key]};
-			}
 			if (returnCode != NSAlertSecondButtonReturn) {
 				return;
 			}
 			
-			gpgc.userInfo = userInfo;
 			self.progressText = localized(@"RevokeKey_Progress");
 			self.errorText = localized(@"RevokeKey_Error");
 			
+			gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"RevokedKeyWantToUpload"]]};
+
 			[gpgc importFromData:data fullImport:NO];
 		}
 	}
@@ -1393,7 +1344,13 @@ static NSString * const actionKey = @"action";
 	if (!haveValidRevCert && generate) {
 		GPGKey *gpgKey = [[[KeychainController sharedInstance] allKeys] member:key];
 		if (gpgKey.secret) {
-			gpgc.userInfo = @{@"action": @[@(RevokeKeyAction)], @"keys":[NSSet setWithObject:key]};
+			actionCallback callback = [^(GPGController *gc, NSString *fingerprint, NSDictionary *userInfo) {
+				if (!gc.error) {
+					[self revokeKey:key generateIfNeeded:NO];
+				}
+			} copy];
+			
+			gpgc.userInfo = @{@"action": @[callback]};
 			[self revCertificateForKey:key customPath:NO];
 		}
 	}
@@ -1579,8 +1536,6 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	GPGKey *key = [keys[0] primaryKey];
-	__block BOOL keyExistsOnServer = NO;
-	__block int64_t runningTasks = 2;
 	
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
@@ -1592,41 +1547,8 @@ static NSString * const actionKey = @"action";
 	self.progressText = localized(@"AddSubkey_Progress");
 	self.errorText = localized(@"AddSubkey_Error");
 	
-	
-	void (^uploadBlock)() = ^() {
-		if ([self warningSheetWithDefault:keyExistsOnServer string:@"NewSubkeyWantToUpload"]) {
-			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
-			self.errorText = localized(@"SendKeysToServer_Error");
-			[gpgc sendKeysToServer:@[key]];
-		}
-	};
-	actionCallback finishedCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
-		if (gc.error) {
-			[sheetController endProgressSheet];
-			return;
-		}
-		
-		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
-			// keysExistOnServer is already finished.
-			uploadBlock();
-		}
-	} copy];
-	
+	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"NewSubkeyWantToUpload"]]};
 
-
-	gpgc.userInfo = @{@"action": @[finishedCallback]};
-	
-	[self showProgressUntilKeyIsRefreshed:key];
-	
-	[gpgc keysExistOnServer:keys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
-		keyExistsOnServer = existingKeys.count == 1;
-		
-		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
-			// addSubkeyToKey is already finished.
-			uploadBlock();
-		}
-	}];
-	
 	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
 }
 - (IBAction)removeSubkey:(id)sender {
@@ -1660,7 +1582,9 @@ static NSString * const actionKey = @"action";
 	
 	self.progressText = localized(@"RevokeSubkey_Progress");
 	self.errorText = localized(@"RevokeSubkey_Error");
-	[self showProgressUntilKeyIsRefreshed:key];
+
+	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"RevokedSubkeyWantToUpload"]]};
+	
 	[gpgc revokeSubkey:subkey fromKey:key reason:0 description:nil];
 }
 
@@ -1672,8 +1596,6 @@ static NSString * const actionKey = @"action";
 	}
 	GPGKey *key = [keys[0] primaryKey];
 	GPGUserID *userID = key.primaryUserID;
-	__block BOOL keyExistsOnServer = NO;
-	__block int64_t runningTasks = 2;
 
 	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), key.userIDDescription, key.keyID.shortKeyID];
 	
@@ -1686,13 +1608,6 @@ static NSString * const actionKey = @"action";
 	self.errorText = localized(@"AddUserID_Error");
 	
 	
-	void (^uploadBlock)() = ^() {
-		if ([self warningSheetWithDefault:keyExistsOnServer string:@"NewUserIDWantToUpload"]) {
-			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);;
-			self.errorText = localized(@"SendKeysToServer_Error");
-			[gpgc sendKeysToServer:@[key]];
-		}
-	};
 	actionCallback primaryUserIDCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
 		if (gc.error) {
 			[sheetController endProgressSheet];
@@ -1702,32 +1617,8 @@ static NSString * const actionKey = @"action";
 		self.errorText = localized(@"SetPrimaryUserID_Error");
 		[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
 	} copy];
-	actionCallback finishedCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
-		if (gc.error) {
-			[sheetController endProgressSheet];
-			return;
-		}
-		
-		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
-			// keysExistOnServer is already finished.
-			uploadBlock();
-		}
-	} copy];
 	
-	
-	
-	gpgc.userInfo = @{@"action": @[primaryUserIDCallback, finishedCallback]};
-
-	[self showProgressUntilKeyIsRefreshed:key];
-	
-	[gpgc keysExistOnServer:keys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
-		keyExistsOnServer = existingKeys.count == 1;
-		
-		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
-			// setPrimaryUserID is already finished.
-			uploadBlock();
-		}
-	}];
+	gpgc.userInfo = @{@"action": @[primaryUserIDCallback, [self uploadCallbackForKey:key string:@"ExpirationDateChangedWantToUpload"]]};
 
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
@@ -1775,7 +1666,9 @@ static NSString * const actionKey = @"action";
 	
 	self.progressText = localized(@"RevokeUserID_Progress");
 	self.errorText = localized(@"RevokeUserID_Error");
-	[self showProgressUntilKeyIsRefreshed:key];
+	
+	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"RevokedUserIDWantToUpload"]]};
+	
 	[gpgc revokeUserID:[userID hashID] fromKey:key reason:0 description:nil];
 }
 
@@ -2528,13 +2421,13 @@ static NSString * const actionKey = @"action";
 	else if (selector == @selector(removeUserID:)) {
 		return [self selectedObjectsOf:userIDsTable].count == 1 && [userIDsController.arrangedObjects count] > 1;
 	}
-	else if (selector == @selector(revokeUserID:)) {
+	else if (selector == @selector(revokeUserID:) || selector == @selector(setPrimaryUserID:)) {
 		NSArray *objects = [self selectedObjectsOf:userIDsTable];
-		return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
-	}
-	else if (selector == @selector(setPrimaryUserID:)) {
-		NSArray *objects = [self selectedObjectsOf:userIDsTable];
-		return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
+		if (objects.count != 0) {
+			return NO;
+		}
+		GPGUserID *userID = objects[0];
+		return userID.primaryKey.secret && !(userID.validity & GPGValidityRevoked);
 	}
 	else if (selector == @selector(removeSignature:)) {
 		NSArray *signatures = [self selectedObjectsOf:signaturesTable];
@@ -2611,7 +2504,11 @@ static NSString * const actionKey = @"action";
 	}
 	else if (selector == @selector(revokeSubkey:)) {
 		NSArray *objects = [self selectedObjectsOf:subkeysTable];
-		return objects.count == 1 && [[objects objectAtIndex:0] primaryKey].secret;
+		if (objects.count != 0) {
+			return NO;
+		}
+		GPGKey *subkey = objects[0];
+		return subkey.primaryKey.secret && !subkey.revoked;
 	}
 	else if (selector == @selector(changeExpirationDate:)) {
 		if (tag == 1) {
@@ -2812,6 +2709,47 @@ static NSString * const actionKey = @"action";
 	return (returnCode == (defaultValue ? NSAlertFirstButtonReturn : NSAlertSecondButtonReturn));
 }
 
+- (actionCallback)uploadCallbackForKey:(GPGKey *)key string:(NSString *)string {
+	__block int64_t runningTasks = 2;
+	__block BOOL keyExistsOnServer = NO;
+	
+	[self showProgressUntilKeyIsRefreshed:key];
+	
+	
+	void (^uploadBlock)() = ^() {
+		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
+			// Run this code when uploadBlock is called the second time.
+			
+			if ([self warningSheetWithDefault:keyExistsOnServer string:string]) {
+				self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);
+				self.errorText = localized(@"SendKeysToServer_Error");
+#warning Remove slashes! TODO!
+				// [gpgc sendKeysToServer:@[key]];
+			}
+		}
+	};
+	
+	[gpgc keysExistOnServer:@[key] callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
+		keyExistsOnServer = existingKeys.count == 1;
+		
+		uploadBlock();
+	}];
+	
+	actionCallback callback = ^(GPGController *gc, id value, NSDictionary *userInfo) {
+		if (gc.error) {
+			[sheetController endProgressSheet];
+			return;
+		}
+		
+		uploadBlock();
+	};
+	
+	
+	return [callback copy]; // Always copy blocks!
+}
+
+
+
 
 #pragma mark Delegate
 - (void)gpgControllerOperationDidStart:(GPGController *)gc {
@@ -2974,15 +2912,6 @@ static NSString * const actionKey = @"action";
 					NSLog(@"Upload %@", keys);
 					[gpgc sendKeysToServer:keys];
 					[[KeychainController sharedInstance] selectKeys:keys];
-					
-					break;
-				}
-				case RevokeKeyAction: {
-					endProgressSheet();
-					NSSet *keys = oldUserInfo[@"keys"];
-					if (gc.error || !keys) break;
-					
-					[self revokeKey:[keys anyObject] generateIfNeeded:NO];
 					
 					break;
 				}

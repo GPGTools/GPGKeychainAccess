@@ -233,13 +233,17 @@
 			
 		}
 		if ([filesToImport count] > 0) {
-			[NSThread detachNewThreadSelector:@selector(importFromURLs:) toTarget:[ActionController sharedInstance] withObject:filesToImport];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[ActionController sharedInstance] importFromURLs:filesToImport];
+			});
 			return YES;
 		}
 	} else if ([pboardType isEqualToString:NSStringPboardType]) {
 		NSString *string = [pboard stringForType:NSStringPboardType];
 		if (couldContainPGPKey(string)) {
-			[NSThread detachNewThreadSelector:@selector(importFromData:) toTarget:[ActionController sharedInstance] withObject:[string UTF8Data]];
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[[ActionController sharedInstance] importFromData:string.UTF8Data];
+			});
 			return YES;
 		}
 	}
