@@ -1618,7 +1618,7 @@ static NSString * const actionKey = @"action";
 		[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
 	} copy];
 	
-	gpgc.userInfo = @{@"action": @[primaryUserIDCallback, [self uploadCallbackForKey:key string:@"ExpirationDateChangedWantToUpload"]]};
+	gpgc.userInfo = @{@"action": @[primaryUserIDCallback, [self uploadCallbackForKey:key string:@"NewUserIDWantToUpload"]]};
 
 	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
 }
