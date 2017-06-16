@@ -10,3 +10,17 @@
 }
 
 @end
+
+@implementation GKTableHeaderView
+#warning This class is required until jenkins is up to date.
+- (void)setFrame:(NSRect)frame {
+	super.frame = frame;
+}
+- (NSRect)frame {
+	NSRect frame = super.frame;
+	if (NSAppKitVersionNumber < 1404 /* < 10.11 */) {
+		frame.size.height = 17;
+	}
+	return frame;
+}
+@end
