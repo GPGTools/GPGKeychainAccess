@@ -749,7 +749,7 @@ Gw
             <connections>
                 <outlet property="nextKeyView" destination="743" id="839"/>
             </connections>
-            <point key="canvasLocation" x="124" y="542"/>
+            <point key="canvasLocation" x="-15" y="519"/>
         </customView>
         <customView id="170" userLabel="Generate Subkey">
             <rect key="frame" x="0.0" y="0.0" width="450" height="211"/>
@@ -1120,7 +1120,7 @@ Gw
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="1152" userLabel="New Key Advenced View">
                     <rect key="frame" x="0.0" y="43" width="450" height="141"/>
                     <subviews>
-                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="869">
+                        <textField verticalHuggingPriority="752" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="869">
                             <rect key="frame" x="18" y="122" width="99" height="17"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Comment:" id="876">
                                 <font key="font" metaFont="system"/>
@@ -1128,7 +1128,7 @@ Gw
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="751" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="871">
+                        <textField verticalHuggingPriority="751" verticalCompressionResistancePriority="751" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="871">
                             <rect key="frame" x="123" y="119" width="307" height="22"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="874">
                                 <font key="font" metaFont="system"/>
@@ -1232,6 +1232,8 @@ Gw
                     <constraints>
                         <constraint firstItem="859" firstAttribute="leading" secondItem="871" secondAttribute="leading" id="2Y3-GE-J0a"/>
                         <constraint firstItem="865" firstAttribute="top" secondItem="860" secondAttribute="bottom" constant="8" id="4D9-O7-6tr"/>
+                        <constraint firstAttribute="trailing" secondItem="871" secondAttribute="trailing" constant="20" id="4dW-Q5-cZR"/>
+                        <constraint firstItem="871" firstAttribute="leading" secondItem="869" secondAttribute="trailing" constant="8" id="5E0-0G-fvC"/>
                         <constraint firstItem="859" firstAttribute="top" secondItem="871" secondAttribute="bottom" constant="8" id="9Kl-ue-pLE"/>
                         <constraint firstItem="860" firstAttribute="top" secondItem="859" secondAttribute="bottom" constant="8" id="EnF-JV-5fZ"/>
                         <constraint firstItem="860" firstAttribute="leading" secondItem="871" secondAttribute="leading" id="GaZ-Co-dtU"/>
@@ -1240,8 +1242,10 @@ Gw
                         <constraint firstItem="864" firstAttribute="width" secondItem="869" secondAttribute="width" id="Qt9-gh-w4k"/>
                         <constraint firstItem="863" firstAttribute="width" secondItem="869" secondAttribute="width" id="SfS-g8-oCY"/>
                         <constraint firstItem="863" firstAttribute="baseline" secondItem="861" secondAttribute="baseline" id="Sks-vW-1j6"/>
+                        <constraint firstItem="869" firstAttribute="top" secondItem="1152" secondAttribute="top" constant="2" id="UVh-N2-p5K"/>
                         <constraint firstItem="862" firstAttribute="baseline" secondItem="859" secondAttribute="baseline" id="VjU-FU-hq1"/>
                         <constraint firstItem="862" firstAttribute="width" secondItem="869" secondAttribute="width" id="aeS-Cp-PoX"/>
+                        <constraint firstItem="869" firstAttribute="leading" secondItem="1152" secondAttribute="leading" constant="20" id="bhv-Mc-35h"/>
                         <constraint firstItem="864" firstAttribute="baseline" secondItem="860" secondAttribute="baseline" id="eP4-d7-UWw"/>
                         <constraint firstItem="869" firstAttribute="baseline" secondItem="871" secondAttribute="baseline" id="ePh-7o-xC7"/>
                         <constraint firstItem="861" firstAttribute="top" secondItem="865" secondAttribute="bottom" constant="8" id="ecS-0r-Vyp"/>
