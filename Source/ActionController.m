@@ -2423,7 +2423,7 @@ static NSString * const actionKey = @"action";
 	}
 	else if (selector == @selector(revokeUserID:) || selector == @selector(setPrimaryUserID:)) {
 		NSArray *objects = [self selectedObjectsOf:userIDsTable];
-		if (objects.count != 0) {
+		if (objects.count != 1) {
 			return NO;
 		}
 		GPGUserID *userID = objects[0];
@@ -2504,7 +2504,7 @@ static NSString * const actionKey = @"action";
 	}
 	else if (selector == @selector(revokeSubkey:)) {
 		NSArray *objects = [self selectedObjectsOf:subkeysTable];
-		if (objects.count != 0) {
+		if (objects.count != 1) {
 			return NO;
 		}
 		GPGKey *subkey = objects[0];
