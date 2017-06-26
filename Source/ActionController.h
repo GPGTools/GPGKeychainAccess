@@ -25,7 +25,6 @@
 
 @interface ActionController : NSWindowController <GPGControllerDelegate, NSPopoverDelegate, GKMenuButtonDelegate> {
 	GPGController *gpgc;
-	SheetController *sheetController;
 	NSUndoManager *undoManager;
 	NSSet *revCertCache;
 	dispatch_source_t pasteboardTimer;

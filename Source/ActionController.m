@@ -77,23 +77,23 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	sheetController.title = nil; //TODO
-	sheetController.msgText = nil; //TODO
+	self.sheetController.title = nil; //TODO
+	self.sheetController.msgText = nil; //TODO
 	
 	
-	sheetController.keys = keys;
-	sheetController.pattern = nil;	
-	sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
-	sheetController.sheetType = SheetTypeExportKey;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.keys = keys;
+	self.sheetController.pattern = nil;
+	self.sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
+	self.sheetController.sheetType = SheetTypeExportKey;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
 	self.progressText = localized(@"ExportKey_Progress");
 	self.errorText = localized(@"ExportKey_Error");
 	
-	BOOL armor = sheetController.exportFormat != 0;
-	BOOL exportSecretKey = sheetController.exportSecretKey;
+	BOOL armor = self.sheetController.exportFormat != 0;
+	BOOL exportSecretKey = self.sheetController.exportSecretKey;
 	GPGExportOptions options = exportSecretKey ? GPGExportSecretKeys : 0;
 	
 	
@@ -104,7 +104,7 @@ static NSString * const actionKey = @"action";
 		
 		gpgc.userInfo = @{@"action": @[^(GPGController *gc, id value, NSDictionary *userInfo) {
 			if (![value isKindOfClass:[NSData class]]) {
-				[sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:@""];
+				[self.sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:@""];
 				return;
 			}
 			
@@ -129,7 +129,7 @@ static NSString * const actionKey = @"action";
 			
 			if (resultData.length < 10) {
 				// Something went wrong.
-				[sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:@""];
+				[self.sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:@""];
 				return;
 			}
 			
@@ -164,27 +164,27 @@ static NSString * const actionKey = @"action";
 			
 			// Save the exported key(s).
 			NSFileManager *fileManager = [NSFileManager defaultManager];
-			[fileManager createFileAtPath:sheetController.URL.path contents:resultData attributes:@{NSFileExtensionHidden: @(sheetController.hideExtension)}];
+			[fileManager createFileAtPath:self.sheetController.URL.path contents:resultData attributes:@{NSFileExtensionHidden: @(self.sheetController.hideExtension)}];
 		}]};
 	} else {
 		// Normal export (not compact).
 		gpgc.useArmor = armor;
-		gpgc.userInfo = @{@"action": @(SaveDataToURLAction), @"URL": sheetController.URL, @"hideExtension": @(sheetController.hideExtension)};
+		gpgc.userInfo = @{@"action": @(SaveDataToURLAction), @"URL": self.sheetController.URL, @"hideExtension": @(self.sheetController.hideExtension)};
 	}
 
 	[gpgc exportKeys:keys options:options];
 }
 - (IBAction)importKey:(id)sender {
-	sheetController.title = nil; //TODO
-	sheetController.msgText = nil; //TODO
-	//sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", nil];
+	self.sheetController.title = nil; //TODO
+	self.sheetController.msgText = nil; //TODO
+	//self.sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", nil];
 	
-	sheetController.sheetType = SheetTypeOpenPanel;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.sheetType = SheetTypeOpenPanel;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
-	[self importFromURLs:sheetController.URLs];
+	[self importFromURLs:self.sheetController.URLs];
 }
 
 - (void)importFromURLs:(NSArray *)urls {
@@ -232,7 +232,7 @@ static NSString * const actionKey = @"action";
 				if (haveGPGServices == NO) {
 					useGPGServices = NO;
 				} else if (ask) {
-					NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
+					NSInteger returnCode = [self.sheetController alertSheetForWindow:mainWindow
 																	messageText:localized(@"OpenWithGPGServices_Title")
 																	   infoText:localized(@"OpenWithGPGServices_Msg")
 																  defaultButton:localized(@"OpenWithGPGServices_Yes")
@@ -363,7 +363,7 @@ static NSString * const actionKey = @"action";
 							GPGKey *key = [GPGKeyManager sharedInstance].keysByKeyID[sigPacket.keyID];
 							if (key && key.revoked == NO) {
 								
-								NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
+								NSInteger returnCode = [self.sheetController alertSheetForWindow:mainWindow
 																		  messageText:localized(@"RevokeKey_Title")
 																				   infoText:[NSString stringWithFormat:localized(@"RevokeKey_Msg"), [self descriptionForKey:key]]
 																			  defaultButton:localized(@"RevokeKey_No")
@@ -445,7 +445,7 @@ static NSString * const actionKey = @"action";
 			title = localized(@"ImportKeyErrorNoPGP_Title");
 			message = localized(@"ImportKeyErrorNoPGP_Msg");
 		}
-		[sheetController errorSheetWithMessageText:title infoText:message];
+		[self.sheetController errorSheetWithMessageText:title infoText:message];
 	} else {
 		if (action == nil) {
 			action = @{@"action": @(ShowResultAction), @"operation": @(ImportOperation), @"keys": affectedKeys};
@@ -555,7 +555,7 @@ static NSString * const actionKey = @"action";
 	if (invalidKeys.count > 0) {
 		NSString *title = localized(@"MAIL_KEY_INVALID_KEY_SELECTED_TITLE");
 		NSString *message = localizedStringWithFormat(@"MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE", [self descriptionForKeys:invalidKeys maxLines:8 withOptions:0]);
-		[sheetController errorSheetWithMessageText:title infoText:message];
+		[self.sheetController errorSheetWithMessageText:title infoText:message];
 		return;
 	}
 	
@@ -802,13 +802,13 @@ static NSString * const actionKey = @"action";
 
 #pragma mark Keys
 - (IBAction)generateNewKey:(id)sender {
-	sheetController.sheetType = SheetTypeNewKey;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.sheetType = SheetTypeNewKey;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	GPGPublicKeyAlgorithm keyType, subkeyType;
 	
-	switch (sheetController.keyType) {
+	switch (self.sheetController.keyType) {
 		default:
 		case 1: //RSA und RSA
 			keyType = GPG_RSAAlgorithm;
@@ -831,7 +831,7 @@ static NSString * const actionKey = @"action";
 	self.errorText = localized(@"GenerateKey_Error");
 	
 	
-	NSString *passphrase = sheetController.passphrase;
+	NSString *passphrase = self.sheetController.passphrase;
 	if (!passphrase) {
 		passphrase = @"";
 	}
@@ -852,14 +852,14 @@ static NSString * const actionKey = @"action";
 	gpgc.userInfo = @{@"action": @[uploadCallback]};
 	
 	
-	[gpgc generateNewKeyWithName:sheetController.name
-						   email:sheetController.email
-						 comment:sheetController.comment
+	[gpgc generateNewKeyWithName:self.sheetController.name
+						   email:self.sheetController.email
+						 comment:self.sheetController.comment
 						 keyType:keyType
-					   keyLength:(int)sheetController.length
+					   keyLength:(int)self.sheetController.length
 					  subkeyType:subkeyType
-					subkeyLength:(int)sheetController.length
-					daysToExpire:(int)sheetController.daysToExpire
+					subkeyLength:(int)self.sheetController.length
+					daysToExpire:(int)self.sheetController.daysToExpire
 					 preferences:nil];
 }
 - (IBAction)deleteKey:(id)sender {
@@ -919,7 +919,7 @@ static NSString * const actionKey = @"action";
 	}
 	
 	NSInteger result =
-	[sheetController alertSheetForWindow:mainWindow
+	[self.sheetController alertSheetForWindow:mainWindow
 							 messageText:title
 								infoText:message
 						   defaultButton:button1
@@ -1130,15 +1130,15 @@ static NSString * const actionKey = @"action";
 	}
 	
 	if (subkey) {
-		sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), subkey.keyID.shortKeyID, [key userIDDescription], key.keyID.shortKeyID];
-		sheetController.expirationDate = [subkey expirationDate];
+		self.sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), subkey.keyID.shortKeyID, [key userIDDescription], key.keyID.shortKeyID];
+		self.sheetController.expirationDate = [subkey expirationDate];
 	} else {
-		sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [key userIDDescription], key.keyID.shortKeyID];
-		sheetController.expirationDate = [key expirationDate];
+		self.sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [key userIDDescription], key.keyID.shortKeyID];
+		self.sheetController.expirationDate = [key expirationDate];
 	}
 	
-	sheetController.sheetType = SheetTypeExpirationDate;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.sheetType = SheetTypeExpirationDate;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -1147,7 +1147,7 @@ static NSString * const actionKey = @"action";
 	
 	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"ExpirationDateChangedWantToUpload"]]};
 	
-	[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:sheetController.daysToExpire];
+	[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:self.sheetController.daysToExpire];
 }
 - (IBAction)editAlgorithmPreferences:(id)sender {
 	NSArray *keys = [self selectedKeys];
@@ -1167,15 +1167,15 @@ static NSString * const actionKey = @"action";
 	
 	
 	
-	sheetController.allowEdit = key.secret;
-	sheetController.algorithmPreferences = mutablePreferences;
-	sheetController.sheetType = SheetTypeAlgorithmPreferences;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.allowEdit = key.secret;
+	self.sheetController.algorithmPreferences = mutablePreferences;
+	self.sheetController.sheetType = SheetTypeAlgorithmPreferences;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
 	
-	NSArray *newPreferences = sheetController.algorithmPreferences;
+	NSArray *newPreferences = self.sheetController.algorithmPreferences;
 	
 	NSUInteger count = algorithmPreferences.count;
 	for (NSUInteger i = 0; i < count; i++) {
@@ -1226,17 +1226,17 @@ static NSString * const actionKey = @"action";
 	
 	
 	if (customPath) {
-		sheetController.title = nil; //TODO
-		sheetController.msgText = nil; //TODO
-		sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
-		sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), key.description.keyID.shortKeyID];
+		self.sheetController.title = nil; //TODO
+		self.sheetController.msgText = nil; //TODO
+		self.sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
+		self.sheetController.pattern = [NSString stringWithFormat:localized(@"%@ Revoke certificate"), key.description.keyID.shortKeyID];
 		
-		sheetController.sheetType = SheetTypeSavePanel;
-		if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+		self.sheetController.sheetType = SheetTypeSavePanel;
+		if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 			return;
 		}
-		hideExtension = sheetController.hideExtension;
-		url = sheetController.URL;
+		hideExtension = self.sheetController.hideExtension;
+		url = self.sheetController.URL;
 	}
  
 	if (!customPath || ![self.revCertCache containsObject:key.keyID]) {
@@ -1320,7 +1320,7 @@ static NSString * const actionKey = @"action";
 		}];
 		
 		if (haveValidRevCert) {
-			NSInteger returnCode = [sheetController alertSheetForWindow:mainWindow
+			NSInteger returnCode = [self.sheetController alertSheetForWindow:mainWindow
 												  messageText:localized(@"RevokeKey_Title")
 													 infoText:[NSString stringWithFormat:localized(@"RevokeKey_Msg"), [self descriptionForKey:key]]
 												defaultButton:localized(@"RevokeKey_No")
@@ -1398,8 +1398,8 @@ static NSString * const actionKey = @"action";
 
 #pragma mark Keyserver
 - (IBAction)searchKeys:(id)sender {
-	sheetController.sheetType = SheetTypeSearchKeys;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.sheetType = SheetTypeSearchKeys;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -1412,39 +1412,39 @@ static NSString * const actionKey = @"action";
 			NSString *title = localized(@"KeyserverSearchError_Title");
 			NSString *message = [self errorMessageFromException:gc.error gpgTask:gc.gpgTask description:localized(@"KeyserverSearchError_Msg")];
 			
-			[sheetController errorSheetWithMessageText:title infoText:message];
+			[self.sheetController errorSheetWithMessageText:title infoText:message];
 			return;
 		}
 		
 		NSArray *keys = gc.lastReturnValue;
 		if (keys.count == 0) {
-			sheetController.title = localized(@"KeySearch_NoKeysFound_Title");
-			sheetController.msgText = @"";
-			sheetController.sheetType = SheetTypeShowResult;
-			[sheetController runModalForWindow:mainWindow];
+			self.sheetController.title = localized(@"KeySearch_NoKeysFound_Title");
+			self.sheetController.msgText = @"";
+			self.sheetController.sheetType = SheetTypeShowResult;
+			[self.sheetController runModalForWindow:mainWindow];
 		} else {
-			sheetController.keys = keys;
-			sheetController.sheetType = SheetTypeShowFoundKeys;
-			if ([sheetController runModalForWindow:mainWindow] == NSOKButton && sheetController.keys.count > 0) {
-				[self receiveKeysFromServer:sheetController.keys];
+			self.sheetController.keys = keys;
+			self.sheetController.sheetType = SheetTypeShowFoundKeys;
+			if ([self.sheetController runModalForWindow:mainWindow] == NSOKButton && self.sheetController.keys.count > 0) {
+				[self receiveKeysFromServer:self.sheetController.keys];
 			}
-			sheetController.keys = nil;
+			self.sheetController.keys = nil;
 		}
 	} copy];
 	
 	gpgc.userInfo = @{actionKey: @[callback], dealsWithErrorsKey: @YES};
 	self.progressText = localized(@"SearchKeysOnServer_Progress");
 	
-	NSString *pattern = sheetController.pattern;
+	NSString *pattern = self.sheetController.pattern;
 	[gpgc searchKeysOnServer:pattern];
 }
 - (IBAction)receiveKeys:(id)sender {
-	sheetController.sheetType = SheetTypeReceiveKeys;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.sheetType = SheetTypeReceiveKeys;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
-	NSSet *keyIDs = [sheetController.pattern keyIDs];
+	NSSet *keyIDs = [self.sheetController.pattern keyIDs];
 	
 	[self receiveKeysFromServer:keyIDs];
 }
@@ -1462,9 +1462,9 @@ static NSString * const actionKey = @"action";
 		self.errorText = localized(@"SendKeysToServer_Error");
 		
 		actionCallback callback = ^(GPGController *gc, id value, NSDictionary *userInfo) {
-			[sheetController endProgressSheet];
+			[self.sheetController endProgressSheet];
 			if (!gc.error) {
-				[sheetController alertSheetWithTitle:localized(@"UploadSuccess_Title")
+				[self.sheetController alertSheetWithTitle:localized(@"UploadSuccess_Title")
 											 message:localizedStringWithFormat(@"UploadSuccess_Msg", [self descriptionForKeys:keys maxLines:8 withOptions:0])
 									   defaultButton:nil
 									 alternateButton:nil
@@ -1486,21 +1486,21 @@ static NSString * const actionKey = @"action";
 		if (publicKeys.count > 0) {
 			cancelCallback cancelBlock = ^() {
 				canceled = YES;
-				[sheetController endProgressSheet];
+				[self.sheetController endProgressSheet];
 			};
 			
 			NSString *cancelKey = [[NSProcessInfo processInfo] globallyUniqueString];
 			[cancelCallbacks setObject:[cancelBlock copy] forKey:cancelKey];
 			
-			sheetController.progressText = progressString;
-			[sheetController showProgressSheet];
+			self.sheetController.progressText = progressString;
+			[self.sheetController showProgressSheet];
 			[gpgc keysExistOnServer:publicKeys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
 				void (^block)() = ^{
 					[cancelCallbacks removeObjectForKey:cancelKey];
 					if (nonExistingKeys.count > 0) {
-						[sheetController endProgressSheet];
+						[self.sheetController endProgressSheet];
 						NSString *description = [self descriptionForKeys:nonExistingKeys maxLines:8 withOptions:0];
-						[sheetController errorSheetWithMessageText:localized(@"FirstUploadForeignKey_Title")
+						[self.sheetController errorSheetWithMessageText:localized(@"FirstUploadForeignKey_Title")
 														  infoText:localizedStringWithFormat(@"FirstUploadForeignKey_Msg", description)];
 					} else {
 						performUpload();
@@ -1537,10 +1537,10 @@ static NSString * const actionKey = @"action";
 	}
 	GPGKey *key = [keys[0] primaryKey];
 	
-	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userIDDescription], key.keyID.shortKeyID];
+	self.sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateSubkey_Msg"), [key userIDDescription], key.keyID.shortKeyID];
 	
-	sheetController.sheetType = SheetTypeAddSubkey;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.sheetType = SheetTypeAddSubkey;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -1549,7 +1549,7 @@ static NSString * const actionKey = @"action";
 	
 	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"NewSubkeyWantToUpload"]]};
 
-	[gpgc addSubkeyToKey:key type:sheetController.keyType length:sheetController.length daysToExpire:sheetController.daysToExpire];
+	[gpgc addSubkeyToKey:key type:self.sheetController.keyType length:self.sheetController.length daysToExpire:self.sheetController.daysToExpire];
 }
 - (IBAction)removeSubkey:(id)sender {
 	NSArray *objects = [self selectedObjectsOf:subkeysTable];
@@ -1597,10 +1597,10 @@ static NSString * const actionKey = @"action";
 	GPGKey *key = [keys[0] primaryKey];
 	GPGUserID *userID = key.primaryUserID;
 
-	sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), key.userIDDescription, key.keyID.shortKeyID];
+	self.sheetController.msgText = [NSString stringWithFormat:localized(@"GenerateUserID_Msg"), key.userIDDescription, key.keyID.shortKeyID];
 	
-	sheetController.sheetType = SheetTypeAddUserID;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.sheetType = SheetTypeAddUserID;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -1610,7 +1610,7 @@ static NSString * const actionKey = @"action";
 	
 	actionCallback primaryUserIDCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
 		if (gc.error) {
-			[sheetController endProgressSheet];
+			[self.sheetController endProgressSheet];
 			return;
 		}
 		self.progressText = localized(@"SetPrimaryUserID_Progress");
@@ -1620,7 +1620,7 @@ static NSString * const actionKey = @"action";
 	
 	gpgc.userInfo = @{@"action": @[primaryUserIDCallback, [self uploadCallbackForKey:key string:@"NewUserIDWantToUpload"]]};
 
-	[gpgc addUserIDToKey:key name:sheetController.name email:sheetController.email comment:sheetController.comment];
+	[gpgc addUserIDToKey:key name:self.sheetController.name email:self.sheetController.email comment:self.sheetController.comment];
 }
 - (IBAction)removeUserID:(id)sender {
 	NSArray *objects = [self selectedObjectsOf:userIDsTable];
@@ -1679,7 +1679,7 @@ static NSString * const actionKey = @"action";
 	
 	
 	void (^failed)(NSString *) = ^(NSString *message) {
-		[sheetController errorSheetWithMessageText:localized(@"AddPhoto_Error") infoText:localized(message)];
+		[self.sheetController errorSheetWithMessageText:localized(@"AddPhoto_Error") infoText:localized(message)];
 	};
 	
 	
@@ -1814,16 +1814,16 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	sheetController.title = nil;
-	sheetController.msgText = localized(@"AddPhoto_SelectMessage");
-	sheetController.allowedFileTypes = @[@"jpg", @"jpeg", @"png", @"tif", @"tiff", @"gif"];
+	self.sheetController.title = nil;
+	self.sheetController.msgText = localized(@"AddPhoto_SelectMessage");
+	self.sheetController.allowedFileTypes = @[@"jpg", @"jpeg", @"png", @"tif", @"tiff", @"gif"];
 	
-	sheetController.sheetType = SheetTypeOpenPhotoPanel;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.sheetType = SheetTypeOpenPhotoPanel;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
-	[self addPhoto:[sheetController.URL path] toKey:key];
+	[self addPhoto:[self.sheetController.URL path] toKey:key];
 }
 - (IBAction)removePhoto:(id)sender {
 	NSArray *keys = self.selectedKeys;
@@ -1911,7 +1911,7 @@ static NSString * const actionKey = @"action";
 	}];
 	
 	if (usableSecretKeys.count == 0) {
-		[sheetController errorSheetWithMessageText:localized(@"NO_SECRET_KEY_TITLE") infoText:localized(@"NO_SECRET_KEY_MESSAGE")];
+		[self.sheetController errorSheetWithMessageText:localized(@"NO_SECRET_KEY_TITLE") infoText:localized(@"NO_SECRET_KEY_MESSAGE")];
 		return;
 	}
 
@@ -1923,8 +1923,6 @@ static NSString * const actionKey = @"action";
 	if (!defaultKey) {
 		defaultKey = secretKeys[0];
 	}
-	sheetController.secretKeys = secretKeys;
-	sheetController.secretKey = defaultKey;
 	
 	
 	NSString *msgText;
@@ -1935,9 +1933,11 @@ static NSString * const actionKey = @"action";
 	}
 	
 	sheetController.msgText = msgText;
+	self.sheetController.secretKeys = secretKeys;
+	self.sheetController.secretKey = defaultKey;
 	
-	sheetController.sheetType = SheetTypeAddSignature;
-	if ([sheetController runModalForWindow:mainWindow] != NSOKButton) {
+	self.sheetController.sheetType = SheetTypeAddSignature;
+	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
@@ -1945,10 +1945,10 @@ static NSString * const actionKey = @"action";
 	self.errorText = localized(@"AddSignature_Error");
 	[gpgc signUserID:[userID hashID]
 			   ofKey:key
-			 signKey:sheetController.secretKey
-				type:(int)sheetController.sigType
-			   local:sheetController.localSig
-		daysToExpire:(int)sheetController.daysToExpire];
+			 signKey:self.sheetController.secretKey
+				type:(int)self.sheetController.sigType
+			   local:self.sheetController.localSig
+		daysToExpire:(int)self.sheetController.daysToExpire];
 }
 - (IBAction)removeSignature:(id)sender {
 	NSArray *objects = [self selectedObjectsOf:signaturesTable];
@@ -2064,8 +2064,8 @@ static NSString * const actionKey = @"action";
 #pragma mark Miscellaneous :)
 
 - (void)showProgressUntilKeyIsRefreshed:(GPGKey *)key {
-	sheetController.progressText = self.progressText;
-	[sheetController showProgressSheet];
+	self.sheetController.progressText = self.progressText;
+	[self.sheetController showProgressSheet];
 	
 	key.isRefreshing = YES;
 	
@@ -2075,14 +2075,14 @@ static NSString * const actionKey = @"action";
 		if (!keys || [keys containsObject:key]) {
 			if ([[[GPGKeyManager sharedInstance].allKeys member:key] isRefreshing] == NO) {
 				[cancelCallbacks removeObjectForKey:cancelKey];
-				[sheetController endProgressSheet];
+				[self.sheetController endProgressSheet];
 				return YES;
 			}
 		}
 		return NO;
 	};
 	cancelCallback cancelBlock = [^() {
-		[sheetController endProgressSheet];
+		[self.sheetController endProgressSheet];
 		[[KeychainController sharedInstance] removeKeyUpdateCallback:keyChangeBlock];
 	} copy];
 	
@@ -2696,7 +2696,7 @@ static NSString * const actionKey = @"action";
 		cancelButton = button1;
 	}
 	
-	returnCode = [sheetController alertSheetForWindow:mainWindow
+	returnCode = [self.sheetController alertSheetForWindow:mainWindow
 										  messageText:localized([string stringByAppendingString:@"_Title"])
 											 infoText:message
 										defaultButton:button1
@@ -2737,7 +2737,7 @@ static NSString * const actionKey = @"action";
 	
 	actionCallback callback = ^(GPGController *gc, id value, NSDictionary *userInfo) {
 		if (gc.error) {
-			[sheetController endProgressSheet];
+			[self.sheetController endProgressSheet];
 			return;
 		}
 		
@@ -2749,12 +2749,14 @@ static NSString * const actionKey = @"action";
 }
 
 
-
+- (SheetController *)sheetController {
+	return [SheetController sharedInstance];
+}
 
 #pragma mark Delegate
 - (void)gpgControllerOperationDidStart:(GPGController *)gc {
-	sheetController.progressText = self.progressText;
-	[sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:NO];
+	self.sheetController.progressText = self.progressText;
+	[self.sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:NO];
 }
 
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
@@ -2793,7 +2795,7 @@ static NSString * const actionKey = @"action";
 					break;
 			}
 			
-			[sheetController errorSheetWithMessageText:title infoText:message];
+			[self.sheetController errorSheetWithMessageText:title infoText:message];
 		}
 		
 	});
@@ -2809,7 +2811,7 @@ static NSString * const actionKey = @"action";
 		void (^endProgressSheet)() = ^void() {
 			if (ended == NO) {
 				ended = YES;
-				[sheetController endProgressSheet];
+				[self.sheetController endProgressSheet];
 			}
 		};
 		
@@ -2873,10 +2875,10 @@ static NSString * const actionKey = @"action";
 						[[KeychainController sharedInstance] keysDidChange:affectedkeys.allObjects];
 						endProgressSheet();
 						
-						sheetController.msgText = message;
-						sheetController.title = localized(@"KeySearch_ImportResults_Title");
-						sheetController.sheetType = SheetTypeShowResult;
-						[sheetController runModalForWindow:mainWindow];
+						self.sheetController.msgText = message;
+						self.sheetController.title = localized(@"KeySearch_ImportResults_Title");
+						self.sheetController.sheetType = SheetTypeShowResult;
+						[self.sheetController runModalForWindow:mainWindow];
 						
 						[[KeychainController sharedInstance] selectKeys:affectedkeys];
 					}
@@ -2991,8 +2993,6 @@ static NSString * const actionKey = @"action";
 			gpgc.allowWeakDigestAlgos = YES;
 		}
 		
-		sheetController = [SheetController sharedInstance];
-
 		cancelCallbacks = [NSMutableDictionary new];
 		
 		if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
