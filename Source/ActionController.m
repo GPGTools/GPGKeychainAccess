@@ -1932,7 +1932,7 @@ static NSString * const actionKey = @"action";
 		msgText = [NSString stringWithFormat:localized(@"GenerateSignature_Msg"), key.userIDAndKeyID];
 	}
 	
-	sheetController.msgText = msgText;
+	self.sheetController.msgText = msgText;
 	self.sheetController.secretKeys = secretKeys;
 	self.sheetController.secretKey = defaultKey;
 	
