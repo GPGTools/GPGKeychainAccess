@@ -1453,6 +1453,9 @@ static NSString * const actionKey = @"action";
 	if (keys.count == 0) {
 		return;
 	}
+	if (keys.count > 1 && !showExpertSettings) {
+		return;
+	}
 	
 	__block BOOL canceled = NO;
 	NSString *progressString = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKeys:keys maxLines:3 withOptions:0]);
@@ -2359,13 +2362,11 @@ static NSString * const actionKey = @"action";
 		return NO;
 	}
 	else if (selector == @selector(sendKeysToServer:)) {
-		if (self.selectedKeys.count == 0) {
-			return NO;
-		}
+		NSArray *keys = self.selectedKeys;
 		if ([(NSObject *)item isKindOfClass:[NSMenuItem class]]) {
 			NSMenuItem *menuItem = (id)item;
 			BOOL secSelected = NO;
-			for (GPGKey *key in self.selectedKeys) {
+			for (GPGKey *key in keys) {
 				if (key.secret) {
 					secSelected = YES;
 					break;
@@ -2376,6 +2377,12 @@ static NSString * const actionKey = @"action";
 			} else {
 				menuItem.title = localized(@"SendToKeyserver_MenuItem");
 			}
+		}
+		if (keys.count == 0) {
+			return NO;
+		}
+		if (keys.count > 1 && !showExpertSettings) {
+			return NO;
 		}
 		return YES;
 	}
