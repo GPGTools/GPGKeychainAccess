@@ -69,8 +69,6 @@ enum {
 	NoAction = 0,
 	ShowResultAction,
 	SaveDataToURLAction,
-	UploadKeyAction,
-	RevokeKeyAction,
 	CallbackAction
 };
 

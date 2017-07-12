@@ -2113,7 +2113,7 @@ static NSString * const actionKey = @"action";
 
 
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys {
-	gpgc.userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:ShowResultAction] forKey:@"action"];
+	gpgc.userInfo = @{@"action": @(ShowResultAction)};
 	
 	self.progressText = localized(@"ReceiveKeysFromServer_Progress");
 	self.errorText = localized(@"ReceiveKeysFromServer_Error");
@@ -2900,20 +2900,6 @@ static NSString * const actionKey = @"action";
 					}
 					
 					reEvaluate = YES;
-					
-					break;
-				}
-				case UploadKeyAction: {
-					endProgressSheet();
-					NSSet *keys = oldUserInfo[@"keys"];
-					if (gc.error || !keys) break;
-					
-					self.progressText = [NSString stringWithFormat:localized(@"SendKeysToServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
-					self.errorText = localized(@"SendKeysToServer_Error");
-					
-					NSLog(@"Upload %@", keys);
-					[gpgc sendKeysToServer:keys];
-					[[KeychainController sharedInstance] selectKeys:keys];
 					
 					break;
 				}
