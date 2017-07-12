@@ -2730,8 +2730,7 @@ static NSString * const actionKey = @"action";
 			if ([self warningSheetWithDefault:keyExistsOnServer string:string]) {
 				self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);
 				self.errorText = localized(@"SendKeysToServer_Error");
-#warning Remove slashes! TODO!
-				// [gpgc sendKeysToServer:@[key]];
+				[gpgc sendKeysToServer:@[key]];
 			}
 		}
 	};
