@@ -80,7 +80,6 @@ static NSString * const actionKey = @"action";
 	self.sheetController.title = nil; //TODO
 	self.sheetController.msgText = nil; //TODO
 	
-	
 	self.sheetController.keys = keys;
 	self.sheetController.pattern = nil;
 	self.sheetController.allowedFileTypes = [NSArray arrayWithObjects:@"asc", nil];
@@ -90,7 +89,6 @@ static NSString * const actionKey = @"action";
 	}
 	
 	self.progressText = localized(@"ExportKey_Progress");
-	self.errorText = localized(@"ExportKey_Error");
 	
 	BOOL armor = self.sheetController.exportFormat != 0;
 	BOOL exportSecretKey = self.sheetController.exportSecretKey;
@@ -101,18 +99,28 @@ static NSString * const actionKey = @"action";
 		// Export minimal and remove all photos.
 		options |= GPGExportMinimal;
 		gpgc.useArmor = NO;
-		
-		gpgc.userInfo = @{@"action": @[^(GPGController *gc, id value, NSDictionary *userInfo) {
-			if (![value isKindOfClass:[NSData class]]) {
-				[self.sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:@""];
-				return;
+	} else {
+		// Normal export (not compact).
+		gpgc.useArmor = armor;
+	}
+
+	
+	actionCallback callback = [^(GPGController *gc, NSData *exportedData, NSDictionary *userInfo) {
+		if (gc.error || exportedData.length < 10) {
+			NSString *message;
+			if (gc.error) {
+				message = [self errorMessageFromException:gc.error gpgTask:gc.gpgTask description:nil];
 			}
-			
-			
-			// Remove the phtos with all attached signatures.
-			NSMutableData *resultData = [NSMutableData data];
+			[self.sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:message];
+			return;
+		}
+		
+		
+		if (compact) {
+			// Remove the photos with all attached signatures.
+			NSMutableData *cmopactData = [NSMutableData data];
 			__block BOOL removeSignatures = NO;
-			[GPGPacket enumeratePacketsWithData:value block:^(GPGPacket *packet, BOOL *stop) {
+			[GPGPacket enumeratePacketsWithData:exportedData block:^(GPGPacket *packet, BOOL *stop) {
 				if (packet.tag == GPGUserAttributePacketTag) {
 					removeSignatures = YES;
 					return;
@@ -123,11 +131,11 @@ static NSString * const actionKey = @"action";
 						removeSignatures = NO;
 					}
 				}
-				[resultData appendData:packet.data];
+				[cmopactData appendData:packet.data];
 			}];
 			
 			
-			if (resultData.length < 10) {
+			if (cmopactData.length < 10) {
 				// Something went wrong.
 				[self.sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:@""];
 				return;
@@ -136,42 +144,59 @@ static NSString * const actionKey = @"action";
 			
 			if (armor) {
 				// Convert to ASCII armored format with crc.
-				UInt32 crc = [resultData crc24];
+				UInt32 crc = [cmopactData crc24];
 				UInt8 crcBytes[3];
 				crcBytes[0] = crc >> 16;
 				crcBytes[1] = crc >> 8;
 				crcBytes[2] = crc;
 				NSData *crcData = [[NSData dataWithBytes:crcBytes length:3] base64EncodedDataWithOptions:0];
 				
-				NSData *base64Data = [resultData base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength | NSDataBase64EncodingEndLineWithLineFeed];
+				NSData *base64Data = [cmopactData base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength | NSDataBase64EncodingEndLineWithLineFeed];
 				
 				NSString *blockType = exportSecretKey ? @"PRIVATE" : @"PUBLIC";
 				
 				
-				NSMutableData *data = [NSMutableData data];
-				[data appendData:[@"-----BEGIN PGP " UTF8Data]];
-				[data appendData:[blockType UTF8Data]];
-				[data appendData:[@" KEY BLOCK-----\n\n" UTF8Data]];
-				[data appendData:base64Data];
-				[data appendData:[@"\n=" UTF8Data]];
-				[data appendData:crcData];
-				[data appendData:[@"-----END PGP " UTF8Data]];
-				[data appendData:[blockType UTF8Data]];
-				[data appendData:[@" KEY BLOCK-----\n\n" UTF8Data]];
+				NSMutableData *armoredData = [NSMutableData data];
+				[armoredData appendData:[@"-----BEGIN PGP " UTF8Data]];
+				[armoredData appendData:[blockType UTF8Data]];
+				[armoredData appendData:[@" KEY BLOCK-----\n\n" UTF8Data]];
+				[armoredData appendData:base64Data];
+				[armoredData appendData:[@"\n=" UTF8Data]];
+				[armoredData appendData:crcData];
+				[armoredData appendData:[@"-----END PGP " UTF8Data]];
+				[armoredData appendData:[blockType UTF8Data]];
+				[armoredData appendData:[@" KEY BLOCK-----\n\n" UTF8Data]];
 				
-				resultData = data;
+				exportedData = armoredData;
+			} else {
+				exportedData = cmopactData;
 			}
 			
-			// Save the exported key(s).
-			NSFileManager *fileManager = [NSFileManager defaultManager];
-			[fileManager createFileAtPath:self.sheetController.URL.path contents:resultData attributes:@{NSFileExtensionHidden: @(self.sheetController.hideExtension)}];
-		}]};
-	} else {
-		// Normal export (not compact).
-		gpgc.useArmor = armor;
-		gpgc.userInfo = @{@"action": @(SaveDataToURLAction), @"URL": self.sheetController.URL, @"hideExtension": @(self.sheetController.hideExtension)};
-	}
-
+		}
+		
+		
+		
+		// Save the exported key(s).
+		NSError *error = nil;
+		NSURL *url = self.sheetController.URL;
+		
+		if ([exportedData writeToURL:self.sheetController.URL options:NSDataWritingAtomic error:&error]) {
+			[[NSFileManager defaultManager] setAttributes:@{NSFileExtensionHidden: @(self.sheetController.hideExtension)} ofItemAtPath:url.path error:nil];
+			
+			[self.sheetController alertSheetWithTitle:localized(@"ExportSuccess_Title")
+											  message:localizedStringWithFormat(@"ExportSuccess_Msg", [self descriptionForKeys:keys maxLines:8 withOptions:0])
+										defaultButton:nil
+									  alternateButton:nil
+										  otherButton:nil
+									suppressionButton:nil];
+		} else {
+			[self.sheetController errorSheetWithMessageText:localized(@"ExportKey_Error") infoText:error.localizedDescription];
+		}
+	} copy];
+	
+	
+	
+	gpgc.userInfo = @{@"action": @[callback], dealsWithErrorsKey: @YES};
 	[gpgc exportKeys:keys options:options];
 }
 - (IBAction)importKey:(id)sender {
