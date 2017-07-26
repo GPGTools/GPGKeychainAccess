@@ -2067,7 +2067,31 @@ static NSString * const actionKey = @"action";
 	self.progressText = localized(@"ReceiveKeysFromServer_Progress");
 	self.errorText = localized(@"ReceiveKeysFromServer_Error");
 	
-	[self showProgressUntilKeyIsRefreshed:[keysController selectedObjects][0]];
+	GPGKey *key = [keysController selectedObjects][0];
+	
+	
+	self.sheetController.progressText = self.progressText;
+	[self.sheetController showProgressSheet];
+	key.isRefreshing = YES;
+	NSString *cancelKey = [[NSProcessInfo processInfo] globallyUniqueString];
+	keyUpdateCallback keyChangeBlock = ^(NSArray *keys) {
+		if (!keys || [keys containsObject:key]) {
+			if ([[[GPGKeyManager sharedInstance].allKeys member:key] isRefreshing] == NO) {
+				[cancelCallbacks removeObjectForKey:cancelKey];
+				[signaturesController setSelectedObjects:signatures];
+				[self.sheetController endProgressSheet];
+				return YES;
+			}
+		}
+		return NO;
+	};
+	cancelCallback cancelBlock = [^() {
+		[self.sheetController endProgressSheet];
+		[[KeychainController sharedInstance] removeKeyUpdateCallback:keyChangeBlock];
+	} copy];
+	[cancelCallbacks setObject:cancelBlock forKey:cancelKey];
+	[[KeychainController sharedInstance] addKeyUpdateCallback:keyChangeBlock];
+
 	
 	[gpgc receiveKeysFromServer:@[keyID]];
 }
