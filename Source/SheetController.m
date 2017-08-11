@@ -411,6 +411,8 @@ modalWindow, foundKeyDicts, hideExtension;
 	_pubFilename = nil;
 	_secFilename = nil;
 	
+	self.exportSecretKey = NO;
+	
 	if (!self.pattern && self.keys) {
 		NSString *secFilename = nil;
 		filename = filenameForExportedKeys(self.keys, &secFilename);
