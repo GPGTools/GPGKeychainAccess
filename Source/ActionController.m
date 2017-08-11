@@ -2073,12 +2073,17 @@ static NSString * const actionKey = @"action";
 	self.sheetController.progressText = self.progressText;
 	[self.sheetController showProgressSheet];
 	key.isRefreshing = YES;
+	
 	NSString *cancelKey = [[NSProcessInfo processInfo] globallyUniqueString];
 	keyUpdateCallback keyChangeBlock = ^(NSArray *keys) {
 		if (!keys || [keys containsObject:key]) {
 			if ([[[GPGKeyManager sharedInstance].allKeys member:key] isRefreshing] == NO) {
 				[cancelCallbacks removeObjectForKey:cancelKey];
 				[signaturesController setSelectedObjects:signatures];
+				
+				NSUInteger index = [[signaturesController arrangedObjects] indexOfObject:signature];
+				[signaturesTable scrollRowToVisible:index];
+				
 				[self.sheetController endProgressSheet];
 				return YES;
 			}
