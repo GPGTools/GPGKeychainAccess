@@ -2463,7 +2463,8 @@ static NSString * const actionKey = @"action";
 	}
 	else if (selector == @selector(addSignature:)) {
 		if (tag == 1) {
-			if ([self selectedObjectsOf:userIDsTable].count != 1) {
+			NSArray *userIDs = [self selectedObjectsOf:userIDsTable];
+			if (userIDs.count != 1 || [userIDs[0] validity] >= GPGValidityInvalid) {
 				return NO;
 			}
 		}

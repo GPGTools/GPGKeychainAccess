@@ -38,6 +38,9 @@ NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename);
 @interface GKAValidityInidicatorTransformer : NSValueTransformer {}
 @end
 
+@interface GKIsValidTransformer : NSValueTransformer {}
+@end
+
 @interface GKFingerprintTransformer : GPGFingerprintTransformer
 @end
 

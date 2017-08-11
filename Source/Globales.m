@@ -139,6 +139,15 @@ NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename) {
 
 @end
 
+@implementation GKIsValidTransformer
++ (Class)transformedValueClass { return [NSNumber class]; }
++ (BOOL)allowsReverseTransformation { return NO; }
+- (id)transformedValue:(id)value {
+	return @([value intValue] < GPGValidityInvalid);
+}
+
+@end
+
 @implementation GKFingerprintTransformer
 - (id)transformedValue:(id)value {
 	NSString *fingerprint = [value description];
