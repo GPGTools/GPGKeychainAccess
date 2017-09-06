@@ -24,8 +24,9 @@ SecretAndPublicKeyListing = "Claves secretas (privadas):\n\n%@\n\nClaves públic
 /* For export, as standard File-Name. */
 "untitled" = "sin título";
 "%@ Revoke certificate" = "%@ Certificado de revocación";
-"Exported keys.asc" = "keys.asc exportado";
 ExportKeysFilename = "%@ %u Claves OpenPGP";
+ExportPublicKeyFilename = "%@ – Pública";
+ExportSecretKeyFilename = "%@ – Secreta";
 
 
 /* For key creation */
@@ -41,21 +42,21 @@ CheckAlert_PassphraseSimple_Title = "Contraseña simple";
 CheckAlert_PassphraseSimple_Message = "La contraseña que ha introducido es demasiado simple. Una buena contraseña debe ser alfanumérica y contener al menos un caracter especial.";
 CheckAlert_PassphraseSimple_Button1 = "Continuar con contraseña simple";
 CheckAlert_PassphraseSimple_Button2 = "Introducir nueva contraseña";
-CheckAlert_PassphraseToLong_Title = "Contraseña demasiado larga";
-CheckAlert_PassphraseToLong_Message = "La contraseña que ha introducido es demasiado larga. Introduzca una contraseña con menos de 300 caracteres.";
+CheckAlert_PassphraseTooLong_Title = "Contraseña demasiado larga";
+CheckAlert_PassphraseTooLong_Message = "La contraseña que ha introducido es demasiado larga. Introduzca una contraseña con menos de 300 caracteres.";
 
 
 MoveSecring_Msg = "Sus claves secretas (privadas) residen actualmente en \"%@\".\nPara mover sus claves secretas a otro volumen, seleccione el volumen objetivo debajo.";
 
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "No se encontraron claves";
-KeySearch_ImportResults_Title = "Importar resultados";
+KeySearch_ImportResults_Title = "Import successful";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), creada: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Estamos buscando clave(s) coincidente(s) en el servidor de claves. Podría tomar algún tiempo, por favor espere.";
 
 GenerateKey_Progress = "Es necesario generar muchos bytes aleatorios. Es una buena idea llevar a cabo alguna otra acción (escribir con el teclado en alguna aplicación, mover el ratón, usar los discos) durante la generación de números primos. Esto le da al generador de números aleatorios una mejor oportunidad para adquirir suficiente entropía.";
-GenerateSubkey_Msg = "Añadir subclave a la clave \"%@\", %@.";
-GenerateUserID_Msg = "Añadir identificación de usuario a la clave \"%@\", %@.";
+GenerateSubkey_Msg = "Añadir subclave a la clave siguiente:\n%@ %@";
+GenerateUserID_Msg = "Añadir dirección de correo electrónico (identificación de usuario) a la siguiente clave:\n%@ %@";
 GenerateSignature_Msg = "Firmar una clave significa que usted confirma que el poseedor de la clave es de hecho quien proclama ser.\nUna vez subida, las firmas pueden ser vistas por otros.\nAsí que si firma la clave de Bob, y su amiga Alice no está segura de si Bob es realmente Bob, Alice verá la firma de usted en la clave de Bob, y como Alice sabe que la clave de usted es de confianza, sabrá que lo más probable es que Bob sea de hecho Bob.\n\nEstá a punto de firmar la siguiente clave:\n%@";
 GenerateUidSignature_Msg = "Firmar una identificación de usuario, significa que usted confirma que el titular de la clave es de hecho quien afirma ser.\nUna vez subidas, las firmas pueden ser vistas por otros.\nAsí que si firma la clave de Bob, y su amiga Alice no está segura de si Bob es realmente Bob, Alice verá su firma en la clave de Bob, y como Alice sabe que su clave es de confianza sabrá que lo más probable es que Bob sea efectivamente Bob.\n\nEstá a punto de firmar la siguiente identificación de usuario:\n%@";
 ChangeExpirationDate_Msg = "Cambiar la fecha de expiración de \"%@\", %@";
@@ -64,10 +65,8 @@ ChangeSubkeyExpirationDate_Msg = "Cambiar fecha de caducidad de \"%2$@\", %3$@\n
 GenerateKey_Error = "Ups, algo salió mal. Hubo un problema al crear su clave.";
 
 /* Message for incorrect Entries */
-CheckError_NameToShort = "¡El nombre debe tener al menos 5 caracteres de largo!";
 CheckError_NameToLong = "¡El nombre es demasiado largo!";
 CheckError_InvalidCharInName = "¡Caracter no válido en el nombre!\n\"<\" and \">\" no está permitido.";
-CheckError_NameStartWithDigit = "¡El nombre no puede empezar por un dígito!";
 CheckError_InvalidEmail = "¡No es una dirección de correo electrónico válida!";
 CheckError_EmailToLong = "¡Dirección de correo demasiado larga!\nLongitud máxima de 254 caracteres.";
 CheckError_InvalidCharInComment = "¡Caracter no válido en un comentario!\n\"(\" and \")\" no está permitido.";
@@ -78,15 +77,15 @@ CheckError_PassphraseMissmatch = "¡Sus contraseñas no coinciden!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "No se encontró GPG";
-GPG_NOT_FOUND_MESSAGE = "Ups, algo salió realmente mal. Parece que GPG está ausente en su sistema. Por favor reinstale GPG Suite desde https://www.gpgtools.org";
+GPG_NOT_FOUND_MESSAGE = "Uups, algo fue realmente mal. Parece que GPG está ausente en su sistema. Por favor, reinstale GPG Suite desde \nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Error de configuración de GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, algo fue mal. Se encontró GPG en su sistema pero parece haber un problema con el fichero de configuración. Por favor contacte con nosotros en https://gpgtools.tenderapp.com\n\nDetalles: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Uups, algo fue realmente mal. Se ha encontrado GPG en su sistema pero parece haber un problema con el fichero de configuración. Por favor, contacte con nosotros en \nhttps://gpgtools.tenderapp.com.\n\nDetalles: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "No se encontró libmacgpg";
-LIBMACGPG_NOT_FOUND_MESSAGE = "No se encontró libmacgpg en su sistema. Por favor reinstale GPG Suite desde https://www.gpgtools.org";
-CODE_SIGN_ERROR_TITLE = "¡Alguién manipuló su instalación de GPG Keychain!";
-CODE_SIGN_ERROR_MESSAGE = "¡Para mantenerle seguro, GPG Keychain se cerrará ahora!\n\n¡Por favor reinstale GPG Suite desde https://www.gpgtools.org para asegurarse de que tiene una versión original procedente de nosotros!";
+LIBMACGPG_NOT_FOUND_MESSAGE = "No se encontró Libmacgpg en su sistema. Por favor, reinstale GPG Suite desde \nhttps://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Alguien alteró su instalación de GPG Keychain";
+CODE_SIGN_ERROR_MESSAGE = "¡Para mantenerle seguro, GPG Keychain se cerrará ahora!\n\n¡Por favor, reinstale GPG Suite desde \nhttps://gpgtools.org para asegurarse de que tiene la versión original procedente de nosotros!";
 UNKNOWN_GPG_ERROR_TITLE = "Error de GPG desconocido";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, algo fue mal. GPG lanzó un error desconocido. Por favor contacte con nosotros en https://gpgtools.tenderapp.com.\n\nDetalles: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Uups, algo fue mal. GPG arrojó un error desconocido. Por favor, contacte con nosotros en \nhttps://gpgtools.tenderapp.com.\n\nDetalles: %@";
 
 
 
@@ -99,12 +98,12 @@ MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-st
 MailKey_Progress = "Creando un correo nuevo...";
 MailKey_Progress_Your = "Creando un correo nuevo...";
 MailKey_Error = "Ups, algo salió mal. Hubo un problema al exportar su clave.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "¡Ha seleccionado una clave no utilizable!";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Se ha seleccionado una clave inutilizable";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Ha seleccionado una clave no utilizable. Tales claves no se pueden enviar vía correo electrónico. Por favor, actualice la clave desde el servidor de claves, para comprobar si ha sido actualizada.\n\nDe otro modo póngase en contacto con el propietario de la clave e infórmele sobre el estado de la clave\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "Una o más clave fueron borradas de su portapapeles.";
+PasteboardKeyFound_Title = "Se han seleccionado una o más claves en su portapapeles";
 PasteboardKeyFound_Msg = "%@\n\n¿Desea importar las clave(s)?";
 PasteboardKeyFound_Yes = "Importar";
 PasteboardKeyFound_No = "Cancelar";
@@ -124,8 +123,8 @@ RemoveUserID_Msg = "Está a punto de eliminar la identificación de usuario %@ d
 RemoveUserID_Yes = "Eliminar identificación de usuario";
 RemoveUserID_No = "Cancelar";
 
-RevokeUserID_Title = "Revocar identificación de usuario";
-RevokeUserID_Msg = "Está a punto de revocar la identificación de usuario %@ de su clave %@. Si revoca esta identificación de usuario, ya no podrá usar esta clave con la cuenta de correo asociada en Mail.app.\n\nSi la clave con esta identificación de usuario se ha subido a los servidores de claves, asegúrese de subir la clave actualizada. Sólo entonces la identificación de usuario revocada quedará reflejada en la entrada en los servidores de claves.";
+RevokeUserID_Title = "Advertencia: Está a punto de revocar una identificación de usuario";
+RevokeUserID_Msg = "Está a punto de revocar la siguiente identificación (ID) de usuario:\n\n%@ de su clave %@\n\nUna vez revocada, ya no podrá firmar y cifrar mensajes usando esta identificación de usuario, y otros no podrán cifrar mensajes para esta identificación de usuario. La identificación de usuario revocada todavía se puede usar para descifrar correos electrónicos y ficheros, cifrados previamente para esta.\n\nNo se recomienda borrarla, sino conservarla en su clave en estado revocado.\n\n¿Está seguro de que quiere revocar esta identificación de usuario?";
 RevokeUserID_Yes = "Revocar identificación de usuario";
 RevokeUserID_No = "Cancelar";
 
@@ -134,8 +133,8 @@ RemoveSubkey_Msg = "Advertencia: Por favor, continúe sólo si de verdad sabe lo
 RemoveSubkey_Yes = "Eliminar subclave";
 RemoveSubkey_No = "Cancelar";
 
-RevokeSubkey_Title = "Revocar subclave";
-RevokeSubkey_Msg = "Advertencia: Por favor, continúe sólo si de verdad sabe lo que está haciendo.\n\nRevocar una subclave puede destruir la capacidad de firmar usando esta subclave y otros pueden no ser ya capaces de cifrar mensajes para esta subclave.\n\nEn caso de que esta clave se haya subido a los servidores de claves, asegúrese de subir la clave actualizada. Sólo entonces la entrada en los servidores de claves mostrará la subclave revocada.";
+RevokeSubkey_Title = "Advertencia: Está a pundo de revocar una subclave";
+RevokeSubkey_Msg = "Por favor, continúe sólo si de verdad sabe lo que está haciendo.\n\nRevocar una subclave puede destruir la capacidad de firmar usando esta subclave, y otros puede que ya no sean capaces de cifrar mensajes para esta subclave.\n\nUna vez revocada, no podrá firmar ni cifrar mensajes usando esta subclave, y otros no serán capaces de cifrar mensajes para esta subclave. La subclave revocada todavía se puede usar para descifrar correos electrónicos y ficheros, cifrados previamente para esta.\n\nNo se recomienda eliminarla, sino conservarla en su clave en estado revocado.\n\n¿Está seguro de que quiere revocar esta subclave?";
 RevokeSubkey_Yes = "Revocar subclave";
 RevokeSubkey_No = "Cancelar";
 
@@ -160,15 +159,56 @@ RevokeLastSelfSignature_Yes = "Revocar firma";
 RevokeLastSelfSignature_No = "Cancelar";
 
 RevokeKey_Title = "Advertencia: Está a punto de revocar una clave";
-RevokeKey_Msg = "Está a punto de revocar la siguiente clave:\n\n%@\n\nUna vez revocada, no podrá firmar ni cifrar mensajes usando esta clave y otros no podrán cifrar mensajes para esta clave. La clave revocada aún se puede usar para descifrar correos electrónicos y ficheros, previamente cifrados para ella.\n\nNo es recomendable borrarla.\n\nPara comunicar a otros que su clave ha sido revocada, se recomienda subirla a los servidores de claves.\n\n¿Está seguro de que quiere revocar esta clave?";
-RevokeKey_Upload = "Subir clave revocada";
+RevokeKey_Msg = "Está a punto de revocar la siguiente clave:\n\n%@\n\nUna vez revocada, no podrá firmar y cifrar mensajes usando esta clave, y otros no podrán cifrar mensajes para esta clave. La clave revocada todavía se puede usar para descifrar correos electrónicos y ficheros, previamente cifrados para esta.\n\nNo se recomienda borrarla, sino conservarla en GPG Keychain en estado revocado.\n\n¿Está seguro de que quiere revocar esta clave?";
 RevokeKey_Yes = "Revocar clave";
 RevokeKey_No = "Cancelar";
 
-OpenWithGPGServices_Title = "El mensaje OpenPGP que ha tratado de importar no es una clave.";
+OpenWithGPGServices_Title = "El mensaje OpenPGP que trató de importar no es una clave";
 OpenWithGPGServices_Msg = "Puede reenviar el mensaje a GPGServices para descifrar o verificar el mensaje.";
 OpenWithGPGServices_Yes = "Abrir GPGServices";
 OpenWithGPGServices_No = "Cancelar";
+
+FirstUploadForeignKey_Title = "Clave pública no permitida en los servidores de claves";
+FirstUploadForeignKey_Msg = "Las siguientes claves no se ubican en los servidores de claves:\n\n%@\n\nAlgunos propietarios de claves no suben su clave pública intencionadamente. Para respetar esa decisión, no puede subir esta clave pública. En caso de que crea que esto es un error, por favor, póngase en contacto con el propietario de la clave.";
+
+
+NewKeyWantToUpload_Title = "Su clave fue creada con éxito";
+NewKeyWantToUpload_Msg = "Para facilitar que sus amigos y colegas encuentren su clave pública y comiencen a comunicarse con usted de forma segura – cifrar mensajes para usted y verificar la autenticidad de los mensajes que usted envíe – se recomienda subir su clave pública a los servidores de claves.\n\nAdvertencia: Los servidores de claves son públicos, así que el nombre y correo electrónico que use en su clave serán visibles públicamente. Las claves no se pueden borrar de los servidores de claves. Se pueden revocar, pero no eliminar.\n\nSi prefiere en cambio no usar servidores de claves, por favor, considere adjuntar su clave pública a sus correos firmados y/o cifrados.\n\n¿Quiere subir su clave pública?";
+NewKeyWantToUpload_Yes = "Subir clave pública";
+NewKeyWantToUpload_No = "¡No, gracias!";
+
+NewUserIDWantToUpload_Title = "Su nueva dirección de correo electrónico (identificación de usuario) se añadió con éxito";
+NewUserIDWantToUpload_Msg = "Para que otros puedan usar su nueva dirección de correo electrónico (identificación de usuario), es necesario que importen su clave actualizada. Por tanto se recomienda subir su clave pública actualizada a los servidores de claves.\n\nAdvertencia: Los servidores de claves son públicos, así que el nombre y correo electrónico que use en su clave serán visibles públicamente. Las claves no se pueden borrar de los servidores de claves. Se pueden revocar pero no eliminar.\n\nSi prefiere en cambio no usar los servidores de claves, por favor, considere adjuntar su clave pública a sus correos firmados y/o cifrados.\n\n¿Quiere subir su clave pública actualizada?";
+NewUserIDWantToUpload_Yes = "Subir clave pública";
+NewUserIDWantToUpload_No = "¡No, gracias!";
+
+NewSubkeyWantToUpload_Title = "Ha añadido una subclave con éxito";
+NewSubkeyWantToUpload_Msg = "Para que otros puedan usar su nueva subclave, es necesario que importen su clave actualizada. Por tanto, se recomienda subir su clave pública actualizada a los servidores de claves.\n\nAdvertencia: Los servidores de claves son públicos, así que el nombre y correo electrónico que use en su clave son visibles públicamente. Las claves no se pueden borrar de los servidores de claves. Se pueden revocar pero no eliminar.\n\nSi prefiere en cambio no usar los servidores de claves, por favor, considere adjuntar su clave pública a sus correos firmados y/o cifrados.\n\n¿Quiere subir su clave pública?";
+NewSubkeyWantToUpload_Yes = "Subir clave pública";
+NewSubkeyWantToUpload_No = "¡No, gracias!";
+
+ExpirationDateChangedWantToUpload_Title = "Ha cambiado con éxito la fecha de caducidad";
+ExpirationDateChangedWantToUpload_Msg = "Para que otros puedan ver la nueva fecha de caducidad, es necesario que importen su clave actualizada. Por tanto se recomienda subir su clave pública actualizada a los servidores de claves.\n\nAdvertencia: Los servidores de claves son públicos, así que el nombre y correo electrónico que use en su clave serán visibles públicamente. Las claves no se pueden borrar de los servidores de claves. Se pueden revocar pero no eliminar.\n\nSi prefiere en cambio no usar los servidores de claves, por favor, considere adjuntar su clave pública a sus correos firmados y/o cifrados.\n\n¿Quiere subir su clave pública?";
+ExpirationDateChangedWantToUpload_Yes = "Subir clave pública";
+ExpirationDateChangedWantToUpload_No = "¡No, gracias!";
+
+RevokedKeyWantToUpload_Title = "Su clave se ha revocado con éxito";
+RevokedKeyWantToUpload_Msg = "Para facilitar que sus amigos y colegas sepan de este nuevo estado de su clave, se recomienda subir su clave pública revocada a los servidores de claves.\n\nAdvertencia: Los servidores de claves son públicos, así que el nombre y correo electrónico que use en su clave serán visibles públicamente. Las claves no se pueden borrar de los servidores de claves. Se pueden revocar pero no eliminar.\n\nSi prefiere en cambio no usar los servidores de claves, por favor, asegúrese de permitir que sus contactos que estén usando su clave pública sepan que ahora está revocada y ya no se usará. Puede escribirles un correo con la clave pública revocada para que puedan importarla en su administrador de claves.\n\n¿Quiere subir su clave pública revocada?";
+RevokedKeyWantToUpload_Yes = "Subir clave pública";
+RevokedKeyWantToUpload_No = "¡No, gracias!";
+
+RevokedUserIDWantToUpload_Title = "Su identificación de usuario se revocó con éxito";
+RevokedUserIDWantToUpload_Msg = "Para facilitar que sus amigos y colegas sepan de este nuevo estado de su clave, se recomienda subir su clave pública a los servidores de claves.\n\nAdvertencia: Los servidores de claves son públicos, así que el nombre y correo electrónico que use en su clave serán visibles públicamente. Las claves no se pueden borrar de los servidores de claves. Se pueden revocar pero no eliminar.\n\nSi prefiere en cambio no usar los servidores de claves, por favor, asegúrese de que permite que sus contactos que estén usando su clave pública sepan que la identificación de usuario ahora está revocada y ya no se puede usar. Puede enviarles un correo con la clave pública actualizada para que puedan importarla a su administrador de claves.\n\n¿Quiere subir su clave pública?";
+RevokedUserIDWantToUpload_Yes = "Subir clave pública";
+RevokedUserIDWantToUpload_No = "¡No, gracias!";
+
+RevokedSubkeyWantToUpload_Title = "Su subclave fue revocada con éxito";
+RevokedSubkeyWantToUpload_Msg = "Para facilitar que sus amigos y colegas sepan de este nuevo estado de su subclave, se recomienda subir su clave pública a los servidores de claves.\n\nAdvertencia: Los servidores de claves son públicos, así que el nombre y correo electrónico que usa en su clave serán visibles públicamente. Las claves no se pueden borrar de los servidores de claves. Se pueden revocar pero no eliminar.\n\nSi prefiere en cambio no usar servidores de claves, por favor, asegúrese de permitir que sus contactos que estén usando su clave pública sepan que la subclave ahora está revocada y ya no se va a usar. Puede enviarles un correo con la clave pública actualizada para que puedan importarla a su administrador de claves.\n\n¿Quiere subir su clave pública?";
+RevokedSubkeyWantToUpload_Yes = "Subir clave pública";
+RevokedSubkeyWantToUpload_No = "¡No, gracias!";
+
+
+
 
 
 /* Delete warnings */
@@ -179,14 +219,14 @@ DeleteKey_No = "Cancelar";
 
 DeleteSecKey_Title = "Advertencia: Está a punto de borrar las claves secreta/privada y pública";
 DeleteSecKey_Msg = "Está a punto de borrar las claves:\n\n%@\n\nBorrar una clave secreta/privada tiene consecuencias importantes. Una vez borrada, ya no será posible descifrar mensajes con esta clave. Esto afecta a todos los mensajes que fueron cifrados para esta clave.\n\nNosotros recomendamos no borrarla.\n\nPara comunicar a otros que esta clave ya no está en uso, en lugar de borrarla, debe revocar la clave y subir la clave revocada a los servidores de claves. De otro modo, otros aún podrían usar esta clave para cifrar mensajes para usted.";
-DeleteSecKey_Checkbox = "Sí, quiero borrar mi clave secreta (privada) y comprendo, que ya no\npodré descifrar ningún mensaje que estuviera cifrado con esta clave.";
+DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Borrar clave(s)";
 DeleteSecKey_SecOnly = "Borrar sólo la(s) clave(s) secreta(s) (privadas)";
 DeleteSecKey_No = "Cancelar";
 
 DeleteRevokedSecKey_Title = "Advertencia: Está a punto de borrar par(es) de clave(s) revocado(s)";
 DeleteRevokedSecKey_Msg = "Está a punto de borrar el/los siguiente(s) par(es) de clave(s) revocado(s):\n\n%@\n\nLas claves revocadas todavía pueden descrifrar mensajes antiguos cifrados para esa clave.\n\nRecomendamos no borrarlo(s).";
-DeleteRevokedSecKey_Checkbox = "Sí, quiero borrar mi clave secreta (privada) y comprendo, que ya no\npodré descifrar ningún mensaje que estuviera cifrado con esta clave.";
+DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteRevokedSecKey_Yes = "Borrar su(s) par(es) de clave(s)";
 DeleteRevokedSecKey_SecOnly = "Borrar sólo la(s) clave(s) secreta(s) (privadas)";
 DeleteRevokedSecKey_No = "Cancelar";
@@ -203,20 +243,29 @@ ImportRevSig_Msg = "Está a punto de importar un certificado de revocación para
 ImportRevSig_Yes = "Importar";
 ImportRevSig_No = "Cancelar";
 
-ImportRandomData_Title = "Advertencia: Probablemente no se puede importar el contenido.";
+ImportRandomData_Title = "Advertencia: El contenido probablemente no se puede importar";
 ImportRandomData_Msg = "Parece que está tratando de importar un mensaje que no es una clave OpenPGP.\n\n¿Está seguro de que quiere intentar importar este contenido?";
 ImportRandomData_Yes = "Intentar importar";
 ImportRandomData_No = "Cancelar";
 
-ImportNonImportable_Title = "Advertencia: Probablemente no se puede importar el contenido.";
+ImportNonImportable_Title = "Advertencia: El contenido probablemente no se puede importar";
 ImportNonImportable_Msg = "Parece que está tratando de importar un mensaje firmado o cifrado.\n\nTales mensajes no se pueden importar en GPG Keychain.\n\nEn su lugar, por favor intente descifrar o verificar el mensaje en cuestión con GPGServices.";
 ImportNonImportable_Yes = "Intentar importar.";
 ImportNonImportable_No = "Cancelar";
 
 
+
+/* Results */
+UploadSuccess_Title = "Enviado con éxito";
+UploadSuccess_Msg = "Se han enviado las siguientes claves públicas a los servidores de claves:\n\n%@\n\nPor favor, espere algún tiempo a que el cambio se sincronice por los servidores de claves existentes.";
+
+ExportSuccess_Title = "Export successful";
+ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
+
+
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "Ha importado la clave\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "Ha importado las claves\n\n%@";
+IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "The following keys were successfully imported:\n\n%@";
 
 IMPORT_RESULT_NEW_USER_ID = "Se ha añadido una identificación de usuario a la(s) clave(s) \n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "Se ha añadido una firma a la(s) clave(s) \n\n%@";
@@ -229,33 +278,27 @@ IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "Se ha procesado 1 clave y se han i
 IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "Se han procesado %i claves y se ha importado 1.";
 IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "Se han procesado %1$i claves y se han importado %2$i.";
 
+IMPORT_RESULT_NOTHING_IMPORTED = "No se importaron claves.";
 
 /* Errors */
-ImportKeyError_Title = "¡Fallo al importar una o más claves!";
-ImportKeyError_Msg = "A menudo las claves no pueden importarse debido a una auto-firma ausente. Por favor visite https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature para más detalles y pasos sobre cómo resolver este problema.";
-ImportKeyErrorPGP_Title = "¡Fallo al importar!";
+"Details:" = "Detalles:";
+ImportKeyError_Title = "No se pudieron importar una o más claves.";
+ImportKeyError_Msg = "A menudo no se pueden importar las claves debido a una auto-firma ausente. Por favor, visite \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature para más detalles y pasos sobre como resolver este problema.";
+ImportKeyErrorPGP_Title = "Fallo al importar";
 ImportKeyErrorPGP_Msg = "Parece que está intentando importar un mensaje cifrafo o firmado. Para descifrar o verificar tales mensajes por favor use GPGServices.";
-ImportKeyErrorNoPGP_Title = "¡Fallo al importar!";
+ImportKeyErrorNoPGP_Title = "Fallo al importar";
 ImportKeyErrorNoPGP_Msg = "Parece que está intentando importar algunos datos no relativos a PGP que no pueden procesarse.";
 
-NO_SECRET_KEY_TITLE = "¡No se ha encontrado clave secreta (privada)!";
+NO_SECRET_KEY_TITLE = "No se encontró clave secreta (privada)";
 NO_SECRET_KEY_MESSAGE = "Necesita una clave secreta para efectuar esta operación.";
 
-/* The Algorithms */
-GPG_RSAAlgorithm = "RSA";
-GPG_RSAEncryptOnlyAlgorithm = "RSA-E";
-GPG_RSASignOnlyAlgorithm = "RSA-S";
-GPG_ElgamalEncryptOnlyAlgorithm = "ELG-E";
-GPG_DSAAlgorithm = "DSA";
-GPG_EllipticCurveAlgorithm = "CurvaElíptica";
-GPG_ECDSAAlgorithm = "ECDSA";
-GPG_ElgamalAlgorithm = "ELG";
-GPG_DiffieHellmanAlgorithm = "DiffieHellman";
+KeyserverSearchError_Title = "Fallo al buscar clave";
+KeyserverSearchError_Msg = "Por favor, repita su búsqueda y vea entonces si funciona. Si el problema persiste, consigne una solicitud de soporte a través de Preferencias del Sistema > GPG Suite > Enviar Informe. Por favor, copie el mensaje completo del error en el campo de la descripción y añada el término de búsqueda que usó para su consulta. Recomendamos incluir el registro (log) de depuración, ya que proporciona información útil adicional para solucionar su problema.";
+
 
 
 /* In Main Window */
 "%i of %i keys listed" = "%i de %i claves listadas";
-
 
 
 
@@ -310,7 +353,6 @@ MinimizeKey_Error = "Fallo al minimizar clave.";
 GenerateRevokeCertificateForKey_Progress = "Generando certificado de revocación...";
 GenerateRevokeCertificateForKey_Error = "Fallo al generar certificado de revocación.";
 SearchKeysOnServer_Progress = "Buscando clave...";
-SearchKeysOnServer_Error = "Fallo al buscar clave.";
 SendKeysToServer_Progress = "Enviando %@ al servidor...";
 SendKeysToServer_Error = "Fallo al enviar clave.";
 RefreshKeysFromServer_Progress = "Refrescando %@ desde el servidor...";
@@ -331,7 +373,7 @@ RevokeUserID_Progress = "Revocando identificación de usuario...";
 RevokeUserID_Error = "Fallo al revocar identificación de usuario.";
 AddPhoto_Progress = "Añadiendo foto...";
 AddPhoto_Error = "Fallo al añadir foto.";
-AddPhoto_SelectMessage = "Choose photo…";
+AddPhoto_SelectMessage = "Escoger foto...";
 RemovePhoto_Progress = "Eliminando foto...";
 RemovePhoto_Error = "Fallo al eliminar foto.";
 SetPrimaryPhoto_Progress = "Estableciendo foto principal...";
@@ -349,4 +391,10 @@ ReceiveKeysFromServer_Error = "Fallo al recibir claves.";
 RevokeKey_Progress = "Revocando clave...";
 RevokeKey_Error = "Fallo al revocar clave.";
 
+
+SendToKeyserver_MenuItem = "Enviar al servidor de claves";
+SendPublicKeyToKeyserver_MenuItem = "Enviar clave pública al servidor de claves";
+
+FilterNoResults = "La búsqueda local de '%@' no ofrece resultados.";
+FilterNoResultsSecOnly = "La búsqueda local de '%@' no ofrece resultados.\nConsidere deshabilitar la opción 'Mostrar sólo claves secretas' para expandir la búsqueda.";
 

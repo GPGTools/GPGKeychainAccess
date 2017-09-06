@@ -24,8 +24,9 @@ SecretAndPublicKeyListing = "Секретные ключи:\n\n%@\n\nПубли�
 /* For export, as standard File-Name. */
 "untitled" = "Без имени";
 "%@ Revoke certificate" = "%@ Сертификат отзыва";
-"Exported keys.asc" = "Экспортированные ключи.asc";
 ExportKeysFilename = "%@ %u ключи OpenPGP";
+ExportPublicKeyFilename = "%@ – Public";
+ExportSecretKeyFilename = "%@ – Secret";
 
 
 /* For key creation */
@@ -41,21 +42,21 @@ CheckAlert_PassphraseSimple_Title = "Simple password";
 CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
 CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
 CheckAlert_PassphraseSimple_Button2 = "Enter new password";
-CheckAlert_PassphraseToLong_Title = "Password too long";
-CheckAlert_PassphraseToLong_Message = "The password you have entered is too long. Enter a password with less than 300 characters.";
+CheckAlert_PassphraseTooLong_Title = "Password too long";
+CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than 300 characters.";
 
 
 MoveSecring_Msg = "Ваши секретные ключи в настоящее время находятся на \"%@\".\nДля перемещения ваших секретных ключей на другой том, выберите целевой том ниже.";
 
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "Ключи не найдены";
-KeySearch_ImportResults_Title = "Результаты импорта";
+KeySearch_ImportResults_Title = "Import successful";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), создан: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Осуществляется поиск на серверах. Это может занять некоторое время. Пожалуйста, подождите.";
 
 GenerateKey_Progress = "Необходимо сгенерировать много случайных чисел. Желательно, что бы Вы выполняли некоторые другие действия (печать на клавиатуре, движения мыши, обращения к дискам) в процессе генерации. Это даст генератору случайных чисел возможность получить лучшую энтропию.";
-GenerateSubkey_Msg = "Добавить subkey ключу \"%@\", %@.";
-GenerateUserID_Msg = "Добавить ID пользователя ключу \"%@\", %@.";
+GenerateSubkey_Msg = "Add subkey to the following key:\n%@ %@";
+GenerateUserID_Msg = "Add email address (user ID) to the following key:\n%@ %@";
 GenerateSignature_Msg = "Подписывая ключ, вы подтверждаете, что данные о его владельце верны.\nБудучи загруженной на сервер, подпись будет видна всем пользователям.\nТак, если вы подписали ключ Пети, то ваша знакомая Катя, доверяя вашей подписи, сможет быть уверена, что ключ действительно принадлежит Пете.\n\nВы собираетесь подписать следующий ключ:\n%@";
 GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
 ChangeExpirationDate_Msg = "Изменить срок годности \"%@\", %@";
@@ -64,10 +65,8 @@ ChangeSubkeyExpirationDate_Msg = "Изменить срок годности \"%
 GenerateKey_Error = "Ой, что-то пошло не так. Возникла проблема при создании ключа.";
 
 /* Message for incorrect Entries */
-CheckError_NameToShort = "Имя должно быть длиннее 5 символов";
 CheckError_NameToLong = "Слишком длинное имя!";
 CheckError_InvalidCharInName = "Недопустимый знак в имени!\n\"<\" и \">\" не допустимы.";
-CheckError_NameStartWithDigit = "Имя не может начинаться с цифры!";
 CheckError_InvalidEmail = "Недопустимый адрес email!";
 CheckError_EmailToLong = "Адрес Email слишком длинный!\nМаксимальная длина 254.";
 CheckError_InvalidCharInComment = "Недопустимый знак в комментарии!\n\"(\" и \")\" недопустимы.";
@@ -78,20 +77,20 @@ CheckError_PassphraseMissmatch = "Your passwords did not match!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG не найден";
-GPG_NOT_FOUND_MESSAGE = "Ой, что-то пошло совсем не так. Похоже, GPG отсутствует в вашей системе. Пожалуйста, переустановите GPG Suite с сайта https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Ошибка настройки GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ой, что-то пошло не так. GPG найден, но есть проблема в файле настроек. Пожалуйста, свяжитесь с нами на сайте https://gpgtools.tenderapp.com.\n\nСведения: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg не найдена";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg не был найден в вашей системе. Пожалуйста, переустановите GPG Suite с сайта https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Кто-то трогал вашу установку связки ключей GPG!";
-CODE_SIGN_ERROR_MESSAGE = "Чтобы сохранить вас в безопасности, сейчас будет существовать связка ключей GPG!\n\nПожалуйста, переустановите GPG Suite с сайта https://gpgtools.org чтобы быть уверенным, что у вас оригинальная версия от нас!";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
 UNKNOWN_GPG_ERROR_TITLE = "Неизвестная ошибка GPG";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ой, что-то пошло не так. GPG выдал неизвестную ошибку. Пожалуйста, свяжитесь с нами на сайте https://gpgtools.tenderapp.com.\n\nСведения: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
 /* Mail public key */
-MailKey_Subject = "Публичный ключ %@";
+MailKey_Subject = "Public key of %@";
 MailKey_Subject_Your = "Мой публичный ключ для защиты наших сообщений";
 MailKey_Message = "Привет,\n\nво вложении вы найдёте открытый ключ\n\n%@\n\nВы можете использовать этот ключ для шифрования и защиты сообщений при записи%@.\n\nДля того, чтобы начать использовать его, вам необходимо установить программное обеспечение OpenPGP на вашем компьютере. Ниже вы найдёте список возможных решений для вашей операционной системы:\n\n%@\n\nПожалуйста, импортируйте открытый ключ в свой локальный менеджер ключей OpenPGP.\n\nС уважением";
 MailKey_Message_Your = "Привет,\n\nВо вложении вы найдёте свой открытый ключ\n\n%@\n\nВы можете использовать этот ключ для шифрования и защиты наших сообщений.\n\nДля того, чтобы начать использовать его, вам необходимо установить программное обеспечение OpenPGP на вашем компьютере. Ниже вы найдете список возможных решений для вашей операционной системы:\n\n%@\n\nПожалуйста, импортируйте открытый ключ в свой локальный менеджер ключей OpenPGP.\n\nС нетерпением жду обмена сообщениями с вами, свободными от слежки.\n\nС уважением";
@@ -99,12 +98,12 @@ MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-st
 MailKey_Progress = "Создаётся новая почта...";
 MailKey_Progress_Your = "Создаётся новая почта...";
 MailKey_Error = "Ой, что-то пошло не так. Возникла проблема при экспорте ключа.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Выбран непригодный к использованию ключ!";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Вы выбрали непригодный ключ. Такие ключи не могут быть отправлены по электронной почте. Пожалуйста, обновите ключ из сервера ключей, проверив был ли он обновлён.\n\nВ противном случае войти в контакт с владельцем ключа и сообщите ему о состоянии ключа.\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "Один или несколько ключей удалено в ваш буфер обмена.";
+PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
 PasteboardKeyFound_Msg = "%@\n\nВы хотите импортировать ключ(и)?";
 PasteboardKeyFound_Yes = "Импортировать";
 PasteboardKeyFound_No = "Отмена";
@@ -121,12 +120,12 @@ Cancel = "Отмена";
 /* Warnings */
 RemoveUserID_Title = "Remove user ID";
 RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove user ID";
+RemoveUserID_Yes = "Удалить ID пользователя";
 RemoveUserID_No = "Отмена";
 
-RevokeUserID_Title = "Revoke user ID";
-RevokeUserID_Msg = "You are about to revoke user ID %@ from your key %@. If you revoke this user ID, you will no longer be able to use this key with the associated mail account in Mail.app.\n\nIf the key with this user ID was uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will reflect the revoked user ID.";
-RevokeUserID_Yes = "Revoke user ID";
+RevokeUserID_Title = "Warning: You are about to revoke a user ID";
+RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
+RevokeUserID_Yes = "Аннулировать ID пользователя";
 RevokeUserID_No = "Отмена";
 
 RemoveSubkey_Title = "Удалить Subkey";
@@ -134,8 +133,8 @@ RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are
 RemoveSubkey_Yes = "Удалить Subkey";
 RemoveSubkey_No = "Отмена";
 
-RevokeSubkey_Title = "Аннулировать Subkey";
-RevokeSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nIn case this key has been uploaded to the key servers, make sure to upload the updated key. Only then, the entry on the key servers will show the revoked subkey.";
+RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
+RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nOnce revoked, you will be unable to sign and encrypt messages using this subkey and others will not be able to encrypt messages to this subkey. The revoked subkey can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "Аннулировать Subkey";
 RevokeSubkey_No = "Отмена";
 
@@ -160,15 +159,56 @@ RevokeLastSelfSignature_Yes = "Аннулировать подпись";
 RevokeLastSelfSignature_No = "Отмена";
 
 RevokeKey_Title = "Внимание: Вы собираетесь отозвать ключ";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it.\n\nIn order to communicate to others that your key has been revoked, it is recommended to upload it to the key servers.\n\nAre you sure you want to revoke this key?";
-RevokeKey_Upload = "Выложить аннулированный ключ";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Аннулировать ключ";
 RevokeKey_No = "Отмена";
 
-OpenWithGPGServices_Title = "OpenPGP сообщение, которое вы пытались импортировать, не является ключём.";
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key";
 OpenWithGPGServices_Msg = "Вы можете переслать сообщение в GPGServices для того, чтобы расшифровать или проверить его.";
 OpenWithGPGServices_Yes = "Открыть GPGServices";
 OpenWithGPGServices_No = "Отмена";
+
+FirstUploadForeignKey_Title = "Public key not allowed on key servers";
+FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers:\n\n%@\n\nSome key owners intentionally do not upload their public key. In order to respect that decision, you can not upload this public key. In case you think this is an error, please get in touch with the key owner.";
+
+
+NewKeyWantToUpload_Title = "Your key was created successfully";
+NewKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to find your public key and start communicating with you securely – encrypt messages for you and verify the authenticity of your messages – it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
+NewKeyWantToUpload_Yes = "Upload Public Key";
+NewKeyWantToUpload_No = "No, Thanks!";
+
+NewUserIDWantToUpload_Title = "Your new email address (user ID) was added successfully";
+NewUserIDWantToUpload_Msg = "In order for others to be able to use your new email address (user ID), it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your updated public key?";
+NewUserIDWantToUpload_Yes = "Upload Public Key";
+NewUserIDWantToUpload_No = "No, Thanks!";
+
+NewSubkeyWantToUpload_Title = "You have successfully added a subkey";
+NewSubkeyWantToUpload_Msg = "In order for others to be able to use your new subkey, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
+NewSubkeyWantToUpload_Yes = "Upload Public Key";
+NewSubkeyWantToUpload_No = "No, Thanks!";
+
+ExpirationDateChangedWantToUpload_Title = "You have successfully changed the expiration date";
+ExpirationDateChangedWantToUpload_Msg = "In order for others to be able to see the new expiration date, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
+ExpirationDateChangedWantToUpload_Yes = "Upload Public Key";
+ExpirationDateChangedWantToUpload_No = "No, Thanks!";
+
+RevokedKeyWantToUpload_Title = "Your key was successfully revoked";
+RevokedKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your revoked public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that it is now revoked and no longer to be used. You can email them the revoked public key so they can import it into their key manager.\n\nDo you want to upload your revoked public key?";
+RevokedKeyWantToUpload_Yes = "Upload Public Key";
+RevokedKeyWantToUpload_No = "No, Thanks!";
+
+RevokedUserIDWantToUpload_Title = "Your user ID was successfully revoked";
+RevokedUserIDWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the user ID is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
+RevokedUserIDWantToUpload_Yes = "Upload Public Key";
+RevokedUserIDWantToUpload_No = "No, Thanks!";
+
+RevokedSubkeyWantToUpload_Title = "Your subkey was successfully revoked";
+RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your subkey, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the subkey is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
+RevokedSubkeyWantToUpload_Yes = "Upload Public Key";
+RevokedSubkeyWantToUpload_No = "No, Thanks!";
+
+
+
 
 
 /* Delete warnings */
@@ -179,14 +219,14 @@ DeleteKey_No = "Отмена";
 
 DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
 DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
-DeleteSecKey_Checkbox = "Да, я хочу удалить свой секретный ключ и понимаю, что я больше не смогу расшифровать все сообщения, которые были зашифрованы этим ключём.";
+DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Удалить ключ/ключи";
 DeleteSecKey_SecOnly = "Удалить только секретный ключ/ключи";
 DeleteSecKey_No = "Отмена";
 
 DeleteRevokedSecKey_Title = "Внимание: Вы собираетесь удалить отозванную пару ключей";
 DeleteRevokedSecKey_Msg = "Вы собираетесь удалить следующие отозванные пары ключей:\n\n%@\n\nОтозванные ключи всё ещё в состоянии расшифровать старые сообщения, зашифрованные с помощью этих ключей.\n\nМы рекомендуем не удалять их.";
-DeleteRevokedSecKey_Checkbox = "Да, я хочу удалить свой секретный ключ и понимаю, что я больше не смогу расшифровать все сообщения, которые были зашифрованы этим ключём.";
+DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteRevokedSecKey_Yes = "Удалить свои пары ключей";
 DeleteRevokedSecKey_SecOnly = "Удалить только секретный ключ/ключи";
 DeleteRevokedSecKey_No = "Отмена";
@@ -203,20 +243,29 @@ ImportRevSig_Msg = "You are about to import a revocation certificate for %@. If 
 ImportRevSig_Yes = "Импортировать";
 ImportRevSig_No = "Отмена";
 
-ImportRandomData_Title = "Warning: Content can probably not be imported.";
+ImportRandomData_Title = "Warning: Content can probably not be imported";
 ImportRandomData_Msg = "Похоже вы пытаетесь импортировать сообщение, которое не является ключом OpenPGP.\n\nВы уверены, что хотите попробовать импортировать это содержимое?";
 ImportRandomData_Yes = "Попытаться импортировать";
 ImportRandomData_No = "Отмена";
 
-ImportNonImportable_Title = "Warning: Content can probably not be imported.";
+ImportNonImportable_Title = "Warning: Content can probably not be imported";
 ImportNonImportable_Msg = "Кажется, вы пытаетесь импортировать подписанное или зашифрованное сообщение.\n\nПодобные сообщения не могут быть импортированы в связку ключей GPG.\n\nВместо этого, пожалуйста, попробуйте расшифровать или проверить сообщение в вопросе с GPGServices.";
 ImportNonImportable_Yes = "Попытаться импортировать";
 ImportNonImportable_No = "Отмена";
 
 
+
+/* Results */
+UploadSuccess_Title = "Successfully sent";
+UploadSuccess_Msg = "The following public keys have been sent to the key servers:\n\n%@\n\nPlease allow some time for the change to be synced across existing key servers.";
+
+ExportSuccess_Title = "Export successful";
+ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
+
+
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "You have imported the key \n\n%@";
-IMPORT_RESULT_NEW_KEYS = "You have imported the keys \n\n%@";
+IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "The following keys were successfully imported:\n\n%@";
 
 IMPORT_RESULT_NEW_USER_ID = "A user ID was added to key(s) \n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "Подпись была добавлена в ключ/ключи\n\n%@";
@@ -229,33 +278,27 @@ IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 ключ был обработа
 IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i ключ был обработан и 1 импортирован.";
 IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i ключей было обработано и %2$i импортировано.";
 
+IMPORT_RESULT_NOTHING_IMPORTED = "No keys imported.";
 
 /* Errors */
-ImportKeyError_Title = "Ошибка импорта одного или нескольких ключей!";
-ImportKeyError_Msg = "Часто ключи не могут быть импортированы из-за отсутствия самоподписи. Пожалуйста, посетите https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature для более подробной информации и шагов как решить эту проблему.";
-ImportKeyErrorPGP_Title = "Ошибка импорта!";
+"Details:" = "Details:";
+ImportKeyError_Title = "Failed to import one or more keys";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyErrorPGP_Title = "Import Failed";
 ImportKeyErrorPGP_Msg = "Кажется, вы пытаетесь импортировать зашифрованное или подписанное сообщение. Для расшифровки или проверки таких сообщений, пожалуйста, используйте GPGServices.";
-ImportKeyErrorNoPGP_Title = "Ошибка импорта!";
+ImportKeyErrorNoPGP_Title = "Import failed";
 ImportKeyErrorNoPGP_Msg = "Похоже, что импортируемые данные не являются PGP-данными. Их невозможно обработать.";
 
-NO_SECRET_KEY_TITLE = "Секретный ключ не найден!";
+NO_SECRET_KEY_TITLE = "No secret key found";
 NO_SECRET_KEY_MESSAGE = "Для выполнения этой операции вам нужен секретный ключ.";
 
-/* The Algorithms */
-GPG_RSAAlgorithm = "RSA";
-GPG_RSAEncryptOnlyAlgorithm = "RSA-E";
-GPG_RSASignOnlyAlgorithm = "RSA-S";
-GPG_ElgamalEncryptOnlyAlgorithm = "ELG-E";
-GPG_DSAAlgorithm = "DSA";
-GPG_EllipticCurveAlgorithm = "EllipticCurve";
-GPG_ECDSAAlgorithm = "ECDSA";
-GPG_ElgamalAlgorithm = "ELG";
-GPG_DiffieHellmanAlgorithm = "DiffieHellman";
+KeyserverSearchError_Title = "Searching for key failed";
+KeyserverSearchError_Msg = "Please repeat your search and see if it works then. Should the problem persist, file a support request via System Preferences > GPG Suite > Send Report. Please copy the entire error message into the description field and add the search term you used for your query. We recommend to include the debug log, since that provides additional helpful information to solve your problem.";
+
 
 
 /* In Main Window */
 "%i of %i keys listed" = "показано %i из %i ключей";
-
 
 
 
@@ -310,7 +353,6 @@ MinimizeKey_Error = "Минимизация ключа не удалась.";
 GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate…";
 GenerateRevokeCertificateForKey_Error = "Генерация сертификата отзыва не удалась.";
 SearchKeysOnServer_Progress = "Searching for key…";
-SearchKeysOnServer_Error = "Ошибка поиск ключа.";
 SendKeysToServer_Progress = "Sending %@ to server…";
 SendKeysToServer_Error = "Отправка не удалась.";
 RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
@@ -349,4 +391,10 @@ ReceiveKeysFromServer_Error = "Получение ключей не удалос
 RevokeKey_Progress = "Revoking key…";
 RevokeKey_Error = "Аннулирование ключа не удалось.";
 
+
+SendToKeyserver_MenuItem = "Send to Key Server";
+SendPublicKeyToKeyserver_MenuItem = "Send Public Key to Key Server";
+
+FilterNoResults = "The local search for '%@' has no results.";
+FilterNoResultsSecOnly = "The local search for '%@' has no results.\nConsider disabling the option to 'Show secret keys only' to expand the search.";
 

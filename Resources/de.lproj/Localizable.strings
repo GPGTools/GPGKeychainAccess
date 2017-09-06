@@ -24,8 +24,9 @@ SecretAndPublicKeyListing = "Geheime Schlüssel:\n\n%@\n\nÖffentliche Schlüsse
 /* For export, as standard File-Name. */
 "untitled" = "unbenannt";
 "%@ Revoke certificate" = "%@ Widerrufszertifikat";
-"Exported keys.asc" = "Exportierte Schlüssel.asc";
 ExportKeysFilename = "%@ %u OpenPGP Schlüssel";
+ExportPublicKeyFilename = "%@ – Öffentlich";
+ExportSecretKeyFilename = "%@ – Geheim";
 
 
 /* For key creation */
@@ -41,21 +42,21 @@ CheckAlert_PassphraseSimple_Title = "Einfaches Passwort";
 CheckAlert_PassphraseSimple_Message = "Das eingegebene Passwort ist zu einfach. Ein gutes Passwort sollte Buchstaben, Ziffern und wenigstens ein Sonderzeichen enthalten.";
 CheckAlert_PassphraseSimple_Button1 = "Mit einfachem Passwort fortfahren";
 CheckAlert_PassphraseSimple_Button2 = "Neues Passwort eingeben";
-CheckAlert_PassphraseToLong_Title = "Zu langes Passwort";
-CheckAlert_PassphraseToLong_Message = "Das eingegebene Passwort ist zu lang. Gib ein Passwort mit weniger als 300 Zeichen ein.";
+CheckAlert_PassphraseTooLong_Title = "Zu langes Passwort";
+CheckAlert_PassphraseTooLong_Message = "Das eingegebene Passwort ist zu lang. Gib ein Passwort mit weniger als 300 Zeichen ein.";
 
 
 MoveSecring_Msg = "Deine geheimen Schlüssel befinden sich aktuell auf \"%@\".\nUm deine geheimen Schlüssel auf einen anderen Datenträger zu verschieben, wählen Sie unten das Zielvolumen aus.";
 
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "Keine Schlüssel gefunden";
-KeySearch_ImportResults_Title = "Ergebnisse des Imports";
+KeySearch_ImportResults_Title = "Import successful";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), erstellt: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Es wird, auf dem Schlüsselserver, nach passenden Schlüsseln gesucht. Die kann einige Zeit in anspruch nehmen.";
 
 GenerateKey_Progress = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
-GenerateSubkey_Msg = "Zusätzlichen Unterschlüssel für den Schlüssel „%@“, %@ anlegen.";
-GenerateUserID_Msg = "Zusätzliche Benutzer-ID für den Schlüssel „%@“, %@ anlegen.";
+GenerateSubkey_Msg = "Unterschlüssel zu folgenden Schlüssel hinzufügen:\n%@%@";
+GenerateUserID_Msg = "E-Mail Adresse (Benutzer ID) zu folgendem Schlüssel hinzufügen:\n%@%@";
 GenerateSignature_Msg = "Mit dem Signieren eines Schlüssels beglaubigst du die Identität des Schlüssel-Besitzers. Du bestätigst, dass er wirklich der ist, der er vorgibt zu sein. Wenn du die Signatur auf die Schlüsselserver hochgelädst, ist sie für andere sichtbar.\n\nBeispiel: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel, den sie von Bob hat, wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass der fragliche Schlüssel wirklich von Bob ist.\n\nFolgender Schlüssel wird signiert:\n%@";
 GenerateUidSignature_Msg = "Mit dem Signieren einer Benutzer-ID beglaubigst du die Identität des Schlüssel-Besitzers. Du bestätigst, dass er wirklich der ist, der er vorgibt zu sein. Wenn du die Signatur auf die Schlüsselserver hochgelädst, ist sie für andere sichtbar.\n\nBeispiel: Du signierst die Benutzer-ID von Bob. Deine Freundin Alice ist sich nicht sicher, ob der Schlüssel, den sie von Bob hat, wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass die Benutzer-ID wirklich zu Bob gehört.\n\nFolgender Schlüssel wird signiert:\n%@";
 ChangeExpirationDate_Msg = "Ändern des Verfalldatums von „%@“, %@";
@@ -64,10 +65,8 @@ ChangeSubkeyExpirationDate_Msg = "Verfallsdatum ändern von \"%2$@\", %3$@\nUnte
 GenerateKey_Error = "Ups, da ging was schief. Es gab ein Problem bei der Erstellung deines Schlüssels.";
 
 /* Message for incorrect Entries */
-CheckError_NameToShort = "Der Name muss mindestens 5 Zeichen lang sein!";
 CheckError_NameToLong = "Der Name ist zu lang!";
 CheckError_InvalidCharInName = "Ungültiges Zeichen im Namen!\n„<“ und „>“ sind nicht erlaubt.";
-CheckError_NameStartWithDigit = "Der Name darf nicht mit einer Zahl beginnen!";
 CheckError_InvalidEmail = "Die E-Mail-Adresse ist ungültig!";
 CheckError_EmailToLong = "E-mail-Adresse ist zu lang!\nMax Länge ist 254 Zeichen.";
 CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n„(“ und „)“ sind nicht erlaubt.";
@@ -78,15 +77,15 @@ CheckError_PassphraseMissmatch = "Falsches Passwort eingegeben!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG nicht gefunden";
-GPG_NOT_FOUND_MESSAGE = "Ups, da läuft was schief. Anscheinend fehlt auf deinem System GPG. Bitte lade und installiere die GPG Suite erneut von https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG Konfigurationsfehler";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, da läuft was schief. GPG wurde auf deinem System gefunden, aber es gibt ein Problem mit der config Datei. Bitte kontaktiere uns unter https://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg wurde nicht gefunden";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg wurde auf deinem System nicht gefunden. Bitte lade und installiere GPG Suite von https://www.gpgtools.org.";
-CODE_SIGN_ERROR_TITLE = "Jemand hat die Installation von GPG Keychain verändert!";
-CODE_SIGN_ERROR_MESSAGE = "Um dich zu schützen, wird GPG Keychain nun beendet!\n\nBitte lade und installiere GPG Suite von https://gpgtools.org um sicherzustellen, dass du eine Originalversion von uns hast!";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
+CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
 UNKNOWN_GPG_ERROR_TITLE = "Unbekannter GPG-Fehler";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, da ist etwas schief gegangen. GPG hat einen unbekannten Fehler ausgeworfen. Bitte kontaktieren Sie uns unter https://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
@@ -99,12 +98,12 @@ MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-st
 MailKey_Progress = "Neue E-Mail wird erstellt ...";
 MailKey_Progress_Your = "Neue E-Mail wird erstellt ...";
 MailKey_Error = "Ups, da ging was schief. Es gab ein Problem beim Export deines Schlüssels.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unbrauchbarer Schlüssel ausgewählt!";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unbenutzbarer Schlüssel ausgewählt";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du hast einen unbenutzbaren Schlüssel ausgewählt. Der Schlüssel kann daher nicht per E-Mail versendet werden. Bitte aktualisiere den Schlüssel vom Schlüsselserver, um eventuelle Updates des Schlüssels zu erhalten.\n\nAndernfalls setzte dich mit dem Eigentümer des Schlüssel in Verbindung und informiere ihn über den Schlüsselstatus.\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "Einer oder mehrere Schlüssel wurden in deiner Zwischenablage gefunden.";
+PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
 PasteboardKeyFound_Msg = "%@\n\nMöchtest du den Schlüssel importieren?";
 PasteboardKeyFound_Yes = "Importieren";
 PasteboardKeyFound_No = "Abbrechen";
@@ -121,11 +120,11 @@ Cancel = "Abbrechen";
 /* Warnings */
 RemoveUserID_Title = "Benutzer-ID löschen";
 RemoveUserID_Msg = "Du willst Die Benutzer-ID %@ aus Deinem Schlüssel %@ löschen. Nach dem Löschen kann dieser Schlüssel nicht mehr mit der zugehörigen E-Mail-Adresse in Mail benutzt werden.\n\nFalls der Schlüssel bereits auf einem Schlüsselserver hinterlegt war, wird die Benutzer-ID aus den dort nicht gelöscht. Bitte widerrufe die Benutzer-ID stattdessen und lade danach den Schlüssel erneut auf den Schlüsselserver hoch";
-RemoveUserID_Yes = "Benutzer-ID löschen";
+RemoveUserID_Yes = "Benutzer-ID entfernen";
 RemoveUserID_No = "Abbrechen";
 
-RevokeUserID_Title = "Benutzer-ID widerrufen";
-RevokeUserID_Msg = "Du willst Die Benutzer-ID %@ aus Deinem Schlüssel %@ widerrufen. Nach dem Widerruf kann dieser Schlüssel nicht mehr mit der zugehörigen E-Mail-Adresse in Mail benutzt werden.\n\nFalls der Schlüssel bereits auf einem Schlüsselserver hinterlegt war, lade den Schlüssel anschließend erneut auf den Schlüsselserver hoch. Nur dann wird der Widerruf auch auf dem hinterlegten Schlüssel sichtbar.";
+RevokeUserID_Title = "Warning: You are about to revoke a user ID";
+RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
 RevokeUserID_Yes = "Benutzer-ID widerrufen";
 RevokeUserID_No = "Abbrechen";
 
@@ -134,8 +133,8 @@ RemoveSubkey_Msg = "Achtung! Bitte fahre nur fort, wenn Du genau weißt, was du 
 RemoveSubkey_Yes = "Unterschlüssel entfernen";
 RemoveSubkey_No = "Abbrechen";
 
-RevokeSubkey_Title = "Unterschlüssel widerrufen";
-RevokeSubkey_Msg = "Achtung! Bitte fahre nur fort, wenn Du genau weißt, was du machst.\n\nDer Widerruf eines Unterschlüssels kann den Schlüssel zum Signieren unbrauchbar machen, und Andere können mit diesem Schlüssel keine Nachrichten mehr verschlüsseln.\n\nFalls der Schlüssel mit diesem Unterschlüssel auf den Schlüsselservern existiert,  lade den Schlüssel nach dem Widerruf auf den Schlüsselserver. Nur dann wird der Widerruf auf dem Schlüsselserver sichtbar.";
+RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
+RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nOnce revoked, you will be unable to sign and encrypt messages using this subkey and others will not be able to encrypt messages to this subkey. The revoked subkey can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "Unterschlüssel widerrufen";
 RevokeSubkey_No = "Abbrechen";
 
@@ -160,15 +159,56 @@ RevokeLastSelfSignature_Yes = "Signatur widerrufen";
 RevokeLastSelfSignature_No = "Abbrechen";
 
 RevokeKey_Title = "Warnung: Du bist dabei, einen Schlüssel zu widerrufen";
-RevokeKey_Msg = "Du willst den Schlüssel %@ widerrufen.\n\nSobald der Schlüssel widerrufen ist, kannst du damit keine Nachrichten mehr signieren und Andere können Nachrichten an Dich mit diesem Schlüssel nicht mehr verschlüsseln. Du kannst deinen widerrufenen Schlüssel weiterhin zum Entschlüsseln von Nachrichten verwenden, die zuvor mit deinem Schlüssel verschlüsselt wurden.\n\nDu solltest daher den widerrufenen Schlüssel im GP-Schlüsselbund behalten.\n\nDamit Andere erfahren, dass Dein Schlüssel widerrufen wurde, solltest Du den widerrufenen Schlüssel auf den Schlüsselserver laden.\n\nWillst du diesen Schlüssel widerrufen?";
-RevokeKey_Upload = "Widerrufenen Schlüssel hochladen";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Schlüssel widerrufen";
 RevokeKey_No = "Abbrechen";
 
-OpenWithGPGServices_Title = "Du versucht eine OpenPGP Nachricht zu importieren, die kein Schlüssel ist.";
+OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key";
 OpenWithGPGServices_Msg = "Um diese Nachricht zu entschlüsseln oder verifizieren, kannst du sie an GPGServices weiterleiten.";
 OpenWithGPGServices_Yes = "GPGServices öffnen";
 OpenWithGPGServices_No = "Abbrechen";
+
+FirstUploadForeignKey_Title = "Public key not allowed on key servers";
+FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers:\n\n%@\n\nSome key owners intentionally do not upload their public key. In order to respect that decision, you can not upload this public key. In case you think this is an error, please get in touch with the key owner.";
+
+
+NewKeyWantToUpload_Title = "Ihr Schlüssel wurde erfolgreich erstellt";
+NewKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to find your public key and start communicating with you securely – encrypt messages for you and verify the authenticity of your messages – it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
+NewKeyWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
+NewKeyWantToUpload_No = "Nein, danke!";
+
+NewUserIDWantToUpload_Title = "Your new email address (user ID) was added successfully";
+NewUserIDWantToUpload_Msg = "In order for others to be able to use your new email address (user ID), it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your updated public key?";
+NewUserIDWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
+NewUserIDWantToUpload_No = "Nein, danke!";
+
+NewSubkeyWantToUpload_Title = "You have successfully added a subkey";
+NewSubkeyWantToUpload_Msg = "In order for others to be able to use your new subkey, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
+NewSubkeyWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
+NewSubkeyWantToUpload_No = "Nein, danke!";
+
+ExpirationDateChangedWantToUpload_Title = "You have successfully changed the expiration date";
+ExpirationDateChangedWantToUpload_Msg = "In order for others to be able to see the new expiration date, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
+ExpirationDateChangedWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
+ExpirationDateChangedWantToUpload_No = "Nein, danke!";
+
+RevokedKeyWantToUpload_Title = "Your key was successfully revoked";
+RevokedKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your revoked public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that it is now revoked and no longer to be used. You can email them the revoked public key so they can import it into their key manager.\n\nDo you want to upload your revoked public key?";
+RevokedKeyWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
+RevokedKeyWantToUpload_No = "Nein, danke!";
+
+RevokedUserIDWantToUpload_Title = "Your user ID was successfully revoked";
+RevokedUserIDWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the user ID is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
+RevokedUserIDWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
+RevokedUserIDWantToUpload_No = "Nein, danke!";
+
+RevokedSubkeyWantToUpload_Title = "Your subkey was successfully revoked";
+RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your subkey, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the subkey is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
+RevokedSubkeyWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
+RevokedSubkeyWantToUpload_No = "Nein, danke!";
+
+
+
 
 
 /* Delete warnings */
@@ -179,14 +219,14 @@ DeleteKey_No = "Abbrechen";
 
 DeleteSecKey_Title = "Warnung: Du willst öffentliche(n) und private(n) Schlüssel löschen";
 DeleteSecKey_Msg = "Du willst folgende(n) Schlüssel zu löschen:\n\n%@\n\nDas Löschen eines geheimen Schlüssels hat erhebliche Folgen. Ohne geheimen Schlüssel kannst Du keine Nachrichten mehr entschlüsseln, die mit dem entsprechenden öffentlichen Schlüssel verschlüsselt wurden.\n\nWir raten, den Schlüssel nicht zu löschen.\n\nDamit Andere erfahren, dass dieser Schlüssel nicht mehr nutzt wird, solltest Du ihn nicht löschen sondern widerrufen und anschließend auf den Schlüsselserver hochladen. Andernfalls könnten Andere weiterhin Nachrichten mit diesem Schlüssel verschlüssseln.";
-DeleteSecKey_Checkbox = "Ja, ich will meinen geheimen Schlüssel löschen und verstehe, dass ich danach nicht mehr in der Lage sein werde, Nachrichten mit diesem Schlüssel zu entschlüsseln";
+DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Schlüssel löschen";
 DeleteSecKey_SecOnly = "Nur geheime(n) Schlüssel löschen";
 DeleteSecKey_No = "Abbrechen";
 
 DeleteRevokedSecKey_Title = "Warnung: Du willst widerrufen(e) Schlüsselpaar(e) löschen";
 DeleteRevokedSecKey_Msg = "Du willst folgende widerrufene Schlüssel löschen:\n\n%@\n\nWiderrufene Schlüssel können weiter verwendet werden, um alte Nachrichten zu entschlüsseln.\n\nWir raten, den Schlüssel nicht zu löschen.";
-DeleteRevokedSecKey_Checkbox = "Ja, ich will meinen geheimen Schlüssel löschen und verstehe, dass ich danach nicht mehr in der Lage sein werde, Nachrichten mit diesem Schlüssel zu entschlüsseln.";
+DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteRevokedSecKey_Yes = "Schlüssel löschen";
 DeleteRevokedSecKey_SecOnly = "Nur geheime(n) Schlüssel löschen";
 DeleteRevokedSecKey_No = "Abbrechen";
@@ -203,20 +243,29 @@ ImportRevSig_Msg = "Du willst ein Widerrufszertifikat für %@ importieren. Sobal
 ImportRevSig_Yes = "Importieren";
 ImportRevSig_No = "Abbrechen";
 
-ImportRandomData_Title = "Warnung: Inhalt kann voraussichtlich nicht importiert werden";
+ImportRandomData_Title = "Warning: Content can probably not be imported";
 ImportRandomData_Msg = "Es scheint, als würden Sie versuchen, etwas zu importieren, was kein OpenPGP-Schlüssel ist.\n\nSind Sie sicher, dass Sie versuchen möchten, diesen Inhalt zu importieren?";
 ImportRandomData_Yes = "Import versuchen";
 ImportRandomData_No = "Abbrechen";
 
-ImportNonImportable_Title = "Warnung: Inhalt kann voraussichtlich nicht importiert werden";
+ImportNonImportable_Title = "Warning: Content can probably not be imported";
 ImportNonImportable_Msg = "Du versuchst anscheinend eine signierte oder verschlüsselte Nachricht zu importieren.\n\nSolche Nachrichten können nicht in GPG Keychain importiert werden.\n\nStattdessen kannst du die Nachricht mit GPGServices entschlüsseln oder verifizieren.";
 ImportNonImportable_Yes = "Import versuchen";
 ImportNonImportable_No = "Abbrechen";
 
 
+
+/* Results */
+UploadSuccess_Title = "Erfolgreich gesendet";
+UploadSuccess_Msg = "The following public keys have been sent to the key servers:\n\n%@\n\nPlease allow some time for the change to be synced across existing key servers.";
+
+ExportSuccess_Title = "Export successful";
+ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
+
+
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "Du hast folgende Schlüssel importiert\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "Du hast folgende Schlüssel importiert:\n\n%@";
+IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "The following keys were successfully imported:\n\n%@";
 
 IMPORT_RESULT_NEW_USER_ID = "Benutzer-ID zu folgendem/n Schlüssel(n) hinzugefügt\n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "Eine Signatur wurde zum Schlüssel/zu den Schlüsseln hinzugefügt \n\n%@";
@@ -229,33 +278,27 @@ IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 Schlüssel wurde verarbeitet und
 IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i Schlüssel wurden verarbeitet und 1 importiert.";
 IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i Schlüssel wurden verarbeitet und %2$i importiert.";
 
+IMPORT_RESULT_NOTHING_IMPORTED = "Keine Schlüssel importiert.";
 
 /* Errors */
-ImportKeyError_Title = "Importieren von einem oder mehreren Schlüsseln fehlgeschlagen!";
-ImportKeyError_Msg = "Oft können Schlüssel nicht importiert werden, weil eine Eigenbeglaubigung fehlt. Der folgenden KB-Artikel beschreibt, was du bei diesem Problem tun kannst: https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature";
-ImportKeyErrorPGP_Title = "Importieren fehlgeschlagen!";
+"Details:" = "Details:";
+ImportKeyError_Title = "Failed to import one or more keys";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyErrorPGP_Title = "Importieren fehlgeschlagen";
 ImportKeyErrorPGP_Msg = "Du versuchst anscheinend eine signierte oder verschlüsselte Nachricht zu importieren. Solche Nachrichten können nicht in GPG Keychain importiert werden. Stattdessen kannst du die Nachricht mit GPGServices entschlüsseln oder verifizieren.";
-ImportKeyErrorNoPGP_Title = "Importieren fehlgeschlagen!";
+ImportKeyErrorNoPGP_Title = "Importieren fehlgeschlagen";
 ImportKeyErrorNoPGP_Msg = "Es scheint als versuchen Sie Daten zu importieren, die keine OpenPGP-Daten sind und daher nicht verarbeitet werden können.";
 
-NO_SECRET_KEY_TITLE = "Kein geheimer Schlüssel gefunden!";
+NO_SECRET_KEY_TITLE = "Kein geheimer Schlüssel gefunden";
 NO_SECRET_KEY_MESSAGE = "Sie benötigen einen geheimen Schlüssel, um diese Operation auszuführen.";
 
-/* The Algorithms */
-GPG_RSAAlgorithm = "RSA";
-GPG_RSAEncryptOnlyAlgorithm = "RSA-E";
-GPG_RSASignOnlyAlgorithm = "RSA-S";
-GPG_ElgamalEncryptOnlyAlgorithm = "ELG-E";
-GPG_DSAAlgorithm = "DSA";
-GPG_EllipticCurveAlgorithm = "Elliptische Kurve";
-GPG_ECDSAAlgorithm = "ECDSA";
-GPG_ElgamalAlgorithm = "ELG";
-GPG_DiffieHellmanAlgorithm = "DiffieHellman";
+KeyserverSearchError_Title = "Suchvorgang nach Schlüssel fehlgeschlagen";
+KeyserverSearchError_Msg = "Please repeat your search and see if it works then. Should the problem persist, file a support request via System Preferences > GPG Suite > Send Report. Please copy the entire error message into the description field and add the search term you used for your query. We recommend to include the debug log, since that provides additional helpful information to solve your problem.";
+
 
 
 /* In Main Window */
 "%i of %i keys listed" = "%i von %i Schlüsseln angezeigt";
-
 
 
 
@@ -310,7 +353,6 @@ MinimizeKey_Error = "Minimieren des Schlüssels fehlgeschlagen.";
 GenerateRevokeCertificateForKey_Progress = "Erzeuge Widerrufszertifikat…";
 GenerateRevokeCertificateForKey_Error = "Erzeugen des Widerrufszertifikats fehlgeschlagen.";
 SearchKeysOnServer_Progress = "Suche Schlüssel…";
-SearchKeysOnServer_Error = "Suchvorgang nach Schlüssel fehlgeschlagen.";
 SendKeysToServer_Progress = "Sende %@ an Schlüsselserver…";
 SendKeysToServer_Error = "Senden des Schlüssels fehlgeschlagen.";
 RefreshKeysFromServer_Progress = "Aktualisiere %@ vom Schlüsselserver…";
@@ -331,7 +373,7 @@ RevokeUserID_Progress = "Widerrufe Benutzer-ID…";
 RevokeUserID_Error = "Widerrufen der Benutzer-ID fehlgeschlagen.";
 AddPhoto_Progress = "Füge Foto hinzu…";
 AddPhoto_Error = "Hinzufügen des Fotos fehlgeschlagen.";
-AddPhoto_SelectMessage = "Choose photo…";
+AddPhoto_SelectMessage = "Foto auswählen …";
 RemovePhoto_Progress = "Entferne Foto…";
 RemovePhoto_Error = "Entfernen des Fotos fehlgeschlagen.";
 SetPrimaryPhoto_Progress = "Setze primäres Foto…";
@@ -349,4 +391,10 @@ ReceiveKeysFromServer_Error = "Empfangen der Schlüssel fehlgeschlagen.";
 RevokeKey_Progress = "Widerrufe Schlüssel…";
 RevokeKey_Error = "Widerrufen des Schlüssels fehlgeschlagen.";
 
+
+SendToKeyserver_MenuItem = "An Schlüsselserver senden";
+SendPublicKeyToKeyserver_MenuItem = "Öffentlichen Schlüssel an Schlüsselserver senden";
+
+FilterNoResults = "The local search for '%@' has no results.";
+FilterNoResultsSecOnly = "The local search for '%@' has no results.\nConsider disabling the option to 'Show secret keys only' to expand the search.";
 
