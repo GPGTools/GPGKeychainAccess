@@ -617,19 +617,16 @@ static NSString * const actionKey = @"action";
 
 	
 	
-	if (NSAppKitVersionNumber < 1187) {
-		// Mac OS X < 10.8 doesn't have NSSharingService. Let's use a mailto: link and add the key-block as normal text.
-		
-		message = [message stringByAppendingFormat:@"\n\n\n%@\n", [data gpgString]];
-		message = [message stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		subject = [subject stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		
-		NSString *mailto = [NSString stringWithFormat:@"mailto:?subject=%@&body=%@", subject, message];
-		
-		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:mailto]];
-		
-	} else {
-		// On Mac OS X 10.8 and higher, we use NSSharingService, to create an email, with an attached key-file.
+	NSString *emailApp = @"";
+	if (NSAppKitVersionNumber >= 1343) {
+		NSURL *mailtoURL = [NSURL URLWithString:@"mailto:"];
+		NSURL *appURL = CFBridgingRelease(LSCopyDefaultApplicationURLForURL((__bridge CFURLRef)mailtoURL, kLSRolesAll, nil));
+		emailApp = appURL.lastPathComponent;
+	}
+	
+	
+	if ([emailApp isEqualToString:@"Mail.app"]) {
+		// Use NSSharingService, to create an email, with an attached key-file.
 		NSString *templateString = [NSTemporaryDirectory() stringByAppendingPathComponent:@"GKA.XXXXXX"];
 		NSMutableData *template = [[templateString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
 		
@@ -652,7 +649,20 @@ static NSString * const actionKey = @"action";
 		
 		[service setValue:@{@"NSSharingServiceParametersDefaultSubjectKey": subject} forKey:@"parameters"];
 		[service performWithItems:@[message, url]];
+		
+	} else {
+		// Use a mailto: link and add the key-block as normal text.
+		message = [message stringByAppendingFormat:@"\n\n\n%@\n", [data gpgString]];
+		message = [message stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		subject = [subject stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		
+		NSString *mailto = [NSString stringWithFormat:@"mailto:?subject=%@&body=%@", subject, message];
+		
+		[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:mailto]];
+		
 	}
+
+	
 }
 - (void)checkPasteboardChanges {
 	// This method only works on OS X >= 10.9.
