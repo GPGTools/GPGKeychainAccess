@@ -303,7 +303,7 @@ DQ
             <rect key="frame" x="0.0" y="0.0" width="428" height="42"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button translatesAutoresizingMaskIntoConstraints="NO" id="822">
+                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="822">
                     <rect key="frame" x="101" y="12" width="227" height="18"/>
                     <string key="toolTip">If this option is enabled, not only your public key, but your secret key as well, will be exported. The resulting file will include both your public and secret key.
 NOTE: Your secret key must not be shared with others. Only use this option for backup or tranfer purposes.</string>
@@ -317,10 +317,14 @@ NOTE: Your secret key must not be shared with others. Only use this option for b
                 </button>
             </subviews>
             <constraints>
+                <constraint firstItem="822" firstAttribute="top" secondItem="819" secondAttribute="top" constant="14" id="6oO-b3-VFF"/>
+                <constraint firstItem="822" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="819" secondAttribute="leading" constant="20" id="Jla-u3-ps4"/>
                 <constraint firstItem="822" firstAttribute="centerX" secondItem="819" secondAttribute="centerX" id="cJ1-Wu-Cxp"/>
+                <constraint firstAttribute="bottom" secondItem="822" secondAttribute="bottom" constant="14" id="lyP-xR-ifD"/>
                 <constraint firstItem="822" firstAttribute="centerY" secondItem="819" secondAttribute="centerY" id="ugd-ix-kEV"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="822" secondAttribute="trailing" constant="20" id="vjb-Me-OMM"/>
             </constraints>
-            <point key="canvasLocation" x="42" y="355"/>
+            <point key="canvasLocation" x="-688" y="47"/>
         </customView>
         <customView id="941" userLabel="Found Keys">
             <rect key="frame" x="0.0" y="0.0" width="653" height="300"/>
