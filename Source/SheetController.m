@@ -425,16 +425,19 @@ modalWindow, foundKeyDicts, hideExtension;
 		filename = self.pattern ? self.pattern : @"";
 	}
 	
-	__block NSView *accessoryView = nil;
-	[keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
-		if (key.secret) {
-			accessoryView = _exportKeyOptionsView;
-			*stop = YES;
-		}
-	}];
+    // If the user is trying to export key,
+    // and it is a key pair, display a checkbox to let the user choose
+    // whether they want to export the secret key as well or not.
+    __block NSView *accessoryView = nil;
+    if(self.sheetType == SheetTypeExportKey) {
+        [keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
+            if (key.secret) {
+                accessoryView = _exportKeyOptionsView;
+                *stop = YES;
+            }
+        }];
+    }
 
-
-	
 	NSSavePanel *panel = [NSSavePanel savePanel];
 	
 	if ([panel respondsToSelector:@selector(setShowsTagField:)]) {
