@@ -25,9 +25,18 @@
 - (NSArray *)keyserversInPlist;
 @end
 
+
+
+@interface PreferencesController ()
+@property (nonatomic, strong) GPGController *gpgc;
+@end
+
+
 @implementation PreferencesController
 @synthesize window;
 @synthesize keyserverToCheck;
+@synthesize testingServer;
+@synthesize gpgc;
 static PreferencesController *_sharedInstance = nil;
 
 
@@ -228,23 +237,57 @@ static PreferencesController *_sharedInstance = nil;
 }
 
 - (IBAction)checkKeyserver:(id)sender {
-    // We can't use self.options.keyserver anymore, since setting this value
-    // will update gpg.conf which doesn't make sense if the keyserver can't be used.
-    //NSString *keyserver = self.options.keyserver;
-    NSString *keyserver = self.keyserverToCheck;
-    if(!keyserver)
-        keyserver = self.keyserver;
-    
-	GPGController *gpgc = [GPGController gpgController];
-	gpgc.keyserver = keyserver;
-	gpgc.async = YES;
-	gpgc.delegate = self;
-	gpgc.keyserverTimeout = 3;
-	gpgc.timeout = 3;
+	if (!self.keyserverToCheck) {
+		return;
+	}
+	if (self.testingServer) {
+		[self.gpgc cancel];
+	}
+	
+	// We can't use options.keyserver anymore, since setting this value
+	// will update gpg.conf which doesn't make sense if the keyserver can't be used.
+	self.gpgc = [GPGController gpgController];
+	self.gpgc.keyserver = self.keyserverToCheck;
+	self.gpgc.delegate = self;
+	self.gpgc.keyserverTimeout = 3;
+	[spinner startAnimation:nil];
 	self.testingServer = YES;
 	
-	[gpgc testKeyserver];
+	[self.gpgc testKeyserver];
 }
+- (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
+	// Result of the keyserer test.
+	
+	if (gc != self.gpgc) {
+		// It's not the result of the latest test.
+		return;
+	}
+	
+	dispatch_async(dispatch_get_main_queue(), ^{
+		self.testingServer = NO;
+	});
+	self.keyserverToCheck = nil;
+	
+	if (![value boolValue]) {
+		[self.options removeKeyserver:gc.keyserver];
+		
+		[[SheetController sharedInstance] alertSheetForWindow:window
+												  messageText:localized(@"BadKeyserver_Title")
+													 infoText:localized(@"BadKeyserver_Msg")
+												defaultButton:nil
+											  alternateButton:nil
+												  otherButton:nil
+											suppressionButton:nil];
+	} else {
+		// The server passed the check.
+		// Set it as default keyserver.
+		self.options.keyserver = gc.keyserver;
+	}
+}
+
+
+
+
 + (NSSet*)keyPathsForValuesAffectingCanRemoveKeyserver {
 	return [NSSet setWithObjects:@"keyserver", nil];
 }
@@ -278,64 +321,12 @@ static PreferencesController *_sharedInstance = nil;
     return [self.options keyservers];
 }
 
-static NSString * const kKeyserver = @"keyserver";
-
 - (NSString *)keyserver {
-    return !self.keyserverToCheck ? [self.options valueForKey:kKeyserver] : self.keyserverToCheck;
+    return !self.keyserverToCheck ? self.options.keyserver : self.keyserverToCheck;
 }
 
 - (void)setKeyserver:(NSString *)keyserver {
     self.keyserverToCheck = keyserver;
-}
-- (void)updateKeyserver:(NSString *)keyserver {
-    // This method is only called if the keyserver is in fact usable,
-    // since otherwise an invalid keyserver would be stored in gpg.conf
-    
-    // assign a server name to the "keyserver" option
-    [self.options setValue:keyserver forKey:kKeyserver];
-}
-
-- (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
-	// Result of the keyserer test.
-	dispatch_async(dispatch_get_main_queue(), ^{
-		self.testingServer = NO;
-	});
-	
-	if (![value boolValue]) {
-		[self.options removeKeyserver:gc.keyserver];
-		
-		[[SheetController sharedInstance] alertSheetForWindow:window
-												  messageText:localized(@"BadKeyserver_Title")
-													 infoText:localized(@"BadKeyserver_Msg")
-												defaultButton:nil
-											  alternateButton:nil
-												  otherButton:nil
-											suppressionButton:nil];
-	}
-	else {
-		// The keyserver is working, so let's define it as new default key server.
-        // updateKeyserver will also update gpg.conf
-        [self updateKeyserver:gc.keyserver];
-        
-        // If the keyserver is not already contained in the list of available keyservers,
-		// save it in the common defaults plist (org.gpgtools.common)
-		// Fetch the currently available keyservers.
-		NSArray *keyservers = [self keyservers];
-		if([keyservers containsObject:gc.keyserver])
-			return;
-		
-		// Not found in the currently available list, let's retrieve the keyservers
-		// currently available in common defaults and add the new keyserver.
-		NSArray *defaultKeyservers = [self.options valueInCommonDefaultsForKey:@"keyservers"];
-		NSMutableArray *updatedDefaultKeyservers = [NSMutableArray array];
-		if (defaultKeyservers.count) {
-			[updatedDefaultKeyservers addObjectsFromArray:defaultKeyservers];
-		}
-		if (gc.keyserver) {
-			[updatedDefaultKeyservers addObject:gc.keyserver];
-		}
-		[self.options setValueInCommonDefaults:updatedDefaultKeyservers forKey:@"keyservers"];
-	}
 }
 
 
@@ -347,17 +338,6 @@ static NSString * const kKeyserver = @"keyserver";
 }
 
 
-- (void)setTestingServer:(BOOL)testingServer {
-	_testingServer = testingServer;
-	if (testingServer) {
-		[spinner startAnimation:nil];
-	} else {
-		[spinner stopAnimation:nil];
-	}
-}
-- (BOOL)testingServer {
-	return _testingServer;
-}
 
 @end
 

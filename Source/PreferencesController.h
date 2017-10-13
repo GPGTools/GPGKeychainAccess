@@ -30,7 +30,6 @@
 	
 	NSView *view;
 	NSArray *topLevelObjects;
-	BOOL _testingServer;
 }
 
 @property (strong) IBOutlet NSWindow *window;
@@ -45,9 +44,9 @@
 // Before a keyserver is stored in gpg.conf it's first checked
 // if it works properly. The keyserverToCheck variable will hold
 // whatever value the user is seeing at the moment of the check.
-@property (strong) NSString *keyserverToCheck;
+@property (nonatomic, strong) NSString *keyserverToCheck;
 @property (readonly) BOOL canRemoveKeyserver;
-@property BOOL testingServer;
+@property (nonatomic) BOOL testingServer;
 
 @property (weak, readonly) NSString *secringPath;
 
