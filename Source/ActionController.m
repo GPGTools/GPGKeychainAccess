@@ -1515,45 +1515,42 @@ static NSString * const actionKey = @"action";
 	};
 	
 	
+	NSArray *publicKeys = [keys filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(GPGKey *key, NSDictionary *bindings) {
+		return !key.secret;
+	}]];
 	
-	if ([gpgc respondsToSelector:@selector(keysExistOnServer:callback:)]) {
-		NSArray *publicKeys = [keys filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(GPGKey *key, NSDictionary *bindings) {
-			return !key.secret;
-		}]];
+	if (publicKeys.count > 0 && [gpgc respondsToSelector:@selector(keysExistOnServer:callback:)]) {
+		cancelCallback cancelBlock = ^() {
+			canceled = YES;
+			[self.sheetController endProgressSheet];
+		};
 		
-		if (publicKeys.count > 0) {
-			cancelCallback cancelBlock = ^() {
-				canceled = YES;
-				[self.sheetController endProgressSheet];
+		NSString *cancelKey = [[NSProcessInfo processInfo] globallyUniqueString];
+		[cancelCallbacks setObject:[cancelBlock copy] forKey:cancelKey];
+		
+		self.sheetController.progressText = progressString;
+		[self.sheetController showProgressSheet];
+		[gpgc keysExistOnServer:publicKeys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
+			void (^block)() = ^{
+				[cancelCallbacks removeObjectForKey:cancelKey];
+				if (nonExistingKeys.count > 0) {
+					[self.sheetController endProgressSheet];
+					NSString *description = [self descriptionForKeys:nonExistingKeys maxLines:8 withOptions:0];
+					[self.sheetController errorSheetWithMessageText:localized(@"FirstUploadForeignKey_Title")
+													  infoText:localizedStringWithFormat(@"FirstUploadForeignKey_Msg", description)];
+				} else {
+					performUpload();
+				}
 			};
 			
-			NSString *cancelKey = [[NSProcessInfo processInfo] globallyUniqueString];
-			[cancelCallbacks setObject:[cancelBlock copy] forKey:cancelKey];
-			
-			self.sheetController.progressText = progressString;
-			[self.sheetController showProgressSheet];
-			[gpgc keysExistOnServer:publicKeys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
-				void (^block)() = ^{
-					[cancelCallbacks removeObjectForKey:cancelKey];
-					if (nonExistingKeys.count > 0) {
-						[self.sheetController endProgressSheet];
-						NSString *description = [self descriptionForKeys:nonExistingKeys maxLines:8 withOptions:0];
-						[self.sheetController errorSheetWithMessageText:localized(@"FirstUploadForeignKey_Title")
-														  infoText:localizedStringWithFormat(@"FirstUploadForeignKey_Msg", description)];
-					} else {
-						performUpload();
-					}
-				};
-				
-				if (!canceled) {
-					if ([NSThread isMainThread]) {
-						block();
-					} else {
-						dispatch_async(dispatch_get_main_queue(), block);
-					}
+			if (!canceled) {
+				if ([NSThread isMainThread]) {
+					block();
+				} else {
+					dispatch_async(dispatch_get_main_queue(), block);
 				}
-			}];
-		}
+			}
+		}];
 	} else {
 		performUpload();
 	}
