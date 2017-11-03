@@ -1074,8 +1074,12 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	NSSavePanel *panel = (id)_exportKeyOptionsView.window;
 	NSString *filename = panel.nameFieldStringValue;
 	
-	if ([_pubFilename isEqualToString:filename] || [_secFilename isEqualToString:filename]) {
-		panel.nameFieldStringValue = exportSecretKey ? _secFilename : _pubFilename;
+	NSString *basename = filename.stringByDeletingPathExtension;
+	NSString *extension = filename.pathExtension;
+	
+	if ([_pubFilename isEqualToString:basename] || [_secFilename isEqualToString:basename]) {
+		filename = [exportSecretKey ? _secFilename : _pubFilename stringByAppendingPathExtension:extension];
+		panel.nameFieldStringValue = filename;
 	}
 }
 
