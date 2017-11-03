@@ -878,6 +878,7 @@ static NSString * const actionKey = @"action";
 		if (gc.error) {
 			return;
 		}
+		[[KeychainController sharedInstance] selectKeys:[NSSet setWithObject:fingerprint]];
 		if ([self warningSheetWithDefault:NO string:@"NewKeyWantToUpload"]) {
 			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:fingerprint]);;
 			self.errorText = localized(@"SendKeysToServer_Error");
