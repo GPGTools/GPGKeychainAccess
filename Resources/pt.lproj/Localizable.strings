@@ -50,7 +50,7 @@ MoveSecring_Msg = "Suas chaves secretas estão armazenadas atualmente em “%@�
 
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "Nenhuma Chave Encontrada";
-KeySearch_ImportResults_Title = "Import successful";
+KeySearch_ImportResults_Title = "Importação Bem-sucedida";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), criação: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Buscando chaves correspondentes no servidor de chaves. Isso pode levar algum tempo. Aguarde.";
 
@@ -219,14 +219,14 @@ DeleteKey_No = "Cancelar";
 
 DeleteSecKey_Title = "Aviso: você está prestes a apagar chaves secretas e públicas.";
 DeleteSecKey_Msg = "Você está prestes a apagar as chaves:\n\n%@\n\nO apagamento de uma chave secreta tem consequências importantes. Depois de apagá‑la, não será mais possível decriptografar mensagens com a mesma. Isso envolve todas as mensagens criptografadas com esta chave.\n\nÉ recomendável que você não as apague.\n\nPara informar outras pessoas sobre o desuso da chave, é preferível revogar a chave (em vez de apagá‑la) e enviar a chave revogada aos servidores. Caso contrário, outras pessoas ainda poderão usar a chave para criptografar mensagens para você.";
-DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
+DeleteSecKey_Checkbox = "Sim, desejo apagar minha chave secreta e entendo que não poderei\nmais decriptografar as mensagens criptografadas com esta chave.";
 DeleteSecKey_Yes = "Apagar Chave(s)";
 DeleteSecKey_SecOnly = "Apagar Apenas Chave(s) Secreta(s)";
 DeleteSecKey_No = "Cancelar";
 
 DeleteRevokedSecKey_Title = "Aviso: você está prestes a apagar par(es) de chaves revogada(s).";
 DeleteRevokedSecKey_Msg = "Você está prestes a apagar o(s) seguinte(s) par(es) de chaves revogadas:\n\n%@\n\nChaves revogadas ainda podem decriptografar mensagens antigas criptografadas com essas chaves.\n\nÉ recomendável que você não as apague.";
-DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
+DeleteRevokedSecKey_Checkbox = "Sim, desejo apagar minha chave secreta e entendo que não poderei\nmais decriptografar as mensagens criptografadas com esta chave.";
 DeleteRevokedSecKey_Yes = "Apagar Par(es) de Chaves";
 DeleteRevokedSecKey_SecOnly = "Apagar Apenas Chave(s) Secreta(s)";
 DeleteRevokedSecKey_No = "Cancelar";
@@ -259,13 +259,13 @@ ImportNonImportable_No = "Cancelar";
 UploadSuccess_Title = "Envio Bem-sucedido";
 UploadSuccess_Msg = "As seguintes chaves públicas foram enviadas aos servidores:\n\n%@\n\nAguarde um tempo para permitir que a alteração seja sincronizada entre os servidores existentes.";
 
-ExportSuccess_Title = "Export successful";
-ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
+ExportSuccess_Title = "Exportação Bem-sucedida";
+ExportSuccess_Msg = "As seguintes chaves foram exportadas corretamente:\n\n%@";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "The following keys were successfully imported:\n\n%@";
+IMPORT_RESULT_NEW_KEY = "A seguinte chave foi importada corretamente:\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "As seguintes chaves foram importadas corretamente:\n\n%@";
 
 IMPORT_RESULT_NEW_USER_ID = "Um ID de Usuário foi adicionado à(s) chave(s)\n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "Uma assinatura foi adicionada à(s) seguinte(s) chave(s)\n\n%@";
@@ -350,8 +350,8 @@ CleanKey_Progress = "Limpando chave…";
 CleanKey_Error = "Falha ao limpar a chave.";
 MinimizeKey_Progress = "Minimizando chave…";
 MinimizeKey_Error = "Falha ao minimizar a chave.";
-GenerateRevokeCertificateForKey_Progress = "Gerando certificado de revogação…";
-GenerateRevokeCertificateForKey_Error = "Falha ao gerar o certificado de revogação.";
+GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
 SearchKeysOnServer_Progress = "Buscando chave…";
 SendKeysToServer_Progress = "Enviando %@ ao servidor…";
 SendKeysToServer_Error = "Falha ao enviar a chave.";
