@@ -163,7 +163,7 @@ static NSString * const actionKey = @"action";
 				[armoredData appendData:base64Data];
 				[armoredData appendData:[@"\n=" UTF8Data]];
 				[armoredData appendData:crcData];
-				[armoredData appendData:[@"-----END PGP " UTF8Data]];
+				[armoredData appendData:[@"\n-----END PGP " UTF8Data]];
 				[armoredData appendData:[blockType UTF8Data]];
 				[armoredData appendData:[@" KEY BLOCK-----\n\n" UTF8Data]];
 				
