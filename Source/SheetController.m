@@ -1006,7 +1006,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	/*
 	 * For the max password length, look in gnupg/agent/genkey.c "agent_ask_new_passphrase" for the pinentry_loopback call.
 	 */
-	if (self.passphrase.length > 250) {
+	if (self.passphrase.length > 255) {
 		NSRunAlertPanel(localized(@"CheckAlert_PassphraseTooLong_Title"), localized(@"CheckAlert_PassphraseTooLong_Message"), nil, nil, nil);
 		return NO;
 	}
