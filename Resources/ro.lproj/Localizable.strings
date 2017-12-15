@@ -23,7 +23,7 @@ SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
 
 /* For export, as standard File-Name. */
 "untitled" = "neintitulat";
-"%@ Revoke certificate" = "%@ Revocare certificat";
+"%@ Revoke certificate" = "%@ Revocation certificate";
 ExportKeysFilename = "%@ %u OpenPGP Keys";
 ExportPublicKeyFilename = "%@ – Public";
 ExportSecretKeyFilename = "%@ – Secret";
@@ -43,7 +43,7 @@ CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A
 CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
 CheckAlert_PassphraseSimple_Button2 = "Enter new password";
 CheckAlert_PassphraseTooLong_Title = "Password too long";
-CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than 300 characters.";
+CheckAlert_PassphraseTooLong_Message = "Parola introdusă este prea lungă. Introduceți o parolă de maxim %i de caractere.";
 
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
@@ -62,7 +62,7 @@ GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key o
 ChangeExpirationDate_Msg = "Schimbați data expirării a \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Change expiration date of \"%2$@\", %3$@\nSubkey: %1$@";
 
-GenerateKey_Error = "Ah, ceva nu a funcționat bine. A apărut o problemă la crearea cheii dvs.";
+GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "Numele este prea lung!";
@@ -77,15 +77,15 @@ CheckError_PassphraseMissmatch = "Your passwords did not match!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG Negăsit";
-GPG_NOT_FOUND_MESSAGE = "Ups, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Eroare Configurare GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg nu a fost găsit";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
 UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
@@ -97,7 +97,7 @@ MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou c
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Creating new mail...";
 MailKey_Progress_Your = "Creating new mail...";
-MailKey_Error = "Ups, something went wrong. There was a problem exporting your key.";
+MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
@@ -350,8 +350,8 @@ CleanKey_Progress = "Cleaning key…";
 CleanKey_Error = "Curățarea cheii a eșuat.";
 MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Minimalizarea cheii a eșuat.";
-GenerateRevokeCertificateForKey_Progress = "Generating revoke certificate…";
-GenerateRevokeCertificateForKey_Error = "Generarea certificatului de revocare a eșuat.";
+GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
 SearchKeysOnServer_Progress = "Searching for key…";
 SendKeysToServer_Progress = "Sending %@ to server…";
 SendKeysToServer_Error = "Trimiterea cheii a eșuat.";

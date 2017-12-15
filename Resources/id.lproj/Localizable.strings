@@ -43,7 +43,7 @@ CheckAlert_PassphraseSimple_Message = "Kata sandi yang Anda masukkan terlalu sed
 CheckAlert_PassphraseSimple_Button1 = "Lanjutkan dengan kata sandi sederhana";
 CheckAlert_PassphraseSimple_Button2 = "Masukkan kata sandi baru";
 CheckAlert_PassphraseTooLong_Title = "Kata sandi terlalu panjang";
-CheckAlert_PassphraseTooLong_Message = "Kata sandi yang Anda masukkan terlalu panjang. Masukkan suatu kata sandi yang kurang dari 300 karakter.";
+CheckAlert_PassphraseTooLong_Message = "Kata sandi yang Anda masukkan terlalu panjang. Masukkan suatu kata sandi yang kurang dari %i karakter.";
 
 
 MoveSecring_Msg = "Kunci-kunci rahasia Anda saat ini berada pada \"%@\".\nUntuk memindah kunci Anda ke volume lain, pilih volume target di bawah.";
@@ -62,7 +62,7 @@ GenerateUidSignature_Msg = "Menandatangani suatu ID pengguna berarti Anda mengko
 ChangeExpirationDate_Msg = "Mengubah tanggal kedaluwarsa dari \"%@\", %@.";
 ChangeSubkeyExpirationDate_Msg = "Mengubah tanggal kedaluwarsa dari \"%2$@\", %3$@\nSub kunci: %1$@";
 
-GenerateKey_Error = "Wah, ada yang salah. Ada masalah saat membuat kunci Anda.";
+GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "Nama terlalu panjang!";
@@ -77,15 +77,15 @@ CheckError_PassphraseMissmatch = "Kata sandi Anda tidak cocok!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG Tak Ditemukan";
-GPG_NOT_FOUND_MESSAGE = "Ups, ada kesalahan parah. Tampaknya GPG hilang dari sistem Anda. Harap pasang ulang Keluarga GPG dari \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Galat Konfig GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, ada yang salah. GPG ditemukan pada sistem Anda tapi tampaknya ada masalah dengan berkas konfig. Harap hubungi kami di \nhttps://gpgtools.tenderapp.com.\n\nRincian: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg tak ditemukan";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg tidak ditemukan pada sistem Anda. Harap pasang ulang\nKeluarga GPG dari https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Seseorang mengotak-atik instalasi GPG Keychain Anda";
 CODE_SIGN_ERROR_MESSAGE = "Agar Anda tetap aman, GPG Keychain akan keluar sekarang!\n\nHarap pasang ulang Keluarga GPG dari\nhttps://gpgtools.org agar yakin bahwa Anda memiliki versi asli dari kami!";
 UNKNOWN_GPG_ERROR_TITLE = "Kesalahan GPG Yang Tak Dikenal";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, ada yang salah. GPG melaporkan kesalahan yang tidak dikenal. Harap hubungi kami di  \nhttps://gpgtools.tenderapp.com.\n\nRincian: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
@@ -97,7 +97,7 @@ MailKey_Message_Your = "Halo,\n\nterlampir adalah kunci publik saya\n\n%@\n\nAnd
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Membuat surat baru...";
 MailKey_Progress_Your = "Membuat surat baru...";
-MailKey_Error = "Wah, ada yang salah. Ada masalah saat mengekspor kunci Anda.";
+MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Kunci yang tidak dapat dipakai dipilih";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Anda telah memilih suatu kunci yang tidak dapat dipakai. Kunci sedemikian tidak bisa dikirim lewat surel. Harap mutakhirkan kunci dari server kunci, untuk memeriksa apakah itu telah dimutakhirkan.\n\nBila tidak bertemulah dengan pemilik kunci dan informasikan tentang keadaan kunci.\n\n%@";
 

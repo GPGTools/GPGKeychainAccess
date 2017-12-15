@@ -43,14 +43,14 @@ CheckAlert_PassphraseSimple_Message = "La contraseña que ha introducido es dema
 CheckAlert_PassphraseSimple_Button1 = "Continuar con contraseña simple";
 CheckAlert_PassphraseSimple_Button2 = "Introducir nueva contraseña";
 CheckAlert_PassphraseTooLong_Title = "Contraseña demasiado larga";
-CheckAlert_PassphraseTooLong_Message = "La contraseña que ha introducido es demasiado larga. Introduzca una contraseña con menos de 300 caracteres.";
+CheckAlert_PassphraseTooLong_Message = "La contraseña que ha introducido es demasiado larga. Introduzca una contraseña con menos de %i caracteres.";
 
 
 MoveSecring_Msg = "Sus claves secretas (privadas) residen actualmente en \"%@\".\nPara mover sus claves secretas a otro volumen, seleccione el volumen objetivo debajo.";
 
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "No se encontraron claves";
-KeySearch_ImportResults_Title = "Import successful";
+KeySearch_ImportResults_Title = "Importación exitosa";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), creada: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Estamos buscando clave(s) coincidente(s) en el servidor de claves. Podría tomar algún tiempo, por favor espere.";
 
@@ -62,7 +62,7 @@ GenerateUidSignature_Msg = "Firmar una identificación de usuario, significa que
 ChangeExpirationDate_Msg = "Cambiar la fecha de expiración de \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Cambiar fecha de caducidad de \"%2$@\", %3$@\nSubclave: %1$@";
 
-GenerateKey_Error = "Ups, algo salió mal. Hubo un problema al crear su clave.";
+GenerateKey_Error = "Uups, algo fue mal. Hubo un problema al crear su clave.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "¡El nombre es demasiado largo!";
@@ -77,15 +77,15 @@ CheckError_PassphraseMissmatch = "¡Sus contraseñas no coinciden!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "No se encontró GPG";
-GPG_NOT_FOUND_MESSAGE = "Uups, algo fue realmente mal. Parece que GPG está ausente en su sistema. Por favor, reinstale GPG Suite desde \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Error de configuración de GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Uups, algo fue realmente mal. Se ha encontrado GPG en su sistema pero parece haber un problema con el fichero de configuración. Por favor, contacte con nosotros en \nhttps://gpgtools.tenderapp.com.\n\nDetalles: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "No se encontró libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "No se encontró Libmacgpg en su sistema. Por favor, reinstale GPG Suite desde \nhttps://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Alguien alteró su instalación de GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "¡Para mantenerle seguro, GPG Keychain se cerrará ahora!\n\n¡Por favor, reinstale GPG Suite desde \nhttps://gpgtools.org para asegurarse de que tiene la versión original procedente de nosotros!";
 UNKNOWN_GPG_ERROR_TITLE = "Error de GPG desconocido";
-UNKNOWN_GPG_ERROR_MESSAGE = "Uups, algo fue mal. GPG arrojó un error desconocido. Por favor, contacte con nosotros en \nhttps://gpgtools.tenderapp.com.\n\nDetalles: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
@@ -97,7 +97,7 @@ MailKey_Message_Your = "Hola,\n\nadjunta encontrará mi clave pública\n\n%@\n\n
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/es/module/como-usar-pgp-para-linux\nWindows	https://ssd.eff.org/es/module/como-usar-pgp-para-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain&hl=es";
 MailKey_Progress = "Creando un correo nuevo...";
 MailKey_Progress_Your = "Creando un correo nuevo...";
-MailKey_Error = "Ups, algo salió mal. Hubo un problema al exportar su clave.";
+MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Se ha seleccionado una clave inutilizable";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Ha seleccionado una clave no utilizable. Tales claves no se pueden enviar vía correo electrónico. Por favor, actualice la clave desde el servidor de claves, para comprobar si ha sido actualizada.\n\nDe otro modo póngase en contacto con el propietario de la clave e infórmele sobre el estado de la clave\n\n%@";
 
@@ -219,14 +219,14 @@ DeleteKey_No = "Cancelar";
 
 DeleteSecKey_Title = "Advertencia: Está a punto de borrar las claves secreta/privada y pública";
 DeleteSecKey_Msg = "Está a punto de borrar las claves:\n\n%@\n\nBorrar una clave secreta/privada tiene consecuencias importantes. Una vez borrada, ya no será posible descifrar mensajes con esta clave. Esto afecta a todos los mensajes que fueron cifrados para esta clave.\n\nNosotros recomendamos no borrarla.\n\nPara comunicar a otros que esta clave ya no está en uso, en lugar de borrarla, debe revocar la clave y subir la clave revocada a los servidores de claves. De otro modo, otros aún podrían usar esta clave para cifrar mensajes para usted.";
-DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
+DeleteSecKey_Checkbox = " Sí, quiero eliminar mi clave secreta/privada y comprendo que ya no podré\ndescifrar ningún mensaje que estuviera cifrado para esta clave.";
 DeleteSecKey_Yes = "Borrar clave(s)";
 DeleteSecKey_SecOnly = "Borrar sólo la(s) clave(s) secreta(s) (privadas)";
 DeleteSecKey_No = "Cancelar";
 
 DeleteRevokedSecKey_Title = "Advertencia: Está a punto de borrar par(es) de clave(s) revocado(s)";
 DeleteRevokedSecKey_Msg = "Está a punto de borrar el/los siguiente(s) par(es) de clave(s) revocado(s):\n\n%@\n\nLas claves revocadas todavía pueden descrifrar mensajes antiguos cifrados para esa clave.\n\nRecomendamos no borrarlo(s).";
-DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
+DeleteRevokedSecKey_Checkbox = " Sí, quiero eliminar mi clave secreta/privada y comprendo que ya no podré\ndescifrar ningún mensaje que estuviera cifrado para esta clave.";
 DeleteRevokedSecKey_Yes = "Borrar su(s) par(es) de clave(s)";
 DeleteRevokedSecKey_SecOnly = "Borrar sólo la(s) clave(s) secreta(s) (privadas)";
 DeleteRevokedSecKey_No = "Cancelar";
@@ -259,13 +259,13 @@ ImportNonImportable_No = "Cancelar";
 UploadSuccess_Title = "Enviado con éxito";
 UploadSuccess_Msg = "Se han enviado las siguientes claves públicas a los servidores de claves:\n\n%@\n\nPor favor, espere algún tiempo a que el cambio se sincronice por los servidores de claves existentes.";
 
-ExportSuccess_Title = "Export successful";
-ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
+ExportSuccess_Title = "Exportación exitosa";
+ExportSuccess_Msg = "Las siguientes claves se exportaron con éxito:\n\n%@";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "The following keys were successfully imported:\n\n%@";
+IMPORT_RESULT_NEW_KEY = "Las siguiente clave fue importada con éxito:\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "Las siguientes claves fueron importadas con éxito:\n\n%@";
 
 IMPORT_RESULT_NEW_USER_ID = "Se ha añadido una identificación de usuario a la(s) clave(s) \n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "Se ha añadido una firma a la(s) clave(s) \n\n%@";
@@ -351,7 +351,7 @@ CleanKey_Error = "Fallo al limpiar clave.";
 MinimizeKey_Progress = "Minimizando clave...";
 MinimizeKey_Error = "Fallo al minimizar clave.";
 GenerateRevokeCertificateForKey_Progress = "Generando certificado de revocación...";
-GenerateRevokeCertificateForKey_Error = "Fallo al generar certificado de revocación.";
+GenerateRevokeCertificateForKey_Error = "La generación de certificado de revocación falló.";
 SearchKeysOnServer_Progress = "Buscando clave...";
 SendKeysToServer_Progress = "Enviando %@ al servidor...";
 SendKeysToServer_Error = "Fallo al enviar clave.";

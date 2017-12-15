@@ -43,7 +43,7 @@ CheckAlert_PassphraseSimple_Message = "A senha digitada é simples demais. Uma b
 CheckAlert_PassphraseSimple_Button1 = "Continuar com Senha Simples";
 CheckAlert_PassphraseSimple_Button2 = "Digitar Nova Senha";
 CheckAlert_PassphraseTooLong_Title = "Senha Longa Demais";
-CheckAlert_PassphraseTooLong_Message = "A senha digitada é longa demais. Digite uma senha com menos de 300 caracteres.";
+CheckAlert_PassphraseTooLong_Message = "A senha digitada é longa demais. Digite uma senha com menos de %i caracteres.";
 
 
 MoveSecring_Msg = "Suas chaves secretas estão armazenadas atualmente em “%@”.\nPara movê‑las para outro volume, selecione‑o abaixo.";
@@ -62,7 +62,7 @@ GenerateUidSignature_Msg = "Ao assinar um ID de Usuário, você confirma que o p
 ChangeExpirationDate_Msg = "Altere o vencimento de “%@”, %@";
 ChangeSubkeyExpirationDate_Msg = "Altere o vencimento de “%2$@”, %3$@\nSubchave: %1$@";
 
-GenerateKey_Error = "Algo deu errado. Houve um problema ao criar a chave.";
+GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "O nome é longo demais.";
@@ -77,15 +77,15 @@ CheckError_PassphraseMissmatch = "As senhas não coincidem.";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG Não Encontrado";
-GPG_NOT_FOUND_MESSAGE = "Algo deu muito errado. O GPG parece não estar no sistema. Reinstale a GPG Suite de https://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Erro de Configuração do GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Algo deu errado. O GPG foi encontrado no sistema, mas parece haver um problema com o arquivo de configuração. Contate o suporte em https://gpgtools.tenderapp.com.\n\nDetalhes: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg Não Encontrado";
 LIBMACGPG_NOT_FOUND_MESSAGE = "O Libmacgpg não foi encontrado no sistema. Reinstale a GPG Suite de https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Alguém Adulterou a Instalação do GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "Para manter sua segurança, o GPG Keychain será encerrado.\n\nPara certificar‑se de que você possui a versão original, reinstale a GPG Suite de https://gpgtools.org.";
 UNKNOWN_GPG_ERROR_TITLE = "Erro GPG Desconhecido";
-UNKNOWN_GPG_ERROR_MESSAGE = "Algo deu errado. O GPG apresentou um erro desconhecido. Contate o suporte em https://gpgtools.tenderapp.com.\n\nDetalhes: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
@@ -97,7 +97,7 @@ MailKey_Message_Your = "Olá,\n\nEm anexo encontra‑se a minha chave pública:\
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Criando novo e‑mail…";
 MailKey_Progress_Your = "Criando novo e‑mail…";
-MailKey_Error = "Algo deu errado. Houve um problema ao exportar a chave.";
+MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Chave Não Usável Selecionada";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Você selecionou uma chave não usável. Esse tipo de chave não pode ser enviado por e‑mail. Atualize a chave do servidor de chaves para verificar se ela foi atualizada.\n\nCaso contrário, contate o proprietário da chave e informe‑o sobre o estado da chave.\n\n%@";
 
@@ -350,8 +350,8 @@ CleanKey_Progress = "Limpando chave…";
 CleanKey_Error = "Falha ao limpar a chave.";
 MinimizeKey_Progress = "Minimizando chave…";
 MinimizeKey_Error = "Falha ao minimizar a chave.";
-GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
-GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
+GenerateRevokeCertificateForKey_Progress = "Gerando certificado de revogação…";
+GenerateRevokeCertificateForKey_Error = "Falha ao gerar o certificado de revogação.";
 SearchKeysOnServer_Progress = "Buscando chave…";
 SendKeysToServer_Progress = "Enviando %@ ao servidor…";
 SendKeysToServer_Error = "Falha ao enviar a chave.";

@@ -43,7 +43,7 @@ CheckAlert_PassphraseSimple_Message = "Det angivne kodeord er for simpelt. Et go
 CheckAlert_PassphraseSimple_Button1 = "Fortsæt med simpelt kodeord";
 CheckAlert_PassphraseSimple_Button2 = "Angiv nyt kodeord";
 CheckAlert_PassphraseTooLong_Title = "Kodeordet er for langt";
-CheckAlert_PassphraseTooLong_Message = "Det angivne kodeord er for langt. Angiv et kodeord med færre end 300 tegn.";
+CheckAlert_PassphraseTooLong_Message = "Det angivne kodeord er for langt. Angiv et kodeord med færre end %i tegn.";
 
 
 MoveSecring_Msg = "Dine private nøgler ligger lige nu på \"%@\".\nAngiv en disk nedenfor for at flytte dine private nøgler til en anden disk.";
@@ -62,7 +62,7 @@ GenerateUidSignature_Msg = "At signere et bruger ID betyder, at du bekræfter, a
 ChangeExpirationDate_Msg = "Ændre udløbsdato for \"%@\", %@";
 ChangeSubkeyExpirationDate_Msg = "Ændre udløbsdato for \"%2$@\", %3$@\nUndernøgle: %1$@";
 
-GenerateKey_Error = "Ups, noget gik galt. Der var et problem med at lave din nøgle.";
+GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "Navnet er for langt!";
@@ -77,15 +77,15 @@ CheckError_PassphraseMissmatch = "Dine kodeord er ikke ens!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG kunne ikke findes";
-GPG_NOT_FOUND_MESSAGE = "Ups, noget gik rigtigt galt. Det ser ud til, at GPG mangler på dit system. Gen-installer GPG Suiten fra \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfejl";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, noget gik galt. GPG findes på dit system, men der ser ud til at være problemer med konfigurationsfilen. Kontakt os venligst på\nhttps://gpgtools.tenderapp.com.\n\nDetaljer: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg blev ikke fundet";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg blev ikke fundet på dit system. Gen-installer GPG Suiten fra\nhttps://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Nogen har pillet ved din installation af GPG Nøglering";
 CODE_SIGN_ERROR_MESSAGE = "For en sikkerheds skyld vil GPG Nøglering lukke nu!\n\nGen-installer venligst GPG Suiten fra\nhttps://gpgtools.org for at være sikker på, at du har en original version fra os!";
 UNKNOWN_GPG_ERROR_TITLE = "Ukendt GPG fejl";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, noget gik galt. GPG har lavet en ukendt fejl. Kontakt os venligst på\nhttps://gpgtools.tenderapp.com.\n\nDetaljer: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
@@ -97,7 +97,7 @@ MailKey_Message_Your = "Hej,\n\nvedhæftet finder du min offentlige nøgle\n\n%@
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Opretter ny e-mail...";
 MailKey_Progress_Your = "Opretter ny e-mail...";
-MailKey_Error = "Ups, noget gik galt. Der var problemer med at eksportere din nøgle.";
+MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Ubrugelig nøgle valgt";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du har valgt en ubrugelig nøgle. Sådanne nøgler kan ikke sendes via e-mail. Opdater nøglen fra nøgleserveren for at tjekke, om den er blevet opdateret.\n\nAlternativt kontakt nøglens ejer, og fortæl dem om nøglens tilstand.\n\n%@";
 
