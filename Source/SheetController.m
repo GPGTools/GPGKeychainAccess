@@ -971,6 +971,16 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	if (!self.confirmPassphrase) {
 		self.confirmPassphrase = @"";
 	}
+	
+	/*
+	 * For the max password length, look in gnupg/agent/genkey.c "agent_ask_new_passphrase" for the pinentry_loopback call.
+	 * The limit is the count of bytes, not the count of characters.
+	 */
+	if (self.passphrase.UTF8Length > 255) {
+		NSRunAlertPanel(localized(@"CheckAlert_PassphraseTooLong_Title"), localized(@"CheckAlert_PassphraseTooLong_Message"), nil, nil, nil, 255);
+		return NO;
+	}
+	
 	if (![self.passphrase isEqualToString:self.confirmPassphrase]) {
 		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_PassphraseMissmatch"), nil, nil, nil);
 		return NO;
@@ -1002,13 +1012,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 				return NO;
 			}
 		}
-	}
-	/*
-	 * For the max password length, look in gnupg/agent/genkey.c "agent_ask_new_passphrase" for the pinentry_loopback call.
-	 */
-	if (self.passphrase.length > 255) {
-		NSRunAlertPanel(localized(@"CheckAlert_PassphraseTooLong_Title"), localized(@"CheckAlert_PassphraseTooLong_Message"), nil, nil, nil, 255);
-		return NO;
 	}
 	
 	return YES;
