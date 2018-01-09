@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2017
+ Copyright © Roman Zechmeister, 2018
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -36,6 +36,7 @@
 @property (nonatomic, strong) NSDictionary *result;
 @property (nonatomic) BOOL enableOK;
 @property (nonatomic) BOOL disableUserIDCommentsField;
+@property (nonatomic, readwrite, strong) NSArray *userIDs;
 
 
 - (void)runAndWait;
@@ -59,10 +60,10 @@
 
 @implementation SheetController
 @synthesize name, email, comment, passphrase, confirmPassphrase, pattern, title,
-hasExpirationDate, localSig, allowEdit,
+hasExpirationDate, allowEdit,
 expirationDate, minExpirationDate, maxExpirationDate,
 algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
-sigType, length, sheetType, URL, URLs,
+length, sheetType, URL, URLs,
 modalWindow, foundKeyDicts, hideExtension;
 
 
@@ -186,10 +187,32 @@ modalWindow, foundKeyDicts, hideExtension;
 			self.displayedView = _generateSubkeyView;
 			break;
 		case SheetTypeAddSignature:
+			if (self.userIDs.count == 1) {
+				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_multiUserIDsView];
+				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_singleUserIDView];
+			} else {
+				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_singleUserIDView];
+				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_multiUserIDsView];
+			}
+			
+			[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_singleSecretKeyView];
+			if (self.secretKeys.count == 1) {
+				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_multiSecretKeysView];
+			} else {
+				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_multiSecretKeysView];
+			}
+			if (showExpertSettings) {
+				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_expertView];
+			} else {
+				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_expertView];
+			}
+
+			
+			
 			self.expirationDate = nil;
 			[self setStandardExpirationDates];
-			self.sigType = 0;
-			self.localSig = NO;
+			self.hasExpirationDate = NO;
+			self.publish = NO;
 			
 			self.displayedView = _generateSignatureView;
 			break;
@@ -220,6 +243,14 @@ modalWindow, foundKeyDicts, hideExtension;
 	self.displayedView = nil;
 	return clickedButton;
 }
+
+- (IBAction)togglePublishExample:(NSButton *)sender {
+	[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_singleSecretKeyView];
+
+	[self.sign_stackView setVisibilityPriority:sender.state == NSOnState ? NSStackViewVisibilityPriorityMustHold : NSStackViewVisibilityPriorityNotVisible forView:self.sign_publishExampleView];
+}
+
+
 
 - (void)errorSheetWithMessageText:(NSString *)messageText infoText:(NSString *)infoText {
 	[self alertSheetForWindow:mainWindow messageText:messageText infoText:infoText defaultButton:nil alternateButton:nil otherButton:nil suppressionButton:nil];
@@ -588,11 +619,18 @@ modalWindow, foundKeyDicts, hideExtension;
 	return self.hasExpirationDate ? [self.expirationDate daysSinceNow] : 0;
 }
 - (GPGKey *)secretKey {
-	return [[_secretKeysController selectedObjects] objectAtIndex:0];
+	NSArray *selectedSecretKeys = [_secretKeysController selectedObjects];
+	return selectedSecretKeys.count > 0 ? selectedSecretKeys[0] : nil;
 }
 - (void)setSecretKey:(GPGKey *)value {
-	[_secretKeysController setSelectedObjects:[NSArray arrayWithObject:value]];
+	if ([self.secretKeys containsObject:value]) {
+		[_secretKeysController setSelectedObjects:[NSArray arrayWithObject:value]];
+	} else if (self.secretKeys.count > 0) {
+		[_secretKeysController setSelectedObjects:[NSArray arrayWithObject:self.secretKeys.firstObject]];
+	}
 }
+
+
 
 - (NSIndexSet *)selectedVolumeIndexes {
 	return selectedVolumeIndexes;
@@ -610,6 +648,120 @@ modalWindow, foundKeyDicts, hideExtension;
 + (NSSet *)keyPathsForValuesAffectingShowAlgorithmPrefsDropdown {
 	return [NSSet setWithObjects:@"algorithmPreferences", nil];
 }
+
+
+- (GPGKey *)publicKey {
+	return _publicKey;
+}
+- (void)setPublicKey:(GPGKey *)publicKey {
+	_publicKey = publicKey;
+	
+	
+	[self.userIDs removeObserver:self fromObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.userIDs.count)] forKeyPath:@"selected"];
+	
+	NSMutableArray *userIDs = [NSMutableArray new];
+	ActionController *ac = [ActionController sharedInstance];
+	
+	for (GPGUserID *userID in self.publicKey.userIDs) {
+		if (userID.validity >= GPGValidityInvalid || userID.isUat) {
+			continue;
+		}
+		
+		NSString *description = [ac descriptionForKeys:@[userID] maxLines:0 withOptions:DescriptionNoKeyID];
+		
+		NSMutableDictionary *item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@NO, @"selected", userID, @"userID", description, @"description", nil];
+		[userIDs addObject:item];
+	}
+
+	[userIDs addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, userIDs.count)] forKeyPath:@"selected" options:0 context:nil];
+	
+	
+	self.userIDs = userIDs;
+}
+
+- (NSString *)userIDDescription {
+	if (!self.publicKey) {
+		return @"";
+	}
+	NSString *userIDDescription = [[ActionController sharedInstance] descriptionForKeys:@[self.publicKey] maxLines:0 withOptions:DescriptionNoKeyID];
+	return userIDDescription;
+}
++ (NSSet *)keyPathsForValuesAffectingUserIDDescription {
+	return [NSSet setWithObjects:@"publicKey", nil];
+}
+- (NSString *)keyClaimsMultipleIdentities {
+	return [NSString stringWithFormat:localized(@"SignKey_KeyClaimsMultipleIdentities"), self.userIDDescription];
+}
++ (NSSet *)keyPathsForValuesAffectingKeyClaimsMultipleIdentities {
+	return [NSSet setWithObjects:@"publicKey", nil];
+}
+- (NSString *)signKeyMainMsg {
+	NSString *formattedFingerprint = [[GKFingerprintTransformer sharedInstance] transformedValue:self.publicKey.fingerprint];
+	return [NSString stringWithFormat:localized(@"SignKey_MainMsg"), formattedFingerprint];
+}
++ (NSSet *)keyPathsForValuesAffectingSignKeyMainMsg {
+	return [NSSet setWithObjects:@"publicKey", nil];
+}
+- (BOOL)signEnabled {
+	if (self.userIDs.count == 1) {
+		return YES;
+	} else {
+		return self.selectedUserIDs.count > 0;
+	}
+}
++ (NSSet *)keyPathsForValuesAffectingSignEnabled {
+	return [NSSet setWithObjects:@"userIDs", @"selectedUserIDs", nil];
+}
+
+- (NSString *)publishLabel {
+	if (self.userIDs.count == 1) {
+		return [NSString stringWithFormat:localized(@"SignKey_PublishSingleIdentity"), ((GPGUserID *)self.userIDs.firstObject[@"userID"]).name];
+	} else {
+		return localized(@"SignKey_PublishMultipleIdentities");
+	}
+}
++ (NSSet *)keyPathsForValuesAffectingPublishLabel {
+	return [NSSet setWithObjects:@"userIDs", nil];
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:@"selected"]) {
+		[self willChangeValueForKey:@"selectedUserIDs"];
+		[self didChangeValueForKey:@"selectedUserIDs"];
+	}
+}
+
+- (NSArray *)selectedUserIDs {
+	if (self.userIDs.count == 1) {
+		return @[self.userIDs[0][@"userID"]];
+	}
+	NSMutableArray *selectedUserIDs = [NSMutableArray new];
+	for (NSDictionary *dict in self.userIDs) {
+		if ([dict[@"selected"] boolValue]) {
+			[selectedUserIDs addObject:dict[@"userID"]];
+		}
+	}
+	return selectedUserIDs;
+}
+- (void)setSelectedUserIDs:(NSArray *)selectedUserIDs {
+	NSUInteger index = 0;
+	BOOL scrolled = NO;
+	for (NSMutableDictionary *dict in self.userIDs) {
+		if ([selectedUserIDs containsObject:dict[@"userID"]]) {
+			dict[@"selected"] = @YES;
+			if (!scrolled) {
+				[self.sign_userIDsTable scrollRowToVisible:index];
+				scrolled = YES;
+			}
+		} else {
+			dict[@"selected"] = @NO;
+		}
+		index++;
+	}
+}
++ (NSSet *)keyPathsForValuesAffectingSelectedUserIDs {
+	return [NSSet setWithObjects:@"userIDs", nil];
+}
+
 
 
 

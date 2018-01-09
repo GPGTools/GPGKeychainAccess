@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2017
+ Copyright © Roman Zechmeister, 2018
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -42,6 +42,7 @@ NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename);
 @end
 
 @interface GKFingerprintTransformer : GPGFingerprintTransformer
++ (id)sharedInstance;
 @end
 
 @interface GKFixedFingerprintTransformer : GKFingerprintTransformer

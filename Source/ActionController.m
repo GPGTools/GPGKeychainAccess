@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2017
+ Copyright © Roman Zechmeister, 2018
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -1928,63 +1928,133 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	GPGUserID *userID = nil;
-	if ([sender tag] == 1) {
-		NSArray *objects = [self selectedObjectsOf:userIDsTable];
-		if (objects.count != 1) {
-			return;
-		}
-		userID = [objects objectAtIndex:0];
-	}
-	
 	GPGKey *key = [keys[0] primaryKey];
 	if (key.validity >= GPGValidityInvalid) {
+		// Only valid keys can be signed.
 		return;
 	}
+
+	GPGUserID *userID = nil;
+	if ([sender tag] == 1 || ([sender tag] == -1 && (mainWindow.firstResponder == userIDsTable || mainWindow.firstResponder == signaturesTable))) {
+		NSArray *objects = [self selectedObjectsOf:userIDsTable];
+		if (objects.count == 1) {
+			// The user has selected a userID in the user ids tab.
+			// This userID will be pre-selected.
+			userID = objects[0];
+		}
+	}
 	
+	
+	// Get a sorted list of all secret keys, which could be used for signing.
 	NSSet *usableSecretKeys = [[KeychainController sharedInstance].secretKeys objectsPassingTest:^BOOL(GPGKey *secretKey, BOOL *stop) {
 		return secretKey.validity < GPGValidityInvalid && secretKey.canAnySign;
 	}];
-	
 	if (usableSecretKeys.count == 0) {
 		[self.sheetController errorSheetWithMessageText:localized(@"NO_SECRET_KEY_TITLE") infoText:localized(@"NO_SECRET_KEY_MESSAGE")];
 		return;
 	}
-
 	NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
 	NSArray *secretKeys = [usableSecretKeys sortedArrayUsingDescriptors:@[descriptor]];
 
-	
+
 	GPGKey *defaultKey = [KeychainController sharedInstance].defaultKey;
-	if (!defaultKey) {
+	if (!defaultKey || ![secretKeys containsObject:defaultKey]) {
+		// If the user haven't specified a default key, the first secret key is used.
 		defaultKey = secretKeys[0];
 	}
 	
 	
-	NSString *msgText;
-	if (userID) {
-		msgText = [NSString stringWithFormat:localized(@"GenerateUidSignature_Msg"), [NSString stringWithFormat:@"%@ (%@)", userID.userIDDescription, key.keyID.shortKeyID]];
-	} else {
-		msgText = [NSString stringWithFormat:localized(@"GenerateSignature_Msg"), key.userIDAndKeyID];
-	}
-	
-	self.sheetController.msgText = msgText;
 	self.sheetController.secretKeys = secretKeys;
 	self.sheetController.secretKey = defaultKey;
+	self.sheetController.publicKey = key;
+	self.sheetController.selectedUserIDs = userID ? @[userID] : nil;
+	self.sheetController.msgText = localizedStringWithFormat(@"GenerateSignature_Msg", key.userIDAndKeyID);
 	
+	
+	
+	__block int64_t runningTasks = 2;
+	__block BOOL keyExistsOnServer = NO;
+	void (^uploadBlock)() = ^() {
+		if (OSAtomicAdd64Barrier(-1, &runningTasks) == 0) {
+			// Run this code when uploadBlock is called the second time.
+			
+			if (keyExistsOnServer) {
+				if ([self warningSheetWithDefault:YES string:@"UserIDsSignedWantToUpload"]) {
+					self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);
+					self.errorText = localized(@"SendKeysToServer_Error");
+					[gpgc sendKeysToServer:@[key]];
+				}
+			} else {
+				[self.sheetController alertSheetWithTitle:localized(@"SignSuccess_Title")
+												  message:localized(@"SignSuccess_Msg")
+											defaultButton:nil
+										  alternateButton:nil
+											  otherButton:nil
+										suppressionButton:nil];
+			}
+		}
+	};
+	// Check if the key already exists on the server and only ask for upload after signing, if that's the case.
+	[gpgc keysExistOnServer:@[key] callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
+		keyExistsOnServer = existingKeys.count == 1;
+		uploadBlock();
+	}];
+	actionCallback callback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
+		if (gc.error) {
+			[self.sheetController endProgressSheet];
+			return;
+		}
+		if (self.sheetController.publish) {
+			uploadBlock();
+		} else {
+			// The user do not want to publish the signature.
+			// Do not offer upload, only show success message.
+			[self.sheetController alertSheetWithTitle:localized(@"SignSuccess_Title")
+											  message:localized(@"SignSuccess_Msg")
+										defaultButton:nil
+									  alternateButton:nil
+										  otherButton:nil
+									suppressionButton:nil];
+		}
+	} copy];
+	
+	
+	// Show the sign dialog.
 	self.sheetController.sheetType = SheetTypeAddSignature;
 	if ([self.sheetController runModalForWindow:mainWindow] != NSOKButton) {
 		return;
 	}
 	
+	// Get the selected userIDs. Only procced if the user selected a userID.
+	NSArray *userIDs = self.sheetController.selectedUserIDs;
+	if (userIDs.count == 0) {
+		return;
+	}
+	
+	
 	self.progressText = localized(@"AddSignature_Progress");
 	self.errorText = localized(@"AddSignature_Error");
-	[gpgc signUserID:[userID hashID]
-			   ofKey:key
-			 signKey:self.sheetController.secretKey
-				type:(int)self.sheetController.sigType
-			   local:self.sheetController.localSig
-		daysToExpire:(int)self.sheetController.daysToExpire];
+	[self showProgressUntilKeyIsRefreshed:key];
+
+	
+	gpgc.userInfo = @{@"action": @[callback]};
+	
+	if ([gpgc respondsToSelector:@selector(signUserIDs:signerKey:local:daysToExpire:)]) {
+		[gpgc signUserIDs:userIDs
+				signerKey:self.sheetController.secretKey
+					local:!self.sheetController.publish
+			 daysToExpire:(int)self.sheetController.daysToExpire];
+	} else {
+		// This is only a workaround for old Libmacgpg versions.
+		for (GPGUserID *uid in userIDs) {
+			[gpgc signUserID:uid.hashID
+					   ofKey:key
+					 signKey:self.sheetController.secretKey
+						type:0
+					   local:!self.sheetController.publish
+				daysToExpire:(int)self.sheetController.daysToExpire];
+		}
+	}
 }
 - (IBAction)removeSignature:(id)sender {
 	NSArray *objects = [self selectedObjectsOf:signaturesTable];
@@ -2644,6 +2714,7 @@ static NSString * const actionKey = @"action";
 	NSMutableString *descriptions = [NSMutableString string];
 	Class gpgKeyClass = [GPGKey class];
 	Class dictionaryClass = [NSDictionary class];
+	Class userIDClass = [GPGUserID class];
 	NSUInteger i = 0, count = keys.count;
 	if (count == 0) {
 		return @"";
@@ -2657,6 +2728,7 @@ static NSString * const actionKey = @"action";
 	BOOL showEmail = !(options & DescriptionNoEmail);
 	BOOL singleLine = options & DescriptionSingleLine;
 	BOOL indent = options & DescriptionIndent;
+	BOOL showFingerprint = !!(options & DescriptionFingerprint);
 	
 	NSString *lineBreak = indent ? @"\n\t" : @"\n";
 	if (indent) {
@@ -2673,7 +2745,7 @@ static NSString * const actionKey = @"action";
 			break;
 		}
 
-		if (![key isKindOfClass:gpgKeyClass] && ![key isKindOfClass:dictionaryClass]) {
+		if (![key isKindOfClass:gpgKeyClass] && ![key isKindOfClass:dictionaryClass] && ![key isKindOfClass:userIDClass]) {
 			GPGKeyManager *keyManager = [GPGKeyManager sharedInstance];
 			GPGKey *realKey = [[keyManager allKeysAndSubkeys] member:key];
 			
@@ -2693,11 +2765,18 @@ static NSString * const actionKey = @"action";
 		}
 		
 		
+		BOOL isUserID = [key isKindOfClass:userIDClass];
 		
-		if ([key isKindOfClass:gpgKeyClass] || [key isKindOfClass:dictionaryClass]) {
+		if ([key isKindOfClass:gpgKeyClass] || [key isKindOfClass:dictionaryClass] || isUserID) {
 			NSString *name = [key valueForKey:@"name"];
 			NSString *email = [key valueForKey:@"email"];
-			NSString *shortKeyID = [[key valueForKey:@"keyID"] shortKeyID];
+			NSString *keyID;
+			if (showFingerprint) {
+				keyID = isUserID ? [(GPGUserID *)key primaryKey].fingerprint : [key valueForKey:@"fingerprint"];
+				keyID = [[GKFingerprintTransformer sharedInstance] transformedValue:keyID];
+			} else {
+				keyID = isUserID ? [(GPGUserID *)key primaryKey].keyID : [key valueForKey:@"keyID"];
+			}
 			
 			NSUInteger mailFlag = 0;
 			if (name.length == 0) {
@@ -2719,20 +2798,20 @@ static NSString * const actionKey = @"action";
 					[descriptions appendFormat:@"%@%@ <%@>", seperator, name, email];
 					break;
 				case 4:
-					[descriptions appendFormat:@"%@%@", seperator, shortKeyID];
+					[descriptions appendFormat:@"%@%@", seperator, keyID];
 					break;
 				case 5:
-					[descriptions appendFormat:@"%@%@ (%@)", seperator, name, shortKeyID];
+					[descriptions appendFormat:@"%@%@ (%@)", seperator, name, keyID];
 					break;
 				case 6:
-					[descriptions appendFormat:@"%@%@ (%@)", seperator, email, shortKeyID];
+					[descriptions appendFormat:@"%@%@ (%@)", seperator, email, keyID];
 					break;
 				default:
-					[descriptions appendFormat:@"%@%@ <%@> (%@)", seperator, name, email, shortKeyID];
+					[descriptions appendFormat:@"%@%@ <%@> (%@)", seperator, name, email, keyID];
 					break;
 			}
 		} else {
-			[descriptions appendFormat:@"%@%@", seperator, key.shortKeyID];
+			[descriptions appendFormat:@"%@%@", seperator, showFingerprint ? [[GKFingerprintTransformer sharedInstance] transformedValue:key.fingerprint] : key.keyID];
 		}
 		
 		

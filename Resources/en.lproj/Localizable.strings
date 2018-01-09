@@ -207,6 +207,10 @@ RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagu
 RevokedSubkeyWantToUpload_Yes = "Upload Public Key";
 RevokedSubkeyWantToUpload_No = "No, Thanks!";
 
+UserIDsSignedWantToUpload_Title = "Signing successful";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Yes = "Upload Public Key";
+UserIDsSignedWantToUpload_No = "No, Thanks!";
 
 
 
@@ -261,6 +265,10 @@ UploadSuccess_Msg = "The following public keys have been sent to the key servers
 
 ExportSuccess_Title = "Export successful";
 ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
+
+SignSuccess_Title = "Signing successful";
+SignSuccess_Msg = "The selected user IDs have been signed.";
+
 
 
 /* For Import-Results */
@@ -397,4 +405,13 @@ SendPublicKeyToKeyserver_MenuItem = "Send Public Key to Key Server";
 
 FilterNoResults = "The local search for '%@' has no results.";
 FilterNoResultsSecOnly = "The local search for '%@' has no results.\nConsider disabling the option to 'Show secret keys only' to expand the search.";
+
+
+
+SignKey_KeyClaimsMultipleIdentities = "The key:\n%@\nclaims more than one identity. Which ones have you verified?";
+SignKey_PublishSingleIdentity = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to %@.";
+SignKey_PublishMultipleIdentities = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to the identities you've checked.";
+SignKey_MainMsg = "By signing this key you confirm the identity of the key owner and that the key with fingerprint %@ belongs to them.";
+
+
 

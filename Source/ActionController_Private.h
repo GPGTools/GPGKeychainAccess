@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2017
+ Copyright © Roman Zechmeister, 2018
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -19,19 +19,10 @@
 
 #import "Globales.h"
 
-@class GKPhotoPopoverController;
+@class GKPhotoPopoverController, SheetController;
 
 
 @interface ActionController ()
-
-typedef enum {
-	DescriptionNoKeyID = 8,
-	DescriptionNoEmail = 16,
-	DescriptionNoName = 32,
-	DescriptionSingleLine = 64,
-	DescriptionIndent = 128
-	
-} DescriptionOptions;
 
 
 @property (weak) IBOutlet NSArrayController *keysController;
@@ -46,13 +37,13 @@ typedef enum {
 @property (weak) IBOutlet GKPhotoPopoverController *photoPopoverController;
 @property (weak) IBOutlet NSPopover *photoPopover;
 
+@property (readonly) SheetController *sheetController;
 
 @property (strong) NSString *progressText, *errorText;
 @property (strong, readonly) NSUndoManager *undoManager;
 @property (strong) NSSet *revCertCache;
 
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
-- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSUInteger)lines withOptions:(DescriptionOptions)options;
 
 - (BOOL)warningSheetWithDefault:(BOOL)defaultValue string:(NSString *)string, ...;
 

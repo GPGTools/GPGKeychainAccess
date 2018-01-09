@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2017
+ Copyright © Roman Zechmeister, 2018
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -151,10 +151,24 @@ NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename) {
 @implementation GKFingerprintTransformer
 - (id)transformedValue:(id)value {
 	NSString *fingerprint = [value description];
+	NSString *transformed;
 	if (fingerprint.length <= 16) {
-		return @"0000 0000 0000 0000  0000 0000 0000 0000";
+		transformed = @"0000 0000 0000 0000  0000 0000 0000 0000";
+	} else {
+		transformed = [super transformedValue:value];
 	}
-	return [super transformedValue:value];
+	
+	transformed = [transformed stringByReplacingOccurrencesOfString:@"  " withString:@"\xC2\xA0"];
+	transformed = [transformed stringByReplacingOccurrencesOfString:@" " withString:@"\xE2\x80\xAF"];
+	return transformed;
+}
++ (id)sharedInstance {
+	static dispatch_once_t onceToken = 0;
+	__strong static id _sharedInstance = nil;
+	dispatch_once(&onceToken, ^{
+		_sharedInstance = [[self alloc] init];
+	});
+	return _sharedInstance;
 }
 @end
 

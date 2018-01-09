@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2017
+ Copyright © Roman Zechmeister, 2018
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -56,10 +56,10 @@ enum {
 	
 	NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
 	NSString *_pubFilename, *_secFilename;
-	BOOL hasExpirationDate, exportSecretKey, localSig, allowEdit;
+	BOOL hasExpirationDate, exportSecretKey, allowEdit;
 	NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 	NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
-	NSInteger exportFormat, keyType, sigType, length, sheetType;
+	NSInteger exportFormat, keyType, length, sheetType;
 	NSArray *foundKeyDicts;
 	GPGKey *secretKey;
 	NSURL *URL;
@@ -68,15 +68,26 @@ enum {
 	NSIndexSet *selectedVolumeIndexes;
 	NSUInteger oldVolumeIndex;
 	NSArray *topLevelObjects;
+	GPGKey *_publicKey;
 }
 
 @property (assign) IBOutlet NSWindow *sheetWindow;
-@property (assign) IBOutlet NSView *sheetView;
 
 @property (assign) IBOutlet KeyLengthFormatter *keyLengthFormatter;
 @property (assign) IBOutlet NSProgressIndicator *progressIndicator;
 @property (assign) IBOutlet NSArrayController *foundKeysController;
 @property (assign) IBOutlet NSArrayController *secretKeysController;
+@property (assign) IBOutlet NSArrayController *userIDsController;
+
+@property (assign) IBOutlet NSStackView *sign_stackView;
+@property (assign) IBOutlet NSView *sign_singleUserIDView;
+@property (assign) IBOutlet NSView *sign_multiUserIDsView;
+@property (assign) IBOutlet NSView *sign_singleSecretKeyView;
+@property (assign) IBOutlet NSView *sign_multiSecretKeysView;
+@property (assign) IBOutlet NSView *sign_publishExampleView;
+@property (assign) IBOutlet NSView *sign_expertView;
+@property (assign) IBOutlet NSTableView *sign_userIDsTable;
+
 
 
 @property (assign) IBOutlet NSView *exportKeyOptionsView;
@@ -105,13 +116,16 @@ enum {
 
 
 @property (nonatomic, strong) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
-@property (nonatomic) BOOL hasExpirationDate, exportSecretKey, localSig, allowEdit;
+@property (nonatomic) BOOL hasExpirationDate, exportSecretKey, allowEdit, publish;
 @property (nonatomic, strong) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 @property (nonatomic, strong) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
-@property (nonatomic) NSInteger exportFormat, keyType, sigType, length, sheetType;
+@property (nonatomic) NSInteger exportFormat, keyType, length, sheetType;
 @property (nonatomic, readonly, strong) NSArray *foundKeyDicts;
 @property (nonatomic, readonly) NSInteger daysToExpire;
 @property (nonatomic, strong) GPGKey *secretKey;
+@property (nonatomic, strong) GPGKey *publicKey;
+@property (nonatomic, readonly, strong) NSArray *userIDs;
+@property (nonatomic, strong) NSArray *selectedUserIDs;
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, readonly, strong) NSArray *URLs;
 @property (nonatomic, readonly) BOOL hideExtension, enableOK;

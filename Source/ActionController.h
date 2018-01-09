@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2017
+ Copyright © Roman Zechmeister, 2018
  
  Diese Datei ist Teil von GPG Keychain.
  
@@ -21,6 +21,16 @@
 #import "GKMenuButton.h"
 
 @class SheetController;
+
+typedef enum {
+	DescriptionNoKeyID = 8,
+	DescriptionNoEmail = 16,
+	DescriptionNoName = 32,
+	DescriptionSingleLine = 64,
+	DescriptionIndent = 128,
+	DescriptionFingerprint = 256
+	
+} DescriptionOptions;
 
 
 @interface ActionController : NSWindowController <GPGControllerDelegate, NSPopoverDelegate, GKMenuButtonDelegate> {
@@ -82,5 +92,6 @@
 - (IBAction)sendKeysPerMail:(id)sender;
 - (BOOL)validateUserInterfaceItem:(id)anItem;
 
+- (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSUInteger)lines withOptions:(DescriptionOptions)options;
 
 @end

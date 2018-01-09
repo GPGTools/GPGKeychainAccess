@@ -303,7 +303,7 @@
 }
 
 - (NSString *)userIDAndKeyID {
-	return [NSString stringWithFormat:@"%@ (%@)", self.userIDDescription, self.keyID.shortKeyID];
+	return [NSString stringWithFormat:@"%@ (%@)", self.userIDDescription, [[GKFingerprintTransformer sharedInstance] transformedValue:self.fingerprint]];
 }
 
 - (BOOL)detailsLoaded {
