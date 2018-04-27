@@ -337,11 +337,15 @@ static PreferencesController *_sharedInstance = nil;
 }
 
 
+
+/*
+ * Key-Value Observing
+ */
 + (NSSet *)keyPathsForValuesAffectingKeyservers {
 	return [NSSet setWithObject:@"options.keyservers"];
 }
 + (NSSet *)keyPathsForValuesAffectingKeyserver {
-	return [NSSet setWithObject:@"options.keyserver"];
+	return [NSSet setWithObjects:@"options.keyserver", @"options.gpgConf", nil];
 }
 
 
