@@ -325,8 +325,15 @@ static PreferencesController *_sharedInstance = nil;
     return !self.keyserverToCheck ? self.options.keyserver : self.keyserverToCheck;
 }
 
-- (void)setKeyserver:(NSString *)keyserver {
-    self.keyserverToCheck = keyserver;
+- (void)setKeyserver:(NSString *)value {
+	if (value.length == 0) {
+		// Don't allow an empty keyserver. Set the default keyserver.
+		self.keyserverToCheck = nil;
+		self.options.keyserver = GPG_DEFAULT_KEYSERVER;
+		[self performSelectorOnMainThread:@selector(setKeyserver:) withObject:GPG_DEFAULT_KEYSERVER waitUntilDone:NO];
+	} else {
+		self.keyserverToCheck = value;
+	}
 }
 
 
