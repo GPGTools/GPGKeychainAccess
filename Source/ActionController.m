@@ -974,7 +974,9 @@ static NSString * const actionKey = @"action";
 								   NSDictionary *attributes = @{NSFontAttributeName: [NSFont systemFontOfSize:NSFont.smallSystemFontSize],
 																NSParagraphStyleAttributeName: paragraphStyle};
 
-								   attributedString = [[NSAttributedString alloc] initWithString:checkbox attributes:attributes];
+								   if (hasSecretKey) {
+									   attributedString = [[NSAttributedString alloc] initWithString:checkbox attributes:attributes];
+								   }
 
 								   
 								   if (NSAppKitVersionNumber > /*NSAppKitVersionNumber10_10*/1343) {
