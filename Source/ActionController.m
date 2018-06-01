@@ -1169,10 +1169,12 @@ static NSString * const actionKey = @"action";
 	}
 	
 	if (subkey) {
-		self.sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), subkey.keyID.shortKeyID, [key userIDDescription], key.keyID.shortKeyID];
+		NSString *description =  [self descriptionForKeys:@[subkey.fingerprint] maxLines:0 withOptions:DescriptionFingerprint];
+		self.sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeSubkeyExpirationDate_Msg"), description];
 		self.sheetController.expirationDate = [subkey expirationDate];
 	} else {
-		self.sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), [key userIDDescription], key.keyID.shortKeyID];
+		NSString *description =  [self descriptionForKeys:keys maxLines:0 withOptions:DescriptionFingerprint];
+		self.sheetController.msgText = [NSString stringWithFormat:localized(@"ChangeExpirationDate_Msg"), description];
 		self.sheetController.expirationDate = [key expirationDate];
 	}
 	
@@ -2732,6 +2734,8 @@ static NSString * const actionKey = @"action";
 	BOOL singleLine = options & DescriptionSingleLine;
 	BOOL indent = options & DescriptionIndent;
 	BOOL showFingerprint = !!(options & DescriptionFingerprint);
+	BOOL singleKeyWithFingerprint = count == 1 && showFingerprint;
+	
 	
 	NSString *lineBreak = indent ? @"\n\t" : @"\n";
 	if (indent) {
@@ -2769,10 +2773,15 @@ static NSString * const actionKey = @"action";
 		
 		
 		BOOL isUserID = [key isKindOfClass:userIDClass];
-		
-		if ([key isKindOfClass:gpgKeyClass] || [key isKindOfClass:dictionaryClass] || isUserID) {
-			NSString *name = [key valueForKey:@"name"];
-			NSString *email = [key valueForKey:@"email"];
+		BOOL isGPGKey = [key isKindOfClass:gpgKeyClass];
+
+		if (isGPGKey || isUserID || [key isKindOfClass:dictionaryClass]) {
+			GPGKey *primaryKey = key;
+			if (isGPGKey) {
+				primaryKey = key.primaryKey;
+			}
+			NSString *name = [primaryKey valueForKey:@"name"];
+			NSString *email = [primaryKey valueForKey:@"email"];
 			NSString *keyID;
 			if (showFingerprint) {
 				keyID = isUserID ? [(GPGUserID *)key primaryKey].fingerprint : [key valueForKey:@"fingerprint"];
@@ -2804,13 +2813,25 @@ static NSString * const actionKey = @"action";
 					[descriptions appendFormat:@"%@%@", seperator, keyID];
 					break;
 				case 5:
-					[descriptions appendFormat:@"%@%@ (%@)", seperator, name, keyID];
+					if (singleKeyWithFingerprint) {
+						[descriptions appendFormat:@"%@%@%@%@", seperator, name, lineBreak, keyID];
+					} else {
+						[descriptions appendFormat:@"%@%@ (%@)", seperator, name, keyID];
+					}
 					break;
 				case 6:
-					[descriptions appendFormat:@"%@%@ (%@)", seperator, email, keyID];
+					if (singleKeyWithFingerprint) {
+						[descriptions appendFormat:@"%@%@%@%@", seperator, email, lineBreak, keyID];
+					} else {
+						[descriptions appendFormat:@"%@%@ (%@)", seperator, email, keyID];
+					}
 					break;
 				default:
-					[descriptions appendFormat:@"%@%@ <%@> (%@)", seperator, name, email, keyID];
+					if (singleKeyWithFingerprint) {
+						[descriptions appendFormat:@"%@%@ <%@>%@%@", seperator, name, email, lineBreak, keyID];
+					} else {
+						[descriptions appendFormat:@"%@%@ <%@> (%@)", seperator, name, email, keyID];
+					}
 					break;
 			}
 		} else {
