@@ -20,7 +20,7 @@
 #import "Globales.h"
 
 
-@class KeyLengthFormatter;
+@class KeyLengthFormatter, DBZxcvbn;
 
 
 typedef enum {
@@ -69,6 +69,7 @@ enum {
 	NSUInteger oldVolumeIndex;
 	NSArray *topLevelObjects;
 	GPGKey *_publicKey;
+	DBZxcvbn *zxcvbn;
 }
 
 @property (assign) IBOutlet NSWindow *sheetWindow;
@@ -78,6 +79,7 @@ enum {
 @property (assign) IBOutlet NSArrayController *foundKeysController;
 @property (assign) IBOutlet NSArrayController *secretKeysController;
 @property (assign) IBOutlet NSArrayController *userIDsController;
+@property (assign) IBOutlet NSProgressIndicator *passwordStrengthIndicator;
 
 @property (assign) IBOutlet NSStackView *sign_stackView;
 @property (assign) IBOutlet NSView *sign_singleUserIDView;
@@ -133,6 +135,7 @@ enum {
 @property (nonatomic, strong) NSIndexSet *selectedVolumeIndexes;
 @property (nonatomic, strong, readonly) NSDictionary *result;
 @property (nonatomic, readonly) BOOL disableUserIDCommentsField;
+@property (nonatomic, readonly) NSInteger passwordStrength;
 
 
 

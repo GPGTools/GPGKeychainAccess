@@ -25,6 +25,9 @@
 #import "AppDelegate.h"
 #import <objc/runtime.h>
 #import "Mail.h"
+#import <Zxcvbn/Zxcvbn.h>
+#import <CoreImage/CoreImage.h>
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface SheetController ()
@@ -763,6 +766,69 @@ modalWindow, foundKeyDicts, hideExtension;
 }
 
 
+- (void)setPassphrase:(NSString *)value {
+	passphrase = value;
+	
+	self.passwordStrengthIndicator.wantsLayer = YES;
+	
+	CIFilter *hueFilter;// = self.passwordStrengthIndicator.contentFilters[0];
+	
+	if (self.passwordStrengthIndicator.contentFilters.count > 0) {
+//		hueFilter = self.passwordStrengthIndicator.contentFilters[0];
+//		[hueFilter setValue:@(value.length) forKey:@"inputAngle"];
+	} else {
+		hueFilter = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:@"inputAngle", @(value.length * 0.2), nil];
+		
+		
+		hueFilter.name = @"hueAdjust";
+		
+		[self.passwordStrengthIndicator setContentFilters:@[hueFilter]];
+		
+		
+		
+		CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
+		pulseAnimation.keyPath = @"contentFilters.hueAdjust.inputAngle";
+		
+		pulseAnimation.fromValue = @(0);
+		pulseAnimation.toValue = @(5);
+		
+		pulseAnimation.duration = 0.3;
+		pulseAnimation.repeatCount = 1;
+		pulseAnimation.autoreverses = YES;
+		
+		[self.passwordStrengthIndicator.layer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
+
+		
+		
+	}
+
+	
+	
+	
+
+	
+	
+	
+//	self.passwordStrengthIndicator.needsLayout = YES;
+	
+	
+//	NSLog(@"%@", hueFilter);
+	
+}
+- (NSString *)passphrase {
+	return passphrase;
+}
+
+- (NSInteger)passwordStrength {
+	if (self.passphrase.length == 0) {
+		return 0;
+	}
+	DBResult *result = [zxcvbn passwordStrength:self.passphrase];
+	return result.score;
+}
++ (NSSet *)keyPathsForValuesAffectingPasswordStrength {
+	return [NSSet setWithObjects:@"passphrase", nil];
+}
 
 
 // Internal methods //
@@ -1133,10 +1199,10 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		return NO;
 	}
 	
-	if (![self.passphrase isEqualToString:self.confirmPassphrase]) {
-		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_PassphraseMissmatch"), nil, nil, nil);
-		return NO;
-	}
+//	if (![self.passphrase isEqualToString:self.confirmPassphrase]) {
+//		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_PassphraseMissmatch"), nil, nil, nil);
+//		return NO;
+//	}
 	
 	if ([self.passphrase length] == 0) {
 		if (NSRunAlertPanel(localized(@"CheckAlert_NoPassphrase_Title"),
@@ -1145,18 +1211,16 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 							localized(@"CheckAlert_NoPassphrase_Button2"), nil) != NSAlertDefaultReturn) {
 			return NO;
 		}
-	} else {
-		if ([self.passphrase length] < 8) {
-			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseShort_Title"),
-								localized(@"CheckAlert_PassphraseShort_Message"),
-								localized(@"CheckAlert_PassphraseShort_Button1"),
-								localized(@"CheckAlert_PassphraseShort_Button2"), nil) != NSAlertDefaultReturn) {
-				return NO;
-			}
+	} else if ([self.passphrase length] < 8) {
+		if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseShort_Title"),
+							localized(@"CheckAlert_PassphraseShort_Message"),
+							localized(@"CheckAlert_PassphraseShort_Button1"),
+							localized(@"CheckAlert_PassphraseShort_Button2"), nil) != NSAlertDefaultReturn) {
+			return NO;
 		}
-		if ([self.passphrase rangeOfCharacterFromSet:[NSCharacterSet letterCharacterSet]].length == 0 ||
-			[self.passphrase rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]].length == 0 ||
-			[self.passphrase rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].length == 0 ) {
+	} else {
+		DBResult *result = [zxcvbn passwordStrength:self.passphrase];
+		if (result.score < 3) {
 			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseSimple_Title"),
 								localized(@"CheckAlert_PassphraseSimple_Message"),
 								localized(@"CheckAlert_PassphraseSimple_Button1"),
@@ -1165,7 +1229,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			}
 		}
 	}
-	
+	return NO;
 	return YES;
 }
 
@@ -1374,6 +1438,13 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		NSArray *objects;
 		[[NSBundle mainBundle] loadNibNamed:@"ModalSheets" owner:self topLevelObjects:&objects];
 		topLevelObjects = objects;
+		
+		if (![DBZxcvbn class]) {
+			//TODO: !!!
+		}
+		zxcvbn = [DBZxcvbn new];
+		
+		
 	}
 	return self;
 }
