@@ -1281,7 +1281,7 @@ Gw
             <point key="canvasLocation" x="-48" y="428"/>
         </customView>
         <customView id="855" userLabel="New Key">
-            <rect key="frame" x="0.0" y="0.0" width="450" height="386"/>
+            <rect key="frame" x="0.0" y="0.0" width="450" height="362"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="751" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="921">
@@ -1446,7 +1446,7 @@ Gw
                     </constraints>
                 </customView>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="916">
-                    <rect key="frame" x="18" y="252" width="131" height="17"/>
+                    <rect key="frame" x="18" y="228" width="131" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="917">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1454,7 +1454,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <secureTextField verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="915">
-                    <rect key="frame" x="155" y="249" width="275" height="22"/>
+                    <rect key="frame" x="155" y="225" width="275" height="22"/>
                     <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="918">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1496,7 +1496,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="412" translatesAutoresizingMaskIntoConstraints="NO" id="866">
-                    <rect key="frame" x="19" y="349" width="414" height="17"/>
+                    <rect key="frame" x="19" y="325" width="414" height="17"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="410" id="1cW-kM-AJn"/>
                     </constraints>
@@ -1507,7 +1507,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="867">
-                    <rect key="frame" x="18" y="310" width="131" height="17"/>
+                    <rect key="frame" x="18" y="286" width="131" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="878">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1515,7 +1515,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="868">
-                    <rect key="frame" x="18" y="279" width="131" height="17"/>
+                    <rect key="frame" x="18" y="255" width="131" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Email:" id="877">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1523,7 +1523,7 @@ Gw
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="870">
-                    <rect key="frame" x="155" y="307" width="275" height="22"/>
+                    <rect key="frame" x="155" y="283" width="275" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="875">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1535,7 +1535,7 @@ Gw
                     </connections>
                 </textField>
                 <comboBox verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="872">
-                    <rect key="frame" x="155" y="275" width="278" height="26"/>
+                    <rect key="frame" x="155" y="251" width="278" height="26"/>
                     <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" numberOfVisibleItems="5" id="873">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1566,13 +1566,6 @@ Gw
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <levelIndicator verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rxw-SF-vaV">
-                    <rect key="frame" x="155" y="225" width="275" height="16"/>
-                    <levelIndicatorCell key="cell" alignment="left" minValue="-1" maxValue="7" warningValue="4" criticalValue="1" levelIndicatorStyle="continuousCapacity" id="OJ2-A9-9mC"/>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="passwordStrength" id="f1b-dh-ypO"/>
-                    </connections>
-                </levelIndicator>
             </subviews>
             <constraints>
                 <constraint firstItem="915" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="8" id="0ar-kP-14n"/>
@@ -1598,11 +1591,9 @@ Gw
                 <constraint firstItem="1155" firstAttribute="leading" secondItem="1153" secondAttribute="trailing" constant="7" id="RXi-rH-Dxr"/>
                 <constraint firstItem="915" firstAttribute="leading" secondItem="870" secondAttribute="leading" id="TUf-Ck-4LR"/>
                 <constraint firstAttribute="trailing" secondItem="870" secondAttribute="trailing" constant="20" id="TkJ-ZT-DUv"/>
-                <constraint firstItem="rxw-SF-vaV" firstAttribute="leading" secondItem="915" secondAttribute="leading" id="VFR-1Y-IbW"/>
+                <constraint firstItem="914" firstAttribute="top" secondItem="915" secondAttribute="bottom" constant="8" id="UsA-Bu-61r"/>
                 <constraint firstItem="915" firstAttribute="width" secondItem="870" secondAttribute="width" id="a4w-Lh-vbu"/>
                 <constraint firstItem="922" firstAttribute="top" secondItem="1152" secondAttribute="bottom" constant="2" id="asV-K2-OCB"/>
-                <constraint firstItem="914" firstAttribute="top" secondItem="rxw-SF-vaV" secondAttribute="bottom" constant="8" id="bJU-CX-HB6"/>
-                <constraint firstItem="rxw-SF-vaV" firstAttribute="top" secondItem="915" secondAttribute="bottom" constant="8" id="bLm-y1-yVQ"/>
                 <constraint firstItem="867" firstAttribute="leading" secondItem="855" secondAttribute="leading" constant="20" id="e0a-fQ-fHs"/>
                 <constraint firstItem="871" firstAttribute="width" secondItem="914" secondAttribute="width" id="e6l-sm-DVk"/>
                 <constraint firstAttribute="trailing" secondItem="921" secondAttribute="trailing" constant="20" id="ebR-D2-c9z"/>
@@ -1616,7 +1607,6 @@ Gw
                 <constraint firstItem="916" firstAttribute="baseline" secondItem="915" secondAttribute="baseline" id="sm9-cF-Y8l"/>
                 <constraint firstItem="913" firstAttribute="baseline" secondItem="914" secondAttribute="baseline" id="ujl-mz-SxD"/>
                 <constraint firstItem="1153" firstAttribute="top" secondItem="1155" secondAttribute="top" constant="2" id="ulN-Ui-YAj"/>
-                <constraint firstItem="rxw-SF-vaV" firstAttribute="width" secondItem="915" secondAttribute="width" id="umE-bd-pmN"/>
                 <constraint firstItem="871" firstAttribute="leading" secondItem="914" secondAttribute="leading" id="x20-s2-JEV"/>
                 <constraint firstItem="872" firstAttribute="width" secondItem="870" secondAttribute="width" id="yk9-aa-oZl"/>
                 <constraint firstItem="916" firstAttribute="width" secondItem="867" secondAttribute="width" id="zW3-Pz-ELb"/>
