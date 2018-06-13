@@ -30,6 +30,7 @@
 @property (weak) IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
 @property (weak) IBOutlet NSDrawer *drawer;
 @property (nonatomic) BOOL inspectorVisible;
+@property (nonatomic, strong) NSTextView *fieldEditor;
 
 
 - (IBAction)toggleInspector:(id)sender;

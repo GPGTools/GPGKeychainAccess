@@ -158,8 +158,8 @@ NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename) {
 		transformed = [super transformedValue:value];
 	}
 	
-	transformed = [transformed stringByReplacingOccurrencesOfString:@"  " withString:@"\xC2\xA0"];
-	transformed = [transformed stringByReplacingOccurrencesOfString:@" " withString:@"\xE2\x80\xAF"];
+	transformed = [transformed stringByReplacingOccurrencesOfString:@"  " withString:@"\xC2\xA0\xC2\xA0"];
+	transformed = [transformed stringByReplacingOccurrencesOfString:@" " withString:@"\xC2\xA0"];
 	return transformed;
 }
 + (id)sharedInstance {

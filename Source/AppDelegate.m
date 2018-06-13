@@ -22,6 +22,7 @@
 #import "ActionController.h"
 #import "PreferencesController.h"
 #import "SBSystemPreferences.h"
+#import "GKFieldEditor.h"
 
 
 @implementation GPGKeychainAppDelegate
@@ -155,6 +156,7 @@
 - (id)init {
 	self = [super init];
 	appDelegate = self;
+	self.fieldEditor = [GKFieldEditor new];
 	return self;
 }
 
@@ -253,6 +255,10 @@
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)awindow {
 	return [[ActionController sharedInstance] undoManager];
+}
+
+- (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client {
+	return self.fieldEditor;
 }
 
 
