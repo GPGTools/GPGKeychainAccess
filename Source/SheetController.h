@@ -20,8 +20,6 @@
 #import "Globales.h"
 
 
-@class KeyLengthFormatter, DBZxcvbn;
-
 
 typedef enum {
 	SheetTypeNoSheet = 0,
@@ -47,88 +45,22 @@ enum {
 };
 
 
-@interface SheetController : NSObject <NSOpenSavePanelDelegate, NSTabViewDelegate> {
-	NSView *displayedView;
-	NSInteger clickedButton;
-	NSView *oldDisplayedView;
-	NSLock *sheetLock, *progressSheetLock;
-	NSInteger numberOfProgressSheets; //Anzahl der angeforderten progressSheets.
-	
-	NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
-	NSString *_pubFilename, *_secFilename;
-	BOOL hasExpirationDate, exportSecretKey, allowEdit;
-	NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
-	NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
-	NSInteger exportFormat, keyType, length, sheetType;
-	NSArray *foundKeyDicts;
-	GPGKey *secretKey;
-	NSURL *URL;
-	NSArray *URLs;
-	BOOL hideExtension;
-	NSIndexSet *selectedVolumeIndexes;
-	NSUInteger oldVolumeIndex;
-	NSArray *topLevelObjects;
-	GPGKey *_publicKey;
-	DBZxcvbn *zxcvbn;
-}
-
-@property (assign) IBOutlet NSWindow *sheetWindow;
-
-@property (assign) IBOutlet KeyLengthFormatter *keyLengthFormatter;
-@property (assign) IBOutlet NSProgressIndicator *progressIndicator;
-@property (assign) IBOutlet NSArrayController *foundKeysController;
-@property (assign) IBOutlet NSArrayController *secretKeysController;
-@property (assign) IBOutlet NSArrayController *userIDsController;
-
-@property (assign) IBOutlet NSStackView *sign_stackView;
-@property (assign) IBOutlet NSView *sign_singleUserIDView;
-@property (assign) IBOutlet NSView *sign_multiUserIDsView;
-@property (assign) IBOutlet NSView *sign_singleSecretKeyView;
-@property (assign) IBOutlet NSView *sign_multiSecretKeysView;
-@property (assign) IBOutlet NSView *sign_publishExampleView;
-@property (assign) IBOutlet NSView *sign_expertView;
-@property (assign) IBOutlet NSTableView *sign_userIDsTable;
 
 
-
-@property (assign) IBOutlet NSView *exportKeyOptionsView;
-
-//Views die im Sheet angezeigt werden können.
-@property (assign) IBOutlet NSView *progressView;
-@property (assign) IBOutlet NSView *genNewKeyView;
-@property (assign) IBOutlet NSView *genNewKey_advancedSubview;
-@property (assign) IBOutlet NSLayoutConstraint *genNewKey_advancedConstraint;
-@property (assign) IBOutlet NSView *generateSubkeyView;
-@property (assign) IBOutlet NSView *generateUserIDView;
-@property (assign) IBOutlet NSLayoutConstraint *generateUserID_CommentConstraint;
-@property (assign) IBOutlet NSView *generateSignatureView;
-@property (assign) IBOutlet NSView *changeExpirationDateView;
-@property (assign) IBOutlet NSView *searchKeysView;
-@property (assign) IBOutlet NSView *foundKeysView;
-@property (assign) IBOutlet NSView *receiveKeysView;
-@property (assign) IBOutlet NSView *resultView;
-@property (assign) IBOutlet NSView *editAlgorithmPreferencesView;
-@property (assign) IBOutlet NSView *selectVolumeView;
-
-
-
-
-
-
-
+@interface SheetController : NSObject
 @property (nonatomic, strong) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
 @property (nonatomic) BOOL hasExpirationDate, exportSecretKey, allowEdit, publish;
 @property (nonatomic, strong) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 @property (nonatomic, strong) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
 @property (nonatomic) NSInteger exportFormat, keyType, length, sheetType;
-@property (nonatomic, readonly, strong) NSArray *foundKeyDicts;
+@property (nonatomic, strong, readonly) NSArray *foundKeyDicts;
 @property (nonatomic, readonly) NSInteger daysToExpire;
 @property (nonatomic, strong) GPGKey *secretKey;
 @property (nonatomic, strong) GPGKey *publicKey;
-@property (nonatomic, readonly, strong) NSArray *userIDs;
+@property (nonatomic, strong, readonly) NSArray *userIDs;
 @property (nonatomic, strong) NSArray *selectedUserIDs;
 @property (nonatomic, strong) NSURL *URL;
-@property (nonatomic, readonly, strong) NSArray *URLs;
+@property (nonatomic, strong, readonly) NSArray *URLs;
 @property (nonatomic, readonly) BOOL hideExtension, enableOK;
 @property (nonatomic, strong, readonly) NSArray *volumes;
 @property (nonatomic, strong) NSIndexSet *selectedVolumeIndexes;
@@ -152,23 +84,6 @@ enum {
 - (BOOL)showProgressSheet;
 - (BOOL)endProgressSheet;
 
-- (IBAction)buttonClicked:(NSButton *)sender;
-- (IBAction)advancedButton:(NSButton *)sender;
-
 @end
 
 
-
-
-
-@interface KeyLengthFormatter : NSFormatter {
-	NSInteger minKeyLength;
-	NSInteger maxKeyLength;
-}
-@property NSInteger minKeyLength;
-@property NSInteger maxKeyLength;
-- (NSInteger)checkedValue:(NSInteger)value;
-@end
-
-@interface GKSheetWindow : NSPanel
-@end

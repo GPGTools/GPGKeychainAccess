@@ -29,119 +29,83 @@
 #import <CommonCrypto/CommonDigest.h>
 
 
-
-@interface GKPasswordStrengthIndicator : NSProgressIndicator
-@end
-@interface GKPasswordStrengthIndicator () {
-	NSColor *borderColor;
-	NSColor *backgroundColor;
-	NSGradient *gradient;
-
-}
-@end
-@implementation GKPasswordStrengthIndicator
-
-- (instancetype)initWithCoder:(NSCoder *)decoder {
-	self = [super initWithCoder:decoder];
-	if (!self) {
-		return nil;
-	}
-	
-	borderColor = [NSColor colorWithCalibratedWhite:0.71 alpha:1];
-	backgroundColor = [NSColor colorWithCalibratedWhite:0.85 alpha:1];
-	
-	NSColor* color1 = [NSColor colorWithCalibratedRed: 0.808 green: 0.241 blue: 0.241 alpha: 1];
-	NSColor* color2 = [NSColor colorWithCalibratedRed: 0.868 green: 0.83 blue: 0.213 alpha: 1];
-	NSColor* color3 = [NSColor colorWithCalibratedRed: 0.373 green: 0.848 blue: 0.19 alpha: 1];
-
-	
-	gradient = [[NSGradient alloc] initWithColorsAndLocations:
-							color1, 0.23,
-							[color1 blendedColorWithFraction: 0.5 ofColor: color2], 0.27,
-							color2, 0.36,
-							[color2 blendedColorWithFraction: 0.5 ofColor: color3], 0.43,
-							color3, 0.50, nil];
-
-	return self;
-}
-
-
-- (void)drawRect:(NSRect)dirtyRect {
-	[[NSGraphicsContext currentContext] saveGraphicsState];
-
-	NSSize size = self.bounds.size;
-	CGFloat width = size.width;
-	CGFloat height = size.height;
-	CGFloat barWidth = width - 3;
-	CGFloat barHeight = 8;
-	CGFloat xOffset = (width - barWidth) / 2;
-	CGFloat yOffset = (height - barHeight) / 2 + 0.5;
-	CGFloat radius = barHeight / 2;
-	
-	double minValue = self.minValue;
-	double maxValue = self.maxValue;
-	double value = self.doubleValue;
-	double ratio = (value - minValue) / (maxValue - minValue);
-	CGFloat filledWidth = barWidth * ratio;
-
-
-	NSColor *barColor = [gradient interpolatedColorAtLocation:ratio];
-	
-	
-	
-	
-	// Construct the BezierPath.
-	NSPoint line1Start = NSMakePoint(radius + xOffset, yOffset);
-	NSPoint line1End = NSMakePoint(barWidth - radius + xOffset, yOffset);
-	NSPoint arc1Center = NSMakePoint(line1End.x, line1End.y + radius);
-	NSPoint arc2Center = NSMakePoint(line1Start.x, line1Start.y + radius);
-
-	NSBezierPath *border = [NSBezierPath bezierPath];
-	[border moveToPoint:line1Start];
-	[border appendBezierPathWithArcWithCenter:arc1Center radius:radius startAngle:270 endAngle:90];
-	[border appendBezierPathWithArcWithCenter:arc2Center radius:radius startAngle:90 endAngle:270];
-	[border setLineWidth:1.0];
-
-	
-	// Fill the background.
-	[backgroundColor setFill];
-	[border fill];
-	
-	
-	// Draw the bar.
-	[[NSGraphicsContext currentContext] saveGraphicsState];
-	NSBezierPath *clipPath = [NSBezierPath bezierPath];
-	[clipPath appendBezierPathWithRect:NSMakeRect(0, 0, filledWidth + xOffset, height)];
-	[clipPath setClip];
-	
-	[barColor setFill];
-	[border fill];
-	[[NSGraphicsContext currentContext] restoreGraphicsState];
-
-	
-	// Draw the border.
-	[borderColor set];
-	[border stroke];
-
-	
-	
-	[[NSGraphicsContext currentContext] restoreGraphicsState];
-}
-
+@interface KeyLengthFormatter : NSFormatter
+@property (nonatomic) NSInteger minKeyLength;
+@property (nonatomic) NSInteger maxKeyLength;
+- (NSInteger)checkedValue:(NSInteger)value;
 @end
 
+@interface GKSheetWindow : NSPanel
+@end
 
-@interface SheetController ()
-@property (weak) NSView *displayedView;
-@property (assign) NSWindow *modalWindow;
-@property (strong) NSArray *foundKeyDicts;
-@property (strong) NSArray *URLs;
+@interface SheetController () <NSOpenSavePanelDelegate, NSTabViewDelegate> {
+	NSInteger _clickedButton;
+	NSView *_oldDisplayedView;
+	NSLock *_sheetLock;
+	NSLock *_progressSheetLock;
+	NSInteger _numberOfProgressSheets; //Anzahl der angeforderten progressSheets.
+	NSString *_pubFilename;
+	NSString *_secFilename;
+	NSUInteger _oldVolumeIndex;
+	NSArray *_topLevelObjects;
+	DBZxcvbn *_zxcvbn;
+	NSArray<NSString *> *_badPasswordIngredients;
+}
+
+@property (nonatomic, weak) IBOutlet NSWindow *sheetWindow;
+
+@property (nonatomic, weak) IBOutlet KeyLengthFormatter *keyLengthFormatter;
+@property (nonatomic, weak) IBOutlet NSProgressIndicator *progressIndicator;
+@property (nonatomic, weak) IBOutlet NSArrayController *foundKeysController;
+@property (nonatomic, weak) IBOutlet NSArrayController *secretKeysController;
+@property (nonatomic, weak) IBOutlet NSArrayController *userIDsController;
+
+@property (nonatomic, weak) IBOutlet NSStackView *sign_stackView;
+@property (nonatomic, weak) IBOutlet NSView *sign_singleUserIDView;
+@property (nonatomic, weak) IBOutlet NSView *sign_multiUserIDsView;
+@property (nonatomic, weak) IBOutlet NSView *sign_singleSecretKeyView;
+@property (nonatomic, weak) IBOutlet NSView *sign_multiSecretKeysView;
+@property (nonatomic, weak) IBOutlet NSView *sign_publishExampleView;
+@property (nonatomic, weak) IBOutlet NSView *sign_expertView;
+@property (nonatomic, weak) IBOutlet NSTableView *sign_userIDsTable;
+
+@property (nonatomic, weak) IBOutlet NSView *exportKeyOptionsView;
+
+//Views die im Sheet angezeigt werden können.
+@property (nonatomic, weak) IBOutlet NSView *progressView;
+@property (nonatomic, weak) IBOutlet NSView *genNewKeyView;
+@property (nonatomic, weak) IBOutlet NSView *genNewKey_advancedSubview;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *genNewKey_advancedConstraint;
+@property (nonatomic, weak) IBOutlet NSView *generateSubkeyView;
+@property (nonatomic, weak) IBOutlet NSView *generateUserIDView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *generateUserID_CommentConstraint;
+@property (nonatomic, weak) IBOutlet NSView *generateSignatureView;
+@property (nonatomic, weak) IBOutlet NSView *changeExpirationDateView;
+@property (nonatomic, weak) IBOutlet NSView *searchKeysView;
+@property (nonatomic, weak) IBOutlet NSView *foundKeysView;
+@property (nonatomic, weak) IBOutlet NSView *receiveKeysView;
+@property (nonatomic, weak) IBOutlet NSView *resultView;
+@property (nonatomic, weak) IBOutlet NSView *editAlgorithmPreferencesView;
+@property (nonatomic, weak) IBOutlet NSView *selectVolumeView;
+
+
+@property (nonatomic, weak) NSView *displayedView;
+@property (nonatomic, weak) NSWindow *modalWindow;
+@property (nonatomic, strong) NSArray *foundKeyDicts;
+@property (nonatomic, strong) NSArray *URLs;
 @property (nonatomic, strong) NSArray *volumes;
 @property (nonatomic, strong) NSDictionary *result;
 @property (nonatomic) BOOL enableOK;
 @property (nonatomic) BOOL disableUserIDCommentsField;
 @property (nonatomic, readwrite, strong) NSArray *userIDs;
 @property (nonatomic, readwrite) double passwordStrength;
+
+
+
+- (IBAction)buttonClicked:(NSButton *)sender;
+- (IBAction)advancedButton:(NSButton *)sender;
+
+
 
 
 - (void)runAndWait;
@@ -163,40 +127,17 @@
 
 
 
+
+
+
+
+
+
+
 @implementation SheetController
-@synthesize name, email, comment, passphrase, confirmPassphrase, pattern, title,
-hasExpirationDate, allowEdit,
-expirationDate, minExpirationDate, maxExpirationDate,
-algorithmPreferences, keys, emailAddresses, secretKeys, availableLengths, allowedFileTypes,
-length, sheetType, URL, URLs,
-modalWindow, foundKeyDicts, hideExtension;
+@synthesize progressText = _progressText;
+@synthesize msgText = _msgText;
 
-
-
-
-- (void)setProgressText:(NSString *)value {
-	if (value == nil) {
-		value = @"";
-	}
-	if (value != progressText) {
-		progressText = value;
-	}
-}
-- (NSString *)progressText {
-	return progressText;
-}
-
-- (void)setMsgText:(NSString *)value {
-	if (value == nil) {
-		value = @"";
-	}
-	if (value != msgText) {
-		msgText = value;
-	}
-}
-- (NSString *)msgText {
-	return msgText ? msgText : @"";
-}
 
 
 // Running sheets //
@@ -204,7 +145,7 @@ modalWindow, foundKeyDicts, hideExtension;
 	return [self runModalForWindow:mainWindow];
 }
 - (NSInteger)runModalForWindow:(NSWindow *)window {
-	clickedButton = 0;
+	_clickedButton = 0;
 	self.modalWindow = window;
 	
 	switch (self.sheetType) {
@@ -324,16 +265,16 @@ modalWindow, foundKeyDicts, hideExtension;
 		case SheetTypeSavePanel:
 			[self runSavePanel];
 			
-			return clickedButton;
+			return _clickedButton;
 		case SheetTypeOpenPanel:
 		case SheetTypeOpenPhotoPanel:
 			[self runOpenPanelWithAccessoryView:nil];
 			
-			return clickedButton;
+			return _clickedButton;
 		case SheetTypeExportKey: {
 			[self runSavePanel];
 			
-			return clickedButton; }
+			return _clickedButton; }
 		case SheetTypeAlgorithmPreferences:
 			self.displayedView = _editAlgorithmPreferencesView;
 			break;
@@ -346,7 +287,7 @@ modalWindow, foundKeyDicts, hideExtension;
 	}
 	[self runAndWait];
 	self.displayedView = nil;
-	return clickedButton;
+	return _clickedButton;
 }
 
 - (IBAction)togglePublishExample:(NSButton *)sender {
@@ -490,55 +431,55 @@ modalWindow, foundKeyDicts, hideExtension;
 		customize(alert);
 	}
 	
-	if (window && window.isVisible && [sheetLock tryLock]) {
+	if (window && window.isVisible && [_sheetLock tryLock]) {
 		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
 		[NSApp runModalForWindow:window];
-		[sheetLock unlock];
+		[_sheetLock unlock];
 	} else {
-		clickedButton = [alert runModal];
+		_clickedButton = [alert runModal];
 	}
 	
 	if (alert.suppressionButton.state == NSOnState) {
-		clickedButton = clickedButton | SheetSuppressionButton;
+		_clickedButton = _clickedButton | SheetSuppressionButton;
 	}
 	
 	
-	return clickedButton;
+	return _clickedButton;
 }
 
 - (BOOL)showProgressSheet {
 	BOOL result = NO;
-	[progressSheetLock lock];
-	if (numberOfProgressSheets == 0) { //Nur anzeigen wenn das progressSheet nicht bereits angezeigt wird.
-		oldDisplayedView = displayedView; //displayedView sichern.
+	[_progressSheetLock lock];
+	if (_numberOfProgressSheets == 0) { //Nur anzeigen wenn das progressSheet nicht bereits angezeigt wird.
+		_oldDisplayedView = _displayedView; //displayedView sichern.
 		self.displayedView = _progressView; //progressView anzeigen.
-		if ([sheetLock tryLock]) { //Es wird kein anderes Sheet angezeigt.
-			oldDisplayedView = nil;
+		if ([_sheetLock tryLock]) { //Es wird kein anderes Sheet angezeigt.
+			_oldDisplayedView = nil;
 			[NSApp beginSheet:_sheetWindow modalForWindow:mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
 		}
 		result = YES;
 	}
-	numberOfProgressSheets++;
-	[progressSheetLock unlock];
+	_numberOfProgressSheets++;
+	[_progressSheetLock unlock];
 	return result;
 }
 - (BOOL)endProgressSheet {
 	BOOL result = NO;
-	[progressSheetLock lock];
-	numberOfProgressSheets--;
-	if (numberOfProgressSheets == 0) { //Nur ausführen wenn das progressSheet angezeigt wird.
-		if (oldDisplayedView) { //Soll ein zuvor angezeigtes Sheet wieder angezeigt werden?
-			self.displayedView = oldDisplayedView; //Altes Sheet wieder anzeigen.
+	[_progressSheetLock lock];
+	_numberOfProgressSheets--;
+	if (_numberOfProgressSheets == 0) { //Nur ausführen wenn das progressSheet angezeigt wird.
+		if (_oldDisplayedView) { //Soll ein zuvor angezeigtes Sheet wieder angezeigt werden?
+			self.displayedView = _oldDisplayedView; //Altes Sheet wieder anzeigen.
 		} else {
 			[NSApp endSheet:_sheetWindow]; //Sheet beenden...
 			[_sheetWindow orderOut:self]; // und ausblenden.
-			[sheetLock unlock];
+			[_sheetLock unlock];
 		}
 		result = YES;
-	} else if (numberOfProgressSheets < 0) {
-		numberOfProgressSheets = 0;
+	} else if (_numberOfProgressSheets < 0) {
+		_numberOfProgressSheets = 0;
 	}
-	[progressSheetLock unlock];
+	[_progressSheetLock unlock];
 	return result;
 }
 
@@ -566,7 +507,7 @@ modalWindow, foundKeyDicts, hideExtension;
     // whether they want to export the secret key as well or not.
     __block NSView *accessoryView = nil;
     if(self.sheetType == SheetTypeExportKey) {
-        [keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
+        [_keys enumerateObjectsUsingBlock:^(GPGKey *key, NSUInteger idx, BOOL *stop) {
             if (key.secret) {
                 accessoryView = _exportKeyOptionsView;
                 *stop = YES;
@@ -592,16 +533,16 @@ modalWindow, foundKeyDicts, hideExtension;
 	panel.title = self.title ? self.title : @"";
 	
 	
-	[sheetLock lock];
-	[panel beginSheetModalForWindow:modalWindow completionHandler:^(NSInteger result) {
+	[_sheetLock lock];
+	[panel beginSheetModalForWindow:_modalWindow completionHandler:^(NSInteger result) {
 		[NSApp stopModalWithCode:result];
 	}];
 	
-	clickedButton = [NSApp runModalForWindow:modalWindow];
-	[sheetLock unlock];
+	_clickedButton = [NSApp runModalForWindow:_modalWindow];
+	[_sheetLock unlock];
 	
 	self.URL = panel.URL;
-	hideExtension = panel.isExtensionHidden;
+	_hideExtension = panel.isExtensionHidden;
 }
 - (void)runOpenPanelWithAccessoryView:(NSView *)accessoryView {
 	NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -620,13 +561,13 @@ modalWindow, foundKeyDicts, hideExtension;
 	panel.title = self.title ? self.title : @"";
 	
 	
-	[sheetLock lock];
-	[panel beginSheetModalForWindow:modalWindow completionHandler:^(NSInteger result) {
+	[_sheetLock lock];
+	[panel beginSheetModalForWindow:_modalWindow completionHandler:^(NSInteger result) {
 		[NSApp stopModalWithCode:result];
 	}];
 	
-	clickedButton = [NSApp runModalForWindow:modalWindow];
-	[sheetLock unlock];
+	_clickedButton = [NSApp runModalForWindow:_modalWindow];
+	[_sheetLock unlock];
 	
 	self.URL = panel.URL;
 	self.URLs = panel.URLs;
@@ -637,15 +578,15 @@ modalWindow, foundKeyDicts, hideExtension;
 
 // buttonClicked //
 - (IBAction)buttonClicked:(NSButton *)sender {
-	clickedButton = sender.tag;
+	_clickedButton = sender.tag;
 	if (![_sheetWindow makeFirstResponder:_sheetWindow]) {
 		[_sheetWindow endEditingFor:nil];
 	}
 	
-	if (numberOfProgressSheets > 0) {
+	if (_numberOfProgressSheets > 0) {
 		[[ActionController sharedInstance] cancelGPGOperation:self];
 	} else {
-		if (clickedButton == NSOKButton) {
+		if (_clickedButton == NSOKButton) {
 			switch (self.sheetType) {
 				case SheetTypeNewKey:
 					if (![self checkName]) return;
@@ -663,7 +604,7 @@ modalWindow, foundKeyDicts, hideExtension;
 					break;
 				}
 				case SheetTypeShowFoundKeys: {
-					NSMutableArray *selectedKeys = [NSMutableArray arrayWithCapacity:[keys count]];
+					NSMutableArray *selectedKeys = [NSMutableArray new];
 					for (NSDictionary *keyDict in self.foundKeyDicts) {
 						if ([[keyDict objectForKey:@"selected"] boolValue]) {
 							[selectedKeys addObject:[keyDict objectForKey:@"key"]];
@@ -701,27 +642,63 @@ modalWindow, foundKeyDicts, hideExtension;
 }
 
 
-// Propertys //
-- (NSInteger)keyType {
-	return keyType;
+#pragma mark Properties
+
+
+- (void)setProgressText:(NSString *)value {
+	if (value == nil) {
+		value = @"";
+	}
+	if (value != _progressText) {
+		_progressText = value;
+	}
 }
+- (NSString *)progressText {
+	return _progressText;
+}
+
+- (void)setMsgText:(NSString *)value {
+	if (value == nil) {
+		value = @"";
+	}
+	if (value != _msgText) {
+		_msgText = value;
+	}
+}
+- (NSString *)msgText {
+	return _msgText ? _msgText : @"";
+}
+
+- (void)setName:(NSString *)name {
+	_name = name;
+	_badPasswordIngredients = nil;
+}
+- (void)setEmail:(NSString *)email {
+	_email = email;
+	_badPasswordIngredients = nil;
+}
+- (void)setComment:(NSString *)comment {
+	_comment = comment;
+	_badPasswordIngredients = nil;
+}
+
 - (void)setKeyType:(NSInteger)value {
-	keyType = value;
+	_keyType = value;
 	if (value == 2 || value == 3) {
 		_keyLengthFormatter.minKeyLength = 2048;
 		_keyLengthFormatter.maxKeyLength = 3072;
-		self.length = [_keyLengthFormatter checkedValue:length];
+		self.length = [_keyLengthFormatter checkedValue:_length];
 		self.availableLengths = [NSArray arrayWithObjects:@"2048", @"3072", nil];
 	} else {
 		_keyLengthFormatter.minKeyLength = 2048;
 		_keyLengthFormatter.maxKeyLength = 4096;
-		self.length = [_keyLengthFormatter checkedValue:length];
+		self.length = [_keyLengthFormatter checkedValue:_length];
 		self.availableLengths = [NSArray arrayWithObjects:@"2048", @"3072", @"4096", nil];
 	}
 }
 
 - (NSInteger)daysToExpire {
-	return self.hasExpirationDate ? [self.expirationDate daysSinceNow] : 0;
+	return self.hasExpirationDate ? self.expirationDate.daysSinceNow : 0;
 }
 - (GPGKey *)secretKey {
 	NSArray *selectedSecretKeys = [_secretKeysController selectedObjects];
@@ -729,21 +706,17 @@ modalWindow, foundKeyDicts, hideExtension;
 }
 - (void)setSecretKey:(GPGKey *)value {
 	if ([self.secretKeys containsObject:value]) {
-		[_secretKeysController setSelectedObjects:[NSArray arrayWithObject:value]];
+		[_secretKeysController setSelectedObjects:@[value]];
 	} else if (self.secretKeys.count > 0) {
-		[_secretKeysController setSelectedObjects:[NSArray arrayWithObject:self.secretKeys.firstObject]];
+		[_secretKeysController setSelectedObjects:@[self.secretKeys.firstObject]];
 	}
 }
 
 
-
-- (NSIndexSet *)selectedVolumeIndexes {
-	return selectedVolumeIndexes;
-}
 - (void)setSelectedVolumeIndexes:(NSIndexSet *)value {
 	if (value.count > 0) {
-		self.enableOK = (value.firstIndex != oldVolumeIndex);
-		selectedVolumeIndexes = value;
+		self.enableOK = (value.firstIndex != _oldVolumeIndex);
+		_selectedVolumeIndexes = value;
 	}
 }
 
@@ -755,9 +728,6 @@ modalWindow, foundKeyDicts, hideExtension;
 }
 
 
-- (GPGKey *)publicKey {
-	return _publicKey;
-}
 - (void)setPublicKey:(GPGKey *)publicKey {
 	_publicKey = publicKey;
 	
@@ -794,12 +764,14 @@ modalWindow, foundKeyDicts, hideExtension;
 + (NSSet *)keyPathsForValuesAffectingUserIDDescription {
 	return [NSSet setWithObjects:@"publicKey", nil];
 }
+
 - (NSString *)keyClaimsMultipleIdentities {
 	return [NSString stringWithFormat:localized(@"SignKey_KeyClaimsMultipleIdentities"), self.userIDDescription];
 }
 + (NSSet *)keyPathsForValuesAffectingKeyClaimsMultipleIdentities {
 	return [NSSet setWithObjects:@"publicKey", nil];
 }
+
 - (NSString *)signKeyMainMsg {
 	NSString *formattedFingerprint = [[GKFingerprintTransformer sharedInstance] transformedValue:self.publicKey.fingerprint];
 	return [NSString stringWithFormat:localized(@"SignKey_MainMsg"), formattedFingerprint];
@@ -807,6 +779,7 @@ modalWindow, foundKeyDicts, hideExtension;
 + (NSSet *)keyPathsForValuesAffectingSignKeyMainMsg {
 	return [NSSet setWithObjects:@"publicKey", nil];
 }
+
 - (BOOL)signEnabled {
 	if (self.userIDs.count == 1) {
 		return YES;
@@ -828,13 +801,13 @@ modalWindow, foundKeyDicts, hideExtension;
 + (NSSet *)keyPathsForValuesAffectingPublishLabel {
 	return [NSSet setWithObjects:@"userIDs", nil];
 }
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:@"selected"]) {
 		[self willChangeValueForKey:@"selectedUserIDs"];
 		[self didChangeValueForKey:@"selectedUserIDs"];
 	}
 }
-
 - (NSArray *)selectedUserIDs {
 	if (self.userIDs.count == 1) {
 		return @[self.userIDs[0][@"userID"]];
@@ -869,15 +842,15 @@ modalWindow, foundKeyDicts, hideExtension;
 
 
 - (void)setPassphrase:(NSString *)value {
-	if ([passphrase isEqualToString:value]) {
+	if ([_passphrase isEqualToString:value]) {
 		return;
 	}
-	passphrase = value;
+	_passphrase = value;
 
-	if (passphrase.length == 0 || passphrase.UTF8Length > 255) {
+	if (_passphrase.length == 0 || _passphrase.UTF8Length > 255) {
 		self.passwordStrength = 0;
 	} else {
-		DBResult *result = [zxcvbn passwordStrength:self.passphrase];
+		DBResult *result = [_zxcvbn passwordStrength:self.passphrase userInputs:self.badPasswordIngredients];
 		
 		double seconds = result.crackTime;
 		double score = log10(seconds * 1000000);
@@ -886,19 +859,116 @@ modalWindow, foundKeyDicts, hideExtension;
 		self.passwordStrength = score;
 	}
 }
-- (NSString *)passphrase {
-	return passphrase;
+
+- (NSArray<NSString *> *)badPasswordIngredients {
+	if (_badPasswordIngredients) {
+		return _badPasswordIngredients;
+	}
+	
+	NSMutableSet *ingredients = [NSMutableSet new];
+	NSMutableString *jointString = [NSMutableString new];
+	
+	if (self.name.length > 0) {
+		[ingredients addObject:self.name];
+		[ingredients addObjectsFromArray:[self.name componentsSeparatedByString:@" "]];
+		[jointString appendString:self.name];
+	}
+	if (self.email.length > 0) {
+		[ingredients addObject:self.email];
+		[ingredients addObjectsFromArray:[self.email componentsSeparatedByString:@"@"]];
+		[jointString appendString:self.email];
+	}
+	if (self.comment.length > 0) {
+		[ingredients addObject:self.comment];
+		[ingredients addObjectsFromArray:[self.comment componentsSeparatedByString:@" "]];
+		[jointString appendString:self.comment];
+	}
+
+	NSUInteger length = jointString.length;
+	for (NSUInteger i = 0; i < length - 2; i++) {
+		for (NSUInteger j = 3; i + j < length; j++) {
+			[ingredients addObject:[jointString substringWithRange:NSMakeRange(i, j)]];
+		}
+	}
+	
+	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"length" ascending:NO];
+	_badPasswordIngredients = [ingredients sortedArrayUsingDescriptors:@[sortDescriptor]];
+	
+	
+	return _badPasswordIngredients;
 }
+
+
+- (void)setDisplayedView:(NSView *)value {
+	if (_displayedView != value) {
+		if (_displayedView == _progressView) {
+			[_progressIndicator stopAnimation:nil];
+		}
+		
+		//[displayedView removeFromSuperview];
+		//displayedView = value;
+		if (value != nil) {
+			[_sheetWindow setContentView:value];
+			
+			static BOOL	newKeyViewInitialized = NO;
+			if (!newKeyViewInitialized && value == _genNewKeyView) {
+				[self showAdvanced:NO animate:NO];
+				newKeyViewInitialized = YES;
+			}
+			
+			
+			if ([value nextKeyView]) {
+				[_sheetWindow makeFirstResponder:[value nextKeyView]];
+			}
+			
+			if (value == _progressView) {
+				[_progressIndicator startAnimation:nil];
+			}
+		}
+	}
+}
+
+- (void)setExportFormat:(NSInteger)value {
+	_exportFormat = value;
+	NSArray *extensions;
+	switch (value) {
+		case 1:
+			extensions = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", @"txt", nil];
+			break;
+		default:
+			extensions = [NSArray arrayWithObjects:@"gpg", @"asc", @"pgp", @"key", @"gpgkey", @"txt", nil];
+			break;
+	}
+	[(NSSavePanel *)[_exportKeyOptionsView window] setAllowedFileTypes:extensions];
+}
+
+- (void)setExportSecretKey:(BOOL)value {
+	_exportSecretKey = value;
+	
+	NSSavePanel *panel = (id)_exportKeyOptionsView.window;
+	NSString *filename = panel.nameFieldStringValue;
+	
+	NSString *basename = filename.stringByDeletingPathExtension;
+	NSString *extension = filename.pathExtension;
+	
+	if ([_pubFilename isEqualToString:basename] || [_secFilename isEqualToString:basename]) {
+		filename = [_exportSecretKey ? _secFilename : _pubFilename stringByAppendingPathExtension:extension];
+		panel.nameFieldStringValue = filename;
+	}
+}
+
+
+
 
 
 // Internal methods //
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-	clickedButton = returnCode;
+	_clickedButton = returnCode;
 	[NSApp stopModal];
 }
 
 - (BOOL)generateFoundKeyDicts {
-	NSMutableArray *dicts = [NSMutableArray arrayWithCapacity:keys.count];
+	NSMutableArray *dicts = [NSMutableArray arrayWithCapacity:_keys.count];
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterNoStyle];
@@ -914,7 +984,7 @@ modalWindow, foundKeyDicts, hideExtension;
 	NSDate *now = [NSDate date];
 	
 	
-	for (GPGRemoteKey *key in keys) {
+	for (GPGRemoteKey *key in _keys) {
 		NSDictionary *stringAttributes = nil;
 		
 		BOOL isGpgtoolsKey = [key respondsToSelector:@selector(fingerprint)] && [gpgtoolsKeys containsObject:key.fingerprint];
@@ -1056,11 +1126,11 @@ modalWindow, foundKeyDicts, hideExtension;
 }
 
 - (void)runAndWait {
-	[sheetLock lock];
-	GPGDebugLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", modalWindow, _sheetWindow);
+	[_sheetLock lock];
+	GPGDebugLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", _modalWindow, _sheetWindow);
 	
-	if (modalWindow.isVisible) {
-		[NSApp beginSheet:_sheetWindow modalForWindow:modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+	if (_modalWindow.isVisible) {
+		[NSApp beginSheet:_sheetWindow modalForWindow:_modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
 		[NSApp runModalForWindow:_sheetWindow];
 		[NSApp endSheet:_sheetWindow];
 	} else {
@@ -1068,7 +1138,7 @@ modalWindow, foundKeyDicts, hideExtension;
 		[NSApp runModalForWindow:_sheetWindow];
 	}
 	[_sheetWindow orderOut:self];
-	[sheetLock unlock];
+	[_sheetLock unlock];
 }
 
 - (void)showAdvanced:(BOOL)show animate:(BOOL)animate {
@@ -1144,7 +1214,7 @@ modalWindow, foundKeyDicts, hideExtension;
 		[volumeList addObject:volume];
 	}
 	
-	oldVolumeIndex = index;
+	_oldVolumeIndex = index;
 	
 	self.volumes = volumeList;
 	self.selectedVolumeIndexes = [NSIndexSet indexSetWithIndex:index];
@@ -1275,7 +1345,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			return NO;
 		}
 	} else {
-		DBResult *result = [zxcvbn passwordStrength:self.passphrase];
+		DBResult *result = [_zxcvbn passwordStrength:self.passphrase];
 		if (result.crackTime < 3600) {
 			warned = YES;
 			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseSimple_Title"),
@@ -1358,75 +1428,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	NSRunAlertPanel(@"Passwort ist OK", @"Es wird kein Schlüssel erzeugt!\nEs muss auch nicht doppelt eingegeben werden.", nil, nil, nil);
 	return NO;
 	return YES;
-}
-
-
-
-
-- (NSView *)displayedView {
-	return displayedView;
-}
-- (void)setDisplayedView:(NSView *)value {
-	if (displayedView != value) {
-		if (displayedView == _progressView) {
-			[_progressIndicator stopAnimation:nil];
-		}
-		
-		//[displayedView removeFromSuperview];
-		//displayedView = value;
-		if (value != nil) {
-			[_sheetWindow setContentView:value];
-			
-			static BOOL	newKeyViewInitialized = NO;
-			if (!newKeyViewInitialized && value == _genNewKeyView) {
-				[self showAdvanced:NO animate:NO];
-				newKeyViewInitialized = YES;
-			}
-			
-			
-			if ([value nextKeyView]) {
-				[_sheetWindow makeFirstResponder:[value nextKeyView]];
-			}
-			
-			if (value == _progressView) {
-				[_progressIndicator startAnimation:nil];
-			}
-		}
-	}
-}
-
-- (NSInteger)exportFormat {
-	return exportFormat;
-}
-- (void)setExportFormat:(NSInteger)value {
-	exportFormat = value;
-	NSArray *extensions;
-	switch (value) {
-		case 1:
-			extensions = [NSArray arrayWithObjects:@"asc", @"gpg", @"pgp", @"key", @"gpgkey", @"txt", nil];
-			break;
-		default:
-			extensions = [NSArray arrayWithObjects:@"gpg", @"asc", @"pgp", @"key", @"gpgkey", @"txt", nil];
-			break;
-	}
-	[(NSSavePanel *)[_exportKeyOptionsView window] setAllowedFileTypes:extensions];
-}
-- (BOOL)exportSecretKey {
-	return exportSecretKey;
-}
-- (void)setExportSecretKey:(BOOL)value {
-	exportSecretKey = value;
-	
-	NSSavePanel *panel = (id)_exportKeyOptionsView.window;
-	NSString *filename = panel.nameFieldStringValue;
-	
-	NSString *basename = filename.stringByDeletingPathExtension;
-	NSString *extension = filename.pathExtension;
-	
-	if ([_pubFilename isEqualToString:basename] || [_secFilename isEqualToString:basename]) {
-		filename = [exportSecretKey ? _secFilename : _pubFilename stringByAppendingPathExtension:extension];
-		panel.nameFieldStringValue = filename;
-	}
 }
 
 
@@ -1560,13 +1561,13 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		initialized = YES;
 		self = [super init];
 		
-		sheetLock = [NSLock new];
-		progressSheetLock = [NSLock new];
+		_sheetLock = [NSLock new];
+		_progressSheetLock = [NSLock new];
 		NSArray *objects;
 		[[NSBundle mainBundle] loadNibNamed:@"ModalSheets" owner:self topLevelObjects:&objects];
-		topLevelObjects = objects;
+		_topLevelObjects = objects;
 
-		zxcvbn = [DBZxcvbn new];
+		_zxcvbn = [DBZxcvbn new];
 	}
 	return self;
 }
@@ -1577,35 +1578,39 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
     return self;
 }
 
-
 @end
 
 
 
 
-@implementation KeyLengthFormatter
-@synthesize minKeyLength, maxKeyLength;
 
-- (NSString*)stringForObjectValue:(id)obj {
+
+
+
+
+
+@implementation KeyLengthFormatter
+
+- (NSString *)stringForObjectValue:(id)obj {
 	return [obj description];
 }
 
 - (NSInteger)checkedValue:(NSInteger)value {
-	if (value < minKeyLength) {
-		value = minKeyLength;
+	if (value < _minKeyLength) {
+		value = _minKeyLength;
 	}
-	if (value > maxKeyLength) {
-		value = maxKeyLength;
+	if (value > _maxKeyLength) {
+		value = _maxKeyLength;
 	}
 	return value;
 }
 
-- (BOOL)getObjectValue:(id*)obj forString:(NSString*)string errorDescription:(NSString**)error {
+- (BOOL)getObjectValue:(id *)obj forString:(NSString *)string errorDescription:(NSString **)error {
 	*obj = [NSString stringWithFormat:@"%li", (long)[self checkedValue:[string integerValue]]];
 	return YES;
 }
 
-- (BOOL)isPartialStringValid:(NSString*)partialString newEditingString:(NSString**) newString errorDescription:(NSString**)error {
+- (BOOL)isPartialStringValid:(NSString *)partialString newEditingString:(NSString **)newString errorDescription:(NSString **)error {
 	if ([partialString rangeOfCharacterFromSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet] options: NSLiteralSearch].length == 0) {
 		return YES;
 	} else {
@@ -1615,24 +1620,21 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 
 @end
 
-
 @implementation GKSheetWindow
 - (void)setContentView:(NSView *)aView {
-	if (aView != self.contentView || YES) {
-		[super setContentView:nil];
-		
-		NSRect oldRect, newRect;
-		oldRect = [self contentRectForFrameRect:[self frame]];
-		
-		newRect.size = [aView frame].size;
-		newRect.origin.x = oldRect.origin.x + (oldRect.size.width - newRect.size.width) / 2;
-		newRect.origin.y = oldRect.origin.y + oldRect.size.height - newRect.size.height;
-		
-		newRect = [self frameRectForContentRect:newRect];
-		[self setFrame:newRect display:YES animate:YES];
-		
-		[super setContentView:aView];
-	}
+	[super setContentView:nil];
+	
+	NSRect oldRect, newRect;
+	oldRect = [self contentRectForFrameRect:[self frame]];
+	
+	newRect.size = [aView frame].size;
+	newRect.origin.x = oldRect.origin.x + (oldRect.size.width - newRect.size.width) / 2;
+	newRect.origin.y = oldRect.origin.y + oldRect.size.height - newRect.size.height;
+	
+	newRect = [self frameRectForContentRect:newRect];
+	[self setFrame:newRect display:YES animate:YES];
+	
+	[super setContentView:aView];
 }
 @end
 
