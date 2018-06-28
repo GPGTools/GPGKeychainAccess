@@ -11,11 +11,83 @@
 
 #import "DBMatcher.h"
 
-typedef NSArray* (^MatcherBlock)(NSString *password);
+typedef NSArray<DBMatch *> *(^MatcherBlock)(NSString *password);
+
+@interface NSData (NonL33tData)
+- (NSData *)dataByReplacingL33tBytesAndBrackets:(BOOL)brackets;
+@end
+
+@implementation NSData (NonL33tData)
+- (NSData *)dataByReplacingL33tBytesAndBrackets:(BOOL)brackets {
+	
+	// Make l33t substitutions.
+	NSMutableData *mutableData = self.mutableCopy;
+	char *mutableBytes = mutableData.mutableBytes;
+	NSUInteger count = mutableData.length;
+	
+	for (NSUInteger i = 0; i < count; i++) {
+		char byte = mutableBytes[i];
+		switch (byte) {
+			case '4':
+			case '@':
+				byte = 'a';
+				break;
+			case '8':
+				byte = 'b';
+				break;
+			case '(':
+			case '{':
+			case '[':
+			case '<':
+				if (brackets) {
+					byte = 'c';
+				}
+				break;
+			case '3':
+				byte = 'e';
+				break;
+			case '6':
+			case '9':
+				byte = 'g';
+				break;
+			case '1':
+			case '!':
+			case '|':
+			case '7':
+			case '+':
+			case 't':
+			case 'l':
+				byte = 'i';
+				break;
+			case '0':
+				byte = 'o';
+				break;
+			case '$':
+			case '5':
+				byte = 's';
+				break;
+			case '%':
+				byte = 'x';
+				break;
+			case '2':
+				byte = 'z';
+				break;
+			default:
+				break;
+		}
+		mutableBytes[i] = byte;
+	}
+	
+	return mutableData;
+}
+@end
+
+
 
 @interface DBMatcher ()
 
 @property (nonatomic, strong) NSArray *dictionaryMatchers;
+@property (nonatomic, strong) NSArray *l33tDictionaryMatchers;
 @property (nonatomic, strong) NSDictionary *graphs;
 @property (nonatomic, strong) NSMutableArray *matchers;
 
@@ -29,7 +101,8 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
 
     if (self != nil) {
         DBMatchResources *resource = [DBMatchResources sharedDBMatcherResources];
-        self.dictionaryMatchers = resource.dictionaryMatchers;
+		self.dictionaryMatchers = resource.dictionaryMatchers;
+		self.l33tDictionaryMatchers = resource.l33tDictionaryMatchers;
         self.graphs = resource.graphs;
 
         self.keyboardAverageDegree = [self calcAverageDegree:[self.graphs objectForKey:@"qwerty"]];
@@ -50,7 +123,7 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
 
 #pragma mark - omnimatch -- combine everything
 
-- (NSArray *)omnimatch:(NSString *)password userInputs:(NSArray *)userInputs
+- (NSArray<DBMatch *> *)omnimatch:(NSString *)password userInputs:(NSArray *)userInputs
 {
     if ([userInputs count]) {
         NSMutableDictionary *rankedUserInputsDict = [[NSMutableDictionary alloc] initWithCapacity:[userInputs count]];
@@ -60,7 +133,7 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
         [self.matchers addObject:[self buildDictMatcher:@"user_inputs" rankedDict:rankedUserInputsDict]];
     }
     
-    NSMutableArray *matches = [[NSMutableArray alloc] init];
+    NSMutableArray<DBMatch *> *matches = [[NSMutableArray alloc] init];
 
     for (MatcherBlock matcher in self.matchers) {
         [matches addObjectsFromArray:matcher(password)];
@@ -101,19 +174,19 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
 
 - (MatcherBlock)buildDictMatcher:(NSString *)dictName rankedDict:(NSMutableDictionary *)rankedDict
 {
-    __weak typeof(self) weakSelf = self;
-    MatcherBlock block = ^ NSArray* (NSString *password) {
-
-        NSMutableArray *matches = [weakSelf dictionaryMatch:password rankedDict:rankedDict];
-        
-        for (DBMatch *match in matches) {
-            match.dictionaryName = dictName;
-        }
-
-        return matches;
-    };
-
-    return block;
+	__weak typeof(self) weakSelf = self;
+	MatcherBlock block = ^ NSArray<DBMatch *> * (NSString *password) {
+		
+		NSMutableArray<DBMatch *> *matches = [weakSelf dictionaryMatch:password rankedDict:rankedDict];
+		
+		for (DBMatch *match in matches) {
+			match.dictionaryName = dictName;
+		}
+		
+		return matches;
+	};
+	
+	return block;
 }
 
 - (float)calcAverageDegree:(NSDictionary *)graph
@@ -136,157 +209,48 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
 
 #pragma mark - dictionary match with common l33t substitutions
 
-- (NSDictionary *)l33tTable
-{
-    return @{
-             @"a": @[@"4", @"@"],
-             @"b": @[@"8"],
-             @"c": @[@"(", @"{", @"[", @"<"],
-             @"e": @[@"3"],
-             @"g": @[@"6", @"9"],
-             @"i": @[@"1", @"!", @"|"],
-             @"l": @[@"1", @"|", @"7"],
-             @"o": @[@"0"],
-             @"s": @[@"$", @"5"],
-             @"t": @[@"+", @"7"],
-             @"x": @[@"%"],
-             @"z": @[@"2"],
-             };
-}
-
-- (NSDictionary *)relevantL33tSubtable:(NSString *)password
-{
-    // makes a pruned copy of l33t_table that only includes password's possible substitutions
-    NSMutableDictionary *filtered = [[NSMutableDictionary alloc] init];
-
-    for (NSString *letter in [self l33tTable]) {
-        NSArray *subs = [[self l33tTable] objectForKey:letter];
-        NSMutableArray *relevantSubs = [[NSMutableArray alloc] initWithCapacity:[subs count]];
-        for (NSString *sub in subs) {
-            if ([password rangeOfString:sub].location != NSNotFound) {
-                [relevantSubs addObject:sub];
-            }
-        }
-        if ([relevantSubs count] > 0) {
-            [filtered setObject:relevantSubs forKey:letter];
-        }
-    }
-
-    return filtered;
-}
-
-- (NSArray *)enumerateL33tSubs:(NSDictionary *)table
-{
-    // returns the list of possible 1337 replacement dictionaries for a given password
-    NSMutableArray *subs = [[NSMutableArray alloc] initWithObjects:[[NSMutableArray alloc] init], nil];
-
-    NSMutableArray* (^dedup)(NSArray *) = ^ NSMutableArray* (NSArray *subs) {
-        NSMutableArray *deduped = [[NSMutableArray alloc] init];
-        NSMutableArray *members = [[NSMutableArray alloc] init];
-        for (NSArray *sub in subs) {
-            NSArray *assoc = [sub sortedArrayUsingComparator:^NSComparisonResult(NSArray *kv1, NSArray *kv2) {
-                return [kv1[0] caseInsensitiveCompare:kv2[0]];
-            }];
-            NSMutableArray *kvs = [[NSMutableArray alloc] initWithCapacity:[assoc count]];
-            for (NSArray *kv in assoc) {
-                [kvs addObject:[kv componentsJoinedByString:@","]];
-            }
-            NSString *label = [kvs componentsJoinedByString:@"-"];
-            if (![members containsObject:label]) {
-                [members addObject:label];
-                [deduped addObject:sub];
-            }
-        }
-        return deduped;
-    };
-
-    NSArray *keys = [table allKeys];
-
-    while ([keys count] > 0) {
-        NSString *firstKey = [keys objectAtIndex:0];
-        NSArray *restKeys = [keys count] > 1 ? [keys subarrayWithRange:NSMakeRange(1, [keys count] - 1)] : @[];
-        NSMutableArray *nextSubs = [[NSMutableArray alloc] init];
-
-        for (NSString *l33tChr in (NSArray *)[table objectForKey:firstKey]) {
-            for (NSMutableArray *sub in subs) {
-
-                int dupL33tIndex = -1;
-                for (int i = 0; i < [sub count]; i++) {
-                    if ([[[sub objectAtIndex:i] objectAtIndex:0] isEqualToString:l33tChr]) {
-                        dupL33tIndex = i;
-                        break;
-                    }
-                }
-
-                if (dupL33tIndex == -1) {
-                    NSMutableArray *subExtension = [[NSMutableArray alloc] initWithArray:sub];
-                    [subExtension addObject:@[l33tChr, firstKey]];
-                    [nextSubs addObject:subExtension];
-                } else {
-                    NSMutableArray *subAlternative = [[NSMutableArray alloc] initWithArray:sub];
-                    [subAlternative removeObjectAtIndex:dupL33tIndex];
-                    [subAlternative addObject:@[l33tChr, firstKey]];
-                    [nextSubs addObject:sub];
-                    [nextSubs addObject:subAlternative];
-                }
-            }
-        }
-
-        subs = dedup(nextSubs);
-        keys = restKeys;
-    }
-
-    NSMutableArray *subDicts = [[NSMutableArray alloc] init]; // convert from assoc lists to dicts
-    for (NSMutableArray *sub in subs) {
-        NSMutableDictionary *subDict = [[NSMutableDictionary alloc] initWithCapacity:[sub count]];
-        for (NSArray *pair in sub) {
-            [subDict setObject:[pair objectAtIndex:1] forKey:[pair objectAtIndex:0]];
-        }
-        [subDicts addObject:subDict];
-    }
-    return subDicts;
-}
-
 - (MatcherBlock)l33tMatch
 {
     __weak typeof(self) weakSelf = self;
-    MatcherBlock block = ^ NSArray* (NSString *password) {
+    MatcherBlock block = ^ NSArray<DBMatch *> * (NSString *password) {
 
-        NSMutableArray *matches = [[NSMutableArray alloc] init];
+		NSMutableArray<DBMatch *> *matches = [[NSMutableArray alloc] init];
+		
+		// Make l33t substitutions.
+		password = password.lowercaseString;
+		NSData *passwordData = [[password dataUsingEncoding:NSUTF8StringEncoding] dataByReplacingL33tBytesAndBrackets:YES];
+		NSString *nonL33tPawword = [[NSString alloc] initWithData:passwordData encoding:NSUTF8StringEncoding];
+		
+		
+		for (MatcherBlock matcher in weakSelf.l33tDictionaryMatchers) {
+			for (DBMatch *match in matcher(nonL33tPawword)) {
+				
+				NSString *token = [password substringWithRange:NSMakeRange(match.i, match.j - match.i + 1)].lowercaseString;
+				NSString *matchedWord = match.matchedWord;
+				if ([token isEqualToString:matchedWord]) {
+					continue; // only return the matches that contain an actual substitution
+				}
+				
+				int l33tEntropy = 0;
+				NSUInteger count = matchedWord.length;
+				for (NSUInteger i = 0; i < count; i++) {
+					unichar tokenChar = [token characterAtIndex:i];
+					unichar matchChar = [matchedWord characterAtIndex:i];
 
-        for (NSDictionary *sub in [weakSelf enumerateL33tSubs:[weakSelf relevantL33tSubtable:password]]) {
-            if ([sub count] == 0) { break; } // corner case: password has no relevent subs.
+					if (tokenChar != matchChar) {
+						// Add one bit of entropy for every substituted charater.
+						l33tEntropy++;
+					}
+				}
+				
+				match.l33t = YES;
+				match.token = token;
+				match.l33tEntropy = l33tEntropy;
+				[matches addObject:match];
+			}
+		}
 
-            NSString *subbedPassword = [weakSelf translate:password characterMap:sub];
-
-            for (MatcherBlock matcher in weakSelf.dictionaryMatchers) {
-                for (DBMatch *match in matcher(subbedPassword)) {
-
-                    NSString *token = [password substringWithRange:NSMakeRange(match.i, match.j - match.i + 1)];
-                    if ([[token lowercaseString] isEqualToString:match.matchedWord]) {
-                        continue; // only return the matches that contain an actual substitution
-                    }
-
-                    NSMutableDictionary *matchSub = [[NSMutableDictionary alloc] init]; // subset of mappings in sub that are in use for this match
-                    NSMutableArray *subDisplay = [[NSMutableArray alloc] init];
-                    for (NSString *subbedChr in sub) {
-                        NSString *chr = [sub objectForKey:subbedChr];
-                        if ([token rangeOfString:subbedChr].location != NSNotFound) {
-                            [matchSub setObject:chr forKey:subbedChr];
-                            [subDisplay addObject:[NSString stringWithFormat:@"%@ -> %@", subbedChr, chr]];
-                        }
-                    }
-
-                    match.l33t = YES;
-                    match.token = token;
-                    match.sub = matchSub;
-                    match.subDisplay = [subDisplay componentsJoinedByString:@","];
-                    [matches addObject:match];
-                }
-            }
-        }
-
-        return matches;
+		return matches;
     };
 
     return block;
@@ -297,8 +261,8 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
 - (MatcherBlock)spatialMatch
 {
     __weak typeof(self) weakSelf = self;
-    MatcherBlock block = ^ NSArray* (NSString *password) {
-        NSMutableArray *matches = [[NSMutableArray alloc] init];
+    MatcherBlock block = ^ NSArray<DBMatch *>* (NSString *password) {
+        NSMutableArray<DBMatch *> *matches = [[NSMutableArray alloc] init];
 
         for (NSString *graphName in weakSelf.graphs) {
             NSDictionary *graph = [weakSelf.graphs objectForKey:graphName];
@@ -311,9 +275,9 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
     return block;
 }
 
-- (NSArray *)spatialMatchHelper:(NSString *)password graph:(NSDictionary *)graph graphName:(NSString *)graphName
+- (NSArray<DBMatch *> *)spatialMatchHelper:(NSString *)password graph:(NSDictionary *)graph graphName:(NSString *)graphName
 {
-    NSMutableArray *result = [[NSMutableArray alloc] init];
+    NSMutableArray<DBMatch *> *result = [[NSMutableArray alloc] init];
     
     int i = 0;
     while (i < [password length] - 1 && [password length] > 0) {
@@ -380,8 +344,8 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
 
 - (MatcherBlock)repeatMatch
 {
-    MatcherBlock block = ^ NSArray* (NSString *password) {
-        NSMutableArray *result = [[NSMutableArray alloc] init];
+    MatcherBlock block = ^ NSArray<DBMatch *> * (NSString *password) {
+        NSMutableArray<DBMatch *> *result = [[NSMutableArray alloc] init];
         int i = 0;
         while (i < [password length]) {
             int j = i + 1;
@@ -419,8 +383,8 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
                                 @"digits": @"01234567890",
                                 };
 
-    MatcherBlock block = ^ NSArray* (NSString *password) {
-        NSMutableArray *result = [[NSMutableArray alloc] init];
+    MatcherBlock block = ^ NSArray<DBMatch *> * (NSString *password) {
+        NSMutableArray<DBMatch *> *result = [[NSMutableArray alloc] init];
         int i = 0;
         while (i < [password length]) {
             int j = i + 1;
@@ -476,9 +440,9 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
 
 #pragma mark - digits, years, dates
 
-- (NSArray *)findAll:(NSString *)password patternName:(NSString *)patternName rx:(NSRegularExpression *)rx
+- (NSArray<DBMatch *> *)findAll:(NSString *)password patternName:(NSString *)patternName rx:(NSRegularExpression *)rx
 {
-    NSMutableArray *matches = [[NSMutableArray alloc] init];
+    NSMutableArray<DBMatch *> *matches = [[NSMutableArray alloc] init];
 
     for (NSTextCheckingResult *result in [rx matchesInString:password options:0 range:NSMakeRange(0, [password length])]) {
         
@@ -533,7 +497,7 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
     NSRegularExpression *digitsRx = [NSRegularExpression regularExpressionWithPattern:@"\\d{3,}" options:0 error:nil];
     
     __weak typeof(self) weakSelf = self;
-    MatcherBlock block = ^ NSArray* (NSString *password) {
+    MatcherBlock block = ^ NSArray<DBMatch *> * (NSString *password) {
         return [weakSelf findAll:password patternName:@"digits" rx:digitsRx];
     };
     
@@ -546,7 +510,7 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
     NSRegularExpression *yearRx = [NSRegularExpression regularExpressionWithPattern:@"19\\d\\d|200\\d|201\\d" options:0 error:nil];
     
     __weak typeof(self) weakSelf = self;
-    MatcherBlock block = ^ NSArray* (NSString *password) {
+    MatcherBlock block = ^ NSArray<DBMatch *> * (NSString *password) {
         return [weakSelf findAll:password patternName:@"year" rx:yearRx];
     };
 
@@ -559,7 +523,7 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
     NSRegularExpression *dateRx = [NSRegularExpression regularExpressionWithPattern:@"(\\d{1,2})( |-|\\/|\\.|_)?(\\d{1,2})( |-|\\/|\\.|_)?(19\\d{2}|200\\d|201\\d|\\d{2})" options:0 error:nil];
     
     __weak typeof(self) weakSelf = self;
-    MatcherBlock block = ^ NSArray* (NSString *password) {
+    MatcherBlock block = ^ NSArray<DBMatch *> * (NSString *password) {
         return [weakSelf findAll:password patternName:@"date" rx:dateRx];
     };
     
@@ -598,21 +562,21 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
     self = [super init];
     
     if (self != nil) {
-        _dictionaryMatchers = [self loadFrequencyLists];
+		[self loadFrequencyLists];
         _graphs = [self loadAdjacencyGraphs];
     }
     
     return self;
 }
 
-- (NSArray *)loadFrequencyLists
+- (void)loadFrequencyLists
 {
     NSMutableArray *dictionaryMatchers = [[NSMutableArray alloc] init];
     
     NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:@"frequency_lists" ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     
-    NSError *error;
+    NSError *error = nil;
     id json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     
     if (error == nil) {
@@ -626,8 +590,31 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
     } else {
         NSLog(@"Error parsing frequency lists: %@", error);
     }
-    
-    return dictionaryMatchers;
+	
+	_dictionaryMatchers = dictionaryMatchers;
+	
+	
+	
+	NSMutableArray *l33tDictionaryMatchers = [[NSMutableArray alloc] init];
+
+	data = [data dataByReplacingL33tBytesAndBrackets:NO];
+	
+	error = nil;
+	json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+	
+	if (error == nil) {
+		for (NSString *dictName in (NSDictionary *)json) {
+			
+			NSArray *wordList = [(NSDictionary *)json objectForKey:dictName];
+			NSMutableDictionary *rankedDict = [self buildRankedDict:wordList];
+			
+			[l33tDictionaryMatchers addObject:[self buildDictMatcher:dictName rankedDict:rankedDict]];
+		}
+	} else {
+		NSLog(@"Error parsing frequency lists: %@", error);
+	}
+	
+	_l33tDictionaryMatchers = l33tDictionaryMatchers;
 }
 
 - (NSDictionary *)loadAdjacencyGraphs
@@ -663,26 +650,26 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
 
 - (MatcherBlock)buildDictMatcher:(NSString *)dictName rankedDict:(NSMutableDictionary *)rankedDict
 {
-    __typeof__(self) __weak weakSelf = self;
-    MatcherBlock block = ^ NSArray* (NSString *password) {
-        
-        NSMutableArray *matches = [weakSelf dictionaryMatch:password rankedDict:rankedDict];
-        
-        for (DBMatch *match in matches) {
-            match.dictionaryName = dictName;
-        }
-        
-        return matches;
-    };
-    
-    return block;
+	__weak typeof(self) weakSelf = self;
+	MatcherBlock block = ^ NSArray<DBMatch *> * (NSString *password) {
+		
+		NSMutableArray<DBMatch *> *matches = [weakSelf dictionaryMatch:password rankedDict:rankedDict];
+		
+		for (DBMatch *match in matches) {
+			match.dictionaryName = dictName;
+		}
+		
+		return matches;
+	};
+	
+	return block;
 }
 
 #pragma mark - dictionary match (common passwords, english, last names, etc)
 
-- (NSMutableArray *)dictionaryMatch:(NSString *)password rankedDict:(NSMutableDictionary *)rankedDict
+- (NSMutableArray<DBMatch *> *)dictionaryMatch:(NSString *)password rankedDict:(NSMutableDictionary *)rankedDict
 {
-    NSMutableArray *result = [[NSMutableArray alloc] init];
+    NSMutableArray<DBMatch *> *result = [[NSMutableArray alloc] init];
     NSUInteger length = [password length];
     NSString *passwordLower = [password lowercaseString];
     
@@ -699,7 +686,7 @@ typedef NSArray* (^MatcherBlock)(NSString *password);
                 match.token = [password substringWithRange:NSMakeRange(i, j - i + 1)];
                 match.matchedWord = word;
                 match.rank = [rank intValue];
-                [result addObject:match];
+				[result addObject:match];
             }
         }
     }

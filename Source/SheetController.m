@@ -26,8 +26,109 @@
 #import <objc/runtime.h>
 #import "Mail.h"
 #import <Zxcvbn/Zxcvbn.h>
-#import <CoreImage/CoreImage.h>
-#import <QuartzCore/QuartzCore.h>
+#import <CommonCrypto/CommonDigest.h>
+
+
+
+@interface GKPasswordStrengthIndicator : NSProgressIndicator
+@end
+@interface GKPasswordStrengthIndicator () {
+	NSColor *borderColor;
+	NSColor *backgroundColor;
+	NSGradient *gradient;
+
+}
+@end
+@implementation GKPasswordStrengthIndicator
+
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+	self = [super initWithCoder:decoder];
+	if (!self) {
+		return nil;
+	}
+	
+	borderColor = [NSColor colorWithCalibratedWhite:0.71 alpha:1];
+	backgroundColor = [NSColor colorWithCalibratedWhite:0.85 alpha:1];
+	
+	NSColor* color1 = [NSColor colorWithCalibratedRed: 0.808 green: 0.241 blue: 0.241 alpha: 1];
+	NSColor* color2 = [NSColor colorWithCalibratedRed: 0.868 green: 0.83 blue: 0.213 alpha: 1];
+	NSColor* color3 = [NSColor colorWithCalibratedRed: 0.373 green: 0.848 blue: 0.19 alpha: 1];
+
+	
+	gradient = [[NSGradient alloc] initWithColorsAndLocations:
+							color1, 0.23,
+							[color1 blendedColorWithFraction: 0.5 ofColor: color2], 0.27,
+							color2, 0.36,
+							[color2 blendedColorWithFraction: 0.5 ofColor: color3], 0.43,
+							color3, 0.50, nil];
+
+	return self;
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect {
+	[[NSGraphicsContext currentContext] saveGraphicsState];
+
+	NSSize size = self.bounds.size;
+	CGFloat width = size.width;
+	CGFloat height = size.height;
+	CGFloat barWidth = width - 3;
+	CGFloat barHeight = 8;
+	CGFloat xOffset = (width - barWidth) / 2;
+	CGFloat yOffset = (height - barHeight) / 2 + 0.5;
+	CGFloat radius = barHeight / 2;
+	
+	double minValue = self.minValue;
+	double maxValue = self.maxValue;
+	double value = self.doubleValue;
+	double ratio = (value - minValue) / (maxValue - minValue);
+	CGFloat filledWidth = barWidth * ratio;
+
+
+	NSColor *barColor = [gradient interpolatedColorAtLocation:ratio];
+	
+	
+	
+	
+	// Construct the BezierPath.
+	NSPoint line1Start = NSMakePoint(radius + xOffset, yOffset);
+	NSPoint line1End = NSMakePoint(barWidth - radius + xOffset, yOffset);
+	NSPoint arc1Center = NSMakePoint(line1End.x, line1End.y + radius);
+	NSPoint arc2Center = NSMakePoint(line1Start.x, line1Start.y + radius);
+
+	NSBezierPath *border = [NSBezierPath bezierPath];
+	[border moveToPoint:line1Start];
+	[border appendBezierPathWithArcWithCenter:arc1Center radius:radius startAngle:270 endAngle:90];
+	[border appendBezierPathWithArcWithCenter:arc2Center radius:radius startAngle:90 endAngle:270];
+	[border setLineWidth:1.0];
+
+	
+	// Fill the background.
+	[backgroundColor setFill];
+	[border fill];
+	
+	
+	// Draw the bar.
+	[[NSGraphicsContext currentContext] saveGraphicsState];
+	NSBezierPath *clipPath = [NSBezierPath bezierPath];
+	[clipPath appendBezierPathWithRect:NSMakeRect(0, 0, filledWidth + xOffset, height)];
+	[clipPath setClip];
+	
+	[barColor setFill];
+	[border fill];
+	[[NSGraphicsContext currentContext] restoreGraphicsState];
+
+	
+	// Draw the border.
+	[borderColor set];
+	[border stroke];
+
+	
+	
+	[[NSGraphicsContext currentContext] restoreGraphicsState];
+}
+
+@end
 
 
 @interface SheetController ()
@@ -40,6 +141,7 @@
 @property (nonatomic) BOOL enableOK;
 @property (nonatomic) BOOL disableUserIDCommentsField;
 @property (nonatomic, readwrite, strong) NSArray *userIDs;
+@property (nonatomic, readwrite) double passwordStrength;
 
 
 - (void)runAndWait;
@@ -767,67 +869,25 @@ modalWindow, foundKeyDicts, hideExtension;
 
 
 - (void)setPassphrase:(NSString *)value {
-	passphrase = value;
-	
-	self.passwordStrengthIndicator.wantsLayer = YES;
-	
-	CIFilter *hueFilter;// = self.passwordStrengthIndicator.contentFilters[0];
-	
-	if (self.passwordStrengthIndicator.contentFilters.count > 0) {
-//		hueFilter = self.passwordStrengthIndicator.contentFilters[0];
-//		[hueFilter setValue:@(value.length) forKey:@"inputAngle"];
-	} else {
-		hueFilter = [CIFilter filterWithName:@"CIHueAdjust" keysAndValues:@"inputAngle", @(value.length * 0.2), nil];
-		
-		
-		hueFilter.name = @"hueAdjust";
-		
-		[self.passwordStrengthIndicator setContentFilters:@[hueFilter]];
-		
-		
-		
-		CABasicAnimation* pulseAnimation = [CABasicAnimation animation];
-		pulseAnimation.keyPath = @"contentFilters.hueAdjust.inputAngle";
-		
-		pulseAnimation.fromValue = @(0);
-		pulseAnimation.toValue = @(5);
-		
-		pulseAnimation.duration = 0.3;
-		pulseAnimation.repeatCount = 1;
-		pulseAnimation.autoreverses = YES;
-		
-		[self.passwordStrengthIndicator.layer addAnimation:pulseAnimation forKey:@"pulseAnimation"];
-
-		
-		
+	if ([passphrase isEqualToString:value]) {
+		return;
 	}
+	passphrase = value;
 
-	
-	
-	
-
-	
-	
-	
-//	self.passwordStrengthIndicator.needsLayout = YES;
-	
-	
-//	NSLog(@"%@", hueFilter);
-	
+	if (passphrase.length == 0 || passphrase.UTF8Length > 255) {
+		self.passwordStrength = 0;
+	} else {
+		DBResult *result = [zxcvbn passwordStrength:self.passphrase];
+		
+		double seconds = result.crackTime;
+		double score = log10(seconds * 1000000);
+		score = MAX(score, 1);
+		
+		self.passwordStrength = score;
+	}
 }
 - (NSString *)passphrase {
 	return passphrase;
-}
-
-- (NSInteger)passwordStrength {
-	if (self.passphrase.length == 0) {
-		return 0;
-	}
-	DBResult *result = [zxcvbn passwordStrength:self.passphrase];
-	return result.score;
-}
-+ (NSSet *)keyPathsForValuesAffectingPasswordStrength {
-	return [NSSet setWithObjects:@"passphrase", nil];
 }
 
 
@@ -1183,6 +1243,8 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	return YES;
 }
 - (BOOL)checkPassphrase {
+	BOOL warned = NO;
+	
 	if (!self.passphrase) {
 		self.passphrase = @"";
 	}
@@ -1205,22 +1267,17 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 //	}
 	
 	if ([self.passphrase length] == 0) {
+		warned = YES;
 		if (NSRunAlertPanel(localized(@"CheckAlert_NoPassphrase_Title"),
 							localized(@"CheckAlert_NoPassphrase_Message"),
 							localized(@"CheckAlert_NoPassphrase_Button1"),
 							localized(@"CheckAlert_NoPassphrase_Button2"), nil) != NSAlertDefaultReturn) {
 			return NO;
 		}
-	} else if ([self.passphrase length] < 8) {
-		if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseShort_Title"),
-							localized(@"CheckAlert_PassphraseShort_Message"),
-							localized(@"CheckAlert_PassphraseShort_Button1"),
-							localized(@"CheckAlert_PassphraseShort_Button2"), nil) != NSAlertDefaultReturn) {
-			return NO;
-		}
 	} else {
 		DBResult *result = [zxcvbn passwordStrength:self.passphrase];
-		if (result.score < 3) {
+		if (result.crackTime < 3600) {
+			warned = YES;
 			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseSimple_Title"),
 								localized(@"CheckAlert_PassphraseSimple_Message"),
 								localized(@"CheckAlert_PassphraseSimple_Button1"),
@@ -1229,6 +1286,76 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			}
 		}
 	}
+	
+	
+	// Do not warn the user twice about a weak password.
+	if (!warned) {
+		// Check if the password was used somewhere already.
+		
+		// Calulate the SHA1.
+		NSData *passwordData = [self.passphrase UTF8Data];
+		uint8_t digestBytes[20];
+		CC_SHA1(passwordData.bytes, (uint32_t)passwordData.length, digestBytes);
+		
+		// Hex representation of the SHA1 digest.
+		NSMutableString *digest = [NSMutableString new];
+		for (int i = 0; i < 20; i++) {
+			[digest appendFormat:@"%02X", digestBytes[i]];
+		}
+		
+		// The url only contains the first 5 hey digits of the digest.
+		NSString *urlString = [@"https://api.pwnedpasswords.com/range/" stringByAppendingString:[digest substringToIndex:5]];
+		
+		// Build the request.
+		NSURL *url = [NSURL	URLWithString:urlString];
+		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:0 timeoutInterval:10];
+		if (request) {
+			
+			// Set a meaningful user agent.
+			[request setValue:@"GPG Keychain" forHTTPHeaderField:@"User-Agent"];
+			
+			
+			__block BOOL pwned = NO;
+			dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+			NSURLSession *session = [NSURLSession sharedSession];
+			
+			NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+				if (data) {
+					// Test if the digest is in the returned data.
+					NSData *needle = [digest substringFromIndex:5].UTF8Data;
+					if ([data rangeOfData:needle options:0 range:NSMakeRange(0, data.length)].location != NSNotFound) {
+						pwned = YES;
+					}
+				}
+				
+				dispatch_semaphore_signal(semaphore);
+			}];
+			
+			if (task) {
+				[task resume];
+				// Do not semaphore_wait if the task is nil, because semaphore_signal would never be called.
+				dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+			}
+			
+			
+			if (pwned) {
+				// The password where used somewhere else, warn the user.
+				if (NSRunAlertPanel(localized(@"CheckAlert_PassphrasePwned_Title"),
+									localized(@"CheckAlert_PassphrasePwned_Message"),
+									localized(@"CheckAlert_PassphrasePwned_Button1"),
+									localized(@"CheckAlert_PassphrasePwned_Button2"), nil) != NSAlertDefaultReturn) {
+					return NO;
+				}
+			}
+		}
+	}
+	
+
+	
+	
+	
+
+	NSRunAlertPanel(@"Passwort ist OK", @"Es wird kein Schlüssel erzeugt!\nEs muss auch nicht doppelt eingegeben werden.", nil, nil, nil);
 	return NO;
 	return YES;
 }
@@ -1438,13 +1565,8 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		NSArray *objects;
 		[[NSBundle mainBundle] loadNibNamed:@"ModalSheets" owner:self topLevelObjects:&objects];
 		topLevelObjects = objects;
-		
-		if (![DBZxcvbn class]) {
-			//TODO: !!!
-		}
+
 		zxcvbn = [DBZxcvbn new];
-		
-		
 	}
 	return self;
 }

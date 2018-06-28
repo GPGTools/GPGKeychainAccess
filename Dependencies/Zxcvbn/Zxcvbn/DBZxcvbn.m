@@ -42,7 +42,7 @@
     DBResult *result = [self.scorer minimumEntropyMatchSequence:password matches:matches];
     CFTimeInterval end = CACurrentMediaTime();
     result.calcTime = (end - start) * 1000.0;
-    
+		
     return result;
 }
 

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class DBMatch;
+
 @interface DBMatcher : NSObject
 
 @property (nonatomic, assign) NSUInteger keyboardAverageDegree;
@@ -15,13 +17,14 @@
 @property (nonatomic, assign) NSUInteger keyboardStartingPositions;
 @property (nonatomic, assign) NSUInteger keypadStartingPositions;
 
-- (NSArray *)omnimatch:(NSString *)password userInputs:(NSArray *)userInputs;
+- (NSArray<DBMatch *> *)omnimatch:(NSString *)password userInputs:(NSArray *)userInputs;
 
 @end
 
 @interface DBMatchResources : NSObject
 
 @property (nonatomic, strong) NSArray *dictionaryMatchers;
+@property (nonatomic, strong) NSArray *l33tDictionaryMatchers;
 @property (nonatomic, strong) NSDictionary *graphs;
 
 + (DBMatchResources *)sharedDBMatcherResources;
@@ -47,7 +50,6 @@
 // l33t
 @property (nonatomic, assign) BOOL l33t;
 @property (strong, nonatomic) NSDictionary *sub;
-@property (strong, nonatomic) NSString *subDisplay;
 @property (nonatomic, assign) int l33tEntropy;
 
 // Spatial

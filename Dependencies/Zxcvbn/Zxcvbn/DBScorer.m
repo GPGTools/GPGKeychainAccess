@@ -23,14 +23,14 @@
      minimum entropy. O(nm) dp alg for length-n password with m candidate matches.
      */
     
-    float bruteforceCardinality = [self calcBruteforceCardinality:password]; // e.g. 26 for lowercase
+    double bruteforceCardinality = [self calcBruteforceCardinality:password]; // e.g. 26 for lowercase
     
     NSMutableArray *upToK = [[NSMutableArray alloc] init]; // minimum entropy up to k.
     NSMutableArray *backpointers = [[NSMutableArray alloc] init]; // for the optimal sequence of matches up to k, holds the final match (match.j == k). null means the sequence ends w/ a brute-force character.
     
     for (int k = 0; k < [password length]; k++) {
         // starting scenario to try and beat: adding a brute-force character to the minimum entropy sequence at k-1.
-        [upToK insertObject:[NSNumber numberWithFloat:[get(upToK, k-1) floatValue] + lg(bruteforceCardinality)] atIndex:k];
+		[upToK insertObject:[NSNumber numberWithDouble:[get(upToK, k-1) doubleValue] + log2(bruteforceCardinality)] atIndex:k];
         [backpointers insertObject:[NSNull null] atIndex:k];
         for (DBMatch *match in matches) {
             NSUInteger i = match.i;
@@ -39,9 +39,9 @@
                 continue;
             }
             // see if best entropy up to i-1 + entropy of this match is less than the current minimum at j.
-            float candidateEntropy = [get(upToK, (int)i-1) floatValue] + [self calcEntropy:match];
-            if (candidateEntropy < [[upToK objectAtIndex:j] floatValue]) {
-                [upToK insertObject:[NSNumber numberWithFloat:candidateEntropy] atIndex:j];
+            double candidateEntropy = [get(upToK, (int)i-1) doubleValue] + [self calcEntropy:match];
+            if (candidateEntropy < [[upToK objectAtIndex:j] doubleValue]) {
+                [upToK insertObject:[NSNumber numberWithDouble:candidateEntropy] atIndex:j];
                 [backpointers insertObject:match atIndex:j];
             }
         }
@@ -69,7 +69,7 @@
         match.i = i;
         match.j = j;
         match.token = [password substringWithRange:NSMakeRange(i, j - i + 1)];
-        match.entropy = lg(pow(bruteforceCardinality, j - i + 1));
+        match.entropy = log2(pow(bruteforceCardinality, j - i + 1));
         match.cardinality = bruteforceCardinality;
         return match;
     };
@@ -89,11 +89,11 @@
         matchSequence = matchSequenceCopy;
     }
 
-    float minEntropy = 0.0;
+    double minEntropy = 0.0;
     if ([password length] > 0) { // corner case is for an empty password ''
-        minEntropy = [[upToK objectAtIndex:[password length] - 1] floatValue];
+        minEntropy = [[upToK objectAtIndex:[password length] - 1] doubleValue];
     }
-    float crackTime = [self entropyToCrackTime:minEntropy];
+    double crackTime = [self entropyToCrackTime:minEntropy];
 
     // final result object
     DBResult *result = [[DBResult alloc] init];
@@ -102,26 +102,37 @@
     result.matchSequence = matchSequence;
     result.crackTime = crackTime;
     result.crackTimeDisplay = [self displayTime:crackTime];
-    result.score = [self crackTimeToScore:crackTime];
     return result;
 }
 
-- (float)entropyToCrackTime:(float)entropy
+- (double)entropyToCrackTime:(double)entropy
 {
 	/*
-	 * threat model -- GPG secring stolen
+	 * threat model -- encrypted secret key stolen
 	 *
 	 * assumes:
 	 *   attacker has stolen the whole secring.
 	 *   attacker uses some Amazon EC2 P3-Instances.
 	 */
 	
+	
 	/*
 	 * Guesses a Tesla c2070 GPU can made der second.
-	 * Source: "A fast, GPU based, dictionary attack to OpenPGP secret keyrings" https://pdfs.semanticscholar.org/0085/ce3d0a388e53cff6708d271303c47afd8cb2.pdf
+	 * Source: "A fast, GPU based, dictionary attack to OpenPGP secret keyrings" DOI: 10.1016/j.jss.2011.05.027
 	 */
 	double guessesPerSec_c2070 = 450000;
 	
+	/*
+	 * The S2K Count used in the paper above.
+	 */
+	double paperS2KCount = 1024;
+	
+	/*
+	 * By default GnuPG sets the S2K count to a value which requires about 100ms of time on the machine, running GnuPG.
+	 * With a not brand new CPU, the S2K count is something like 15000000 to 20000000.
+	 */
+	double currentS2KCount = 15000000;
+
 	/*
 	 * The factor a Tesla V100 is faster than a c2070. 15.7 vs. 1.03 TeraFLOPS.
 	 */
@@ -140,51 +151,33 @@
 	/*
 	 * The number of guesses the attacker can make per second.
 	 */
-	double guessesPerSec = guessesPerSec_c2070 * speedFactor_V100 * numberGPUs * safetyMargin;
+	double guessesPerSec = guessesPerSec_c2070 * speedFactor_V100 * numberGPUs * safetyMargin * paperS2KCount / currentS2KCount;
+	
+	
+	if (entropy > 1000) {
+		// Prevent possiblePasswords from getting +inf.
+		entropy = 1000;
+	}
 	
 	/*
 	 * Number of passwords the attacker has to try.
 	 */
 	double possiblePasswords = pow(2, entropy);
 	
+	
 	/*
-	 * Average time the attackers need to find the password.
-	 * The attackers finds the password after trying only the half of the passwords.
+	 * Average time in seconds an attackers need to find the password.
+	 * The attacker finds the password after trying only the half of the passwords.
 	 */
 	double time = possiblePasswords / guessesPerSec / 2;
 	
 	return time;
 }
 
-- (int)crackTimeToScore:(float)seconds
-{
-	if (seconds < pow(10, 1)) {
-		return 0;
-	} else if (seconds < pow(10, 2)) {
-		return 1;
-	} else if (seconds < pow(10, 3)) {
-		return 2;
-	} else if (seconds < pow(10, 4)) {
-		return 3;
-	} else if (seconds < pow(10, 5)) {
-		return 4;
-	} else if (seconds < pow(10, 6)) {
-		return 5;
-	} else if (seconds < pow(10, 7)) {
-		return 6;
-	} else if (seconds < pow(10, 8)) {
-		return 7;
-	} else if (seconds < pow(10, 9)) {
-		return 8;
-	} else if (seconds < pow(10, 10)) {
-		return 9;
-	}
-    return 10;
-}
 
 #pragma mark - entropy calcs -- one function per match pattern
 
-- (float)calcEntropy:(DBMatch *)match
+- (double)calcEntropy:(DBMatch *)match
 {
     if (match.entropy > 0) {
         // a match's entropy doesn't change. cache it.
@@ -210,55 +203,55 @@
     return match.entropy;
 }
 
-- (float)repeatEntropy:(DBMatch *)match
+- (double)repeatEntropy:(DBMatch *)match
 {
-    float cardinality = [self calcBruteforceCardinality:match.token];
-    return lg(cardinality * [match.token length]);
+    double cardinality = [self calcBruteforceCardinality:match.token];
+    return log2(cardinality * [match.token length]);
 }
 
-- (float)sequenceEntropy:(DBMatch *)match
+- (double)sequenceEntropy:(DBMatch *)match
 {
     NSString *firstChr = [match.token substringToIndex:1];
-    float baseEntropy = 0;
+    double baseEntropy = 0;
     if ([@[@"a", @"1"] containsObject:firstChr]) {
         baseEntropy = 1;
     } else {
         unichar chr = [firstChr characterAtIndex:0];
         if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:chr]) {
-            baseEntropy = lg(10); // digits
+            baseEntropy = log2(10); // digits
         } else if ([[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:chr]) {
-            baseEntropy = lg(26); // lower
+            baseEntropy = log2(26); // lower
         } else {
-            baseEntropy = lg(26) + 1; // extra bit for uppercase
+            baseEntropy = log2(26) + 1; // extra bit for uppercase
         }
     }
     if (!match.ascending) {
         baseEntropy += 1; // extra bit for descending instead of ascending
     }
-    return baseEntropy + lg([match.token length]);
+    return baseEntropy + log2([match.token length]);
 }
 
-- (float)digitsEntropy:(DBMatch *)match
+- (double)digitsEntropy:(DBMatch *)match
 {
-    return lg(pow(10, [match.token length]));
+    return log2(pow(10, [match.token length]));
 }
 
 static int kNumYears = 119; // years match against 1900 - 2019
 static int kNumMonths = 12;
 static int kNumDays = 31;
 
-- (float)yearEntropy:(DBMatch *)match
+- (double)yearEntropy:(DBMatch *)match
 {
-    return lg(kNumYears);
+    return log2(kNumYears);
 }
 
-- (float)dateEntropy:(DBMatch *)match
+- (double)dateEntropy:(DBMatch *)match
 {
-    float entropy = 0.0;
+    double entropy = 0.0;
     if (match.year < 100) {
-        entropy = lg(kNumDays * kNumMonths * 100); // two-digit year
+        entropy = log2(kNumDays * kNumMonths * 100); // two-digit year
     } else {
-        entropy = lg(kNumDays * kNumMonths * kNumYears); // four-digit year
+        entropy = log2(kNumDays * kNumMonths * kNumYears); // four-digit year
     }
     if ([match.separator length]) {
         entropy += 2; // add two bits for separator selection [/,-,.,etc]
@@ -266,7 +259,7 @@ static int kNumDays = 31;
     return entropy;
 }
 
-- (float)spatialEntropy:(DBMatch *)match
+- (double)spatialEntropy:(DBMatch *)match
 {
     DBMatcher *matcher = [[DBMatcher alloc] init];
     NSUInteger s;
@@ -288,7 +281,7 @@ static int kNumDays = 31;
             possibilities += binom(i - 1, j - 1) * s * pow(d, j);
         }
     }
-    float entropy = lg(possibilities);
+    double entropy = log2(possibilities);
     // add extra entropy for shifted keys. (% instead of 5, A instead of a.)
     // math is similar to extra entropy from uppercase letters in dictionary matches.
     if (match.shiftedCount) {
@@ -298,20 +291,19 @@ static int kNumDays = 31;
         for (int i = 0; i <= MIN(S, U); i++) {
             possibilities += binom(S + U, i);
         }
-        entropy += lg(possibilities);
+        entropy += log2(possibilities);
     }
     return entropy;
 }
 
-- (float)dictionaryEntropy:(DBMatch *)match
+- (double)dictionaryEntropy:(DBMatch *)match
 {
-    match.baseEntropy = lg(match.rank); // keep these as properties for display purposes
+    match.baseEntropy = log2(match.rank); // keep these as properties for display purposes
     match.upperCaseEntropy = [self extraUppercaseEntropy:match];
-    match.l33tEntropy = [self extraL33tEntropy:match];
     return match.baseEntropy + match.upperCaseEntropy + match.l33tEntropy;
 }
 
-- (float)extraUppercaseEntropy:(DBMatch *)match
+- (double)extraUppercaseEntropy:(DBMatch *)match
 {
     NSString *word = match.token;
     if ([word rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]].location == NSNotFound) {
@@ -343,37 +335,16 @@ static int kNumDays = 31;
         }
     }
 
-    float possibilities = 0.0;
+    double possibilities = 0.0;
     for (int i = 0; i <= MIN(uppercaseLength, lowercaseLength); i++) {
         possibilities += binom(uppercaseLength + lowercaseLength, i);
     }
-    return lg(possibilities);
-}
-
-- (int)extraL33tEntropy:(DBMatch *)match
-{
-    if (!match.l33t) {
-        return 0;
-    }
-
-    int possibilities = 0;
-
-    for (NSString *subbed in [match.sub allKeys]) {
-        NSString *unsubbed = [match.sub objectForKey:subbed];
-        NSUInteger subLength = [[match.token componentsSeparatedByString:subbed] count] - 1;
-        NSUInteger unsubLength = [[match.token componentsSeparatedByString:unsubbed] count] - 1;
-        for (int i = 0; i <= MIN(unsubLength, subLength); i++) {
-            possibilities += binom(unsubLength + subLength, i);
-        }
-    }
-
-    // corner: return 1 bit for single-letter subs, like 4pple -> apple, instead of 0.
-    return possibilities <= 1 ? 1 : lg(possibilities);
+    return log2(possibilities);
 }
 
 #pragma mark - utilities
 
-- (float)calcBruteforceCardinality:(NSString *)password
+- (double)calcBruteforceCardinality:(NSString *)password
 {
     int digits = 0;
     int upper = 0;
@@ -413,38 +384,47 @@ static int kNumDays = 31;
 	return digits + upper + lower + symbols + unicode;
 }
 
-- (NSString *)displayTime:(float)seconds
+- (NSString *)displayTime:(double)seconds
 {
-    int minute = 60;
-    int hour = minute * 60;
-    int day = hour * 24;
-    int month = day * 31;
-    int year = month * 12;
-    int century = year * 100;
-    if (seconds < minute)
-        return @"instant";
-    if (seconds < hour)
-        return [NSString stringWithFormat:@"%d minutes", 1 + (int)ceil(seconds / minute)];
-    if (seconds < day)
-        return [NSString stringWithFormat:@"%d hours", 1 + (int)ceil(seconds / hour)];
-    if (seconds < month)
-        return [NSString stringWithFormat:@"%d days", 1 + (int)ceil(seconds / day)];
-    if (seconds < year)
-        return [NSString stringWithFormat:@"%d months", 1 + (int)ceil(seconds / month)];
-    if (seconds < century)
-        return [NSString stringWithFormat:@"%d years", 1 + (int)ceil(seconds / year)];
-    return @"centuries";
+    NSUInteger minute = 60;
+    NSUInteger hour = minute * 60;
+    NSUInteger day = hour * 24;
+    NSUInteger month = day * 31;
+    NSUInteger year = month * 12;
+    NSUInteger millennium = year * 1000;
+	
+	NSString *result;
+	
+	if (seconds < 2) {
+		result = @"instant";
+	} else if (seconds < minute * 2) {
+		result = [NSString stringWithFormat:@"%d seconds", (int)seconds];
+	} else if (seconds < hour * 2) {
+		result = [NSString stringWithFormat:@"%d minutes", (int)(seconds / minute)];
+	} else if (seconds < day * 2) {
+		result = [NSString stringWithFormat:@"%d hours", (int)(seconds / hour)];
+	} else if (seconds < month * 2) {
+		result = [NSString stringWithFormat:@"%d days", (int)(seconds / day)];
+	} else if (seconds < year * 2) {
+		result = [NSString stringWithFormat:@"%d months", (int)(seconds / month)];
+	} else if (seconds < millennium * 2) {
+		result = [NSString stringWithFormat:@"%d years", (int)(seconds / year)];
+	} else {
+		result = @"thousands of years";
+	}
+	
+	return result;
 }
 
 #pragma mark - functions
 
-float binom(NSUInteger n, NSUInteger k)
+double binom(NSUInteger n, NSUInteger k)
 {
     // Returns binomial coefficient (n choose k).
     // http://blog.plover.com/math/choose.html
     if (k > n) { return 0; }
     if (k == 0) { return 1; }
-    float result = 1;
+    double result = 1;
     for (int denom = 1; denom <= k; denom++) {
         result *= n;
         result /= denom;
@@ -453,12 +433,7 @@ float binom(NSUInteger n, NSUInteger k)
     return result;
 }
 
-float lg(float n)
-{
-    return log2f(n);
-}
-
-NSString* roundToXDigits(float number, int digits)
+NSString* roundToXDigits(double number, int digits)
 {
     //return round(number * pow(10, digits)) / pow(10, digits);
     return [NSString stringWithFormat:@"%.*f", digits, number];
