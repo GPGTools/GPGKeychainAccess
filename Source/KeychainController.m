@@ -202,15 +202,8 @@ NSLock *updateLock;
 - (NSArray *)tableView:(NSTableView *)tableView namesOfPromisedFilesDroppedAtDestination:(NSURL *)dropDestination forDraggedRowsWithIndexes:(NSIndexSet *)indexSet {
 	NSArray *draggedKeys = [keysController.arrangedObjects objectsAtIndexes:indexSet];
 	
-	GPGController *gc = [[ActionController sharedInstance] gpgc];
-	BOOL oldAsync = gc.async;
-	BOOL oldArmor = gc.useArmor;
-	gc.async = NO;
-	gc.useArmor = YES;
-	NSData *exportedData = [gc exportKeys:draggedKeys allowSecret:NO fullExport:NO];
-	gc.async = oldAsync;
-	gc.useArmor = oldArmor;
-	
+	NSData *exportedData = [[ActionController sharedInstance] exportKeyData:draggedKeys];
+
 	if (exportedData.length > 0) {
 		NSString *filename = filenameForExportedKeys(draggedKeys, nil);
 		NSString *fullFilename = [filename stringByAppendingString:@".asc"];

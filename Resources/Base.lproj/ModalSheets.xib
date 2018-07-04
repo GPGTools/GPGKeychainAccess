@@ -21,8 +21,8 @@
                 <outlet property="generateSubkeyView" destination="170" id="269"/>
                 <outlet property="generateUserIDView" destination="115" id="164"/>
                 <outlet property="generateUserID_CommentConstraint" destination="wyj-6W-XO5" id="ZV1-2D-nHc"/>
+                <outlet property="hideProgressTitleConstraint" destination="En6-5p-Gbg" id="gXv-5b-nfe"/>
                 <outlet property="keyLengthFormatter" destination="49" id="51"/>
-                <outlet property="progressIndicator" destination="308" id="316"/>
                 <outlet property="progressView" destination="270" id="309"/>
                 <outlet property="receiveKeysView" destination="527" id="541"/>
                 <outlet property="resultView" destination="496" id="951"/>
@@ -664,7 +664,7 @@ Gw
                                     <rect key="frame" x="0.0" y="0.0" width="700" height="78"/>
                                     <clipView key="contentView" id="wiF-lg-pfc">
                                         <rect key="frame" x="1" y="1" width="698" height="76"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <autoresizingMask key="autoresizingMask"/>
                                         <subviews>
                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" id="H3H-Ls-84b">
                                                 <rect key="frame" x="0.0" y="0.0" width="698" height="76"/>
@@ -1629,12 +1629,9 @@ Gw
             <point key="canvasLocation" x="482" y="99"/>
         </customView>
         <customView id="270" userLabel="Progress">
-            <rect key="frame" x="0.0" y="0.0" width="450" height="140"/>
+            <rect key="frame" x="0.0" y="0.0" width="450" height="165"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <progressIndicator wantsLayer="YES" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="308">
-                    <rect key="frame" x="18" y="20" width="298" height="20"/>
-                </progressIndicator>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="417" translatesAutoresizingMaskIntoConstraints="NO" id="938">
                     <rect key="frame" x="18" y="60" width="414" height="60"/>
                     <constraints>
@@ -1666,19 +1663,34 @@ Gw
                         <action selector="buttonClicked:" target="-2" id="1096"/>
                     </connections>
                 </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IEr-Kp-n1b">
+                    <rect key="frame" x="18" y="128" width="414" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="17" id="a3V-pA-sfV"/>
+                    </constraints>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="progressTitle" id="g0m-vM-aU9">
+                        <font key="font" metaFont="systemBold"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="progressTitle" id="M08-2D-PyX"/>
+                    </connections>
+                </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="IEr-Kp-n1b" firstAttribute="top" secondItem="270" secondAttribute="top" constant="20" id="6sW-zM-CER"/>
+                <constraint firstItem="938" firstAttribute="top" secondItem="270" secondAttribute="top" priority="997" constant="20" id="En6-5p-Gbg"/>
+                <constraint firstItem="IEr-Kp-n1b" firstAttribute="width" secondItem="938" secondAttribute="width" id="Hbj-aX-03T"/>
+                <constraint firstItem="938" firstAttribute="top" secondItem="IEr-Kp-n1b" secondAttribute="bottom" priority="998" constant="8" id="JAQ-cN-NGa"/>
                 <constraint firstAttribute="trailing" secondItem="1094" secondAttribute="trailing" constant="20" id="McF-C2-pJ4"/>
-                <constraint firstItem="1094" firstAttribute="leading" secondItem="308" secondAttribute="trailing" constant="18" id="N67-Gw-D4W"/>
                 <constraint firstItem="938" firstAttribute="leading" secondItem="270" secondAttribute="leading" constant="20" id="UMU-Cd-sE3"/>
                 <constraint firstItem="1094" firstAttribute="top" secondItem="938" secondAttribute="bottom" constant="20" id="XrO-xl-F4i"/>
-                <constraint firstItem="308" firstAttribute="leading" secondItem="270" secondAttribute="leading" constant="18" id="caH-nZ-CgO"/>
-                <constraint firstItem="938" firstAttribute="top" secondItem="270" secondAttribute="top" constant="20" id="g9T-QE-Ylm"/>
-                <constraint firstItem="308" firstAttribute="top" secondItem="1094" secondAttribute="top" constant="1" id="jfH-EM-ezI"/>
+                <constraint firstItem="IEr-Kp-n1b" firstAttribute="leading" secondItem="938" secondAttribute="leading" id="cpJ-S2-dk8"/>
                 <constraint firstAttribute="trailing" secondItem="938" secondAttribute="trailing" constant="20" id="m0p-5q-ofg"/>
                 <constraint firstAttribute="bottom" secondItem="1094" secondAttribute="bottom" constant="19" id="mjM-Gl-XoL"/>
             </constraints>
-            <point key="canvasLocation" x="-326" y="90"/>
+            <point key="canvasLocation" x="-548" y="102"/>
         </customView>
         <customView id="471" userLabel="Search Keys">
             <rect key="frame" x="0.0" y="0.0" width="450" height="131"/>

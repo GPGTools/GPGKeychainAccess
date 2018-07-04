@@ -71,6 +71,9 @@
 
 @property (nonatomic, weak) IBOutlet NSView *exportKeyOptionsView;
 
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *hideProgressTitleConstraint;
+
+
 //Views die im Sheet angezeigt werden können.
 @property (nonatomic, weak) IBOutlet NSView *progressView;
 @property (nonatomic, weak) IBOutlet NSView *genNewKeyView;
@@ -653,8 +656,15 @@
 		_progressText = value;
 	}
 }
-- (NSString *)progressText {
-	return _progressText;
+- (void)setProgressTitle:(NSString *)progressTitle {
+	if (progressTitle.length == 0) {
+		progressTitle = @"";
+		// Hide the title label.
+		self.hideProgressTitleConstraint.priority = 999;
+	} else {
+		self.hideProgressTitleConstraint.priority = 997;
+	}
+	_progressTitle = progressTitle;
 }
 
 - (void)setMsgText:(NSString *)value {

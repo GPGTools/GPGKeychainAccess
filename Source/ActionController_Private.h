@@ -39,9 +39,13 @@
 
 @property (readonly) SheetController *sheetController;
 
-@property (strong) NSString *progressText, *errorText;
 @property (strong, readonly) NSUndoManager *undoManager;
 @property (strong) NSSet *revCertCache;
+
+@property (nonatomic, strong) NSString *currentOperation;
+@property (nonatomic, strong) NSString *operationSuffix;
+@property (nonatomic, strong) NSArray *operatedKeys;
+
 
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys;
 
@@ -62,9 +66,3 @@ enum {
 	SaveDataToURLAction,
 	CallbackAction
 };
-
-enum {
-	ImportOperation = 1,
-	NewKeyOperation
-};
-

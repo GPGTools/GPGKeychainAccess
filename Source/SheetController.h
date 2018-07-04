@@ -49,6 +49,7 @@ enum {
 
 @interface SheetController : NSObject
 @property (nonatomic, strong) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
+@property (nonatomic, strong) NSString *progressTitle;
 @property (nonatomic) BOOL hasExpirationDate, exportSecretKey, allowEdit, publish;
 @property (nonatomic, strong) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 @property (nonatomic, strong) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;

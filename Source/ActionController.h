@@ -65,6 +65,7 @@ typedef enum {
 - (IBAction)removePhoto:(id)sender;
 - (IBAction)revokePhoto:(id)sender;
 - (IBAction)photoClicked:(id)sender;
+- (NSData *)exportKeyData:(NSArray *)keys;
 - (IBAction)exportKey:(id)sender;
 - (IBAction)importKey:(id)sender;
 - (IBAction)addSignature:(id)sender;

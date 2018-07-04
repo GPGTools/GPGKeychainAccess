@@ -28,13 +28,46 @@
 
 
 @implementation ActionController
-@synthesize progressText, errorText, keysController, signaturesController,
+@synthesize keysController, signaturesController,
 			subkeysController, userIDsController, keyTable,
 			signaturesTable, userIDsTable, subkeysTable, gpgc;
 
 
 static NSString * const dealsWithErrorsKey = @"dealsWithErrors";
 static NSString * const actionKey = @"action";
+
+
+static NSString * const AddPhotoOperation = @"AddPhoto";
+static NSString * const AddSignatureOperation = @"AddSignature";
+static NSString * const AddSubkeyOperation = @"AddSubkey";
+static NSString * const AddUserIDOperation = @"AddUserID";
+static NSString * const ChangeExpirationDateOperation = @"ChangeExpirationDate";
+static NSString * const ChangePassphraseOperation = @"ChangePassphrase";
+static NSString * const CleanKeyOperation = @"CleanKey";
+static NSString * const DeleteKeysOperation = @"DeleteKeys";
+static NSString * const ExportKeyOperation = @"ExportKey";
+static NSString * const GenerateKeyOperation = @"GenerateKey";
+static NSString * const GenerateRevokeCertificateForKeyOperation = @"GenerateRevokeCertificateForKey";
+static NSString * const ImportKeyOperation = @"ImportKey";
+static NSString * const MailKeyOperation = @"MailKey";
+static NSString * const MinimizeKeyOperation = @"MinimizeKey";
+static NSString * const ReceiveKeysFromServerOperation = @"ReceiveKeysFromServer";
+static NSString * const RefreshKeysFromServerOperation = @"RefreshKeysFromServer";
+static NSString * const RemovePhotoOperation = @"RemovePhoto";
+static NSString * const RemoveSignatureOperation = @"RemoveSignature";
+static NSString * const RemoveSubkeyOperation = @"RemoveSubkey";
+static NSString * const RemoveUserIDOperation = @"RemoveUserID";
+static NSString * const RevokeKeyOperation = @"RevokeKey";
+static NSString * const RevokePhotoOperation = @"RevokePhoto";
+static NSString * const RevokeSignatureOperation = @"RevokeSignature";
+static NSString * const RevokeSubkeyOperation = @"RevokeSubkey";
+static NSString * const RevokeUserIDOperation = @"RevokeUserID";
+static NSString * const SearchKeysOnServerOperation = @"SearchKeysOnServer";
+static NSString * const SendKeysToServerOperation = @"SendKeysToServer";
+static NSString * const SetAlgorithmPreferencesOperation = @"SetAlgorithmPreferences";
+static NSString * const SetDisabledOperation = @"SetDisabled";
+static NSString * const SetOwnerTrustOperation = @"SetOwnerTrust";
+static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 
 
 
@@ -65,6 +98,17 @@ static NSString * const actionKey = @"action";
 
 
 #pragma mark Import and Export
+- (NSData *)exportKeyData:(NSArray *)keys {
+	BOOL oldAsync = gpgc.async;
+	BOOL oldArmor = gpgc.useArmor;
+	gpgc.async = NO;
+	gpgc.useArmor = YES;
+	self.currentOperation = ExportKeyOperation;
+	NSData *exportedData = [gpgc exportKeys:keys allowSecret:NO fullExport:NO];
+	gpgc.async = oldAsync;
+	gpgc.useArmor = oldArmor;
+	return exportedData;
+}
 - (IBAction)exportKey:(id)sender {
 	[self exportKeyCompact:NO];
 }
@@ -88,7 +132,7 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	self.progressText = localized(@"ExportKey_Progress");
+	self.currentOperation = ExportKeyOperation;
 	
 	BOOL armor = self.sheetController.exportFormat != 0;
 	BOOL exportSecretKey = self.sheetController.exportSecretKey;
@@ -358,10 +402,10 @@ static NSString * const actionKey = @"action";
 	GPGPacket *previousPacket = nil;
 	NSMutableData *dataToImport = [NSMutableData data];
 	NSDictionary *action = nil;
-	NSString *myProgressText = localized(@"ImportKey_Progress");
-	NSString *myErrorText = nil;
 	__block NSMutableArray *packets = [NSMutableArray array];
 	NSMutableSet *affectedKeys = [NSMutableSet set];
+	
+	self.currentOperation = ImportKeyOperation;
 	
 	[GPGPacket enumeratePacketsWithData:data block:^(GPGPacket *packet, BOOL *stop) {
 		[packets addObject:packet];
@@ -401,8 +445,7 @@ static NSString * const actionKey = @"action";
 								} else {
 									if (packets.count == 1) {
 										action = @{@"action": @[[self uploadCallbackForKey:key string:@"RevokedKeyWantToUpload"]]};
-										myProgressText = localized(@"RevokeKey_Progress");
-										myErrorText = localized(@"RevokeKey_Error");
+										self.currentOperation = RevokeKeyOperation;
 									}
 									[affectedKeys addObject:key];
 								}
@@ -473,11 +516,9 @@ static NSString * const actionKey = @"action";
 		[self.sheetController errorSheetWithMessageText:title infoText:message];
 	} else {
 		if (action == nil) {
-			action = @{@"action": @(ShowResultAction), @"operation": @(ImportOperation), @"keys": affectedKeys};
+			action = @{@"action": @(ShowResultAction), @"keys": affectedKeys};
 		}
 		
-		self.progressText = myProgressText;
-		self.errorText = myErrorText;
 		gpgc.userInfo = action;
 		[gpgc importFromData:dataToImport fullImport:showExpertSettings];
 	}
@@ -588,10 +629,12 @@ static NSString * const actionKey = @"action";
 
 	BOOL yourKey = keys.count == 1 && [keys[0] secret];
 	
-	NSString *description = [self descriptionForKeys:keys maxLines:5 withOptions:0];
 	
-	self.progressText = [NSString stringWithFormat:localized(yourKey ? @"MailKey_Progress_Your" : @"MailKey_Progress"), description];
-	self.errorText = localized(@"MailKey_Error");
+	self.currentOperation = MailKeyOperation;
+	self.operatedKeys = keys;
+	if (yourKey) {
+		self.operationSuffix = @"_Your";
+	}
 	
 	
 	gpgc.async = NO;
@@ -606,6 +649,7 @@ static NSString * const actionKey = @"action";
 	NSString *subjectDescription = [self descriptionForKeys:keys maxLines:1 withOptions:DescriptionSingleLine | DescriptionNoKeyID | DescriptionNoEmail];
 	
 	
+	NSString *description = [self descriptionForKeys:keys maxLines:5 withOptions:0];
 	NSString *links = localized(@"MailKey_Message_Links");
 	NSString *subject = [NSString stringWithFormat:localized(yourKey ? @"MailKey_Subject_Your" : @"MailKey_Subject"), subjectDescription];
 	NSString *message;
@@ -862,8 +906,7 @@ static NSString * const actionKey = @"action";
 			subkeyType = 0;
 			break;
 	}
-	self.progressText = localized(@"GenerateKey_Progress");
-	self.errorText = localized(@"GenerateKey_Error");
+	self.currentOperation = GenerateKeyOperation;
 	
 	
 	NSString *passphrase = self.sheetController.passphrase;
@@ -880,8 +923,8 @@ static NSString * const actionKey = @"action";
 		}
 		[[KeychainController sharedInstance] selectKeys:[NSSet setWithObject:fingerprint]];
 		if ([self warningSheetWithDefault:NO string:@"NewKeyWantToUpload"]) {
-			self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:fingerprint]);;
-			self.errorText = localized(@"SendKeysToServer_Error");
+			self.currentOperation = @"SendKeysToServer";
+			self.operatedKeys = @[fingerprint];
 			[gpgc sendKeysToServer:@[fingerprint]];
 		}
 	} copy];
@@ -1113,8 +1156,7 @@ static NSString * const actionKey = @"action";
 			return;
 	}
 	
-	self.progressText = localized(@"DeleteKeys_Progress");
-	self.errorText = localized(@"DeleteKeys_Error");
+	self.currentOperation = DeleteKeysOperation;
 	[gpgc deleteKeys:keys withMode:mode];
 }
 
@@ -1124,8 +1166,7 @@ static NSString * const actionKey = @"action";
 	if (keys.count == 1) {
 		GPGKey *key = [keys[0] primaryKey];
 		
-		self.progressText = localized(@"ChangePassphrase_Progress");
-		self.errorText = localized(@"ChangePassphrase_Error");
+		self.currentOperation = ChangePassphraseOperation;
 		[gpgc changePassphraseForKey:key];
 	}
 }
@@ -1137,8 +1178,7 @@ static NSString * const actionKey = @"action";
 	GPGKey *key = keys[0];
 	BOOL disabled = [sender state] == NSOnState;
 	
-	self.progressText = localized(@"SetDisabled_Progress");
-	self.errorText = localized(@"SetDisabled_Error");
+	self.currentOperation = SetDisabledOperation;
 	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc key:key setDisabled:disabled];
 }
@@ -1150,8 +1190,7 @@ static NSString * const actionKey = @"action";
 	GPGKey *key = keys[0];
 	NSInteger trust = sender.selectedTag;
 	
-	self.progressText = localized(@"SetOwnerTrust_Progress");
-	self.errorText = localized(@"SetOwnerTrust_Error");
+	self.currentOperation = SetOwnerTrustOperation;
 	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc key:key setOwnerTrust:(GPGValidity)trust];
 }
@@ -1183,8 +1222,7 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	self.progressText = localized(@"ChangeExpirationDate_Progress");
-	self.errorText = localized(@"ChangeExpirationDate_Error");
+	self.currentOperation = ChangeExpirationDateOperation;
 	
 	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"ExpirationDateChangedWantToUpload"]]};
 	
@@ -1228,8 +1266,7 @@ static NSString * const actionKey = @"action";
 			NSString *digestPreferences = [[newPrefs objectForKey:@"digestPreferences"] componentsJoinedByString:@" "];
 			NSString *compressPreferences = [[newPrefs objectForKey:@"compressPreferences"] componentsJoinedByString:@" "];
 			
-			self.progressText = localized(@"SetAlgorithmPreferences_Progress");
-			self.errorText = localized(@"SetAlgorithmPreferences_Error");
+			self.currentOperation = SetAlgorithmPreferencesOperation;
 			[gpgc setAlgorithmPreferences:[NSString stringWithFormat:@"%@ %@ %@", cipherPreferences, digestPreferences, compressPreferences] forUserID:userIDDescription ofKey:key];
 		}
 	}
@@ -1239,16 +1276,14 @@ static NSString * const actionKey = @"action";
 - (IBAction)cleanKey:(id)sender {
 	NSArray *keys = [self selectedKeys];
 	
-	self.progressText = localized(@"CleanKey_Progress");
-	self.errorText = localized(@"CleanKey_Error");
+	self.currentOperation = CleanKeyOperation;
 
 	[gpgc cleanKeys:keys];
 }
 - (IBAction)minimizeKey:(id)sender {
 	NSArray *keys = [self selectedKeys];
 	
-	self.progressText = localized(@"MinimizeKey_Progress");
-	self.errorText = localized(@"MinimizeKey_Error");
+	self.currentOperation = MinimizeKeyOperation;
 	[gpgc minimizeKeys:keys];
 }
 - (IBAction)genRevokeCertificate:(id)sender {
@@ -1303,8 +1338,7 @@ static NSString * const actionKey = @"action";
 	}
 	
 	
-	self.progressText = localized(@"GenerateRevokeCertificateForKey_Progress");
-	self.errorText = localized(@"GenerateRevokeCertificateForKey_Error");
+	self.currentOperation = GenerateRevokeCertificateForKeyOperation;
 	
 	
 	
@@ -1373,8 +1407,7 @@ static NSString * const actionKey = @"action";
 				return;
 			}
 			
-			self.progressText = localized(@"RevokeKey_Progress");
-			self.errorText = localized(@"RevokeKey_Error");
+			self.currentOperation = RevokeKeyOperation;
 			
 			gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"RevokedKeyWantToUpload"]]};
 
@@ -1474,7 +1507,7 @@ static NSString * const actionKey = @"action";
 	} copy];
 	
 	gpgc.userInfo = @{actionKey: @[callback], dealsWithErrorsKey: @YES};
-	self.progressText = localized(@"SearchKeysOnServer_Progress");
+	self.currentOperation = SearchKeysOnServerOperation;
 	
 	NSString *pattern = self.sheetController.pattern;
 	[gpgc searchKeysOnServer:pattern];
@@ -1499,11 +1532,10 @@ static NSString * const actionKey = @"action";
 	}
 	
 	__block BOOL canceled = NO;
-	NSString *progressString = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKeys:keys maxLines:3 withOptions:0]);
 	
 	void (^performUpload)() = ^() {
-		self.progressText = progressString;
-		self.errorText = localized(@"SendKeysToServer_Error");
+		self.currentOperation = SendKeysToServerOperation;
+		self.operatedKeys = keys;
 		
 		actionCallback callback = ^(GPGController *gc, id value, NSDictionary *userInfo) {
 			[self.sheetController endProgressSheet];
@@ -1534,8 +1566,9 @@ static NSString * const actionKey = @"action";
 		NSString *cancelKey = [[NSProcessInfo processInfo] globallyUniqueString];
 		[cancelCallbacks setObject:[cancelBlock copy] forKey:cancelKey];
 		
-		self.sheetController.progressText = progressString;
-		[self.sheetController showProgressSheet];
+		self.currentOperation = SendKeysToServerOperation;
+		self.operatedKeys = keys;
+		[self showProgressSheet];
 		[gpgc keysExistOnServer:publicKeys callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
 			void (^block)() = ^{
 				[cancelCallbacks removeObjectForKey:cancelKey];
@@ -1564,8 +1597,8 @@ static NSString * const actionKey = @"action";
 - (IBAction)refreshKeysFromServer:(id)sender {
 	NSArray *keys = [self selectedKeys];
 	if (keys.count > 0) {
-		self.progressText = [NSString stringWithFormat:localized(@"RefreshKeysFromServer_Progress"), [self descriptionForKeys:keys maxLines:8 withOptions:0]];
-		self.errorText = localized(@"RefreshKeysFromServer_Error");
+		self.currentOperation = RefreshKeysFromServerOperation;
+		self.operatedKeys = keys;
 		[gpgc receiveKeysFromServer:keys];
 	}
 }
@@ -1585,8 +1618,7 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	self.progressText = localized(@"AddSubkey_Progress");
-	self.errorText = localized(@"AddSubkey_Error");
+	self.currentOperation = AddSubkeyOperation;
 	
 	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"NewSubkeyWantToUpload"]]};
 
@@ -1604,8 +1636,7 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	self.progressText = localized(@"RemoveSubkey_Progress");
-	self.errorText = localized(@"RemoveSubkey_Error");
+	self.currentOperation = RemoveSubkeyOperation;
 	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc removeSubkey:subkey fromKey:key];
 }
@@ -1621,8 +1652,7 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	self.progressText = localized(@"RevokeSubkey_Progress");
-	self.errorText = localized(@"RevokeSubkey_Error");
+	self.currentOperation = RevokeSubkeyOperation;
 
 	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"RevokedSubkeyWantToUpload"]]};
 	
@@ -1645,8 +1675,7 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	self.progressText = localized(@"AddUserID_Progress");
-	self.errorText = localized(@"AddUserID_Error");
+	self.currentOperation = AddUserIDOperation;
 	
 	
 	actionCallback primaryUserIDCallback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
@@ -1654,8 +1683,7 @@ static NSString * const actionKey = @"action";
 			[self.sheetController endProgressSheet];
 			return;
 		}
-		self.progressText = localized(@"SetPrimaryUserID_Progress");
-		self.errorText = localized(@"SetPrimaryUserID_Error");
+		self.currentOperation = SetPrimaryUserIDOperation;
 		[gpgc setPrimaryUserID:userID.hashID ofKey:userID.primaryKey];
 	} copy];
 	
@@ -1675,8 +1703,7 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	self.progressText = localized(@"RemoveUserID_Progress");
-	self.errorText = localized(@"RemoveUserID_Error");
+	self.currentOperation = RemoveUserIDOperation;
 	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc removeUserID:userID.hashID fromKey:key];
 }
@@ -1688,8 +1715,7 @@ static NSString * const actionKey = @"action";
 	GPGUserID *userID = [objects objectAtIndex:0];
 	GPGKey *key = userID.primaryKey;
 	
-	self.progressText = localized(@"SetPrimaryUserID_Progress");
-	self.errorText = localized(@"SetPrimaryUserID_Error");
+	self.currentOperation = SetPrimaryUserIDOperation;
 	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc setPrimaryUserID:userID.hashID ofKey:key];
 }
@@ -1705,8 +1731,7 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	self.progressText = localized(@"RevokeUserID_Progress");
-	self.errorText = localized(@"RevokeUserID_Error");
+	self.currentOperation = RevokeUserIDOperation;
 	
 	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"RevokedUserIDWantToUpload"]]};
 	
@@ -1715,8 +1740,7 @@ static NSString * const actionKey = @"action";
 
 #pragma mark Photos
 - (void)addPhoto:(NSString *)path toKey:(GPGKey *)key {
-	self.progressText = localized(@"AddPhoto_Progress");
-	self.errorText = localized(@"AddPhoto_Error");
+	self.currentOperation = AddPhotoOperation;
 	
 	
 	void (^failed)(NSString *) = ^(NSString *message) {
@@ -1873,8 +1897,7 @@ static NSString * const actionKey = @"action";
 	}
 	GPGKey *key = [keys[0] primaryKey];
 	
-	self.progressText = localized(@"RemovePhoto_Progress");
-	self.errorText = localized(@"RemovePhoto_Error");
+	self.currentOperation = RemovePhotoOperation;
 
 	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc removeUserID:key.photoID.hashID fromKey:key];
@@ -1886,8 +1909,7 @@ static NSString * const actionKey = @"action";
 	}
 	GPGKey *key = [keys[0] primaryKey];
 	
-	self.progressText = localized(@"RevokePhoto_Progress");
-	self.errorText = localized(@"RevokePhoto_Error");
+	self.currentOperation = RevokePhotoOperation;
 	
 	[self showProgressUntilKeyIsRefreshed:key];
 	[gpgc revokeUserID:key.photoID.hashID fromKey:key reason:0 description:nil];
@@ -1985,8 +2007,8 @@ static NSString * const actionKey = @"action";
 			
 			if (keyExistsOnServer) {
 				if ([self warningSheetWithDefault:YES string:@"UserIDsSignedWantToUpload"]) {
-					self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);
-					self.errorText = localized(@"SendKeysToServer_Error");
+					self.currentOperation = SendKeysToServerOperation;
+					self.operatedKeys = @[key];
 					[gpgc sendKeysToServer:@[key]];
 				}
 			} else {
@@ -2037,8 +2059,7 @@ static NSString * const actionKey = @"action";
 	}
 	
 	
-	self.progressText = localized(@"AddSignature_Progress");
-	self.errorText = localized(@"AddSignature_Error");
+	self.currentOperation = AddSignatureOperation;
 	[self showProgressUntilKeyIsRefreshed:key];
 
 	
@@ -2091,8 +2112,7 @@ static NSString * const actionKey = @"action";
 	}
 
 	
-	self.progressText = localized(@"RemoveSignature_Progress");
-	self.errorText = localized(@"RemoveSignature_Error");
+	self.currentOperation = RemoveSignatureOperation;
 	[gpgc removeSignature:signature fromUserID:userID ofKey:key];
 }
 - (IBAction)revokeSignature:(id)sender {
@@ -2124,8 +2144,7 @@ static NSString * const actionKey = @"action";
 		return;
 	}
 	
-	self.progressText = localized(@"RevokeSignature_Progress");
-	self.errorText = localized(@"RevokeSignature_Error");
+	self.currentOperation = RevokeSignatureOperation;
 	[gpgc revokeSignature:signature fromUserID:userID ofKey:key reason:0 description:nil];
 }
 - (IBAction)showKeyForSignature:(id)sender {
@@ -2147,14 +2166,10 @@ static NSString * const actionKey = @"action";
 	GPGUserIDSignature *signature = signatures[0];
 	NSString *keyID = signature.primaryKey ? signature.primaryKey.fingerprint : signature.keyID;
 	
-	self.progressText = localized(@"ReceiveKeysFromServer_Progress");
-	self.errorText = localized(@"ReceiveKeysFromServer_Error");
-	
+	self.currentOperation = ReceiveKeysFromServerOperation;
+	[self showProgressSheet];
+
 	GPGKey *key = [keysController selectedObjects][0];
-	
-	
-	self.sheetController.progressText = self.progressText;
-	[self.sheetController showProgressSheet];
 	key.isRefreshing = YES;
 	
 	NSString *cancelKey = [[NSProcessInfo processInfo] globallyUniqueString];
@@ -2203,9 +2218,46 @@ static NSString * const actionKey = @"action";
 
 #pragma mark Miscellaneous :)
 
+- (void)showProgressSheet {
+	NSString *operation = self.currentOperation;
+	NSString *suffix = self.operationSuffix;
+	NSArray *keys = self.operatedKeys;
+	
+	NSString *titleKey = [operation stringByAppendingString:@"_ProgressTitle"];
+	NSString *messageKey = [operation stringByAppendingString:@"_Progress"];
+	if (suffix) {
+		titleKey = [titleKey stringByAppendingString:suffix];
+		messageKey = [messageKey stringByAppendingString:suffix];
+	}
+	NSString *title = localized(titleKey);
+	NSString *message = localized(messageKey);
+	if ([title isEqualToString:titleKey]) {
+		title = nil;
+	}
+	if (!message || [message isEqualToString:messageKey]) {
+		message = @"";
+	}
+	if (keys) {
+		message = [[NSString alloc] initWithFormat:message, [self descriptionForKeys:keys maxLines:3 withOptions:0]];
+	}
+
+	
+	void (^block)() = ^{
+		self.sheetController.progressText = message;
+		self.sheetController.progressTitle = title;
+		[self.sheetController showProgressSheet];
+	};
+	
+	if ([NSThread isMainThread]) {
+		block();
+	} else {
+		dispatch_async(dispatch_get_main_queue(), block);
+	}
+
+}
+
 - (void)showProgressUntilKeyIsRefreshed:(GPGKey *)key {
-	self.sheetController.progressText = self.progressText;
-	[self.sheetController showProgressSheet];
+	[self showProgressSheet];
 	
 	key.isRefreshing = YES;
 	
@@ -2255,8 +2307,7 @@ static NSString * const actionKey = @"action";
 - (void)receiveKeysFromServer:(NSObject <EnumerationList> *)keys {
 	gpgc.userInfo = @{@"action": @(ShowResultAction)};
 	
-	self.progressText = localized(@"ReceiveKeysFromServer_Progress");
-	self.errorText = localized(@"ReceiveKeysFromServer_Error");
+	self.currentOperation = ReceiveKeysFromServerOperation;
 	[gpgc receiveKeysFromServer:keys];
 }
 
@@ -2894,8 +2945,8 @@ static NSString * const actionKey = @"action";
 			// Run this code when uploadBlock is called the second time.
 			
 			if ([self warningSheetWithDefault:keyExistsOnServer string:string]) {
-				self.progressText = localizedStringWithFormat(@"SendKeysToServer_Progress", [self descriptionForKey:key]);
-				self.errorText = localized(@"SendKeysToServer_Error");
+				self.currentOperation = SendKeysToServerOperation;
+				self.operatedKeys = @[key];
 				[gpgc sendKeysToServer:@[key]];
 			}
 		}
@@ -2927,8 +2978,7 @@ static NSString * const actionKey = @"action";
 
 #pragma mark Delegate
 - (void)gpgControllerOperationDidStart:(GPGController *)gc {
-	self.sheetController.progressText = self.progressText;
-	[self.sheetController performSelectorOnMainThread:@selector(showProgressSheet) withObject:nil waitUntilDone:NO];
+	[self showProgressSheet];
 }
 
 - (void)gpgController:(GPGController *)gc operationThrownException:(NSException *)e {
@@ -2955,18 +3005,16 @@ static NSString * const actionKey = @"action";
 		}
 		
 		
+		NSString *operation = self.currentOperation;
 		if (![userInfo[dealsWithErrorsKey] boolValue]) {
-			switch ([[userInfo objectForKey:@"operation"] integerValue]) {
-				case ImportOperation:
-					title = localized(@"ImportKeyError_Title");
-					message = localized(@"ImportKeyError_Msg");
-					break;
-				default:
-					title = self.errorText;
-					message = [self errorMessageFromException:e gpgTask:gpgTask description:nil];
-					break;
+			if ([operation isEqualToString:ImportKeyOperation]) {
+				title = localized(@"ImportKeyError_Title");
+				message = localized(@"ImportKeyError_Msg");
+			} else {
+				title = localized([operation stringByAppendingString:@"_Error"]);
+				message = [self errorMessageFromException:e gpgTask:gpgTask description:nil];
 			}
-			
+
 			[self.sheetController errorSheetWithMessageText:title infoText:message];
 		}
 		
@@ -2993,11 +3041,9 @@ static NSString * const actionKey = @"action";
 			NSMutableDictionary *oldUserInfo = [NSMutableDictionary dictionaryWithDictionary:gc.userInfo];
 			
 			gc.userInfo = nil;
-			self.progressText = nil;
-			self.errorText = nil;
-			
-			
-			oldUserInfo[@"operation"] = @0;
+			self.currentOperation = nil;
+			self.operationSuffix = nil;
+			self.operatedKeys = nil;
 			
 			
 			NSInteger actionCode = 0;
