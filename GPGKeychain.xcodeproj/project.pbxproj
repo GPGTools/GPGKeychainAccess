@@ -18,6 +18,8 @@
 		3047D38E18B7C626001D9334 /* GKMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3047D38D18B7C626001D9334 /* GKMenuButton.m */; };
 		304CB4C71D2E49E3008252E4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 304CB4C61D2E49E3008252E4 /* Credits.rtf */; };
 		3050FB781475B0FB00E589AA /* Undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3050FB771475B0FB00E589AA /* Undo.png */; };
+		3051F75E20A3206C00864E18 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3051F75820A3206C00864E18 /* CoreImage.framework */; };
+		3051F75F20A3239000864E18 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30EE5EDF1E76D12B00E30F66 /* QuartzCore.framework */; };
 		3052E10F144B016400D6716A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3052E10E144B016400D6716A /* Cocoa.framework */; };
 		3052E173144B021D00D6716A /* ActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3052E160144B021D00D6716A /* ActionController.m */; };
 		3052E174144B021D00D6716A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3052E162144B021D00D6716A /* AppDelegate.m */; };
@@ -42,8 +44,13 @@
 		3052E385144B083100D6716A /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2E0144B07AC00D6716A /* LICENSE.txt */; };
 		3058A61D19D5B65D008568EA /* PLWeakCompatibilityStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */; };
 		306E87271CB2A7E9001C06A0 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 306E87261CB2A7E9001C06A0 /* ScriptingBridge.framework */; };
+		30750BAB20E3800900ABF1B7 /* InternetAccessPolicy.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30750BA520E3800900ABF1B7 /* InternetAccessPolicy.plist */; };
+		30750BAE20E3801A00ABF1B7 /* InternetAccessPolicy.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30750BAC20E3801A00ABF1B7 /* InternetAccessPolicy.strings */; };
 		3075AFFF18B646C100BEAA71 /* Search.png in Resources */ = {isa = PBXBuildFile; fileRef = 3075AFFE18B646C100BEAA71 /* Search.png */; };
+		3092C3CC20A1C4490071F648 /* Zxcvbn.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3092C3C820A1C4150071F648 /* Zxcvbn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3092C3CE20A1C4800071F648 /* Zxcvbn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3092C3C820A1C4150071F648 /* Zxcvbn.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		3096C91B14D167FC00246400 /* Info.png in Resources */ = {isa = PBXBuildFile; fileRef = 3096C91A14D167FC00246400 /* Info.png */; };
+		309F5A3720E52B8E00D6FED4 /* GKPasswordStrengthIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 309F5A3620E52B8E00D6FED4 /* GKPasswordStrengthIndicator.m */; };
 		30AC56EC18BB71A30038F224 /* Redo.png in Resources */ = {isa = PBXBuildFile; fileRef = 30AC56EB18BB71A30038F224 /* Redo.png */; };
 		30B29BE6191156DE00FC453C /* gka.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 30B29BE5191156DE00FC453C /* gka.sdef */; };
 		30B29BEE19116DF400FC453C /* GKScripting.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B29BED19116DF400FC453C /* GKScripting.m */; };
@@ -75,6 +82,13 @@
 			remoteGlobalIDString = 1BD78B9F1726B2820005F251;
 			remoteInfo = LeakFinder;
 		};
+		30750BAF20E3822E00ABF1B7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3092C3BE20A1C4150071F648 /* Zxcvbn.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D80ECB671BDEAA420055EF0A;
+			remoteInfo = Zxcvbn;
+		};
 		3084CA871C0CAB570084723D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3014396917732F800088B59F /* Libmacgpg.xcodeproj */;
@@ -82,7 +96,27 @@
 			remoteGlobalIDString = 30BE73BE1B54015C001A2137;
 			remoteInfo = UnitTests;
 		};
+		3092C3C720A1C4150071F648 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3092C3BE20A1C4150071F648 /* Zxcvbn.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D80ECB681BDEAA420055EF0A;
+			remoteInfo = Zxcvbn;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3092C3CB20A1C4380071F648 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3092C3CC20A1C4490071F648 /* Zxcvbn.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1B4942D117A7ECBB00E189CF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -159,6 +193,7 @@
 		3050EFBF17026B5500E1F3E6 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/ModalSheets.strings; sourceTree = "<group>"; };
 		3050EFC017026B5500E1F3E6 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = zh_CN.lproj/Preferences.strings; sourceTree = "<group>"; };
 		3050FB771475B0FB00E589AA /* Undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Undo.png; sourceTree = "<group>"; };
+		3051F75820A3206C00864E18 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		3052E10A144B016400D6716A /* GPG Keychain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GPG Keychain.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3052E10E144B016400D6716A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3052E15F144B021D00D6716A /* ActionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionController.h; sourceTree = "<group>"; };
@@ -203,6 +238,8 @@
 		3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLWeakCompatibilityStubs.m; sourceTree = "<group>"; };
 		306E87201CB2A7DB001C06A0 /* SBSystemPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBSystemPreferences.h; sourceTree = "<group>"; };
 		306E87261CB2A7E9001C06A0 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		30750BA520E3800900ABF1B7 /* InternetAccessPolicy.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = InternetAccessPolicy.plist; sourceTree = "<group>"; };
+		30750BAD20E3801A00ABF1B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InternetAccessPolicy.strings; sourceTree = "<group>"; };
 		3075AFFE18B646C100BEAA71 /* Search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search.png; sourceTree = "<group>"; };
 		307B0081148EE19E00182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ModalSheets.strings; sourceTree = "<group>"; };
 		3082A87D1D2BA03C00AB864A /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -217,7 +254,10 @@
 		30867B1A14BDFDDE00194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/ModalSheets.strings; sourceTree = "<group>"; };
 		30867B1B14BDFDDE00194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Preferences.strings; sourceTree = "<group>"; };
 		30867B2314BDFDF300194AA2 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3092C3BE20A1C4150071F648 /* Zxcvbn.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Zxcvbn.xcodeproj; path = Dependencies/Zxcvbn/Zxcvbn.xcodeproj; sourceTree = "<group>"; };
 		3096C91A14D167FC00246400 /* Info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Info.png; sourceTree = "<group>"; };
+		309F5A3520E52B8E00D6FED4 /* GKPasswordStrengthIndicator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GKPasswordStrengthIndicator.h; sourceTree = "<group>"; };
+		309F5A3620E52B8E00D6FED4 /* GKPasswordStrengthIndicator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GKPasswordStrengthIndicator.m; sourceTree = "<group>"; };
 		30AB9CE918E31EB800F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30AB9CF118E31F2000F2864A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		30AC56EB18BB71A30038F224 /* Redo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Redo.png; sourceTree = "<group>"; };
@@ -269,10 +309,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3051F75F20A3239000864E18 /* QuartzCore.framework in Frameworks */,
+				3051F75E20A3206C00864E18 /* CoreImage.framework in Frameworks */,
 				306E87271CB2A7E9001C06A0 /* ScriptingBridge.framework in Frameworks */,
 				1B4942D217A7ECBB00E189CF /* Security.framework in Frameworks */,
 				3045A759173D0623006E7FDE /* Libmacgpg.framework in Frameworks */,
 				3052E10F144B016400D6716A /* Cocoa.framework in Frameworks */,
+				3092C3CE20A1C4800071F648 /* Zxcvbn.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				3014396917732F800088B59F /* Libmacgpg.xcodeproj */,
+				3092C3BE20A1C4150071F648 /* Zxcvbn.xcodeproj */,
 				3052E15E144B01EC00D6716A /* Classes */,
 				3052E201144B04EB00D6716A /* Other Sources */,
 				3052E185144B025000D6716A /* Resources */,
@@ -313,6 +357,7 @@
 		3052E10D144B016400D6716A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3051F75820A3206C00864E18 /* CoreImage.framework */,
 				30EE5EDF1E76D12B00E30F66 /* QuartzCore.framework */,
 				306E87261CB2A7E9001C06A0 /* ScriptingBridge.framework */,
 				1B4942D117A7ECBB00E189CF /* Security.framework */,
@@ -339,6 +384,8 @@
 				3052E16B144B021D00D6716A /* PreferencesController.m */,
 				3052E171144B021D00D6716A /* SheetController.h */,
 				3052E172144B021D00D6716A /* SheetController.m */,
+				309F5A3520E52B8E00D6FED4 /* GKPasswordStrengthIndicator.h */,
+				309F5A3620E52B8E00D6FED4 /* GKPasswordStrengthIndicator.m */,
 				3036CB3F18A55EC800BBC167 /* GKImageView.h */,
 				3036CB4018A55EC800BBC167 /* GKImageView.m */,
 				3029EC501E7FEFDD00B8ECAE /* GKPhotoPopoverController.h */,
@@ -375,6 +422,8 @@
 				3052E31A144B07D200D6716A /* Localizable.strings */,
 				304CB4C61D2E49E3008252E4 /* Credits.rtf */,
 				3052E2DD144B07A600D6716A /* Info.plist */,
+				30750BA520E3800900ABF1B7 /* InternetAccessPolicy.plist */,
+				30750BAC20E3801A00ABF1B7 /* InternetAccessPolicy.strings */,
 				3052E2E0144B07AC00D6716A /* LICENSE.txt */,
 				30B29BE5191156DE00FC453C /* gka.sdef */,
 			);
@@ -415,6 +464,14 @@
 			path = Source;
 			sourceTree = "<group>";
 		};
+		3092C3BF20A1C4150071F648 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3092C3C820A1C4150071F648 /* Zxcvbn.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -427,11 +484,13 @@
 				3052E107144B016400D6716A /* Frameworks */,
 				3052E108144B016400D6716A /* Resources */,
 				30D69FC115D6D2E1005B7854 /* Fill Info.plist */,
+				3092C3CB20A1C4380071F648 /* CopyFiles */,
 				30DC10021A98BE5800B21E49 /* Copy "How to get the source code" into Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				30750BB020E3822E00ABF1B7 /* PBXTargetDependency */,
 			);
 			name = "GPG Keychain";
 			productName = GPGKeychain;
@@ -492,6 +551,10 @@
 					ProductGroup = 3014396A17732F800088B59F /* Products */;
 					ProjectRef = 3014396917732F800088B59F /* Libmacgpg.xcodeproj */;
 				},
+				{
+					ProductGroup = 3092C3BF20A1C4150071F648 /* Products */;
+					ProjectRef = 3092C3BE20A1C4150071F648 /* Zxcvbn.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -529,6 +592,13 @@
 			remoteRef = 3084CA871C0CAB570084723D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		3092C3C820A1C4150071F648 /* Zxcvbn.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Zxcvbn.framework;
+			remoteRef = 3092C3C720A1C4150071F648 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -550,6 +620,7 @@
 				3052E37E144B082B00D6716A /* Icon.icns in Resources */,
 				3052E37F144B082B00D6716A /* Import.png in Resources */,
 				3004A20B1CCF8948006D4E16 /* lock.icns in Resources */,
+				30750BAE20E3801A00ABF1B7 /* InternetAccessPolicy.strings in Resources */,
 				3052E380144B082B00D6716A /* Keyserver.png in Resources */,
 				3052E381144B082B00D6716A /* Updates.png in Resources */,
 				3050FB781475B0FB00E589AA /* Undo.png in Resources */,
@@ -559,6 +630,7 @@
 				3016CBBD1962E546000B42EA /* Keyring.png in Resources */,
 				30E8D3521E7846AE005F9535 /* PhotoPopover.xib in Resources */,
 				3096C91B14D167FC00246400 /* Info.png in Resources */,
+				30750BAB20E3800900ABF1B7 /* InternetAccessPolicy.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,6 +690,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3029EC521E7FEFDD00B8ECAE /* GKPhotoPopoverController.m in Sources */,
+				309F5A3720E52B8E00D6FED4 /* GKPasswordStrengthIndicator.m in Sources */,
 				3036CB4118A55EC800BBC167 /* GKImageView.m in Sources */,
 				30ECA2CA194C8AB800C1E761 /* GKAExtensions.m in Sources */,
 				30B29BEE19116DF400FC453C /* GKScripting.m in Sources */,
@@ -638,6 +711,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		30750BB020E3822E00ABF1B7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Zxcvbn;
+			targetProxy = 30750BAF20E3822E00ABF1B7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3052E31A144B07D200D6716A /* Localizable.strings */ = {
@@ -780,6 +861,14 @@
 			name = Preferences.xib;
 			sourceTree = "<group>";
 		};
+		30750BAC20E3801A00ABF1B7 /* InternetAccessPolicy.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				30750BAD20E3801A00ABF1B7 /* en */,
+			);
+			name = InternetAccessPolicy.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -862,12 +951,13 @@
 					/Library/Frameworks,
 					"\"$(HOME)/Library/Frameworks\"",
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/Dependencies/Zxcvbn/build/$(CONFIGURATION)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "/Library/Frameworks $(HOME)/Library/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks /Library/Frameworks $(HOME)/Library/Frameworks";
 				LOCALIZE = YES;
 				OTHER_CFLAGS = (
 					"-Xclang",
@@ -889,11 +979,13 @@
 					/Library/Frameworks,
 					"\"$(HOME)/Library/Frameworks\"",
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/Dependencies/Zxcvbn/build/$(CONFIGURATION)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LLVM_LTO = YES;
 				LOCALIZE = YES;
 				OTHER_CFLAGS = (
@@ -952,12 +1044,13 @@
 					/Library/Frameworks,
 					"\"$(HOME)/Library/Frameworks\"",
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
+					"\"$(SRCROOT)/Dependencies/Zxcvbn/build/$(CONFIGURATION)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "/Library/Frameworks $(HOME)/Library/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks /Library/Frameworks $(HOME)/Library/Frameworks";
 				LOCALIZE = NO;
 				OTHER_CFLAGS = (
 					"-Xclang",
