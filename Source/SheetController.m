@@ -1342,7 +1342,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	}
 	
 	if (![self.passphrase isEqualToString:self.confirmPassphrase]) {
-		NSRunAlertPanel(localized(@"Error"), localized(@"CheckError_PassphraseMissmatch"), nil, nil, nil);
+		NSRunAlertPanel(localized(@"CheckError_PassphraseMissmatch_Title"), localized(@"CheckError_PassphraseMissmatch_Message"), nil, nil, nil);
 		return NO;
 	}
 	
