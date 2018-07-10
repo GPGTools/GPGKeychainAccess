@@ -871,6 +871,7 @@
 }
 
 - (NSArray<NSString *> *)badPasswordIngredients {
+	// This method builds a list of words, which sould not be in a good password for the key.
 	if (_badPasswordIngredients) {
 		return _badPasswordIngredients;
 	}
@@ -879,31 +880,25 @@
 	NSMutableString *jointString = [NSMutableString new];
 	
 	if (self.name.length > 0) {
-		[ingredients addObject:self.name];
-		[ingredients addObjectsFromArray:[self.name componentsSeparatedByString:@" "]];
 		[jointString appendString:self.name];
 	}
 	if (self.email.length > 0) {
-		[ingredients addObject:self.email];
-		[ingredients addObjectsFromArray:[self.email componentsSeparatedByString:@"@"]];
 		[jointString appendString:self.email];
 	}
 	if (self.comment.length > 0) {
-		[ingredients addObject:self.comment];
-		[ingredients addObjectsFromArray:[self.comment componentsSeparatedByString:@" "]];
 		[jointString appendString:self.comment];
 	}
 
-	NSUInteger length = jointString.length;
-	for (NSUInteger i = 0; i < length - 2; i++) {
-		for (NSUInteger j = 3; i + j < length; j++) {
+	// Add all possible substrings longer than 2 charaters from name, email and comment to the list.
+	NSInteger length = jointString.length;
+	for (NSInteger i = 0; i < length - 2; i++) {
+		for (NSInteger j = 3; i + j < length; j++) {
 			[ingredients addObject:[jointString substringWithRange:NSMakeRange(i, j)]];
 		}
 	}
 	
 	NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"length" ascending:NO];
 	_badPasswordIngredients = [ingredients sortedArrayUsingDescriptors:@[sortDescriptor]];
-	
 	
 	return _badPasswordIngredients;
 }
