@@ -870,6 +870,16 @@
 	}
 }
 
+- (BOOL)passwordsEqual {
+	if (self.passphrase.length == 0 && self.confirmPassphrase.length == 0) {
+		return YES;
+	}
+	return [self.passphrase isEqualToString:self.confirmPassphrase];
+}
++ (NSSet *)keyPathsForValuesAffectingPasswordsEqual {
+	return [NSSet setWithObjects:@"passphrase", @"confirmPassphrase", nil];
+}
+
 - (NSArray<NSString *> *)badPasswordIngredients {
 	// This method builds a list of words, which sould not be in a good password for the key.
 	if (_badPasswordIngredients) {
@@ -1337,7 +1347,8 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	}
 	
 	if (![self.passphrase isEqualToString:self.confirmPassphrase]) {
-		NSRunAlertPanel(localized(@"CheckError_PassphraseMissmatch_Title"), localized(@"CheckError_PassphraseMissmatch_Message"), nil, nil, nil);
+		// Should never happen.
+		NSRunAlertPanel(localized(@"Error"), localized(@"Password not equal"), nil, nil, nil);
 		return NO;
 	}
 	
