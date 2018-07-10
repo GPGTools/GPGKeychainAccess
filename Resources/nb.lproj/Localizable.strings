@@ -42,8 +42,17 @@ CheckAlert_PassphraseSimple_Title = "Enkelt passord";
 CheckAlert_PassphraseSimple_Message = "Passordet du har skrevet inn er for enkelt. Et bra passord bør være alfanumerisk og inneholde minst ett spesialtegn.";
 CheckAlert_PassphraseSimple_Button1 = "Fortsett med enkelt passord";
 CheckAlert_PassphraseSimple_Button2 = "Skriv inn nytt passord";
+CheckAlert_PassphrasePwned_Title = "Warning: Leaked Password";
+CheckAlert_PassphrasePwned_Message = "The password you entered has been leaked. It was found during a database check of leaked passwords. It can therefore not be considered secure. We strongly recommend to enter a new password.";
+CheckAlert_PassphrasePwned_Button1 = "Continue with insecure password";
+CheckAlert_PassphrasePwned_Button2 = "Skriv inn nytt passord";
+
 CheckAlert_PassphraseTooLong_Title = "Passordet er for langt";
-CheckAlert_PassphraseTooLong_Message = "Passordet du har skrevet inn er for langt. Skriv inn noe på mindre enn %i tegn.";
+CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
+
+CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
+CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
+
 
 
 MoveSecring_Msg = "Dine hemmelige nøkler befinner seg nå på \"%@\".\nFor å flytte dine hemmelige nøkler til en annen disk, velg mål-disken nedenfor.";
@@ -54,7 +63,8 @@ KeySearch_ImportResults_Title = "Importert";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), opprettet: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Vi søker etter samsvarende nøkkel(er) på nøkkeltjeneren. Dette kan ta en stund, vent.";
 
-GenerateKey_Progress = "Vi har behov for å generere noen tilfeldige byte. Det er en god idé å gjøre noe annet (skriv på tastaturet i et program, beveg musen, bruk harddisken) under primærgenereringen. Dette gir tilfeldighetsgeneratoren bedre muligheter for å få tilstrekkelig med entropi.";
+GenerateKey_ProgressTitle = "Key creation in progress…";
+GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
 GenerateSubkey_Msg = "Legg undernøkkel til følgende nøkkel:\n%@ %@";
 GenerateUserID_Msg = "Legg en e-postadresse (bruker-ID) til følgende nøkkel:\n%@ %@";
 GenerateSignature_Msg = "Å signere en nøkkel betyr at du bekrefter at nøkkelens eier faktisk er den vedkommende utgir seg for å være.\nEtter opplasting kan din signatur sees av andre.\nSå hvis du signerer Bob's nøkkel og din venn Alice ikke er sikker på om Bob virkelig er Bob, vil Alice se din signatur på Bob's nøkkel, og siden Alice stoler på din nøkkel vet hun at Bob sannsynligvis faktisk er Bob.\n\nDu er i ferd med å signere følgende nøkkel:\n%@";
@@ -72,16 +82,15 @@ CheckError_EmailToLong = "E-postadressen er for lang!\nMaks lengde er 254.";
 CheckError_InvalidCharInComment = "Ugyldig tegn i kommentaren!\n\"(\" og \")\" er ikke tillatt.";
 CheckError_CommentToLong = "Kommentaren er for lang!";
 CheckError_NoKeyID = "Bruk en gydlig nøkkel-ID!";
-CheckError_PassphraseMissmatch = "Passordene dine samsvarer ikke!";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG ikke funnet";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG-oppsettsfeil";
 GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg ble ikke funnet";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg ble ikke funnet på ditt system. Reinstaller GPG Suite fra https://www.gpgtoosl.org";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Noen tuklet med din installasjon av GPG-nøkkelknippe";
 CODE_SIGN_ERROR_MESSAGE = "For å beskytte deg vil GPG-nøkkelnippet avsluttes nå!\n\nReinstaller GPG Suite fra\nhttps://gpgtools.org for å forsikre deg om at du har en original versjon fra oss!";
 UNKNOWN_GPG_ERROR_TITLE = "Ukjent GPG-Feil";
@@ -207,6 +216,10 @@ RevokedSubkeyWantToUpload_Msg = "For å gjøre det enklere for dine venner og ko
 RevokedSubkeyWantToUpload_Yes = "Last opp offentlig nøkkel";
 RevokedSubkeyWantToUpload_No = "Nei takk!";
 
+UserIDsSignedWantToUpload_Title = "Signing successful";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Yes = "Last opp offentlig nøkkel";
+UserIDsSignedWantToUpload_No = "Nei takk!";
 
 
 
@@ -261,6 +274,10 @@ UploadSuccess_Msg = "Følgende offentlige nøkler har blitt sendt til nøkkeltje
 
 ExportSuccess_Title = "Eksportert";
 ExportSuccess_Msg = "Følgende nøkkel ble eksportert:\n\n%@";
+
+SignSuccess_Title = "Signing successful";
+SignSuccess_Msg = "The selected user IDs have been signed.";
+
 
 
 /* For Import-Results */
@@ -397,4 +414,13 @@ SendPublicKeyToKeyserver_MenuItem = "Send offentlig nøkkel til nøkkeltjener";
 
 FilterNoResults = "Lokalt søk etter \"%@\" resultatløst.";
 FilterNoResultsSecOnly = "Det lokale søket etter \"%@\" var resultatløst.\nOvervei å skru av valget \"Vis kun hemmelige nøkler\" for å utvide søket.";
+
+
+
+SignKey_KeyClaimsMultipleIdentities = "The key:\n%@\nclaims more than one identity. Which ones have you verified?";
+SignKey_PublishSingleIdentity = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to %@.";
+SignKey_PublishMultipleIdentities = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to the identities you've checked.";
+SignKey_MainMsg = "By signing this key you confirm the identity of the key owner and that the key with fingerprint %@ belongs to them.";
+
+
 

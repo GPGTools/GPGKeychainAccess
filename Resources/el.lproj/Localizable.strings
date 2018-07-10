@@ -23,7 +23,7 @@ SecretAndPublicKeyListing = "Κρυφά κλειδιά:\n\n%@\n\nΔημόσια 
 
 /* For export, as standard File-Name. */
 "untitled" = "χωρίς τίτλο";
-"%@ Revoke certificate" = "%@ πιστοποιητικό ανάκλησης";
+"%@ Revoke certificate" = "%@ Revocation certificate";
 ExportKeysFilename = "%@ %u OpenPGP Κλειδιά";
 ExportPublicKeyFilename = "%@ – Public";
 ExportSecretKeyFilename = "%@ – Secret";
@@ -42,8 +42,17 @@ CheckAlert_PassphraseSimple_Title = "Simple password";
 CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
 CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
 CheckAlert_PassphraseSimple_Button2 = "Enter new password";
+CheckAlert_PassphrasePwned_Title = "Warning: Leaked Password";
+CheckAlert_PassphrasePwned_Message = "The password you entered has been leaked. It was found during a database check of leaked passwords. It can therefore not be considered secure. We strongly recommend to enter a new password.";
+CheckAlert_PassphrasePwned_Button1 = "Continue with insecure password";
+CheckAlert_PassphrasePwned_Button2 = "Enter new password";
+
 CheckAlert_PassphraseTooLong_Title = "Password too long";
-CheckAlert_PassphraseTooLong_Message = "Η συνθηματική φράση που εισάγατε είναι πολύ μεγάλη. Εισάγετε μιά συνθηματική φράση με λιγότερους από %i χαρακτήρες.";
+CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
+
+CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
+CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
+
 
 
 MoveSecring_Msg = "Τα κρυφά κλειδιά βρίσκονται στο \"%@\".\nΓια να μεταφέρετε τα κρυφά κλειδιά σας σε άλλο δίσκο, επιλέχτε το δίσκο παρακάτω.";
@@ -54,7 +63,8 @@ KeySearch_ImportResults_Title = "Import successful";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), δημιουργήθηκε: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Αναζητούμε ταιριαστό(/α) κλειδί(α) στους εξυπηρετητές κλειδιών. Η διαδικασία μπορεί να διαρκέσει λίγο, παρακαλώ περιμένετε.";
 
-GenerateKey_Progress = "Χρειάζεται να δημιουργήσουμε μεγάλο πλήθως τυχαίων bytes. Είναι καλή ιδέα να πραγματοποιείτε άλλες ενέργειες (να πληκτρολογείτε χαρακτήρες σε μια εφαρμογή, να κουνάτε το ποντίκι, να χρησιμοποιείτε τους δίσκους) κατά τη δημιουργία των πρώτων αριθμών. Αυτό βοηθάει τη γεννήτρια τυχαίων αριθμών να αποκτήσει αρκετή εντροπία.";
+GenerateKey_ProgressTitle = "Key creation in progress…";
+GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
 GenerateSubkey_Msg = "Add subkey to the following key:\n%@ %@";
 GenerateUserID_Msg = "Add email address (user ID) to the following key:\n%@ %@";
 GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
@@ -72,16 +82,15 @@ CheckError_EmailToLong = "Πολύ μεγάλη email address!\nΤο μέγισ�
 CheckError_InvalidCharInComment = "Μη έγκυρος χαρακτήρας στο σχόλιο!\n\"(\" and \")\" δεν επιτρέπεται.";
 CheckError_CommentToLong = "Πολύ μεγάλο όνομα!";
 CheckError_NoKeyID = "Παρακαλώ εισάγετε μία έγκυρη ταυτότητα κλειδιού!";
-CheckError_PassphraseMissmatch = "Your passwords did not match!";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "Δεν βρέθηκε GPG";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
 GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
 UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
@@ -207,6 +216,10 @@ RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagu
 RevokedSubkeyWantToUpload_Yes = "Upload Public Key";
 RevokedSubkeyWantToUpload_No = "No, Thanks!";
 
+UserIDsSignedWantToUpload_Title = "Signing successful";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Yes = "Upload Public Key";
+UserIDsSignedWantToUpload_No = "No, Thanks!";
 
 
 
@@ -261,6 +274,10 @@ UploadSuccess_Msg = "The following public keys have been sent to the key servers
 
 ExportSuccess_Title = "Export successful";
 ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
+
+SignSuccess_Title = "Signing successful";
+SignSuccess_Msg = "The selected user IDs have been signed.";
+
 
 
 /* For Import-Results */
@@ -397,4 +414,13 @@ SendPublicKeyToKeyserver_MenuItem = "Send Public Key to Key Server";
 
 FilterNoResults = "The local search for '%@' has no results.";
 FilterNoResultsSecOnly = "The local search for '%@' has no results.\nConsider disabling the option to 'Show secret keys only' to expand the search.";
+
+
+
+SignKey_KeyClaimsMultipleIdentities = "The key:\n%@\nclaims more than one identity. Which ones have you verified?";
+SignKey_PublishSingleIdentity = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to %@.";
+SignKey_PublishMultipleIdentities = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to the identities you've checked.";
+SignKey_MainMsg = "By signing this key you confirm the identity of the key owner and that the key with fingerprint %@ belongs to them.";
+
+
 

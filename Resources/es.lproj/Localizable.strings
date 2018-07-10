@@ -42,8 +42,17 @@ CheckAlert_PassphraseSimple_Title = "Contraseña simple";
 CheckAlert_PassphraseSimple_Message = "La contraseña que ha introducido es demasiado simple. Una buena contraseña debe ser alfanumérica y contener al menos un caracter especial.";
 CheckAlert_PassphraseSimple_Button1 = "Continuar con contraseña simple";
 CheckAlert_PassphraseSimple_Button2 = "Introducir nueva contraseña";
+CheckAlert_PassphrasePwned_Title = "Warning: Leaked Password";
+CheckAlert_PassphrasePwned_Message = "The password you entered has been leaked. It was found during a database check of leaked passwords. It can therefore not be considered secure. We strongly recommend to enter a new password.";
+CheckAlert_PassphrasePwned_Button1 = "Continue with insecure password";
+CheckAlert_PassphrasePwned_Button2 = "Introducir nueva contraseña";
+
 CheckAlert_PassphraseTooLong_Title = "Contraseña demasiado larga";
-CheckAlert_PassphraseTooLong_Message = "La contraseña que ha introducido es demasiado larga. Introduzca una contraseña con menos de %i caracteres.";
+CheckAlert_PassphraseTooLong_Message = "La contraseña que introdujo es demasiado larga. Introduzca una contraseña con menos de %1$i caracteres.\n\nAtención: Si su contraseña incluye caracteres especiales tal vez no pueda usar los caracteres %1$i.";
+
+CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
+CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
+
 
 
 MoveSecring_Msg = "Sus claves secretas (privadas) residen actualmente en \"%@\".\nPara mover sus claves secretas a otro volumen, seleccione el volumen objetivo debajo.";
@@ -54,7 +63,8 @@ KeySearch_ImportResults_Title = "Importación exitosa";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), creada: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Estamos buscando clave(s) coincidente(s) en el servidor de claves. Podría tomar algún tiempo, por favor espere.";
 
-GenerateKey_Progress = "Es necesario generar muchos bytes aleatorios. Es una buena idea llevar a cabo alguna otra acción (escribir con el teclado en alguna aplicación, mover el ratón, usar los discos) durante la generación de números primos. Esto le da al generador de números aleatorios una mejor oportunidad para adquirir suficiente entropía.";
+GenerateKey_ProgressTitle = "Key creation in progress…";
+GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
 GenerateSubkey_Msg = "Añadir subclave a la clave siguiente:\n%@ %@";
 GenerateUserID_Msg = "Añadir dirección de correo electrónico (identificación de usuario) a la siguiente clave:\n%@ %@";
 GenerateSignature_Msg = "Firmar una clave significa que usted confirma que el poseedor de la clave es de hecho quien proclama ser.\nUna vez subida, las firmas pueden ser vistas por otros.\nAsí que si firma la clave de Bob, y su amiga Alice no está segura de si Bob es realmente Bob, Alice verá la firma de usted en la clave de Bob, y como Alice sabe que la clave de usted es de confianza, sabrá que lo más probable es que Bob sea de hecho Bob.\n\nEstá a punto de firmar la siguiente clave:\n%@";
@@ -72,20 +82,19 @@ CheckError_EmailToLong = "¡Dirección de correo demasiado larga!\nLongitud máx
 CheckError_InvalidCharInComment = "¡Caracter no válido en un comentario!\n\"(\" and \")\" no está permitido.";
 CheckError_CommentToLong = "¡El comentario es demasiado largo!";
 CheckError_NoKeyID = "¡Por favor introduzca una identificación de clave (keyID) válida!";
-CheckError_PassphraseMissmatch = "¡Sus contraseñas no coinciden!";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "No se encontró GPG";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Error de configuración de GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Uups, algo fue mal. Se encontró GPG en su sistema pero parece haber un problema con el fichero de configuración. Por favor contacte con nosotros en\nhttps://gpgtools.tenderapp.com\n\nDetalles: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "No se encontró libmacgpg";
-LIBMACGPG_NOT_FOUND_MESSAGE = "No se encontró Libmacgpg en su sistema. Por favor, reinstale GPG Suite desde \nhttps://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Alguien alteró su instalación de GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "¡Para mantenerle seguro, GPG Keychain se cerrará ahora!\n\n¡Por favor, reinstale GPG Suite desde \nhttps://gpgtools.org para asegurarse de que tiene la versión original procedente de nosotros!";
 UNKNOWN_GPG_ERROR_TITLE = "Error de GPG desconocido";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Uups, algo fue mal. GPG lanzó un error desconocido. Por favor, contacte con nosotros en\nhttps://gpgtools.tenderapp.com\n\nDetalles: %@";
 
 
 
@@ -97,7 +106,7 @@ MailKey_Message_Your = "Hola,\n\nadjunta encontrará mi clave pública\n\n%@\n\n
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/es/module/como-usar-pgp-para-linux\nWindows	https://ssd.eff.org/es/module/como-usar-pgp-para-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain&hl=es";
 MailKey_Progress = "Creando un correo nuevo...";
 MailKey_Progress_Your = "Creando un correo nuevo...";
-MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
+MailKey_Error = "Uups, algo fue mal. Hubo un problema al exportar su clave.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Se ha seleccionado una clave inutilizable";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Ha seleccionado una clave no utilizable. Tales claves no se pueden enviar vía correo electrónico. Por favor, actualice la clave desde el servidor de claves, para comprobar si ha sido actualizada.\n\nDe otro modo póngase en contacto con el propietario de la clave e infórmele sobre el estado de la clave\n\n%@";
 
@@ -207,6 +216,10 @@ RevokedSubkeyWantToUpload_Msg = "Para facilitar que sus amigos y colegas sepan d
 RevokedSubkeyWantToUpload_Yes = "Subir clave pública";
 RevokedSubkeyWantToUpload_No = "¡No, gracias!";
 
+UserIDsSignedWantToUpload_Title = "Firmado completado";
+UserIDsSignedWantToUpload_Msg = "Para facilitar que sus amigos tengan conocimiento de la nueva firma, se recomienda subir la clave pública firmada a los servidores de claves.\n\n¿Quiere subir su clave pública?";
+UserIDsSignedWantToUpload_Yes = "Subir clave pública";
+UserIDsSignedWantToUpload_No = "¡No, gracias!";
 
 
 
@@ -261,6 +274,10 @@ UploadSuccess_Msg = "Se han enviado las siguientes claves públicas a los servid
 
 ExportSuccess_Title = "Exportación exitosa";
 ExportSuccess_Msg = "Las siguientes claves se exportaron con éxito:\n\n%@";
+
+SignSuccess_Title = "Firmado completado";
+SignSuccess_Msg = "Las identificaciones de usuario seleccionadas han sido firmadas.";
+
 
 
 /* For Import-Results */
@@ -397,4 +414,13 @@ SendPublicKeyToKeyserver_MenuItem = "Enviar clave pública al servidor de claves
 
 FilterNoResults = "La búsqueda local de '%@' no ofrece resultados.";
 FilterNoResultsSecOnly = "La búsqueda local de '%@' no ofrece resultados.\nConsidere deshabilitar la opción 'Mostrar sólo claves secretas' para expandir la búsqueda.";
+
+
+
+SignKey_KeyClaimsMultipleIdentities = "La clave:\n%@\nse arroga más de una identidad. ¿Cuáles ha verificado?";
+SignKey_PublishSingleIdentity = "Si escoge publicar esta firma, todo el mundo podrá ver que cree que esta clave pertenece a %@.";
+SignKey_PublishMultipleIdentities = "Si escoge publicar esta firma, todo el mundo podrá ver que cree que esta clave pertenece a las identidades que ha comprobado.";
+SignKey_MainMsg = "Al firmar esta clave confirma la identidad del propietario de la clave y que la clave con huella de validación %@ le pertenece.";
+
+
 

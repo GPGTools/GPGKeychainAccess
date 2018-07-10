@@ -23,7 +23,7 @@ SecretAndPublicKeyListing = "Kunci rahasia:\n\n%@\n\nKunci publik:\n\n%@";
 
 /* For export, as standard File-Name. */
 "untitled" = "tanpa judul";
-"%@ Revoke certificate" = "%@ Cabut sertifikat";
+"%@ Revoke certificate" = "Sertifikat pencabutan %@";
 ExportKeysFilename = "Kunci OpenPGP %@ %u";
 ExportPublicKeyFilename = "%@ – Publik";
 ExportSecretKeyFilename = "%@ – Rahasia";
@@ -42,8 +42,17 @@ CheckAlert_PassphraseSimple_Title = "Kata sandi sederhana";
 CheckAlert_PassphraseSimple_Message = "Kata sandi yang Anda masukkan terlalu sederhana. Suatu kata sandi yang baik mesti berupa alfanumerik dan memuat paling tidak satu karakter khusus.";
 CheckAlert_PassphraseSimple_Button1 = "Lanjutkan dengan kata sandi sederhana";
 CheckAlert_PassphraseSimple_Button2 = "Masukkan kata sandi baru";
+CheckAlert_PassphrasePwned_Title = "Warning: Leaked Password";
+CheckAlert_PassphrasePwned_Message = "The password you entered has been leaked. It was found during a database check of leaked passwords. It can therefore not be considered secure. We strongly recommend to enter a new password.";
+CheckAlert_PassphrasePwned_Button1 = "Continue with insecure password";
+CheckAlert_PassphrasePwned_Button2 = "Masukkan kata sandi baru";
+
 CheckAlert_PassphraseTooLong_Title = "Kata sandi terlalu panjang";
-CheckAlert_PassphraseTooLong_Message = "Kata sandi yang Anda masukkan terlalu panjang. Masukkan suatu kata sandi yang kurang dari %i karakter.";
+CheckAlert_PassphraseTooLong_Message = "Kata sandi yang Anda masukkan terlalu panjang. Masukkan suatu kata sandi yang kurang dari %1$i karakter.\n\nPerhatian: Bila kata sandi Anda mengandung karakter khusus Anda mungkin tidak bisa memakai karakter %1$i.";
+
+CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
+CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
+
 
 
 MoveSecring_Msg = "Kunci-kunci rahasia Anda saat ini berada pada \"%@\".\nUntuk memindah kunci Anda ke volume lain, pilih volume target di bawah.";
@@ -54,7 +63,8 @@ KeySearch_ImportResults_Title = "Impor sukses";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), dibuat: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Kami sedang mencari kunci-kunci yang cocok pada server kunci. Ini mungkin makan waktu, mohon tunggu.";
 
-GenerateKey_Progress = "Kami perlu membangkitkan banyak byte acak. Sebaiknya Anda melakukan beberapa aksi lain (mengetik pada papan tik dalam suatu aplikasi, menggerakkan tetikus, memanfaatkan disk) selama pembangkitan utama. Ini memberi pembangkit angka acak kesempatan yang lebih baik untuk memperoleh entropi yang cukup.";
+GenerateKey_ProgressTitle = "Key creation in progress…";
+GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
 GenerateSubkey_Msg = "Tambahkan sub kunci ke kunci berikut:\n%@%@";
 GenerateUserID_Msg = "Tambahkan alamat surel (ID pengguna) ke kunci berikut:\n%@%@";
 GenerateSignature_Msg = "Menandatangani suatu kunci berarti Anda mengkonfirmasi bahwa pemilik kunci memang benar-benar dia yang mengaku dirinya siapa.\nSekali diunggah, tanda tangan dapat dilihat oleh orang lain.\nMaka bila Anda menandatangani kunci milik Bob dan teman Anda Alice tidak yakin apakah Bob memang benar-benar Bob, Alice akan melihat tanda tangan Anda pada kunci Bob, dan karena Alice tahu bahwa kunci Anda terpercaya, dia tahu bahwa Bob sangat boleh jadi memang Bob.\n\nAnda akan menandatangani kunci berikut:\n%@";
@@ -62,7 +72,7 @@ GenerateUidSignature_Msg = "Menandatangani suatu ID pengguna berarti Anda mengko
 ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
 ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
 
-GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "Ups, ada yang salah. Ada masalah saat membuat kunci Anda.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "Nama terlalu panjang!";
@@ -72,20 +82,19 @@ CheckError_EmailToLong = "Alamat surel terlalu panjang!\nPanjang maks adalah 254
 CheckError_InvalidCharInComment = "Karakter tak valid dalam komentar!\n\"(\" dan \")\" tak diijinkan.";
 CheckError_CommentToLong = "Komentar terlalu panjang!";
 CheckError_NoKeyID = "Harap masukkan ID kunci yang valid!";
-CheckError_PassphraseMissmatch = "Kata sandi Anda tidak cocok!";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG Tak Ditemukan";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Galat Konfig GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, ada yang salah. GPG ditemukan pada sistem Anda tapi tampaknya ada masalah dengan berkas konfig. Harap hubungi kami di \nhttps://gpgtools.tenderapp.com.\n\nRincian: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg tak ditemukan";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg tidak ditemukan pada sistem Anda. Harap pasang ulang\nKeluarga GPG dari https://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Seseorang mengotak-atik instalasi GPG Keychain Anda";
-CODE_SIGN_ERROR_MESSAGE = "Agar Anda tetap aman, GPG Keychain akan keluar sekarang!\n\nHarap pasang ulang Keluarga GPG dari\nhttps://gpgtools.org agar yakin bahwa Anda memiliki versi asli dari kami!";
+CODE_SIGN_ERROR_MESSAGE = "Agar Anda tetap aman, GPG Keychain akan keluar sekarang!\n\nHarap pasang ulang GPG Suite dari\nhttps://gpgtools.org agar yakin bahwa Anda memiliki versi asli dari kami!";
 UNKNOWN_GPG_ERROR_TITLE = "Kesalahan GPG Yang Tak Dikenal";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, ada yang salah. GPG melaporkan kesalahan yang tidak dikenal. Harap hubungi kami di  \nhttps://gpgtools.tenderapp.com.\n\nRincian: %@";
 
 
 
@@ -97,7 +106,7 @@ MailKey_Message_Your = "Halo,\n\nterlampir adalah kunci publik saya\n\n%@\n\nAnd
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Membuat surat baru...";
 MailKey_Progress_Your = "Membuat surat baru...";
-MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
+MailKey_Error = "Ups, ada yang salah. Ada masalah saat mengekspor kunci Anda.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Kunci yang tidak dapat dipakai dipilih";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Anda telah memilih suatu kunci yang tidak dapat dipakai. Kunci sedemikian tidak bisa dikirim lewat surel. Harap mutakhirkan kunci dari server kunci, untuk memeriksa apakah itu telah dimutakhirkan.\n\nBila tidak bertemulah dengan pemilik kunci dan informasikan tentang keadaan kunci.\n\n%@";
 
@@ -207,6 +216,10 @@ RevokedSubkeyWantToUpload_Msg = "Untuk mempermudah teman dan kolega Anda mempela
 RevokedSubkeyWantToUpload_Yes = "Unggah Kunci Publik";
 RevokedSubkeyWantToUpload_No = "Tidak, Terima Kasih!";
 
+UserIDsSignedWantToUpload_Title = "Signing successful";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Yes = "Unggah Kunci Publik";
+UserIDsSignedWantToUpload_No = "Tidak, Terima Kasih!";
 
 
 
@@ -262,6 +275,10 @@ UploadSuccess_Msg = "Kunci publik berikut telah dikirim ke server kunci:\n\n%@\n
 ExportSuccess_Title = "Ekspor sukses";
 ExportSuccess_Msg = "Kunci-kunci berikut sukses diekspor:\n\n%@";
 
+SignSuccess_Title = "Signing successful";
+SignSuccess_Msg = "The selected user IDs have been signed.";
+
+
 
 /* For Import-Results */
 IMPORT_RESULT_NEW_KEY = "Kunci berikut sukses diimpor:\n\n%@";
@@ -293,7 +310,7 @@ NO_SECRET_KEY_TITLE = "Kunci rahasia tidak ditemukan";
 NO_SECRET_KEY_MESSAGE = "Anda perlu kunci rahasia untuk melakukan operasi ini.";
 
 KeyserverSearchError_Title = "Pencarian kunci gagal";
-KeyserverSearchError_Msg = "Harap ulangi pencarian Anda dan lihatlah apakah jadi berhasil. Bila masalah tetap terjadi, kirimkan suatu permintaan dukungan melalui Preferensi Sistem > Keluarga GPG > Kirim Laporan. Harap salin seluruh pesan kesalahan ke dalam ruas deskripsi dan tambahkan kata kunci pencarian yang Anda pakai untuk kueri Anda. Kami menyarankan untuk menyertakan log awakutu, karena itu menyediakan informasi tambahan yang berguna untuk memecahkan masalah Anda.";
+KeyserverSearchError_Msg = "Harap ulangi pencarian Anda dan lihatlah apakah jadi berhasil. Bila masalah tetap terjadi, kirimkan suatu permintaan dukungan melalui Preferensi Sistem > GPG Suite > Kirim Laporan. Harap salin seluruh pesan kesalahan ke dalam ruas deskripsi dan tambahkan kata kunci pencarian yang Anda pakai untuk kueri Anda. Kami menyarankan untuk menyertakan log awakutu, karena itu menyediakan informasi tambahan yang berguna untuk memecahkan masalah Anda.";
 
 
 
@@ -350,8 +367,8 @@ CleanKey_Progress = "Membersihkan kunci...";
 CleanKey_Error = "Pembersihan kunci gagal.";
 MinimizeKey_Progress = "Meminimalisasi kunci...";
 MinimizeKey_Error = "Peminimalan kunci gagal.";
-GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
-GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
+GenerateRevokeCertificateForKey_Progress = "Sedang membuat sertifikat pencabutan...";
+GenerateRevokeCertificateForKey_Error = "Pembuatan sertifikat pencabutan gagal.";
 SearchKeysOnServer_Progress = "Mencari kunci...";
 SendKeysToServer_Progress = "Mengirim %@ke server...";
 SendKeysToServer_Error = "Pengiriman kunci gagal.";
@@ -397,4 +414,13 @@ SendPublicKeyToKeyserver_MenuItem = "Kirim Kunci Publik ke Server Kunci";
 
 FilterNoResults = "Pencarian lokal untuk '%@' tanpa hasil.";
 FilterNoResultsSecOnly = "Pencarian lokal untuk '%@' tanpa hasil.\nPertimbangkan untuk menonaktifkan opsi 'Hanya tampilkan kunci rahasia' untuk mengembangkan pencarian.";
+
+
+
+SignKey_KeyClaimsMultipleIdentities = "The key:\n%@\nclaims more than one identity. Which ones have you verified?";
+SignKey_PublishSingleIdentity = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to %@.";
+SignKey_PublishMultipleIdentities = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to the identities you've checked.";
+SignKey_MainMsg = "By signing this key you confirm the identity of the key owner and that the key with fingerprint %@ belongs to them.";
+
+
 

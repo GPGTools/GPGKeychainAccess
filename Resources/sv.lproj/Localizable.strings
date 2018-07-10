@@ -42,8 +42,17 @@ CheckAlert_PassphraseSimple_Title = "Enkelt lösenord";
 CheckAlert_PassphraseSimple_Message = "Lösenordet du angav är för enkelt. Ett bra lösenord bör innehålla både bokstäver, siffror och minst ett specialtecken.";
 CheckAlert_PassphraseSimple_Button1 = "Fortsätt med enkelt lösenord";
 CheckAlert_PassphraseSimple_Button2 = "Ange nytt lösenord";
+CheckAlert_PassphrasePwned_Title = "Warning: Leaked Password";
+CheckAlert_PassphrasePwned_Message = "The password you entered has been leaked. It was found during a database check of leaked passwords. It can therefore not be considered secure. We strongly recommend to enter a new password.";
+CheckAlert_PassphrasePwned_Button1 = "Continue with insecure password";
+CheckAlert_PassphrasePwned_Button2 = "Ange nytt lösenord";
+
 CheckAlert_PassphraseTooLong_Title = "Lösenord för långt";
-CheckAlert_PassphraseTooLong_Message = "Lösenordet som du angivit är för långt. Ange ett lösenord med färre än %i tecken.";
+CheckAlert_PassphraseTooLong_Message = "Lösenordet som du angivit är för långt. Ange ett lösenord med färre än%1$i tecken.\n\nOBS: Om ditt lösenord innehåller speciella tecken kan du inte använda %1$i tecken.";
+
+CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
+CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
+
 
 
 MoveSecring_Msg = "Dina privata nycklar finns för närvarande på \"%@\".\nFör att flytta dina privata nycklar till en annan volym markerar du målvolymen nedan.";
@@ -54,7 +63,8 @@ KeySearch_ImportResults_Title = "Import lyckades";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), skapad: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Vi söker efter matchande nyckel/nycklar på nyckelservern. Det kan ta tid, vänligen vänta.";
 
-GenerateKey_Progress = "Vi måste skapa många slumpmässiga bitar. Medan detta görs är det bra om du gör mycket annat på datorn (skriv på tangentbordet, rör musen, se till att hårddisken används). Detta ger slumptalsgeneratorn bättre förutsättningar att få tillräckligt med entropi.";
+GenerateKey_ProgressTitle = "Key creation in progress…";
+GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
 GenerateSubkey_Msg = "Lägg till undernyckel till följande nyckel:\n%@ %@";
 GenerateUserID_Msg = "Lägg till e-postadress (användar-ID) till följande nyckel:\n%@ %@";
 GenerateSignature_Msg = "Att signera en nyckel innebär att du bekräftar att nyckelns ägare verkligen är den person den utger sig för att vara.\nEfter att de har laddats upp kan signaturer ses av andra.\nExempel: Du signerar Bobs nyckel, medan din vän Alice inte är säker på att Bob verkligen är Bob. Alice kommer att se din signatur på Bobs nyckel och eftersom Alice vet att din nyckel är tillförlitlig kommer hon veta att Bob troligen är just Bob.\n\nDu kommer att signera följande nyckel:\n%@";
@@ -62,7 +72,7 @@ GenerateUidSignature_Msg = "Att signera ett användar-ID innebär att du bekräf
 ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
 ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
 
-GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "Hoppsan, något gick snett när din nyckel skulle skapas.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "Namnet är för långt!";
@@ -72,20 +82,19 @@ CheckError_EmailToLong = "E-postadressen är för lång!\nMax antal tecken är 2
 CheckError_InvalidCharInComment = "Ogiltiga tecken i kommentaren!\n\"(\" och \")\" tillåts ej.";
 CheckError_CommentToLong = "Kommentaren är för lång!";
 CheckError_NoKeyID = "Ange ett giltigt nyckel-ID!";
-CheckError_PassphraseMissmatch = "Dina lösenord matchar inte!";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG hittades inte";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfel";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Hoppsan, något blev fel. GPG hittades i ditt system, men det verkar vara något fel med din konfigurationsfil. Kontakta oss på \nhttps://gpgtools.tenderapp.com\n\nDetaljer: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg hittades inte";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg hittades inte på ditt system. Installera om GPG Suite från\nhttps://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Någon har mixtrat med din installation av GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "För att skydda dig kommer GPG Keychain nu att avslutas!\n\nInstallera om GPG Suite från\nhttps://gpgtools.org för att försäkra dig om att du har en äkta version från oss!";
 UNKNOWN_GPG_ERROR_TITLE = "Okänt GPG-fel";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Hoppsan, något blev fel. GPG har fått ett okänt fel. Kontakta oss på \nhttps://gpgtools.tenderapp.com\n\nDetaljer: %@";
 
 
 
@@ -97,7 +106,7 @@ MailKey_Message_Your = "Hej,\n\nsom bilaga kommer du att se min publika nyckel\n
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Skapar nytt e-postmeddelande...";
 MailKey_Progress_Your = "Skapar nytt e-postmeddelande...";
-MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
+MailKey_Error = "Hoppsan, något blev fel. Ett problem uppstod när din nyckel skulle exporteras.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Oanvändbar nyckel markerad";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du har markerat en oanvändbar nyckel. Sådana nycklar kan inte skickas via e-post. Uppdatera nyckeln från nyckelservrarna för att se om den har uppdaterats.\n\nKontakta annars nyckelns ägare och informera dem om nyckelns skick.\n\n%@";
 
@@ -207,6 +216,10 @@ RevokedSubkeyWantToUpload_Msg = "För att göra det lättare för dina vänner o
 RevokedSubkeyWantToUpload_Yes = "Ladda upp publik nyckel";
 RevokedSubkeyWantToUpload_No = "Nej tack!";
 
+UserIDsSignedWantToUpload_Title = "Signeringen lyckades";
+UserIDsSignedWantToUpload_Msg = "För att göra det lättare för dina vänner att hitta nya signaturer, rekommenderas att du laddar upp den signerade publika nyckeln till nyckelservrarna..\n\nVill du ladda upp din publika nyckel?";
+UserIDsSignedWantToUpload_Yes = "Ladda upp publik nyckel";
+UserIDsSignedWantToUpload_No = "Nej tack!";
 
 
 
@@ -261,6 +274,10 @@ UploadSuccess_Msg = "Följande publika nycklar har skickats till nyckelservrarna
 
 ExportSuccess_Title = "Export lyckades";
 ExportSuccess_Msg = "Följande nycklar lyckades exporteras:\n\n%@";
+
+SignSuccess_Title = "Signeringen lyckades";
+SignSuccess_Msg = "Det markerade använder-IDt har signerats.";
+
 
 
 /* For Import-Results */
@@ -350,8 +367,8 @@ CleanKey_Progress = "Rensar nyckel…";
 CleanKey_Error = "Det gick inte att rensa nyckel.";
 MinimizeKey_Progress = "Minimerar nyckel…";
 MinimizeKey_Error = "Det gick inte att minimera nyckel.";
-GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
-GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
+GenerateRevokeCertificateForKey_Progress = "Skapar återkallelsecertifikat…";
+GenerateRevokeCertificateForKey_Error = "Det gick inte att skapa ett återkallelsecertifikat.";
 SearchKeysOnServer_Progress = "Söker efter nyckel…";
 SendKeysToServer_Progress = "Skickar %@ till nyckelserver…";
 SendKeysToServer_Error = "Det gick inte att skicka nyckel.";
@@ -397,4 +414,13 @@ SendPublicKeyToKeyserver_MenuItem = "Skicka publik nyckel till nyckelserver";
 
 FilterNoResults = "Den lokala sökningen efter '%@'  har inga resultat.";
 FilterNoResultsSecOnly = "Den lokala sökningen efter '%@' har inga resultat.\nÖverväg att avaktivera alternativet 'Visa endast privata nycklar' för att expandera sökningen.";
+
+
+
+SignKey_KeyClaimsMultipleIdentities = "Nyckeln\n%@\nuppger fler än en identitet. Vilken har du verifierat?";
+SignKey_PublishSingleIdentity = "Om du väljer att publicera denna signatur, kommer alla i hela väleden att kunna se att du litar på att denna nyckel tillhör %@.";
+SignKey_PublishMultipleIdentities = "Om du väljer att publicera denna signatur, kommer alla i hela världen att kunna se att du litar på att denna nyckel tillhör de identiteter du bockat för.";
+SignKey_MainMsg = "Genom att signera denna nyckel, bekräftar du nyckelägarens identitet och att nyckeln med fingeravtrycket %@ tillhör denne.";
+
+
 

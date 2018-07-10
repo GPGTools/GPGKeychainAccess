@@ -42,8 +42,17 @@ CheckAlert_PassphraseSimple_Title = "Einfaches Passwort";
 CheckAlert_PassphraseSimple_Message = "Das eingegebene Passwort ist zu einfach. Ein gutes Passwort sollte Buchstaben, Ziffern und mindestens ein Sonderzeichen enthalten.";
 CheckAlert_PassphraseSimple_Button1 = "Mit einfachem Passwort fortfahren";
 CheckAlert_PassphraseSimple_Button2 = "Neues Passwort eingeben";
+CheckAlert_PassphrasePwned_Title = "Warnung: Passwort unsicher";
+CheckAlert_PassphrasePwned_Message = "Das verwendete Passwort ist unsicher. Beim Abgleich mit einer Datenbank von verlorengegangenen Passwörtern wurde es gefunden. Es kann daher nicht als sicher erachtet werden. Wir raten dazu ein neues Passwort zu verwenden.";
+CheckAlert_PassphrasePwned_Button1 = "Mit unsicherem Passwort fortfahren";
+CheckAlert_PassphrasePwned_Button2 = "Neues Passwort eingeben";
+
 CheckAlert_PassphraseTooLong_Title = "Zu langes Passwort";
-CheckAlert_PassphraseTooLong_Message = "Das eingegebene Passwort ist zu lang. Gib ein Passwort mit weniger als %i Zeichen ein.";
+CheckAlert_PassphraseTooLong_Message = " Das eingegebene Passwort ist zu lang. Gib ein Passwort mit weniger als %1$i Zeichen ein.\n\nAchtung: Falls dein Passwort Sonderzeichen enthält, kann es sein, dass du nicht %1$i Zeichen verwenden kannst.";
+
+CheckError_PassphraseMissmatch_Title = "Achtung: Passwörter nicht identisch";
+CheckError_PassphraseMissmatch_Message = "Bitte stelle sicher, dass das verwendete Passwort in den Feldern \"Passwort\" und \"Passwort bestätigen\" identisch ist.";
+
 
 
 MoveSecring_Msg = "Deine geheimen Schlüssel befinden sich aktuell auf \"%@\".\nUm deine geheimen Schlüssel auf einen anderen Datenträger zu verschieben, wählen Sie unten das Zielvolumen aus.";
@@ -54,15 +63,16 @@ KeySearch_ImportResults_Title = "Import erfolgreich";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), erstellt: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Es wird, auf dem Schlüsselserver, nach passenden Schlüsseln gesucht. Die kann einige Zeit in anspruch nehmen.";
 
-GenerateKey_Progress = "Wir müssen eine ganze Menge Zufallswerte erzeugen. Sie können dies unterstützen, indem Sie z.B. in einem anderen Fenster irgendetwas tippen, die Maus verwenden oder irgendwelche anderen Programme benutzen.";
+GenerateKey_ProgressTitle = "Dein Schlüssel wird erstellt …";
+GenerateKey_Progress = "Dein neuer Schlüssel wird erstellt. Das könnte eine Minute dauern. Zeit dir die Füsse ein wenig zu vertreten. ";
 GenerateSubkey_Msg = "Unterschlüssel zu folgendem Schlüssel hinzufügen:\n%@%@";
 GenerateUserID_Msg = "E-Mail Adresse (Benutzer ID) zu folgendem Schlüssel hinzufügen:\n%@%@";
 GenerateSignature_Msg = "Mit dem Signieren eines Schlüssels beglaubigst du die Identität des Schlüsselbesitzers. Du bestätigst, dass er wirklich der ist, der er vorgibt zu sein. Wenn du die Signatur auf die Schlüsselserver hochlädst, ist sie für andere sichtbar.\n\nBeispiel: Du signierst den Schlüssel von Bob. Deine Freundin Alice ist unsicher, ob der Schlüssel, den sie von Bob hat, wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass der fragliche Schlüssel wirklich von Bob ist.\n\nFolgender Schlüssel wird signiert:\n%@";
 GenerateUidSignature_Msg = "Mit dem Signieren einer Benutzer-ID beglaubigst du die Identität des Schlüsselbesitzers. Du bestätigst, dass er wirklich der ist, der er vorgibt zu sein. Wenn du die Signatur auf die Schlüsselserver hochlädst, ist sie für andere sichtbar.\n\nBeispiel: Du signierst die Benutzer-ID von Bob. Deine Freundin Alice ist unsicher, ob der Schlüssel, den sie von Bob hat, wirklich Bob gehört. Sie kann aber deine Signatur in Bobs Schlüssel sehen und da sie deinem Schlüssel vertraut, weiß sie, dass die Benutzer-ID wirklich zu Bob gehört.\n\nFolgender Schlüssel wird signiert:\n%@";
-ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
-ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
+ChangeExpirationDate_Msg = "Du bist dabei das Verfallsdatum deines Schlüssels zu ändern\n\n%1$@";
+ChangeSubkeyExpirationDate_Msg = "Du bist dabei das Verfallsdatum deines Unterschlüssels zu ändern\n\n%1$@";
 
-GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "Ups, da ging was schief. Es gab ein Problem bei der Erstellung deines Schlüssels.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "Der Name ist zu lang!";
@@ -72,20 +82,19 @@ CheckError_EmailToLong = "E-mail-Adresse ist zu lang!\nMax Länge ist 254 Zeiche
 CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n„(“ und „)“ sind nicht erlaubt.";
 CheckError_CommentToLong = "Der Kommentar ist zu lang!";
 CheckError_NoKeyID = "Bitte geben Sie eine gültige Schlüssel-ID ein!";
-CheckError_PassphraseMissmatch = "Die eingegebenen Passwörter stimmen nicht überein!";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG nicht gefunden";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Ups, da läuft was schief. GPG scheint auf deinem System zu fehlen. Bitte lade und installiere GPG Suite erneut von\nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG Konfigurationsfehler";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, da läuft was schief. GPG wurde auf deinem System gefunden, aber es gibt ein Problem mit der config Datei. Bitte kontaktiere uns unter\nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg wurde nicht gefunden";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg wurde auf deinem System nicht gefunden. Bitte lade und installiere GPG Suite von https://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg wurde auf deinem System nicht gefunden. Bitte lade und installiere GPG Suite von\nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Jemand hat deine GPG Keychain Installation verändert!";
 CODE_SIGN_ERROR_MESSAGE = "Um dich zu schützen wird GPG Keychain nun beendet!\n\nBitte lade und installiere GPG Suite von https://gpgtools.org um sicherzustellen, dass du eine Originalversion von uns verwendest!";
 UNKNOWN_GPG_ERROR_TITLE = "Unbekannter GPG-Fehler";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, da lief was schief. GPG hat einen unbekannten Fehler ausgelöst. Bitte kontaktiere uns unter\nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 
 
 
@@ -97,7 +106,7 @@ MailKey_Message_Your = "Hi\n\nim Anhang findest du meinen öffentlichen Schlüss
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/erste-schritte-gpgtools-einrichten-einen-schlssel-erstellen-deine-erste-verschlsselte-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Neue E-Mail wird erstellt ...";
 MailKey_Progress_Your = "Neue E-Mail wird erstellt ...";
-MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
+MailKey_Error = "Ups, da ging was schief. Es gab ein Problem beim Export deines Schlüssels.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unbenutzbarer Schlüssel ausgewählt";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du hast einen unbenutzbaren Schlüssel ausgewählt. Der Schlüssel kann daher nicht per E-Mail versendet werden. Bitte aktualisiere den Schlüssel vom Schlüsselserver, um eventuelle Updates des Schlüssels zu erhalten.\n\nAndernfalls setzte dich mit dem Eigentümer des Schlüssel in Verbindung und informiere ihn über den Schlüsselstatus.\n\n%@";
 
@@ -129,12 +138,12 @@ RevokeUserID_Yes = "Benutzer-ID widerrufen";
 RevokeUserID_No = "Abbrechen";
 
 RemoveSubkey_Title = "Unterschlüssel entfernen";
-RemoveSubkey_Msg = "Achtung! Bitte fahre nur fort, wenn Du genau weißt, was du machst.\n\nDas Entfernen eines Unterschlüssels kann den Schlüssel zum Signieren oder Entschlüsseln unbrauchbar machen.\n\nFalls der Schlüssel mit diesem Unterschlüssel auf den Schlüsselservern existiert, wird das Entfernen dieses Unterschlüssels auf den Schlüsselservern nicht nachvollzogen. Bitte widerrufe stattdessen der Unterschlüssel und lade den Schlüssel anschließend auf den Schlüsselserver, damit Andere erfahren, dass der Unterschlüssel nicht mehr benutzt werden soll.";
+RemoveSubkey_Msg = "Achtung: Bitte fahre nur fort, wenn du genau weißt, was du machst.\n\nDas Entfernen eines Unterschlüssels kann den Schlüssel zum Signieren oder Entschlüsseln unbrauchbar machen.\n\nFalls der Schlüssel mit diesem Unterschlüssel auf den Schlüsselservern existiert, wird das Entfernen dieses Unterschlüssels auf den Schlüsselservern nicht nachvollzogen. Bitte widerrufe stattdessen den Unterschlüssel und lade den aktualisierten Schlüssel anschließend auf den Schlüsselserver, damit Andere erfahren, dass der Unterschlüssel nicht mehr benutzt werden soll.";
 RemoveSubkey_Yes = "Unterschlüssel entfernen";
 RemoveSubkey_No = "Abbrechen";
 
-RevokeSubkey_Title = "Warnung: Sie sind dabei, einen Unterschlüssel zu widerrufen";
-RevokeSubkey_Msg = "Achtung! Bitte fahre nur fort, wenn Du genau weißt, was du machst.\n\nDer Widerruf eines Unterschlüssels kann den Schlüssel zum Signieren unbrauchbar machen, und andere können mit diesem Schlüssel keine Nachrichten mehr verschlüsseln.\n\nNach dem Widerruf kannst Du mit diesem Unterschlüssel keine Mitteilungen mehr signieren oder verschlüsseln und andere können keine Mitteilungen für diesen Unterschlüssel mehr verschlüsseln. Der widerrufene Unterschlüssel kann weiterhin für das Entschlüsseln von Dateien und E-Mails verwendet werden, die mit ihm verschlüsselt wurden.\n\nDu solltest daher den Unterschlüssel nicht löschen, sondern als widerrufen in Deinem Schlüsselbund behalten.\n\nWillst Du die diesen Unterschlüssel wirklich widerrufen?";
+RevokeSubkey_Title = "Warnung: Du bist dabei, einen Unterschlüssel zu widerrufen";
+RevokeSubkey_Msg = "Achtung: Bitte fahre nur fort, wenn Du genau weißt, was du machst.\n\nDer Widerruf eines Unterschlüssels kann den Schlüssel zum Signieren unbrauchbar machen, und andere können mit diesem Schlüssel keine Nachrichten mehr verschlüsseln.\n\nNach dem Widerruf kannst Du mit diesem Unterschlüssel keine Mitteilungen mehr signieren oder verschlüsseln und andere können keine Mitteilungen für diesen Unterschlüssel mehr verschlüsseln. Der widerrufene Unterschlüssel kann weiterhin für das Entschlüsseln von Dateien und E-Mails verwendet werden, die mit ihm verschlüsselt wurden.\n\nDu solltest daher den Unterschlüssel nicht löschen, sondern als widerrufen in Deinem Schlüsselbund behalten.\n\nWillst Du die diesen Unterschlüssel wirklich widerrufen?";
 RevokeSubkey_Yes = "Unterschlüssel widerrufen";
 RevokeSubkey_No = "Abbrechen";
 
@@ -154,22 +163,22 @@ RemoveLastSelfSignature_Yes = "Beglaubigung entfernen";
 RemoveLastSelfSignature_No = "Abbrechen";
 
 RevokeLastSelfSignature_Title = "Letzte Eigenbeglaubigung widerrufen";
-RevokeLastSelfSignature_Msg = "Du willst die letzte Eigenbeglaubigung von der Benutzer-ID %@ widerrufen. Bitte fahre nur fort, wenn du wirklich weißt, was du tust.\n\nDas Widerrufen der letzten Eigenbeglaubigung einer Benutzer-ID macht diese  unbenutzbar. Du kannst mit dieser Benutzer-ID %@ keine Nachrichten mehr signieren und Andere werden keine Nachrichten für die Email-Adresse dieser Benutzer-ID verschlüsseln können.";
+RevokeLastSelfSignature_Msg = "Du willst die letzte Eigenbeglaubigung von der Benutzer-ID %@ widerrufen. Bitte fahre nur fort, wenn du wirklich weißt, was du tust.\n\nDas Widerrufen der letzten Eigenbeglaubigung einer Benutzer-ID macht diese unbenutzbar. Du kannst mit dieser Benutzer-ID %@ keine Nachrichten mehr signieren und Andere werden keine Nachrichten für die E-Mail-Adresse dieser Benutzer-ID verschlüsseln können.";
 RevokeLastSelfSignature_Yes = "Signatur widerrufen";
 RevokeLastSelfSignature_No = "Abbrechen";
 
 RevokeKey_Title = "Warnung: Du bist dabei, einen Schlüssel zu widerrufen";
-RevokeKey_Msg = "Du willst den folgenden Schlüssel widerrufen: \n\n%@\n\nNach dem Widerruf kannst Du mit diesem Schlüssel keine Mitteilungen mehr signieren oder verschlüsseln und andere können keine Mitteilungen für diesen Schlüssel mehr verschlüsseln. Der widerrufene Schlüssel kann weiterhin für das Entschlüsseln von Dateien und E-Mails verwendet werden, die mit ihm verschlüsselt wurden.\n\nDu solltest daher den Schlüssel nicht löschen, sondern als widerrufen im GPG-Schlüsselbund behalten.\n\nWillst Du diesen Schlüssel wirklich widerrufen?";
+RevokeKey_Msg = "Du willst den folgenden Schlüssel widerrufen: \n\n%@\n\nNach dem Widerruf kannst Du mit diesem Schlüssel keine Mitteilungen mehr signieren oder verschlüsseln und andere können keine Mitteilungen für diesen Schlüssel mehr verschlüsseln. Der widerrufene Schlüssel kann weiterhin für das Entschlüsseln von Dateien und E-Mails verwendet werden, die mit ihm verschlüsselt wurden.\n\nDu solltest daher den Schlüssel nicht löschen, sondern als widerrufen in GPG Keychain behalten.\n\nWillst Du diesen Schlüssel wirklich widerrufen?";
 RevokeKey_Yes = "Schlüssel widerrufen";
 RevokeKey_No = "Abbrechen";
 
-OpenWithGPGServices_Title = "Die OpenPGP-Nachricht, die Sie importieren möchten, ist kein Schlüssel";
+OpenWithGPGServices_Title = "Die OpenPGP-Nachricht, die Du importieren möchtest, ist kein Schlüssel";
 OpenWithGPGServices_Msg = "Um diese Nachricht zu entschlüsseln oder verifizieren, kannst du sie an GPGServices weiterleiten.";
 OpenWithGPGServices_Yes = "GPGServices öffnen";
 OpenWithGPGServices_No = "Abbrechen";
 
 FirstUploadForeignKey_Title = "Öffentlicher Schlüssel auf Schlüsselservern nicht erlaubt";
-FirstUploadForeignKey_Msg = "Dis folgenden Schlüssel existieren nicht auf Schlüsselservern:\n\n%@\n\nManche Schlüsseleigentümer laden ihren öffentlichen Schlüssel bewusst nicht auf einen Schlüsselserver hoch. Um diese Entscheidung zu respektieren, kannst Du diesen Schlüssel ebenfalls nicht hochladen. Falls Du glaubst, dass es sich hierbei um einen Fehler handelt, dann kontaktiere bitte den Eigentümer des Schlüssels.";
+FirstUploadForeignKey_Msg = "Dis folgenden Schlüssel existieren nicht auf den Schlüsselservern:\n\n%@\n\nManche Schlüsseleigentümer laden ihren öffentlichen Schlüssel bewusst nicht auf einen Schlüsselserver hoch. Um diese Entscheidung zu respektieren, kannst Du diesen Schlüssel ebenfalls nicht hochladen. Falls Du glaubst, dass es sich hierbei um einen Fehler handelt, kontaktiere bitte den Eigentümer des Schlüssels.";
 
 
 NewKeyWantToUpload_Title = "Ihr Schlüssel wurde erfolgreich erstellt";
@@ -177,12 +186,12 @@ NewKeyWantToUpload_Msg = "Um es für deine Freunde und Kollegen einfacher zu mac
 NewKeyWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
 NewKeyWantToUpload_No = "Nein, danke!";
 
-NewUserIDWantToUpload_Title = "Ihre neue E-Mail-Adresse (Benutzerkennung) wurde erfolgreich hinzugefügt";
-NewUserIDWantToUpload_Msg = "Um anderen das Nutzen Deiner neuen E-Mailadresse zu ermöglichen (Benutzer-ID) müssen sie Deinen aktualisierten öffentlichen Schlüssel importieren. Daher solltest Du Deinen öffentlichen Schlüssel auf einen Schlüsselserver hochladen.\n\nAchtung: Schlüsselserver sind öffentlich, so dass Dein in Deinem Schlüssel enthaltener Name und Deine E-Mailadresse für alle sichtbar sind. Schlüssel können von Schlüsselservern nicht gelöscht werden. Sie können von dort lediglich widerrufen werden.\n\nWenn Du lieber keine öffentlichen Schlüsselserver nutzen möchtest, dann hänge Deinen öffentlichen Schlüssel am besten an Deine signierten und verschlüsselten E-Mails an.\n\nMöchtest Du Deinen öffentlichen Schlüssel hochladen?";
+NewUserIDWantToUpload_Title = "Ihre neue E-Mail-Adresse (Benutzer ID) wurde erfolgreich hinzugefügt";
+NewUserIDWantToUpload_Msg = "Um anderen die Verwendung Deiner neuen E-Mail-Adresse zu ermöglichen (Benutzer-ID) müssen sie Deinen aktualisierten öffentlichen Schlüssel importieren. Daher ist es ratsam, Deinen öffentlichen Schlüssel auf die Schlüsselserver hochladen.\n\nAchtung: Schlüsselserver sind öffentlich, so dass Dein in Deinem Schlüssel enthaltener Name und E-Mail-Adresse für alle sichtbar sind. Schlüssel können widerrufen, aber nicht von Schlüsselservern gelöscht werden.\n\nWenn Du die öffentlichen Schlüsselserver lieber nicht nutzen möchtest, hänge Deinen öffentlichen Schlüssel am besten an Deine signierten und verschlüsselten E-Mails an.\n\nMöchtest Du Deinen öffentlichen Schlüssel hochladen?";
 NewUserIDWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
 NewUserIDWantToUpload_No = "Nein, danke!";
 
-NewSubkeyWantToUpload_Title = "Sie haben einen Unterschlüssel erfolgreich hinzugefügt";
+NewSubkeyWantToUpload_Title = "Du hast erfolgreich einen Unterschlüssel hinzugefügt";
 NewSubkeyWantToUpload_Msg = "Um anderen das Nutzen Deines neuen Unterschlüssels zu ermöglichen müssen sie Deinen aktualisierten öffentlichen Schlüssel importieren. Daher solltest Du Deinen öffentlichen Schlüssel auf einen Schlüsselserver hochladen.\n\nAchtung: Schlüsselserver sind öffentlich, so dass Dein in Deinem Schlüssel enthaltener Name und Deine E-Mailadresse für alle sichtbar sind. Schlüssel können von Schlüsselservern nicht gelöscht werden. Sie können von dort lediglich widerrufen werden.\n\nWenn Du lieber keine öffentlichen Schlüsselserver nutzen möchtest, dann hänge Deinen öffentlichen Schlüssel am besten an Deine signierten und verschlüsselten E-Mails an.\n\nMöchtest Du Deinen öffentlichen Schlüssel hochladen?";
 NewSubkeyWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
 NewSubkeyWantToUpload_No = "Nein, danke!";
@@ -207,6 +216,10 @@ RevokedSubkeyWantToUpload_Msg = "Um Deinen Freunden und Kollegen das Erkennen de
 RevokedSubkeyWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
 RevokedSubkeyWantToUpload_No = "Nein, danke!";
 
+UserIDsSignedWantToUpload_Title = "Signierung erfolgreich!";
+UserIDsSignedWantToUpload_Msg = "Um es Freunden leichter zu machen, die neue Unterschrift zu finden, wird empfohlen, den unterschriebenen öffentlichen Schlüssel auf die Schlüsselserver hochzuladen.\n\nMöchtest Du Deinen öffentlichen Schlüssel hochladen?";
+UserIDsSignedWantToUpload_Yes = "Öffentlichen Schlüssel hochladen";
+UserIDsSignedWantToUpload_No = "Nein, danke!";
 
 
 
@@ -261,6 +274,10 @@ UploadSuccess_Msg = "Die folgenden öffentlichen Schlüssel wurden auf Schlüsse
 
 ExportSuccess_Title = "Export erfolgreich";
 ExportSuccess_Msg = "Die folgenden Schlüssel wurden erfolgreich exportiert:\n\n%@";
+
+SignSuccess_Title = "Signierung erfolgreich!";
+SignSuccess_Msg = "Die ausgewählten Benutzer IDs wurden signiert.";
+
 
 
 /* For Import-Results */
@@ -397,4 +414,13 @@ SendPublicKeyToKeyserver_MenuItem = "Öffentlichen Schlüssel an Schlüsselserve
 
 FilterNoResults = "Die lokale Suche nach '%@' hat keine Ergebnisse.";
 FilterNoResultsSecOnly = "Die lokale Suche nach '%@' hat keine Ergebnisse.\nDeaktivieren Sie die Option \"Nur geheime Schlüssel anzeigen\", um die Suche zu erweitern.";
+
+
+
+SignKey_KeyClaimsMultipleIdentities = "Der Schlüssel \n%@\nbeansprucht mehr als eine Identität. Welche hast Du überprüft?";
+SignKey_PublishSingleIdentity = "Wenn Du diese Unterschrift veröffentlichst, kann jeder auf dieser Welt sehen, dass Du glaubst dass dieser Schlüssel %@ gehört.";
+SignKey_PublishMultipleIdentities = "Wenn Du diese Unterschrift veröffentlichst, kann jeder auf dieser Welt sehen, dass Du glaubst dass dieser Schlüssel den Identitäten gehört, die Du überprüft hast.";
+SignKey_MainMsg = "Durch Unterschreiben dieses Schlüssels bestätigst Du die Identität des Eigentümers und dass der Schlüssel mit dem Fingerabdruck %@ ihm gehört.";
+
+
 

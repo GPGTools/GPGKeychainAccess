@@ -23,7 +23,7 @@ SecretAndPublicKeyListing = "Private nøgler:\n\n%@\n\nOffentlige nøgler:\n\n%@
 
 /* For export, as standard File-Name. */
 "untitled" = "ingen titel";
-"%@ Revoke certificate" = "%@ tilbagekaldelsescertifikat";
+"%@ Revoke certificate" = "%@ Revocation certificate";
 ExportKeysFilename = "%@ %u OpenPGP nøgler";
 ExportPublicKeyFilename = "%@ - Offentlig";
 ExportSecretKeyFilename = "%@ - Hemmelig";
@@ -42,8 +42,17 @@ CheckAlert_PassphraseSimple_Title = "Simpelt kodeord";
 CheckAlert_PassphraseSimple_Message = "Det angivne kodeord er for simpelt. Et godt kodeord bør indeholde både bogstaver, tal og mindst et specialtegn.";
 CheckAlert_PassphraseSimple_Button1 = "Fortsæt med simpelt kodeord";
 CheckAlert_PassphraseSimple_Button2 = "Angiv nyt kodeord";
+CheckAlert_PassphrasePwned_Title = "Warning: Leaked Password";
+CheckAlert_PassphrasePwned_Message = "The password you entered has been leaked. It was found during a database check of leaked passwords. It can therefore not be considered secure. We strongly recommend to enter a new password.";
+CheckAlert_PassphrasePwned_Button1 = "Continue with insecure password";
+CheckAlert_PassphrasePwned_Button2 = "Angiv nyt kodeord";
+
 CheckAlert_PassphraseTooLong_Title = "Kodeordet er for langt";
-CheckAlert_PassphraseTooLong_Message = "Det angivne kodeord er for langt. Angiv et kodeord med færre end %i tegn.";
+CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
+
+CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
+CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
+
 
 
 MoveSecring_Msg = "Dine private nøgler ligger lige nu på \"%@\".\nAngiv en disk nedenfor for at flytte dine private nøgler til en anden disk.";
@@ -54,7 +63,8 @@ KeySearch_ImportResults_Title = "Import vellykket";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), oprettet: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Vi leder efter matchende nøgler på nøgleserveren. Det tager muligvis et stykke tid, vent venligst.";
 
-GenerateKey_Progress = "Vi har brug for at generere en masse tilfældige bits. Det er en god idé at gøre noget imens (skriv på tastaturet i et program, bevæg musen, brug harddisken). Dette giver tilfældighedsgeneratoren bedre muligheder for at få tilstrækkelig entropi.";
+GenerateKey_ProgressTitle = "Key creation in progress…";
+GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
 GenerateSubkey_Msg = "Tilføj undernøgle til denne nøgle:\n%@ %@";
 GenerateUserID_Msg = "Tilføj e-mail adresse (bruger ID) til nøglen:\n%@ %@";
 GenerateSignature_Msg = "At signere en nøgle betyder, at du bekræfter, at nøglens ejer er den han/hun giver sig ud for at være.\nNår signaturer er uploadede kan de ses af andre.\nHvis du signerer Bobs nøgle, og din ven Alice ikke er sikker på, at Bob virkelig er Bob, kan Alice se din signatur i Bobs nøgle. Da Alice ved at din nøgle er troværdig, ved hun også at Bob sandsynligvis faktisk er Bob.\n\nDu er ved at signere denne nøgle:\n%@";
@@ -72,16 +82,15 @@ CheckError_EmailToLong = "E-mail adressen er for lang!\nMaksimal længde er 254.
 CheckError_InvalidCharInComment = "Ugyldigt tegn i kommentar!\n\"(\" og \")\" må ikke bruges.";
 CheckError_CommentToLong = "Kommentaren er for lang!";
 CheckError_NoKeyID = "Angiv et gyldigt nøgle ID!";
-CheckError_PassphraseMissmatch = "Dine kodeord er ikke ens!";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG kunne ikke findes";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfejl";
 GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg blev ikke fundet";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg blev ikke fundet på dit system. Gen-installer GPG Suiten fra\nhttps://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Nogen har pillet ved din installation af GPG Nøglering";
 CODE_SIGN_ERROR_MESSAGE = "For en sikkerheds skyld vil GPG Nøglering lukke nu!\n\nGen-installer venligst GPG Suiten fra\nhttps://gpgtools.org for at være sikker på, at du har en original version fra os!";
 UNKNOWN_GPG_ERROR_TITLE = "Ukendt GPG fejl";
@@ -207,6 +216,10 @@ RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagu
 RevokedSubkeyWantToUpload_Yes = "Upload offentlig nøgle";
 RevokedSubkeyWantToUpload_No = "Nej tak!";
 
+UserIDsSignedWantToUpload_Title = "Signing successful";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Yes = "Upload offentlig nøgle";
+UserIDsSignedWantToUpload_No = "Nej tak!";
 
 
 
@@ -261,6 +274,10 @@ UploadSuccess_Msg = "The following public keys have been sent to the key servers
 
 ExportSuccess_Title = "Eksport vellykket";
 ExportSuccess_Msg = "De følgende nøgler blev eksporteret:\n\n%@";
+
+SignSuccess_Title = "Signing successful";
+SignSuccess_Msg = "The selected user IDs have been signed.";
+
 
 
 /* For Import-Results */
@@ -397,4 +414,13 @@ SendPublicKeyToKeyserver_MenuItem = "Send offentlig nøgle til nøgleserver";
 
 FilterNoResults = "Den lokale søgning efter '%@' har ingen resultater.";
 FilterNoResultsSecOnly = "Den lokale søgning efter '%@' har ingen resultater.\nOvervej at slå indstillingen 'Vis kun hemmelige nøgler' fra for at udvide søgningen.";
+
+
+
+SignKey_KeyClaimsMultipleIdentities = "The key:\n%@\nclaims more than one identity. Which ones have you verified?";
+SignKey_PublishSingleIdentity = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to %@.";
+SignKey_PublishMultipleIdentities = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to the identities you've checked.";
+SignKey_MainMsg = "By signing this key you confirm the identity of the key owner and that the key with fingerprint %@ belongs to them.";
+
+
 

@@ -1,53 +1,53 @@
 /* For Key-Status */
-"Invalid" = "Neplatný";
-"Revoked" = "Zneplatnený";
-"Expired" = "Vypršaný";
-"Disabled" = "Deaktivovaný";
-"Unknown" = "Neznámy";
-"Marginal" = "Hraničný";
-"Full" = "Plný";
-"Ultimate" = "Najvyšší";
+"Invalid" = "Invalid";
+"Revoked" = "Revoked";
+"Expired" = "Expired";
+"Disabled" = "Disabled";
+"Unknown" = "Unknown";
+"Marginal" = "Marginal";
+"Full" = "เต็ม";
+"Ultimate" = "Ultimate";
 
 
 
 /* Long key types */
-"Secret and public key" = "Tajný a verejný kľúč";
-"Public key" = "Verejný kľúč";
+"Secret and public key" = "Secret and public key";
+"Public key" = "กุญแจสาธารณะ";
 
 
 /* Key descriptions */
-"and" = "and";
+"and" = "และ";
 KeyDescriptionAndMore = "%1$@ and %2$lu more";
 SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
 
 
 /* For export, as standard File-Name. */
-"untitled" = "Bez názvu";
+"untitled" = "ไม่มีชื่อ";
 "%@ Revoke certificate" = "%@ Revocation certificate";
-ExportKeysFilename = "%@ %u OpenPGP Keys";
-ExportPublicKeyFilename = "%@ – Public";
-ExportSecretKeyFilename = "%@ – Secret";
+ExportKeysFilename = "%@ %u กุญแจ OpenPGP";
+ExportPublicKeyFilename = "%@ – สาธารณะ";
+ExportSecretKeyFilename = "%@ – ความลับ";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No password";
+CheckAlert_NoPassphrase_Title = "ไม่มีรหัสผ่าน";
 CheckAlert_NoPassphrase_Message = "You have entered no password. This is not recommended. Passwords should be at least 8 characters long.";
 CheckAlert_NoPassphrase_Button1= "Continue without a password";
-CheckAlert_NoPassphrase_Button2 = "Enter new password";
-CheckAlert_PassphraseShort_Title = "Short password";
+CheckAlert_NoPassphrase_Button2 = "ใส่รหัสผ่านใหม่";
+CheckAlert_PassphraseShort_Title = "รหัสผ่านสั้น";
 CheckAlert_PassphraseShort_Message = "You have entered a short password. This is not recommended. A password should at least be 8 characters long.";
 CheckAlert_PassphraseShort_Button1= "Continue with short password";
-CheckAlert_PassphraseShort_Button2 = "Enter new password";
-CheckAlert_PassphraseSimple_Title = "Simple password";
+CheckAlert_PassphraseShort_Button2 = "ใส่รหัสผ่านใหม่";
+CheckAlert_PassphraseSimple_Title = "รหัสผ่านแบบง่าย";
 CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
 CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
-CheckAlert_PassphraseSimple_Button2 = "Enter new password";
+CheckAlert_PassphraseSimple_Button2 = "ใส่รหัสผ่านใหม่";
 CheckAlert_PassphrasePwned_Title = "Warning: Leaked Password";
 CheckAlert_PassphrasePwned_Message = "The password you entered has been leaked. It was found during a database check of leaked passwords. It can therefore not be considered secure. We strongly recommend to enter a new password.";
 CheckAlert_PassphrasePwned_Button1 = "Continue with insecure password";
-CheckAlert_PassphrasePwned_Button2 = "Enter new password";
+CheckAlert_PassphrasePwned_Button2 = "ใส่รหัสผ่านใหม่";
 
-CheckAlert_PassphraseTooLong_Title = "Password too long";
+CheckAlert_PassphraseTooLong_Title = "รหัสผ่านยาวเกินไป";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
 
 CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
@@ -58,10 +58,10 @@ CheckError_PassphraseMissmatch_Message = "Please make sure you are using the ide
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
 /* For Key-Search */
-KeySearch_NoKeysFound_Title = "No keys found";
+KeySearch_NoKeysFound_Title = "ไม่พบกุญแจ";
 KeySearch_ImportResults_Title = "Import successful";
-FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), vytvorené: %@"; /* Format für die gefundenen Schlüssel vom Server. */
-SearchingKeys_Msg = "Hľadám kľúče na kľúčových serveroch. Bude to chvíľku trvať, prosím strpenie.";
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It might take some time, please wait.";
 
 GenerateKey_ProgressTitle = "Key creation in progress…";
 GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
@@ -75,21 +75,21 @@ ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your
 GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
 
 /* Message for incorrect Entries */
-CheckError_NameToLong = "Meno je príliš dlhé!";
-CheckError_InvalidCharInName = "Neplatný znak v mene!⏎\n\"<\" a \">\" nie su povolené.";
-CheckError_InvalidEmail = "Neplatná e-mailová adresa!";
-CheckError_EmailToLong = "E-mailová adresa je príliš dlhá!⏎\nMaximálna dĺžka je 254.";
-CheckError_InvalidCharInComment = "Neplatný znak v popise! \n\"(\" a \")\" nie su povolené.";
-CheckError_CommentToLong = "Popis je príliš dlhý!";
-CheckError_NoKeyID = "Prosím vlož správne ID kľúča!";
+CheckError_NameToLong = "ชื่อยาวเกินไป!";
+CheckError_InvalidCharInName = "Invalid character in name!\n\"<\" and \">\" not allowed.";
+CheckError_InvalidEmail = "Not a valid email address!";
+CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
+CheckError_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\" not allowed.";
+CheckError_CommentToLong = "ความเห็นยาวเกินไป!";
+CheckError_NoKeyID = "Please enter a valid key ID!";
 
 
 /* Message on start, if there are any Problems */
-GPG_NOT_FOUND_TITLE = "GPG nenájdené";
+GPG_NOT_FOUND_TITLE = "ไม่พบ GPG";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
-GPG_CONFIG_ERROR_TITLE = "Chyba GPG konfigurácie";
+GPG_CONFIG_ERROR_TITLE = "GPG Config Error";
 GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
-LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg nebolo nájdené";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
@@ -99,13 +99,13 @@ UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown e
 
 
 /* Mail public key */
-MailKey_Subject = "Public key of %@";
+MailKey_Subject = "กุญแจสาธารณะของ %@";
 MailKey_Subject_Your = "My public key to secure our messages";
 MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creating new mail...";
-MailKey_Progress_Your = "Creating new mail...";
+MailKey_Progress = "กำลังสร้างเมลใหม่...";
+MailKey_Progress_Your = "กำลังสร้างเมลใหม่...";
 MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
@@ -114,68 +114,68 @@ MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such
 /* A key was found in the pasteboard */
 PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
 PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
-PasteboardKeyFound_Yes = "Import";
-PasteboardKeyFound_No = "Zrušiť";
+PasteboardKeyFound_Yes = "นำเข้า";
+PasteboardKeyFound_No = "ยกเลิก";
 
 
 /* Those are abvious */
-No = "Nie";
-Error = "Chyba";
-Warning = "Varovanie";
-Cancel = "Zrušiť";
-"Apply to all" = "Aplikovat pre všetko";
+No = "No";
+Error = "Error";
+Warning = "Warning";
+Cancel = "ยกเลิก";
+"Apply to all" = "Apply to all";
 
 
 /* Warnings */
 RemoveUserID_Title = "Remove user ID";
 RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
 RemoveUserID_Yes = "Remove User ID";
-RemoveUserID_No = "Zrušiť";
+RemoveUserID_No = "ยกเลิก";
 
 RevokeUserID_Title = "Warning: You are about to revoke a user ID";
 RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
 RevokeUserID_Yes = "Revoke User ID";
-RevokeUserID_No = "Zrušiť";
+RevokeUserID_No = "ยกเลิก";
 
 RemoveSubkey_Title = "Remove Subkey";
 RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the keyserver.";
 RemoveSubkey_Yes = "Remove Subkey";
-RemoveSubkey_No = "Zrušiť";
+RemoveSubkey_No = "ยกเลิก";
 
 RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
 RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nOnce revoked, you will be unable to sign and encrypt messages using this subkey and others will not be able to encrypt messages to this subkey. The revoked subkey can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "Revoke Subkey";
-RevokeSubkey_No = "Zrušiť";
+RevokeSubkey_No = "ยกเลิก";
 
 RevokeSignature_Title = "Revoke Signature";
 RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
 RevokeSignature_Yes = "Revoke Signature";
-RevokeSignature_No = "Zrušiť";
+RevokeSignature_No = "ยกเลิก";
 
 RemoveSignature_Title = "Remove Signature";
 RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
 RemoveSignature_Yes = "Remove Signature";
-RemoveSignature_No = "Zrušiť";
+RemoveSignature_No = "ยกเลิก";
 
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
 RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Remove Signature";
-RemoveLastSelfSignature_No = "Zrušiť";
+RemoveLastSelfSignature_No = "ยกเลิก";
 
 RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last self-signature of a user ID will render that user ID useless. You will no longer be able to use user ID %@ in Mail.app to sign emails.";
 RevokeLastSelfSignature_Yes = "Revoke Signature";
-RevokeLastSelfSignature_No = "Zrušiť";
+RevokeLastSelfSignature_No = "ยกเลิก";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
 RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revoke Key";
-RevokeKey_No = "Zrušiť";
+RevokeKey_No = "ยกเลิก";
 
 OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key";
 OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
 OpenWithGPGServices_Yes = "Open GPGServices";
-OpenWithGPGServices_No = "Zrušiť";
+OpenWithGPGServices_No = "ยกเลิก";
 
 FirstUploadForeignKey_Title = "Public key not allowed on key servers";
 FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers:\n\n%@\n\nSome key owners intentionally do not upload their public key. In order to respect that decision, you can not upload this public key. In case you think this is an error, please get in touch with the key owner.";
@@ -183,66 +183,66 @@ FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers
 
 NewKeyWantToUpload_Title = "Your key was created successfully";
 NewKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to find your public key and start communicating with you securely – encrypt messages for you and verify the authenticity of your messages – it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
-NewKeyWantToUpload_Yes = "Upload Public Key";
-NewKeyWantToUpload_No = "No, Thanks!";
+NewKeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
+NewKeyWantToUpload_No = "ไม่ ขอบคุณ!";
 
 NewUserIDWantToUpload_Title = "Your new email address (user ID) was added successfully";
 NewUserIDWantToUpload_Msg = "In order for others to be able to use your new email address (user ID), it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your updated public key?";
-NewUserIDWantToUpload_Yes = "Upload Public Key";
-NewUserIDWantToUpload_No = "No, Thanks!";
+NewUserIDWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
+NewUserIDWantToUpload_No = "ไม่ ขอบคุณ!";
 
 NewSubkeyWantToUpload_Title = "You have successfully added a subkey";
 NewSubkeyWantToUpload_Msg = "In order for others to be able to use your new subkey, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
-NewSubkeyWantToUpload_Yes = "Upload Public Key";
-NewSubkeyWantToUpload_No = "No, Thanks!";
+NewSubkeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
+NewSubkeyWantToUpload_No = "ไม่ ขอบคุณ!";
 
 ExpirationDateChangedWantToUpload_Title = "You have successfully changed the expiration date";
 ExpirationDateChangedWantToUpload_Msg = "In order for others to be able to see the new expiration date, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
-ExpirationDateChangedWantToUpload_Yes = "Upload Public Key";
-ExpirationDateChangedWantToUpload_No = "No, Thanks!";
+ExpirationDateChangedWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
+ExpirationDateChangedWantToUpload_No = "ไม่ ขอบคุณ!";
 
 RevokedKeyWantToUpload_Title = "Your key was successfully revoked";
 RevokedKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your revoked public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that it is now revoked and no longer to be used. You can email them the revoked public key so they can import it into their key manager.\n\nDo you want to upload your revoked public key?";
-RevokedKeyWantToUpload_Yes = "Upload Public Key";
-RevokedKeyWantToUpload_No = "No, Thanks!";
+RevokedKeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
+RevokedKeyWantToUpload_No = "ไม่ ขอบคุณ!";
 
 RevokedUserIDWantToUpload_Title = "Your user ID was successfully revoked";
 RevokedUserIDWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the user ID is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
-RevokedUserIDWantToUpload_Yes = "Upload Public Key";
-RevokedUserIDWantToUpload_No = "No, Thanks!";
+RevokedUserIDWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
+RevokedUserIDWantToUpload_No = "ไม่ ขอบคุณ!";
 
 RevokedSubkeyWantToUpload_Title = "Your subkey was successfully revoked";
 RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your subkey, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the subkey is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
-RevokedSubkeyWantToUpload_Yes = "Upload Public Key";
-RevokedSubkeyWantToUpload_No = "No, Thanks!";
+RevokedSubkeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
+RevokedSubkeyWantToUpload_No = "ไม่ ขอบคุณ!";
 
 UserIDsSignedWantToUpload_Title = "Signing successful";
 UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
-UserIDsSignedWantToUpload_Yes = "Upload Public Key";
-UserIDsSignedWantToUpload_No = "No, Thanks!";
+UserIDsSignedWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
+UserIDsSignedWantToUpload_No = "ไม่ ขอบคุณ!";
 
 
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key(s)";
+DeleteKey_Title = "ลบกุญแจสาธารณะ";
 DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
-DeleteKey_Yes = "Delete key(s)";
-DeleteKey_No = "Zrušiť";
+DeleteKey_Yes = "ลบกุญแจ";
+DeleteKey_No = "ยกเลิก";
 
 DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
 DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
-DeleteSecKey_Yes = "Delete key(s)";
-DeleteSecKey_SecOnly = "Delete secret key(s) only";
-DeleteSecKey_No = "Zrušiť";
+DeleteSecKey_Yes = "ลบกุญแจ";
+DeleteSecKey_SecOnly = "ลบเฉพาะกุญแจลับเท่านั้น";
+DeleteSecKey_No = "ยกเลิก";
 
 DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
 DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
 DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
-DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
-DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
-DeleteRevokedSecKey_No = "Zrušiť";
+DeleteRevokedSecKey_Yes = "ลบคู่กุญแจของคุณ";
+DeleteRevokedSecKey_SecOnly = "ลบเฉพาะกุญแจลับเท่านั้น";
+DeleteRevokedSecKey_No = "ยกเลิก";
 
 
 /* Bad key server */
@@ -253,18 +253,18 @@ BadKeyserver_Msg = "The key server you have entered is not working.\nPlease chec
 /* Import warnings */
 ImportRevSig_Title = "Import revocation certificate";
 ImportRevSig_Msg = "You are about to import a revocation certificate for %@. If you revoke your key, you will no longer be able to sign messages using your key and others will no longer be able to send you messages encrypted to your key. Consider uploading your revoked key to the key servers so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting emails and files that were encrypted with your key. It is recommended to keep the revoked key in GPG Keychain.";
-ImportRevSig_Yes = "Import";
-ImportRevSig_No = "Zrušiť";
+ImportRevSig_Yes = "นำเข้า";
+ImportRevSig_No = "ยกเลิก";
 
 ImportRandomData_Title = "Warning: Content can probably not be imported";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
-ImportRandomData_Yes = "Try Import";
-ImportRandomData_No = "Zrušiť";
+ImportRandomData_Yes = "ทดลองนำเข้า";
+ImportRandomData_No = "ยกเลิก";
 
 ImportNonImportable_Title = "Warning: Content can probably not be imported";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
-ImportNonImportable_Yes = "Try Import";
-ImportNonImportable_No = "Zrušiť";
+ImportNonImportable_Yes = "ทดลองนำเข้า";
+ImportNonImportable_No = "ยกเลิก";
 
 
 
@@ -315,12 +315,12 @@ KeyserverSearchError_Msg = "Please repeat your search and see if it works then. 
 
 
 /* In Main Window */
-"%i of %i keys listed" = "%i z %i kľúčov vylistovaných";
+"%i of %i keys listed" = "%i of %i keys listed";
 
 
 
 
-CIPHER_ALGO_NONE = "Nič";
+CIPHER_ALGO_NONE = "ไม่มี";
 CIPHER_ALGO_IDEA = "IDEA";
 CIPHER_ALGO_3DES = "3DES";
 CIPHER_ALGO_CAST5 = "CAST5";
@@ -339,7 +339,7 @@ DIGEST_ALGO_SHA256 = "SHA256";
 DIGEST_ALGO_SHA384 = "SHA384";
 DIGEST_ALGO_SHA512 = "SHA512";
 DIGEST_ALGO_SHA224 = "SHA224";
-COMPRESS_ALGO_NONE = "Nič";
+COMPRESS_ALGO_NONE = "ไม่มี";
 COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
@@ -348,38 +348,38 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 ExportKey_Progress = "Exporting key…";
-ExportKey_Error = "Exportu kľúču zlyhal.";
-ImportKey_Progress  = "Importing key…";
-DeleteSecretKey_Progress = "Deleting secret key…";
-DeleteKeys_Progress = "Deleting key…";
-DeleteKeys_Error = "Mazanie kľúču zlyhalo.";
+ExportKey_Error = "Key export failed.";
+ImportKey_Progress  = "กำลังนำเข้ากุญแจ...";
+DeleteSecretKey_Progress = "กำลังลบกุญแจลับ...";
+DeleteKeys_Progress = "กำลังลบกุญแจ...";
+DeleteKeys_Error = "Deleting key failed.";
 ChangePassphrase_Progress = "Changing password…";
 ChangePassphrase_Error = "Changing password failed.";
 SetDisabled_Progress = "Enabling/Disabling key…";
-SetDisabled_Error = "Povolenie/Zakázanie kľúča zlyhalo.";
+SetDisabled_Error = "Enabling/Disabling key failed.";
 SetOwnerTrust_Progress = "Setting owner trust…";
-SetOwnerTrust_Error = "Nastavenie dôvery vlastníka zlyhalo.";
+SetOwnerTrust_Error = "Setting owner trust failed.";
 ChangeExpirationDate_Progress = "Changing expiration date…";
 ChangeExpirationDate_Error = "Changing expiration date failed.";
 SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
-SetAlgorithmPreferences_Error = "Nastavenie algoritmu zlyhalo.";
+SetAlgorithmPreferences_Error = "Setting algorithm preferences failed.";
 CleanKey_Progress = "Cleaning key…";
-CleanKey_Error = "Mazanie kľúča zlyhalo.";
+CleanKey_Error = "Cleaning key failed.";
 MinimizeKey_Progress = "Minimizing key…";
-MinimizeKey_Error = "Minimalizácia kĺúča zlyhala.";
+MinimizeKey_Error = "Minimizing key failed.";
 GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
 GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
 SearchKeysOnServer_Progress = "Searching for key…";
 SendKeysToServer_Progress = "Sending %@ to server…";
-SendKeysToServer_Error = "Posielanie kľúča zlyhalo.";
+SendKeysToServer_Error = "Sending key failed.";
 RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
-RefreshKeysFromServer_Error = "Obnovenie kľúča zlyhalo.";
+RefreshKeysFromServer_Error = "Refreshing key failed.";
 AddSubkey_Progress = "Adding subkey…";
-AddSubkey_Error = "Pridanie subkľúča zlyhalo.";
+AddSubkey_Error = "Adding subkey failed.";
 RemoveSubkey_Progress = "Removing subkey…";
-RemoveSubkey_Error = "Odstránenie subkľúča zlyhalo.";
+RemoveSubkey_Error = "Removing subkey failed.";
 RevokeSubkey_Progress = "Revoking subkey…";
-RevokeSubkey_Error = "Zneplatnenie subkľúča zlyhalo.";
+RevokeSubkey_Error = "Revoking subkey failed.";
 AddUserID_Progress = "Adding user ID…";
 AddUserID_Error = "Adding user ID failed.";
 RemoveUserID_Progress = "Removing user ID…";
@@ -389,22 +389,22 @@ SetPrimaryUserID_Error = "Setting primary user ID failed.";
 RevokeUserID_Progress = "Revoking user ID…";
 RevokeUserID_Error = "Revoking user ID failed.";
 AddPhoto_Progress = "Adding photo…";
-AddPhoto_Error = "Pridávanie obrázku zlyhalo.";
+AddPhoto_Error = "Adding photo failed.";
 AddPhoto_SelectMessage = "Choose photo…";
 RemovePhoto_Progress = "Removing photo…";
-RemovePhoto_Error = "Odstránenie obrázku zlyhalo.";
+RemovePhoto_Error = "Removing photo failed.";
 SetPrimaryPhoto_Progress = "Setting primary photo…";
-SetPrimaryPhoto_Error = "Nastavenie primárneho obrázku zlyhalo.";
+SetPrimaryPhoto_Error = "Setting primary photo failed.";
 RevokePhoto_Progress = "Revoking photo…";
-RevokePhoto_Error = "Zneplatňovanie obrázku zlyhalo.";
+RevokePhoto_Error = "Revoking photo failed.";
 AddSignature_Progress = "Signing…";
 AddSignature_Error = "Signing failed.";
 RemoveSignature_Progress = "Removing signature…";
-RemoveSignature_Error = "Odstraňovanie podpisu zlyhalo.";
+RemoveSignature_Error = "Removing signature failed.";
 RevokeSignature_Progress = "Revoking signature…";
-RevokeSignature_Error = "Zneplatňovanie podpisu zlyhalo.";
+RevokeSignature_Error = "Revoking signature failed.";
 ReceiveKeysFromServer_Progress = "Receiving keys…";
-ReceiveKeysFromServer_Error = "Prijímanie kľúčov zlyhalo.";
+ReceiveKeysFromServer_Error = "Receiving keys failed.";
 RevokeKey_Progress = "Revoking key…";
 RevokeKey_Error = "Revoking key failed.";
 

@@ -1,5 +1,5 @@
 /* For Key-Status */
-"Invalid" = "Invàlid";
+"Invalid" = "No vàlid";
 "Revoked" = "Revocat";
 "Expired" = "Caducat";
 "Disabled" = "Deshabilitat";
@@ -42,69 +42,78 @@ CheckAlert_PassphraseSimple_Title = "La contrasenya és simple";
 CheckAlert_PassphraseSimple_Message = "La contrasenya introduïda és massa simple. Una contrasenya bona ha de ser alfanumèrica i contindre com a mínim un caràcter especial.";
 CheckAlert_PassphraseSimple_Button1 = "Continua amb la contrasenya simple";
 CheckAlert_PassphraseSimple_Button2 = "Introduïu una contrasenya nova";
+CheckAlert_PassphrasePwned_Title = "Warning: Leaked Password";
+CheckAlert_PassphrasePwned_Message = "The password you entered has been leaked. It was found during a database check of leaked passwords. It can therefore not be considered secure. We strongly recommend to enter a new password.";
+CheckAlert_PassphrasePwned_Button1 = "Continue with insecure password";
+CheckAlert_PassphrasePwned_Button2 = "Introduïu una contrasenya nova";
+
 CheckAlert_PassphraseTooLong_Title = "La contrasenya és massa llarga";
-CheckAlert_PassphraseTooLong_Message = "La contrasenya introduïda és massa llarga. Introduïu-ne una amb menys de %i caràcters.";
+CheckAlert_PassphraseTooLong_Message = "La contrasenya que heu introduït és massa llarga. Introduïu-ne una amb menys de %1$i caràcters.\n\nAtenció: Si la contrasenya inclou caràcters especial, és possible que no pugueu utilitzar %1$i caràcters.";
+
+CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
+CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
 
 
-MoveSecring_Msg = "Les claus privades estan actualment a \"%@\".\nPer a moure-les claus a un altre volum, seleccioneu-ne un de sota.";
+
+MoveSecring_Msg = "Les claus privades estan actualment a «%@».\nPer a moure les claus a un altre volum, seleccioneu-ne un de sota.";
 
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "No s'ha trobat cap clau";
 KeySearch_ImportResults_Title = "S'ha importat correctament";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bits), creat: %@"; /* Format für die gefundenen Schlüssel vom Server. */
-SearchingKeys_Msg = "Busquem claus coincidents al servidor de claus. Podria porta el seu temps, espereu.";
+SearchingKeys_Msg = "Estem cercant claus coincidents al servidor de claus. Podria trigar un temps, espereu.";
 
-GenerateKey_Progress = "Cal generar molts bytes aleatoris. És una bona idea dur a terme alguna altra acció (escriure al teclat en una aplicació, moure el ratolí, usar els discos) durant la primera generació. Això li dóna al generador de nombres aleatoris una millor oportunitat per guanyar suficient entropia.";
+GenerateKey_ProgressTitle = "Key creation in progress…";
+GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
 GenerateSubkey_Msg = "Afegeix una subclau a la clau següent:\n%@ %@";
 GenerateUserID_Msg = "Afegeix una adreça electrònica (ID d'usuari) a la clau següent:\n%@ %@";
-GenerateSignature_Msg = "Quan signeu una clau significa que vosté confirma que el posseedor de la clau és, de fet, qui diu ser.\nUna vegada pujades, altres persones veuen les signatures.\nAixí que si signeu amb la clau de Bob, i la seua amiga Alice no està segura que si Bob és realment Bob, Alice veurà la signatura de vosté en la clau de Bob, i com Alice sap que la clau de vosté és de confiança, sabrà que molt probablement és que Bob, de fet, siga Bob.\nÉs a punt de signar la següent clau:\n%@";
-GenerateUidSignature_Msg = "Signar una ID d'usuari significa que confirmeu que el propietari de la clau és qui diu ser.\nAltres persones poden veure les signatures, una vegada pujades.\nAixí que, si signeu la clau del Robert i la vostra amiga Alícia no està segura de si Rober és ell en realitat, podrà veure que heu signat la clau del Robert. Com Alícia sap que la vostra clau és de fiar, sabrà que Robert és qui diu ser, efectivament.\n\nAneu a signar la ID d'usuari següent:\n%@";
+GenerateSignature_Msg = "En signar una ID d'usuari, confirmeu que el propietari de la clau és qui diu ser.\nAltres persones poden veure les signatures, una vegada pujades.\nAixí que, si signeu la clau del Bob i la vostra amiga Alice no està segura de si Bob és ell en realitat, podrà veure que heu signat la clau del Bob. Com l'Alice sap que la vostra clau és de fiar, sabrà que Robert és, de fet, qui diu ser.\n\nEsteu a punt de signar la clau següent:\n%@";
+GenerateUidSignature_Msg = "En signar una ID d'usuari, confirmeu que el propietari de la clau és qui diu ser.\nAltres persones poden veure les signatures, una vegada pujades.\nAixí que, si signeu la clau del Bob i la vostra amiga Alice no està segura de si Bob és ell en realitat, podrà veure que heu signat la clau del Bob. Com l'Alice sap que la vostra clau és de fiar, sabrà que Robert és, de fet, qui diu ser.\n\nEsteu a punt de signar la ID d'usuari següent:\n%@";
 ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
 ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
 
-GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "Alguna cosa ha anat malament. Hi ha hagut un problema al crear la clau.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "El nom és massa llarg!";
-CheckError_InvalidCharInName = "Caràcter invàlid al nom!⏎\n\"<\" and \">\" no estan permesos.";
-CheckError_InvalidEmail = "És una adreça electrònica invàlida!";
-CheckError_EmailToLong = "L'adreça electrònica és massa llarga!\nLa longitud màxima és 254.";
-CheckError_InvalidCharInComment = "Caràcter invàlid en el comentari!⏎\n\"(\" and \")\" no estan permesos.";
+CheckError_InvalidCharInName = "Caràcter no vàlid al nom!\n\"<\" i \">\" no estan permesos.";
+CheckError_InvalidEmail = "No és una adreça electrònica vàlida!";
+CheckError_EmailToLong = "L'adreça electrònica és massa llarga!\nLa longitud màxima és de 254.";
+CheckError_InvalidCharInComment = "Caràcter no vàlid en el comentari!\n«(» i «)» no estan permesos.";
 CheckError_CommentToLong = "El comentari és massa llarg!";
 CheckError_NoKeyID = "Introduïu una identitat de clau vàlida!";
-CheckError_PassphraseMissmatch = "Les contrasenyes no coincideixen!";
 
 
 /* Message on start, if there are any Problems */
-GPG_NOT_FOUND_TITLE = "No s'ha trobat GPG";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org.";
-GPG_CONFIG_ERROR_TITLE = "Error de configuració GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
-LIBMACGPG_NOT_FOUND_TITLE = "No s'ha trobat Libmacgpg";
-LIBMACGPG_NOT_FOUND_MESSAGE = "No s'ha trobat el Libmacgpg al sistema. Torneu a instal·lar el GPG Suite des de\nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_TITLE = "No s'ha trobat el GPG";
+GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
+GPG_CONFIG_ERROR_TITLE = "Error de configuració del GPG";
+GPG_CONFIG_ERROR_MESSAGE = "Alguna cosa ha anat malament. S'ha trobat el GPG al sistema, però sembla que hi ha un problema amb el fitxer de configuració. Contacteu amb nosaltres a\nhttps://gpgtools.tenderapp.com.\n\nDetalls: %@";
+LIBMACGPG_NOT_FOUND_TITLE = "No s'ha trobat el Libmacgpg";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Algú ha manipulat la instal·lació del GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "El GPG Keychain es tancarà per la vostra seguretat.\n\nTorneu a instal·lar el GPG Suite des de\nhttps://gpgtools.org per a estar segur que teniu la nostra versió original.";
-UNKNOWN_GPG_ERROR_TITLE = "Error desconegut GPG";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_TITLE = "Error desconegut del GPG";
+UNKNOWN_GPG_ERROR_MESSAGE = "Alguna cosa ha anat malament. El GPG ha llançat un error desconegut. Contacteu amb nosaltres a\nhttps://gpgtools.tenderapp.com.\n\nDetalls: %@";
 
 
 
 /* Mail public key */
-MailKey_Subject = "Clau pública a %@";
+MailKey_Subject = "Clau pública de %@";
 MailKey_Subject_Your = "La meua clau pública per assegurar-nos els missatges";
 MailKey_Message = "Hola,\n\ntrobaràs com a fitxer adjunt la clau pública de\n\n%@\n\nPots usar aquesta clau per xifrar i assegurar els missatges quan escriguis a %@.\n\nPer començar a usar-la, has d'instal·lar un programa OpenPGP a l'ordinador. A sota hi ha una llista de solucions possibles per al teu sistema operatiu:\n\n%@\n\nImporta la clau pública al teu gestor de claus OpenPGP local.\n\nSalutacions";
 MailKey_Message_Your = "Hola,\n\ntrobaràs com a fitxer adjunt la meua clau pública\n\n%@\n\nPots usar aquesta clau per xifrar i assegurar els missatges que intercanviem.\n\nPer començar a usar-la, has d'instal·lar un programa OpenPGP a l'ordinador. A sota hi ha una llista de solucions possibles per al teu sistema operatiu:\n\n%@\n\nImporta la clau pública al teu gestor de claus OpenPGP local.\n\nEstic desitjant intercanviar missatges lliures de vigilància amb tu.\n\nSalutacions";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creant-se un nou correu...";
-MailKey_Progress_Your = "Creant-se un nou correu...";
-MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
+MailKey_Progress = "S'està creant un correu nou...";
+MailKey_Progress_Your = "S'està creant un correu nou...";
+MailKey_Error = "Alguna cosa ha anat malament. Hi ha hagut un problema en exportar la clau.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "S'ha seleccionat una clau inservible";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Heu seleccionat una clau inservible. Aquest tipus de claus no es poden enviar per correu electrònic. Actualitzeu-la des del servidor de claus, per a comprovar que s'ha actualitzat.\n\nAltrament, contacteu amb el propietari de la clau i informeu-lo sobre el seu estat.\n\n%@";
 
 
 /* A key was found in the pasteboard */
 PasteboardKeyFound_Title = "S'han detectat una o més claus al porta-retalls";
-PasteboardKeyFound_Msg = "%@\n\nVoleu importar la clau (les claus)?";
+PasteboardKeyFound_Msg = "%@\n\nVoleu importar la (o les) claus?";
 PasteboardKeyFound_Yes = "Importa";
 PasteboardKeyFound_No = "Cancel·la";
 
@@ -114,7 +123,7 @@ No = "No";
 Error = "Error";
 Warning = "Advertència";
 Cancel = "Cancel·la";
-"Apply to all" = "Aplica a tots";
+"Apply to all" = "Aplica-ho a tot";
 
 
 /* Warnings */
@@ -123,90 +132,94 @@ RemoveUserID_Msg = "Aneu a suprimir la identitat de l'usuari %@ de la vostra cla
 RemoveUserID_Yes = "Suprimeix la identitat de l'usuari";
 RemoveUserID_No = "Cancel·la";
 
-RevokeUserID_Title = "Atenció; Aneu a revocar una identitat d'usuari";
+RevokeUserID_Title = "Atenció; aneu a revocar una identitat d'usuari";
 RevokeUserID_Msg = "Aneu a revocar la identitat d'usuari següent:\n\n%@ de la clau %@\n\nUna vegada fet, no podreu signar i xifrar els missatges utilitzant aquesta identitat d'usuari, i els altres no podran xifrar missatges amb aquesta identitat. La identitat revocada encara es pot utilitzar per a desxifrar correus i fitxers que se n'hagin xifrat.\n\nNo és recomanable suprimir-la, millor mantindre-la en la clau amb l'estat «Revocada».\n\nSegur que voleu revocar aquesta identitat d'usuari?";
 RevokeUserID_Yes = "Revoca la identitat de l'usuari";
 RevokeUserID_No = "Cancel·la";
 
-RemoveSubkey_Title = "Suprimeix la subclau";
+RemoveSubkey_Title = "Supressió de la subclau";
 RemoveSubkey_Msg = "Atenció: Continueu només si sabeu el que esteu fent.\n\nSuprimir una subclau podria destruir la possibilitat de signar i desxifrar amb aquesta clau.\n\nSuprimir la subclau no té cap efecte sobre la entada existent al servidor de claus, en cas que aquesta clau s'hi hagi pujat. Si voleu avisar a altres usuaris de que no haurien d'utilitzar aquesta subclau, millor revoqueu-la i pugeu la clau actualitzada al servidor.";
 RemoveSubkey_Yes = "Suprimeix la subclau";
 RemoveSubkey_No = "Cancel·la";
 
-RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
-RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nOnce revoked, you will be unable to sign and encrypt messages using this subkey and others will not be able to encrypt messages to this subkey. The revoked subkey can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this subkey?";
+RevokeSubkey_Title = "Atenció: Esteu a punt de revocar una subclau";
+RevokeSubkey_Msg = "Procediu només si realment sabeu el que esteu fent.\n\nRevocar una subclau pot destruir la capacitat de signar utilitzant-la, i els altres podrien no poder xifrar missatges amb aquesta subclau.\n\nUna vegada revocada, no podreu signar ni xifrar missatges utilitzant-la, i els altres no podran xifrar missatges amb aquesta subclau. La subclau revocada encara es pot utilitzar per a desxifrar correus i fitxers que s'hagin xifrat amb ella.\n\nNo es recomana suprimir-la, sinó mantenir-la a la clau amb estat revocat.\n\nSegur que voleu revocar aquesta subclau?";
 RevokeSubkey_Yes = "Revoca la subclau";
 RevokeSubkey_No = "Cancel·la";
 
-RevokeSignature_Title = "Revoca la signatura";
-RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
+RevokeSignature_Title = "Revocació de la signatura";
+RevokeSignature_Msg = "En revocar la vostra signatura, es marcarà com a revocada. Utilitzeu aquesta opció si penseu que algú ha furtat la clau i que el propietari original no té la clau sota el seu control. Si heu pujat anteriorment la clau als servidors de claus, pugeu-la-hi de nou actualitzada per tal d'avisar als altres de que la vostra signatura s'ha revocat.";
 RevokeSignature_Yes = "Revoca la signatura";
 RevokeSignature_No = "Cancel·la";
 
-RemoveSignature_Title = "Suprimeix la signatura";
-RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
+RemoveSignature_Title = "Supressió de la signatura";
+RemoveSignature_Msg = "Esteu segur que voleu suprimir la signatura? En fer-ho, només se suprimirà de forma local. No se suprimirà dels servidors de claus, això no es pot fer. En compte d'això, revoqueu la signatura si voleu inutilitzar-la.";
 RemoveSignature_Yes = "Suprimeix la signatura";
 RemoveSignature_No = "Cancel·la";
 
-RemoveLastSelfSignature_Title = "Suprimeix l'última signatura automàtica";
-RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
+RemoveLastSelfSignature_Title = "Supressió de l'última signatura automàtica";
+RemoveLastSelfSignature_Msg = "Aneu a suprimir l'última signatura automàtica de la ID d'usuari %@. Procediu només si realment sabeu el que esteu fent.\n\nAquesta signatura assegura que només el seu propietari pot modificar l'adreça electrònica, el nom i la descripció d'una ID d'usuari.\n\nSi falta la signatura, algú podria modificar aquesta informació i no hi hauria forma de saber-ho.";
 RemoveLastSelfSignature_Yes = "Suprimeix la signatura";
 RemoveLastSelfSignature_No = "Cancel·la";
 
-RevokeLastSelfSignature_Title = "Revoca l'última signatura automàtica";
-RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last self-signature of a user ID will render that user ID useless. You will no longer be able to use user ID %@ in Mail.app to sign emails.";
+RevokeLastSelfSignature_Title = "Revocació de l'última signatura automàtica";
+RevokeLastSelfSignature_Msg = "Aneu a revocar l'última signatura automàtica de la ID d'usuari %@. Procediu només si realment sabeu el que esteu fent.\n\nEn revocar l'última signatura automàtica d'una ID d'usuari, la inutilitzarà. No podreu utilitzar la ID d'usuari %@ al Mail.app per a signar correus.";
 RevokeLastSelfSignature_Yes = "Revoca la signatura";
 RevokeLastSelfSignature_No = "Cancel·la";
 
 RevokeKey_Title = "Advertència: Està a punt de revocar una clau";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "Aneu a revocar la clau següent:\n\n%@\n\nUna vegada revocada, no podreu signar i xifrar missatges amb ella i els altres no podran xifrar missatges a aquesta clau. La clau revocada encara es pot utilitzar per a desxifrar correus i fitxers que s'hagin xifrat amb ella.\n\nNo es recomana suprimir-la, sinó mantenir-la al GPG Keychain com a revocada.\n\nSegur que voleu revocar aquesta clau?";
 RevokeKey_Yes = "Revoca la clau";
 RevokeKey_No = "Cancel·la";
 
-OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key";
-OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
-OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_Title = "El missatge OpenPGP que heu provat d'importar no és una clau";
+OpenWithGPGServices_Msg = "Podeu reenviar el missatge al GPGServices per a desxifrar-lo o verificar-lo.";
+OpenWithGPGServices_Yes = "Obre el GPGServices";
 OpenWithGPGServices_No = "Cancel·la";
 
-FirstUploadForeignKey_Title = "Public key not allowed on key servers";
-FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers:\n\n%@\n\nSome key owners intentionally do not upload their public key. In order to respect that decision, you can not upload this public key. In case you think this is an error, please get in touch with the key owner.";
+FirstUploadForeignKey_Title = "No es permet la clau pública al servidor de claus";
+FirstUploadForeignKey_Msg = "Les claus següents no es troben al servidor de claus:\n\n%@\n\nAlguns propietaris no pugen la seva clau pública a propòsit. Per tal de respectar la seva decisió, podeu no pujar aquesta clau pública. Si penseu que és un error, contacteu amb el propietari de la clau.";
 
 
 NewKeyWantToUpload_Title = "Your key was created successfully";
 NewKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to find your public key and start communicating with you securely – encrypt messages for you and verify the authenticity of your messages – it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
 NewKeyWantToUpload_Yes = "Upload Public Key";
-NewKeyWantToUpload_No = "No, Thanks!";
+NewKeyWantToUpload_No = "No, gràcies!";
 
 NewUserIDWantToUpload_Title = "Your new email address (user ID) was added successfully";
 NewUserIDWantToUpload_Msg = "In order for others to be able to use your new email address (user ID), it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your updated public key?";
 NewUserIDWantToUpload_Yes = "Upload Public Key";
-NewUserIDWantToUpload_No = "No, Thanks!";
+NewUserIDWantToUpload_No = "No, gràcies!";
 
 NewSubkeyWantToUpload_Title = "You have successfully added a subkey";
 NewSubkeyWantToUpload_Msg = "In order for others to be able to use your new subkey, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
 NewSubkeyWantToUpload_Yes = "Upload Public Key";
-NewSubkeyWantToUpload_No = "No, Thanks!";
+NewSubkeyWantToUpload_No = "No, gràcies!";
 
 ExpirationDateChangedWantToUpload_Title = "You have successfully changed the expiration date";
 ExpirationDateChangedWantToUpload_Msg = "In order for others to be able to see the new expiration date, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
 ExpirationDateChangedWantToUpload_Yes = "Upload Public Key";
-ExpirationDateChangedWantToUpload_No = "No, Thanks!";
+ExpirationDateChangedWantToUpload_No = "No, gràcies!";
 
 RevokedKeyWantToUpload_Title = "Your key was successfully revoked";
 RevokedKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your revoked public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that it is now revoked and no longer to be used. You can email them the revoked public key so they can import it into their key manager.\n\nDo you want to upload your revoked public key?";
 RevokedKeyWantToUpload_Yes = "Upload Public Key";
-RevokedKeyWantToUpload_No = "No, Thanks!";
+RevokedKeyWantToUpload_No = "No, gràcies!";
 
 RevokedUserIDWantToUpload_Title = "Your user ID was successfully revoked";
 RevokedUserIDWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the user ID is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
 RevokedUserIDWantToUpload_Yes = "Upload Public Key";
-RevokedUserIDWantToUpload_No = "No, Thanks!";
+RevokedUserIDWantToUpload_No = "No, gràcies!";
 
 RevokedSubkeyWantToUpload_Title = "Your subkey was successfully revoked";
 RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your subkey, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the subkey is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
 RevokedSubkeyWantToUpload_Yes = "Upload Public Key";
-RevokedSubkeyWantToUpload_No = "No, Thanks!";
+RevokedSubkeyWantToUpload_No = "No, gràcies!";
 
+UserIDsSignedWantToUpload_Title = "Signing successful";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Yes = "Upload Public Key";
+UserIDsSignedWantToUpload_No = "No, gràcies!";
 
 
 
@@ -262,6 +275,10 @@ UploadSuccess_Msg = "The following public keys have been sent to the key servers
 ExportSuccess_Title = "Export successful";
 ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
 
+SignSuccess_Title = "Signing successful";
+SignSuccess_Msg = "The selected user IDs have been signed.";
+
+
 
 /* For Import-Results */
 IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
@@ -281,7 +298,7 @@ IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i im
 IMPORT_RESULT_NOTHING_IMPORTED = "No keys imported.";
 
 /* Errors */
-"Details:" = "Details:";
+"Details:" = "Detalls";
 ImportKeyError_Title = "Failed to import one or more keys";
 ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Import Failed";
@@ -397,4 +414,13 @@ SendPublicKeyToKeyserver_MenuItem = "Envia la clau pública al servidor de claus
 
 FilterNoResults = "La cerca local per a «%@» no ha produït cap resultat.";
 FilterNoResultsSecOnly = "La cerca local per a «%@» no ha produït cap resultat.\nConsidereu desactivar l'opció «Mostra només claus secretes» per a expandir la cerca.";
+
+
+
+SignKey_KeyClaimsMultipleIdentities = "The key:\n%@\nclaims more than one identity. Which ones have you verified?";
+SignKey_PublishSingleIdentity = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to %@.";
+SignKey_PublishMultipleIdentities = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to the identities you've checked.";
+SignKey_MainMsg = "By signing this key you confirm the identity of the key owner and that the key with fingerprint %@ belongs to them.";
+
+
 
