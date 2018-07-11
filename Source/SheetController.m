@@ -1373,69 +1373,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		}
 	}
 	
-	
-	// Do not warn the user twice about a weak password.
-	if (!warned) {
-		// Check if the password was used somewhere already.
-		
-		// Calulate the SHA1.
-		NSData *passwordData = [self.passphrase UTF8Data];
-		uint8_t digestBytes[20];
-		CC_SHA1(passwordData.bytes, (uint32_t)passwordData.length, digestBytes);
-		
-		// Hex representation of the SHA1 digest.
-		NSMutableString *digest = [NSMutableString new];
-		for (int i = 0; i < 20; i++) {
-			[digest appendFormat:@"%02X", digestBytes[i]];
-		}
-		
-		// The url only contains the first 5 hey digits of the digest.
-		NSString *urlString = [@"https://api.pwnedpasswords.com/range/" stringByAppendingString:[digest substringToIndex:5]];
-		
-		// Build the request.
-		NSURL *url = [NSURL	URLWithString:urlString];
-		NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:0 timeoutInterval:10];
-		if (request) {
-			
-			// Set a meaningful user agent.
-			[request setValue:@"GPG Keychain" forHTTPHeaderField:@"User-Agent"];
-			
-			
-			__block BOOL pwned = NO;
-			dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-			NSURLSession *session = [NSURLSession sharedSession];
-			
-			NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-				if (data) {
-					// Test if the digest is in the returned data.
-					NSData *needle = [digest substringFromIndex:5].UTF8Data;
-					if ([data rangeOfData:needle options:0 range:NSMakeRange(0, data.length)].location != NSNotFound) {
-						pwned = YES;
-					}
-				}
-				
-				dispatch_semaphore_signal(semaphore);
-			}];
-			
-			if (task) {
-				[task resume];
-				// Do not semaphore_wait if the task is nil, because semaphore_signal would never be called.
-				dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-			}
-			
-			
-			if (pwned) {
-				// The password where used somewhere else, warn the user.
-				if (NSRunAlertPanel(localized(@"CheckAlert_PassphrasePwned_Title"),
-									localized(@"CheckAlert_PassphrasePwned_Message"),
-									localized(@"CheckAlert_PassphrasePwned_Button1"),
-									localized(@"CheckAlert_PassphrasePwned_Button2"), nil) != NSAlertDefaultReturn) {
-					return NO;
-				}
-			}
-		}
-	}
-	
 	return YES;
 }
 
