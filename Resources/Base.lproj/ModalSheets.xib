@@ -17,6 +17,7 @@
                 <outlet property="genNewKeyView" destination="855" id="9M0-fI-Xmb"/>
                 <outlet property="genNewKey_advancedConstraint" destination="yVT-Uj-AF7" id="X1k-qi-d2A"/>
                 <outlet property="genNewKey_advancedSubview" destination="1152" id="yYD-Hg-Lhm"/>
+                <outlet property="genNewKey_confirmPasswordConstraint" destination="dP8-CW-6FL" id="Lw4-ay-tuV"/>
                 <outlet property="generateSignatureView" destination="367" id="413"/>
                 <outlet property="generateSubkeyView" destination="170" id="269"/>
                 <outlet property="generateUserIDView" destination="115" id="164"/>
@@ -1281,42 +1282,124 @@ Gw
             <point key="canvasLocation" x="-48" y="428"/>
         </customView>
         <customView id="855" userLabel="New Key">
-            <rect key="frame" x="0.0" y="0.0" width="450" height="396"/>
+            <rect key="frame" x="0.0" y="0.0" width="450" height="399"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button verticalHuggingPriority="751" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="921">
-                    <rect key="frame" x="314" y="13" width="122" height="32"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="XJ6-T7-y4A"/>
-                    </constraints>
-                    <buttonCell key="cell" type="push" title="Generate Key" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="924">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FCr-HN-HHj">
+                    <rect key="frame" x="18" y="202" width="118" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Strength:" id="hwx-EK-vFP">
                         <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                    </buttonCell>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <progressIndicator wantsLayer="YES" maxValue="40" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="heP-7k-89X" customClass="GKPasswordStrengthIndicator">
+                    <rect key="frame" x="142" y="199" width="288" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="PYf-LX-LtZ"/>
+                    </constraints>
                     <connections>
-                        <action selector="buttonClicked:" target="-2" id="1088"/>
-                        <binding destination="-2" name="enabled" keyPath="passwordsEqual" id="Ebd-cr-gtP"/>
+                        <binding destination="-2" name="value" keyPath="passwordStrength" id="IHl-ZH-bge"/>
+                    </connections>
+                </progressIndicator>
+                <textField verticalHuggingPriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1155">
+                    <rect key="frame" x="38" y="170" width="113" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Advanced options" id="1156">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1153">
+                    <rect key="frame" x="20" y="172" width="13" height="13"/>
+                    <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="buttonCell:1154:image" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
+                        <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <accessibility description="Advanced options"/>
+                    <connections>
+                        <action selector="advancedButton:" target="-2" id="1158"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="922">
-                    <rect key="frame" x="206" y="13" width="108" height="32"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="q8P-Mj-USv"/>
-                    </constraints>
-                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="923">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                <comboBox verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="872">
+                    <rect key="frame" x="142" y="288" width="291" height="26"/>
+                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" numberOfVisibleItems="5" id="873">
                         <font key="font" metaFont="system"/>
-                        <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                    </buttonCell>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </comboBoxCell>
+                    <accessibility description="Email"/>
                     <connections>
-                        <action selector="buttonClicked:" target="-2" id="1086"/>
+                        <binding destination="-2" name="value" keyPath="email" previousBinding="898" id="899"/>
+                        <binding destination="-2" name="contentValues" keyPath="emailAddresses" id="898"/>
                     </connections>
-                </button>
+                </comboBox>
+                <textField verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="870">
+                    <rect key="frame" x="142" y="320" width="288" height="22"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="875">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <accessibility description="Name"/>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="name" id="903"/>
+                    </connections>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="868">
+                    <rect key="frame" x="18" y="292" width="118" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Email:" id="877">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="867">
+                    <rect key="frame" x="18" y="323" width="118" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="878">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="412" translatesAutoresizingMaskIntoConstraints="NO" id="866">
+                    <rect key="frame" x="19" y="362" width="414" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="410" id="1cW-kM-AJn"/>
+                    </constraints>
+                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Generate new key pair" id="879">
+                        <font key="font" metaFont="systemBold"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <secureTextField verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="915">
+                    <rect key="frame" x="142" y="262" width="288" height="22"/>
+                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="918">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        <allowedInputSourceLocales>
+                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                        </allowedInputSourceLocales>
+                    </secureTextFieldCell>
+                    <accessibility description="Password"/>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="passphrase" id="K7R-D8-3EV">
+                            <dictionary key="options">
+                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </secureTextField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="916">
+                    <rect key="frame" x="18" y="265" width="118" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="917">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="1152" userLabel="New Key Advenced View">
                     <rect key="frame" x="0.0" y="43" width="450" height="119"/>
                     <subviews>
@@ -1446,199 +1529,135 @@ Gw
                         <constraint firstAttribute="height" constant="119" id="yVT-Uj-AF7"/>
                     </constraints>
                 </customView>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="916">
-                    <rect key="frame" x="18" y="262" width="131" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="917">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <secureTextField verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="915">
-                    <rect key="frame" x="155" y="259" width="275" height="22"/>
-                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="918">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        <allowedInputSourceLocales>
-                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                        </allowedInputSourceLocales>
-                    </secureTextFieldCell>
-                    <accessibility description="Password"/>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="passphrase" id="K7R-D8-3EV">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </secureTextField>
-                <secureTextField verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="914">
-                    <rect key="frame" x="155" y="207" width="275" height="22"/>
-                    <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="919">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        <allowedInputSourceLocales>
-                            <string>NSAllRomanInputSourcesLocaleIdentifier</string>
-                        </allowedInputSourceLocales>
-                    </secureTextFieldCell>
-                    <accessibility description="Confirm"/>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="confirmPassphrase" id="grb-ad-p9H">
-                            <dictionary key="options">
-                                <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </secureTextField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="913">
-                    <rect key="frame" x="18" y="210" width="131" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Repeat Password:" id="920">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="412" translatesAutoresizingMaskIntoConstraints="NO" id="866">
-                    <rect key="frame" x="19" y="359" width="414" height="17"/>
+                <button verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="922">
+                    <rect key="frame" x="206" y="13" width="108" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="410" id="1cW-kM-AJn"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="96" id="q8P-Mj-USv"/>
                     </constraints>
-                    <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Generate new key pair" id="879">
-                        <font key="font" metaFont="systemBold"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="867">
-                    <rect key="frame" x="18" y="320" width="131" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="878">
+                    <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="923">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="868">
-                    <rect key="frame" x="18" y="289" width="131" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Email:" id="877">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="870">
-                    <rect key="frame" x="155" y="317" width="275" height="22"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="875">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <accessibility description="Name"/>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="name" id="903"/>
-                    </connections>
-                </textField>
-                <comboBox verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="872">
-                    <rect key="frame" x="155" y="285" width="278" height="26"/>
-                    <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" numberOfVisibleItems="5" id="873">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </comboBoxCell>
-                    <accessibility description="Email"/>
-                    <connections>
-                        <binding destination="-2" name="value" keyPath="email" previousBinding="898" id="899"/>
-                        <binding destination="-2" name="contentValues" keyPath="emailAddresses" id="898"/>
-                    </connections>
-                </comboBox>
-                <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1153">
-                    <rect key="frame" x="20" y="172" width="13" height="13"/>
-                    <buttonCell key="cell" type="disclosureTriangle" bezelStyle="disclosure" image="buttonCell:1154:image" imagePosition="above" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1154">
-                        <behavior key="behavior" pushIn="YES" changeBackground="YES" changeGray="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
                     </buttonCell>
-                    <accessibility description="Advanced options"/>
                     <connections>
-                        <action selector="advancedButton:" target="-2" id="1158"/>
+                        <action selector="buttonClicked:" target="-2" id="1086"/>
                     </connections>
                 </button>
-                <textField verticalHuggingPriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="1155">
-                    <rect key="frame" x="38" y="170" width="113" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Advanced options" id="1156">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <progressIndicator wantsLayer="YES" maxValue="40" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="heP-7k-89X" customClass="GKPasswordStrengthIndicator">
-                    <rect key="frame" x="155" y="236" width="275" height="20"/>
+                <button verticalHuggingPriority="751" tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="921">
+                    <rect key="frame" x="314" y="13" width="122" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="18" id="PYf-LX-LtZ"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="XJ6-T7-y4A"/>
                     </constraints>
+                    <buttonCell key="cell" type="push" title="Generate Key" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="924">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                        <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                    </buttonCell>
                     <connections>
-                        <binding destination="-2" name="value" keyPath="passwordStrength" id="IHl-ZH-bge"/>
+                        <action selector="buttonClicked:" target="-2" id="1088"/>
+                        <binding destination="-2" name="enabled" keyPath="passwordsEqual" id="Ebd-cr-gtP"/>
                     </connections>
-                </progressIndicator>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Nx-iz-9wH">
-                    <rect key="frame" x="153" y="192" width="152" height="14"/>
-                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Your passwords must match" id="MKK-kH-I0K">
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <binding destination="-2" name="hidden" keyPath="passwordsEqual" id="g2M-vJ-DBR"/>
-                    </connections>
-                </textField>
+                </button>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="OOR-gh-hQh" userLabel="Confirm Password View">
+                    <rect key="frame" x="0.0" y="217" width="450" height="37"/>
+                    <subviews>
+                        <secureTextField verticalHuggingPriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="914">
+                            <rect key="frame" x="142" y="15" width="288" height="22"/>
+                            <secureTextFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="919">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <allowedInputSourceLocales>
+                                    <string>NSAllRomanInputSourcesLocaleIdentifier</string>
+                                </allowedInputSourceLocales>
+                            </secureTextFieldCell>
+                            <accessibility description="Confirm"/>
+                            <connections>
+                                <binding destination="-2" name="value" keyPath="confirmPassphrase" id="grb-ad-p9H">
+                                    <dictionary key="options">
+                                        <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </secureTextField>
+                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="913">
+                            <rect key="frame" x="18" y="18" width="118" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Confirm Password:" id="920">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Nx-iz-9wH">
+                            <rect key="frame" x="140" y="0.0" width="152" height="14"/>
+                            <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Your passwords must match" id="MKK-kH-I0K">
+                                <font key="font" metaFont="smallSystem"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                            <connections>
+                                <binding destination="-2" name="hidden" keyPath="passwordsEqual" id="g2M-vJ-DBR"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="913" firstAttribute="baseline" secondItem="914" secondAttribute="baseline" id="9ce-y7-asG"/>
+                        <constraint firstItem="914" firstAttribute="leading" secondItem="913" secondAttribute="trailing" constant="8" id="DIm-Md-XRN"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0Nx-iz-9wH" secondAttribute="trailing" constant="20" id="K62-zq-2fg"/>
+                        <constraint firstItem="0Nx-iz-9wH" firstAttribute="leading" secondItem="914" secondAttribute="leading" id="TpH-Cm-mda"/>
+                        <constraint firstItem="0Nx-iz-9wH" firstAttribute="top" secondItem="914" secondAttribute="bottom" constant="1" id="WWD-kp-5AL"/>
+                        <constraint firstItem="913" firstAttribute="leading" secondItem="OOR-gh-hQh" secondAttribute="leading" constant="20" id="X9C-XZ-0nq"/>
+                        <constraint firstAttribute="height" constant="37" id="dP8-CW-6FL"/>
+                        <constraint firstAttribute="trailing" secondItem="914" secondAttribute="trailing" constant="20" id="dzC-bC-Gq2"/>
+                        <constraint firstItem="913" firstAttribute="top" secondItem="OOR-gh-hQh" secondAttribute="top" constant="2" id="uek-gS-NV0"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
                 <constraint firstItem="915" firstAttribute="top" secondItem="872" secondAttribute="bottom" constant="8" id="0ar-kP-14n"/>
-                <constraint firstItem="913" firstAttribute="leading" secondItem="867" secondAttribute="leading" id="3vP-nH-KZy"/>
                 <constraint firstAttribute="trailing" secondItem="1152" secondAttribute="trailing" id="5eR-h1-yAB"/>
                 <constraint firstItem="866" firstAttribute="top" secondItem="855" secondAttribute="top" constant="20" id="5wO-0h-aPw"/>
                 <constraint firstItem="916" firstAttribute="leading" secondItem="867" secondAttribute="leading" id="7Nz-dv-mp0"/>
                 <constraint firstItem="868" firstAttribute="baseline" secondItem="872" secondAttribute="baseline" id="9mp-1D-GcY"/>
-                <constraint firstItem="0Nx-iz-9wH" firstAttribute="leading" secondItem="914" secondAttribute="leading" id="9sT-WU-hAI"/>
-                <constraint firstItem="heP-7k-89X" firstAttribute="trailing" secondItem="915" secondAttribute="trailing" id="AbW-1Z-dFz"/>
                 <constraint firstAttribute="trailing" secondItem="866" secondAttribute="trailing" constant="19" id="Ag0-GM-6n1"/>
-                <constraint firstItem="914" firstAttribute="leading" secondItem="870" secondAttribute="leading" id="BxG-jb-nct"/>
                 <constraint firstItem="872" firstAttribute="top" secondItem="870" secondAttribute="bottom" constant="8" id="C1i-vg-O9t"/>
                 <constraint firstItem="868" firstAttribute="leading" secondItem="867" secondAttribute="leading" id="CY6-yf-xj2"/>
                 <constraint firstItem="866" firstAttribute="leading" secondItem="855" secondAttribute="leading" constant="21" id="Cci-Le-zKv"/>
-                <constraint firstItem="913" firstAttribute="width" secondItem="867" secondAttribute="width" id="DEt-dv-4pt"/>
                 <constraint firstItem="870" firstAttribute="leading" secondItem="867" secondAttribute="trailing" constant="8" id="DhF-V1-wEY"/>
                 <constraint firstItem="922" firstAttribute="baseline" secondItem="921" secondAttribute="baseline" id="EMc-UG-Icb"/>
+                <constraint firstItem="heP-7k-89X" firstAttribute="leading" secondItem="FCr-HN-HHj" secondAttribute="trailing" constant="8" id="G0D-UJ-KeX"/>
+                <constraint firstItem="FCr-HN-HHj" firstAttribute="leading" secondItem="916" secondAttribute="leading" id="G4P-FN-Nug"/>
                 <constraint firstItem="1153" firstAttribute="leading" secondItem="855" secondAttribute="leading" constant="20" id="GVQ-E3-vtO"/>
                 <constraint firstItem="1152" firstAttribute="top" secondItem="1155" secondAttribute="bottom" constant="8" id="Gej-2p-dZF"/>
                 <constraint firstAttribute="bottom" secondItem="921" secondAttribute="bottom" constant="20" id="KQw-qr-Nzx"/>
-                <constraint firstItem="0Nx-iz-9wH" firstAttribute="top" secondItem="914" secondAttribute="bottom" constant="1" id="Lhk-1p-c0Q"/>
-                <constraint firstItem="heP-7k-89X" firstAttribute="top" secondItem="915" secondAttribute="bottom" constant="4" id="N50-Ch-NcM"/>
-                <constraint firstItem="914" firstAttribute="width" secondItem="870" secondAttribute="width" id="NCH-D8-IMl"/>
+                <constraint firstItem="OOR-gh-hQh" firstAttribute="top" secondItem="915" secondAttribute="bottom" constant="8" id="MpJ-Qs-Ui7"/>
+                <constraint firstItem="heP-7k-89X" firstAttribute="top" secondItem="FCr-HN-HHj" secondAttribute="top" constant="1" id="MsE-mG-5kP"/>
                 <constraint firstItem="868" firstAttribute="width" secondItem="867" secondAttribute="width" id="Pm1-HW-6rh"/>
                 <constraint firstItem="872" firstAttribute="leading" secondItem="870" secondAttribute="leading" id="RW0-Zx-uPh"/>
                 <constraint firstItem="1155" firstAttribute="leading" secondItem="1153" secondAttribute="trailing" constant="7" id="RXi-rH-Dxr"/>
-                <constraint firstItem="heP-7k-89X" firstAttribute="leading" secondItem="915" secondAttribute="leading" id="S4d-f4-YxB"/>
                 <constraint firstItem="915" firstAttribute="leading" secondItem="870" secondAttribute="leading" id="TUf-Ck-4LR"/>
                 <constraint firstAttribute="trailing" secondItem="870" secondAttribute="trailing" constant="20" id="TkJ-ZT-DUv"/>
+                <constraint firstItem="OOR-gh-hQh" firstAttribute="leading" secondItem="855" secondAttribute="leading" id="Xlb-l7-qiW"/>
                 <constraint firstItem="915" firstAttribute="width" secondItem="870" secondAttribute="width" id="a4w-Lh-vbu"/>
+                <constraint firstItem="FCr-HN-HHj" firstAttribute="top" secondItem="OOR-gh-hQh" secondAttribute="bottom" constant="-2" id="aDI-P4-wQn"/>
                 <constraint firstItem="922" firstAttribute="top" secondItem="1152" secondAttribute="bottom" constant="2" id="asV-K2-OCB"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0Nx-iz-9wH" secondAttribute="trailing" constant="20" id="cbj-YJ-Zi6"/>
+                <constraint firstAttribute="trailing" secondItem="OOR-gh-hQh" secondAttribute="trailing" id="dyM-MM-aL1"/>
                 <constraint firstItem="867" firstAttribute="leading" secondItem="855" secondAttribute="leading" constant="20" id="e0a-fQ-fHs"/>
-                <constraint firstItem="871" firstAttribute="width" secondItem="914" secondAttribute="width" id="e6l-sm-DVk"/>
                 <constraint firstAttribute="trailing" secondItem="921" secondAttribute="trailing" constant="20" id="ebR-D2-c9z"/>
                 <constraint firstItem="921" firstAttribute="leading" secondItem="922" secondAttribute="trailing" constant="12" id="f1O-fB-7xy"/>
-                <constraint firstItem="869" firstAttribute="width" secondItem="913" secondAttribute="width" id="fgZ-nx-ATJ"/>
-                <constraint firstItem="1155" firstAttribute="top" secondItem="914" secondAttribute="bottom" constant="20" id="fnb-KZ-ObF"/>
+                <constraint firstItem="1155" firstAttribute="top" secondItem="FCr-HN-HHj" secondAttribute="bottom" constant="15" id="fLr-li-BOf"/>
                 <constraint firstItem="867" firstAttribute="baseline" secondItem="870" secondAttribute="baseline" id="gAy-RI-1di"/>
                 <constraint firstItem="870" firstAttribute="top" secondItem="866" secondAttribute="bottom" constant="20" id="gR0-Jn-NjD"/>
+                <constraint firstAttribute="trailing" secondItem="heP-7k-89X" secondAttribute="trailing" constant="20" id="h11-Y2-lza"/>
                 <constraint firstItem="1152" firstAttribute="leading" secondItem="855" secondAttribute="leading" id="hKU-vr-6MB"/>
-                <constraint firstItem="914" firstAttribute="top" secondItem="heP-7k-89X" secondAttribute="bottom" constant="8" id="hPo-eP-6V7"/>
-                <constraint firstItem="869" firstAttribute="leading" secondItem="913" secondAttribute="leading" id="qkv-6d-naT"/>
+                <constraint firstItem="913" firstAttribute="trailing" secondItem="916" secondAttribute="trailing" id="m6D-vB-ae2"/>
+                <constraint firstItem="FCr-HN-HHj" firstAttribute="trailing" secondItem="916" secondAttribute="trailing" id="qYj-7w-5HW"/>
                 <constraint firstItem="916" firstAttribute="baseline" secondItem="915" secondAttribute="baseline" id="sm9-cF-Y8l"/>
-                <constraint firstItem="913" firstAttribute="baseline" secondItem="914" secondAttribute="baseline" id="ujl-mz-SxD"/>
                 <constraint firstItem="1153" firstAttribute="top" secondItem="1155" secondAttribute="top" constant="2" id="ulN-Ui-YAj"/>
-                <constraint firstItem="871" firstAttribute="leading" secondItem="914" secondAttribute="leading" id="x20-s2-JEV"/>
                 <constraint firstItem="872" firstAttribute="width" secondItem="870" secondAttribute="width" id="yk9-aa-oZl"/>
                 <constraint firstItem="916" firstAttribute="width" secondItem="867" secondAttribute="width" id="zW3-Pz-ELb"/>
             </constraints>

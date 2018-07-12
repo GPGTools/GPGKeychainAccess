@@ -78,7 +78,9 @@
 @property (nonatomic, weak) IBOutlet NSView *progressView;
 @property (nonatomic, weak) IBOutlet NSView *genNewKeyView;
 @property (nonatomic, weak) IBOutlet NSView *genNewKey_advancedSubview;
+@property (nonatomic, weak) IBOutlet NSView *genNewKey_confirmPasswordSubview;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *genNewKey_advancedConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *genNewKey_confirmPasswordConstraint;
 @property (nonatomic, weak) IBOutlet NSView *generateSubkeyView;
 @property (nonatomic, weak) IBOutlet NSView *generateUserIDView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *generateUserID_CommentConstraint;
@@ -855,6 +857,10 @@
 	if ([_passphrase isEqualToString:value]) {
 		return;
 	}
+	if (self.genNewKey_confirmPasswordConstraint.constant == 0) {
+		[self showConfirmPassword:YES animate:YES];
+	}
+	
 	_passphrase = value;
 
 	if (_passphrase.length == 0 || _passphrase.UTF8Length > 255) {
@@ -926,9 +932,12 @@
 			[_sheetWindow setContentView:value];
 			
 			static BOOL	newKeyViewInitialized = NO;
-			if (!newKeyViewInitialized && value == _genNewKeyView) {
-				[self showAdvanced:NO animate:NO];
-				newKeyViewInitialized = YES;
+			if (value == _genNewKeyView) {
+				[self showConfirmPassword:NO animate:NO];
+				if (!newKeyViewInitialized) {
+					[self showAdvanced:NO animate:NO];
+					newKeyViewInitialized = YES;
+				}
 			}
 			
 			
@@ -1192,6 +1201,45 @@
 	}
 	[NSAnimationContext endGrouping];
 }
+
+- (void)showConfirmPassword:(BOOL)show animate:(BOOL)animate {
+	static NSUInteger fullHeight = 0;
+	NSLayoutConstraint *constraint;
+	
+	[NSAnimationContext beginGrouping];
+	
+	if (show) {
+		[[NSAnimationContext currentContext] setCompletionHandler:^{
+			[self.sheetWindow recalculateKeyViewLoop];
+		}];
+	}
+	
+	
+	if (animate) {
+		constraint = self.genNewKey_confirmPasswordConstraint.animator;
+	} else {
+		constraint = self.genNewKey_confirmPasswordConstraint;
+	}
+	
+	if (fullHeight == 0) {
+		fullHeight = constraint.constant;
+	}
+	
+	if (show == NO) {
+		[self.sheetWindow endEditingFor:nil];
+	}
+	
+	constraint.constant = show ? fullHeight : 0;
+	
+	for (NSControl *subview in self.genNewKey_confirmPasswordSubview.subviews) {
+		if ([subview respondsToSelector:@selector(setEnabled:)]) {
+			subview.enabled = show;
+		}
+	}
+	[NSAnimationContext endGrouping];
+}
+
+
 
 
 - (void)prepareVolumeCollection {
