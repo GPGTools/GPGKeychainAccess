@@ -1063,7 +1063,7 @@
 }
 
 - (void)setStandardExpirationDates {
-	//Setzt minExpirationDate einen Tag in die Zukunft.
+	//Setzt minExpirationDate 7 Tage in die Zukunft.
 	//Setzt maxExpirationDate 500 Jahre in die Zukunft.
 	//Setzt expirationDate 4 Jahre in die Zukunft.
 	
@@ -1071,7 +1071,7 @@
 	NSCalendar *calendar = [NSCalendar currentCalendar];
 	NSDate *curDate = [NSDate date];
 	
-	[dateComponents setDay:1];
+	[dateComponents setDay:7];
 	self.minExpirationDate = [calendar dateByAddingComponents:dateComponents toDate:curDate options:0];
 	[dateComponents setDay:0];
 	
