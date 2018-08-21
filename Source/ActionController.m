@@ -982,7 +982,11 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 			template = @"DeleteSecKey";
 		}
 	} else {
-		template = @"DeleteKey";
+		if (publicKeys.count == 1) {
+			template = @"DeleteKey";
+		} else {
+			template = @"DeleteKeys";
+		}
 	}
 	
 	
