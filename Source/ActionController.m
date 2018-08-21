@@ -1586,7 +1586,7 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 				if ([NSThread isMainThread]) {
 					block();
 				} else {
-					dispatch_async(dispatch_get_main_queue(), block);
+					dispatch_sync(dispatch_get_main_queue(), block);
 				}
 			}
 		}];
@@ -2251,7 +2251,7 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 	if ([NSThread isMainThread]) {
 		block();
 	} else {
-		dispatch_async(dispatch_get_main_queue(), block);
+		dispatch_sync(dispatch_get_main_queue(), block);
 	}
 
 }
