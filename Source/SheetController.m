@@ -1122,6 +1122,7 @@
 		// Get name and email-addresses from Mail via ScriptingBridge.
 		@try {
 			MailApplication *mail = [SBApplication applicationWithBundleIdentifier:@"com.apple.Mail"];
+			mail.timeout = EV_TICKS_PER_SEC / 2;
 			if (mail.running) {
 				SBElementArray *accounts = [mail accounts];
 				for (MailAccount *account in accounts) {

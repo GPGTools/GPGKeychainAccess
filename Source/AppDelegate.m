@@ -325,6 +325,7 @@
 }
 - (IBAction)sendReport:(id)sender {
 	SBSystemPreferencesApplication *systemPrefs = [SBApplication applicationWithBundleIdentifier:@"com.apple.systempreferences"];
+	systemPrefs.timeout = EV_TICKS_PER_SEC * 3;
 	SBElementArray *panes = systemPrefs.panes;
 	SBSystemPreferencesPane *gpgPane = nil;
 	BOOL success = NO;
