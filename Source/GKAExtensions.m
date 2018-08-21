@@ -71,6 +71,19 @@
 	return numberOfLines;
 }
 
+- (NSComparisonResult)gkCompare:(NSString *)string {
+	NSUInteger lengthA = self.length;
+	NSUInteger lengthB = string.length;
+	if (lengthA == 0 && lengthB == 0) {
+		return NSOrderedSame;
+	} else if (lengthA == 0) {
+		return NSOrderedDescending;
+	} else if (lengthB == 0) {
+		return NSOrderedAscending;
+	}
+	return [self compare:string];
+}
+
 @end
 
 @implementation NSNumber (GKA_Extension)
@@ -393,23 +406,6 @@
 - (id)getIvar:(id)key {
     return objc_getAssociatedObject(self, (__bridge const void *)(key));
 }
-- (NSString *)textForFilter {
-	dispatch_semaphore_wait(_textForFilterOnce, DISPATCH_TIME_FOREVER);
-	if(!_textForFilter) {
-		NSMutableString *textForFilter = [[NSMutableString alloc] init];
-		for(GPGKey *key in [self.subkeys arrayByAddingObject:self]) {
-			[textForFilter appendFormat:@"0x%@\n0x%@\n0x%@\n", key.fingerprint, key.keyID, [key.keyID shortKeyID]];
-		}
-		for(GPGUserID *userID in self.userIDs)
-			[textForFilter appendFormat:@"%@\n", userID.fullUserIDDescription];
-		_textForFilter = [textForFilter copy];
-	}
-	dispatch_semaphore_signal(_textForFilterOnce);
-	
-	return _textForFilter;
-}
-
-
 
 @end
 
@@ -457,13 +453,17 @@
 		return localized(@"PhotoID");
 	}
 }
-- (BOOL)isUat {
-	return !_userIDDescription;
-}
 
 @end
 
 @implementation GPGUserIDSignature (GKAExtension)
+- (NSString *)name {
+	NSString *name = self.primaryKey.name;
+	if (!name) {
+		return @"";
+	}
+	return name;
+}
 - (NSString *)type {
 	NSString *classString = (self.signatureClass & 3) ? [NSString stringWithFormat:@" %i", (self.signatureClass & 3)] : @"";
 	NSString *typeString = self.revocation ? @"rev" : @"sig";
