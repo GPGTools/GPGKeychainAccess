@@ -46,10 +46,6 @@ CheckAlert_PassphraseSimple_Button2 = "Masukkan kata sandi baru";
 CheckAlert_PassphraseTooLong_Title = "Kata sandi terlalu panjang";
 CheckAlert_PassphraseTooLong_Message = "Kata sandi yang Anda masukkan terlalu panjang. Masukkan suatu kata sandi yang kurang dari %1$i karakter.\n\nPerhatian: Bila kata sandi Anda mengandung karakter khusus Anda mungkin tidak bisa memakai karakter %1$i.";
 
-CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
-CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
-
-
 
 MoveSecring_Msg = "Kunci-kunci rahasia Anda saat ini berada pada \"%@\".\nUntuk memindah kunci Anda ke volume lain, pilih volume target di bawah.";
 
@@ -213,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "Unggah Kunci Publik";
 RevokedSubkeyWantToUpload_No = "Tidak, Terima Kasih!";
 
 UserIDsSignedWantToUpload_Title = "Signing successful";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "Unggah Kunci Publik";
 UserIDsSignedWantToUpload_No = "Tidak, Terima Kasih!";
 
@@ -221,10 +217,16 @@ UserIDsSignedWantToUpload_No = "Tidak, Terima Kasih!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Hapus kunci publik";
-DeleteKey_Msg = "Anda akan menghapus kunci publik berikut:\n\n%@\n\nAnda yakin hendak menghapus kunci publik tersebut?";
-DeleteKey_Yes = "Hapus kunci";
+DeleteKey_Title = "Delete public key";
+DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Yes = "Delete key";
 DeleteKey_No = "Batal";
+
+DeleteKeys_Title = "Delete public keys";
+DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Yes = "Delete keys";
+DeleteKeys_No = "Batal";
+
 
 DeleteSecKey_Title = "Peringatan: Anda akan menghapus kunci publik dan rahasia";
 DeleteSecKey_Msg = "Anda akan menghapus kunci berikut:\n\n%@\n\nMenghapus sebuah kunci rahasia memiliki konsekuensi besar. Sekali dihapus, mendekripsi pesan dengan kunci ini tidak akan mungkin. Ini menyangkut semua pesan yang dienkripsi dengan kunci ini.\n\nKami sarankan untuk tidak menghapusnya.\n\nUntuk mengkomunikasikan ini ke orang lain bahwa kunci ini tak dipakai lagi, Anda mesti mencabut kunci sebagai ganti dari menghapusnya dan mengunggah kunci yang dicabut ke server kunci. Bila tidak orang lain mungkin masih memakai kunci ini untuk mengenkripsi pesan kepada Anda.";

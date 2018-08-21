@@ -46,10 +46,6 @@ CheckAlert_PassphraseSimple_Button2 = "Skriv inn nytt passord";
 CheckAlert_PassphraseTooLong_Title = "Passordet er for langt";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
 
-CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
-CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
-
-
 
 MoveSecring_Msg = "Dine hemmelige nøkler befinner seg nå på \"%@\".\nFor å flytte dine hemmelige nøkler til en annen disk, velg mål-disken nedenfor.";
 
@@ -213,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "Last opp offentlig nøkkel";
 RevokedSubkeyWantToUpload_No = "Nei takk!";
 
 UserIDsSignedWantToUpload_Title = "Signing successful";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "Last opp offentlig nøkkel";
 UserIDsSignedWantToUpload_No = "Nei takk!";
 
@@ -221,10 +217,16 @@ UserIDsSignedWantToUpload_No = "Nei takk!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Slett offentlig nøkkel/nøkler";
-DeleteKey_Msg = "Du er i ferd med å slette følgende offentlige nøkkel/nøkler:\n\n%@\n\nEr du sikker på at du vil slette den offentlige nøkkelen/nøklene?";
-DeleteKey_Yes = "Slett nøkkel/nøkler";
+DeleteKey_Title = "Delete public key";
+DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Yes = "Delete key";
 DeleteKey_No = "Avbryt";
+
+DeleteKeys_Title = "Delete public keys";
+DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Yes = "Delete keys";
+DeleteKeys_No = "Avbryt";
+
 
 DeleteSecKey_Title = "Advarsel: Du er i ferd med å slette dine hemmelige og offentlige nøkler";
 DeleteSecKey_Msg = "Du er i ferd med å slette nøkkelen/nøklene:\n\n%@\n\nSletting av en hemmelig nøkkel har store konsekvenser. Når den først er slettet vil dekryptering av meldinger med denne nøkkelen ikke lenger være mulig. Dette har innvirkning på alle meldinger som ble kryptert til denne nøkkelen.\n\nDet anbefales ikke å slette den.\n\nFor å kommunisere med andre at din nøkkel ikke lenger er i bruk, burde du tilbakekalle nøkkelen i steden for å slette den og laste opp den tilbakekalte nøkkelen til nøkkeltjenerne. Ellers kan det hende at andre fremdeles vil bruke denne nøkkelen til å kryptere meldinger til deg.";

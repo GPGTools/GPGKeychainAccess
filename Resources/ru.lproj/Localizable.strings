@@ -17,50 +17,46 @@
 
 /* Key descriptions */
 "and" = "и";
-KeyDescriptionAndMore = "%1$@ и %2$lu ещё";
+KeyDescriptionAndMore = "%1$@ и %2$lu еще";
 SecretAndPublicKeyListing = "Секретные ключи:\n\n%@\n\nПубличные ключи:\n\n%@";
 
 
 /* For export, as standard File-Name. */
 "untitled" = "Без имени";
-"%@ Revoke certificate" = "%@ Revocation certificate";
+"%@ Revoke certificate" = "%@ Сертификат отзыва";
 ExportKeysFilename = "%@ %u ключи OpenPGP";
-ExportPublicKeyFilename = "%@ – Public";
-ExportSecretKeyFilename = "%@ – Secret";
+ExportPublicKeyFilename = "1%@ - Публичный";
+ExportSecretKeyFilename = "1%@ - Секретный";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No password";
-CheckAlert_NoPassphrase_Message = "You have entered no password. This is not recommended. Passwords should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Button1= "Continue without a password";
-CheckAlert_NoPassphrase_Button2 = "Enter new password";
-CheckAlert_PassphraseShort_Title = "Short password";
-CheckAlert_PassphraseShort_Message = "You have entered a short password. This is not recommended. A password should at least be 8 characters long.";
-CheckAlert_PassphraseShort_Button1= "Continue with short password";
-CheckAlert_PassphraseShort_Button2 = "Enter new password";
-CheckAlert_PassphraseSimple_Title = "Simple password";
-CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
-CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
-CheckAlert_PassphraseSimple_Button2 = "Enter new password";
+CheckAlert_NoPassphrase_Title = "Без пароля";
+CheckAlert_NoPassphrase_Message = "Вы не ввели пароль. Не рекомендуется использовать такой вариант. Пароль должен быть не менее 8 символов.";
+CheckAlert_NoPassphrase_Button1= "Продолжить без пароля";
+CheckAlert_NoPassphrase_Button2 = "Введите новый пароль";
+CheckAlert_PassphraseShort_Title = "Короткий пароль";
+CheckAlert_PassphraseShort_Message = "Вы не ввели пароль. Не рекомендуется использовать такой вариант. Пароль должен быть не менее 8 символов.";
+CheckAlert_PassphraseShort_Button1= "Продолжить с коротким паролем";
+CheckAlert_PassphraseShort_Button2 = "Введите новый пароль";
+CheckAlert_PassphraseSimple_Title = "Простой пароль";
+CheckAlert_PassphraseSimple_Message = "Вы ввели слишком простой пароль. Хороший пароль должен содержать буквы, цифры и хотя бы один специальный символ.";
+CheckAlert_PassphraseSimple_Button1 = "Продолжить с простым паролем";
+CheckAlert_PassphraseSimple_Button2 = "Введите новый пароль";
 
-CheckAlert_PassphraseTooLong_Title = "Password too long";
-CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
-
-CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
-CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
-
+CheckAlert_PassphraseTooLong_Title = "Пароль слишком длинный";
+CheckAlert_PassphraseTooLong_Message = "Вы ввели слишком длинный пароль. Введите пароль длиной менее %1$i символов. \n\nВнимание: Если в вашем пароле есть специальные символы, то возможно вы не сможете использовать %1$i символов.";
 
 
 MoveSecring_Msg = "Ваши секретные ключи в настоящее время находятся на \"%@\".\nДля перемещения ваших секретных ключей на другой том, выберите целевой том ниже.";
 
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "Ключи не найдены";
-KeySearch_ImportResults_Title = "Import successful";
+KeySearch_ImportResults_Title = "Импортирование успешно";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), создан: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Осуществляется поиск на серверах. Это может занять некоторое время. Пожалуйста, подождите.";
 
-GenerateKey_ProgressTitle = "Key creation in progress…";
-GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
+GenerateKey_ProgressTitle = "Ключи в процессе создания...";
+GenerateKey_Progress = "Ваш новый ключ в процессе создания. Это может занять какое-то время, так что можете пока размять ноги.";
 GenerateSubkey_Msg = "Add subkey to the following key:\n%@ %@";
 GenerateUserID_Msg = "Add email address (user ID) to the following key:\n%@ %@";
 GenerateSignature_Msg = "Подписывая ключ, вы подтверждаете, что данные о его владельце верны.\nБудучи загруженной на сервер, подпись будет видна всем пользователям.\nТак, если вы подписали ключ Пети, то ваша знакомая Катя, доверяя вашей подписи, сможет быть уверена, что ключ действительно принадлежит Пете.\n\nВы собираетесь подписать следующий ключ:\n%@";
@@ -97,14 +93,14 @@ UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown e
 /* Mail public key */
 MailKey_Subject = "Public key of %@";
 MailKey_Subject_Your = "Мой публичный ключ для защиты наших сообщений";
-MailKey_Message = "Привет,\n\nво вложении вы найдёте открытый ключ\n\n%@\n\nВы можете использовать этот ключ для шифрования и защиты сообщений при записи%@.\n\nДля того, чтобы начать использовать его, вам необходимо установить программное обеспечение OpenPGP на вашем компьютере. Ниже вы найдёте список возможных решений для вашей операционной системы:\n\n%@\n\nПожалуйста, импортируйте открытый ключ в свой локальный менеджер ключей OpenPGP.\n\nС уважением";
-MailKey_Message_Your = "Привет,\n\nВо вложении вы найдёте свой открытый ключ\n\n%@\n\nВы можете использовать этот ключ для шифрования и защиты наших сообщений.\n\nДля того, чтобы начать использовать его, вам необходимо установить программное обеспечение OpenPGP на вашем компьютере. Ниже вы найдете список возможных решений для вашей операционной системы:\n\n%@\n\nПожалуйста, импортируйте открытый ключ в свой локальный менеджер ключей OpenPGP.\n\nС нетерпением жду обмена сообщениями с вами, свободными от слежки.\n\nС уважением";
+MailKey_Message = "Привет,\n\nво вложении вы найдете открытый ключ, принадлежащий\n\n%@\n\nВы можете использовать этот ключ для шифрования и защиты сообщений при отправке сообщений %@.\n\nДля того, чтобы начать использовать его, вам необходимо установить программное обеспечение OpenPGP на вашем компьютере. Ниже вы найдете список возможных решений для вашей операционной системы:\n\n%@\n\nПожалуйста, импортируйте открытый ключ в свой локальный менеджер ключей OpenPGP.\n\nС уважением";
+MailKey_Message_Your = "Привет,\n\nВо вложении вы найдете мой открытый ключ\n\n%@\n\nВы можете использовать этот ключ для шифрования и защиты наших сообщений.\n\nДля того, чтобы начать использовать его, вам необходимо установить программное обеспечение OpenPGP на вашем компьютере. Ниже вы найдете список возможных решений для вашей операционной системы:\n\n%@\n\nПожалуйста, импортируйте открытый ключ в свой локальный менеджер ключей OpenPGP.\n\nС нетерпением жду безопасного обмена сообщениями с вами.\n\nС уважением";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Создаётся новая почта...";
-MailKey_Progress_Your = "Создаётся новая почта...";
+MailKey_Progress = "Создается новая почта...";
+MailKey_Progress_Your = "Создается новая почта...";
 MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected";
-MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Вы выбрали непригодный ключ. Такие ключи не могут быть отправлены по электронной почте. Пожалуйста, обновите ключ из сервера ключей, проверив был ли он обновлён.\n\nВ противном случае войти в контакт с владельцем ключа и сообщите ему о состоянии ключа.\n\n%@";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Вы выбрали непригодный ключ. Такие ключи не могут быть отправлены по электронной почте. Пожалуйста, обновите ключ из сервера ключей, проверив был ли он обновлен.\n\nВ противном случае войти в контакт с владельцем ключа и сообщите ему о состоянии ключа.\n\n%@";
 
 
 /* A key was found in the pasteboard */
@@ -144,7 +140,7 @@ RevokeSubkey_Yes = "Аннулировать Subkey";
 RevokeSubkey_No = "Отмена";
 
 RevokeSignature_Title = "Аннулировать подпись";
-RevokeSignature_Msg = "Отзыв вашей подписи пометит её как отозванную. Используйте эту опцию, если вы считаете, что ключ был украден у владельца ключа, и что первоначальный владелец больше не имеет ключа под его контролем. Если вы ранее загрузили подпись на сервер ключей, пожалуйста, загрузите обновлённый ключ на сервер ключей, чтобы другие были осведомлены, что ваша подпись была отозвана.";
+RevokeSignature_Msg = "Отзыв вашей подписи пометит ее как отозванную. Используйте эту опцию, если вы считаете, что ключ был украден у владельца ключа, и что первоначальный владелец больше не имеет ключа под его контролем. Если вы ранее загрузили подпись на сервер ключей, пожалуйста, загрузите обновленный ключ на сервер ключей, чтобы другие были осведомлены, что ваша подпись была отозвана.";
 RevokeSignature_Yes = "Аннулировать подпись";
 RevokeSignature_No = "Отмена";
 
@@ -213,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "Upload Public Key";
 RevokedSubkeyWantToUpload_No = "No, Thanks!";
 
 UserIDsSignedWantToUpload_Title = "Signing successful";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "Upload Public Key";
 UserIDsSignedWantToUpload_No = "No, Thanks!";
 
@@ -221,10 +217,16 @@ UserIDsSignedWantToUpload_No = "No, Thanks!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Удалить публичный ключ/ключи";
-DeleteKey_Msg = "Удаление следующих публичных ключей:\n\n%@.\n\nВы уверены, что хотите удалить эти публичные ключи?";
-DeleteKey_Yes = "Удалить ключ/ключи";
+DeleteKey_Title = "Удалить публичный ключ";
+DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Yes = "Удалить ключ";
 DeleteKey_No = "Отмена";
+
+DeleteKeys_Title = "Удалить публичные ключи";
+DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Yes = "Удалить ключи";
+DeleteKeys_No = "Отмена";
+
 
 DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
 DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
@@ -234,7 +236,7 @@ DeleteSecKey_SecOnly = "Удалить только секретный ключ/
 DeleteSecKey_No = "Отмена";
 
 DeleteRevokedSecKey_Title = "Внимание: Вы собираетесь удалить отозванную пару ключей";
-DeleteRevokedSecKey_Msg = "Вы собираетесь удалить следующие отозванные пары ключей:\n\n%@\n\nОтозванные ключи всё ещё в состоянии расшифровать старые сообщения, зашифрованные с помощью этих ключей.\n\nМы рекомендуем не удалять их.";
+DeleteRevokedSecKey_Msg = "Вы собираетесь удалить следующие отозванные пары ключей:\n\n%@\n\nОтозванные ключи все еще в состоянии расшифровать старые сообщения, зашифрованные с помощью этих ключей.\n\nМы рекомендуем не удалять их.";
 DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteRevokedSecKey_Yes = "Удалить свои пары ключей";
 DeleteRevokedSecKey_SecOnly = "Удалить только секретный ключ/ключи";

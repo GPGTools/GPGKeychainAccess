@@ -46,10 +46,6 @@ CheckAlert_PassphraseSimple_Button2 = "Ange nytt lösenord";
 CheckAlert_PassphraseTooLong_Title = "Lösenord för långt";
 CheckAlert_PassphraseTooLong_Message = "Lösenordet som du angivit är för långt. Ange ett lösenord med färre än%1$i tecken.\n\nOBS: Om ditt lösenord innehåller speciella tecken kan du inte använda %1$i tecken.";
 
-CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
-CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
-
-
 
 MoveSecring_Msg = "Dina privata nycklar finns för närvarande på \"%@\".\nFör att flytta dina privata nycklar till en annan volym markerar du målvolymen nedan.";
 
@@ -213,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "Ladda upp publik nyckel";
 RevokedSubkeyWantToUpload_No = "Nej tack!";
 
 UserIDsSignedWantToUpload_Title = "Signeringen lyckades";
-UserIDsSignedWantToUpload_Msg = "För att göra det lättare för dina vänner att hitta nya signaturer, rekommenderas att du laddar upp den signerade publika nyckeln till nyckelservrarna..\n\nVill du ladda upp din publika nyckel?";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "Ladda upp publik nyckel";
 UserIDsSignedWantToUpload_No = "Nej tack!";
 
@@ -221,10 +217,16 @@ UserIDsSignedWantToUpload_No = "Nej tack!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Radera publik(a) nyckel/nycklar";
-DeleteKey_Msg = "Du kommer att radera följande publika nycklar:\n\n%@\n\nÄr du säker på att du vill radera dessa publika nycklar?";
-DeleteKey_Yes = "Radera nyckel/nycklar";
+DeleteKey_Title = "Radera publik nyckel";
+DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Yes = "Radera nyckel";
 DeleteKey_No = "Avbryt";
+
+DeleteKeys_Title = "Radera publika nycklar";
+DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Yes = "Radera nycklar";
+DeleteKeys_No = "Avbryt";
+
 
 DeleteSecKey_Title = "Varning! Du kommer att radera privata och publika nycklar";
 DeleteSecKey_Msg = "Du kommer att radera nycklarna:\n\n%@\n\nAtt radera en privat nyckel har allvarliga konsekvenser. När den raderats kommer det inte längre vara möjligt att dekryptera meddelanden med denna nyckel. Detta rör samtliga meddelanden som krypterades med denna nyckel.\n\nVi rekommenderar att den inte raderas.\n\nFör att uppmärksamma andra att denna nyckel inte längre används, bör du återkalla nyckeln istället för att radera den och ladda upp den återkallade nyckeln till nyckelservrarna. Annars kommer andra kanske att använda denna nyckel för att kryptera meddelanden till dig.";

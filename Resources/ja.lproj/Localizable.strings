@@ -46,10 +46,6 @@ CheckAlert_PassphraseSimple_Button2 = "新しいパスワードを入力";
 CheckAlert_PassphraseTooLong_Title = "パスワードが長ぎます";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
 
-CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
-CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
-
-
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
@@ -213,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "公開鍵をアップロード";
 RevokedSubkeyWantToUpload_No = "不要です";
 
 UserIDsSignedWantToUpload_Title = "Signing successful";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "公開鍵をアップロード";
 UserIDsSignedWantToUpload_No = "不要です";
 
@@ -221,10 +217,16 @@ UserIDsSignedWantToUpload_No = "不要です";
 
 
 /* Delete warnings */
-DeleteKey_Title = "公開鍵を削除";
-DeleteKey_Msg = "以下の公開鍵を削除しようとしています:\n\n%@\n\n公開鍵を削除してもよろしいですか？";
-DeleteKey_Yes = "鍵を削除";
+DeleteKey_Title = "Delete public key";
+DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Yes = "Delete key";
 DeleteKey_No = "キャンセル";
+
+DeleteKeys_Title = "Delete public keys";
+DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Yes = "Delete keys";
+DeleteKeys_No = "キャンセル";
+
 
 DeleteSecKey_Title = "警告: 秘密鍵と公開鍵を削除しようとしています";
 DeleteSecKey_Msg = "鍵を削除しようとしてます:\n\n%@\n\n秘密鍵を削除すると大きな影響があります。一度削除してしまうと、この鍵でメッセージを復号化することはできなくなります。これは、この鍵に暗号化されたすべてのメッセージに影響します。\n\n削除しないことをおすすめします。\n\nこの鍵がもう使用されていないことを他の人に伝えるには、鍵を削除せずに鍵を失効させ、失効させた鍵をサーバーにアップロードすべきです。そうしないと、他の人がこの鍵に暗号化したメッセージをあなたに送るかもしれません。";

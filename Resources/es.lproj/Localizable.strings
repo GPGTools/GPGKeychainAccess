@@ -46,10 +46,6 @@ CheckAlert_PassphraseSimple_Button2 = "Introducir nueva contraseña";
 CheckAlert_PassphraseTooLong_Title = "Contraseña demasiado larga";
 CheckAlert_PassphraseTooLong_Message = "La contraseña que introdujo es demasiado larga. Introduzca una contraseña con menos de %1$i caracteres.\n\nAtención: Si su contraseña incluye caracteres especiales tal vez no pueda usar los caracteres %1$i.";
 
-CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
-CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
-
-
 
 MoveSecring_Msg = "Sus claves secretas (privadas) residen actualmente en \"%@\".\nPara mover sus claves secretas a otro volumen, seleccione el volumen objetivo debajo.";
 
@@ -213,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "Subir clave pública";
 RevokedSubkeyWantToUpload_No = "¡No, gracias!";
 
 UserIDsSignedWantToUpload_Title = "Firmado completado";
-UserIDsSignedWantToUpload_Msg = "Para facilitar que sus amigos tengan conocimiento de la nueva firma, se recomienda subir la clave pública firmada a los servidores de claves.\n\n¿Quiere subir su clave pública?";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "Subir clave pública";
 UserIDsSignedWantToUpload_No = "¡No, gracias!";
 
@@ -221,10 +217,16 @@ UserIDsSignedWantToUpload_No = "¡No, gracias!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Borrar clave(s) pública(s)";
-DeleteKey_Msg = "Está a punto de borrar la(s) siguiente(s) clave(s) pública(s):\n\n%@\n\n¿Está seguro de que quiere borrar la(s) clave(s) pública(s)?";
-DeleteKey_Yes = "Borrar clave(s)";
+DeleteKey_Title = "Borrar clave pública";
+DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Yes = "Borrar clave";
 DeleteKey_No = "Cancelar";
+
+DeleteKeys_Title = "Borrar claves públicas";
+DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Yes = "Borrar claves";
+DeleteKeys_No = "Cancelar";
+
 
 DeleteSecKey_Title = "Advertencia: Está a punto de borrar las claves secreta/privada y pública";
 DeleteSecKey_Msg = "Está a punto de borrar las claves:\n\n%@\n\nBorrar una clave secreta/privada tiene consecuencias importantes. Una vez borrada, ya no será posible descifrar mensajes con esta clave. Esto afecta a todos los mensajes que fueron cifrados para esta clave.\n\nNosotros recomendamos no borrarla.\n\nPara comunicar a otros que esta clave ya no está en uso, en lugar de borrarla, debe revocar la clave y subir la clave revocada a los servidores de claves. De otro modo, otros aún podrían usar esta clave para cifrar mensajes para usted.";

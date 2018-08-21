@@ -23,68 +23,64 @@ SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
 
 /* For export, as standard File-Name. */
 "untitled" = "未命名";
-"%@ Revoke certificate" = "%@ Revocation certificate";
+"%@ Revoke certificate" = "%@ 吊销用证书";
 ExportKeysFilename = "%@ %u OpenPGP 密钥";
-ExportPublicKeyFilename = "%@ – Public";
-ExportSecretKeyFilename = "%@ – Secret";
+ExportPublicKeyFilename = "%@ 公开";
+ExportSecretKeyFilename = "%@ 私密";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No password";
-CheckAlert_NoPassphrase_Message = "You have entered no password. This is not recommended. Passwords should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Button1= "Continue without a password";
-CheckAlert_NoPassphrase_Button2 = "Enter new password";
-CheckAlert_PassphraseShort_Title = "Short password";
-CheckAlert_PassphraseShort_Message = "You have entered a short password. This is not recommended. A password should at least be 8 characters long.";
-CheckAlert_PassphraseShort_Button1= "Continue with short password";
-CheckAlert_PassphraseShort_Button2 = "Enter new password";
-CheckAlert_PassphraseSimple_Title = "Simple password";
-CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
-CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
-CheckAlert_PassphraseSimple_Button2 = "Enter new password";
+CheckAlert_NoPassphrase_Title = "没有密码";
+CheckAlert_NoPassphrase_Message = "您没有输入密码。我们并不推荐这么做。口令应该至少含有8个字符。";
+CheckAlert_NoPassphrase_Button1= "不使用密码，继续";
+CheckAlert_NoPassphrase_Button2 = "输入新的密码";
+CheckAlert_PassphraseShort_Title = "短密码";
+CheckAlert_PassphraseShort_Message = "您输入了短口令。我们并不推荐您这么做。口令应该至少含有8个字符。";
+CheckAlert_PassphraseShort_Button1= "使用短密码，继续";
+CheckAlert_PassphraseShort_Button2 = "输入新的密码";
+CheckAlert_PassphraseSimple_Title = "简单密码";
+CheckAlert_PassphraseSimple_Message = "您输入的密码太简单了。密码应当包含字母、数字以及至少一个特殊字符。";
+CheckAlert_PassphraseSimple_Button1 = "使用简单密码，继续";
+CheckAlert_PassphraseSimple_Button2 = "输入新的密码";
 
-CheckAlert_PassphraseTooLong_Title = "Password too long";
-CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
-
-CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
-CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
-
+CheckAlert_PassphraseTooLong_Title = "密码过长";
+CheckAlert_PassphraseTooLong_Message = "您所输入的密码过长，请输入不多于 %1$i 个字符。注意：如果您的密码包含特殊字符，您可能不能使用 %1$i 字符。";
 
 
 MoveSecring_Msg = "您的私钥当前位于 \"%@\"。\n要将私钥移动至其它卷，请在下方选择目标卷。";
 
 /* For Key-Search */
-KeySearch_NoKeysFound_Title = "No keys found";
-KeySearch_ImportResults_Title = "Import successful";
+KeySearch_NoKeysFound_Title = "未发现密匙";
+KeySearch_ImportResults_Title = "导入成功";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit)，已创建：%@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "我们正在密匙服务器上搜索匹配的密匙。可能需要花费一些时间，请耐心等待！";
 
-GenerateKey_ProgressTitle = "Key creation in progress…";
-GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
-GenerateSubkey_Msg = "Add subkey to the following key:\n%@ %@";
-GenerateUserID_Msg = "Add email address (user ID) to the following key:\n%@ %@";
+GenerateKey_ProgressTitle = "正在创建密钥…";
+GenerateKey_Progress = "您的密钥正在创建中。这个可能需要一分钟左右";
+GenerateSubkey_Msg = "增加子匙到公匙\"%@\", %@。";
+GenerateUserID_Msg = "增加电邮地址到下列公钥：%@%@";
 GenerateSignature_Msg = "签署密钥意味着：您将确认该密钥的主人确实是那个人。\n签名一旦上传，便可被其他人看到。\n因此，如果您签署了鲍勃的密钥，而您的朋友爱丽丝不确定这个鲍勃就是那个真正的鲍勃。这时爱丽丝会在鲍勃的密钥中查看你的签名，因为她知道你的密钥是可以信赖的。这样她便可以知道这个鲍勃极有可能就是那个真正的鲍勃。\n\n您将要签署以下密钥：\n%@";
-GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
-ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
-ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
+GenerateUidSignature_Msg = "签署用户 ID 意味着：您将确认该密钥的主人确实是那个人。\n签名一旦上传，便可被其他人看到。\n因此，如果您签署了鲍勃的密钥，而您的朋友爱丽丝不确定这个鲍勃就是那个真正的鲍勃。这时爱丽丝会在鲍勃的密钥中看到有你的签名，因为她知道你的密钥是可以信赖的。这样她便可以知道这个鲍勃极有可能就是那个真正的鲍勃。\n\n您将要签署以下用户 ID：\n%@";
+ChangeExpirationDate_Msg = "您即将更改下列公钥的有效期：\n\n%1$@";
+ChangeSubkeyExpirationDate_Msg = "您即将更改下列子钥的有效期：\n\n%1$@";
 
-GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "呃，发生了错误。创建密匙过程中碰到了问题。";
 
 /* Message for incorrect Entries */
-CheckError_NameToLong = "姓名太长！";
+CheckError_NameToLong = "姓名过长！";
 CheckError_InvalidCharInName = "姓名中有非法字符！⏎\"<\" 与 \">\" 不被允许。";
-CheckError_InvalidEmail = "非法的电子邮件地址！";
+CheckError_InvalidEmail = "不是一个有效的电邮地址！";
 CheckError_EmailToLong = "电子邮件地址过长！\n最大长度为 254 个字符。";
 CheckError_InvalidCharInComment = "注释中有非法字符！⏎ \"(\" 与 \")\" 不被允许。";
-CheckError_CommentToLong = "注释太长！";
+CheckError_CommentToLong = "注释过长！";
 CheckError_NoKeyID = "请输入合法的密匙标识！";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG没有找到";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
-GPG_CONFIG_ERROR_TITLE = "GPG配置错误";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_NOT_FOUND_MESSAGE = "哦，出现了错误。您的系统上似乎没有安装 GPG。请从 https://www.gpgtools.org 下载重新安装 GPG 套件。";
+GPG_CONFIG_ERROR_TITLE = "GPG 配置错误";
+GPG_CONFIG_ERROR_MESSAGE = "哦，出现了错误。虽然在您的系统中找到了 GPG 但配置文件似乎存在问题。请访问 https://gpgtools.tenderapp.com 与我们联系。\n\n详情：%@";
 LIBMACGPG_NOT_FOUND_TITLE = "未找到 libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
@@ -99,16 +95,16 @@ MailKey_Subject = "%@ 的公钥";
 MailKey_Subject_Your = "My public key to secure our messages";
 MailKey_Message = "您好，\n\n在此附件中您可找到\n\n%@ 的公钥\n\n您可以使用此公钥将写给 %@ 的消息安全加密。\n\n要开始使用该公钥，您的计算机需要安装 OpenPGP。您可在下方找到针对你系统的可能安装方案：\n\n%@\n\n请将此公钥导入到你本地的 OpenPGP 密钥管理器中。\n\n此致";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "正在创建新邮件...";
 MailKey_Progress_Your = "正在创建新邮件...";
-MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected";
-MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
+MailKey_Error = "呃，发生了错误。钥匙导出过程中碰到了问题。";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "所选钥匙无法使用";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "您选择了一个无法使用的钥匙。这个公钥不能通过电邮发送。请从公钥服务器上更新对方的公钥并确认。\n\n也可以和公钥所有者取得联系，确认对方的公钥状态。\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
+PasteboardKeyFound_Title = "在您的剪贴板中找到一个或多个公钥。";
 PasteboardKeyFound_Msg = "%@\n\n您要导入公钥吗？";
 PasteboardKeyFound_Yes = "导入";
 PasteboardKeyFound_No = "取消";
@@ -123,23 +119,23 @@ Cancel = "取消";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove user ID";
-RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
+RemoveUserID_Title = "移除用户标识";
+RemoveUserID_Msg = "您即将移除用户标识 %@ ，它位于您的主钥 %@ 中。一旦移除，您讲不能在 Mal.app 中使用它所关联的邮件地址了。\n\n如果您从服务器更新了这个用户标识，移除它并不会改变服务器上的内容。请试着去吊销它并重新上传。";
 RemoveUserID_Yes = "删除用户 ID";
 RemoveUserID_No = "取消";
 
-RevokeUserID_Title = "Warning: You are about to revoke a user ID";
+RevokeUserID_Title = "警告：您即将吊销用户标识";
 RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
 RevokeUserID_Yes = "吊销用户 ID";
 RevokeUserID_No = "取消";
 
-RemoveSubkey_Title = "Remove Subkey";
-RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the keyserver.";
-RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_Title = "移除子钥";
+RemoveSubkey_Msg = "警告：除非您知道并确定您在做什么，否则请勿继续。\n\n移除子钥会消除这个子钥所有的签名和解密功能。\n\n如果您在服务器上上传了这个公钥，移除它并不会改变服务器上关于这个子钥的内容。要让人们知道这个子钥不能用，请请试着去吊销它并重新上传。";
+RemoveSubkey_Yes = "移除子钥";
 RemoveSubkey_No = "取消";
 
-RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
-RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nOnce revoked, you will be unable to sign and encrypt messages using this subkey and others will not be able to encrypt messages to this subkey. The revoked subkey can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this subkey?";
+RevokeSubkey_Title = "警告：您即将吊销用户标识";
+RevokeSubkey_Msg = "警告：除非您知道并确定您在做什么，否则请勿继续。\n\n移除子钥会消除这个子钥所有的签名和解密功能。\n\n一旦吊销，您将无法使用这个子钥签名和解密信息，同时其他人也无法使用它来加密信息给你。已吊销的子钥移旧可以解密之前用它加密的电邮。\n\n我们不建议您删除它，请您尽量就让它被吊销着就好。\n\n您确定要注销它吗？";
 RevokeSubkey_Yes = "吊销子密钥";
 RevokeSubkey_No = "取消";
 
@@ -213,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "Upload Public Key";
 RevokedSubkeyWantToUpload_No = "No, Thanks!";
 
 UserIDsSignedWantToUpload_Title = "Signing successful";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "Upload Public Key";
 UserIDsSignedWantToUpload_No = "No, Thanks!";
 
@@ -221,10 +217,16 @@ UserIDsSignedWantToUpload_No = "No, Thanks!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key(s)";
-DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
-DeleteKey_Yes = "Delete key(s)";
+DeleteKey_Title = "Delete public key";
+DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Yes = "删除密匙";
 DeleteKey_No = "取消";
+
+DeleteKeys_Title = "Delete public keys";
+DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Yes = "Delete keys";
+DeleteKeys_No = "取消";
+
 
 DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
 DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";

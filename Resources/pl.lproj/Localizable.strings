@@ -46,10 +46,6 @@ CheckAlert_PassphraseSimple_Button2 = "Enter new password";
 CheckAlert_PassphraseTooLong_Title = "Password too long";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
 
-CheckError_PassphraseMissmatch_Title = "Attention: Passwords do not match";
-CheckError_PassphraseMissmatch_Message = "Please make sure you are using the identical password in both the confirm and password field.";
-
-
 
 MoveSecring_Msg = "Twoje tajne/prywatne klucze są w \"%@\".\nAby przenieść te klucze na inny nośnik proszę go wybierz poniżej.";
 
@@ -213,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "Upload Public Key";
 RevokedSubkeyWantToUpload_No = "No, Thanks!";
 
 UserIDsSignedWantToUpload_Title = "Signing successful";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload your public key?";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "Upload Public Key";
 UserIDsSignedWantToUpload_No = "No, Thanks!";
 
@@ -221,10 +217,16 @@ UserIDsSignedWantToUpload_No = "No, Thanks!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key(s)";
-DeleteKey_Msg = "You are about to delete the following public key(s):\n\n%@\n\nAre you sure you want to delete the public key(s)?";
-DeleteKey_Yes = "Delete key(s)";
+DeleteKey_Title = "Usuń klucz publiczny";
+DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Yes = "Usuń klucz";
 DeleteKey_No = "Anuluj";
+
+DeleteKeys_Title = "Usuń klucze publiczne";
+DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Yes = "Usuń klucze";
+DeleteKeys_No = "Anuluj";
+
 
 DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
 DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";

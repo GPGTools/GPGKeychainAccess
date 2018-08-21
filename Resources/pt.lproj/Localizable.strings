@@ -46,10 +46,6 @@ CheckAlert_PassphraseSimple_Button2 = "Digitar Nova Senha";
 CheckAlert_PassphraseTooLong_Title = "Senha Longa Demais";
 CheckAlert_PassphraseTooLong_Message = "A senha digitada é longa demais. Digite uma senha com menos de %1$i caracteres.\n\nAtenção: se a senha incluir caracteres especiais, talvez os caracteres %1$i não possam ser usados.";
 
-CheckError_PassphraseMissmatch_Title = "Atenção: as senhas não coincidem.";
-CheckError_PassphraseMissmatch_Message = "Certifique-se de que esteja usando senhas idênticas nos campos Confirmar e Senha.";
-
-
 
 MoveSecring_Msg = "Suas chaves secretas estão armazenadas atualmente em “%@”.\nPara movê‑las para outro volume, selecione‑o abaixo.";
 
@@ -213,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "Enviar Chave Pública";
 RevokedSubkeyWantToUpload_No = "Não Enviar";
 
 UserIDsSignedWantToUpload_Title = "Assinatura Bem-sucedida";
-UserIDsSignedWantToUpload_Msg = "Para facilitar que seus amigos saibam sobre a nova assinatura, é recomendável enviar a chave pública assinada aos servidores.\n\nDeseja enviar a chave pública?";
+UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "Enviar Chave Pública";
 UserIDsSignedWantToUpload_No = "Não Enviar";
 
@@ -221,10 +217,16 @@ UserIDsSignedWantToUpload_No = "Não Enviar";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Apagar chave(s) pública(s)";
-DeleteKey_Msg = "Você está prestes a apagar a(s) seguinte(s) chave(s) pública(s):\n\n%@\n\nTem certeza de que deseja apagar a(s) chave(s) pública(s)?";
-DeleteKey_Yes = "Apagar Chave(s)";
+DeleteKey_Title = "Apagar Chave Pública";
+DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Yes = "Apagar Chave";
 DeleteKey_No = "Cancelar";
+
+DeleteKeys_Title = "Apagar Chaves Públicas";
+DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Yes = "Apagar Chaves";
+DeleteKeys_No = "Cancelar";
+
 
 DeleteSecKey_Title = "Aviso: você está prestes a apagar chaves secretas e públicas.";
 DeleteSecKey_Msg = "Você está prestes a apagar as chaves:\n\n%@\n\nO apagamento de uma chave secreta tem consequências importantes. Depois de apagá‑la, não será mais possível descriptografar mensagens com a mesma. Isso envolve todas as mensagens criptografadas com esta chave.\n\nÉ recomendável que você não as apague.\n\nPara informar outras pessoas sobre o desuso da chave, é preferível revogar a chave (em vez de apagá‑la) e enviar a chave revogada aos servidores. Caso contrário, outras pessoas ainda poderão usar a chave para criptografar mensagens para você.";
