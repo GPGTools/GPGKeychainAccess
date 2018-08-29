@@ -2017,7 +2017,7 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 				}
 			} else {
 				[self.sheetController alertSheetWithTitle:localized(@"SignSuccess_Title")
-												  message:localized(@"SignSuccess_Msg")
+												  message:nil
 											defaultButton:nil
 										  alternateButton:nil
 											  otherButton:nil
@@ -2041,7 +2041,7 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 			// The user do not want to publish the signature.
 			// Do not offer upload, only show success message.
 			[self.sheetController alertSheetWithTitle:localized(@"SignSuccess_Title")
-											  message:localized(@"SignSuccess_Msg")
+											  message:nil
 										defaultButton:nil
 									  alternateButton:nil
 										  otherButton:nil

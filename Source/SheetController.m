@@ -1405,8 +1405,8 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		warned = YES;
 		if (NSRunAlertPanel(localized(@"CheckAlert_NoPassphrase_Title"),
 							localized(@"CheckAlert_NoPassphrase_Message"),
-							localized(@"CheckAlert_NoPassphrase_Button1"),
-							localized(@"CheckAlert_NoPassphrase_Button2"), nil) != NSAlertDefaultReturn) {
+							localized(@"CheckAlert_NoPassphrase_No"),
+							localized(@"CheckAlert_NoPassphrase_Yes"), nil) == NSAlertDefaultReturn) {
 			return NO;
 		}
 	} else {
@@ -1415,8 +1415,8 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			warned = YES;
 			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseSimple_Title"),
 								localized(@"CheckAlert_PassphraseSimple_Message"),
-								localized(@"CheckAlert_PassphraseSimple_Button1"),
-								localized(@"CheckAlert_PassphraseSimple_Button2"), nil) != NSAlertDefaultReturn) {
+								localized(@"CheckAlert_PassphraseSimple_No"),
+								localized(@"CheckAlert_PassphraseSimple_Yes"), nil) == NSAlertDefaultReturn) {
 				return NO;
 			}
 		}
