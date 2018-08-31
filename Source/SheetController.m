@@ -18,15 +18,14 @@
  */
 
 #import "SheetController.h"
-#import <AddressBook/AddressBook.h>
 #import "Globales.h"
 #import "ActionController.h"
 #import "GKAExtensions.h"
 #import "AppDelegate.h"
 #import <objc/runtime.h>
-#import "Mail.h"
 #import <Zxcvbn/Zxcvbn.h>
 #import <CommonCrypto/CommonDigest.h>
+#import <sqlite3.h>
 
 
 @interface KeyLengthFormatter : NSFormatter
@@ -115,7 +114,7 @@
 
 - (void)runAndWait;
 - (void)setStandardExpirationDates;
-- (void)setDataFromAddressBook;
+- (void)setDataFromMailAccounts;
 - (BOOL)checkName;
 - (BOOL)checkEmail;
 - (BOOL)checkComment;
@@ -159,7 +158,7 @@
 			self.keyType = 1;
 			self.expirationDate = nil;
 			[self setStandardExpirationDates];
-			[self setDataFromAddressBook];
+			[self setDataFromMailAccounts];
 			self.comment = @"";
 			self.passphrase = @"";
 			self.confirmPassphrase = @"";
@@ -224,7 +223,7 @@
 				self.generateUserID_CommentConstraint.priority = 1;
 			}
 			
-			[self setDataFromAddressBook];
+			[self setDataFromMailAccounts];
 			self.comment = @"";
 			
 			self.displayedView = _generateUserIDView;
@@ -1097,58 +1096,195 @@
 		self.hasExpirationDate = YES;
 	}
 }
-- (void)setDataFromAddressBook {
+- (void)setDataFromMailAccounts {
 	@autoreleasepool {
-		NSString *userName = nil;
-		NSMutableSet *mailAddresses = [NSMutableSet new];
 		
-		
-		// Get name and email-addresses from Mail via Accounts.plist.
-		@try {
-			NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Library/Mail/V2/MailData/Accounts.plist"];
-			NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
-			
-			NSArray *mailAccounts = [plist objectForKey:@"MailAccounts"];
-			
-			for (NSDictionary *account in mailAccounts) {
-				[mailAddresses addObjectsFromArray:[account objectForKey:@"EmailAddresses"]];
-				if (userName.length == 0) {
-					userName = [account objectForKey:@"FullUserName"];
+		if (NSAppKitVersionNumber < NSAppKitVersionNumber10_12) {
+			NSString *userName = nil;
+			NSMutableSet *mailAddresses = [NSMutableSet new];
+
+			@try {
+				NSString *path = [NSHomeDirectory() stringByAppendingString:@"/Library/Mail/V2/MailData/Accounts.plist"];
+				NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:path];
+				
+				NSArray *mailAccounts = [plist objectForKey:@"MailAccounts"];
+				
+				for (NSDictionary *account in mailAccounts) {
+					[mailAddresses addObjectsFromArray:[account objectForKey:@"EmailAddresses"]];
+					if (userName.length == 0) {
+						userName = [account objectForKey:@"FullUserName"];
+					}
 				}
+				
+			} @catch (id e) {}
+
+			NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+			NSArray *sortedAddresses = [mailAddresses sortedArrayUsingDescriptors:@[descriptor]];
+
+			self.emailAddresses = sortedAddresses;
+			
+			if (sortedAddresses.count > 0) {
+				self.email = sortedAddresses[0];
+			} else {
+				self.email = @"";
 			}
 			
-		} @catch (id e) {}
+			self.name = userName ? userName : @"";
+			
+		} else {
+			NSDictionary<NSString *, NSString *> *emailAddresses = [self getUserEmailAddresses];
+			
+			NSArray *addresses = emailAddresses.allKeys;
+			NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
+			NSArray *sortedAddresses = [addresses sortedArrayUsingDescriptors:@[descriptor]];
+			
+			self.emailAddresses = sortedAddresses;
+			
+			if (sortedAddresses.count > 0) {
+				NSString *email = sortedAddresses[0];
+				self.email = email;
+				self.name = emailAddresses[email];
+			} else {
+				self.email = @"";
+				self.name = @"";
+			}
+		}
 		
-		// Get name and email-addresses from Mail via ScriptingBridge.
-		@try {
-			MailApplication *mail = [SBApplication applicationWithBundleIdentifier:@"com.apple.Mail"];
-			mail.timeout = EV_TICKS_PER_SEC / 2;
-			if (mail.running) {
-				SBElementArray *accounts = [mail accounts];
-				for (MailAccount *account in accounts) {
-					[mailAddresses addObjectsFromArray:account.emailAddresses];
-					if (userName.length == 0) {
-						userName = account.fullName;
+		
+	}
+}
+- (NSDictionary<NSString *, NSString *> *)getUserEmailAddresses {
+	// Return a dictionary with the email-addresses as keys and the names as values.
+	
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *directoryPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Accounts"];
+	NSURL *directoryURL = [NSURL fileURLWithPath:directoryPath];
+	
+	
+	NSMutableArray *accountFiles = [NSMutableArray array];
+	NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtURL:directoryURL includingPropertiesForKeys:@[NSURLNameKey, NSURLIsDirectoryKey] options:NSDirectoryEnumerationSkipsSubdirectoryDescendants errorHandler:nil];
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^Accounts\\d+.sqlite$" options:0 error:nil];
+	
+	// Find current ~/Library/AccountsAccountsX.plist
+	for (NSURL *fileURL in enumerator) {
+		NSNumber *isDirectory = nil;
+		[fileURL getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+		
+		if (isDirectory.boolValue) {
+			continue;
+		}
+		
+		NSString *name = nil;
+		[fileURL getResourceValue:&name forKey:NSURLNameKey error:nil];
+		
+		if ([regex firstMatchInString:name options:0 range:NSMakeRange(0, name.length)]) {
+			[accountFiles addObject:name];
+		}
+	}
+	
+	if (accountFiles.count == 0) {
+		NSLog(@"Unable to find Accounts.plist");
+		return nil;
+	}
+	
+	[accountFiles sortUsingComparator:^NSComparisonResult(NSString *str1, NSString *str2) {
+		return [str2 compare:str1 options:NSNumericSearch];
+	}];
+	
+	NSString *filename = accountFiles[0];
+	NSString *path = [directoryPath stringByAppendingPathComponent:filename];
+	
+	
+	
+	NSMutableDictionary<NSString *, NSString *> *emailAddresses = [NSMutableDictionary dictionary];
+	Class arrayClass = [NSArray class];
+	Class dictClass = [NSDictionary class];
+	Class stringClass = [NSString class];
+	sqlite3 *db;
+	
+	
+	if (sqlite3_open(path.UTF8String, &db) != SQLITE_OK) {
+		sqlite3_close(db);
+		NSLog(@"Unable to open Accounts.plist");
+		return nil;
+	}
+	
+	
+	@try {
+		NSString *sql = @"SELECT ZVALUE FROM ZACCOUNTPROPERTY WHERE ZKEY = 'EmailAliases'";
+		sqlite3_stmt *statement;
+		
+		if (sqlite3_prepare_v2(db, sql.UTF8String, -1, &statement, nil) != SQLITE_OK) {
+			NSLog(@"Unable to parse Accounts.plist: prepare");
+			return nil;
+		}
+
+		// Iterate through all accounts.
+		while (sqlite3_step(statement) == SQLITE_ROW) {
+			
+			// Get all aliases from this account.
+			// aliases is a keyed archived NSDictionary and stored as a data blob in the db.
+			const uint8_t *blob = sqlite3_column_blob(statement, 0);
+			int length = sqlite3_column_bytes(statement, 0);
+			
+			NSData *data = [NSData dataWithBytes:blob length:length];
+			NSArray *aliases = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+			
+			if (![aliases isKindOfClass:arrayClass]) {
+				NSLog(@"Unable to parse Accounts.plist: aliases");
+				continue;
+			}
+			
+			// Iterate through the aliases.
+			for (NSDictionary *alias in aliases) {
+				if (![alias isKindOfClass:dictClass]) {
+					NSLog(@"Unable to parse Accounts.plist: alias");
+					continue;
+				}
+				
+				NSString *name = alias[@"DisplayName"];
+				if (![name isKindOfClass:stringClass]) {
+					name = @"";
+				}
+				
+				NSArray *addresses = alias[@"EmailAddresses"];
+				if (![addresses isKindOfClass:arrayClass]) {
+					NSLog(@"Unable to parse Accounts.plist: addresses");
+					continue;
+				}
+				
+				for (NSDictionary *address in addresses) {
+					if (![address isKindOfClass:dictClass]) {
+						NSLog(@"Unable to parse Accounts.plist: address");
+						continue;
+					}
+					
+					NSString *emailAddress = address[@"EmailAddress"];
+					if (![emailAddress isKindOfClass:stringClass] || emailAddress.length == 0) {
+						NSLog(@"Unable to parse Accounts.plist: EmailAddress");
+						continue;
+					}
+					
+					if (emailAddresses[emailAddress].length == 0) {
+						// Add the email address from the alias to the list of addresses.
+						emailAddresses[emailAddress] = name;
 					}
 				}
 			}
-		} @catch (id e) {}
-		
-		
-		NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
-		NSArray *sortedAddresses = [mailAddresses sortedArrayUsingDescriptors:@[descriptor]];
-		self.emailAddresses = sortedAddresses;
-		
-		if (sortedAddresses.count > 0) {
-			self.email = sortedAddresses[0];
-		} else {
-			self.email = @"";
 		}
 		
-		self.name = userName ? userName : @"";
-
+	} @catch (NSException *exception) {
+		NSLog(@"Unable to parse Accounts.plist: exception '%@'", exception);
+	} @finally {
+		sqlite3_close(db);
 	}
+	
+	return [NSDictionary dictionaryWithDictionary:emailAddresses];
 }
+
+
+
+
 
 - (void)runAndWait {
 	[_sheetLock lock];
