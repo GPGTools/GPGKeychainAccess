@@ -1099,7 +1099,7 @@
 - (void)setDataFromMailAccounts {
 	@autoreleasepool {
 		
-		if (NSAppKitVersionNumber < NSAppKitVersionNumber10_12) {
+		if (NSAppKitVersionNumber < NSAppKitVersionNumber10_11) {
 			NSString *userName = nil;
 			NSMutableSet *mailAddresses = [NSMutableSet new];
 
