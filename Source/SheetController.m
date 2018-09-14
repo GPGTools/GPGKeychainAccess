@@ -415,7 +415,14 @@
 		cancelButtonTag = NSAlertFirstButtonReturn;
 	}
 	
-	if (cancelButtonTag != 0) {
+
+	BOOL isMojave = NO;
+	if (@available(macOS 10.14, *)) {
+		// On 10.14 the cancel button hack doesn't work as expected.
+		isMojave = YES;
+	}
+	
+	if (cancelButtonTag != 0 && !isMojave) {
 		// This is a hack to allow, to close the alert with the escape-key.
 		[alert addButtonWithTitle:@"Cancel"]; // Add a cancel button. NSAlert sets the key equivalent automatically to esc.
 		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.
