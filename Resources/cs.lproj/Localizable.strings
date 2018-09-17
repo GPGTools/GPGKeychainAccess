@@ -30,19 +30,14 @@ ExportSecretKeyFilename = "%@ – Soukromé";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Bez hesla";
-CheckAlert_NoPassphrase_Message = "Nezadal jste žádné heslo. Tohle ve vlastním zájmu nedělejte. Heslo by mělo být dlouhé alespoň 8 znaků.";
-CheckAlert_NoPassphrase_Button1= "Pokračovat bez hesla";
-CheckAlert_NoPassphrase_Button2 = "Zadat nové heslo";
-CheckAlert_PassphraseShort_Title = "Krátké heslo";
-CheckAlert_PassphraseShort_Message = "Nezadal jste příliš krátké heslo. Tohle ve vlastním zájmu nedělejte. Heslo by mělo být dlouhé alespoň 8 znaků.";
-CheckAlert_PassphraseShort_Button1= "Pokračovat s krátkým heslem";
-CheckAlert_PassphraseShort_Button2 = "Zadat nové heslo";
-CheckAlert_PassphraseSimple_Title = "Jednoduché heslo";
-CheckAlert_PassphraseSimple_Message = "Nezadal jste příliš jednoduché heslo. Tohle ve vlastním zájmu nedělejte. Heslo by mělo obsahovat znaky abecedy, číslice a nejméně jeden speciální znak.";
-CheckAlert_PassphraseSimple_Button1 = "Pokračovat s jednoduchým heslem";
-CheckAlert_PassphraseSimple_Button2 = "Zadat nové heslo";
-
+CheckAlert_NoPassphrase_Title = "No password entered";
+CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Yes = "Continue Without Password";
+CheckAlert_NoPassphrase_No = "Enter New Password";
+CheckAlert_PassphraseSimple_Title = "Password too simple";
+CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
+CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
+CheckAlert_PassphraseSimple_No = "Enter New Password";
 CheckAlert_PassphraseTooLong_Title = "Heslo je příliš dlouhé";
 CheckAlert_PassphraseTooLong_Message = "zadané heslo, je příliš dlouhé. Zadejte heslo s méně než %1$i znaky.\n\nUpozornění: Pokud vaše heslo obsahuje speciální znaky, možná nebudete moci používat %1$i znaků.";
 
@@ -80,13 +75,13 @@ CheckError_NoKeyID = "Zadejte prosím platný ID klíč!";
 GPG_NOT_FOUND_TITLE = "GPG nebylo nalezeno";
 GPG_NOT_FOUND_MESSAGE = "Ajajaj, něco se pokazilo. Zdá se, že GPG ve vašem systému chybí. Nainstalujte prosím znovu GPG Suite, ale z tohoto umístění \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Chyba nastavení GPG ";
-GPG_CONFIG_ERROR_MESSAGE = "Ajajaj, něco se pokazilo. GPG bylo ve vašem systému nalezeno, vyskytl se však problém se souborem nastavení. Obraťte se prosím na \nhttps://gpgtools.tenderapp.com.\n\nPodrobnosti: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Knihovna Libmacgpg nebyla nalezena";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg nebyl nalezen ve vašem systému. Nainstalujte prosím GPG Suite znovu z tohoto umístění \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Někdo měnil vaši instalaci GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "Kvůli vaši bezpečnosti se nyní GPG Keychain ukončí!\n\nNainstalujte prosím znovu GPG Suite z umístění https://gpgtools.org abyste si byli jisti, že používáte skutečně originální verzi!";
 UNKNOWN_GPG_ERROR_TITLE = "Neznámá chyba GPG";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ajajaj, něco se pokazilo. GPG hlásí neznámou chybu. Obraťte se na \nhttps://gpgtools.tenderapp.com.\n\nPodrobnosti: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 
 
 
@@ -96,8 +91,8 @@ MailKey_Subject_Your = "Můj veřejný klíč pro zabezpečení našich zpráv";
 MailKey_Message = "Zdravím,\n\nv příloze naleznete veřejný klíč\n\n%@\n\nPomocí tohoto klíče můžete šifrovat a zabezpečit zprávy, které píšete %@.\n\nPokud si přejete zabezpečení používat, musíte do svého počítače nainstalovat aplikaci OpenPGP. Níže naleznete seznam možných řešení pro váš operační systém:\n\n%@\n\nNaimportujte prosím veřejný klíč do svého správce klíčů OpenPGP.\n\nS pozdravem";
 MailKey_Message_Your = "Zdravím,\n\nv příloze naleznete můj veřejný klíč\n\n%@\n\nPomocí tohoto klíče můžete šifrovat a zabezpečit naši komunikaci.\n\nPokud si přejete zabezpečení používat, musíte do svého počítače nainstalovat aplikaci OpenPGP. Níže naleznete seznam možných řešení pro váš operační systém:\n\n%@\n\nNaimportujte prosím veřejný klíč do svého správce klíčů OpenPGP.\n\nTěším se na komunikaci s Vámi, komunikaci bez nebezpečí odposlouchávání.\n\nS pozdravem";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Vytváří se nová zpráva…";
-MailKey_Progress_Your = "Vytváří se nová zpráva…";
+MailKey_Progress = "Creating new email…";
+MailKey_Progress_Your = "Creating new email…";
 MailKey_Error = "Ajajaj, něco se pokazilo. Selhal export vašeho klíče.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Byl vybrán nepoužitelný klíč";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Vybrali jste nepoužitelný klíč. Tyto klíče nelze odeslat e-mailem. Aktualizujte klíč z klíčového serveru a ověřte, zda byl skutečně aktualizován.\n\nV opačném případě se spojte s vlastníkem klíče a informujte jej o tomto stavu.\n\n%@";
@@ -125,17 +120,17 @@ RemoveUserID_Yes = "Odstranit UserID";
 RemoveUserID_No = "Zrušit";
 
 RevokeUserID_Title = "Upozornění: Chystáte se zneplatnit certifikát.";
-RevokeUserID_Msg = "Chystáte se zneplatnit následující userID:\n\n%@ z vašeho klíče %@\n\nPokud tak učiníte, nebudete již moci podepsat a zašifrovat zprávy pomocí tohoto user ID a ostatní nebudou moci zašifrovat zprávy pro tohoto user ID. Zneplatněné user ID lze stále použít pro dešifrování dřívějších e-malů a souborů.\n\nNedoporučuje se user ID smazat, ale naopak, ponechat jej ve vaši klíčence ve zneplatněném stavu.\n\nSkutečně si přejete zneplatnit toto user ID?";
+RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
 RevokeUserID_Yes = "Zneplatnit UserID";
 RevokeUserID_No = "Zrušit";
 
 RemoveSubkey_Title = "Odstranit podklíč";
-RemoveSubkey_Msg = "Upozornění: Pokračujte, pouze pokud skutečně víte, co děláte!\n\nOdstranění podklíče může znemožnit veškeré funkce podepisování a dešifrování pomocí tohoto klíče!\n\nV případě, že byl tento klíč zkopírován na klíčové servery, odstranění podklíče nemá vliv na existující položku klíčového serveru. Chcete-li signalizovat ostatním lidem, že by již tento podklíč neměli používat, zneplatněte podklíč a zkopírujte aktualizovaný klíč na klíčový server.";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
 RemoveSubkey_Yes = "Odstranit podklíč";
 RemoveSubkey_No = "Zrušit";
 
 RevokeSubkey_Title = "Upozornění: Chystáte se zneplatnit podklíč";
-RevokeSubkey_Msg = "Upozornění: Pokračujte, pouze pokud skutečně víte, co děláte!\n\nZneplatnění podklíče může znemožnit veškeré funkce podepisování a dešifrování pomocí tohoto podklíče!\n\nZneplatněním tohoto podklíče nebudete moci tímto podklíčem podepsat a šifrovat zprávy a ostatní nebudou moci pomocí do tohoto podklíče zprávy dešifrovat. Zneplatněný podklíč může být i nadále používán k dešifrování e-mailů a souborů, které byly zašifrovány/doručeny před zneplatněním.\n\nPřejete si skutečně zneplatnit tento podklíč?";
+RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "Zrušit platnost podklíče";
 RevokeSubkey_No = "Zrušit";
 
@@ -155,12 +150,12 @@ RemoveLastSelfSignature_Yes = "Odstranit podpis";
 RemoveLastSelfSignature_No = "Zrušit";
 
 RevokeLastSelfSignature_Title = "Zneplatnit poslední Self-Signature";
-RevokeLastSelfSignature_Msg = "Chystáte se odstranit poslední vlastnoruční podpis user ID %@.\nPlease only proceed if you really know what you are doing.\n\nZneplatněním posledního vlastnoručního podpisu se user ID stává nepoužitelným. Nebudete již nikdy více použít user ID %@ v aplikaci Mail.app pro podepsání a zabezpečení e-mailu.";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
 RevokeLastSelfSignature_Yes = "Zneplatnit podpis";
 RevokeLastSelfSignature_No = "Zrušit";
 
 RevokeKey_Title = "Upozornění: Chystáte se zneplatnit klíč!";
-RevokeKey_Msg = "Chystáte se zneplatnit následující klíč:\n\n%@\n\nPokud tak učiníte, nebudete již moci podepsat a zašifrovat zprávy pomocí tohoto klíče a ostatní nebudou moci zašifrovat zprávy pomocí tohoto klíče. Zneplatněný klíč lze stále použít pro dešifrování dřívějších e-malů a souborů.\n\nNedoporučuje klíč smazat, ale naopak ponechat jej ve vaši klíčence v zneplatněném stavu.\n\nSkutečně si přejete zneplatnit tento klíč?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Zneplatnit klíč";
 RevokeKey_No = "Zrušit";
 
@@ -229,7 +224,7 @@ DeleteKeys_No = "Zrušit";
 
 
 DeleteSecKey_Title = "Upozornění: Chystáte se smazat tajný a veřejný klíč!";
-DeleteSecKey_Msg = "Chystáte se smazat klíče:\n\n%@\n\nVymazání tajného klíče má fatální následky. Jakmile bude smazán, dešifrování zpráv tímto klíčem již nebude možné. To se týká všech zpráv, které byly zašifrovány tímto klíčem.\n\nDoporučujeme ho nemazat.\n\nPokud si přejete sdělit ostatním, že tento klíč již není používán, měli byste klíč namísto smazání zneplatnit a nakopírovat na klíčový server. Pokud tak neučiníte budou moci ostatní i nadále používat tento klíč k šifrování zpráv.";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all messages that were and will be encrypted to this key can no longer be decrypted. We recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = "Ano, chci smazat tajný klíč a rozumím tomu, že už nebudu\nschopen dešifrovat žádnou zprávu, která byla zašifrována tímto klíčem.";
 DeleteSecKey_Yes = "Smazat klíč(e)";
 DeleteSecKey_SecOnly = "Smazat pouze tajný klíč(e)";
@@ -249,11 +244,6 @@ BadKeyserver_Msg = "Klíčový server který jste zadal nepracuje.\nOvěřte pro
 
 
 /* Import warnings */
-ImportRevSig_Title = "Importovat platnost rušící certifikát";
-ImportRevSig_Msg = "Chystáte se importovat zneplatněný certifikát %@. Pokud klíč zneplatníte, nebudete moci podepisovat zprávy tímto klíčem a ostatní nebudou moci posílat zprávy šifrované vaším klíčem. Zvažte nakopírování zneplatněného klíče na klíčové servery, aby byli ostatní informování, že klíč byl zneplatněn.\n\nI nadále budete moci používat zneplatněný klíč pro dešifrování e-mailů a souborů, které byly klíčem šifrovány. Doporučujeme ponechat všechny zneplatněné klíče v GPG Keychain.";
-ImportRevSig_Yes = "Importovat";
-ImportRevSig_No = "Zrušit";
-
 ImportRandomData_Title = "Upozornění: Obsah nebyl možná správně naimportován";
 ImportRandomData_Msg = "Zdá se, že se pokoušíte importovat zprávu podepsanou jiným druhem klíčů než OpenPGP.\n\nSkutečně si přejete importovat tento obsah?";
 ImportRandomData_Yes = "Zkusit importovat";
@@ -267,14 +257,13 @@ ImportNonImportable_No = "Zrušit";
 
 
 /* Results */
-UploadSuccess_Title = "Odesláno úspěšně";
+UploadSuccess_Title = "Public keys sent to key server";
 UploadSuccess_Msg = "Následujcí klíče byly odeslány na klíčový server:\n\n%@\n\nUpozornění: Synchronizace klíčů mezi všemi klíčovými servery chvíli trvá.";
 
-ExportSuccess_Title = "Export proběhl úspěšně.";
-ExportSuccess_Msg = "Následující klíče byly exportovány úspěšně:\n\n%@";
+ExportSuccess_Title = "Keys exported";
+ExportSuccess_Msg = "The following keys were exported:\n\n%@";
 
-SignSuccess_Title = "Podepisování proběhlo úspěšně";
-SignSuccess_Msg = "Vybrané userID bylo podepsáno.";
+SignSuccess_Title = "The selected user IDs have been signed";
 
 
 

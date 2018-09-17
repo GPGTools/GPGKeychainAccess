@@ -30,19 +30,14 @@ ExportSecretKeyFilename = "%@ – Secret";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No password";
-CheckAlert_NoPassphrase_Message = "You have entered no password. This is not recommended. Passwords should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Button1= "Continue without a password";
-CheckAlert_NoPassphrase_Button2 = "Enter new password";
-CheckAlert_PassphraseShort_Title = "Short password";
-CheckAlert_PassphraseShort_Message = "You have entered a short password. This is not recommended. A password should at least be 8 characters long.";
-CheckAlert_PassphraseShort_Button1= "Continue with short password";
-CheckAlert_PassphraseShort_Button2 = "Enter new password";
-CheckAlert_PassphraseSimple_Title = "Simple password";
-CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be alphanumeric and contain at least one special character.";
-CheckAlert_PassphraseSimple_Button1 = "Continue with simple password";
-CheckAlert_PassphraseSimple_Button2 = "Enter new password";
-
+CheckAlert_NoPassphrase_Title = "No password entered";
+CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Yes = "Continue Without Password";
+CheckAlert_NoPassphrase_No = "Enter New Password";
+CheckAlert_PassphraseSimple_Title = "Password too simple";
+CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
+CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
+CheckAlert_PassphraseSimple_No = "Enter New Password";
 CheckAlert_PassphraseTooLong_Title = "Password too long";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
 
@@ -80,13 +75,13 @@ CheckError_NoKeyID = "Vul een valide sleutel ID in!";
 GPG_NOT_FOUND_TITLE = "GPG Niet gevonden";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG Configuratie fout";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg is niet gevonden";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
 UNKNOWN_GPG_ERROR_TITLE = "Onbekende GPG fout";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 
 
 
@@ -96,8 +91,8 @@ MailKey_Subject_Your = "Mijn publieke sleutel om ons gesprek te versleutelen";
 MailKey_Message = "Goedendag,\n\nIn de bijlagen vind u de publieke sleutel van\n\n%@\n\nU kunt deze sleutel gebruiken om berichten te versleutelen als u communiceert met %@.\n\nOm hier gebruik van te maken moet u OpenGPG software installeren op uw computer. Hieronder vind u een lijst met beschikbare softwarepakketten voor uw besturingssysteem:\n\n%@\n\nImporteer deze publieke sleutel naar uw lokale OpenPGP Key-Manager.\n\nMet vriendelijke groet.";
 MailKey_Message_Your = "Goedendag,\n\nIn de bijlagen vind u mijn publieke sleutel\n\n%@\n\nU kunt deze sleutel gebruiken om berichten voor mij te versleutelen als u met mij communiceert.\n\nOm hier gebruik van te maken moet u OpenGPG software installeren op uw computer. Hieronder vind u een lijst met beschikbare softwarepakketten voor uw besturingssysteem:\n\n%@\n\nImporteer deze publieke sleutel naar uw lokale OpenPGP Key-Manager.\n\nIk zie er naar uit om berichten met u uit te wisselen, zonder afgetapt te worden.\n\nMet vriendelijke groet.";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Opstellen van een nieuwe mail...";
-MailKey_Progress_Your = "Opstellen van een nieuwe mail...";
+MailKey_Progress = "Creating new email…";
+MailKey_Progress_Your = "Creating new email…";
 MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "U heeft een onbruikbare sleutel geselecteerd. Deze sleutels kunnen niet via e-mail verzonden worden. Update de sleutel vanaf de key server om te controleren of deze geüpdatet is. \n\nProbeer anders in contact te komen met de eigenaar van de sleutel en breng hem op de hoogte van de status van zijn sleutel.\n\n%@";
@@ -125,17 +120,17 @@ RemoveUserID_Yes = "Verwijder gebruiker-ID";
 RemoveUserID_No = "Annuleer";
 
 RevokeUserID_Title = "Warning: You are about to revoke a user ID";
-RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
+RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
 RevokeUserID_Yes = "Trek gebruiker-ID in";
 RevokeUserID_No = "Annuleer";
 
 RemoveSubkey_Title = "Verwijder subsleutel";
-RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the keyserver.";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
 RemoveSubkey_Yes = "Verwijder subsleutel";
 RemoveSubkey_No = "Annuleer";
 
 RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
-RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nOnce revoked, you will be unable to sign and encrypt messages using this subkey and others will not be able to encrypt messages to this subkey. The revoked subkey can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this subkey?";
+RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "Trek subsleutel in";
 RevokeSubkey_No = "Annuleer";
 
@@ -155,12 +150,12 @@ RemoveLastSelfSignature_Yes = "Verwijder handtekening";
 RemoveLastSelfSignature_No = "Annuleer";
 
 RevokeLastSelfSignature_Title = "Trek laatste eigen-handtekening in";
-RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last self-signature of a user ID will render that user ID useless. You will no longer be able to use user ID %@ in Mail.app to sign emails.";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
 RevokeLastSelfSignature_Yes = "Trek handtekening in";
 RevokeLastSelfSignature_No = "Annuleer";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "Annuleer";
 
@@ -229,7 +224,7 @@ DeleteKeys_No = "Annuleer";
 
 
 DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
-DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all messages that were and will be encrypted to this key can no longer be decrypted. We recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Delete key(s)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
@@ -249,11 +244,6 @@ BadKeyserver_Msg = "The key server you have entered is not working.\nPlease chec
 
 
 /* Import warnings */
-ImportRevSig_Title = "Import revocation certificate";
-ImportRevSig_Msg = "You are about to import a revocation certificate for %@. If you revoke your key, you will no longer be able to sign messages using your key and others will no longer be able to send you messages encrypted to your key. Consider uploading your revoked key to the key servers so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting emails and files that were encrypted with your key. It is recommended to keep the revoked key in GPG Keychain.";
-ImportRevSig_Yes = "Importeren";
-ImportRevSig_No = "Annuleer";
-
 ImportRandomData_Title = "Warning: Content can probably not be imported";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
 ImportRandomData_Yes = "Try Import";
@@ -267,14 +257,13 @@ ImportNonImportable_No = "Annuleer";
 
 
 /* Results */
-UploadSuccess_Title = "Successfully sent";
+UploadSuccess_Title = "Public keys sent to key server";
 UploadSuccess_Msg = "The following public keys have been sent to the key servers:\n\n%@\n\nPlease allow some time for the change to be synced across existing key servers.";
 
-ExportSuccess_Title = "Export successful";
-ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
+ExportSuccess_Title = "Keys exported";
+ExportSuccess_Msg = "The following keys were exported:\n\n%@";
 
-SignSuccess_Title = "Signing successful";
-SignSuccess_Msg = "The selected user IDs have been signed.";
+SignSuccess_Title = "The selected user IDs have been signed";
 
 
 

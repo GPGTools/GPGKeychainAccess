@@ -30,19 +30,14 @@ ExportSecretKeyFilename = "%@ – Secreta";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Sin contraseña";
-CheckAlert_NoPassphrase_Message = "No ha introducido contraseña. Esto no es recomendable. Las contraseñas deben tener al menos 8 caracteres.";
-CheckAlert_NoPassphrase_Button1= "Continuar sin una contraseña";
-CheckAlert_NoPassphrase_Button2 = "Introducir nueva contraseña";
-CheckAlert_PassphraseShort_Title = "Contraseña corta";
-CheckAlert_PassphraseShort_Message = "Ha introducido una contraseña corta. Esto no es recomendable. Una contraseña debe tener al menos 8 caracteres de largo.";
-CheckAlert_PassphraseShort_Button1= "Continuar con contraseña corta";
-CheckAlert_PassphraseShort_Button2 = "Introducir nueva contraseña";
-CheckAlert_PassphraseSimple_Title = "Contraseña simple";
-CheckAlert_PassphraseSimple_Message = "La contraseña que ha introducido es demasiado simple. Una buena contraseña debe ser alfanumérica y contener al menos un caracter especial.";
-CheckAlert_PassphraseSimple_Button1 = "Continuar con contraseña simple";
-CheckAlert_PassphraseSimple_Button2 = "Introducir nueva contraseña";
-
+CheckAlert_NoPassphrase_Title = "No password entered";
+CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Yes = "Continue Without Password";
+CheckAlert_NoPassphrase_No = "Enter New Password";
+CheckAlert_PassphraseSimple_Title = "Password too simple";
+CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
+CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
+CheckAlert_PassphraseSimple_No = "Enter New Password";
 CheckAlert_PassphraseTooLong_Title = "Contraseña demasiado larga";
 CheckAlert_PassphraseTooLong_Message = "La contraseña que introdujo es demasiado larga. Introduzca una contraseña con menos de %1$i caracteres.\n\nAtención: Si su contraseña incluye caracteres especiales tal vez no pueda usar los caracteres %1$i.";
 
@@ -80,13 +75,13 @@ CheckError_NoKeyID = "¡Por favor introduzca una identificación de clave (keyID
 GPG_NOT_FOUND_TITLE = "No se encontró GPG";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Error de configuración de GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Uups, algo fue mal. Se encontró GPG en su sistema pero parece haber un problema con el fichero de configuración. Por favor contacte con nosotros en\nhttps://gpgtools.tenderapp.com\n\nDetalles: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "No se encontró libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Alguien alteró su instalación de GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "¡Para mantenerle seguro, GPG Keychain se cerrará ahora!\n\n¡Por favor, reinstale GPG Suite desde \nhttps://gpgtools.org para asegurarse de que tiene la versión original procedente de nosotros!";
 UNKNOWN_GPG_ERROR_TITLE = "Error de GPG desconocido";
-UNKNOWN_GPG_ERROR_MESSAGE = "Uups, algo fue mal. GPG lanzó un error desconocido. Por favor, contacte con nosotros en\nhttps://gpgtools.tenderapp.com\n\nDetalles: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 
 
 
@@ -96,8 +91,8 @@ MailKey_Subject_Your = "Mi clave pública para asegurar nuestros mensajes";
 MailKey_Message = "Hola,\n\nadjunta encontrará la clave pública de \n\n%@\n\nPuede usar esta clave para cifrar y asegurar mensajes cuando escriba a %@.\n\nPara comenzar a usarla, tiene que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\n%@\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP.\n\nSaludos\n\nRegards";
 MailKey_Message_Your = "Hola,\n\nadjunta encontrará mi clave pública\n\n%@\n\nPuede usar esta clave para cifrar y asegurar nuestros mensajes.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\n%@\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP local.\n\nEspero intercambiar mensajes libres-de-obsevadores con usted.\n\nSaludos\n\nRegards";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/es/module/como-usar-pgp-para-linux\nWindows	https://ssd.eff.org/es/module/como-usar-pgp-para-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain&hl=es";
-MailKey_Progress = "Creando un correo nuevo...";
-MailKey_Progress_Your = "Creando un correo nuevo...";
+MailKey_Progress = "Creating new email…";
+MailKey_Progress_Your = "Creating new email…";
 MailKey_Error = "Uups, algo fue mal. Hubo un problema al exportar su clave.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Se ha seleccionado una clave inutilizable";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Ha seleccionado una clave no utilizable. Tales claves no se pueden enviar vía correo electrónico. Por favor, actualice la clave desde el servidor de claves, para comprobar si ha sido actualizada.\n\nDe otro modo póngase en contacto con el propietario de la clave e infórmele sobre el estado de la clave\n\n%@";
@@ -125,17 +120,17 @@ RemoveUserID_Yes = "Eliminar identificación de usuario";
 RemoveUserID_No = "Cancelar";
 
 RevokeUserID_Title = "Advertencia: Está a punto de revocar una identificación de usuario";
-RevokeUserID_Msg = "Está a punto de revocar la siguiente identificación (ID) de usuario:\n\n%@ de su clave %@\n\nUna vez revocada, ya no podrá firmar y cifrar mensajes usando esta identificación de usuario, y otros no podrán cifrar mensajes para esta identificación de usuario. La identificación de usuario revocada todavía se puede usar para descifrar correos electrónicos y ficheros, cifrados previamente para esta.\n\nNo se recomienda borrarla, sino conservarla en su clave en estado revocado.\n\n¿Está seguro de que quiere revocar esta identificación de usuario?";
+RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
 RevokeUserID_Yes = "Revocar identificación de usuario";
 RevokeUserID_No = "Cancelar";
 
 RemoveSubkey_Title = "Eliminar subclave";
-RemoveSubkey_Msg = "Advertencia: Por favor, continúe sólo si de verdad sabe lo que está haciendo.\n\nEliminar una subclave puede destruir todas las capacidades de firmar y descifrar usando esta clave.\n\nEn caso de que esta clave haya sido subida a los servidores de claves, eliminar la subclave no tiene efecto sobre la entrada existente en el servidor de claves. En su lugar, para indicar a otras personas que en adelante no deben usar esta subclave, por favor, revoque la subclave y suba la clave actualizada al servidor de claves.";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
 RemoveSubkey_Yes = "Eliminar subclave";
 RemoveSubkey_No = "Cancelar";
 
 RevokeSubkey_Title = "Advertencia: Está a pundo de revocar una subclave";
-RevokeSubkey_Msg = "Por favor, continúe sólo si de verdad sabe lo que está haciendo.\n\nRevocar una subclave puede destruir la capacidad de firmar usando esta subclave, y otros puede que ya no sean capaces de cifrar mensajes para esta subclave.\n\nUna vez revocada, no podrá firmar ni cifrar mensajes usando esta subclave, y otros no serán capaces de cifrar mensajes para esta subclave. La subclave revocada todavía se puede usar para descifrar correos electrónicos y ficheros, cifrados previamente para esta.\n\nNo se recomienda eliminarla, sino conservarla en su clave en estado revocado.\n\n¿Está seguro de que quiere revocar esta subclave?";
+RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "Revocar subclave";
 RevokeSubkey_No = "Cancelar";
 
@@ -155,12 +150,12 @@ RemoveLastSelfSignature_Yes = "Eliminar firma";
 RemoveLastSelfSignature_No = "Cancelar";
 
 RevokeLastSelfSignature_Title = "Revocar la última auto-firma";
-RevokeLastSelfSignature_Msg = "Está a punto de revocar la última auto-firma de la identificación de usuario %@. Por favor, continúe sólo si de verdad sabe lo que está haciendo.\n\nRevocar la última auto-firma de una identificación de usuario provocará su inutilización. Ya no podrá usar la identificación de usuario %@ en Mail.app para firmar correos electrónicos.";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
 RevokeLastSelfSignature_Yes = "Revocar firma";
 RevokeLastSelfSignature_No = "Cancelar";
 
 RevokeKey_Title = "Advertencia: Está a punto de revocar una clave";
-RevokeKey_Msg = "Está a punto de revocar la siguiente clave:\n\n%@\n\nUna vez revocada, no podrá firmar y cifrar mensajes usando esta clave, y otros no podrán cifrar mensajes para esta clave. La clave revocada todavía se puede usar para descifrar correos electrónicos y ficheros, previamente cifrados para esta.\n\nNo se recomienda borrarla, sino conservarla en GPG Keychain en estado revocado.\n\n¿Está seguro de que quiere revocar esta clave?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revocar clave";
 RevokeKey_No = "Cancelar";
 
@@ -229,7 +224,7 @@ DeleteKeys_No = "Cancelar";
 
 
 DeleteSecKey_Title = "Advertencia: Está a punto de borrar las claves secreta/privada y pública";
-DeleteSecKey_Msg = "Está a punto de borrar las claves:\n\n%@\n\nBorrar una clave secreta/privada tiene consecuencias importantes. Una vez borrada, ya no será posible descifrar mensajes con esta clave. Esto afecta a todos los mensajes que fueron cifrados para esta clave.\n\nNosotros recomendamos no borrarla.\n\nPara comunicar a otros que esta clave ya no está en uso, en lugar de borrarla, debe revocar la clave y subir la clave revocada a los servidores de claves. De otro modo, otros aún podrían usar esta clave para cifrar mensajes para usted.";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all messages that were and will be encrypted to this key can no longer be decrypted. We recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Sí, quiero eliminar mi clave secreta/privada y comprendo que ya no podré\ndescifrar ningún mensaje que estuviera cifrado para esta clave.";
 DeleteSecKey_Yes = "Borrar clave(s)";
 DeleteSecKey_SecOnly = "Borrar sólo la(s) clave(s) secreta(s) (privadas)";
@@ -249,11 +244,6 @@ BadKeyserver_Msg = "El servidor de claves que ha introducido no está funcionand
 
 
 /* Import warnings */
-ImportRevSig_Title = "Importar certificado de revocación";
-ImportRevSig_Msg = "Está a punto de importar un certificado de revocación para %@. Si revoca su clave, ya no podrá firmar mensajes usando su clave y otros ya no podrán enviarle mensajes cifrados para su clave. Considere subir su clave revocada a los servidores de claves para que otros estén al tanto de que su clave ha sido revocada.\n\nAún podrá usar su clave revocada para descifrar correos electrónicos y ficheros que fueron cifrados con su clave. Se recomienda conservar la clave revocada en GPG Keychain.";
-ImportRevSig_Yes = "Importar";
-ImportRevSig_No = "Cancelar";
-
 ImportRandomData_Title = "Advertencia: El contenido probablemente no se puede importar";
 ImportRandomData_Msg = "Parece que está tratando de importar un mensaje que no es una clave OpenPGP.\n\n¿Está seguro de que quiere intentar importar este contenido?";
 ImportRandomData_Yes = "Intentar importar";
@@ -267,14 +257,13 @@ ImportNonImportable_No = "Cancelar";
 
 
 /* Results */
-UploadSuccess_Title = "Enviado con éxito";
+UploadSuccess_Title = "Public keys sent to key server";
 UploadSuccess_Msg = "Se han enviado las siguientes claves públicas a los servidores de claves:\n\n%@\n\nPor favor, espere algún tiempo a que el cambio se sincronice por los servidores de claves existentes.";
 
-ExportSuccess_Title = "Exportación exitosa";
-ExportSuccess_Msg = "Las siguientes claves se exportaron con éxito:\n\n%@";
+ExportSuccess_Title = "Keys exported";
+ExportSuccess_Msg = "The following keys were exported:\n\n%@";
 
-SignSuccess_Title = "Firmado completado";
-SignSuccess_Msg = "Las identificaciones de usuario seleccionadas han sido firmadas.";
+SignSuccess_Title = "The selected user IDs have been signed";
 
 
 

@@ -30,19 +30,14 @@ ExportSecretKeyFilename = "%@ – Secreta";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Nenhuma Senha";
+CheckAlert_NoPassphrase_Title = "Nenhuma senha digitada";
 CheckAlert_NoPassphrase_Message = "Nenhuma senha foi digitada. Isso não é recomendado. A senha deve ter ao menos 8 caracteres.";
-CheckAlert_NoPassphrase_Button1= "Continuar sem Senha";
-CheckAlert_NoPassphrase_Button2 = "Digitar Nova Senha";
-CheckAlert_PassphraseShort_Title = "Senha Curta";
-CheckAlert_PassphraseShort_Message = "A senha digitada é curta demais. Isso não é recomendado. A senha deve ter ao menos 8 caracteres.";
-CheckAlert_PassphraseShort_Button1= "Continuar com Senha Curta";
-CheckAlert_PassphraseShort_Button2 = "Digitar Nova Senha";
-CheckAlert_PassphraseSimple_Title = "Senha Simples";
-CheckAlert_PassphraseSimple_Message = "A senha digitada é simples demais. Uma boa senha deve ser alfanumérica e conter ao menos um caractere especial.";
-CheckAlert_PassphraseSimple_Button1 = "Continuar com Senha Simples";
-CheckAlert_PassphraseSimple_Button2 = "Digitar Nova Senha";
-
+CheckAlert_NoPassphrase_Yes = "Continuar sem Senha";
+CheckAlert_NoPassphrase_No = "Digitar Nova Senha";
+CheckAlert_PassphraseSimple_Title = "Senha simples demais";
+CheckAlert_PassphraseSimple_Message = "A senha digitada é simples demais. Uma boa senha deve ter ao menos 8 caracteres e usar caracteres diferentes.";
+CheckAlert_PassphraseSimple_Yes = "Usar Senha Simples";
+CheckAlert_PassphraseSimple_No = "Digitar Nova Senha";
 CheckAlert_PassphraseTooLong_Title = "Senha Longa Demais";
 CheckAlert_PassphraseTooLong_Message = "A senha digitada é longa demais. Digite uma senha com menos de %1$i caracteres.\n\nAtenção: se a senha incluir caracteres especiais, talvez os caracteres %1$i não possam ser usados.";
 
@@ -80,13 +75,13 @@ CheckError_NoKeyID = "Digite um ID de chave válido.";
 GPG_NOT_FOUND_TITLE = "GPG Não Encontrado";
 GPG_NOT_FOUND_MESSAGE = "Algo deu muito errado. O GPG parece não estar no sistema. Reinstale a GPG Suite de https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Erro de Configuração do GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Algo deu errado. O GPG foi encontrado no sistema, mas parece haver um problema com o arquivo de configuração. Contate o suporte em https://gpgtools.tenderapp.com.\n\nDetalhes: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Algo deu errado. O GPG foi encontrado no sistema, mas parece haver um problema com o arquivo de configuração. Contate o suporte em https://gpgtools.tenderapp.com\n\nDetalhes: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg Não Encontrado";
 LIBMACGPG_NOT_FOUND_MESSAGE = "O Libmacgpg não foi encontrado no sistema. Reinstale a GPG Suite de https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Alguém Adulterou a Instalação do GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "Para manter sua segurança, o GPG Keychain será encerrado.\n\nPara certificar‑se de que você possui a versão original, reinstale a GPG Suite de https://gpgtools.org.";
 UNKNOWN_GPG_ERROR_TITLE = "Erro GPG Desconhecido";
-UNKNOWN_GPG_ERROR_MESSAGE = "Algo deu errado. O GPG apresentou um erro desconhecido. Contate o suporte em https://gpgtools.tenderapp.com.\n\nDetalhes: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Algo deu errado. O GPG apresentou um erro desconhecido. Contate o suporte em https://gpgtools.tenderapp.com\n\nDetalhes: %@";
 
 
 
@@ -135,7 +130,7 @@ RemoveSubkey_Yes = "Remover Subchave";
 RemoveSubkey_No = "Cancelar";
 
 RevokeSubkey_Title = "Aviso: você está prestes a revogar uma subchave.";
-RevokeSubkey_Msg = "Atenção: prossiga apenas se tiver certeza do que está fazendo.\n\nA revogação de uma subchave pode destruir a capacidade de assinatura da mesma, e outras pessoas talvez não possam mais criptografar mensagens para esta subchave.\n\nDepois de revogá‑la, não será mais possível assinar e criptografar mensagens com esta subchave, e outras pessoas não poderão mais criptografar mensagens para esta subchave. A subchave revogada ainda poderá ser usada para descriptografar e‑mails e arquivos criptografados anteriormente com a mesma.\n\nÉ recomendável que você não a apague; mantenha-a na chave com o estado de revogada.\n\nTem certeza de que deseja revogar esta subchave?";
+RevokeSubkey_Msg = "Atenção: prossiga apenas se tiver certeza do que está fazendo.\n\nA revogação de uma subchave pode destruir a capacidade de assinatura da mesma, e outras pessoas talvez não possam mais criptografar mensagens para esta subchave.\n\nA subchave revogada ainda poderá ser usada para descriptografar e‑mails e arquivos criptografados anteriormente com a mesma.\n\nÉ recomendável que você não a apague; mantenha-a na chave com o estado de revogada.\n\nTem certeza de que deseja revogar esta subchave?";
 RevokeSubkey_Yes = "Revogar Subchave";
 RevokeSubkey_No = "Cancelar";
 
@@ -155,12 +150,12 @@ RemoveLastSelfSignature_Yes = "Remover Assinatura";
 RemoveLastSelfSignature_No = "Cancelar";
 
 RevokeLastSelfSignature_Title = "Revogar Última Autoassinatura";
-RevokeLastSelfSignature_Msg = "Você está prestes a revogar a última autoassinatura do ID de Usuário “%@”. Prossiga apenas se tiver certeza do que está fazendo.\n\nA revogação da última autoassinatura do ID de Usuário inutilizará o ID de Usuário. Você não poderá mais usar o ID de Usuário “%@” no Mail para assinar e‑mails.";
+RevokeLastSelfSignature_Msg = "Você está prestes a revogar a última autoassinatura do ID de Usuário “%@”. Prossiga apenas se tiver certeza do que está fazendo.\n\nVocê não poderá mais usá‑lo, inclusive para assinar e‑mails.";
 RevokeLastSelfSignature_Yes = "Revogar Assinatura";
 RevokeLastSelfSignature_No = "Cancelar";
 
 RevokeKey_Title = "Aviso: você está prestes a revogar uma chave.";
-RevokeKey_Msg = "Você está prestes a revogar a seguinte chave:\n\n%@\n\nDepois de revogá‑la, não será mais possível assinar e criptografar mensagens com esta chave, e outras pessoas não poderão mais criptografar mensagens para esta chave. A chave revogada ainda poderá ser usada para descriptografar e‑mails e arquivos criptografados anteriormente com a mesma.\n\nÉ recomendável que você não a apague; mantenha-a no GPG Keychain com o estado de revogada.\n\nTem certeza de que deseja revogar esta chave?";
+RevokeKey_Msg = "Você está prestes a revogar a seguinte chave:\n\n%@\n\nDepois de revogá‑la, não será mais possível assinar e criptografar mensagens com esta chave. A chave revogada ainda poderá ser usada para descriptografar e‑mails e arquivos criptografados anteriormente com a mesma.\n\nÉ recomendável que você não a apague; mantenha-a no GPG Keychain com o estado de revogada.\n\nTem certeza de que deseja revogar esta chave?";
 RevokeKey_Yes = "Revogar Chave";
 RevokeKey_No = "Cancelar";
 
@@ -209,7 +204,7 @@ RevokedSubkeyWantToUpload_Yes = "Enviar Chave Pública";
 RevokedSubkeyWantToUpload_No = "Não Enviar";
 
 UserIDsSignedWantToUpload_Title = "Assinatura Bem-sucedida";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
+UserIDsSignedWantToUpload_Msg = "Para facilitar que seus amigos saibam sobre a nova assinatura, é recomendável enviar a chave pública assinada aos servidores.\n\nDeseja enviar a chave pública?";
 UserIDsSignedWantToUpload_Yes = "Enviar Chave Pública";
 UserIDsSignedWantToUpload_No = "Não Enviar";
 
@@ -218,18 +213,18 @@ UserIDsSignedWantToUpload_No = "Não Enviar";
 
 /* Delete warnings */
 DeleteKey_Title = "Apagar Chave Pública";
-DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Msg = "Você está prestes a apagar a seguinte chave pública:\n\n%@\n\nTem certeza de que deseja apagar a chave pública?";
 DeleteKey_Yes = "Apagar Chave";
 DeleteKey_No = "Cancelar";
 
 DeleteKeys_Title = "Apagar Chaves Públicas";
-DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Msg = "Você está prestes a apagar as seguintes chaves públicas:\n\n%@\n\nTem certeza de que deseja apagar as chaves públicas?";
 DeleteKeys_Yes = "Apagar Chaves";
 DeleteKeys_No = "Cancelar";
 
 
 DeleteSecKey_Title = "Aviso: você está prestes a apagar chaves secretas e públicas.";
-DeleteSecKey_Msg = "Você está prestes a apagar as chaves:\n\n%@\n\nO apagamento de uma chave secreta tem consequências importantes. Depois de apagá‑la, não será mais possível descriptografar mensagens com a mesma. Isso envolve todas as mensagens criptografadas com esta chave.\n\nÉ recomendável que você não as apague.\n\nPara informar outras pessoas sobre o desuso da chave, é preferível revogar a chave (em vez de apagá‑la) e enviar a chave revogada aos servidores. Caso contrário, outras pessoas ainda poderão usar a chave para criptografar mensagens para você.";
+DeleteSecKey_Msg = "Você está prestes a apagar as chaves:\n\n%@\n\nDepois de apagá‑las, todas as mensagens que foram criptografadas com estas chaves não poderão mais ser descriptografadas. É recomendável que você não as apague.\n\nPara informar outras pessoas sobre o desuso da chave, é preferível revogar a chave (em vez de apagá‑la) e enviar a chave revogada aos servidores. Caso contrário, outras pessoas ainda poderão usar a chave para criptografar mensagens para você.";
 DeleteSecKey_Checkbox = "Sim, desejo apagar minha chave secreta e entendo que não poderei\nmais descriptografar as mensagens criptografadas com esta chave.";
 DeleteSecKey_Yes = "Apagar Chave(s)";
 DeleteSecKey_SecOnly = "Apagar Apenas Chave(s) Secreta(s)";
@@ -249,11 +244,6 @@ BadKeyserver_Msg = "O Servidor de Chaves digitado não está funcionando.\nVerif
 
 
 /* Import warnings */
-ImportRevSig_Title = "Importar Certificado de Revogação";
-ImportRevSig_Msg = "Você está prestes a importar o certificado de revogação de “%@”. Caso revogue esta chave, você não poderá mais assinar mensagens com ela e outras pessoas não poderão mais enviar mensagens criptografadas com a sua chave para você. Envie a chave revogada aos servidores para alertar outras pessoas sobre a revogação da sua chave.\n\nVocê ainda poderá usar a chave revogada para descriptografar e‑mails e arquivos criptografados anteriormente. Para isso, recomenda‑se mantê‑la no GPG Keychain.";
-ImportRevSig_Yes = "Importar";
-ImportRevSig_No = "Cancelar";
-
 ImportRandomData_Title = "Aviso: o conteúdo provavelmente não pode ser importado.";
 ImportRandomData_Msg = "Parece que você está tentando importar uma mensagem que não possui uma chave OpenPGP.\n\nTem certeza de que deseja importar esse conteúdo?";
 ImportRandomData_Yes = "Tentar Importar";
@@ -267,14 +257,13 @@ ImportNonImportable_No = "Cancelar";
 
 
 /* Results */
-UploadSuccess_Title = "Envio Bem-sucedido";
+UploadSuccess_Title = "Cheves públicas enviadas ao servidor de chaves";
 UploadSuccess_Msg = "As seguintes chaves públicas foram enviadas aos servidores:\n\n%@\n\nAguarde um tempo para permitir que a alteração seja sincronizada entre os servidores existentes.";
 
-ExportSuccess_Title = "Exportação Bem-sucedida";
-ExportSuccess_Msg = "As seguintes chaves foram exportadas corretamente:\n\n%@";
+ExportSuccess_Title = "Chaves exportadas";
+ExportSuccess_Msg = "As seguintes chaves foram exportadas:\n\n%@";
 
-SignSuccess_Title = "Assinatura Bem-sucedida";
-SignSuccess_Msg = "Os IDs de usuário selecionados foram assinados.";
+SignSuccess_Title = "Os IDs de Usuário selecionados foram assinados.";
 
 
 

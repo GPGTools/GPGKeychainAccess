@@ -30,19 +30,14 @@ ExportSecretKeyFilename = "%@ – Hemmelighet";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "Inget passord";
-CheckAlert_NoPassphrase_Message = "Du har ikke skrevet inn et passord. Dette anbefales ikke. Passord bør være ihvertfall 8 tegn lange.";
-CheckAlert_NoPassphrase_Button1= "Fortsett uten et passord";
-CheckAlert_NoPassphrase_Button2 = "Skriv inn nytt passord";
-CheckAlert_PassphraseShort_Title = "Kort passord";
-CheckAlert_PassphraseShort_Message = "Du har ikke skrevet inn et kort passord. Dette anbefales ikke. Et passord bør være minst 8 tegn langt.";
-CheckAlert_PassphraseShort_Button1= "Fortsett med kort passord";
-CheckAlert_PassphraseShort_Button2 = "Skriv inn nytt passord";
-CheckAlert_PassphraseSimple_Title = "Enkelt passord";
-CheckAlert_PassphraseSimple_Message = "Passordet du har skrevet inn er for enkelt. Et bra passord bør være alfanumerisk og inneholde minst ett spesialtegn.";
-CheckAlert_PassphraseSimple_Button1 = "Fortsett med enkelt passord";
-CheckAlert_PassphraseSimple_Button2 = "Skriv inn nytt passord";
-
+CheckAlert_NoPassphrase_Title = "No password entered";
+CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Yes = "Continue Without Password";
+CheckAlert_NoPassphrase_No = "Enter New Password";
+CheckAlert_PassphraseSimple_Title = "Password too simple";
+CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
+CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
+CheckAlert_PassphraseSimple_No = "Enter New Password";
 CheckAlert_PassphraseTooLong_Title = "Passordet er for langt";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
 
@@ -80,13 +75,13 @@ CheckError_NoKeyID = "Bruk en gydlig nøkkel-ID!";
 GPG_NOT_FOUND_TITLE = "GPG ikke funnet";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG-oppsettsfeil";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg ble ikke funnet";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Noen tuklet med din installasjon av GPG-nøkkelknippe";
 CODE_SIGN_ERROR_MESSAGE = "For å beskytte deg vil GPG-nøkkelnippet avsluttes nå!\n\nReinstaller GPG Suite fra\nhttps://gpgtools.org for å forsikre deg om at du har en original versjon fra oss!";
 UNKNOWN_GPG_ERROR_TITLE = "Ukjent GPG-Feil";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 
 
 
@@ -96,8 +91,8 @@ MailKey_Subject_Your = "Min offentlige nøkkel for å sikre meldinger";
 MailKey_Message = "Hei,\n\nvedlagt vil du finne den offentlige nøkkelen til\n\n%@\n\nDu kan bruke denne nøkkelen til å kryptere og sikre meldinger når du skriver til %@.\n\nFor å ta den i bruk må du installere OpenGPG-programvare på din datamaskin. Under finner du en liste over tilgjengelig løsninger for ditt operativsystem:\n\n%@\n\nVennligst importer den offentlige nøkkelen til din lokale OpenGPG-nøkkelbehandler.\n\nVennlig hilsen";
 MailKey_Message_Your = "Hei,\n\nvedlagt finner du min offentlige nøkkel\n\n%@\n\nDu kan bruke denne til å kryptere og sikre våre meldinger.\n\nFor å ta den i bruk må du installere OpenGPG-programvare på din datamaskin. Under finner du en liste over tilgjengelig løsninger for ditt operativsystem:\n\n%@\n\nVennligst importer den offentlige nøkkelen til din lokale OpenGPG-nøkkelbehandler.\n\nVennlig hilsen";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Oppretter ny e-post...";
-MailKey_Progress_Your = "Oppretter ny e-post…";
+MailKey_Progress = "Creating new email…";
+MailKey_Progress_Your = "Creating new email…";
 MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Ubrukelig nøkkel valgt";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du har valgt en ubrukelig nøkkel. Slike nøkler kan ikke sendes via e-post. Oppdater nøkkelen fra nøkkeltjeneren for å se om den har blitt oppdatert.\n\nEllers kan du ta kontakt med nøkkeleieren og informere dem om nøkkeltilstanden.\n\n%@";
@@ -125,17 +120,17 @@ RemoveUserID_Yes = "Fjern bruker-ID";
 RemoveUserID_No = "Avbryt";
 
 RevokeUserID_Title = "Advarsel: Du er i ferd med å tilbakekalle en bruker-ID";
-RevokeUserID_Msg = "Du er i ferd med å tilbakekalle følgende bruker-ID:\n\n%@ fra din nøkkel %@\n\nNår den først er tilbakekalt, vil du ikke kunne signere og kryptere meldinger med denne bruker-ID-en, og andre vil ikke kunne kryptere meldinger til denne bruker-ID-en. Den tilbakekalte bruker-ID-en kan fremdeles brukes til å dekryptere e-poster og filer som tidligere har blitt kryptert til den.\n\nDet er ikke anbefalt å slette den, men å beholde den i din nøkkel i tilbakekalt tilstand.\n\nEr du sikker på at du vil tilbakekalle denne bruker-ID-en?";
+RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
 RevokeUserID_Yes = "Tilbakekall bruker-ID";
 RevokeUserID_No = "Avbryt";
 
 RemoveSubkey_Title = "Fjern undernøkkel";
-RemoveSubkey_Msg = "Advarsel! Bare fortsett hvis du virkelig vet hva du gjør.\n\nTilbakekalling av en undernøkkel kan ødelegge alle signering- og dekrypterings-muligheter.\n\nHvis nøkkelen har blitt lastet opp til nøkkeltjenerne, vil fjerning av undernøkkelen ikke ha noen innvirkning på oppføringen for nøkkelen der. For å fortelle andre at de ikke lenger burde bruke denne undernøkkelen, kall tilbake undernøkkelen istedenfor og last opp den oppdaterte nøkkelen til nøkkeltjeneren.";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
 RemoveSubkey_Yes = "Fjern undernøkkel";
 RemoveSubkey_No = "Avbryt";
 
 RevokeSubkey_Title = "Advarsel: Du er i ferd med å tilbakekalle en undernøkkel";
-RevokeSubkey_Msg = "Bare fortsett hvis du virkelig vet hva du driver på med.\n\nÅ tilbakekalle en undernøkkel kan ødelegge muligheten til å bruke denne undernøkkelen og andre kan bli ute av stand til å kryptere meldinger til denne undernøkkelen.\n\nNår den først er tilbakekalt, vil du ikke kunne signere og kryptere meldinger med denne undernøkkelen, og andre vil ikke kunne kryptere meldinger til denne undernøkkelen. Den tilbakekalte undernøkkelen kan fremdeles brukes til å dekryptere e-poster og filer, som tidligere har blitt sendt til den.\n\nDet er ikke anbefalt å slette den, men å beholde den i din nøkkel i tilbakekalt tilstand.\n\nEr du sikker på at du ønsker å tilbakekalle denne undernøkkelen?";
+RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "Tilbakekall undernøkkel";
 RevokeSubkey_No = "Avbryt";
 
@@ -155,12 +150,12 @@ RemoveLastSelfSignature_Yes = "Fjern signatur";
 RemoveLastSelfSignature_No = "Avbryt";
 
 RevokeLastSelfSignature_Title = "Tilbakekall siste selv-signatur";
-RevokeLastSelfSignature_Msg = "Du er i ferd med å tilbakekalle siste selv-signatur av bruker-ID-en %@. Bare fortsett hvis du virkelig vet hva du gjør.\n\nÅ tilbakekalle siste selv-signatur av bruker-ID-en vil gjøre den bruker-ID-en ubrukelig. Du vil ikke lenger kunne bruke bruker ID-en %@ i Mail.app for å signere e-poster.";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
 RevokeLastSelfSignature_Yes = "Tilbakekall signatur";
 RevokeLastSelfSignature_No = "Avbryt";
 
 RevokeKey_Title = "Advarsel: Du er i ferd med å tilbakekalle en nøkkel";
-RevokeKey_Msg = "Du er i ferd med å tilbakekalle følgende nøkkel:\n\n%@\n\nNår den først er tilbakekalt, vil du ikke kunne signere og kryptere meldinger med denne nøkkelen, og andre vil ikke kunne kryptere meldinger til denne nøkkelen. Den tilbakekalte nøkkelen kan fremdeles brukes til å dekryptere e-poster og filer som tidligere har blitt kryptert til den.\n\nDet er ikke anbefalt å slette den, men å beholde den i GPG-nøkkelknippe i tilbakekalt tilstand.\n\nEr du sikker på at du vil tilbakekalle denne nøkkelen?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Tilbakekall nøkkel";
 RevokeKey_No = "Avbryt";
 
@@ -229,7 +224,7 @@ DeleteKeys_No = "Avbryt";
 
 
 DeleteSecKey_Title = "Advarsel: Du er i ferd med å slette dine hemmelige og offentlige nøkler";
-DeleteSecKey_Msg = "Du er i ferd med å slette nøkkelen/nøklene:\n\n%@\n\nSletting av en hemmelig nøkkel har store konsekvenser. Når den først er slettet vil dekryptering av meldinger med denne nøkkelen ikke lenger være mulig. Dette har innvirkning på alle meldinger som ble kryptert til denne nøkkelen.\n\nDet anbefales ikke å slette den.\n\nFor å kommunisere med andre at din nøkkel ikke lenger er i bruk, burde du tilbakekalle nøkkelen i steden for å slette den og laste opp den tilbakekalte nøkkelen til nøkkeltjenerne. Ellers kan det hende at andre fremdeles vil bruke denne nøkkelen til å kryptere meldinger til deg.";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all messages that were and will be encrypted to this key can no longer be decrypted. We recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = "Ja, jeg ønsker å slette min hemmelige nøkkel og forstår at jeg ikke lenger\nvil kunne dekryptere noen meldinger som har blitt kryptert med den nøkkelen.";
 DeleteSecKey_Yes = "Slett nøkkel/nøkler";
 DeleteSecKey_SecOnly = "Bare slett hemmelig nøkkel/nøkler";
@@ -249,11 +244,6 @@ BadKeyserver_Msg = "Nøkkelen du har skrevet inn virker ikke.\nSjekk nøkkeltjen
 
 
 /* Import warnings */
-ImportRevSig_Title = "Importer tilbakekallingssertifikat";
-ImportRevSig_Msg = "Du er i ferd med å importere et tilbakekallingssertifikat for %@. Hvis du tilbakekaller din nøkkel vil du ikke lenger kunne signere meldinger som bruker den nøkkelen, og andre vil ikke lenger kunne sende deg meldinger kryptert til din nøkkel. Overvei å laste opp din tilbakekalte nøkkel til nøkkeltjeneren slik at andre kan gjøres oppmerksomme på at din nøkkel er tilbakekalt.\n\nDu vil fremdeles kunne bruke din tilbakekalte nøkkel til dekryptering av e-poster og filer som har blitt kryptert med din nøkkel. Det er derfor vi anbefaler at du beholder din tilbakekalte nøkkel i ditt GPG-nøkkelknippe.";
-ImportRevSig_Yes = "Importer";
-ImportRevSig_No = "Avbryt";
-
 ImportRandomData_Title = "Advarsel: Innholdet kan antageligvis ikke importeres";
 ImportRandomData_Msg = "Det later til at du prøver å importere ei melding som ikke er en OpenPGP-nøkkel.\n\nEr du sikker på at du vil prøve å importere dette innholdet?";
 ImportRandomData_Yes = "Prøv import";
@@ -267,14 +257,13 @@ ImportNonImportable_No = "Avbryt";
 
 
 /* Results */
-UploadSuccess_Title = "Sendt";
+UploadSuccess_Title = "Public keys sent to key server";
 UploadSuccess_Msg = "Følgende offentlige nøkler har blitt sendt til nøkkeltjenerne:\n\n%@\n\nLa det gå litt tid for at endringen skal rekke å synkroniseres på alle nøkkeltjenerne.";
 
-ExportSuccess_Title = "Eksportert";
-ExportSuccess_Msg = "Følgende nøkkel ble eksportert:\n\n%@";
+ExportSuccess_Title = "Keys exported";
+ExportSuccess_Msg = "The following keys were exported:\n\n%@";
 
-SignSuccess_Title = "Signing successful";
-SignSuccess_Msg = "The selected user IDs have been signed.";
+SignSuccess_Title = "The selected user IDs have been signed";
 
 
 
