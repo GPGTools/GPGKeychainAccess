@@ -124,17 +124,18 @@ NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename) {
 	if (validity >= GPGValidityInvalid) {
 		return @1;
 	}
-	if (validity == GPGValidityUltimate) {
-		return @5;
+	switch (validity) {
+		case GPGValidityUltimate:
+			return @4;
+		case GPGValidityFull:
+			return @3.1;
+		case GPGValidityMarginal:
+			return @3;
+		case GPGValidityNever:
+			return @1.1;
+		default:
+			return @2;
 	}
-	if (validity == GPGValidityFull) {
-		return @4;
-	}
-	if (validity == GPGValidityMarginal) {
-		return @3;
-	}
-	
-	return @2;
 }
 
 @end

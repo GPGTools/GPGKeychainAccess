@@ -58,7 +58,7 @@
                         <rect key="frame" x="20" y="44" width="1065" height="489"/>
                         <clipView key="contentView" id="vCm-4D-amE">
                             <rect key="frame" x="1" y="0.0" width="1063" height="488"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="KeyList" headerView="591" id="590" customClass="GKTableView">
                                     <rect key="frame" x="0.0" y="0.0" width="1063" height="465"/>
@@ -346,11 +346,11 @@
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                             </tableHeaderCell>
-                                            <levelIndicatorCell key="dataCell" lineBreakMode="truncatingTail" state="on" alignment="left" maxValue="4" warningValue="2" criticalValue="1" id="qYj-ng-B8r"/>
+                                            <levelIndicatorCell key="dataCell" lineBreakMode="truncatingTail" state="on" alignment="left" maxValue="4" warningValue="3" criticalValue="1" id="qYj-ng-B8r"/>
                                             <sortDescriptor key="sortDescriptorPrototype" selector="compareValidity:" sortKey="validity"/>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.validity" id="guT-vp-Jy7">
+                                                <binding destination="663" name="value" keyPath="arrangedObjects.validity" id="By8-qq-cJT">
                                                     <dictionary key="options">
                                                         <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                                         <string key="NSValueTransformerName">GKAValidityInidicatorTransformer</string>
