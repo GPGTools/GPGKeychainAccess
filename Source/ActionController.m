@@ -2110,7 +2110,13 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 		lastSelfSignature = (count == 1);
 	}
 	
-	NSString *warningTemplate = lastSelfSignature ? @"RemoveLastSelfSignature" : @"RemoveSignature";
+	NSString *warningTemplate = @"RemoveSignature";
+	if (lastSelfSignature) {
+		warningTemplate = @"RemoveLastSelfSignature";
+	} else if (signature.local) {
+		warningTemplate = @"RemoveLocalSignature";
+	}
+	
 	if ([self warningSheetWithDefault:NO string:warningTemplate, signature.userIDDescription, signature.userIDDescription] == NO) {
 		return;
 	}
