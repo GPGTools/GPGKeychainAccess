@@ -82,8 +82,17 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 	signaturesTable.action = nil;
 }
 
+- (NSResponder *)firstResponder {
+	NSWindow *inspectorWindow = appDelegate.inspectorWindow;
+	if (inspectorWindow == NSApp.keyWindow) {
+		return inspectorWindow.firstResponder;
+	} else {
+		return mainWindow.firstResponder;
+	}
+}
+
 - (IBAction)delete:(id)sender {
-	NSResponder *responder = mainWindow.firstResponder;
+	NSResponder *responder = self.firstResponder;
 	
 	if (responder == appDelegate.userIDTable) {
 		[self removeUserID:nil];
@@ -526,7 +535,7 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 - (IBAction)copy:(id)sender {
 	NSString *stringForPasteboard = nil;
 	
-	NSResponder *responder = mainWindow.firstResponder;
+	NSResponder *responder = self.firstResponder;
 	
 	if (responder == appDelegate.userIDTable) {
 		if (userIDsController.selectedObjects.count == 1) {
@@ -563,7 +572,7 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 }
 - (IBAction)copyFingerprint:(id)sender {
 	NSString *stringForPasteboard = nil;
-	NSResponder *responder = mainWindow.firstResponder;
+	NSResponder *responder = self.firstResponder;
 	
 	if (responder == appDelegate.userIDTable) {
 		if (userIDsController.selectedObjects.count == 1) {
@@ -1857,7 +1866,8 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 	}
 
 	GPGUserID *userID = nil;
-	if ([sender tag] == 1 || ([sender tag] == -1 && (mainWindow.firstResponder == userIDsTable || mainWindow.firstResponder == signaturesTable))) {
+	NSResponder *firstResponder = self.firstResponder;
+	if ([sender tag] == 1 || ([sender tag] == -1 && (firstResponder == userIDsTable || firstResponder == signaturesTable))) {
 		NSArray *objects = [self selectedObjectsOf:userIDsTable];
 		if (objects.count == 1) {
 			// The user has selected a userID in the user ids tab.
@@ -2415,7 +2425,7 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 	
 	
 	if (selector == @selector(delete:)) {
-		NSResponder *responder = mainWindow.firstResponder;
+		NSResponder *responder = self.firstResponder;
 		
 		if (responder == appDelegate.userIDTable) {
 			selector = @selector(removeUserID:);
@@ -2431,7 +2441,7 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 	
 	if (selector == @selector(copy:) ||
 		selector == @selector(copyFingerprint:)) {
-		NSResponder *responder = mainWindow.firstResponder;
+		NSResponder *responder = self.firstResponder;
 		
 		if (responder == appDelegate.userIDTable) {
 			if (userIDsController.selectedObjects.count == 1) {

@@ -19,16 +19,15 @@
 
 #import "GKTableView.h"
 
-@interface GPGKeychainAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate, NSDrawerDelegate> {
+@interface GPGKeychainAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate> {
 	BOOL rowWasSelected;
 	BOOL _shouldTerminate;
 }
 
-@property (assign) IBOutlet NSWindow *window;
-@property (weak) IBOutlet NSView *inspectorView;
-@property (weak) IBOutlet GKTableView *keyTable;
-@property (weak) IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
-@property (weak) IBOutlet NSDrawer *drawer;
+@property (nonatomic, assign) IBOutlet NSWindow *window;
+@property (nonatomic, weak) IBOutlet NSWindow *inspectorWindow;
+@property (nonatomic, weak) IBOutlet GKTableView *keyTable;
+@property (nonatomic, weak) IBOutlet NSTableView *userIDTable, *subkeyTable, *signatureTable;
 @property (nonatomic) BOOL inspectorVisible;
 @property (nonatomic, strong) NSTextView *fieldEditor;
 

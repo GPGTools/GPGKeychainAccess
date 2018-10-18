@@ -15,19 +15,17 @@
 		return nil;
 	}
 	
-	borderColor = [NSColor colorWithCalibratedWhite:0.71 alpha:1];
-	backgroundColor = [NSColor colorWithCalibratedWhite:0.85 alpha:1];
 	
-	NSColor* color1 = [NSColor colorWithCalibratedRed: 0.808 green: 0.241 blue: 0.241 alpha: 1];
-	NSColor* color2 = [NSColor colorWithCalibratedRed: 0.868 green: 0.83 blue: 0.213 alpha: 1];
-	NSColor* color3 = [NSColor colorWithCalibratedRed: 0.373 green: 0.848 blue: 0.19 alpha: 1];
+	NSColor *color1 = [NSColor colorWithCalibratedRed:0.808 green:0.241 blue:0.241 alpha:1];
+	NSColor *color2 = [NSColor colorWithCalibratedRed:0.868 green:0.83 blue:0.213 alpha:1];
+	NSColor *color3 = [NSColor colorWithCalibratedRed:0.373 green:0.848 blue:0.19 alpha:1];
 	
 	
 	gradient = [[NSGradient alloc] initWithColorsAndLocations:
 				color1, 0.23,
-				[color1 blendedColorWithFraction: 0.5 ofColor: color2], 0.27,
+				[color1 blendedColorWithFraction:0.5 ofColor:color2], 0.27,
 				color2, 0.36,
-				[color2 blendedColorWithFraction: 0.5 ofColor: color3], 0.43,
+				[color2 blendedColorWithFraction:0.5 ofColor:color3], 0.43,
 				color3, 0.50, nil];
 	
 	return self;
@@ -54,8 +52,8 @@
 	
 	
 	NSColor *barColor = [gradient interpolatedColorAtLocation:ratio];
-	
-	
+	NSColor *borderColor = [[NSColor tertiaryLabelColor] colorWithAlphaComponent:0.2];
+	NSColor *backgroundColor = [NSColor quaternaryLabelColor];
 	
 	
 	// Construct the BezierPath.

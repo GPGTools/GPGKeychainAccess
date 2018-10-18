@@ -26,7 +26,6 @@
 
 
 @implementation GPGKeychainAppDelegate
-@synthesize keyTable, userIDTable, subkeyTable, signatureTable, drawer, inspectorView;
 
 - (NSWindow *)window {
     return mainWindow;
@@ -36,33 +35,16 @@
 }
 
 
-- (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize {
-
-	// Force the minimum drawer size. Contraints are not working, so do it manually.
-	CGFloat minWidth = inspectorView.fittingSize.width;
-	if (contentSize.width < minWidth) {
-		contentSize.width = minWidth;
-		NSSize minContentSize = drawer.minContentSize;
-		minContentSize.width = minWidth;
-		drawer.minContentSize = minContentSize;
-	}
-	
-	// Save the current size.
-	[[GPGOptions sharedOptions] setValue:@(contentSize.width) forKey:@"drawerWidth"];
-	
-	
-	return contentSize;
-}
-
 - (BOOL)inspectorVisible {
-	return drawer.state;
+	return self.inspectorWindow.visible;
 }
 - (void)setInspectorVisible:(BOOL)inspectorVisible {
 	[self showInspector:inspectorVisible];
 }
 
 - (void)showInspector:(int)show {
-	BOOL isVisible = drawer.state;
+	static BOOL displayedAlready = NO;
+	BOOL isVisible = self.inspectorWindow.visible;
 	
 	if (show == -1) {
 		show = !isVisible;
@@ -70,61 +52,21 @@
 
 	if (show) {
 		if (!isVisible) {
-			NSRect windowFrame = self.window.frame;
-			CGFloat drawerWidth = drawer.contentSize.width;
-			CGFloat spaceLeft = windowFrame.origin.x;
-			CGFloat screenWidth = self.window.screen.frame.size.width;
-			CGFloat spaceRight = screenWidth - windowFrame.origin.x - windowFrame.size.width;
-			
-			BOOL right = spaceRight >= spaceLeft;
-		
-			CGFloat maxSpace = MAX(spaceRight, spaceLeft) - 10;
-			if (drawerWidth > maxSpace) {
-				CGFloat minWidth = inspectorView.fittingSize.width;
-				
-				if (minWidth <= maxSpace) {
-					// Left or right is enough space for the minimum sized drawer.
-					// Only need to shrink the drawer.
-					NSSize contentSize = drawer.contentSize;
-					contentSize.width = maxSpace;
-					drawer.contentSize = contentSize;
-				} else {
-					NSSize contentSize = drawer.contentSize;
-					contentSize.width = minWidth;
-					drawer.contentSize = contentSize;
-					
-					if (spaceRight + spaceLeft - 10 >= minWidth) {
-						// Move the main window.
-						CGFloat diff = minWidth - maxSpace;
-						windowFrame.origin.x -= (right ? diff : -diff);
-					} else {
-						// Shrink the main window.
-						windowFrame.size.width = screenWidth - minWidth - 10;
-						
-						if (right) {
-							windowFrame.origin.x = 0;
-						} else {
-							windowFrame.origin.x = minWidth + 10;
-						}
-					}
-					
-					// Animate shrink and/or move.
-					NSDictionary *windowResize = @{NSViewAnimationTargetKey: self.window,
-												   NSViewAnimationEndFrameKey: [NSValue valueWithRect:windowFrame]};
-
-					NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:@[windowResize]];
-					
-					[animation setAnimationBlockingMode: NSAnimationNonblocking];
-					[animation setAnimationCurve: NSAnimationEaseIn];
-					[animation setDuration:0.5];
-					[animation startAnimation];
-				}
+			if (!displayedAlready) {
+				displayedAlready = YES;
+				NSRect mainFrame = self.window.frame;
+				NSRect inspectorFrame = self.inspectorWindow.frame;
+				NSPoint origin;
+				origin.x = mainFrame.origin.x + mainFrame.size.width;
+				origin.y = mainFrame.origin.y + mainFrame.size.height - inspectorFrame.size.height;
+				[self.inspectorWindow setFrameOrigin:origin];
 			}
-			drawer.contentView.window.nextResponder = [ActionController sharedInstance];
-			[drawer open];
+			
+			[self.window addChildWindow:self.inspectorWindow ordered:NSWindowAbove];
+			[self.inspectorWindow makeKeyAndOrderFront:nil];
 		}
 	} else {
-		[drawer close];
+		[self.inspectorWindow close];
 	}
 }
 - (IBAction)toggleInspector:(id)sender {
@@ -137,11 +79,11 @@
 
 
 - (IBAction)singleClick:(NSTableView *)sender {
-	rowWasSelected = [keyTable clickedRowWasSelected];
+	rowWasSelected = [_keyTable clickedRowWasSelected];
 }
 - (IBAction)doubleClick:(NSTableView *)sender {
-	if (keyTable.clickedRow >= 0) {
-		if (keyTable.selectedRowIndexes.count > 1 ? [keyTable clickedRowWasSelected] : rowWasSelected) {
+	if (_keyTable.clickedRow >= 0) {
+		if (_keyTable.selectedRowIndexes.count > 1 ? [_keyTable clickedRowWasSelected] : rowWasSelected) {
 			[self showInspector:-1];
 		} else {
 			[self showInspector:1];
@@ -163,24 +105,10 @@
 - (void)awakeFromNib {
 	GPGDebugLog(@"GPGKeychainAppDelegate awakeFromNib");
 	
-#warning This code is required until jenkins is up to date.
-	keyTable.action = @selector(singleClick:);
-	keyTable.doubleAction = @selector(doubleClick:);
-	keyTable.target = self;
-
-	
-	NSNumber *drawerWidth = [[GPGOptions sharedOptions] valueForKey:@"drawerWidth"];
-	if (drawerWidth) {
-		NSSize size = drawer.contentSize;
-		size.width = drawerWidth.floatValue;
-		drawer.contentSize = size;
-	}
-	
-	
-	[self generateContextMenuForTable:keyTable];
-	[self generateContextMenuForTable:subkeyTable];
-	[self generateContextMenuForTable:userIDTable];
-	[self generateContextMenuForTable:signatureTable];
+	[self generateContextMenuForTable:_keyTable];
+	[self generateContextMenuForTable:_subkeyTable];
+	[self generateContextMenuForTable:_userIDTable];
+	[self generateContextMenuForTable:_signatureTable];
 		
 	NSArray *draggedTypes = [NSArray arrayWithObjects:NSFilenamesPboardType, NSStringPboardType, nil];
 	[mainWindow registerForDraggedTypes:draggedTypes];

@@ -10,10 +10,7 @@
 @interface GKPasswordStrengthIndicator : NSProgressIndicator
 @end
 @interface GKPasswordStrengthIndicator () {
-	NSColor *borderColor;
-	NSColor *backgroundColor;
-	NSGradient *gradient;
-	
+	NSGradient *gradient;	
 }
 @end
 
