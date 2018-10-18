@@ -415,25 +415,22 @@
 		cancelButtonTag = NSAlertFirstButtonReturn;
 	}
 	
-
-	BOOL isMojave = NO;
-	if (@available(macOS 10.14, *)) {
-		// On 10.14 the cancel button hack doesn't work as expected.
-		isMojave = YES;
-	}
-	
-	if (cancelButtonTag != 0 && !isMojave) {
+	if (cancelButtonTag != 0) {
 		// This is a hack to allow, to close the alert with the escape-key.
-		[alert addButtonWithTitle:@"Cancel"]; // Add a cancel button. NSAlert sets the key equivalent automatically to esc.
-		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.
 
-		NSButton *button = alert.buttons[alert.buttons.count - 1];
+		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.
 		
-		// This button causes a "CGAffineTransformInvert: singular matrix." error in the log.
-		// It's ugly but harmless and i don't know a better solution.
-		button.bounds = NSMakeRect(-10, -10, 1, 1); // Hide the button.
-		button.tag = cancelButtonTag; // Set the tag to mtach the real cancel button.
-		button.refusesFirstResponder = YES;
+		NSButton *someButton = alert.buttons[0];
+		NSView *superview = someButton.superview;
+
+		NSButton *newButton = [[NSButton alloc] initWithFrame:NSMakeRect(-10, -10, 1, 1)];
+		newButton.keyEquivalent = @"\x1b"; // escape-key
+		newButton.target = someButton.target;
+		newButton.action = someButton.action;
+		newButton.tag = cancelButtonTag; // Set the tag to mtach the real cancel button.
+		newButton.refusesFirstResponder = YES;
+
+		[superview addSubview:newButton];
 	} else {
 		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.
 	}
