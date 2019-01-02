@@ -3100,7 +3100,6 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 		// The printVersion is managed through gpg.conf via the emit-version and no-emit-version options.  Do not override here.
 		//gpgc.printVersion = YES;
 		gpgc.async = YES;
-		gpgc.keyserverTimeout = 20;
 		
 		showExpertSettings = [[GPGOptions sharedOptions] boolForKey:@"showExpertSettings"];
 		if (showExpertSettings) {

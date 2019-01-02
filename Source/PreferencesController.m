@@ -249,7 +249,6 @@ static PreferencesController *_sharedInstance = nil;
 	self.gpgc = [GPGController gpgController];
 	self.gpgc.keyserver = self.keyserverToCheck;
 	self.gpgc.delegate = self;
-	self.gpgc.keyserverTimeout = 10;
 	[spinner startAnimation:nil];
 	self.testingServer = YES;
 	
