@@ -264,24 +264,25 @@ static PreferencesController *_sharedInstance = nil;
 	
 	dispatch_async(dispatch_get_main_queue(), ^{
 		self.testingServer = NO;
+        self.keyserverToCheck = nil;
+        
+        if (![value boolValue]) {
+            [self.options removeKeyserver:gc.keyserver];
+            
+            [[SheetController sharedInstance] alertSheetForWindow:window
+                                                      messageText:localized(@"BadKeyserver_Title")
+                                                         infoText:localized(@"BadKeyserver_Msg")
+                                                    defaultButton:nil
+                                                  alternateButton:nil
+                                                      otherButton:nil
+                                                suppressionButton:nil];
+        } else {
+            // The server passed the check.
+            // Set it as default keyserver.
+            self.options.keyserver = gc.keyserver;
+        }
 	});
-	self.keyserverToCheck = nil;
-	
-	if (![value boolValue]) {
-		[self.options removeKeyserver:gc.keyserver];
-		
-		[[SheetController sharedInstance] alertSheetForWindow:window
-												  messageText:localized(@"BadKeyserver_Title")
-													 infoText:localized(@"BadKeyserver_Msg")
-												defaultButton:nil
-											  alternateButton:nil
-												  otherButton:nil
-											suppressionButton:nil];
-	} else {
-		// The server passed the check.
-		// Set it as default keyserver.
-		self.options.keyserver = gc.keyserver;
-	}
+
 }
 
 

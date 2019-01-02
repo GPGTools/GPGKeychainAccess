@@ -869,7 +869,7 @@
 	if (_passphrase.length == 0 || _passphrase.UTF8Length > 255) {
 		self.passwordStrength = 0;
 	} else {
-		DBResult *result = [_zxcvbn passwordStrength:self.passphrase userInputs:self.badPasswordIngredients];
+		DBResult *result = [self.zxcvbn passwordStrength:self.passphrase userInputs:self.badPasswordIngredients];
 		
 		double seconds = result.crackTime;
 		double score = log10(seconds * 1000000);
@@ -984,7 +984,13 @@
 	}
 }
 
-
+- (DBZxcvbn *)zxcvbn {
+	if (_zxcvbn == nil) {
+		// Lazy load DBZxcvbn.
+		_zxcvbn = [DBZxcvbn new];
+	}
+	return _zxcvbn;
+}
 
 
 
@@ -1550,7 +1556,7 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 			return NO;
 		}
 	} else {
-		DBResult *result = [_zxcvbn passwordStrength:self.passphrase];
+		DBResult *result = [self.zxcvbn passwordStrength:self.passphrase];
 		if (result.crackTime < 3600) {
 			warned = YES;
 			if (NSRunAlertPanel(localized(@"CheckAlert_PassphraseSimple_Title"),
@@ -1701,8 +1707,6 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		NSArray *objects;
 		[[NSBundle mainBundle] loadNibNamed:@"ModalSheets" owner:self topLevelObjects:&objects];
 		_topLevelObjects = objects;
-
-		_zxcvbn = [DBZxcvbn new];
 	}
 	return self;
 }
