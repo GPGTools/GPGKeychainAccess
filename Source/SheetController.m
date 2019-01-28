@@ -1020,7 +1020,26 @@
 	for (GPGRemoteKey *key in _keys) {
 		NSDictionary *stringAttributes = nil;
 		
-		BOOL isGpgtoolsKey = [key respondsToSelector:@selector(fingerprint)] && [gpgtoolsKeys containsObject:key.fingerprint];
+		BOOL isGpgtoolsKey = NO;
+		if ([key respondsToSelector:@selector(fingerprint)]) {
+			NSString *fingerprint = key.fingerprint;
+			if (fingerprint.length == 40) {
+				isGpgtoolsKey = [gpgtoolsKeys containsObject:fingerprint];
+			} else {
+				// Some keyservers do not return the fingerprint, but rather a key id.
+				for (NSString *gpgtoolsKey in gpgtoolsKeys) {
+					NSUInteger fingerprintLength = fingerprint.length;
+					NSUInteger gpgtoolsKeyLength = gpgtoolsKey.length;
+					if (gpgtoolsKeyLength >= fingerprintLength) {
+						if ([[gpgtoolsKey substringFromIndex:gpgtoolsKeyLength - fingerprintLength] isEqualToString:fingerprint]) {
+							isGpgtoolsKey = YES;
+							break;
+						}
+					}
+				}
+			}
+		}
+		
 		NSNumber *selected = @NO;
 		
 		if (key.expired || key.revoked || [key.expirationDate compare:now] == NSOrderedAscending) {
