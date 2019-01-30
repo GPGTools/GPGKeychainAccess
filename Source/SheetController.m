@@ -119,7 +119,6 @@
 - (BOOL)checkEmail;
 - (BOOL)checkComment;
 - (BOOL)checkPassphrase;
-- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 - (BOOL)generateFoundKeyDicts;
 - (void)runSavePanel;
 - (void)runOpenPanelWithAccessoryView:(NSView *)accessoryView;
@@ -416,31 +415,39 @@
 	}
 	
 	if (cancelButtonTag != 0) {
-		// This is a hack to allow, to close the alert with the escape-key.
+		// Add an invisible button to the dialog, so an user can close it by pressing the escape-key
 
 		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.
 		
+		 // Get the first button of the dialog, so we can use it's target and action for our new button.
 		NSButton *someButton = alert.buttons[0];
 		NSView *superview = someButton.superview;
 
+		// Create a very small button outside of the visible area.
 		NSButton *newButton = [[NSButton alloc] initWithFrame:NSMakeRect(-10, -10, 1, 1)];
 		newButton.keyEquivalent = @"\x1b"; // escape-key
+		// Set the target and action to match the other buttons.
 		newButton.target = someButton.target;
 		newButton.action = someButton.action;
 		newButton.tag = cancelButtonTag; // Set the tag to mtach the real cancel button.
-		newButton.refusesFirstResponder = YES;
+		newButton.refusesFirstResponder = YES; // Prevent selecting the button using tab-key.
 
-		[superview addSubview:newButton];
+		[superview addSubview:newButton]; // Last step: Add the button to the dialog.
+		// Do not call [alert layout] anymore or the new button would be visible.
 	} else {
 		[alert layout]; // Layout the alert, so it's possible to manipulate the layout.
 	}
 	
 	if (customize) {
+		// Allow the caller to customize the dialog.
 		customize(alert);
 	}
 	
 	if (window && window.isVisible && [_sheetLock tryLock]) {
-		[alert beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil];
+		[alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+			_clickedButton = returnCode;
+			[NSApp stopModal];
+		}];
 		[NSApp runModalForWindow:window];
 		[_sheetLock unlock];
 	} else {
@@ -463,7 +470,7 @@
 		self.displayedView = _progressView; //progressView anzeigen.
 		if ([_sheetLock tryLock]) { //Es wird kein anderes Sheet angezeigt.
 			_oldDisplayedView = nil;
-			[NSApp beginSheet:_sheetWindow modalForWindow:mainWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+			[mainWindow beginSheet:_sheetWindow completionHandler:^(NSModalResponse returnCode) {}];
 		}
 		result = YES;
 	}
@@ -479,8 +486,7 @@
 		if (_oldDisplayedView) { //Soll ein zuvor angezeigtes Sheet wieder angezeigt werden?
 			self.displayedView = _oldDisplayedView; //Altes Sheet wieder anzeigen.
 		} else {
-			[NSApp endSheet:_sheetWindow]; //Sheet beenden...
-			[_sheetWindow orderOut:self]; // und ausblenden.
+			[mainWindow endSheet:_sheetWindow]; // Hide the sheet.
 			[_sheetLock unlock];
 		}
 		result = YES;
@@ -995,11 +1001,6 @@
 
 
 // Internal methods //
-- (void)alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-	_clickedButton = returnCode;
-	[NSApp stopModal];
-}
-
 - (BOOL)generateFoundKeyDicts {
 	NSMutableArray *dicts = [NSMutableArray arrayWithCapacity:_keys.count];
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -1322,9 +1323,9 @@
 	GPGDebugLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", _modalWindow, _sheetWindow);
 	
 	if (_modalWindow.isVisible) {
-		[NSApp beginSheet:_sheetWindow modalForWindow:_modalWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+		[_modalWindow beginSheet:_sheetWindow completionHandler:^(NSModalResponse returnCode) {}];
 		[NSApp runModalForWindow:_sheetWindow];
-		[NSApp endSheet:_sheetWindow];
+		[_modalWindow endSheet:_sheetWindow];
 	} else {
 		[_sheetWindow makeKeyAndOrderFront:self];
 		[NSApp runModalForWindow:_sheetWindow];
