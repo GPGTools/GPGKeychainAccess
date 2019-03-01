@@ -86,29 +86,6 @@
 
 @end
 
-@implementation NSNumber (GKA_Extension)
-- (NSComparisonResult)compareValidity:(NSNumber *)otherNumber {
-	NSInteger valueA = self.integerValue;
-	NSInteger valueB = otherNumber.integerValue;
-	
-	if (valueA >= GPGValidityInvalid) {
-		valueA = 0 - valueA;
-	}
-	if (valueB >= GPGValidityInvalid) {
-		valueB = 0 - valueB;
-	}
-	
-	if (valueA > valueB) {
-		return NSOrderedDescending;
-	} else if (valueB > valueA) {
-		return NSOrderedAscending;
-	} else {
-		return NSOrderedSame;
-	}
-}
-@end
-
-
 
 @implementation GPGKey (GKAExtension)
 - (NSString *)type {
