@@ -16,9 +16,9 @@
 
 
 /* Key descriptions */
-"and" = "and";
-KeyDescriptionAndMore = "%1$@ and %2$lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+"and" = "和";
+KeyDescriptionAndMore = "%1$@以及其他 %2$lu 个";
+SecretAndPublicKeyListing = "私钥：\n\n%@\n\n公钥：\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -30,19 +30,14 @@ ExportSecretKeyFilename = "%@ 私密";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "没有密码";
-CheckAlert_NoPassphrase_Message = "您没有输入密码。我们并不推荐这么做。口令应该至少含有8个字符。";
-CheckAlert_NoPassphrase_Button1= "不使用密码，继续";
-CheckAlert_NoPassphrase_Button2 = "输入新的密码";
-CheckAlert_PassphraseShort_Title = "短密码";
-CheckAlert_PassphraseShort_Message = "您输入了短口令。我们并不推荐您这么做。口令应该至少含有8个字符。";
-CheckAlert_PassphraseShort_Button1= "使用短密码，继续";
-CheckAlert_PassphraseShort_Button2 = "输入新的密码";
-CheckAlert_PassphraseSimple_Title = "简单密码";
-CheckAlert_PassphraseSimple_Message = "您输入的密码太简单了。密码应当包含字母、数字以及至少一个特殊字符。";
-CheckAlert_PassphraseSimple_Button1 = "使用简单密码，继续";
-CheckAlert_PassphraseSimple_Button2 = "输入新的密码";
-
+CheckAlert_NoPassphrase_Title = "未输入密码";
+CheckAlert_NoPassphrase_Message = "您没有输入密码。这是不被推荐的。密码应至少 8 个字符长。";
+CheckAlert_NoPassphrase_Yes = "在无密码的情况下继续";
+CheckAlert_NoPassphrase_No = "输入新密码";
+CheckAlert_PassphraseSimple_Title = "密码过于简单";
+CheckAlert_PassphraseSimple_Message = "您输入的密码太简单了。一个好的密码应至少 8 个字符长并使用不同的字符。";
+CheckAlert_PassphraseSimple_Yes = "使用简单密码";
+CheckAlert_PassphraseSimple_No = "输入新密码";
 CheckAlert_PassphraseTooLong_Title = "密码过长";
 CheckAlert_PassphraseTooLong_Message = "您所输入的密码过长，请输入不多于 %1$i 个字符。注意：如果您的密码包含特殊字符，您可能不能使用 %1$i 字符。";
 
@@ -80,13 +75,13 @@ CheckError_NoKeyID = "请输入合法的密匙标识！";
 GPG_NOT_FOUND_TITLE = "GPG没有找到";
 GPG_NOT_FOUND_MESSAGE = "哦，出现了错误。您的系统上似乎没有安装 GPG。请从 https://www.gpgtools.org 下载重新安装 GPG 套件。";
 GPG_CONFIG_ERROR_TITLE = "GPG 配置错误";
-GPG_CONFIG_ERROR_MESSAGE = "哦，出现了错误。虽然在您的系统中找到了 GPG 但配置文件似乎存在问题。请访问 https://gpgtools.tenderapp.com 与我们联系。\n\n详情：%@";
+GPG_CONFIG_ERROR_MESSAGE = "啊哦，出现了错误。GPG 在您的电脑上，但配置文件似乎有些问题。请在以下地址联系我们：\nhttps://gpgtools.tenderapp.com\n\n细节：%@";
 LIBMACGPG_NOT_FOUND_TITLE = "未找到 libmacgpg";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
-CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
-CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg 没有在您的系统上找到。请在以下地址重新安装 GPG Suite：\nhttps://www.gpgtools.org";
+CODE_SIGN_ERROR_TITLE = "有人篡改了您的 GPG Keychain。";
+CODE_SIGN_ERROR_MESSAGE = "为保证您的安全，GPG Keychain 将会现在退出！\n\n请在 https://gpgtools.org 重新安装 GPG Keychain 来保证您从我们处得到原版！";
 UNKNOWN_GPG_ERROR_TITLE = "未知 GPG 错误";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com.\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "啊哦，出现了错误。GPG 出现了一个未知问题。请在以下地址联系我们：\nhttps://gpgtools.tenderapp.com\n\n细节：%@";
 
 
 
@@ -96,8 +91,8 @@ MailKey_Subject_Your = "My public key to secure our messages";
 MailKey_Message = "您好，\n\n在此附件中您可找到\n\n%@ 的公钥\n\n您可以使用此公钥将写给 %@ 的消息安全加密。\n\n要开始使用该公钥，您的计算机需要安装 OpenPGP。您可在下方找到针对你系统的可能安装方案：\n\n%@\n\n请将此公钥导入到你本地的 OpenPGP 密钥管理器中。\n\n此致";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "正在创建新邮件...";
-MailKey_Progress_Your = "正在创建新邮件...";
+MailKey_Progress = "正在创建新电子邮件……";
+MailKey_Progress_Your = "正在创建新电子邮件……";
 MailKey_Error = "呃，发生了错误。钥匙导出过程中碰到了问题。";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "所选钥匙无法使用";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "您选择了一个无法使用的钥匙。这个公钥不能通过电邮发送。请从公钥服务器上更新对方的公钥并确认。\n\n也可以和公钥所有者取得联系，确认对方的公钥状态。\n\n%@";
@@ -125,17 +120,17 @@ RemoveUserID_Yes = "删除用户 ID";
 RemoveUserID_No = "取消";
 
 RevokeUserID_Title = "警告：您即将吊销用户标识";
-RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
+RevokeUserID_Msg = "您将要吊销以下用户 ID：\n\n%@，来自您的密钥%@\n\n一旦吊销，您将无法使用此用户 ID 签名和加密信息，其他人也将无法向此用户 ID 加密信息。吊销的用户 ID 仍可用以解密此前向其加密的电子邮件和文件。\n\n我们建议不要删除它，而是以吊销状态保留在您的密钥中。\n\n您确定想要吊销这个用户 ID 吗？";
 RevokeUserID_Yes = "吊销用户 ID";
 RevokeUserID_No = "取消";
 
 RemoveSubkey_Title = "移除子钥";
-RemoveSubkey_Msg = "警告：除非您知道并确定您在做什么，否则请勿继续。\n\n移除子钥会消除这个子钥所有的签名和解密功能。\n\n如果您在服务器上上传了这个公钥，移除它并不会改变服务器上关于这个子钥的内容。要让人们知道这个子钥不能用，请请试着去吊销它并重新上传。";
+RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
 RemoveSubkey_Yes = "移除子钥";
 RemoveSubkey_No = "取消";
 
 RevokeSubkey_Title = "警告：您即将吊销用户标识";
-RevokeSubkey_Msg = "警告：除非您知道并确定您在做什么，否则请勿继续。\n\n移除子钥会消除这个子钥所有的签名和解密功能。\n\n一旦吊销，您将无法使用这个子钥签名和解密信息，同时其他人也无法使用它来加密信息给你。已吊销的子钥移旧可以解密之前用它加密的电邮。\n\n我们不建议您删除它，请您尽量就让它被吊销着就好。\n\n您确定要注销它吗？";
+RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "吊销子密钥";
 RevokeSubkey_No = "取消";
 
@@ -149,18 +144,23 @@ RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing 
 RemoveSignature_Yes = "Remove Signature";
 RemoveSignature_No = "取消";
 
+RemoveLocalSignature_Title = "Remove Signature";
+RemoveLocalSignature_Msg = "Are you sure you want to remove this local signature?";
+RemoveLocalSignature_Yes = "Remove Signature";
+RemoveLocalSignature_No = "取消";
+
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
 RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Remove Signature";
 RemoveLastSelfSignature_No = "取消";
 
 RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
-RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nRevoking the last self-signature of a user ID will render that user ID useless. You will no longer be able to use user ID %@ in Mail.app to sign emails.";
+RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
 RevokeLastSelfSignature_Yes = "吊销签名";
 RevokeLastSelfSignature_No = "取消";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign and encrypt messages using this key and others will not be able to encrypt messages to this key. The revoked key can still be used to decrypt emails and files, previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "取消";
 
@@ -229,7 +229,7 @@ DeleteKeys_No = "取消";
 
 
 DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
-DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nDeleting a secret key has major consequences. Once deleted, decrypting messages with this key will no longer be possible. This concerns all messages that were encrypted to this key.\n\nWe recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all messages that were and will be encrypted to this key can no longer be decrypted. We recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Delete key(s)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
@@ -249,11 +249,6 @@ BadKeyserver_Msg = "The key server you have entered is not working.\nPlease chec
 
 
 /* Import warnings */
-ImportRevSig_Title = "Import revocation certificate";
-ImportRevSig_Msg = "You are about to import a revocation certificate for %@. If you revoke your key, you will no longer be able to sign messages using your key and others will no longer be able to send you messages encrypted to your key. Consider uploading your revoked key to the key servers so others are made aware, that your key has been revoked.\n\nYou will still be able to use your revoked key for decrypting emails and files that were encrypted with your key. It is recommended to keep the revoked key in GPG Keychain.";
-ImportRevSig_Yes = "导入";
-ImportRevSig_No = "取消";
-
 ImportRandomData_Title = "Warning: Content can probably not be imported";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
 ImportRandomData_Yes = "Try Import";
@@ -267,14 +262,13 @@ ImportNonImportable_No = "取消";
 
 
 /* Results */
-UploadSuccess_Title = "Successfully sent";
+UploadSuccess_Title = "Public keys sent to key server";
 UploadSuccess_Msg = "The following public keys have been sent to the key servers:\n\n%@\n\nPlease allow some time for the change to be synced across existing key servers.";
 
-ExportSuccess_Title = "Export successful";
-ExportSuccess_Msg = "The following keys were successfully exported:\n\n%@";
+ExportSuccess_Title = "Keys exported";
+ExportSuccess_Msg = "The following keys were exported:\n\n%@";
 
-SignSuccess_Title = "Signing successful";
-SignSuccess_Msg = "The selected user IDs have been signed.";
+SignSuccess_Title = "The selected user IDs have been signed";
 
 
 
@@ -282,9 +276,9 @@ SignSuccess_Msg = "The selected user IDs have been signed.";
 IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
 IMPORT_RESULT_NEW_KEYS = "The following keys were successfully imported:\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user ID was added to key(s) \n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to the following keys \n\n%@";
 
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 revocation certificate was imported.";
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i revocation certificates were imported.";

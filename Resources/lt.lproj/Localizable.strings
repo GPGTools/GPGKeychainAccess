@@ -1,6 +1,6 @@
 /* For Key-Status */
-"Invalid" = "Invalid";
-"Revoked" = "Revoked";
+"Invalid" = "Negalioja";
+"Revoked" = "Panaikintas";
 "Expired" = "Expired";
 "Disabled" = "Išjungta";
 "Unknown" = "Nežinoma";
@@ -17,7 +17,7 @@
 
 /* Key descriptions */
 "and" = "ir";
-KeyDescriptionAndMore = "%1$@ and %2$lu more";
+KeyDescriptionAndMore = "%1$@ ir dar %2$lu";
 SecretAndPublicKeyListing = "Slaptieji raktai:\n\n%@\n\nViešieji raktai:\n\n%@";
 
 
@@ -30,13 +30,13 @@ ExportSecretKeyFilename = "%@ – Slaptasis";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No password entered";
-CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Yes = "Continue Without Password";
+CheckAlert_NoPassphrase_Title = "Neįvestas slaptažodis";
+CheckAlert_NoPassphrase_Message = "Jūs neįvedėte slaptažodžio. Tai nėra rekomenduojama. Slaptažodžiai turėtų būti bent 8 simbolių ilgio.";
+CheckAlert_NoPassphrase_Yes = "Tęsti be slaptažodžio";
 CheckAlert_NoPassphrase_No = "Enter New Password";
-CheckAlert_PassphraseSimple_Title = "Password too simple";
-CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
-CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
+CheckAlert_PassphraseSimple_Title = "Slaptažodis pernelyg paprastas";
+CheckAlert_PassphraseSimple_Message = "Jūsų įvestas slaptažodis yra pernelyg paprastas. Geras slaptažodis turėtų būti sudarytas iš bent 8 ir skirtingų simbolių.";
+CheckAlert_PassphraseSimple_Yes = "Naudoti paprastą slaptažodį";
 CheckAlert_PassphraseSimple_No = "Enter New Password";
 CheckAlert_PassphraseTooLong_Title = "Slaptažodis per ilgas";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
@@ -100,7 +100,7 @@ MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such
 
 /* A key was found in the pasteboard */
 PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
-PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Msg = "%@\n\nAr norėtumėte importuoti raktą(-us)?";
 PasteboardKeyFound_Yes = "Importuoti";
 PasteboardKeyFound_No = "Atsisakyti";
 
@@ -110,7 +110,7 @@ No = "Ne";
 Error = "Klaida";
 Warning = "Įspėjimas";
 Cancel = "Atsisakyti";
-"Apply to all" = "Apply to all";
+"Apply to all" = "Taikyti visiems";
 
 
 /* Warnings */
@@ -119,19 +119,19 @@ RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once re
 RemoveUserID_Yes = "Šalinti naudotojo ID";
 RemoveUserID_No = "Atsisakyti";
 
-RevokeUserID_Title = "Warning: You are about to revoke a user ID";
+RevokeUserID_Title = "Įspėjimas: Jūs ketinate panaikinti naudotojo ID";
 RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Yes = "Panaikinti naudotojo ID";
 RevokeUserID_No = "Atsisakyti";
 
-RemoveSubkey_Title = "Remove Subkey";
+RemoveSubkey_Title = "Šalinti poraktį";
 RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
-RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_Yes = "Šalinti poraktį";
 RemoveSubkey_No = "Atsisakyti";
 
-RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
+RevokeSubkey_Title = "Įspėjimas: Jūs ketinate panaikinti poraktį";
 RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
-RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_Yes = "Panaikinti poraktį";
 RevokeSubkey_No = "Atsisakyti";
 
 RevokeSignature_Title = "Panaikinti parašą";
@@ -143,6 +143,11 @@ RemoveSignature_Title = "Šalinti parašą";
 RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
 RemoveSignature_Yes = "Šalinti parašą";
 RemoveSignature_No = "Atsisakyti";
+
+RemoveLocalSignature_Title = "Šalinti parašą";
+RemoveLocalSignature_Msg = "Ar tikrai norite pašalinti šį vietinį parašą?";
+RemoveLocalSignature_Yes = "Šalinti parašą";
+RemoveLocalSignature_No = "Atsisakyti";
 
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
 RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
@@ -178,7 +183,7 @@ NewUserIDWantToUpload_Msg = "In order for others to be able to use your new emai
 NewUserIDWantToUpload_Yes = "Įkelti viešąjį raktą";
 NewUserIDWantToUpload_No = "Ne, ačiū!";
 
-NewSubkeyWantToUpload_Title = "You have successfully added a subkey";
+NewSubkeyWantToUpload_Title = "Jūs sėkmingai pridėjote poraktį";
 NewSubkeyWantToUpload_Msg = "In order for others to be able to use your new subkey, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
 NewSubkeyWantToUpload_Yes = "Įkelti viešąjį raktą";
 NewSubkeyWantToUpload_No = "Ne, ačiū!";
@@ -193,12 +198,12 @@ RevokedKeyWantToUpload_Msg = "To make it easier for your friends and colleagues 
 RevokedKeyWantToUpload_Yes = "Įkelti viešąjį raktą";
 RevokedKeyWantToUpload_No = "Ne, ačiū!";
 
-RevokedUserIDWantToUpload_Title = "Your user ID was successfully revoked";
+RevokedUserIDWantToUpload_Title = "Jūsų naudotojo ID buvo sėkmingai panaikintas";
 RevokedUserIDWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the user ID is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
 RevokedUserIDWantToUpload_Yes = "Įkelti viešąjį raktą";
 RevokedUserIDWantToUpload_No = "Ne, ačiū!";
 
-RevokedSubkeyWantToUpload_Title = "Your subkey was successfully revoked";
+RevokedSubkeyWantToUpload_Title = "Jūsų poraktis buvo sėkmingai panaikintas";
 RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your subkey, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the subkey is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
 RevokedSubkeyWantToUpload_Yes = "Įkelti viešąjį raktą";
 RevokedSubkeyWantToUpload_No = "Ne, ačiū!";
@@ -212,21 +217,21 @@ UserIDsSignedWantToUpload_No = "Ne, ačiū!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key";
+DeleteKey_Title = "Ištrinti viešąjį raktą";
 DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
-DeleteKey_Yes = "Delete key";
+DeleteKey_Yes = "Ištrinti raktą";
 DeleteKey_No = "Atsisakyti";
 
-DeleteKeys_Title = "Delete public keys";
+DeleteKeys_Title = "Ištrinti viešuosius raktus";
 DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
-DeleteKeys_Yes = "Delete keys";
+DeleteKeys_Yes = "Ištrinti raktus";
 DeleteKeys_No = "Atsisakyti";
 
 
 DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
 DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all messages that were and will be encrypted to this key can no longer be decrypted. We recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
-DeleteSecKey_Yes = "Delete key(s)";
+DeleteSecKey_Yes = "Ištrinti raktą(-us)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
 DeleteSecKey_No = "Atsisakyti";
 
@@ -271,9 +276,9 @@ SignSuccess_Title = "The selected user IDs have been signed";
 IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
 IMPORT_RESULT_NEW_KEYS = "The following keys were successfully imported:\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user ID was added to key(s) \n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to key(s) \n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to key(s) \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to the following keys \n\n%@";
 
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 revocation certificate was imported.";
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i revocation certificates were imported.";
@@ -282,15 +287,15 @@ IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 key was processed and %i importe
 IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i keys were processed and 1 imported.";
 IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i imported.";
 
-IMPORT_RESULT_NOTHING_IMPORTED = "No keys imported.";
+IMPORT_RESULT_NOTHING_IMPORTED = "Neimportuota jokių raktų.";
 
 /* Errors */
-"Details:" = "Details:";
-ImportKeyError_Title = "Failed to import one or more keys";
+"Details:" = "Išsamiau:";
+ImportKeyError_Title = "Nepavyko importuoti vieno ar daugiau raktų";
 ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
-ImportKeyErrorPGP_Title = "Import Failed";
+ImportKeyErrorPGP_Title = "Importavimas nepavyko";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
-ImportKeyErrorNoPGP_Title = "Import failed";
+ImportKeyErrorNoPGP_Title = "Importavimas nepavyko";
 ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
 
 NO_SECRET_KEY_TITLE = "No secret key found";
@@ -334,70 +339,70 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Exporting key…";
+ExportKey_Progress = "Eksportuojamas raktas…";
 ExportKey_Error = "Rakto eksportavimas nepavyko.";
-ImportKey_Progress  = "Importing key…";
+ImportKey_Progress  = "Importuojamas raktas…";
 DeleteSecretKey_Progress = "Deleting secret key…";
-DeleteKeys_Progress = "Deleting key…";
+DeleteKeys_Progress = "Ištrinamas raktas…";
 DeleteKeys_Error = "Rakto ištrynimas nepavyko.";
-ChangePassphrase_Progress = "Changing password…";
-ChangePassphrase_Error = "Changing password failed.";
-SetDisabled_Progress = "Enabling/Disabling key…";
-SetDisabled_Error = "Enabling/Disabling key failed.";
+ChangePassphrase_Progress = "Keičiamas slaptažodis…";
+ChangePassphrase_Error = "Slaptažodžio keitimas nepavyko.";
+SetDisabled_Progress = "Įjungiamas/Išjungiamas raktas…";
+SetDisabled_Error = "Rakto įjungimas/išjungimas nepavyko.";
 SetOwnerTrust_Progress = "Setting owner trust…";
 SetOwnerTrust_Error = "Setting owner trust failed.";
 ChangeExpirationDate_Progress = "Changing expiration date…";
 ChangeExpirationDate_Error = "Changing expiration date failed.";
 SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
 SetAlgorithmPreferences_Error = "Setting algorithm preferences failed.";
-CleanKey_Progress = "Cleaning key…";
-CleanKey_Error = "Cleaning key failed.";
+CleanKey_Progress = "Išvalomas raktas…";
+CleanKey_Error = "Rakto išvalymas nepavyko.";
 MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Minimizing key failed.";
 GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
 GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
-SearchKeysOnServer_Progress = "Searching for key…";
+SearchKeysOnServer_Progress = "Ieškoma rakto…";
 SendKeysToServer_Progress = "Sending %@ to server…";
-SendKeysToServer_Error = "Sending key failed.";
+SendKeysToServer_Error = "Rakto siuntimas nepavyko.";
 RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
-RefreshKeysFromServer_Error = "Refreshing key failed.";
-AddSubkey_Progress = "Adding subkey…";
-AddSubkey_Error = "Adding subkey failed.";
-RemoveSubkey_Progress = "Removing subkey…";
-RemoveSubkey_Error = "Removing subkey failed.";
-RevokeSubkey_Progress = "Revoking subkey…";
-RevokeSubkey_Error = "Revoking subkey failed.";
-AddUserID_Progress = "Adding user ID…";
-AddUserID_Error = "Adding user ID failed.";
-RemoveUserID_Progress = "Removing user ID…";
-RemoveUserID_Error = "Removing user ID failed.";
+RefreshKeysFromServer_Error = "Rakto įkėlimas iš naujo nepavyko.";
+AddSubkey_Progress = "Pridedamas poraktis…";
+AddSubkey_Error = "Porakčio pridėjimas nepavyko.";
+RemoveSubkey_Progress = "Šalinamas poraktis…";
+RemoveSubkey_Error = "Porakčio šalinimas nepavyko.";
+RevokeSubkey_Progress = "Panaikinamas poraktis…";
+RevokeSubkey_Error = "Porakčio panaikinimas nepavyko.";
+AddUserID_Progress = "Pridedamas naudotojo ID…";
+AddUserID_Error = "Naudotojo ID pridėjimas nepavyko.";
+RemoveUserID_Progress = "Šalinamas naudotojo ID…";
+RemoveUserID_Error = "Naudotojo ID šalinimas nepavyko.";
 SetPrimaryUserID_Progress = "Setting primary user ID…";
 SetPrimaryUserID_Error = "Setting primary user ID failed.";
 RevokeUserID_Progress = "Revoking user ID…";
 RevokeUserID_Error = "Revoking user ID failed.";
-AddPhoto_Progress = "Adding photo…";
-AddPhoto_Error = "Adding photo failed.";
+AddPhoto_Progress = "Pridedama nuotrauka…";
+AddPhoto_Error = "Nuotraukos pridėjimas nepavyko.";
 AddPhoto_SelectMessage = "Choose photo…";
-RemovePhoto_Progress = "Removing photo…";
-RemovePhoto_Error = "Removing photo failed.";
-SetPrimaryPhoto_Progress = "Setting primary photo…";
-SetPrimaryPhoto_Error = "Setting primary photo failed.";
-RevokePhoto_Progress = "Revoking photo…";
-RevokePhoto_Error = "Revoking photo failed.";
-AddSignature_Progress = "Signing…";
-AddSignature_Error = "Signing failed.";
-RemoveSignature_Progress = "Removing signature…";
-RemoveSignature_Error = "Removing signature failed.";
-RevokeSignature_Progress = "Revoking signature…";
-RevokeSignature_Error = "Revoking signature failed.";
-ReceiveKeysFromServer_Progress = "Receiving keys…";
-ReceiveKeysFromServer_Error = "Receiving keys failed.";
-RevokeKey_Progress = "Revoking key…";
-RevokeKey_Error = "Revoking key failed.";
+RemovePhoto_Progress = "Šalinama nuotrauka…";
+RemovePhoto_Error = "Nuotraukos šalinimas nepavyko.";
+SetPrimaryPhoto_Progress = "Nustatoma pirminė nuotrauka…";
+SetPrimaryPhoto_Error = "Pirminės nuotraukos nustatymas nepavyko.";
+RevokePhoto_Progress = "Panaikinama nuotrauka…";
+RevokePhoto_Error = "Nuotraukos panaikinimas nepavyko.";
+AddSignature_Progress = "Pasirašoma…";
+AddSignature_Error = "Pasirašymas nepavyko.";
+RemoveSignature_Progress = "Šalinamas parašas…";
+RemoveSignature_Error = "Parašo šalinimas nepavyko.";
+RevokeSignature_Progress = "Panaikinamas parašas…";
+RevokeSignature_Error = "Parašo panaikinimas nepavyko.";
+ReceiveKeysFromServer_Progress = "Gaunami raktai…";
+ReceiveKeysFromServer_Error = "Raktų gavimas nepavyko.";
+RevokeKey_Progress = "Panaikinamas raktas…";
+RevokeKey_Error = "Rakto panaikinimas nepavyko.";
 
 
-SendToKeyserver_MenuItem = "Send to Key Server";
-SendPublicKeyToKeyserver_MenuItem = "Send Public Key to Key Server";
+SendToKeyserver_MenuItem = "Siųsti į raktų serverį";
+SendPublicKeyToKeyserver_MenuItem = "Siųsti viešąjį raktą į raktų serverį";
 
 FilterNoResults = "The local search for '%@' has no results.";
 FilterNoResultsSecOnly = "The local search for '%@' has no results.\nConsider disabling the option to 'Show secret keys only' to expand the search.";

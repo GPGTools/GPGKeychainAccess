@@ -33,11 +33,11 @@ ExportSecretKeyFilename = "%@ – Secreta";
 CheckAlert_NoPassphrase_Title = "No password entered";
 CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
 CheckAlert_NoPassphrase_Yes = "Continue Without Password";
-CheckAlert_NoPassphrase_No = "Enter New Password";
-CheckAlert_PassphraseSimple_Title = "Password too simple";
+CheckAlert_NoPassphrase_No = "Introduzca la nueva contraseña";
+CheckAlert_PassphraseSimple_Title = "Contraseña demasiado simple";
 CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
 CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
-CheckAlert_PassphraseSimple_No = "Enter New Password";
+CheckAlert_PassphraseSimple_No = "Introduzca la nueva contraseña";
 CheckAlert_PassphraseTooLong_Title = "Contraseña demasiado larga";
 CheckAlert_PassphraseTooLong_Message = "La contraseña que introdujo es demasiado larga. Introduzca una contraseña con menos de %1$i caracteres.\n\nAtención: Si su contraseña incluye caracteres especiales tal vez no pueda usar los caracteres %1$i.";
 
@@ -91,8 +91,8 @@ MailKey_Subject_Your = "Mi clave pública para asegurar nuestros mensajes";
 MailKey_Message = "Hola,\n\nadjunta encontrará la clave pública de \n\n%@\n\nPuede usar esta clave para cifrar y asegurar mensajes cuando escriba a %@.\n\nPara comenzar a usarla, tiene que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\n%@\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP.\n\nSaludos\n\nRegards";
 MailKey_Message_Your = "Hola,\n\nadjunta encontrará mi clave pública\n\n%@\n\nPuede usar esta clave para cifrar y asegurar nuestros mensajes.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\n%@\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP local.\n\nEspero intercambiar mensajes libres-de-obsevadores con usted.\n\nSaludos\n\nRegards";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/es/module/como-usar-pgp-para-linux\nWindows	https://ssd.eff.org/es/module/como-usar-pgp-para-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain&hl=es";
-MailKey_Progress = "Creating new email…";
-MailKey_Progress_Your = "Creating new email…";
+MailKey_Progress = "Creando un correo nuevo...";
+MailKey_Progress_Your = "Creando un correo nuevo...";
 MailKey_Error = "Uups, algo fue mal. Hubo un problema al exportar su clave.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Se ha seleccionado una clave inutilizable";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Ha seleccionado una clave no utilizable. Tales claves no se pueden enviar vía correo electrónico. Por favor, actualice la clave desde el servidor de claves, para comprobar si ha sido actualizada.\n\nDe otro modo póngase en contacto con el propietario de la clave e infórmele sobre el estado de la clave\n\n%@";
@@ -143,6 +143,11 @@ RemoveSignature_Title = "Eliminar firma";
 RemoveSignature_Msg = "¿Está seguro de que quiere eliminar esta firma? Eliminar una firma sólo eliminará la firma localmente. No será eliminada, y no podrá serlo, de la clave en los servidores de claves. En su lugar, por favor, revoque su firma si quiere marcarla como inutilizable.";
 RemoveSignature_Yes = "Eliminar firma";
 RemoveSignature_No = "Cancelar";
+
+RemoveLocalSignature_Title = "Eliminar firma";
+RemoveLocalSignature_Msg = "Are you sure you want to remove this local signature?";
+RemoveLocalSignature_Yes = "Eliminar firma";
+RemoveLocalSignature_No = "Cancelar";
 
 RemoveLastSelfSignature_Title = "Eliminar la última auto-firma";
 RemoveLastSelfSignature_Msg = "Está a punto de eliminar la última auto-firma de la identificación de usuario %@. Por favor, continúe sólo si de verdad sabe lo que está haciendo.\n\nEsta firma asegura que la dirección de correo electrónico, el nombre y la descripción de una identificación de usuario sólo pueden ser modificados por su titular.\n\nSi carece de esta firma, alguien podría modificar esta información y no habría forma de saber si eso ha ocurrido.";
@@ -271,9 +276,9 @@ SignSuccess_Title = "The selected user IDs have been signed";
 IMPORT_RESULT_NEW_KEY = "Las siguiente clave fue importada con éxito:\n\n%@";
 IMPORT_RESULT_NEW_KEYS = "Las siguientes claves fueron importadas con éxito:\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "Se ha añadido una identificación de usuario a la(s) clave(s) \n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "Se ha añadido una firma a la(s) clave(s) \n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "Se ha añadido una subclave a la(s) clave(s) \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to the following keys \n\n%@";
 
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "Se ha importado 1 certificado de revocación.";
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "Se han importado %i certificados de revocación.";

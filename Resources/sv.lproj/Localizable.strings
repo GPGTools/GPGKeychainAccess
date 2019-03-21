@@ -1,5 +1,5 @@
 /* For Key-Status */
-"Invalid" = "Ogiltigpreviously encrypted to it";
+"Invalid" = "Ogiltig";
 "Revoked" = "Återkallad";
 "Expired" = "Utgången";
 "Disabled" = "Avaktiverad";
@@ -31,11 +31,11 @@ ExportSecretKeyFilename = "%@ – Privat";
 
 /* For key creation */
 CheckAlert_NoPassphrase_Title = "Inget lösenord har angivits";
-CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Message = "Du har inte angivit något lösenord. Detta rekommenderas inte. Lösenord bör vara minst 8 tecken långa.";
 CheckAlert_NoPassphrase_Yes = "Fortsätt utan lösenord";
 CheckAlert_NoPassphrase_No = "Ange nytt lösenord";
-CheckAlert_PassphraseSimple_Title = "Password too simple";
-CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
+CheckAlert_PassphraseSimple_Title = "Lösenordet är för enkelt";
+CheckAlert_PassphraseSimple_Message = "Lösenordet du angav är för enkelt. Ett bra lösenord bör vara minst 8 tecken långt och innehålla olika tecken.";
 CheckAlert_PassphraseSimple_Yes = "Använd enkelt lösenord";
 CheckAlert_PassphraseSimple_No = "Ange nytt lösenord";
 CheckAlert_PassphraseTooLong_Title = "Lösenord för långt";
@@ -50,14 +50,14 @@ KeySearch_ImportResults_Title = "Import lyckades";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), skapad: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Vi söker efter matchande nyckel/nycklar på nyckelservern. Det kan ta tid, vänligen vänta.";
 
-GenerateKey_ProgressTitle = "Key creation in progress…";
-GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
+GenerateKey_ProgressTitle = "Nyckelskapande pågår…";
+GenerateKey_Progress = "Din nya nyckel skapas. Det kan ta någon minut, så sträck på benen lite.";
 GenerateSubkey_Msg = "Lägg till undernyckel till följande nyckel:\n%@ %@";
 GenerateUserID_Msg = "Lägg till e-postadress (användar-ID) till följande nyckel:\n%@ %@";
 GenerateSignature_Msg = "Att signera en nyckel innebär att du bekräftar att nyckelns ägare verkligen är den person den utger sig för att vara.\nEfter att de har laddats upp kan signaturer ses av andra.\nExempel: Du signerar Bobs nyckel, medan din vän Alice inte är säker på att Bob verkligen är Bob. Alice kommer att se din signatur på Bobs nyckel och eftersom Alice vet att din nyckel är tillförlitlig kommer hon veta att Bob troligen är just Bob.\n\nDu kommer att signera följande nyckel:\n%@";
 GenerateUidSignature_Msg = "Att signera ett användar-ID innebär att du bekräftar att nyckelns ägare verkligen är den person den utger sig för att vara.\nEfter uppladdning kan signaturer ses av andra.\nExempel: Du signerar Bobs nyckel, medan din vän Alice inte är säker på att Bob verkligen är Bob. Alice kommer att se din signatur på Bobs nyckel och eftersom Alice vet att din nyckel är tillförlitlig kommer hon veta att Bob troligen är just Bob.\n\nDu kommer att signera följande användar-ID:\n%@";
-ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
-ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
+ChangeExpirationDate_Msg = "Du håller på att ändra utgångsdatumet på din nyckel\n\n%1$@";
+ChangeSubkeyExpirationDate_Msg = "Du håller på att ändra utgångsdatumet på din undernyckel\n\n%1$@";
 
 GenerateKey_Error = "Hoppsan, något gick snett när din nyckel skulle skapas.";
 
@@ -73,15 +73,15 @@ CheckError_NoKeyID = "Ange ett giltigt nyckel-ID!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG hittades inte";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
+GPG_NOT_FOUND_MESSAGE = "Hoppsan, något gick riktigt fel. Det verkar som om GPG saknas på ditt system. Installera om GPG Suite från\nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfel";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Hoppsan, något blev fel. GPG hittades i ditt system, men det verkar vara något fel med din konfigurationsfil. Kontakta oss på \nhttps://gpgtools.tenderapp.com\n\nDetaljer: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg hittades inte";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg hittades inte på ditt system. Installera om GPG Suite från\nhttps://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Någon har mixtrat med din installation av GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "För att skydda dig kommer GPG Keychain nu att avslutas!\n\nInstallera om GPG Suite från\nhttps://gpgtools.org för att försäkra dig om att du har en äkta version från oss!";
 UNKNOWN_GPG_ERROR_TITLE = "Okänt GPG-fel";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Hoppsan, något blev fel. GPG har fått ett okänt fel. Kontakta oss på \nhttps://gpgtools.tenderapp.com\n\nDetaljer: %@";
 
 
 
@@ -120,12 +120,12 @@ RemoveUserID_Yes = "Ta bort användar-ID";
 RemoveUserID_No = "Avbryt";
 
 RevokeUserID_Title = "Varning: Du kommer att återkalla ett användar-ID";
-RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
+RevokeUserID_Msg = "Du kommer att återkalla följande användar-ID:\n\n%@ från din nyckel %@\n\nNär den återkallats kommer du inte att kunna signera och kryptera meddelanden med detta användar-ID och andra kommer inte att kunna kryptera meddelanden till detta användar-ID. Det återkallade användar-ID:t kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats till det.\n\nVi rekommenderar att inte radera det, utan att behålla det i din nyckels återkallade läge.\n\nÄr du säker på att du vill återkalla det här användar-ID:t?";
 RevokeUserID_Yes = "Återkalla användar-ID";
 RevokeUserID_No = "Avbryt";
 
 RemoveSubkey_Title = "Ta bort undernyckel";
-RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
+RemoveSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta bort en undernyckel kan förstöra alla möjligheter att signera och dekryptera med denna nyckel.\n\nOm nyckeln laddats upp till nyckelservarna, kommer borrtagningen av undernyckeln inte att ha någon effekt på den befintliga nyckeln på nyckelservarna. För att uppmärksamma andra på att de inte längre ska använda denna undernyckel, återkalla istället den aktuella undernyckeln och ladda upp den uppdaterade nyckeln till nyckelservern.";
 RemoveSubkey_Yes = "Ta bort undernyckel";
 RemoveSubkey_No = "Avbryt";
 
@@ -143,6 +143,11 @@ RemoveSignature_Title = "Ta bort signatur";
 RemoveSignature_Msg = "Är du säker på att du vill ta bort den här signaturen? Att ta bort en signatur kommer endast att ta bort den lokalt. Den kommer inte att tas bort, och kan inte tas bort, från nyckeln på nyckelservrarna. Återkalla istället din signatur om du vill märka den som ogiltig.";
 RemoveSignature_Yes = "Ta bort signatur";
 RemoveSignature_No = "Avbryt";
+
+RemoveLocalSignature_Title = "Ta bort signatur";
+RemoveLocalSignature_Msg = "Are you sure you want to remove this local signature?";
+RemoveLocalSignature_Yes = "Ta bort signatur";
+RemoveLocalSignature_No = "Avbryt";
 
 RemoveLastSelfSignature_Title = "Ta bort den sista egen-signaturen";
 RemoveLastSelfSignature_Msg = "Du kommer att ta bort den sista egen-signaturen för användar-ID %@. Fortsätt endast om du verkligen vet vad du håller på med.\n\nDenna signatur säkerställer att e-postadress, namn och beskrivning för ett användar-ID endast kan ändras av dess ägare.\n\nOm denna signatur saknas kan någon ändra denna information och det går inte att veta om detta har skett.";
@@ -204,7 +209,7 @@ RevokedSubkeyWantToUpload_Yes = "Ladda upp publik nyckel";
 RevokedSubkeyWantToUpload_No = "Nej tack!";
 
 UserIDsSignedWantToUpload_Title = "Signeringen lyckades";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
+UserIDsSignedWantToUpload_Msg = "För att göra det lättare för dina vänner att hitta den nya signaturen, rekommenderas att du laddar upp den signerade publika nyckeln till nyckelservarna.\n\nVill du ladda upp din publika nyckel?";
 UserIDsSignedWantToUpload_Yes = "Ladda upp publik nyckel";
 UserIDsSignedWantToUpload_No = "Nej tack!";
 
@@ -213,12 +218,12 @@ UserIDsSignedWantToUpload_No = "Nej tack!";
 
 /* Delete warnings */
 DeleteKey_Title = "Radera publik nyckel";
-DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Msg = "Du kommer att radera följande publika nyckel:\n\n%@\n\nÄr du säker på att du vill radera den publika nyckeln?";
 DeleteKey_Yes = "Radera nyckel";
 DeleteKey_No = "Avbryt";
 
 DeleteKeys_Title = "Radera publika nycklar";
-DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Msg = "Du kommer att radera följande publika nycklar:\n\n%@\n\nÄr du säker på att du vill radera de publika nycklarna?";
 DeleteKeys_Yes = "Radera nycklar";
 DeleteKeys_No = "Avbryt";
 
@@ -257,13 +262,13 @@ ImportNonImportable_No = "Avbryt";
 
 
 /* Results */
-UploadSuccess_Title = "Public keys sent to key server";
+UploadSuccess_Title = "Publika nycklar är skickade till nyckelserver";
 UploadSuccess_Msg = "Följande publika nycklar har skickats till nyckelservrarna:\n\n%@\n\nGe det lite tid innan ändringen har synkats över befintliga nyckelservrar.";
 
-ExportSuccess_Title = "Keys exported";
-ExportSuccess_Msg = "The following keys were exported:\n\n%@";
+ExportSuccess_Title = "Nycklar exporterade";
+ExportSuccess_Msg = "Följande nycklar exporterades:\n\n%@";
 
-SignSuccess_Title = "The selected user IDs have been signed";
+SignSuccess_Title = "Det markerade användar-ID:t har signerats";
 
 
 
@@ -271,9 +276,9 @@ SignSuccess_Title = "The selected user IDs have been signed";
 IMPORT_RESULT_NEW_KEY = "Följande nycklar lyckades importeras:\n\n%@";
 IMPORT_RESULT_NEW_KEYS = "Följande nycklar lyckades importeras:\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "Ett användar-ID lades till nyckel/nycklar\n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "En signatur har lagts till följande nycklar\n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "En undernyckel har lagts till följande nycklar\n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to the following keys \n\n%@";
 
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 återkallelsecertifikat importerades.";
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i återkallelsecertifikat importerades.";

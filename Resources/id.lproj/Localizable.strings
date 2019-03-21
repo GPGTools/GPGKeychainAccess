@@ -30,14 +30,14 @@ ExportSecretKeyFilename = "%@ – Rahasia";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No password entered";
-CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Yes = "Continue Without Password";
-CheckAlert_NoPassphrase_No = "Enter New Password";
-CheckAlert_PassphraseSimple_Title = "Password too simple";
-CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
-CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
-CheckAlert_PassphraseSimple_No = "Enter New Password";
+CheckAlert_NoPassphrase_Title = "Tidak ada kata sandi yang dimasukkan";
+CheckAlert_NoPassphrase_Message = "Anda belum memasukkan kata sandi. Ini tidak disarankan. Kata sandi mesti paling tidak sepanjang 8 karakter.";
+CheckAlert_NoPassphrase_Yes = "Lanjutkan Tanpa Kata Sandi";
+CheckAlert_NoPassphrase_No = "Masukkan Kata Sandi Baru";
+CheckAlert_PassphraseSimple_Title = "Kata sandi terlalu sederhana";
+CheckAlert_PassphraseSimple_Message = "Kata sandi yang Anda masukkan terlalu sederhana. Suatu kata sandi yang baik mesti paling tidak sepanjang 8 karakter dan memakai karakter-karakter yang berbeda.";
+CheckAlert_PassphraseSimple_Yes = "Gunakan Kata Sandi Sederhana";
+CheckAlert_PassphraseSimple_No = "Masukkan Kata Sandi Baru";
 CheckAlert_PassphraseTooLong_Title = "Kata sandi terlalu panjang";
 CheckAlert_PassphraseTooLong_Message = "Kata sandi yang Anda masukkan terlalu panjang. Masukkan suatu kata sandi yang kurang dari %1$i karakter.\n\nPerhatian: Bila kata sandi Anda mengandung karakter khusus Anda mungkin tidak bisa memakai karakter %1$i.";
 
@@ -50,14 +50,14 @@ KeySearch_ImportResults_Title = "Impor sukses";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), dibuat: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Kami sedang mencari kunci-kunci yang cocok pada server kunci. Ini mungkin makan waktu, mohon tunggu.";
 
-GenerateKey_ProgressTitle = "Key creation in progress…";
-GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
+GenerateKey_ProgressTitle = "Pembuatan kunci tengah berlangsung...";
+GenerateKey_Progress = "Kunci baru Anda sedang dibuat. Ini mungkin makan waktu semenit, jadi silakan meregangkan kaki.";
 GenerateSubkey_Msg = "Tambahkan sub kunci ke kunci berikut:\n%@%@";
 GenerateUserID_Msg = "Tambahkan alamat surel (ID pengguna) ke kunci berikut:\n%@%@";
 GenerateSignature_Msg = "Menandatangani suatu kunci berarti Anda mengkonfirmasi bahwa pemilik kunci memang benar-benar dia yang mengaku dirinya siapa.\nSekali diunggah, tanda tangan dapat dilihat oleh orang lain.\nMaka bila Anda menandatangani kunci milik Bob dan teman Anda Alice tidak yakin apakah Bob memang benar-benar Bob, Alice akan melihat tanda tangan Anda pada kunci Bob, dan karena Alice tahu bahwa kunci Anda terpercaya, dia tahu bahwa Bob sangat boleh jadi memang Bob.\n\nAnda akan menandatangani kunci berikut:\n%@";
 GenerateUidSignature_Msg = "Menandatangani suatu ID pengguna berarti Anda mengkonfirmasi bahwa pemilik kunci memang benar-benar dia yang mengaku dirinya siapa.\nSekali diunggah, tanda tangan dapat dilihat oleh orang lain.\nMaka bila Anda menandatangani kunci milik Bob dan teman Anda Alice tidak yakin apakah Bob memang benar-benar Bob, Alice akan melihat tanda tangan Anda pada kunci Bob, dan karena Alice tahu bahwa kunci Anda terpercaya, dia tahu bahwa Bob sangat boleh jadi memang Bob.\n\nAnda akan menandatangani ID pengguna berikut:\n%@";
-ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
-ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
+ChangeExpirationDate_Msg = "Anda akan mengubah tanggal kedaluwarsa kunci Anda\n\n%1$@";
+ChangeSubkeyExpirationDate_Msg = "Anda akan mengubah tanggal kedaluwarsa sub kunci Anda\n\n%1$@";
 
 GenerateKey_Error = "Ups, ada yang salah. Ada masalah saat membuat kunci Anda.";
 
@@ -73,15 +73,15 @@ CheckError_NoKeyID = "Harap masukkan ID kunci yang valid!";
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG Tak Ditemukan";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
+GPG_NOT_FOUND_MESSAGE = "Ups, ada kesalahan parah. Tampaknya GPG hilang dari sistem Anda. Harap pasang ulang Keluarga GPG dari\n\nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Galat Konfig GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, ada yang salah. GPG ditemukan pada sistem Anda tapi tampaknya ada masalah dengan berkas konfig. Harap hubungi kami di \nhttps://gpgtools.tenderapp.com\n\nRincian: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg tak ditemukan";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg tidak ditemukan pada sistem Anda. Harap pasang ulang\nKeluarga GPG dari https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Seseorang mengotak-atik instalasi GPG Keychain Anda";
 CODE_SIGN_ERROR_MESSAGE = "Agar Anda tetap aman, GPG Keychain akan keluar sekarang!\n\nHarap pasang ulang GPG Suite dari\nhttps://gpgtools.org agar yakin bahwa Anda memiliki versi asli dari kami!";
 UNKNOWN_GPG_ERROR_TITLE = "Kesalahan GPG Yang Tak Dikenal";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, ada yang salah. GPG melaporkan kesalahan yang tidak dikenal. Harap hubungi kami di  \nhttps://gpgtools.tenderapp.com\n\nRincian: %@";
 
 
 
@@ -91,8 +91,8 @@ MailKey_Subject_Your = "Kunci publik saya untuk mengamankan pesan-pesan kita";
 MailKey_Message = "Halo,\n\nterlampir adalah kunci publik dari \n\n%@\n\nAnda dapat memakai kunci ini untuk mengenkripsi dan mengamankan pesan ketika menulis ke %@.\n\nUntuk mulai memakainya, Anda perlu memasang suatu perangkat lunak OpenPGP pada komputer Anda. Di bawah Anda akan temukan daftar solusi yang mungkin untuk sistem operasi Anda:\n\n%@\n\nHarap impor kunci publik ke dalam Manajer Kunci OpenPGP lokal Anda.\n\nSalam";
 MailKey_Message_Your = "Halo,\n\nterlampir adalah kunci publik saya\n\n%@\n\nAnda dapat memakai kunci ini untuk mengenkripsi dan mengamankan pesan kita.\n\nUntuk mulai memakainya, Anda perlu memasang suatu perangkat lunak OpenPGP pada komputer Anda. Di bawah Anda akan temukan daftar solusi yang mungkin untuk sistem operasi Anda:\n\n%@\n\nHarap impor kunci publik ke dalam Manajer Kunci OpenPGP lokal Anda.\n\nSaya berharap bisa segera bertukar pesan bebas intip dengan Anda.\n\nSalam";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creating new email…";
-MailKey_Progress_Your = "Creating new email…";
+MailKey_Progress = "Membuat surel baru...";
+MailKey_Progress_Your = "Membuat surel baru...";
 MailKey_Error = "Ups, ada yang salah. Ada masalah saat mengekspor kunci Anda.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Kunci yang tidak dapat dipakai dipilih";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Anda telah memilih suatu kunci yang tidak dapat dipakai. Kunci sedemikian tidak bisa dikirim lewat surel. Harap mutakhirkan kunci dari server kunci, untuk memeriksa apakah itu telah dimutakhirkan.\n\nBila tidak bertemulah dengan pemilik kunci dan informasikan tentang keadaan kunci.\n\n%@";
@@ -120,17 +120,17 @@ RemoveUserID_Yes = "Hapus ID Pengguna";
 RemoveUserID_No = "Batal";
 
 RevokeUserID_Title = "Peringatan: Anda akan mencabut suatu ID pengguna";
-RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
+RevokeUserID_Msg = "Anda akan mencabut ID pengguna berikut:\n\n%@dari kunci %@ Anda\n\nSekali dicabut, Anda tidak akan bisa lagi menandatangani dan mengenkripsi pesan dengan ID pengguna ini dan orang lain tidak akan bisa mengenkripsi pesan ke ID pengguna ini. ID pengguna yang dicabut masih dapat dipakai untuk mendekripsi surel dan berkas, yang sebelumnya dienkripsi dengannya.\n\nKami sarankan untuk tidak menghapusnya, tapi mempertahankannya dalam kunci Anda dalam keadaan tercabut.\n\nApakah Anda yakin hendak mencabut ID pengguna ini?";
 RevokeUserID_Yes = "Cabut ID Pengguna";
 RevokeUserID_No = "Batal";
 
 RemoveSubkey_Title = "Hapus Subkunci";
-RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
+RemoveSubkey_Msg = "Peringatan: Harap hanya melanjutkan bila Anda benar-benar paham tentang apa yang Anda lakukan.\n\nMenghapus suatu sub kunci dapat merusak semua kapabilitas untuk menandatangani dan mendekripsi memakai kunci ini.\n\nBila kunci ini telah diunggah ke server kunci, membuang sub kunci tidak akan berpengaruh pada entri server kunci yang ada. Untuk memberi sinyal ke orang lain bahwa mereka jangan memakai sub kunci ini lagi, harap cabut saja sub kunci tersebut dan unggah kunci yang dimutakhirkan ke server kunci.";
 RemoveSubkey_Yes = "Hapus Subkunci";
 RemoveSubkey_No = "Batal";
 
 RevokeSubkey_Title = "Peringatan: Anda akan mencabut suatu sub kunci";
-RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
+RevokeSubkey_Msg = "Harap hanya melanjutkan bila Anda memang benar paham apa yang Anda sedang lakukan.\n\nMencabut suatu sub kunci dapat menghancurkan kapabilitas untuk menandatangani memakai sub kunci ini dan orang lain bisa jadi tidak dapat lagi mengenkripsi pesan-pesan ke sub kunci ini.\n\nSub kunci yang dicabut masih dapat dipakai untuk mendekripsi surel dan berkas, yang sebelumnya dienkripsi atasnya.\n\nKami sarankan untuk tidak menghapusnya tapi mempertahankannya dalam keadaan tercabut.\n\nAnda yakin hendak mencabut sub kunci ini?";
 RevokeSubkey_Yes = "Cabut Subkunci";
 RevokeSubkey_No = "Batal";
 
@@ -144,18 +144,23 @@ RemoveSignature_Msg = "Apakah Anda yakin hendak menghapus tanda tangan ini? Meng
 RemoveSignature_Yes = "Hapus Tanda Tangan";
 RemoveSignature_No = "Batal";
 
+RemoveLocalSignature_Title = "Hapus Tanda Tangan";
+RemoveLocalSignature_Msg = "Are you sure you want to remove this local signature?";
+RemoveLocalSignature_Yes = "Hapus Tanda Tangan";
+RemoveLocalSignature_No = "Batal";
+
 RemoveLastSelfSignature_Title = "Hapus Tanda Tangan Mandiri terakhir";
 RemoveLastSelfSignature_Msg = "Anda akan menghapus tanda tangan mandiri terakhir dari ID pengguna %@. Mohon hanya melanjutkan bila Anda memang tahu apa yang Anda lakukan.\n\nTanda tangan ini memastikan bahwa alamat surel, nama, dan deskripsi dari suatu ID pengguna hanya dapat diubah oleh pemiliknya.\n\nBila tanda tangan ini hilang, seseorang dapat mengubah informasi ini dan tidak ada cara untuk mengetahui bila hal itu terjadi.";
 RemoveLastSelfSignature_Yes = "Hapus Tanda Tangan";
 RemoveLastSelfSignature_No = "Batal";
 
 RevokeLastSelfSignature_Title = "Cabut Tanda Tangan Mandiri terakhir";
-RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
+RevokeLastSelfSignature_Msg = "Anda akan mencabut tanda tangan mandiri terakhir dari ID pengguna %@. Mohon hanya melanjutkan bila Anda memang tahu apa yang Anda lakukan.\n\nAnda tidak akan bisa lagi memakainya, termasuk untuk menandatangani surel.";
 RevokeLastSelfSignature_Yes = "Cabut Tanda Tangan";
 RevokeLastSelfSignature_No = "Batal";
 
 RevokeKey_Title = "Peringatan: Anda akan mencabut suatu kunci";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "Anda akan mencabut kunci berikut:\n\n%@\n\nSekali dicabut, Anda tidak akan bisa lagi menandatangani pesan dan tidak ada pesan yang dapat dienkripsi ke kunci ini. Kunci yang dicabut masih dapat dipakai untuk mendekripsi surel dan berkas, yang sebelumnya dienkripsi dengannya.\n\nTidak disarankan untuk menghapusnya, tapi mempertahankannya di GPG Keychain dalam keadaan tercabut.\n\nAnda yakin hendak mencabut kunci ini?";
 RevokeKey_Yes = "Cabut Kunci";
 RevokeKey_No = "Batal";
 
@@ -203,8 +208,8 @@ RevokedSubkeyWantToUpload_Msg = "Untuk mempermudah teman dan kolega Anda mempela
 RevokedSubkeyWantToUpload_Yes = "Unggah Kunci Publik";
 RevokedSubkeyWantToUpload_No = "Tidak, Terima Kasih!";
 
-UserIDsSignedWantToUpload_Title = "Signing successful";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
+UserIDsSignedWantToUpload_Title = "Penandatanganan sukses";
+UserIDsSignedWantToUpload_Msg = "Agar mempermudah teman-teman Anda tahu tentang tanda tangan baru, disarankan untuk mengunggah kunci publik yang ditandatangani ke server kunci.\n\nApakah Anda hendak mengunggah kunci publik?";
 UserIDsSignedWantToUpload_Yes = "Unggah Kunci Publik";
 UserIDsSignedWantToUpload_No = "Tidak, Terima Kasih!";
 
@@ -212,19 +217,19 @@ UserIDsSignedWantToUpload_No = "Tidak, Terima Kasih!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key";
-DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
-DeleteKey_Yes = "Delete key";
+DeleteKey_Title = "Hapus kunci publik";
+DeleteKey_Msg = "Anda akan menghapus kunci publik berikut:\n\n%@\n\nAnda yakin hendak menghapus kunci publik tersebut?";
+DeleteKey_Yes = "Hapus kunci";
 DeleteKey_No = "Batal";
 
-DeleteKeys_Title = "Delete public keys";
-DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
-DeleteKeys_Yes = "Delete keys";
+DeleteKeys_Title = "Hapus kunci-kunci publik";
+DeleteKeys_Msg = "Anda akan menghapus kunci-kunci publik berikut:\n\n%@\n\nAnda yakin hendak menghapus kunci-kunci publik tersebut?";
+DeleteKeys_Yes = "Hapus kunci-kunci";
 DeleteKeys_No = "Batal";
 
 
 DeleteSecKey_Title = "Peringatan: Anda akan menghapus kunci publik dan rahasia";
-DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all messages that were and will be encrypted to this key can no longer be decrypted. We recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Msg = "Anda akan menghapus kunci-kunci:\n\n%@\n\nSekali dihapus, semua pesan yang telah dan akan dienkripsi dengan kunci ini tidak bisa didekripsi lagi. Kami sarankan untuk tidak menghapusnya.\n\nUntuk mengkomunikasikan ini ke orang lain bahwa kunci ini tak dipakai lagi, Anda mesti mencabut kunci sebagai ganti dari menghapusnya dan mengunggah kunci yang dicabut ke server kunci. Bila tidak, orang lain mungkin masih memakai kunci ini untuk mengenkripsi pesan kepada Anda.";
 DeleteSecKey_Checkbox = "Ya, saya ingin menghapus kunci rahasia saya dan paham, bahwa saya tak akan bisa lagi\nmendekripsi sebarang pesan yang dienkripsi memakai kunci ini.";
 DeleteSecKey_Yes = "Hapus kunci";
 DeleteSecKey_SecOnly = "Hapus hanya kunci rahasia";
@@ -257,13 +262,13 @@ ImportNonImportable_No = "Batal";
 
 
 /* Results */
-UploadSuccess_Title = "Public keys sent to key server";
+UploadSuccess_Title = "Kunci publik dikirim ke server kunci";
 UploadSuccess_Msg = "Kunci publik berikut telah dikirim ke server kunci:\n\n%@\n\nHarap tunggu beberapa saat agar perubahan diselaraskan antar server kunci.";
 
-ExportSuccess_Title = "Keys exported";
-ExportSuccess_Msg = "The following keys were exported:\n\n%@";
+ExportSuccess_Title = "Kunci diekspor";
+ExportSuccess_Msg = "Kunci-kunci berikut diekspor:\n\n%@";
 
-SignSuccess_Title = "The selected user IDs have been signed";
+SignSuccess_Title = "ID pengguna yang dipilih telah ditandatangani";
 
 
 
@@ -271,9 +276,9 @@ SignSuccess_Title = "The selected user IDs have been signed";
 IMPORT_RESULT_NEW_KEY = "Kunci berikut sukses diimpor:\n\n%@";
 IMPORT_RESULT_NEW_KEYS = "Kunci-kunci berikut sukses diimpor:\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "Suatu ID pengguna ditambahkan ke kunci\n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "Suatu tanda tangan ditambahkan ke kunci\n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "Suatu sub kunci ditambahkan ke kunci\n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "A user ID was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to the following keys \n\n%@";
 
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 sertifikat pencabutan diimpor.";
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i sertifikat pencabutan diimpor.";
@@ -404,10 +409,10 @@ FilterNoResultsSecOnly = "Pencarian lokal untuk '%@' tanpa hasil.\nPertimbangkan
 
 
 
-SignKey_KeyClaimsMultipleIdentities = "The key:\n%@\nclaims more than one identity. Which ones have you verified?";
-SignKey_PublishSingleIdentity = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to %@.";
-SignKey_PublishMultipleIdentities = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to the identities you've checked.";
-SignKey_MainMsg = "By signing this key you confirm the identity of the key owner and that the key with fingerprint %@ belongs to them.";
+SignKey_KeyClaimsMultipleIdentities = "Kunci:\n%@\nmengklaim lebih dari satu identitas. Yang mana yang telah Anda verifikasi?";
+SignKey_PublishSingleIdentity = "Bila Anda memilih untuk mempublikasikan tanda tangan ini, setiap orang di seluruh dunia bisa melihat bahwa Anda percaya kunci ini milik %@.";
+SignKey_PublishMultipleIdentities = "Bila Anda memilih untuk mempublikasikan tanda tangan ini, setiap orang di seluruh dunia bisa melihat bahwa Anda percaya kunci ini milik identitas-identitas yang telah Anda periksa.";
+SignKey_MainMsg = "Dengan menandatangani kunci ini Anda mengkonfirmasi indentitas dari pemiliki kunci dan bahwa kunci degan sidik jari %@adalah milik mereka.";
 
 
 
