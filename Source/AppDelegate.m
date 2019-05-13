@@ -21,8 +21,8 @@
 #import "KeychainController.h"
 #import "ActionController.h"
 #import "PreferencesController.h"
-#import "SBSystemPreferences.h"
 #import "GKFieldEditor.h"
+#import <pwd.h>
 
 
 @implementation GPGKeychainAppDelegate
@@ -249,35 +249,29 @@
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/"]];
 }
 - (IBAction)showSupport:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/home"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/"]];
 }
 - (IBAction)sendReport:(id)sender {
-	SBSystemPreferencesApplication *systemPrefs = [SBApplication applicationWithBundleIdentifier:@"com.apple.systempreferences"];
-	systemPrefs.timeout = EV_TICKS_PER_SEC * 3;
-	SBElementArray *panes = systemPrefs.panes;
-	SBSystemPreferencesPane *gpgPane = nil;
+	// Find gpgPrefLauncher inside of GPGPreferences.prefPane.
+	NSString *path = @"/Library/PreferencePanes/GPGPreferences.prefPane/Contents/Resources/gpgPrefLauncher";
+	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+		struct passwd *pw = getpwuid(getuid());
+		if (pw) {
+			NSString *home = [NSString stringWithUTF8String:pw->pw_dir];
+			path = [home stringByAppendingPathComponent:path];
+		}
+		if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+			path = nil;
+		}
+	}
+
 	BOOL success = NO;
-	
-	
-	for (SBSystemPreferencesPane *pane in panes) {
-		if ([pane.id isEqualToString:@"org.gpgtools.gpgpreferences"]) {
-			gpgPane = pane;
-			break;
-		}
+	if (path) {
+		success = [GPGTask launchGeneralTask:path withArguments:@[@"report"] wait:YES];
 	}
-	if (gpgPane) {
-		SBElementArray *anchors = gpgPane.anchors;
-		
-		for (SBSystemPreferencesAnchor *anchor in anchors) {
-			if ([anchor.name isEqualToString:@"report"]) {
-				[systemPrefs activate];
-				[anchor reveal];
-				success = YES;
-				break;
-			}
-		}
-	}
-	if (success == NO) {
+
+	if (!success) {
+		// Alternative if GPGPreferences could not be launched.
 		[self showSupport:sender];
 	}
 }
