@@ -267,7 +267,7 @@
 
 	BOOL success = NO;
 	if (path) {
-		success = [GPGTask launchGeneralTask:path withArguments:@[@"report"] wait:YES];
+		success = [GPGTask launchGeneralTask:path withArguments:@[@"-tab", @"report", @"-tool", @"gpgkeychain"] wait:YES];
 	}
 
 	if (!success) {
