@@ -252,23 +252,7 @@
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/"]];
 }
 - (IBAction)sendReport:(id)sender {
-	// Find gpgPrefLauncher inside of GPGPreferences.prefPane.
-	NSString *path = @"/Library/PreferencePanes/GPGPreferences.prefPane/Contents/Resources/gpgPrefLauncher";
-	if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-		struct passwd *pw = getpwuid(getuid());
-		if (pw) {
-			NSString *home = [NSString stringWithUTF8String:pw->pw_dir];
-			path = [home stringByAppendingPathComponent:path];
-		}
-		if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-			path = nil;
-		}
-	}
-
-	BOOL success = NO;
-	if (path) {
-		success = [GPGTask launchGeneralTask:path withArguments:@[@"-tab", @"report", @"-tool", @"gpgkeychain"] wait:YES];
-	}
+	BOOL success = [GPGTask showGPGSuitePreferencesTab:@"report" arguments:nil];
 
 	if (!success) {
 		// Alternative if GPGPreferences could not be launched.
