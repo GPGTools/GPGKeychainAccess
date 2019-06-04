@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -476,30 +476,100 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="4AAAD79F-CE85-4575-92B9-E91BA1C2FB23" displayMode="iconAndLabel" sizeMode="regular" id="718">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="F749CF96-4958-41D6-9E8A-191FE584C3C5" label="New" paletteLabel="New" tag="-1" image="Generate" id="729">
+                    <toolbarItem implicitItemIdentifier="06410532-607A-4068-AD66-5F2F02DFF9EF" label="New" paletteLabel="New" image="Add" id="729">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="37" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="fcF-YF-ITs">
+                            <rect key="frame" x="0.0" y="14" width="37" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Add" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3YQ-tt-4y8">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                         <connections>
-                            <action selector="generateNewKey:" target="1178" id="1420"/>
+                            <action selector="generateNewKey:" target="1178" id="6gC-vm-jlN"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="5F3CC3A1-943F-4F0C-9913-6B9930B965DC" label="Import" paletteLabel="Import" tag="-1" image="Import" id="731">
+                    <toolbarItem implicitItemIdentifier="C2A62274-23EE-4245-8614-0963DC4DA01A" label="Import" paletteLabel="Import" image="Import" id="731">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="37" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="R9s-tT-fJM">
+                            <rect key="frame" x="3" y="14" width="37" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Import" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pkS-KO-f2f">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                         <connections>
-                            <action selector="importKey:" target="1178" id="1668"/>
+                            <action selector="importKey:" target="1178" id="5ax-8g-jLR"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="3CCC742F-CF77-46AF-A709-505EF15F1073" label="Export" paletteLabel="Export" tag="-1" image="Export" id="730">
+                    <toolbarItem implicitItemIdentifier="D73630E7-60D7-409F-B9EF-F4FD25157B2B" label="Export" paletteLabel="Export" image="Export" id="730">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="37" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="ylm-Ve-txG">
+                            <rect key="frame" x="3" y="14" width="37" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Export" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="haA-Wp-shI">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                         <connections>
-                            <action selector="exportKey:" target="1178" id="1667"/>
+                            <action selector="exportKey:" target="1178" id="f1d-uf-4iD"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="B1B6B5FA-C2DF-4625-BDC9-EF4AADBA801A" label="Lookup Key" paletteLabel="Lookup Key" tag="-1" image="Search" id="SGr-SW-ieo">
+                    <toolbarItem implicitItemIdentifier="96BB5CE0-2587-47CB-94CD-B5EF8B79ABCF" label="Lookup Key" paletteLabel="Lookup Key" image="Search" id="SGr-SW-ieo">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="37" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="c39-u8-ldo">
+                            <rect key="frame" x="16" y="14" width="37" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Search" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="n10-3V-t7y">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                         <connections>
-                            <action selector="searchKeys:" target="1178" id="Y8L-FX-BLl"/>
+                            <action selector="searchKeys:" target="1178" id="C7f-bd-pBe"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="1A0B15F5-75A8-4E80-8E77-03BF8E63698A" label="Delete" paletteLabel="Delete" tag="-1" image="DeleteKey" autovalidates="NO" id="1421">
+                    <toolbarItem implicitItemIdentifier="AFB78A50-6CFC-4B10-B879-CF83822144ED" label="Delete" paletteLabel="Delete" image="Delete" id="1421">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="37" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="YP0-IR-WqX">
+                            <rect key="frame" x="2" y="14" width="37" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Delete" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ysO-QB-ODv">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                         <connections>
-                            <action selector="deleteKey:" target="1178" id="1609"/>
-                            <binding destination="663" name="enabled" keyPath="canRemove" id="1588"/>
+                            <action selector="deleteKey:" target="1178" id="70R-Pg-gdx"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="8657F548-AA92-400A-AA28-018298DD76E4" label="Details" paletteLabel="Details" image="Info" id="2115">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="37" height="25"/>
+                        <size key="maxSize" width="37" height="25"/>
+                        <button key="view" verticalHuggingPriority="750" id="e2l-Ha-Y0U">
+                            <rect key="frame" x="4" y="14" width="37" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Info" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RVf-x9-lbd">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="toggleInspector:" target="494" id="yTm-eS-RnD"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="B202D568-D7E9-49F2-8AC7-44B577940F90" label="Filter" paletteLabel="Filter" id="728">
@@ -527,16 +597,13 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="723"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="724"/>
-                    <toolbarItem implicitItemIdentifier="11282D49-D87E-41A7-AC0C-917ED4247CC0" label="Details" paletteLabel="Details" tag="-1" image="Info" id="2115">
-                        <connections>
-                            <action selector="toggleInspector:" target="494" id="Mvt-D1-ub4"/>
-                        </connections>
-                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="729"/>
+                    <toolbarItem reference="723"/>
                     <toolbarItem reference="731"/>
                     <toolbarItem reference="730"/>
+                    <toolbarItem reference="723"/>
                     <toolbarItem reference="SGr-SW-ieo"/>
                     <toolbarItem reference="724"/>
                     <toolbarItem reference="2115"/>
@@ -1290,11 +1357,11 @@ CA
                                 <tabViewItems>
                                     <tabViewItem label="Key" identifier="1" id="Am0-3B-MhY">
                                         <view key="view" id="KbN-Px-cPr">
-                                            <rect key="frame" x="10" y="25" width="426" height="433"/>
+                                            <rect key="frame" x="10" y="29" width="426" height="429"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eYj-Ql-x9j">
-                                                    <rect key="frame" x="13" y="364" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="360" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Comment:" id="51F-PV-TaV">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1302,7 +1369,7 @@ CA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vUK-pC-bf1">
-                                                    <rect key="frame" x="13" y="386" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="382" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Email:" id="2fd-Bt-iZW">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1310,7 +1377,7 @@ CA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gCU-aI-goe">
-                                                    <rect key="frame" x="84" y="408" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="404" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="asD-Bf-OBf">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1328,7 +1395,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CYR-1V-sWm">
-                                                    <rect key="frame" x="84" y="386" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="382" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="Ujf-N3-F7A">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1346,7 +1413,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8gz-yF-At5">
-                                                    <rect key="frame" x="84" y="364" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="360" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="cvv-9h-ijy">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1364,7 +1431,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e0D-WQ-j06">
-                                                    <rect key="frame" x="13" y="408" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="404" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Name:" id="A2N-x1-kl2">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1372,7 +1439,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="22e-QX-BDg">
-                                                    <rect key="frame" x="13" y="329" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="325" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Created:" id="gYU-Xc-7vo">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1380,7 +1447,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T3y-iM-9sS">
-                                                    <rect key="frame" x="13" y="307" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="303" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Expires:" id="gh0-pL-7Lz">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1388,7 +1455,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IFu-c0-JLY">
-                                                    <rect key="frame" x="84" y="329" width="143" height="14"/>
+                                                    <rect key="frame" x="84" y="325" width="143" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="06. September 2010 12:24" usesSingleLineMode="YES" id="A1I-ft-3SV">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1407,7 +1474,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ghg-nN-Jiq">
-                                                    <rect key="frame" x="84" y="307" width="204" height="14"/>
+                                                    <rect key="frame" x="84" y="303" width="204" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="LIO-eN-Dy7"/>
                                                     </constraints>
@@ -1429,7 +1496,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N4k-89-Jxh">
-                                                    <rect key="frame" x="13" y="249" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="245" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Key ID:" id="t1u-gq-8Lo">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1437,7 +1504,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kR1-tw-Ik4">
-                                                    <rect key="frame" x="13" y="227" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="223" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Length:" id="GQC-kI-Owz">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1445,7 +1512,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MXS-ab-DTr">
-                                                    <rect key="frame" x="13" y="183" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="179" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Fingerprint:" id="gnz-VR-xek">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1453,7 +1520,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VO1-gh-6RH">
-                                                    <rect key="frame" x="84" y="249" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="245" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="mbi-w7-vw2">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1471,7 +1538,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G1Z-mc-LMf">
-                                                    <rect key="frame" x="84" y="271" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="267" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="UPY-bF-SWT">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1489,7 +1556,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dNN-pk-RcN">
-                                                    <rect key="frame" x="84" y="183" width="329" height="14"/>
+                                                    <rect key="frame" x="84" y="179" width="329" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="325" id="oKi-5S-Q5q"/>
                                                     </constraints>
@@ -1511,7 +1578,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="csq-Z2-fqW">
-                                                    <rect key="frame" x="84" y="227" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="223" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="FgS-AS-qOp">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1529,7 +1596,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eg1-oN-CW3">
-                                                    <rect key="frame" x="13" y="205" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="201" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Algorithm:" id="rRM-jA-WGg">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1537,7 +1604,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OGy-pg-Usv">
-                                                    <rect key="frame" x="84" y="205" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="201" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="MzM-e9-IUx">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1556,7 +1623,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qiv-uE-DAb">
-                                                    <rect key="frame" x="13" y="161" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="157" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Validity:" id="cgi-y4-vYW">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1564,7 +1631,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QIs-aC-bfG">
-                                                    <rect key="frame" x="84" y="161" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="157" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="U0a-DL-sH1">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1583,7 +1650,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hde-Oc-5cM">
-                                                    <rect key="frame" x="13" y="139" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="135" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Capabilities:" id="Drs-eG-D1T">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1591,7 +1658,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ale-6m-pEC">
-                                                    <rect key="frame" x="84" y="139" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="135" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="fwQ-n0-mv5">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1609,7 +1676,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j2P-RE-ycp">
-                                                    <rect key="frame" x="13" y="117" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="113" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Card:" id="8Pr-Gm-958">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1617,7 +1684,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="251" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vnb-sD-PPA">
-                                                    <rect key="frame" x="84" y="117" width="127" height="14"/>
+                                                    <rect key="frame" x="84" y="113" width="127" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" truncatesLastVisibleLine="YES" selectable="YES" sendsActionOnEndEditing="YES" title="Small System Font Text" usesSingleLineMode="YES" id="JhW-9c-kfV">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1635,7 +1702,7 @@ IA
                                                     </connections>
                                                 </textField>
                                                 <button toolTip="A disabled key can not encrypt or sign new messages. You can still decrypt messages with a disabled secret key." translatesAutoresizingMaskIntoConstraints="NO" id="zjB-TO-Rep">
-                                                    <rect key="frame" x="83" y="55" width="61" height="18"/>
+                                                    <rect key="frame" x="83" y="51" width="61" height="18"/>
                                                     <buttonCell key="cell" type="check" title="Disable" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" inset="2" id="8xs-F9-hBA">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="smallSystem"/>
@@ -1646,7 +1713,7 @@ IA
                                                     </connections>
                                                 </button>
                                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YBt-hv-bcv">
-                                                    <rect key="frame" x="83" y="75" width="136" height="22"/>
+                                                    <rect key="frame" x="83" y="71" width="136" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="zBX-cZ-vJW"/>
                                                     </constraints>
@@ -1670,7 +1737,7 @@ IA
                                                     </connections>
                                                 </popUpButton>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="K0q-sT-vQM">
-                                                    <rect key="frame" x="81" y="26" width="140" height="28"/>
+                                                    <rect key="frame" x="81" y="22" width="140" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="Ple-G0-ztM"/>
                                                     </constraints>
@@ -1699,7 +1766,7 @@ IA
                                                     </connections>
                                                 </button>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jjj-hv-vjC">
-                                                    <rect key="frame" x="13" y="80" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="76" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Ownertrust:" id="zb2-si-8D4">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1707,16 +1774,16 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="S5Z-WI-8A3">
-                                                    <rect key="frame" x="-3" y="293" width="432" height="5"/>
+                                                    <rect key="frame" x="-3" y="289" width="432" height="5"/>
                                                 </box>
                                                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="aYV-6H-iXg">
-                                                    <rect key="frame" x="-3" y="351" width="432" height="5"/>
+                                                    <rect key="frame" x="-3" y="347" width="432" height="5"/>
                                                 </box>
                                                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="RJz-jk-019">
-                                                    <rect key="frame" x="-3" y="104" width="432" height="5"/>
+                                                    <rect key="frame" x="-3" y="100" width="432" height="5"/>
                                                 </box>
                                                 <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ezf-2c-glf">
-                                                    <rect key="frame" x="13" y="271" width="69" height="14"/>
+                                                    <rect key="frame" x="13" y="267" width="69" height="14"/>
                                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Type:" id="seA-FC-Vmm">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -1724,7 +1791,7 @@ IA
                                                     </textFieldCell>
                                                 </textField>
                                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LP4-6I-5SN">
-                                                    <rect key="frame" x="293" y="305" width="66" height="16"/>
+                                                    <rect key="frame" x="293" y="301" width="66" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="CI8-gi-aSx"/>
                                                     </constraints>
@@ -1758,7 +1825,7 @@ IA
                                                     </connections>
                                                 </button>
                                                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="pdD-Ef-u8e" customClass="GKCircleView">
-                                                    <rect key="frame" x="345" y="363" width="70" height="70"/>
+                                                    <rect key="frame" x="345" y="359" width="70" height="70"/>
                                                     <subviews>
                                                         <imageView translatesAutoresizingMaskIntoConstraints="NO" id="Nqh-oB-FQ9" customClass="GKImageView">
                                                             <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -1928,7 +1995,7 @@ IA
                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                                 <tableColumns>
-                                                                                    <tableColumn editable="NO" width="142" minWidth="50" maxWidth="1000" id="Zlz-Fg-3lR">
+                                                                                    <tableColumn identifier="" editable="NO" width="142" minWidth="50" maxWidth="1000" id="Zlz-Fg-3lR">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1949,7 +2016,7 @@ IA
                                                                                             <binding destination="959" name="value" keyPath="arrangedObjects.name" id="62B-AB-9Yp"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn editable="NO" width="130" minWidth="50" maxWidth="1000" id="Sgq-kp-s0B">
+                                                                                    <tableColumn identifier="" editable="NO" width="130" minWidth="50" maxWidth="1000" id="Sgq-kp-s0B">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Email">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1970,7 +2037,7 @@ IA
                                                                                             <binding destination="959" name="value" keyPath="arrangedObjects.email" id="FAi-AE-NqM"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn editable="NO" width="127" minWidth="50" maxWidth="1000" id="lUe-7W-PQd">
+                                                                                    <tableColumn identifier="" editable="NO" width="127" minWidth="50" maxWidth="1000" id="lUe-7W-PQd">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Comment">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2136,7 +2203,7 @@ IA
                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                                 <tableColumns>
-                                                                                    <tableColumn editable="NO" width="40" minWidth="18" maxWidth="40" id="Vjg-3F-h7L">
+                                                                                    <tableColumn identifier="" editable="NO" width="40" minWidth="18" maxWidth="40" id="Vjg-3F-h7L">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2153,7 +2220,7 @@ IA
                                                                                             <binding destination="1171" name="value" keyPath="arrangedObjects.type" id="lJx-CV-oeG"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn editable="NO" width="135.5" minWidth="40" maxWidth="1000" id="wkR-23-emF">
+                                                                                    <tableColumn identifier="" editable="NO" width="135.5" minWidth="40" maxWidth="1000" id="wkR-23-emF">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2171,7 +2238,7 @@ IA
                                                                                             <binding destination="1171" name="fontBold" keyPath="arrangedObjects.selfSignature" id="SYS-wM-kas"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn editable="NO" width="65" minWidth="27.056640625" maxWidth="1000" id="nfl-fM-902">
+                                                                                    <tableColumn identifier="" editable="NO" width="65" minWidth="27.056640625" maxWidth="1000" id="nfl-fM-902">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Key ID">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2188,7 +2255,7 @@ IA
                                                                                             <binding destination="1171" name="value" keyPath="arrangedObjects.shortKeyID" id="th8-9G-fYD"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn editable="NO" width="75" minWidth="45" maxWidth="150" id="m5R-sR-2Wc">
+                                                                                    <tableColumn identifier="" editable="NO" width="75" minWidth="45" maxWidth="150" id="m5R-sR-2Wc">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Created">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2205,7 +2272,7 @@ IA
                                                                                             <binding destination="1171" name="fontBold" keyPath="arrangedObjects.selfSignature" id="GLA-pO-aGG"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn editable="NO" width="75" minWidth="45" maxWidth="150" id="wDd-JS-jde">
+                                                                                    <tableColumn identifier="" editable="NO" width="75" minWidth="45" maxWidth="150" id="wDd-JS-jde">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Expires">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2222,7 +2289,7 @@ IA
                                                                                             <binding destination="1171" name="fontBold" keyPath="arrangedObjects.selfSignature" id="YL7-5Z-GpS"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn editable="NO" width="45" minWidth="25" maxWidth="100" hidden="YES" id="4Os-g3-MYG" userLabel="HashAlgo">
+                                                                                    <tableColumn identifier="" editable="NO" width="45" minWidth="25" maxWidth="100" hidden="YES" id="4Os-g3-MYG" userLabel="HashAlgo">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Hash">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2243,7 +2310,7 @@ IA
                                                                                             <binding destination="1171" name="fontBold" keyPath="arrangedObjects.selfSignature" id="kte-f3-0Fm"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn editable="NO" width="30" minWidth="20" maxWidth="100" hidden="YES" id="aIr-FD-0OQ" userLabel="SigAlgo">
+                                                                                    <tableColumn identifier="" editable="NO" width="30" minWidth="20" maxWidth="100" hidden="YES" id="aIr-FD-0OQ" userLabel="SigAlgo">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Algo">
                                                                                             <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2382,7 +2449,7 @@ IA
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                 <tableColumns>
-                                                                    <tableColumn width="32" minWidth="10" maxWidth="40" hidden="YES" id="YEr-KG-gMd">
+                                                                    <tableColumn identifier="" width="32" minWidth="10" maxWidth="40" hidden="YES" id="YEr-KG-gMd">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2404,7 +2471,7 @@ IA
                                                                             <binding destination="925" name="value" keyPath="arrangedObjects.type" id="rja-7A-BD5"/>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn editable="NO" width="100" minWidth="80" maxWidth="100" id="nht-3U-47N">
+                                                                    <tableColumn identifier="" editable="NO" width="100" minWidth="80" maxWidth="100" id="nht-3U-47N">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Subkey">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2426,7 +2493,7 @@ IA
                                                                             <binding destination="925" name="value" keyPath="arrangedObjects.shortKeyID" id="Z9M-Er-H2N"/>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn editable="NO" width="50" minWidth="30" maxWidth="60" id="Ot1-y1-Xaf">
+                                                                    <tableColumn identifier="" editable="NO" width="50" minWidth="30" maxWidth="60" id="Ot1-y1-Xaf">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Length">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2448,7 +2515,7 @@ IA
                                                                             <binding destination="925" name="fontBold" keyPath="arrangedObjects.secret" id="OTc-Vb-hvF"/>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn editable="NO" width="65" minWidth="30" maxWidth="150" id="ZyU-dv-qqW">
+                                                                    <tableColumn identifier="" editable="NO" width="65" minWidth="30" maxWidth="150" id="ZyU-dv-qqW">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Algorithm">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2474,7 +2541,7 @@ IA
                                                                             <binding destination="925" name="fontBold" keyPath="arrangedObjects.secret" id="hRA-db-M8s"/>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn editable="NO" width="68" minWidth="30" maxWidth="80" hidden="YES" id="0AQ-jj-bNs">
+                                                                    <tableColumn identifier="" editable="NO" width="68" minWidth="30" maxWidth="80" hidden="YES" id="0AQ-jj-bNs">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Capabilities">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2499,7 +2566,7 @@ IA
                                                                             </binding>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn editable="NO" width="82" minWidth="45" maxWidth="150" id="NiS-dr-I21">
+                                                                    <tableColumn identifier="" editable="NO" width="82" minWidth="45" maxWidth="150" id="NiS-dr-I21">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Created">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2521,7 +2588,7 @@ IA
                                                                             <binding destination="925" name="fontBold" keyPath="arrangedObjects.secret" id="hoK-Y1-fbi"/>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn editable="NO" width="82" minWidth="45" maxWidth="100" id="FCx-ax-D80">
+                                                                    <tableColumn identifier="" editable="NO" width="82" minWidth="45" maxWidth="100" id="FCx-ax-D80">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Expires">
                                                                             <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -2925,13 +2992,13 @@ IA
         </window>
     </objects>
     <resources>
-        <image name="DeleteKey" width="32" height="32"/>
-        <image name="Export" width="32" height="32"/>
-        <image name="Generate" width="32" height="32"/>
-        <image name="Import" width="32" height="32"/>
-        <image name="Info" width="32" height="32"/>
+        <image name="Add" width="16" height="16"/>
+        <image name="Delete" width="16" height="16"/>
+        <image name="Export" width="16" height="16"/>
+        <image name="Import" width="16" height="16"/>
+        <image name="Info" width="16" height="16"/>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSAddTemplate" width="11" height="11"/>
-        <image name="Search" width="32" height="32"/>
+        <image name="Search" width="16" height="16"/>
     </resources>
 </document>
