@@ -332,6 +332,8 @@ static PreferencesController *_sharedInstance = nil;
 		self.options.keyserver = GPG_DEFAULT_KEYSERVER;
 		[self performSelectorOnMainThread:@selector(setKeyserver:) withObject:GPG_DEFAULT_KEYSERVER waitUntilDone:NO];
 	} else {
+		// Remove leading and trailing whitespaces.
+		value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 		self.keyserverToCheck = value;
 	}
 }
