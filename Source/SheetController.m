@@ -38,7 +38,6 @@
 @end
 
 @interface SheetController () <NSOpenSavePanelDelegate, NSTabViewDelegate> {
-	NSInteger _clickedButton;
 	NSView *_oldDisplayedView;
 	NSLock *_sheetLock;
 	NSLock *_progressSheetLock;
@@ -68,6 +67,8 @@
 @property (nonatomic, weak) IBOutlet NSView *sign_expertView;
 @property (nonatomic, weak) IBOutlet NSTableView *sign_userIDsTable;
 
+@property (nonatomic, weak) IBOutlet NSTableView *upload_userIDsTable;
+
 @property (nonatomic, weak) IBOutlet NSView *exportKeyOptionsView;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *hideProgressTitleConstraint;
@@ -91,7 +92,7 @@
 @property (nonatomic, weak) IBOutlet NSView *resultView;
 @property (nonatomic, weak) IBOutlet NSView *editAlgorithmPreferencesView;
 @property (nonatomic, weak) IBOutlet NSView *selectVolumeView;
-
+@property (nonatomic, weak) IBOutlet NSView *uploadKeysView;
 
 @property (nonatomic, weak) NSView *displayedView;
 @property (nonatomic, weak) NSWindow *modalWindow;
@@ -101,7 +102,6 @@
 @property (nonatomic, strong) NSDictionary *result;
 @property (nonatomic) BOOL enableOK;
 @property (nonatomic) BOOL disableUserIDCommentsField;
-@property (nonatomic, readwrite, strong) NSArray *userIDs;
 @property (nonatomic, readwrite) double passwordStrength;
 
 
@@ -281,6 +281,10 @@
 		case SheetTypeAlgorithmPreferences:
 			self.displayedView = _editAlgorithmPreferencesView;
 			break;
+		case SheetTypeUploadKeys:
+			self.suppress = NO;
+			self.displayedView = _uploadKeysView;
+			break;
 		case SheetTypeSelectVolume:
 			[self prepareVolumeCollection];
 			self.displayedView = _selectVolumeView;
@@ -370,8 +374,9 @@
 	
 	if (![NSThread isMainThread]) {
 		__block NSInteger returnValue;
+		customize = [customize copy];
 		dispatch_sync(dispatch_get_main_queue(), ^{
-			returnValue = [self alertSheetForWindow:window messageText:messageText infoText:infoText defaultButton:button1 alternateButton:button2 otherButton:button3 suppressionButton:suppressionButton];
+			returnValue = [self alertSheetForWindow:window messageText:messageText infoText:infoText defaultButton:button1 alternateButton:button2 otherButton:button3 suppressionButton:suppressionButton cancelButton:cancelButton customize:customize];
 		});
 		return returnValue;
 	}
@@ -396,7 +401,7 @@
 		alert.showsSuppressionButton = YES;
 		if ([suppressionButton length] > 0) {
 			alert.suppressionButton.title = suppressionButton;
-			alert.suppressionButton.state = NSOnState;
+			alert.suppressionButton.state = NSOffState;
 		}
 	}
 	
@@ -655,6 +660,10 @@
 	[self showAdvanced:sender.state == NSOnState animate:YES];
 }
 
+- (IBAction)openKeyServerUploadFAQ:(id)sender {
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/upload-and-verify-a-key-on-keysopenpgporg"]];
+}
+
 
 #pragma mark Properties
 
@@ -752,13 +761,16 @@
 - (void)setPublicKey:(GPGKey *)publicKey {
 	_publicKey = publicKey;
 	
+	self.userIDs = self.publicKey.userIDs;
+}
+
+- (void)setUserIDs:(NSArray *)userIDs {
+	[_userIDs removeObserver:self fromObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, _userIDs.count)] forKeyPath:@"selected"];
 	
-	[self.userIDs removeObserver:self fromObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.userIDs.count)] forKeyPath:@"selected"];
-	
-	NSMutableArray *userIDs = [NSMutableArray new];
+	NSMutableArray *userIDDictionaries = [NSMutableArray new];
 	ActionController *ac = [ActionController sharedInstance];
 	
-	for (GPGUserID *userID in self.publicKey.userIDs) {
+	for (GPGUserID *userID in userIDs) {
 		if (userID.validity >= GPGValidityInvalid || userID.isUat) {
 			continue;
 		}
@@ -766,13 +778,12 @@
 		NSString *description = [ac descriptionForKeys:@[userID] maxLines:0 withOptions:DescriptionNoKeyID];
 		
 		NSMutableDictionary *item = [NSMutableDictionary dictionaryWithObjectsAndKeys:@NO, @"selected", userID, @"userID", description, @"description", nil];
-		[userIDs addObject:item];
+		[userIDDictionaries addObject:item];
 	}
-
-	[userIDs addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, userIDs.count)] forKeyPath:@"selected" options:0 context:nil];
 	
+	[userIDDictionaries addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, userIDDictionaries.count)] forKeyPath:@"selected" options:0 context:nil];
 	
-	self.userIDs = userIDs;
+	_userIDs = userIDDictionaries;
 }
 
 - (NSString *)userIDDescription {
@@ -1324,6 +1335,10 @@
 	
 	if (_modalWindow.isVisible) {
 		[_modalWindow beginSheet:_sheetWindow completionHandler:^(NSModalResponse returnCode) {}];
+		if (self.sheetType == SheetTypeUploadKeys) {
+			// If the table view is in a sheet, it needs to redraw, because some checkboxes would be in wrong color.
+			self.upload_userIDsTable.needsDisplay = YES;
+		}
 		[NSApp runModalForWindow:_sheetWindow];
 		[_modalWindow endSheet:_sheetWindow];
 	} else {

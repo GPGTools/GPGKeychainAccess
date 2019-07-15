@@ -37,6 +37,7 @@ typedef enum {
 	SheetTypeExportKey,
 	SheetTypeOpenPhotoPanel,
 	SheetTypeAlgorithmPreferences,
+	SheetTypeUploadKeys,
 	SheetTypeSelectVolume
 } SheetType;
 
@@ -50,7 +51,7 @@ enum {
 @interface SheetController : NSObject
 @property (nonatomic, strong) NSString *progressText, *msgText, *name, *email, *comment, *passphrase, *confirmPassphrase, *pattern, *title;
 @property (nonatomic, strong) NSString *progressTitle;
-@property (nonatomic) BOOL hasExpirationDate, exportSecretKey, allowEdit, publish;
+@property (nonatomic) BOOL hasExpirationDate, exportSecretKey, allowEdit, publish, suppress;
 @property (nonatomic, strong) NSDate *expirationDate, *minExpirationDate, *maxExpirationDate;
 @property (nonatomic, strong) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
 @property (nonatomic) NSInteger exportFormat, keyType, length, sheetType;
@@ -58,7 +59,7 @@ enum {
 @property (nonatomic, readonly) NSInteger daysToExpire;
 @property (nonatomic, strong) GPGKey *secretKey;
 @property (nonatomic, strong) GPGKey *publicKey;
-@property (nonatomic, strong, readonly) NSArray *userIDs;
+@property (nonatomic, strong) NSArray *userIDs;
 @property (nonatomic, strong) NSArray *selectedUserIDs;
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, strong, readonly) NSArray *URLs;
@@ -68,6 +69,7 @@ enum {
 @property (nonatomic, strong, readonly) NSDictionary *result;
 @property (nonatomic, readonly) BOOL disableUserIDCommentsField;
 @property (nonatomic, readonly) double passwordStrength;
+@property (nonatomic, readonly) NSInteger clickedButton;
 
 
 

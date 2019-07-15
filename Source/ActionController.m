@@ -24,6 +24,7 @@
 #import "AppDelegate.h"
 #import "GKAExtensions.h"
 #import "GKPhotoPopoverController.h"
+#import <Libmacgpg/GPGVerifyingKeyserver.h>
 
 
 
@@ -69,6 +70,12 @@ static NSString * const SetDisabledOperation = @"SetDisabled";
 static NSString * const SetOwnerTrustOperation = @"SetOwnerTrust";
 static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 
+static NSString * const doNotShowSwitchToVKSAgainKey = @"DoNotShowSwitchToVKSAgain";
+static NSString * const doNotShowUploadDialogAgainKey = @"DoNotShowUploadDialogAgain";
+static NSString * const lastTimeUploadDialogShownKey = @"LastTimeUploadDialogShown";
+static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
+
+
 
 
 #pragma mark General
@@ -80,6 +87,8 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 	signaturesTable.doubleAction = @selector(signatureDoubleClick:);
 	signaturesTable.target = self;
 	signaturesTable.action = nil;
+	
+	[self checkKeyserverAndAskForUpload];
 }
 
 - (NSResponder *)firstResponder {
@@ -1510,6 +1519,353 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 	}
 }
 
+- (void)checkKeyserverAndAskForUpload {
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+		BOOL switchedKeyserver = NO;
+		GPGOptions *options = [GPGOptions sharedOptions];
+		
+		if (![options boolForKey:doNotShowSwitchToVKSAgainKey]) {
+			// We never offered the user to switch to keys.openpgp.org
+			
+			if (!options.isVerifyingKeyserver) {
+				// The current keyserver is not keys.openpgp.org
+				// Ask the user to select keys.openpgp.org as the new keyserver.
+				
+				NSInteger result = [self.sheetController
+									alertSheetForWindow:mainWindow
+									messageText:localized(@"SwitchToVerifyingKeyserver_Title")
+									infoText:localized(@"SwitchToVerifyingKeyserver_Msg")
+									defaultButton:localized(@"SwitchToVerifyingKeyserver_Yes")
+									alternateButton:localized(@"SwitchToVerifyingKeyserver_No")
+									otherButton:localized(@"SwitchToVerifyingKeyserver_LearnMore")
+									suppressionButton:@"" // Default suppression text.
+									customize:^(NSAlert *alert) {
+										NSButton *learnMoreButton = alert.buttons[2];
+										learnMoreButton.target = self;
+										learnMoreButton.action = @selector(openKeyServerSwitchFAQ:);
+									}];
+				
+				if (result & SheetSuppressionButton) {
+					// The user dpn't want to see this dialog again.
+					result &= ~SheetSuppressionButton;
+					[options setBool:YES forKey:doNotShowSwitchToVKSAgainKey];
+				}
+				
+				if (result == NSAlertFirstButtonReturn) {
+					// Set keys.openpgp.org as the keyserver.
+					options.keyserver = GPG_DEFAULT_KEYSERVER;
+					switchedKeyserver = YES;
+				}
+			}
+		}
+		
+		if ([options boolForKey:doNotShowUploadDialogAgainKey]) {
+			// The users said "Do not ask me again".
+			return;
+		}
+		
+		// Ask the user whenever he switches the keyserver to keys.openpgp.org and periodically if they want upload their keys.
+		uint64_t firstRun = 1;
+		uint64_t interval = 3600; // Check every hour, if we have to ask again.
+
+		if (switchedKeyserver) {
+			[self askForKeyUploadForce:YES];
+			firstRun = 3600; // We asked right now, wait a bit until the next check.
+		}
+		
+		// Thsi timer fires first after "firstRun" seconds and than every "interval" seconds.
+		_uploadCheckTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0));
+		dispatch_time_t timerStart = dispatch_time(DISPATCH_TIME_NOW, firstRun * NSEC_PER_SEC);
+		dispatch_source_set_timer(_uploadCheckTimer, timerStart, interval * NSEC_PER_SEC, 3600 * NSEC_PER_SEC);
+		dispatch_source_set_event_handler(_uploadCheckTimer, ^{
+			[self askForKeyUploadForce:NO];
+		});
+		dispatch_resume(_uploadCheckTimer);
+
+	});
+}
+- (void)openKeyServerSwitchFAQ:(id)sender {
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/faq/key-server"]];
+}
+- (void)askForKeyUploadForce:(BOOL)force {
+	// Do not call this method on main thread!
+	// If force is YES, the dialog is displayed, even when the last dialog was shown less than 14 days ago.
+	
+	GPGOptions *options = [GPGOptions sharedOptions];
+	
+	if ([options boolForKey:doNotShowUploadDialogAgainKey] || !options.isVerifyingKeyserver) {
+		// The users said "Do not ask me again" or we are using an old keyserver.
+		return;
+	}
+	
+	
+	if (!force) { // When force is not set, the dialog is shown only every 14 days.
+		NSUInteger askInterval = 86400 * 14; // 14 days.
+		NSDate *lastTimeShown = [options valueForKey:lastTimeUploadDialogShownKey];
+		if ([lastTimeShown isKindOfClass:[NSDate class]] && 0 - [lastTimeShown timeIntervalSinceNow] < askInterval) {
+			// Too early for the next dialog.
+			return;
+		}
+	}
+	
+	NSSet *secretKeys = [GPGKeyManager sharedInstance].secretKeys;
+
+	// alreadyPublishedKeys contains the list of previously uploaded email-addresses for a fingerprint.
+	__block NSMutableDictionary *alreadyUploadedKeys = [options valueForKey:alreadyUploadedKeysKey];
+	if ([alreadyUploadedKeys isKindOfClass:[NSDictionary class]]) {
+		alreadyUploadedKeys = alreadyUploadedKeys.mutableCopy;
+	} else {
+		alreadyUploadedKeys = [NSMutableDictionary new];
+	}
+	
+	
+	// Get a list of keys, which are not on the server.
+	__block NSMutableArray<GPGKey *> *keysNotUploaded = [NSMutableArray new];
+	for (GPGKey *key in secretKeys) {
+		if (key.validity >= GPGValidityInvalid) {
+			// Ignore revoked, expired and invalid keys.
+			continue;
+		}
+		
+		NSString *fingerprint = key.fingerprint;
+		NSArray *emailAddresses = alreadyUploadedKeys[fingerprint];
+		if (![emailAddresses isKindOfClass:[NSArray class]]) {
+			// Should be an array, but is something else.
+			emailAddresses = nil;
+		}
+		
+		for (GPGUserID *userID in key.userIDs) {
+			if (userID.validity >= GPGValidityInvalid || userID.isUat) {
+				// Ignore revoked, expired or invalid userIDs and Photos.
+				continue;
+			}
+
+			if (![emailAddresses containsObject:userID.email]) {
+				// At least one userID of this key was not uploaded before.
+				[keysNotUploaded addObject:key];
+				break;
+			}
+		}
+	}
+	if (keysNotUploaded.count == 0) {
+		// No keys to upload.
+		return;
+	}
+	
+	
+	
+	GPGVerifyingKeyserver *keyserver = [GPGVerifyingKeyserver new];
+	[keyserver searchKeys:keysNotUploaded callback:^(NSArray<GPGRemoteKey *> *foundKeys, NSError *error) {
+
+		if (error) {
+			// An error occured, try again later.
+			return;
+		}
+		
+		for (GPGRemoteKey *remoteKey in foundKeys) {
+			// Check if all userIDs of the key are on the server. If not, the key should be uplaoded.
+			
+			NSString *fingerprint = remoteKey.fingerprint;
+			GPGKey *key = [secretKeys member:fingerprint];
+			BOOL keyOnServer = YES;
+			
+			
+			// Get a list of all email-addresses already published on the server for this key.
+			NSMutableSet *emailAddresses = [NSMutableSet new];
+			for (GPGRemoteUserID *remoteUserID in remoteKey.userIDs) {
+				NSString *email = remoteUserID.email.lowercaseString;
+				if (email) {
+					[emailAddresses addObject:email];
+				}
+			}
+			
+			// Test if all email-addresses for this key are already published on the server.
+			for (GPGUserID *userID in key.userIDs) {
+				if (userID.validity >= GPGValidityInvalid || userID.isUat) {
+					// Ignore revoked, expired or invalid userIDs and Photos.
+					continue;
+				}
+
+				// Is this userID already on the server?
+				NSString *email = userID.email.lowercaseString;
+				if (![emailAddresses containsObject:email]) {
+					// Not all userIDs of this key are on the server.
+					keyOnServer = NO;
+					break;
+				}
+			}
+			
+			if (keyOnServer) {
+				// All userIDs of this key are found on the server, no need to upload it.
+				[keysNotUploaded removeObject:key];
+			}
+			
+			// Remeber the email addresses which are already on the server.
+			NSArray *addresses = alreadyUploadedKeys[fingerprint];
+			if ([addresses isKindOfClass:[NSArray class]]) {
+				[emailAddresses addObjectsFromArray:addresses];
+			}
+			
+			alreadyUploadedKeys[fingerprint] = emailAddresses.allObjects;
+		}
+		
+		// Remeber the email addresses which are already on the server.
+		[options setValue:alreadyUploadedKeys forKey:alreadyUploadedKeysKey];
+		
+
+		// The array keysNotUploaded contains now a list of all the keys, with at least one missing userID on the server.
+		// Ask the user, if they want to upload there keys.
+		[self askUserToUploadKeys:keysNotUploaded];
+		
+	}];
+}
+- (void)askUserToUploadKeys:(NSArray<GPGKey *> *)keys {
+	if ([NSApp modalWindow]) {
+		// Some other dialog is displayed.
+		return;
+	}
+	
+	GPGOptions *options = [GPGOptions sharedOptions];
+	[options setObject:[NSDate date] forKey:lastTimeUploadDialogShownKey];
+
+	if (keys.count == 1) {
+		NSInteger result = [self.sheetController
+							alertSheetForWindow:mainWindow
+							messageText:localized(@"UploadSingleKeyVerifyingKeyserver_Title")
+							infoText:localized(@"UploadSingleKeyVerifyingKeyserver_Msg")
+							defaultButton:localized(@"UploadSingleKeyVerifyingKeyserver_Yes")
+							alternateButton:localized(@"UploadSingleKeyVerifyingKeyserver_No")
+							otherButton:localized(@"UploadSingleKeyVerifyingKeyserver_LearnMore")
+							suppressionButton:@"" // Default suppression text.
+							customize:^(NSAlert *alert) {
+								NSButton *learnMoreButton = alert.buttons[2];
+								learnMoreButton.target = self;
+								learnMoreButton.action = @selector(openKeyServerSwitchFAQ:);
+							}];
+		
+		if (result & SheetSuppressionButton) {
+			// The user don't want to see this dialog again.
+			result &= ~SheetSuppressionButton;
+			[options setBool:YES forKey:doNotShowUploadDialogAgainKey];
+		}
+		
+		if (result != NSAlertFirstButtonReturn) {
+			return;
+		}
+
+	} else {
+		NSMutableArray *userIDs = [NSMutableArray new];
+		for (GPGKey *key in keys) {
+			// Display the primary userID for every secret key.
+			[userIDs addObject:key.primaryUserID];
+		}
+		
+		
+		// Use performSelectorOnMainThread here, because the scrolling doesn't work as expected with dispatch_sync.
+		[self performSelectorOnMainThread:@selector(showUploadDialogWithUserIDs:) withObject:userIDs waitUntilDone:YES];
+
+		if (self.sheetController.suppress) {
+			// The user don't want to see this dialog again.
+			[options setBool:YES forKey:doNotShowUploadDialogAgainKey];
+		}
+		if (self.sheetController.clickedButton != NSModalResponseOK) {
+			return;
+		}
+		NSMutableArray *mutableKeys = [NSMutableArray new];
+		for (GPGUserID *userID in self.sheetController.selectedUserIDs) {
+			[mutableKeys addObject:userID.primaryKey];
+		}
+		keys = mutableKeys;
+	}
+
+	if (keys.count == 0) {
+		return;
+	}
+	
+	// Upload the keys.
+	
+	NSObject *lock = [NSObject new];
+	__block NSException *exception = nil;
+
+	self.currentOperation = SendKeysToServerOperation;
+	self.operatedKeys = keys;
+	[self showProgressSheet];
+	
+	
+	// Upload every key separately, because hagrid only allows single key uploads to trigger the verification email.
+	dispatch_group_t dispatchGroup = dispatch_group_create();
+	dispatch_group_enter(dispatchGroup);
+	
+	dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(),^{
+		// After all uploads are processed this block will run.
+		[self.sheetController endProgressSheet];
+		
+		// Show error or success message.
+		if (exception) {
+			[self.sheetController errorSheetWithMessageText:localized(@"SendKeysToServer_Error")
+												   infoText:exception.description];
+		} else {
+			
+			// Remeber the email addresses which are already uploaded to the server.
+			__block NSMutableDictionary *alreadyUploadedKeys = [options valueForKey:alreadyUploadedKeysKey];
+			if ([alreadyUploadedKeys isKindOfClass:[NSDictionary class]]) {
+				alreadyUploadedKeys = alreadyUploadedKeys.mutableCopy;
+			} else {
+				alreadyUploadedKeys = [NSMutableDictionary new];
+			}
+			for (GPGKey *key in keys) {
+				NSMutableSet *emailAddresses = [NSMutableSet new];
+				for (GPGUserID *userID in key.userIDs) {
+					NSString *email = userID.email.lowercaseString;
+					if (email) {
+						[emailAddresses addObject:email];
+					}
+				}
+				NSArray *addresses = alreadyUploadedKeys[key.fingerprint];
+				if ([addresses isKindOfClass:[NSArray class]]) {
+					[emailAddresses addObjectsFromArray:addresses];
+				}
+				alreadyUploadedKeys[key.fingerprint] = emailAddresses.allObjects;
+			}
+			[options setValue:alreadyUploadedKeys forKey:alreadyUploadedKeysKey];
+
+			
+			[self.sheetController alertSheetWithTitle:localized(@"UploadSuccess_Title")
+											  message:localizedStringWithFormat(@"UploadSuccess_Msg", [self descriptionForKeys:keys maxLines:8 withOptions:0])
+										defaultButton:nil
+									  alternateButton:nil
+										  otherButton:nil
+									suppressionButton:nil];
+		}
+	});
+	
+	// Use a seperate GPGController for every upload.
+	for (GPGKey *key in keys) {
+		dispatch_group_enter(dispatchGroup);
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+			GPGController *gpgController = [GPGController new];
+			[gpgController sendKeysToServer:@[key]];
+			if (gpgController.error) {
+				@synchronized (lock) {
+					exception = gpgController.error;
+				}
+			}
+			dispatch_group_leave(dispatchGroup);
+		});
+	}
+	
+	dispatch_group_leave(dispatchGroup);
+}
+- (void)showUploadDialogWithUserIDs:(NSArray *)userIDs {
+	self.sheetController.userIDs = userIDs;
+	self.sheetController.selectedUserIDs = userIDs;
+	self.sheetController.sheetType = SheetTypeUploadKeys;
+	[self.sheetController runModalForWindow:mainWindow];
+}
+
+
+
+
 #pragma mark Subkeys
 - (IBAction)addSubkey:(id)sender {
 	NSArray *keys = [self selectedKeys];
@@ -1929,11 +2285,18 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 			}
 		}
 	};
-	// Check if the key already exists on the server and only ask for upload after signing, if that's the case.
-	[gpgc keysExistOnServer:@[key] callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
-		keyExistsOnServer = existingKeys.count == 1;
+	if ([GPGOptions sharedOptions].isVerifyingKeyserver) {
+		// Do not ask to upload to a verifying keyserver.
+		// uploadBlock still needs to be called, to show the success message.
 		uploadBlock();
-	}];
+	} else {
+		// Check if the key already exists on the server and only ask for upload after signing, if that's the case.
+		[gpgc keysExistOnServer:@[key] callback:^(NSArray *existingKeys, NSArray *nonExistingKeys) {
+			keyExistsOnServer = existingKeys.count == 1;
+			uploadBlock();
+		}];
+	}
+
 	actionCallback callback = [^(GPGController *gc, id value, NSDictionary *userInfo) {
 		if (gc.error) {
 			[self.sheetController endProgressSheet];
