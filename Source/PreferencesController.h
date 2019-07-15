@@ -26,7 +26,6 @@
 	IBOutlet NSView *updatesPreferencesView;
 	IBOutlet NSView *keyringPreferencesView;
 	IBOutlet NSProgressIndicator *spinner;
-    NSString *keyserverToCheck;
 	
 	NSView *view;
 	NSArray *topLevelObjects;

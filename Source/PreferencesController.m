@@ -34,7 +34,6 @@
 
 @implementation PreferencesController
 @synthesize window;
-@synthesize keyserverToCheck;
 @synthesize testingServer;
 @synthesize gpgc;
 static PreferencesController *_sharedInstance = nil;
@@ -241,48 +240,75 @@ static PreferencesController *_sharedInstance = nil;
 		return;
 	}
 	if (self.testingServer) {
+		// Cancel the last check.
 		[self.gpgc cancel];
 	}
 	
-	// We can't use options.keyserver anymore, since setting this value
-	// will update gpg.conf which doesn't make sense if the keyserver can't be used.
-	self.gpgc = [GPGController gpgController];
-	self.gpgc.keyserver = self.keyserverToCheck;
-	self.gpgc.delegate = self;
 	[spinner startAnimation:nil];
 	self.testingServer = YES;
-	
-	[self.gpgc testKeyserver];
-}
-- (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
-	// Result of the keyserer test.
-	
-	if (gc != self.gpgc) {
-		// It's not the result of the latest test.
-		return;
-	}
-	
-	dispatch_async(dispatch_get_main_queue(), ^{
+	GPGController *gc = [GPGController gpgController];
+	self.gpgc = gc;
+
+	__block BOOL serverWorking = NO;
+	__block BOOL keepCurrentServer = NO;
+	dispatch_group_t dispatchGroup = dispatch_group_create();
+	dispatch_group_enter(dispatchGroup);
+
+	dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{
+		if (gc != self.gpgc) {
+			// This is not the result of the last check.
+			return;
+		}
+		self.gpgc = nil;
 		self.testingServer = NO;
-        self.keyserverToCheck = nil;
-        
-        if (![value boolValue]) {
-            [self.options removeKeyserver:gc.keyserver];
-            
-            [[SheetController sharedInstance] alertSheetForWindow:window
-                                                      messageText:localized(@"BadKeyserver_Title")
-                                                         infoText:localized(@"BadKeyserver_Msg")
-                                                    defaultButton:nil
-                                                  alternateButton:nil
-                                                      otherButton:nil
-                                                suppressionButton:nil];
-        } else {
-            // The server passed the check.
-            // Set it as default keyserver.
-            self.options.keyserver = gc.keyserver;
-        }
+		
+		if (!keepCurrentServer) {
+			if (serverWorking) {
+				// The server passed the check.
+				// Set it as default keyserver.
+				self.options.keyserver = gc.keyserver;
+			} else {
+				[self.options removeKeyserver:gc.keyserver];
+				[[SheetController sharedInstance] alertSheetForWindow:window
+														  messageText:localized(@"BadKeyserver_Title")
+															 infoText:localized(@"BadKeyserver_Msg")
+														defaultButton:nil
+													  alternateButton:nil
+														  otherButton:nil
+													suppressionButton:nil];
+			}
+		}
+		
+		self.keyserverToCheck = nil;
 	});
 
+	// We can't use options.keyserver anymore, since setting this value
+	// will update gpg.conf which doesn't make sense if the keyserver can't be used.
+	self.gpgc.keyserver = self.keyserverToCheck;
+	dispatch_group_enter(dispatchGroup);
+	[self.gpgc testKeyserverWithCompletionHandler:^(BOOL working) {
+		serverWorking = working;
+		dispatch_group_leave(dispatchGroup);
+	}];
+	
+	
+	if ([GPGOptions sharedOptions].isVerifyingKeyserver && ![GPGOptions isVerifyingKeyserver:self.keyserverToCheck]) {
+		// The user is switching from keys.openpgp.org to an old keyserver. Better warn them.
+		NSInteger result = [[SheetController sharedInstance] alertSheetForWindow:window
+																	 messageText:localizedLibmacgpgString(@"SwitchToOldKeyserver_Title")
+																		infoText:localizedLibmacgpgString(@"SwitchToOldKeyserver_Msg")
+																   defaultButton:localizedLibmacgpgString(@"SwitchToOldKeyserver_No")
+																 alternateButton:localizedLibmacgpgString(@"SwitchToOldKeyserver_Yes")
+																	 otherButton:nil
+															   suppressionButton:nil];
+		if (result == NSAlertFirstButtonReturn) {
+			// Do not change the server.
+			keepCurrentServer = YES;
+			[self.gpgc cancel];
+		}
+	}
+	
+	dispatch_group_leave(dispatchGroup);
 }
 
 
@@ -328,13 +354,13 @@ static PreferencesController *_sharedInstance = nil;
 - (void)setKeyserver:(NSString *)value {
 	if (value.length == 0) {
 		// Don't allow an empty keyserver. Set the default keyserver.
-		self.keyserverToCheck = nil;
+		_keyserverToCheck = nil;
 		self.options.keyserver = GPG_DEFAULT_KEYSERVER;
 		[self performSelectorOnMainThread:@selector(setKeyserver:) withObject:GPG_DEFAULT_KEYSERVER waitUntilDone:NO];
 	} else {
 		// Remove leading and trailing whitespaces.
 		value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-		self.keyserverToCheck = value;
+		_keyserverToCheck = value;
 	}
 }
 
@@ -347,7 +373,7 @@ static PreferencesController *_sharedInstance = nil;
 	return [NSSet setWithObject:@"options.keyservers"];
 }
 + (NSSet *)keyPathsForValuesAffectingKeyserver {
-	return [NSSet setWithObjects:@"options.keyserver", @"options.gpgConf", nil];
+	return [NSSet setWithObjects:@"options.keyserver", @"options.gpgConf", @"keyserverToCheck", nil];
 }
 
 
