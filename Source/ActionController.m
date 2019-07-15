@@ -1428,10 +1428,8 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 }
 - (IBAction)sendKeysToServer:(id)sender {
 	NSArray *keys = [self selectedKeys];
-	if (keys.count == 0) {
-		return;
-	}
-	if (keys.count > 1 && !showExpertSettings) {
+	if (keys.count == 0 || keys.count > 1) {
+		// Only allow the upload of single keys.
 		return;
 	}
 	
@@ -2462,25 +2460,28 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 	}
 	else if (selector == @selector(sendKeysToServer:)) {
 		NSArray *keys = self.selectedKeys;
+		BOOL secSelected = NO;
+		for (GPGKey *key in keys) {
+			if (key.secret) {
+				secSelected = YES;
+				break;
+			}
+		}
 		if ([(NSObject *)item isKindOfClass:[NSMenuItem class]]) {
 			NSMenuItem *menuItem = (id)item;
-			BOOL secSelected = NO;
-			for (GPGKey *key in keys) {
-				if (key.secret) {
-					secSelected = YES;
-					break;
-				}
-			}
 			if (secSelected) {
 				menuItem.title = localized(@"SendPublicKeyToKeyserver_MenuItem");
 			} else {
 				menuItem.title = localized(@"SendToKeyserver_MenuItem");
 			}
 		}
-		if (keys.count == 0) {
+		if (keys.count == 0 || keys.count > 1) {
+			// Only allow the upload of single keys.
 			return NO;
 		}
-		if (keys.count > 1 && !showExpertSettings) {
+		
+		// Allow only experts to upload foreign keys to keys.openpgp.org, this prevents unintentionally spamming of verification emails.
+		if (!showExpertSettings && [GPGOptions sharedOptions].isVerifyingKeyserver) {
 			return NO;
 		}
 		return YES;
