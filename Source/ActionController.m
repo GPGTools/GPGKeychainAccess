@@ -1454,6 +1454,11 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 		[gpgc sendKeysToServer:keys];
 	};
 	
+	if ([GPGOptions sharedOptions].isVerifyingKeyserver) {
+		// No need to check, if we should upload foreign keys.
+		performUpload();
+		return;
+	}
 	
 	NSArray *publicKeys = [keys filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(GPGKey *key, NSDictionary *bindings) {
 		return !key.secret;
