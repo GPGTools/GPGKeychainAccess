@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <development version="5000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PreferencesController">
@@ -17,12 +17,12 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="2" userLabel="Preferences Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="596" y="717" width="401" height="90"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <value key="minSize" type="size" width="446" height="258"/>
             <value key="maxSize" type="size" width="448" height="258"/>
             <view key="contentView" id="3">
@@ -53,13 +53,14 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="49"/>
             </connections>
+            <point key="canvasLocation" x="113" y="43"/>
         </window>
         <customView id="104" userLabel="Updates">
             <rect key="frame" x="0.0" y="0.0" width="401" height="144"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="m5w-5c-8XI">
-                    <rect key="frame" x="18" y="76" width="225" height="18"/>
+                    <rect key="frame" x="18" y="76" width="217" height="18"/>
                     <buttonCell key="cell" type="check" title="Automatically check for updates" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bRS-kx-SJ7">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -69,7 +70,7 @@
                     </connections>
                 </button>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="EXR-oa-clt">
-                    <rect key="frame" x="18" y="54" width="142" height="18"/>
+                    <rect key="frame" x="18" y="54" width="137" height="18"/>
                     <buttonCell key="cell" type="check" title="Include beta builds" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2ej-dR-Wsz">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -81,7 +82,7 @@
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rdw-y1-bCT" userLabel="Check now GPGPref">
                     <rect key="frame" x="14" y="96" width="164" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="152" id="6wo-8C-6iy"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="152" id="6wo-8C-6iy"/>
                     </constraints>
                     <buttonCell key="cell" type="push" title="Check Now" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YLF-tV-RRH">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -102,7 +103,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FOj-mk-27u">
-                    <rect key="frame" x="18" y="20" width="304" height="28"/>
+                    <rect key="frame" x="18" y="20" width="299" height="28"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="Beta builds are published more often. New features and improvements are less tested." id="V9B-OJ-uc3">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -175,7 +176,7 @@
                     </connections>
                 </progressIndicator>
                 <button horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="IBE-EH-kir">
-                    <rect key="frame" x="18" y="67" width="326" height="18"/>
+                    <rect key="frame" x="18" y="67" width="316" height="18"/>
                     <buttonCell key="cell" type="check" title="Show revoked and expired keys in search results" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="u5F-TJ-cmV">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -237,7 +238,7 @@
                         <binding destination="-2" name="value" keyPath="secringPath" id="5IX-rO-iPI"/>
                     </connections>
                 </textField>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AnJ-zG-1gC">
+                <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AnJ-zG-1gC">
                     <rect key="frame" x="12" y="56" width="123" height="32"/>
                     <buttonCell key="cell" type="push" title="Move secring" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="VZM-cX-rx2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -271,7 +272,7 @@
     <resources>
         <image name="Keyring" width="32" height="32"/>
         <image name="Keyserver" width="32" height="32"/>
-        <image name="NSRemoveTemplate" width="8" height="8"/>
+        <image name="NSRemoveTemplate" width="11" height="11"/>
         <image name="Updates" width="32" height="32"/>
     </resources>
 </document>
