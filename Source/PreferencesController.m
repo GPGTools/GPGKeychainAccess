@@ -365,6 +365,17 @@ static PreferencesController *_sharedInstance = nil;
 }
 
 
+- (BOOL)keyserverShowInvalidKeys {
+	GPGOptions *options = [GPGOptions sharedOptions];
+	return options.isVerifyingKeyserver || [options boolForKey:@"KeyserverShowInvalidKeys"];
+}
+- (void)setKeyserverShowInvalidKeys:(BOOL)keyserverShowInvalidKeys {
+	[[GPGOptions sharedOptions] setBool:keyserverShowInvalidKeys forKey:@"KeyserverShowInvalidKeys"];
+}
+- (BOOL)enableKeyserverShowInvalidKeys {
+	return ![GPGOptions sharedOptions].isVerifyingKeyserver;
+}
+
 
 /*
  * Key-Value Observing
@@ -374,6 +385,12 @@ static PreferencesController *_sharedInstance = nil;
 }
 + (NSSet *)keyPathsForValuesAffectingKeyserver {
 	return [NSSet setWithObjects:@"options.keyserver", @"options.gpgConf", @"keyserverToCheck", nil];
+}
++ (NSSet *)keyPathsForValuesAffectingEnableKeyserverShowInvalidKeys {
+	return [NSSet setWithObject:@"keyserver"];
+}
++ (NSSet *)keyPathsForValuesAffectingKeyserverShowInvalidKeys {
+	return [NSSet setWithObject:@"keyserver"];
 }
 
 

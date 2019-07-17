@@ -47,6 +47,11 @@
 @property (readonly) BOOL canRemoveKeyserver;
 @property (nonatomic) BOOL testingServer;
 
+@property (nonatomic) BOOL keyserverShowInvalidKeys;
+@property (nonatomic, readonly) BOOL enableKeyserverShowInvalidKeys;
+
+
+
 @property (weak, readonly) NSString *secringPath;
 
 

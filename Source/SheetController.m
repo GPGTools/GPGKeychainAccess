@@ -1026,7 +1026,14 @@
 							  @"8C371C40B31DA620815E01A9779FEB1392CBBADF"/*Steve*/,
 							  @"0A292B5F8A3C247F586F19D7E1AF518CC4B1DC35"/*kristof*/,
 							  @"A9470AD17F1F693944AD2C5BB258CB1E8A3A21CA"/*business*/];
-	BOOL showInvalidKeys = [[GPGOptions sharedOptions] boolForKey:@"KeyserverShowInvalidKeys"];
+	GPGOptions *options = [GPGOptions sharedOptions];
+	
+	BOOL showInvalidKeys;
+	if (options.isVerifyingKeyserver) {
+		showInvalidKeys = YES;
+	} else {
+		showInvalidKeys = [options boolForKey:@"KeyserverShowInvalidKeys"];
+	}
 	
 	NSDate *now = [NSDate date];
 	
