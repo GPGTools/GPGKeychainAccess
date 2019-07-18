@@ -1734,10 +1734,20 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 
 // Singleton: alloc, init etc.
 + (id)sharedInstance {
-	static id sharedInstance = nil;
-    if (!sharedInstance) {
-        sharedInstance = [[super allocWithZone:nil] init];
-    }
+	static dispatch_once_t onceToken;
+	static SheetController *sharedInstance;
+	
+	dispatch_once(&onceToken, ^{
+		// SheetController -init must run on the main thread.
+		if ([NSThread isMainThread]) {
+			sharedInstance = [[super allocWithZone:nil] init];
+		} else {
+			dispatch_sync(dispatch_get_main_queue(), ^{
+				sharedInstance = [[super allocWithZone:nil] init];
+			});
+		}
+	});
+
     return sharedInstance;
 }
 - (id)init {
