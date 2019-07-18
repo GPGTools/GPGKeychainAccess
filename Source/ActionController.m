@@ -1564,21 +1564,16 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			return;
 		}
 		
-		// Ask the user whenever he switches the keyserver to keys.openpgp.org and periodically if they want upload their keys.
-		uint64_t firstRun = 1;
-		uint64_t interval = 3600; // Check every hour, if we have to ask again.
-
-		if (switchedKeyserver) {
-			[self askForKeyUploadForce:YES];
-			firstRun = 3600; // We asked right now, wait a bit until the next check.
-		}
 		
-		// Thsi timer fires first after "firstRun" seconds and than every "interval" seconds.
+		// Ask the user whenever he switches the keyserver to keys.openpgp.org and every two weeks if they want upload their keys.
+		[self askForKeyUploadForce:switchedKeyserver]; // Ignore the 14 day interval, if the keyserver was just now set to keys.openpgp.org.
+
+		uint64_t interval = 3600 * NSEC_PER_SEC; // Check every hour, if we have to ask again.
 		_uploadCheckTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0));
-		dispatch_time_t timerStart = dispatch_time(DISPATCH_TIME_NOW, firstRun * NSEC_PER_SEC);
-		dispatch_source_set_timer(_uploadCheckTimer, timerStart, interval * NSEC_PER_SEC, 3600 * NSEC_PER_SEC);
+		dispatch_time_t timerStart = dispatch_time(DISPATCH_TIME_NOW, interval); // The timer first fires after one hour
+		dispatch_source_set_timer(_uploadCheckTimer, timerStart, interval, interval); // ... and than every hour.
 		dispatch_source_set_event_handler(_uploadCheckTimer, ^{
-			[self askForKeyUploadForce:NO];
+			[self askForKeyUploadForce:NO]; // force:NO means ask at most once every two weeks.
 		});
 		dispatch_resume(_uploadCheckTimer);
 
