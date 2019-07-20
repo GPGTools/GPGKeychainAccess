@@ -1520,7 +1520,6 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 }
 
 - (void)checkKeyserverAndAskForUpload {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
 		BOOL switchedKeyserver = NO;
 		GPGOptions *options = [GPGOptions sharedOptions];
 		
@@ -1576,8 +1575,6 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			[self askForKeyUploadForce:NO]; // force:NO means ask at most once every two weeks.
 		});
 		dispatch_resume(_uploadCheckTimer);
-
-	});
 }
 - (void)openKeyServerSwitchFAQ:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/faq/key-server"]];
