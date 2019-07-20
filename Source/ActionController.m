@@ -1520,61 +1520,61 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 }
 
 - (void)checkKeyserverAndAskForUpload {
-		BOOL switchedKeyserver = NO;
-		GPGOptions *options = [GPGOptions sharedOptions];
-		
-		if (![options boolForKey:doNotShowSwitchToVKSAgainKey]) {
-			// We never offered the user to switch to keys.openpgp.org
-			
-			if (!options.isVerifyingKeyserver) {
-				// The current keyserver is not keys.openpgp.org
-				// Ask the user to select keys.openpgp.org as the new keyserver.
-				
-				NSInteger result = [self.sheetController
-									alertSheetForWindow:mainWindow
-									messageText:localized(@"SwitchToVerifyingKeyserver_Title")
-									infoText:localized(@"SwitchToVerifyingKeyserver_Msg")
-									defaultButton:localized(@"SwitchToVerifyingKeyserver_Yes")
-									alternateButton:localized(@"SwitchToVerifyingKeyserver_No")
-									otherButton:localized(@"SwitchToVerifyingKeyserver_LearnMore")
-									suppressionButton:@"" // Default suppression text.
-									customize:^(NSAlert *alert) {
-										NSButton *learnMoreButton = alert.buttons[2];
-										learnMoreButton.target = self;
-										learnMoreButton.action = @selector(openKeyServerSwitchFAQ:);
-									}];
-				
-				if (result & SheetSuppressionButton) {
-					// The user dpn't want to see this dialog again.
-					result &= ~SheetSuppressionButton;
-					[options setBool:YES forKey:doNotShowSwitchToVKSAgainKey];
-				}
-				
-				if (result == NSAlertFirstButtonReturn) {
-					// Set keys.openpgp.org as the keyserver.
-					options.keyserver = GPG_DEFAULT_KEYSERVER;
-					switchedKeyserver = YES;
-				}
+	BOOL switchedKeyserver = NO;
+	GPGOptions *options = [GPGOptions sharedOptions];
+
+	if (![options boolForKey:doNotShowSwitchToVKSAgainKey]) {
+		// We never offered the user to switch to keys.openpgp.org
+
+		if (!options.isVerifyingKeyserver) {
+			// The current keyserver is not keys.openpgp.org
+			// Ask the user to select keys.openpgp.org as the new keyserver.
+
+			NSInteger result = [self.sheetController
+								alertSheetForWindow:mainWindow
+								messageText:localized(@"SwitchToVerifyingKeyserver_Title")
+								infoText:localized(@"SwitchToVerifyingKeyserver_Msg")
+								defaultButton:localized(@"SwitchToVerifyingKeyserver_Yes")
+								alternateButton:localized(@"SwitchToVerifyingKeyserver_No")
+								otherButton:localized(@"SwitchToVerifyingKeyserver_LearnMore")
+								suppressionButton:@"" // Default suppression text.
+								customize:^(NSAlert *alert) {
+									NSButton *learnMoreButton = alert.buttons[2];
+									learnMoreButton.target = self;
+									learnMoreButton.action = @selector(openKeyServerSwitchFAQ:);
+								}];
+
+			if (result & SheetSuppressionButton) {
+				// The user dpn't want to see this dialog again.
+				result &= ~SheetSuppressionButton;
+				[options setBool:YES forKey:doNotShowSwitchToVKSAgainKey];
+			}
+
+			if (result == NSAlertFirstButtonReturn) {
+				// Set keys.openpgp.org as the keyserver.
+				options.keyserver = GPG_DEFAULT_KEYSERVER;
+				switchedKeyserver = YES;
 			}
 		}
-		
-		if ([options boolForKey:doNotShowUploadDialogAgainKey]) {
-			// The users said "Do not ask me again".
-			return;
-		}
-		
-		
-		// Ask the user whenever he switches the keyserver to keys.openpgp.org and every two weeks if they want upload their keys.
-		[self askForKeyUploadForce:switchedKeyserver]; // Ignore the 14 day interval, if the keyserver was just now set to keys.openpgp.org.
+	}
 
-		uint64_t interval = 3600 * NSEC_PER_SEC; // Check every hour, if we have to ask again.
-		_uploadCheckTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0));
-		dispatch_time_t timerStart = dispatch_time(DISPATCH_TIME_NOW, interval); // The timer first fires after one hour
-		dispatch_source_set_timer(_uploadCheckTimer, timerStart, interval, interval); // ... and than every hour.
-		dispatch_source_set_event_handler(_uploadCheckTimer, ^{
-			[self askForKeyUploadForce:NO]; // force:NO means ask at most once every two weeks.
-		});
-		dispatch_resume(_uploadCheckTimer);
+	if ([options boolForKey:doNotShowUploadDialogAgainKey]) {
+		// The users said "Do not ask me again".
+		return;
+	}
+
+
+	// Ask the user whenever he switches the keyserver to keys.openpgp.org and every two weeks if they want upload their keys.
+	[self askForKeyUploadForce:switchedKeyserver]; // Ignore the 14 day interval, if the keyserver was just now set to keys.openpgp.org.
+
+	uint64_t interval = 3600 * NSEC_PER_SEC; // Check every hour, if we have to ask again.
+	_uploadCheckTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0));
+	dispatch_time_t timerStart = dispatch_time(DISPATCH_TIME_NOW, interval); // The timer first fires after one hour
+	dispatch_source_set_timer(_uploadCheckTimer, timerStart, interval, interval); // ... and than every hour.
+	dispatch_source_set_event_handler(_uploadCheckTimer, ^{
+		[self askForKeyUploadForce:NO]; // force:NO means ask at most once every two weeks.
+	});
+	dispatch_resume(_uploadCheckTimer);
 }
 - (void)openKeyServerSwitchFAQ:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/faq/key-server"]];
