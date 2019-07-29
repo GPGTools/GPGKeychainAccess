@@ -646,6 +646,9 @@
 						self.result = nil;
 					}
 					break; }
+				case SheetTypeSearchKeys:
+					if (![self checkSearch]) return;
+					break;
 			}
 		} else { // NSCancelButton
 			self.result = nil;
@@ -1613,6 +1616,31 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	}
 	
 	return YES;
+}
+- (BOOL)checkSearch {
+	if (![GPGOptions sharedOptions].isVerifyingKeyserver) {
+		// Only check the search query for the new keyserver.
+		return YES;
+	}
+	NSCharacterSet *nonHexCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEFabcdef"].invertedSet;
+	NSString *pattern = [self.pattern stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	
+
+	if ([pattern rangeOfString:@"@"].location != NSNotFound) {
+		// identifier is an email-address.
+		return YES;
+	} else {
+		NSUInteger length = pattern.length;
+		BOOL onlyHexChars = [pattern rangeOfCharacterFromSet:nonHexCharSet].location == NSNotFound;
+		if (onlyHexChars && (length == 40 || length == 16)) {
+			// identifier is a fingerprint or keyID.
+			return YES;
+		} else {
+			// identifier is not valid.
+			NSRunAlertPanel(localized(@"CheckError_SearchInvalid_Title"), localized(@"CheckError_SearchInvalid_Msg"), nil, nil, nil);
+			return NO;
+		}
+	}
 }
 
 
