@@ -183,6 +183,11 @@
                     </buttonCell>
                     <connections>
                         <binding destination="-2" name="enabled" keyPath="enableKeyserverShowInvalidKeys" id="06l-t9-7pj"/>
+                        <binding destination="-2" name="hidden" keyPath="enableKeyserverShowInvalidKeys" previousBinding="06l-t9-7pj" id="eCl-0W-hjN">
+                            <dictionary key="options">
+                                <string key="NSValueTransformerName">NSNegateBoolean</string>
+                            </dictionary>
+                        </binding>
                         <binding destination="-2" name="value" keyPath="keyserverShowInvalidKeys" id="5KQ-Vv-h5J"/>
                     </connections>
                 </button>
