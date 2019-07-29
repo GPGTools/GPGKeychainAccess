@@ -40,7 +40,7 @@ typedef enum {
 	dispatch_source_t pasteboardTimer;
 	NSPasteboard *generalPboard;
 	NSMutableDictionary *cancelCallbacks;
-	dispatch_source_t _uploadCheckTimer;
+	NSTimer *_uploadCheckTimer;
 }
 
 @property (readonly) GPGController *gpgc;

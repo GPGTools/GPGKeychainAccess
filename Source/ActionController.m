@@ -88,7 +88,8 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	signaturesTable.target = self;
 	signaturesTable.action = nil;
 	
-	[self checkKeyserverAndAskForUpload];
+	// Run the check when everything is set-up and the main run loop is running. If called directly, the dialog would appear before the main window.
+	[self performSelectorOnMainThread:@selector(checkKeyserverAndAskForUpload) withObject:nil waitUntilDone:NO];
 }
 
 - (NSResponder *)firstResponder {
@@ -1567,20 +1568,16 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	// Ask the user whenever he switches the keyserver to keys.openpgp.org and every two weeks if they want upload their keys.
 	[self askForKeyUploadForce:switchedKeyserver]; // Ignore the 14 day interval, if the keyserver was just now set to keys.openpgp.org.
 
-	uint64_t interval = 3600 * NSEC_PER_SEC; // Check every hour, if we have to ask again.
-	_uploadCheckTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0));
-	dispatch_time_t timerStart = dispatch_time(DISPATCH_TIME_NOW, interval); // The timer first fires after one hour
-	dispatch_source_set_timer(_uploadCheckTimer, timerStart, interval, interval); // ... and than every hour.
-	dispatch_source_set_event_handler(_uploadCheckTimer, ^{
+
+	// Check every hour, if we have to ask again.
+	_uploadCheckTimer = [NSTimer scheduledTimerWithTimeInterval:3600 repeats:YES block:^(NSTimer * _Nonnull timer) {
 		[self askForKeyUploadForce:NO]; // force:NO means ask at most once every two weeks.
-	});
-	dispatch_resume(_uploadCheckTimer);
+	}];
 }
 - (void)openKeyServerSwitchFAQ:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/faq/key-server"]];
 }
 - (void)askForKeyUploadForce:(BOOL)force {
-	// Do not call this method on main thread!
 	// If force is YES, the dialog is displayed, even when the last dialog was shown less than 14 days ago.
 	
 	GPGOptions *options = [GPGOptions sharedOptions];
@@ -1600,6 +1597,10 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		}
 	}
 	
+	// Perform the long-taking actions in the background.
+	dispatch_queue_t queue = dispatch_queue_create("org.gpgtools.gpgkeychain.askForKeyUpload", nil);
+	dispatch_async(queue, ^{
+
 	NSSet *secretKeys = [GPGKeyManager sharedInstance].secretKeys;
 
 	// alreadyPublishedKeys contains the list of previously uploaded email-addresses for a fingerprint.
@@ -1710,6 +1711,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		[self askUserToUploadKeys:keysNotUploaded];
 		
 	}];
+	});
 }
 - (void)askUserToUploadKeys:(NSArray<GPGKey *> *)keys {
 	if ([NSApp modalWindow]) {
