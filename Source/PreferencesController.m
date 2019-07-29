@@ -340,8 +340,10 @@ static PreferencesController *_sharedInstance = nil;
 			self.keyserver = [self.keyservers objectAtIndex:0];
 		}
 	} else {
-		self.keyserver = @"";
+		self.keyserver = GPG_DEFAULT_KEYSERVER;
 	}
+	// End any possible user editing to overwrite with new keyserver.
+	[self.window endEditingFor:nil];
 }
 
 
