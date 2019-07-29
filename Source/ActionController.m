@@ -2843,7 +2843,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		}
 		
 		// Allow only experts to upload foreign keys to keys.openpgp.org, this prevents unintentionally spamming of verification emails.
-		if (!showExpertSettings && [GPGOptions sharedOptions].isVerifyingKeyserver) {
+		if (!secSelected && !showExpertSettings && [GPGOptions sharedOptions].isVerifyingKeyserver) {
 			return NO;
 		}
 		return YES;
