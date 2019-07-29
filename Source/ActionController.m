@@ -1601,116 +1601,116 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	dispatch_queue_t queue = dispatch_queue_create("org.gpgtools.gpgkeychain.askForKeyUpload", nil);
 	dispatch_async(queue, ^{
 
-	NSSet *secretKeys = [GPGKeyManager sharedInstance].secretKeys;
-
-	// alreadyPublishedKeys contains the list of previously uploaded email-addresses for a fingerprint.
-	__block NSMutableDictionary *alreadyUploadedKeys = [options valueForKey:alreadyUploadedKeysKey];
-	if ([alreadyUploadedKeys isKindOfClass:[NSDictionary class]]) {
-		alreadyUploadedKeys = alreadyUploadedKeys.mutableCopy;
-	} else {
-		alreadyUploadedKeys = [NSMutableDictionary new];
-	}
-	
-	
-	// Get a list of keys, which are not on the server.
-	__block NSMutableArray<GPGKey *> *keysNotUploaded = [NSMutableArray new];
-	for (GPGKey *key in secretKeys) {
-		if (key.validity >= GPGValidityInvalid) {
-			// Ignore revoked, expired and invalid keys.
-			continue;
+		NSSet *secretKeys = [GPGKeyManager sharedInstance].secretKeys;
+		
+		// alreadyPublishedKeys contains the list of previously uploaded email-addresses for a fingerprint.
+		__block NSMutableDictionary *alreadyUploadedKeys = [options valueForKey:alreadyUploadedKeysKey];
+		if ([alreadyUploadedKeys isKindOfClass:[NSDictionary class]]) {
+			alreadyUploadedKeys = alreadyUploadedKeys.mutableCopy;
+		} else {
+			alreadyUploadedKeys = [NSMutableDictionary new];
 		}
 		
-		NSString *fingerprint = key.fingerprint;
-		NSArray *emailAddresses = alreadyUploadedKeys[fingerprint];
-		if (![emailAddresses isKindOfClass:[NSArray class]]) {
-			// Should be an array, but is something else.
-			emailAddresses = nil;
-		}
 		
-		for (GPGUserID *userID in key.userIDs) {
-			if (userID.validity >= GPGValidityInvalid || userID.isUat) {
-				// Ignore revoked, expired or invalid userIDs and Photos.
+		// Get a list of keys, which are not on the server.
+		__block NSMutableArray<GPGKey *> *keysNotUploaded = [NSMutableArray new];
+		for (GPGKey *key in secretKeys) {
+			if (key.validity >= GPGValidityInvalid) {
+				// Ignore revoked, expired and invalid keys.
 				continue;
 			}
-
-			if (![emailAddresses containsObject:userID.email]) {
-				// At least one userID of this key was not uploaded before.
-				[keysNotUploaded addObject:key];
-				break;
-			}
-		}
-	}
-	if (keysNotUploaded.count == 0) {
-		// No keys to upload.
-		return;
-	}
-	
-	
-	
-	GPGVerifyingKeyserver *keyserver = [GPGVerifyingKeyserver new];
-	[keyserver searchKeys:keysNotUploaded callback:^(NSArray<GPGRemoteKey *> *foundKeys, NSError *error) {
-
-		if (error) {
-			// An error occured, try again later.
-			return;
-		}
-		
-		for (GPGRemoteKey *remoteKey in foundKeys) {
-			// Check if all userIDs of the key are on the server. If not, the key should be uplaoded.
 			
-			NSString *fingerprint = remoteKey.fingerprint;
-			GPGKey *key = [secretKeys member:fingerprint];
-			BOOL keyOnServer = YES;
-			
-			
-			// Get a list of all email-addresses already published on the server for this key.
-			NSMutableSet *emailAddresses = [NSMutableSet new];
-			for (GPGRemoteUserID *remoteUserID in remoteKey.userIDs) {
-				NSString *email = remoteUserID.email.lowercaseString;
-				if (email) {
-					[emailAddresses addObject:email];
-				}
+			NSString *fingerprint = key.fingerprint;
+			NSArray *emailAddresses = alreadyUploadedKeys[fingerprint];
+			if (![emailAddresses isKindOfClass:[NSArray class]]) {
+				// Should be an array, but is something else.
+				emailAddresses = nil;
 			}
 			
-			// Test if all email-addresses for this key are already published on the server.
 			for (GPGUserID *userID in key.userIDs) {
 				if (userID.validity >= GPGValidityInvalid || userID.isUat) {
 					// Ignore revoked, expired or invalid userIDs and Photos.
 					continue;
 				}
-
-				// Is this userID already on the server?
-				NSString *email = userID.email.lowercaseString;
-				if (![emailAddresses containsObject:email]) {
-					// Not all userIDs of this key are on the server.
-					keyOnServer = NO;
+				
+				if (![emailAddresses containsObject:userID.email]) {
+					// At least one userID of this key was not uploaded before.
+					[keysNotUploaded addObject:key];
 					break;
 				}
 			}
+		}
+		if (keysNotUploaded.count == 0) {
+			// No keys to upload.
+			return;
+		}
+		
+		
+		
+		GPGVerifyingKeyserver *keyserver = [GPGVerifyingKeyserver new];
+		[keyserver searchKeys:keysNotUploaded callback:^(NSArray<GPGRemoteKey *> *foundKeys, NSError *error) {
 			
-			if (keyOnServer) {
-				// All userIDs of this key are found on the server, no need to upload it.
-				[keysNotUploaded removeObject:key];
+			if (error) {
+				// An error occured, try again later.
+				return;
+			}
+			
+			for (GPGRemoteKey *remoteKey in foundKeys) {
+				// Check if all userIDs of the key are on the server. If not, the key should be uplaoded.
+				
+				NSString *fingerprint = remoteKey.fingerprint;
+				GPGKey *key = [secretKeys member:fingerprint];
+				BOOL keyOnServer = YES;
+				
+				
+				// Get a list of all email-addresses already published on the server for this key.
+				NSMutableSet *emailAddresses = [NSMutableSet new];
+				for (GPGRemoteUserID *remoteUserID in remoteKey.userIDs) {
+					NSString *email = remoteUserID.email.lowercaseString;
+					if (email) {
+						[emailAddresses addObject:email];
+					}
+				}
+				
+				// Test if all email-addresses for this key are already published on the server.
+				for (GPGUserID *userID in key.userIDs) {
+					if (userID.validity >= GPGValidityInvalid || userID.isUat) {
+						// Ignore revoked, expired or invalid userIDs and Photos.
+						continue;
+					}
+					
+					// Is this userID already on the server?
+					NSString *email = userID.email.lowercaseString;
+					if (![emailAddresses containsObject:email]) {
+						// Not all userIDs of this key are on the server.
+						keyOnServer = NO;
+						break;
+					}
+				}
+				
+				if (keyOnServer) {
+					// All userIDs of this key are found on the server, no need to upload it.
+					[keysNotUploaded removeObject:key];
+				}
+				
+				// Remeber the email addresses which are already on the server.
+				NSArray *addresses = alreadyUploadedKeys[fingerprint];
+				if ([addresses isKindOfClass:[NSArray class]]) {
+					[emailAddresses addObjectsFromArray:addresses];
+				}
+				
+				alreadyUploadedKeys[fingerprint] = emailAddresses.allObjects;
 			}
 			
 			// Remeber the email addresses which are already on the server.
-			NSArray *addresses = alreadyUploadedKeys[fingerprint];
-			if ([addresses isKindOfClass:[NSArray class]]) {
-				[emailAddresses addObjectsFromArray:addresses];
-			}
+			[options setValue:alreadyUploadedKeys forKey:alreadyUploadedKeysKey];
 			
-			alreadyUploadedKeys[fingerprint] = emailAddresses.allObjects;
-		}
-		
-		// Remeber the email addresses which are already on the server.
-		[options setValue:alreadyUploadedKeys forKey:alreadyUploadedKeysKey];
-		
-
-		// The array keysNotUploaded contains now a list of all the keys, with at least one missing userID on the server.
-		// Ask the user, if they want to upload there keys.
-		[self askUserToUploadKeys:keysNotUploaded];
-		
-	}];
+			
+			// The array keysNotUploaded contains now a list of all the keys, with at least one missing userID on the server.
+			// Ask the user, if they want to upload there keys.
+			[self askUserToUploadKeys:keysNotUploaded];
+			
+		}];
 	});
 }
 - (void)askUserToUploadKeys:(NSArray<GPGKey *> *)keys {
