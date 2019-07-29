@@ -72,7 +72,6 @@ static NSString * const SetPrimaryUserIDOperation = @"SetPrimaryUserID";
 
 static NSString * const doNotShowSwitchToVKSAgainKey = @"DoNotShowSwitchToVKSAgain";
 static NSString * const doNotShowUploadDialogAgainKey = @"DoNotShowUploadDialogAgain";
-static NSString * const lastTimeUploadDialogShownKey = @"LastTimeUploadDialogShown";
 static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 
 
@@ -1521,7 +1520,27 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 }
 
 - (void)checkKeyserverAndAskForUpload {
-	BOOL switchedKeyserver = NO;
+	/*
+	 * -checkKeyserverAndAskForUpload is called in awakeFromNib using -performSelectorOnMainThread
+	 * so it is not run until the main window is ready.
+	 *
+	 * checkKeyserverAndAskForUpload ask the user if they want to switch to keys.openpgp.org unless
+	 * this server is already used OR the user did say "Don't ask me again" on a previous run.
+	 *
+	 * After that -askForKeyUpload in run. It does NOTHING if the user said "Don't ask me again" on
+	 * a previous run OR when keys.openpgp.org is NOT set as keyserver.
+	 * It than uses a background thread to build a list of all secret keys with at least one NOT
+	 * published valid userID on the server. It chaches the results in the plist under
+	 * "AlreadyUploadedKeys", so the server doesn't have to be asked for all keys on every run.
+	 * -askUserToUploadKeys is called with the list of not fully published secret keys.
+	 *
+	 * askUserToUploadKeys asks the user to upload their secret keys. It uses two different dialogs
+	 * for a single and multiple secret keys. For multiple keys, there is a list of the keys with
+	 * a checkbox for every key, so the user can choose to only upload some of their keys.
+	 * All the choosen keys are uploaded in parallel and NO message is shown, no matter if the
+	 * upload succeeded or failed.
+	 */
+	
 	GPGOptions *options = [GPGOptions sharedOptions];
 
 	if (![options boolForKey:doNotShowSwitchToVKSAgainKey]) {
@@ -1554,32 +1573,18 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			if (result == NSAlertFirstButtonReturn) {
 				// Set keys.openpgp.org as the keyserver.
 				options.keyserver = GPG_DEFAULT_KEYSERVER;
-				switchedKeyserver = YES;
 			}
 		}
 	}
 
-	if ([options boolForKey:doNotShowUploadDialogAgainKey]) {
-		// The users said "Do not ask me again".
-		return;
-	}
+	// Ask the user if they want upload their keys.
+	[self askForKeyUpload];
 
-
-	// Ask the user whenever he switches the keyserver to keys.openpgp.org and every two weeks if they want upload their keys.
-	[self askForKeyUploadForce:switchedKeyserver]; // Ignore the 14 day interval, if the keyserver was just now set to keys.openpgp.org.
-
-
-	// Check every hour, if we have to ask again.
-	_uploadCheckTimer = [NSTimer scheduledTimerWithTimeInterval:3600 repeats:YES block:^(NSTimer * _Nonnull timer) {
-		[self askForKeyUploadForce:NO]; // force:NO means ask at most once every two weeks.
-	}];
 }
 - (void)openKeyServerSwitchFAQ:(id)sender {
 	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/faq/key-server"]];
 }
-- (void)askForKeyUploadForce:(BOOL)force {
-	// If force is YES, the dialog is displayed, even when the last dialog was shown less than 14 days ago.
-	
+- (void)askForKeyUpload {
 	GPGOptions *options = [GPGOptions sharedOptions];
 	
 	if ([options boolForKey:doNotShowUploadDialogAgainKey] || !options.isVerifyingKeyserver) {
@@ -1588,20 +1593,14 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	}
 	
 	
-	if (!force) { // When force is not set, the dialog is shown only every 14 days.
-		NSUInteger askInterval = 86400 * 14; // 14 days.
-		NSDate *lastTimeShown = [options valueForKey:lastTimeUploadDialogShownKey];
-		if ([lastTimeShown isKindOfClass:[NSDate class]] && 0 - [lastTimeShown timeIntervalSinceNow] < askInterval) {
-			// Too early for the next dialog.
-			return;
-		}
-	}
-	
 	// Perform the long-taking actions in the background.
 	dispatch_queue_t queue = dispatch_queue_create("org.gpgtools.gpgkeychain.askForKeyUpload", nil);
 	dispatch_async(queue, ^{
 
 		NSSet *secretKeys = [GPGKeyManager sharedInstance].secretKeys;
+		// This regEx matches if it looks like an email address. It will match many invalid strings, but should not exclude working addresses.
+		NSRegularExpression *emailRegEx = [NSRegularExpression regularExpressionWithPattern:@"^[^@]+@[^@\\.]+\\.[^@]+$" options:0 error:nil];
+		
 		
 		// alreadyPublishedKeys contains the list of previously uploaded email-addresses for a fingerprint.
 		__block NSMutableDictionary *alreadyUploadedKeys = [options valueForKey:alreadyUploadedKeysKey];
@@ -1630,6 +1629,11 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			for (GPGUserID *userID in key.userIDs) {
 				if (userID.validity >= GPGValidityInvalid || userID.isUat) {
 					// Ignore revoked, expired or invalid userIDs and Photos.
+					continue;
+				}
+				NSString *email = userID.email;
+				if (!email || ![emailRegEx firstMatchInString:email options:NSMatchingAnchored range:NSMakeRange(0, email.length)]) {
+					// Ignore all userIDs which are not an email address.
 					continue;
 				}
 				
@@ -1720,7 +1724,6 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	}
 	
 	GPGOptions *options = [GPGOptions sharedOptions];
-	[options setObject:[NSDate date] forKey:lastTimeUploadDialogShownKey];
 
 	if (keys.count == 1) {
 		NSInteger result = [self.sheetController

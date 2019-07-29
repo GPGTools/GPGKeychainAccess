@@ -94,6 +94,8 @@ typedef enum {
 - (IBAction)sendKeysPerMail:(id)sender;
 - (BOOL)validateUserInterfaceItem:(id)anItem;
 
+- (void)askForKeyUpload;
+
 - (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSUInteger)lines withOptions:(DescriptionOptions)options;
 
 @end

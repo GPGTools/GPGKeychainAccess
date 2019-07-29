@@ -20,6 +20,7 @@
 #import "Globales.h"
 #import "PreferencesController.h"
 #import "SheetController.h"
+#import "ActionController.h"
 
 @interface GPGOptions ()
 - (NSArray *)keyserversInPlist;
@@ -267,6 +268,11 @@ static PreferencesController *_sharedInstance = nil;
 				// The server passed the check.
 				// Set it as default keyserver.
 				self.options.keyserver = gc.keyserver;
+				
+				if (self.options.isVerifyingKeyserver) {
+					[[ActionController sharedInstance] askForKeyUpload];
+				}
+				
 			} else {
 				[self.options removeKeyserver:gc.keyserver];
 				[[SheetController sharedInstance] alertSheetForWindow:window
