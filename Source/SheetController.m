@@ -1629,18 +1629,23 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	if ([pattern rangeOfString:@"@"].location != NSNotFound) {
 		// identifier is an email-address.
 		return YES;
-	} else {
+	} else if (pattern.length >= 16) {
+		if ([pattern rangeOfString:@"0x" options:NSCaseInsensitiveSearch | NSAnchoredSearch].location != NSNotFound) {
+			// Remove a leading "0x" from the string.
+			pattern = [pattern substringFromIndex:2];
+		}
 		NSUInteger length = pattern.length;
 		BOOL onlyHexChars = [pattern rangeOfCharacterFromSet:nonHexCharSet].location == NSNotFound;
 		if (onlyHexChars && (length == 40 || length == 16)) {
 			// identifier is a fingerprint or keyID.
 			return YES;
-		} else {
-			// identifier is not valid.
-			NSRunAlertPanel(localized(@"CheckError_SearchInvalid_Title"), localized(@"CheckError_SearchInvalid_Msg"), nil, nil, nil);
-			return NO;
 		}
 	}
+	
+	// identifier is not an email address, fingerprint or keyID.
+	NSRunAlertPanel(localized(@"CheckError_SearchInvalid_Title"), localized(@"CheckError_SearchInvalid_Msg"), nil, nil, nil);
+	return NO;
+
 }
 
 
