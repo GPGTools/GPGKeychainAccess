@@ -1546,8 +1546,8 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	if (![options boolForKey:doNotShowSwitchToVKSAgainKey]) {
 		// We never offered the user to switch to keys.openpgp.org
 
-		if (!options.isVerifyingKeyserver) {
-			// The current keyserver is not keys.openpgp.org
+		if (options.isSKSKeyserver) {
+			// The current keyserver is an old SKS keyserver.
 			// Ask the user to select keys.openpgp.org as the new keyserver.
 
 			NSInteger result = [self.sheetController

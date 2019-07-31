@@ -298,8 +298,9 @@ static PreferencesController *_sharedInstance = nil;
 	}];
 	
 	
-	if ([GPGOptions sharedOptions].isVerifyingKeyserver && ![GPGOptions isVerifyingKeyserver:self.keyserverToCheck]) {
-		// The user is switching from keys.openpgp.org to an old keyserver. Better warn them.
+	GPGOptions *options = [GPGOptions sharedOptions];
+	if (options.isVerifyingKeyserver && [options isSKSKeyserver:self.keyserverToCheck]) {
+		// The user is switching from keys.openpgp.org to an old SKS keyserver. Better warn them.
 		NSInteger result = [[SheetController sharedInstance] alertSheetForWindow:window
 																	 messageText:localizedLibmacgpgString(@"SwitchToOldKeyserver_Title")
 																		infoText:localizedLibmacgpgString(@"SwitchToOldKeyserver_Msg")
