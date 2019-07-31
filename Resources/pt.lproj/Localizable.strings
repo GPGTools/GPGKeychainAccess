@@ -69,19 +69,21 @@ CheckError_EmailToLong = "O endereço de e‑mail é longo demais.\nO tamanho m�
 CheckError_InvalidCharInComment = "Caractere inválido no comentário.\n“(” e “)” não são permitidos.";
 CheckError_CommentToLong = "O comentário é longo demais.";
 CheckError_NoKeyID = "Digite um ID de chave válido.";
+CheckError_SearchInvalid_Title = "Consulta de busca inválida.";
+CheckError_SearchInvalid_Msg = "Busque um endereço de e‑mail ou impressão digital.";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG Não Encontrado";
 GPG_NOT_FOUND_MESSAGE = "Algo deu muito errado. O GPG parece não estar no sistema. Reinstale a GPG Suite de https://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "Erro de Configuração do GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Algo deu errado. O GPG foi encontrado no sistema, mas parece haver um problema com o arquivo de configuração. Contate o suporte em https://gpgtools.tenderapp.com\n\nDetalhes: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Algo deu errado. O GPG foi encontrado no sistema, mas parece haver um problema com o arquivo de configuração. Contate o suporte em https://gpgtools.tenderapp.com.\n\nDetalhes: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg Não Encontrado";
 LIBMACGPG_NOT_FOUND_MESSAGE = "O Libmacgpg não foi encontrado no sistema. Reinstale a GPG Suite de https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Alguém Adulterou a Instalação do GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "Para manter sua segurança, o GPG Keychain será encerrado.\n\nPara certificar‑se de que você possui a versão original, reinstale a GPG Suite de https://gpgtools.org.";
 UNKNOWN_GPG_ERROR_TITLE = "Erro GPG Desconhecido";
-UNKNOWN_GPG_ERROR_MESSAGE = "Algo deu errado. O GPG apresentou um erro desconhecido. Contate o suporte em https://gpgtools.tenderapp.com\n\nDetalhes: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Algo deu errado. O GPG apresentou um erro desconhecido. Contate o suporte em https://gpgtools.tenderapp.com.\n\nDetalhes: %@";
 
 
 
@@ -243,6 +245,21 @@ DeleteRevokedSecKey_SecOnly = "Apagar Apenas Chave(s) Secreta(s)";
 DeleteRevokedSecKey_No = "Cancelar";
 
 
+/* New keyserver */
+SwitchToVerifyingKeyserver_Title = "Novo Servidor de Chaves “keys.openpgpg.org”";
+SwitchToVerifyingKeyserver_Msg = "Depois de ponderar cuidadosamente, decidimos que o novo servidor de chaves padrão usado pela GPG Suite será “keys.openpgp.org”. Esse novo servidor de chaves é mais confiável do que os antigos e protege melhor a sua privacidade. Os resultados da busca mostram apenas endereços de e‑mail confirmados por seus proprietários. Fora isso, chaves podem ser encontradas apenas ao buscar por impressão digital.\n\nProprietários de chaves podem optar por ocultar seus endereços de e‑mail dos resultados da busca a qualquer momento.\n\nDeseja mudar para o novo servidor de chaves?";
+SwitchToVerifyingKeyserver_Yes = "Mudar para Servidor Novo";
+SwitchToVerifyingKeyserver_No = "Cancelar";
+SwitchToVerifyingKeyserver_LearnMore = "Mais Informações";
+
+UploadSingleKeyVerifyingKeyserver_Title = "Enviar Chave Pública";
+UploadSingleKeyVerifyingKeyserver_Msg = "O servidor de chaves foi mudado para “keys.openpgp.org”.\n\nÉ recomendável que você envie a sua chave pública ao novo servidor para que outras pessoas possam encontrá-la ao buscar seu endereço de e‑mail. Depois de enviar a chave, você receberá um e‑mail com um link de verificação para cada endereço de e‑mail associado à chave. Se você não completar o processo de verificação, a chave só poderá ser encontrada quando buscada pela impressão digital.\n\nDeseja enviar a chave pública?";
+UploadSingleKeyVerifyingKeyserver_Yes = "Enviar Chave Pública";
+UploadSingleKeyVerifyingKeyserver_No = "Cancelar";
+UploadSingleKeyVerifyingKeyserver_LearnMore = "Mais Informações";
+
+
+
 /* Bad key server */
 BadKeyserver_Title = "Servidor de Chaves Inválido";
 BadKeyserver_Msg = "O Servidor de Chaves digitado não está funcionando.\nVerifique o endereço do servidor, que deve ter o seguinte formato: hkp://some.key.server.org\n\nO Servidor de Chaves também pode estar off‑line. Nesse caso, use outro servidor.";
@@ -262,8 +279,8 @@ ImportNonImportable_No = "Cancelar";
 
 
 /* Results */
-UploadSuccess_Title = "Cheves públicas enviadas ao servidor de chaves";
-UploadSuccess_Msg = "As seguintes chaves públicas foram enviadas aos servidores:\n\n%@\n\nAguarde um tempo para permitir que a alteração seja sincronizada entre os servidores existentes.";
+UploadSuccess_Title = "Chaves públicas enviadas ao servidor de chaves";
+UploadSuccess_Msg = "As seguintes chaves públicas foram enviadas:\n\n%@";
 
 ExportSuccess_Title = "Chaves exportadas";
 ExportSuccess_Msg = "As seguintes chaves foram exportadas:\n\n%@";

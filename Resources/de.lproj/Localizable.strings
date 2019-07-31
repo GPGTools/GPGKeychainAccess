@@ -42,7 +42,7 @@ CheckAlert_PassphraseTooLong_Title = "Zu langes Passwort";
 CheckAlert_PassphraseTooLong_Message = " Das eingegebene Passwort ist zu lang. Gib ein Passwort mit weniger als %1$i Zeichen ein.\n\nAchtung: Falls dein Passwort Sonderzeichen enthält, kann es sein, dass du nicht %1$i Zeichen verwenden kannst.";
 
 
-MoveSecring_Msg = "Deine geheimen Schlüssel befinden sich aktuell auf \"%@\".\nUm deine geheimen Schlüssel auf einen anderen Datenträger zu verschieben, wählen Sie unten das Zielvolumen aus.";
+MoveSecring_Msg = "Deine geheimen Schlüssel befinden sich aktuell auf \"%@\".\nUm deine geheimen Schlüssel auf einen anderen Datenträger zu verschieben, wähle unten das Zielvolumen aus.";
 
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "Keine Schlüssel gefunden";
@@ -68,7 +68,9 @@ CheckError_InvalidEmail = "Die E-Mail-Adresse ist ungültig!";
 CheckError_EmailToLong = "E-mail-Adresse ist zu lang!\nMax Länge ist 254 Zeichen.";
 CheckError_InvalidCharInComment = "Ungültiges Zeichen im Kommentar!\n„(“ und „)“ sind nicht erlaubt.";
 CheckError_CommentToLong = "Der Kommentar ist zu lang!";
-CheckError_NoKeyID = "Bitte geben Sie eine gültige Schlüssel-ID ein!";
+CheckError_NoKeyID = "Bitte gib eine gültige Schlüssel-ID ein!";
+CheckError_SearchInvalid_Title = "Ungültige Suchanfrage!";
+CheckError_SearchInvalid_Msg = "Bitte suche nach einer E-Mail Adresse oder einem Fingerabdruck.";
 
 
 /* Message on start, if there are any Problems */
@@ -243,6 +245,21 @@ DeleteRevokedSecKey_SecOnly = "Nur geheime(n) Schlüssel löschen";
 DeleteRevokedSecKey_No = "Abbrechen";
 
 
+/* New keyserver */
+SwitchToVerifyingKeyserver_Title = "Neuer Schlüsselserver keys.openpgp.org";
+SwitchToVerifyingKeyserver_Msg = "Nach eingehenden Überlegungen haben wir entschieden, dass der neue standard Schlüsselserver in GPG Suite keys.openpgp.org sein wird. Der neue Schlüsselserver ist zuverlässiger als die alten und wird deine Privatsphäre besser schützen. Suchergebnisse zeigen nur noch E-Mail Adressen, die von ihren Eigentümern verifiziert wurden. Andernfalls können Schlüssel nur gefunden werden, wenn nach ihrem Fingerabdruck gesucht wird.\n\nDer Eigentümer eines Schlüssels kann zu jeder Zeit die E-Mail Adresse aus den Suchergebnissen entfernen.\n\nMöchtest du zum neuen Schlüsselserver wechseln?";
+SwitchToVerifyingKeyserver_Yes = "Auf neuen Schlüsselserver wechseln";
+SwitchToVerifyingKeyserver_No = "Abbrechen";
+SwitchToVerifyingKeyserver_LearnMore = "Mehr Infos";
+
+UploadSingleKeyVerifyingKeyserver_Title = "Öffentlichen Schlüssel hochladen";
+UploadSingleKeyVerifyingKeyserver_Msg = "Dein Schlüsselserver wurde auf keys.openpgp.org geändert\n\nWir empfehlen, dass du deinen öffentlichen Schlüssel auf den neuen Schlüsselserver hochlädst. So können andere ihn finden, wenn sie nach deiner E-Mail Adresse suchen. Nachdem ein Schlüssel hochgeladen ist, erhältst du eine E-Mail mit einem Verifizierungs-Link für jede E-Mail Adresse, die in deinem Schlüssel enthalten ist. Wenn du den Verifikations-Prozess nicht abschließt, kann dein Schlüssel nur über eine Suche nach seinem Fingerabdruck gefunden werden.\n\nMöchtest du deinen öffentlichen Schlüssel hochladen?";
+UploadSingleKeyVerifyingKeyserver_Yes = "Öffentlichen Schlüssel hochladen";
+UploadSingleKeyVerifyingKeyserver_No = "Abbrechen";
+UploadSingleKeyVerifyingKeyserver_LearnMore = "Mehr Infos";
+
+
+
 /* Bad key server */
 BadKeyserver_Title = "Fehlerhafter Schlüsselserver";
 BadKeyserver_Msg = "Der eingegebene Schlüsselserver funktioniert nicht.\nBitte überprüfe die Adresse des Schlüsselservers. Sie sollte ungefähr so aussehen: hkp://some.key.server.org\n\nEs könnte sein, dass der Schlüsselserver offline ist. In dem Fall, benutze bitte einen anderen Schlüsselserver.";
@@ -263,7 +280,7 @@ ImportNonImportable_No = "Abbrechen";
 
 /* Results */
 UploadSuccess_Title = "Öffentliche Schlüssel an Schlüsselserver gesendet";
-UploadSuccess_Msg = "Folgende öffentliche Schlüssel wurden auf Schlüsselserver hochgeladen\n\n%@\n\nEs kann etwas dauern, bis die Änderungen auf allen Schlüsselservern synchronisiert wurden.";
+UploadSuccess_Msg = "Folgende öffentliche Schlüssel wurden hochgeladen:\n\n%@";
 
 ExportSuccess_Title = "Schlüssel exportiert";
 ExportSuccess_Msg = "Folgende Schlüssel wurden exportiert:\n\n%@";
@@ -299,7 +316,7 @@ ImportKeyErrorNoPGP_Title = "Importieren fehlgeschlagen";
 ImportKeyErrorNoPGP_Msg = "Es scheint du versuchst Daten zu importieren, die keine OpenPGP-Daten sind und daher nicht verarbeitet werden können.";
 
 NO_SECRET_KEY_TITLE = "Kein geheimer Schlüssel gefunden";
-NO_SECRET_KEY_MESSAGE = "Sie benötigen einen geheimen Schlüssel, um diese Operation auszuführen.";
+NO_SECRET_KEY_MESSAGE = "Du benötigst einen geheimen Schlüssel, um diese Operation auszuführen.";
 
 KeyserverSearchError_Title = "Suche nach Schlüssel fehlgeschlagen";
 KeyserverSearchError_Msg = "Bitte wiederhole deine Suche. Sollte das Problem fortbestehen, sende einen Fehlerbericht über Systemeinstellungen > GPG Suite > Bericht senden. Bitte kopiere die gesamte Fehlermeldung in das Feld \"Beschreibe das Problem...\" und gebe die Suchbegriffe deiner Suche an. Du solltest auch das Debug Log anhängen, da es weitere hilfreiche Informationen zur Problemlösung enthalten kann.";

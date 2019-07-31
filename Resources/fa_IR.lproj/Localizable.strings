@@ -17,47 +17,47 @@
 
 /* Key descriptions */
 "and" = "و";
-KeyDescriptionAndMore = "%1$@ and %2$lu more";
+KeyDescriptionAndMore = "%1$@ و %2$lu بیشتر";
 SecretAndPublicKeyListing = "کلیدهای محرمانه:\n\n%@\n\nکلیدهای عمومی:\n\n%@";
 
 
 /* For export, as standard File-Name. */
 "untitled" = "بی‌نام";
-"%@ Revoke certificate" = "%@ Revocation certificate";
-ExportKeysFilename = "%@ %u OpenPGP Keys";
-ExportPublicKeyFilename = "%@ – Public";
-ExportSecretKeyFilename = "%@ – Secret";
+"%@ Revoke certificate" = "%@ گواهی ابطال";
+ExportKeysFilename = "%@%u کلید های OpenPGP";
+ExportPublicKeyFilename = "%@ - عمومی";
+ExportSecretKeyFilename = "%@ - محرمانه";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No password entered";
-CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Yes = "Continue Without Password";
-CheckAlert_NoPassphrase_No = "Enter New Password";
-CheckAlert_PassphraseSimple_Title = "Password too simple";
-CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
-CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
-CheckAlert_PassphraseSimple_No = "Enter New Password";
-CheckAlert_PassphraseTooLong_Title = "Password too long";
-CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
+CheckAlert_NoPassphrase_Title = "رمز عبور وارد نشده";
+CheckAlert_NoPassphrase_Message = "شما رمز عبوری وارد نکرده اید. این کار توصیه نمی شود. رمز عبور باید حداقل 8 کاراکتر طول داشته باشد.";
+CheckAlert_NoPassphrase_Yes = "ادامه دادن بدون رمز عبور";
+CheckAlert_NoPassphrase_No = "رمز عبور جدید وارد کنید";
+CheckAlert_PassphraseSimple_Title = "رمز عبور خیلی ساده است";
+CheckAlert_PassphraseSimple_Message = "رمز عبوری که شما وارد کرده اید، خیلی ساده است. رمز عبور خوب باید حداقل 8 کاراکتر طول داشته و از کاراکتر های متفاوت تشکیل شده باشد.";
+CheckAlert_PassphraseSimple_Yes = "از رمز عبور ساده استفاده کن";
+CheckAlert_PassphraseSimple_No = "رمز عبور جدید وارد کنید";
+CheckAlert_PassphraseTooLong_Title = "رمز عبور خیلی طولانی است";
+CheckAlert_PassphraseTooLong_Message = "رمز عبوری که شما وارد کرده اید، خیلی طولانی است. رمز عبوری با کمتر از %1$i کاراکتر وارد کنید.\n\nتوجه: اگر رمز عبور شما متشکل از کاراکترهای ویژه می باشد، ممکن است قادر نباشید از %1$i کاراکتر استفاده کنید.";
 
 
-MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
+MoveSecring_Msg = "کلیدهای محرمانه شما در حال حاضر در \"%@\" می باشند.\nجهت انتقال کلیدهای محرمانه خود به بخش دیگر، بخش مورد نظر خود را در پایین انتخاب کنید.";
 
 /* For Key-Search */
-KeySearch_NoKeysFound_Title = "No keys found";
-KeySearch_ImportResults_Title = "Import successful";
-FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
-SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It might take some time, please wait.";
+KeySearch_NoKeysFound_Title = "هیچ کلیدی یافت نشد";
+KeySearch_ImportResults_Title = "ورود با موفقیت انجام شد";
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), ساخته شده: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+SearchingKeys_Msg = "در حال جستجوی کلید(های) دارای تطابق روی سرور کلیدها. ممکن است قدری زمان بر باشد، لطفا صبر کنید.  ";
 
-GenerateKey_ProgressTitle = "Key creation in progress…";
-GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
-GenerateSubkey_Msg = "Add subkey to the following key:\n%@ %@";
-GenerateUserID_Msg = "Add email address (user ID) to the following key:\n%@ %@";
-GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
-GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
-ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
-ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
+GenerateKey_ProgressTitle = "در حال ساخت کلید...";
+GenerateKey_Progress = "کلید جدید شما در حال ساخت است. این کار ممکن است تا یک دقیقه زمان بر باشد، بنابراین می توانید با خیال راحت پاهای خود را دراز کنید.";
+GenerateSubkey_Msg = "اضافه کردن کلید فرعی به کلید مورد نظر:\n%@ %@";
+GenerateUserID_Msg = "اضافه کردن آدرس پست الکترونیکی (آیدی کاربر) به کلید مورد نظر:\n%@ %@";
+GenerateSignature_Msg = "امضا کردن کلید به این معناست که، شما تایید میکنید، که صاحب کلید در واقع همان کسی است که ادعا میکند.\nبه محض ارسال کلید امضا شده، امضاها قابل مشاهده توسط دیگر اشخاص می باشند.\nبنابراین اگر شما کلید Bob را امضا کنید و دوست شما Alice مطمئن نباشد که آیا Bob واقعا Bob می باشد، Alice امضا شما را در کلید Bob مشاهده خواهد کرد، و چون Alice می داند که کلید شما قابل اعتماد است، درخواهد یافت که Bob به احتمال زیاد در واقع Bob می باشد.\n\nشما قصد دارید که کلید مورد نظر را امضا کنید:\n%@";
+GenerateUidSignature_Msg = "امضا کردن آیدی کاربر به این معناست که، شما تایید میکنید، که صاحب کلید در واقع همان کسی است که ادعا میکند.\nبه محض ارسال کلید امضا شده، امضاها قابل مشاهده توسط دیگر اشخاص می باشند.\nبنابراین اگر شما کلید Bob را امضا کنید و دوست شما Alice مطمئن نباشد که آیا Bob واقعا Bob می باشد، Alice امضا شما را در کلید Bob مشاهده خواهد کرد، و چون Alice می داند که کلید شما قابل اعتماد است، درخواهد یافت که Bob به احتمال زیاد در واقع Bob می باشد.\n\nشما قصد دارید که آیدی کاربر مورد نظر را امضا کنید:\n%@";
+ChangeExpirationDate_Msg = "شما قصد دارید که تاریخ انقضای کلید خود را تغییر دهید\n\n%1$@";
+ChangeSubkeyExpirationDate_Msg = "شما قصد دارید که تاریخ انقضای کلید فرعی خود را تغییر دهید\n\n%1$@";
 
 GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
 
@@ -69,6 +69,8 @@ CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
 CheckError_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\" not allowed.";
 CheckError_CommentToLong = "Comment is too long!";
 CheckError_NoKeyID = "Please enter a valid key ID!";
+CheckError_SearchInvalid_Title = "Invalid search query!";
+CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprint.";
 
 
 /* Message on start, if there are any Problems */
@@ -243,6 +245,21 @@ DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
 DeleteRevokedSecKey_No = "Cancel";
 
 
+/* New keyserver */
+SwitchToVerifyingKeyserver_Title = "New Key Server keys.openpgp.org";
+SwitchToVerifyingKeyserver_Msg = "After careful consideration we decided that the new default key server used in GPG Suite is going to be keys.openpgp.org. The new key server is more reliable than old ones and it will better protect your privacy. Search results will only show email addresses which have been verified by their owners. Otherwise keys can only be found when searching for their fingerprint.\n\nThe key owner can choose to remove the email address from appearing in search results at any given time.\n\nDo you want to switch to the new key server?";
+SwitchToVerifyingKeyserver_Yes = "Switch to new Key Server";
+SwitchToVerifyingKeyserver_No = "Cancel";
+SwitchToVerifyingKeyserver_LearnMore = "Learn More";
+
+UploadSingleKeyVerifyingKeyserver_Title = "Upload Public Key";
+UploadSingleKeyVerifyingKeyserver_Msg = "Your key server has been switched to keys.openpgp.org\n\nWe recommend that you upload your public key to the new key server, so others will be able to find it by searching for your email address. Once the key is uploaded, you will receive an email with a verification link for each email address associated with your key. If you don't complete the verification process, your key can only be found by searching for its fingerprint.\n\nDo you want to upload your public key?";
+UploadSingleKeyVerifyingKeyserver_Yes = "Upload Public Key";
+UploadSingleKeyVerifyingKeyserver_No = "Cancel";
+UploadSingleKeyVerifyingKeyserver_LearnMore = "Learn More";
+
+
+
 /* Bad key server */
 BadKeyserver_Title = "Bad key server";
 BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
@@ -263,7 +280,7 @@ ImportNonImportable_No = "Cancel";
 
 /* Results */
 UploadSuccess_Title = "Public keys sent to key server";
-UploadSuccess_Msg = "The following public keys have been sent to the key servers:\n\n%@\n\nPlease allow some time for the change to be synced across existing key servers.";
+UploadSuccess_Msg = "The following public keys have been uploaded:\n\n%@";
 
 ExportSuccess_Title = "Keys exported";
 ExportSuccess_Msg = "The following keys were exported:\n\n%@";

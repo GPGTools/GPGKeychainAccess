@@ -69,6 +69,8 @@ CheckError_EmailToLong = "E-postadressen är för lång!\nMax antal tecken är 2
 CheckError_InvalidCharInComment = "Ogiltiga tecken i kommentaren!\n\"(\" och \")\" tillåts ej.";
 CheckError_CommentToLong = "Kommentaren är för lång!";
 CheckError_NoKeyID = "Ange ett giltigt nyckel-ID!";
+CheckError_SearchInvalid_Title = "Invalid search query!";
+CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprint.";
 
 
 /* Message on start, if there are any Problems */
@@ -130,7 +132,7 @@ RemoveSubkey_Yes = "Ta bort undernyckel";
 RemoveSubkey_No = "Avbryt";
 
 RevokeSubkey_Title = "Varning: Du kommer att återkalla en undernyckel";
-RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
+RevokeSubkey_Msg = "Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt återkalla en undernyckel kan förstöra möjligheten att signera med denna undernyckel och andra kanske inte längre kan kryptera meddelanden till denna undernyckel.\n\nDen återkallade undernyckeln kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats till den.. \n\nVi rekommenderar inte att den raderas, istället bör den behållas med statusen återkallad.\n\nÄr du säker på att du vill återkalla den här undernyckeln?";
 RevokeSubkey_Yes = "Återkalla undernyckel";
 RevokeSubkey_No = "Avbryt";
 
@@ -145,7 +147,7 @@ RemoveSignature_Yes = "Ta bort signatur";
 RemoveSignature_No = "Avbryt";
 
 RemoveLocalSignature_Title = "Ta bort signatur";
-RemoveLocalSignature_Msg = "Are you sure you want to remove this local signature?";
+RemoveLocalSignature_Msg = "Är du säker på att du vill ta bort den här lokala signaturen?";
 RemoveLocalSignature_Yes = "Ta bort signatur";
 RemoveLocalSignature_No = "Avbryt";
 
@@ -155,12 +157,12 @@ RemoveLastSelfSignature_Yes = "Ta bort signatur";
 RemoveLastSelfSignature_No = "Avbryt";
 
 RevokeLastSelfSignature_Title = "Återkalla den sista egen-signaturen";
-RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
+RevokeLastSelfSignature_Msg = "Du kommer att återkalla den sista egen-signaturen för användar-ID %@. Fortsätt endast om du verkligen vet vad du håller på med.\n\nDu kommer inte längre att kunna använda det, vilket inkluderar signering av e-post.";
 RevokeLastSelfSignature_Yes = "Återkalla signatur";
 RevokeLastSelfSignature_No = "Avbryt";
 
 RevokeKey_Title = "Varning: Du är på väg att återkalla en nyckel";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "Du kommer att återkalla följande nyckel:\n\n%@\n\nNär den återkallats kommer du inte att kunna signera meddelanden och inga meddelanden kan krypteras till denna nyckel. Den återkallade nyckeln kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats till den.\n\nVi rekommenderar inte att den raderas, istället bör den behållas i GPG Keychain med statusen återkallad.\n\nÄr du säker på att du vill återkalla den här nyckeln?";
 RevokeKey_Yes = "Återkalla nyckel";
 RevokeKey_No = "Avbryt";
 
@@ -229,7 +231,7 @@ DeleteKeys_No = "Avbryt";
 
 
 DeleteSecKey_Title = "Varning! Du kommer att radera privata och publika nycklar";
-DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all messages that were and will be encrypted to this key can no longer be decrypted. We recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
+DeleteSecKey_Msg = "Du kommer att radera nycklarna:\n\n%@\n\nNär den raderats kommer alla meddelanden som har och kommer att krypteras till denna nyckel inte längre att kunna dekrypteras. Vi rekommenderar inte att den raderas.\n\nFör att uppmärksamma andra att denna nyckel inte längre används, bör du återkalla nyckeln istället för att radera den och ladda upp den återkallade nyckeln till nyckelservrarna. Annars kommer andra kanske att använda denna nyckel för att kryptera meddelanden till dig.";
 DeleteSecKey_Checkbox = "Ja, jag vill radera min privata nyckel och förstår att jag inte längre\nkan dekryptera några meddelanden som krypterades till denna nyckel.";
 DeleteSecKey_Yes = "Radera nyckel/nycklar";
 DeleteSecKey_SecOnly = "Radera endast privata nycklar";
@@ -241,6 +243,21 @@ DeleteRevokedSecKey_Checkbox = "Ja, jag vill radera min privata nyckel och förs
 DeleteRevokedSecKey_Yes = "Radera dina nyckelpar";
 DeleteRevokedSecKey_SecOnly = "Radera endast privata nycklar";
 DeleteRevokedSecKey_No = "Avbryt";
+
+
+/* New keyserver */
+SwitchToVerifyingKeyserver_Title = "New Key Server keys.openpgp.org";
+SwitchToVerifyingKeyserver_Msg = "After careful consideration we decided that the new default key server used in GPG Suite is going to be keys.openpgp.org. The new key server is more reliable than old ones and it will better protect your privacy. Search results will only show email addresses which have been verified by their owners. Otherwise keys can only be found when searching for their fingerprint.\n\nThe key owner can choose to remove the email address from appearing in search results at any given time.\n\nDo you want to switch to the new key server?";
+SwitchToVerifyingKeyserver_Yes = "Switch to new Key Server";
+SwitchToVerifyingKeyserver_No = "Avbryt";
+SwitchToVerifyingKeyserver_LearnMore = "Learn More";
+
+UploadSingleKeyVerifyingKeyserver_Title = "Ladda upp publik nyckel";
+UploadSingleKeyVerifyingKeyserver_Msg = "Your key server has been switched to keys.openpgp.org\n\nWe recommend that you upload your public key to the new key server, so others will be able to find it by searching for your email address. Once the key is uploaded, you will receive an email with a verification link for each email address associated with your key. If you don't complete the verification process, your key can only be found by searching for its fingerprint.\n\nDo you want to upload your public key?";
+UploadSingleKeyVerifyingKeyserver_Yes = "Ladda upp publik nyckel";
+UploadSingleKeyVerifyingKeyserver_No = "Avbryt";
+UploadSingleKeyVerifyingKeyserver_LearnMore = "Learn More";
+
 
 
 /* Bad key server */
@@ -263,7 +280,7 @@ ImportNonImportable_No = "Avbryt";
 
 /* Results */
 UploadSuccess_Title = "Publika nycklar är skickade till nyckelserver";
-UploadSuccess_Msg = "Följande publika nycklar har skickats till nyckelservrarna:\n\n%@\n\nGe det lite tid innan ändringen har synkats över befintliga nyckelservrar.";
+UploadSuccess_Msg = "The following public keys have been uploaded:\n\n%@";
 
 ExportSuccess_Title = "Nycklar exporterade";
 ExportSuccess_Msg = "Följande nycklar exporterades:\n\n%@";
@@ -273,12 +290,12 @@ SignSuccess_Title = "Det markerade användar-ID:t har signerats";
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "Följande nycklar lyckades importeras:\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "Följande nycklar lyckades importeras:\n\n%@";
+IMPORT_RESULT_NEW_KEY = "Följande nycklar importerades:\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "Följande nycklar importerades:\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user ID was added to the following keys \n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to the following keys \n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "Ett användar-ID lades till följande nycklar\n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "En signatur lades till följande nycklar\n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "En undernyckel lades till följande nycklar\n\n%@";
 
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 återkallelsecertifikat importerades.";
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i återkallelsecertifikat importerades.";

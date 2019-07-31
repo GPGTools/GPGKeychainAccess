@@ -69,6 +69,8 @@ CheckError_EmailToLong = "E-mailová adresa je príliš dlhá!⏎\nMaximálna d�
 CheckError_InvalidCharInComment = "Neplatný znak v popise! \n\"(\" a \")\" nie su povolené.";
 CheckError_CommentToLong = "Popis je príliš dlhý!";
 CheckError_NoKeyID = "Prosím vlož správne ID kľúča!";
+CheckError_SearchInvalid_Title = "Invalid search query!";
+CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprint.";
 
 
 /* Message on start, if there are any Problems */
@@ -243,6 +245,21 @@ DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
 DeleteRevokedSecKey_No = "Zrušiť";
 
 
+/* New keyserver */
+SwitchToVerifyingKeyserver_Title = "New Key Server keys.openpgp.org";
+SwitchToVerifyingKeyserver_Msg = "After careful consideration we decided that the new default key server used in GPG Suite is going to be keys.openpgp.org. The new key server is more reliable than old ones and it will better protect your privacy. Search results will only show email addresses which have been verified by their owners. Otherwise keys can only be found when searching for their fingerprint.\n\nThe key owner can choose to remove the email address from appearing in search results at any given time.\n\nDo you want to switch to the new key server?";
+SwitchToVerifyingKeyserver_Yes = "Switch to new Key Server";
+SwitchToVerifyingKeyserver_No = "Zrušiť";
+SwitchToVerifyingKeyserver_LearnMore = "Learn More";
+
+UploadSingleKeyVerifyingKeyserver_Title = "Upload Public Key";
+UploadSingleKeyVerifyingKeyserver_Msg = "Your key server has been switched to keys.openpgp.org\n\nWe recommend that you upload your public key to the new key server, so others will be able to find it by searching for your email address. Once the key is uploaded, you will receive an email with a verification link for each email address associated with your key. If you don't complete the verification process, your key can only be found by searching for its fingerprint.\n\nDo you want to upload your public key?";
+UploadSingleKeyVerifyingKeyserver_Yes = "Upload Public Key";
+UploadSingleKeyVerifyingKeyserver_No = "Zrušiť";
+UploadSingleKeyVerifyingKeyserver_LearnMore = "Learn More";
+
+
+
 /* Bad key server */
 BadKeyserver_Title = "Bad key server";
 BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
@@ -263,7 +280,7 @@ ImportNonImportable_No = "Zrušiť";
 
 /* Results */
 UploadSuccess_Title = "Public keys sent to key server";
-UploadSuccess_Msg = "The following public keys have been sent to the key servers:\n\n%@\n\nPlease allow some time for the change to be synced across existing key servers.";
+UploadSuccess_Msg = "The following public keys have been uploaded:\n\n%@";
 
 ExportSuccess_Title = "Keys exported";
 ExportSuccess_Msg = "The following keys were exported:\n\n%@";
