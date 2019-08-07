@@ -104,6 +104,7 @@
 @property (nonatomic) BOOL disableUserIDCommentsField;
 @property (nonatomic, readwrite) double passwordStrength;
 
+@property (nonatomic, strong) NSSavePanel *savePanel;
 
 
 - (IBAction)buttonClicked:(NSButton *)sender;
@@ -536,6 +537,11 @@
 
 	NSSavePanel *panel = [NSSavePanel savePanel];
 	
+	// Hold a reference to the save panel, so other methods can access it.
+	// The old solution was, to use accessoryView's window property. This dirty
+	// hack doesn't work anymore on macOS Catalina.
+	self.savePanel = panel;
+
 	if ([panel respondsToSelector:@selector(setShowsTagField:)]) {
 		[panel setShowsTagField:NO];
 	}
@@ -562,6 +568,8 @@
 	
 	self.URL = panel.URL;
 	_hideExtension = panel.isExtensionHidden;
+	
+	self.savePanel = nil;
 }
 - (void)runOpenPanelWithAccessoryView:(NSView *)accessoryView {
 	NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -986,13 +994,13 @@
 			extensions = [NSArray arrayWithObjects:@"gpg", @"asc", @"pgp", @"key", @"gpgkey", @"txt", nil];
 			break;
 	}
-	[(NSSavePanel *)[_exportKeyOptionsView window] setAllowedFileTypes:extensions];
+	self.savePanel.allowedFileTypes = extensions;
 }
 
 - (void)setExportSecretKey:(BOOL)value {
 	_exportSecretKey = value;
 	
-	NSSavePanel *panel = (id)_exportKeyOptionsView.window;
+	NSSavePanel *panel = self.savePanel;
 	NSString *filename = panel.nameFieldStringValue;
 	
 	NSString *basename = filename.stringByDeletingPathExtension;
