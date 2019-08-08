@@ -22,6 +22,7 @@
 @interface GPGKeychainAppDelegate : NSObject <NSWindowDelegate, NSApplicationDelegate> {
 	BOOL rowWasSelected;
 	BOOL _shouldTerminate;
+	BOOL _hadFilesToOpen; // Is set to YES when GK was told to open a file. (e.g. double click on *.gpg file)
 }
 
 @property (nonatomic, assign) IBOutlet NSWindow *window;

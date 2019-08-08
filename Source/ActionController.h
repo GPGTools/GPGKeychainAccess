@@ -95,6 +95,7 @@ typedef enum {
 - (BOOL)validateUserInterfaceItem:(id)anItem;
 
 - (void)askForKeyUpload;
+- (void)checkKeyserverAndAskForUpload;
 
 - (NSString *)descriptionForKeys:(NSObject <EnumerationList> *)keys maxLines:(NSUInteger)lines withOptions:(DescriptionOptions)options;
 

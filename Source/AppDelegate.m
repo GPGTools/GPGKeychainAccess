@@ -221,10 +221,21 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)notification {
 	if (_shouldTerminate) {
 		[NSApp terminate:nil];
+		return;
+	}
+	if (!_hadFilesToOpen) {
+		// Only show the keyserver-switch- and upload-dialog, when GK was opend normally.
+		// Don't show these dialogs when GK was opend because the user double-clicked a file.
+		// If only an encrypted file was opend, GK would close immediately. Not a good time to show another dialog.
+		// If a key file was opend, GK offers the import or imoprts it directly. Do not confuse the user with another unrelated dialog.
+		
+		// Run the check when everything is set-up and the main run loop is running. If called too early, the dialog could appear before the main window.
+		[[ActionController sharedInstance] performSelectorOnMainThread:@selector(checkKeyserverAndAskForUpload) withObject:nil waitUntilDone:NO];
 	}
 }
 
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)filenames {
+	_hadFilesToOpen = YES;
 	if (![NSApp modalWindow]) {
 		BOOL onlyGPGServicesUsed = [[ActionController sharedInstance] importFromURLs:filenames askBeforeOpen:NO];
 		if (onlyGPGServicesUsed) {

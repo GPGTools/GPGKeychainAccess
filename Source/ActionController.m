@@ -86,9 +86,6 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	signaturesTable.doubleAction = @selector(signatureDoubleClick:);
 	signaturesTable.target = self;
 	signaturesTable.action = nil;
-	
-	// Run the check when everything is set-up and the main run loop is running. If called directly, the dialog would appear before the main window.
-	[self performSelectorOnMainThread:@selector(checkKeyserverAndAskForUpload) withObject:nil waitUntilDone:NO];
 }
 
 - (NSResponder *)firstResponder {
