@@ -458,6 +458,7 @@
 				30D69FC115D6D2E1005B7854 /* Fill Info.plist */,
 				3092C3CB20A1C4380071F648 /* CopyFiles */,
 				30DC10021A98BE5800B21E49 /* Copy "How to get the source code" into Resources */,
+				3071694A22FD5FBA00AAA496 /* Libmacgpg without rpath */,
 			);
 			buildRules = (
 			);
@@ -623,6 +624,25 @@
 			shellScript = "[[ -d \"$DEPLOY_RESOURCES_DIR\" ]] || exit 0\n\"$DEPLOY_RESOURCES_DIR/scripts/updateStringsFiles.sh\" || exit 1\n";
 			showEnvVarsInLog = 0;
 		};
+		3071694A22FD5FBA00AAA496 /* Libmacgpg without rpath */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Libmacgpg without rpath";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "# Only release builds use an absolute path to Libmacgpg\n[[ \"$CONFIGURATION\" == \"Release\" ]] || exit 0\n\nlibmacgpgRpath=$(otool -L \"$TARGET_BUILD_DIR/$EXECUTABLE_PATH\" | sed -nE 's#.*@rpath(/Libmacgpg[^ ]+) .*#\\1#p')\nif [[ -n \"$libmacgpgRpath\" ]]; then\n    # Change the rpath to an absolute path.\n    echo \"Removing rpath for Libmacgpg\"\n    install_name_tool -change \"@rpath$libmacgpgRpath\" \"/Library/Frameworks$libmacgpgRpath\" \"$TARGET_BUILD_DIR/$EXECUTABLE_PATH\"\nfi\n\n";
+			showEnvVarsInLog = 0;
+		};
 		30D69FC115D6D2E1005B7854 /* Fill Info.plist */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -650,7 +670,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "[[ -d \"$DEPLOY_RESOURCES_DIR\" ]] || exit 0\n\nHOWTO_PATH=\"$DEPLOY_RESOURCES_DIR/resources/How to get the source code\"\ncp \"$HOWTO_PATH\" \"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"";
+			shellScript = "[[ -d \"$DEPLOY_RESOURCES_DIR\" ]] || exit 0\n\nHOWTO_PATH=\"$DEPLOY_RESOURCES_DIR/resources/How to get the source code\"\ncp \"$HOWTO_PATH\" \"$BUILT_PRODUCTS_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH/\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -916,11 +936,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Library/Frameworks,
-					"\"$(HOME)/Library/Frameworks\"",
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/Dependencies/Zxcvbn/build/$(CONFIGURATION)\"",
+					/Library/Frameworks,
+					"\"$(HOME)/Library/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
@@ -945,11 +965,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Library/Frameworks,
-					"\"$(HOME)/Library/Frameworks\"",
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/Dependencies/Zxcvbn/build/$(CONFIGURATION)\"",
+					/Library/Frameworks,
+					"\"$(HOME)/Library/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
@@ -1011,11 +1031,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Library/Frameworks,
-					"\"$(HOME)/Library/Frameworks\"",
 					"\"$(SRCROOT)/Dependencies/Libmacgpg/build/$(CONFIGURATION)\"",
 					"\"$(SRCROOT)/Dependencies/Zxcvbn/build/$(CONFIGURATION)\"",
+					/Library/Frameworks,
+					"\"$(HOME)/Library/Frameworks\"",
+					"$(inherited)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Source/Prefix.pch;
