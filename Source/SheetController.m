@@ -1638,6 +1638,9 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		// identifier is an email-address.
 		return YES;
 	} else if (pattern.length >= 16) {
+		// Remove all whitespaces from the string.
+		pattern = [[pattern componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@""];
+		
 		if ([pattern rangeOfString:@"0x" options:NSCaseInsensitiveSearch | NSAnchoredSearch].location != NSNotFound) {
 			// Remove a leading "0x" from the string.
 			pattern = [pattern substringFromIndex:2];
