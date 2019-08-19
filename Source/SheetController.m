@@ -88,6 +88,7 @@
 @property (nonatomic, weak) IBOutlet NSView *changeExpirationDateView;
 @property (nonatomic, weak) IBOutlet NSView *searchKeysView;
 @property (nonatomic, weak) IBOutlet NSView *foundKeysView;
+@property (nonatomic, weak) IBOutlet NSView *foundKeysVKSView;
 @property (nonatomic, weak) IBOutlet NSView *receiveKeysView;
 @property (nonatomic, weak) IBOutlet NSView *resultView;
 @property (nonatomic, weak) IBOutlet NSView *editAlgorithmPreferencesView;
@@ -191,7 +192,11 @@
 			}
 			break;
 		case SheetTypeShowFoundKeys:
-			if ([self generateFoundKeyDicts]) {
+			if (_keys.count == 1 && [_keys[0] fromVKS]) {
+				NSString *keyDescription = [[ActionController sharedInstance] descriptionForKeys:_keys maxLines:0 withOptions:DescriptionFingerprint];
+				self.msgText = localizedStringWithFormat(@"KeySearch_VKSFound_Msg", keyDescription);
+				self.displayedView = _foundKeysVKSView;
+			} else if ([self generateFoundKeyDicts]) {
 				self.displayedView = _foundKeysView;
 			} else {
 				self.title = localized(@"KeySearch_NoKeysFound_Title");
@@ -631,13 +636,15 @@
 					break;
 				}
 				case SheetTypeShowFoundKeys: {
-					NSMutableArray *selectedKeys = [NSMutableArray new];
-					for (NSDictionary *keyDict in self.foundKeyDicts) {
-						if ([[keyDict objectForKey:@"selected"] boolValue]) {
-							[selectedKeys addObject:[keyDict objectForKey:@"key"]];
+					if (_keys.count != 1 || ![_keys[0] fromVKS]) {
+						NSMutableArray *selectedKeys = [NSMutableArray new];
+						for (NSDictionary *keyDict in self.foundKeyDicts) {
+							if ([[keyDict objectForKey:@"selected"] boolValue]) {
+								[selectedKeys addObject:[keyDict objectForKey:@"key"]];
+							}
 						}
+						self.keys = selectedKeys;
 					}
-					self.keys = selectedKeys;
 					break;
 				}
 				case SheetTypeAddUserID:
@@ -1096,7 +1103,7 @@
 			[description appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"\n	%@", userID.userIDDescription]]];
 		}
 		
-		[dicts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:description, @"description", selected, @"selected", [NSNumber numberWithUnsignedInteger:[key.userIDs count] + 1], @"lines", key, @"key", @(isGpgtoolsKey), @"gpgtools", nil]];
+		[dicts addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:description, @"description", selected, @"selected", key, @"key", @(isGpgtoolsKey), @"gpgtools", nil]];
 	}
 	
 	
@@ -1626,8 +1633,9 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 	return YES;
 }
 - (BOOL)checkSearch {
-	if (![GPGOptions sharedOptions].isVerifyingKeyserver) {
-		// Only check the search query for the new keyserver.
+	GPGOptions *options = [GPGOptions sharedOptions];
+	if (!options.isVerifyingKeyserver || [options boolForKey:GPGUseSKSKeyserverAsBackupKey]) {
+		// Check the search query if only the new VKS keyserver is used.
 		return YES;
 	}
 	NSCharacterSet *nonHexCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789ABCDEFabcdef"].invertedSet;
