@@ -37,7 +37,7 @@
 @interface GKSheetWindow : NSPanel
 @end
 
-@interface SheetController () <NSOpenSavePanelDelegate, NSTabViewDelegate> {
+@interface SheetController () <NSOpenSavePanelDelegate, NSTableViewDelegate> {
 	NSView *_oldDisplayedView;
 	NSLock *_sheetLock;
 	NSLock *_progressSheetLock;
@@ -1664,8 +1664,16 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 
 // NSTableView delegate.
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-	NSDictionary *foundKey = [[_foundKeysController arrangedObjects] objectAtIndex:row];
-	return [[foundKey objectForKey:@"lines"] integerValue] * [tableView rowHeight] + 1;
+	NSDictionary *foundKey = [_foundKeysController.arrangedObjects objectAtIndex:row];
+	NSTableColumn *column = [tableView tableColumnWithIdentifier:@"description"];
+	NSTextFieldCell *cell = column.dataCell;
+	
+	[cell setStringValue:foundKey[@"description"]];
+	
+	NSRect tallRect = NSMakeRect(0, 0, column.width, CGFLOAT_MAX);
+	NSSize size = [cell cellSizeForBounds:tallRect];
+	
+	return size.height;
 }
 - (BOOL)tableView:(NSTableView *)tableView shouldTypeSelectForEvent:(NSEvent *)event withCurrentSearchString:(NSString *)searchString {
 	if ([event type] == NSKeyDown && [event keyCode] == 49) { //Leertaste gedrückt
@@ -1678,6 +1686,10 @@ emailIsInvalid: //Hierher wird gesprungen, wenn die E-Mail-Adresse ungültig ist
 		}
 	}
 	return NO;
+}
+- (void)tableViewColumnDidResize:(NSNotification *)notification {
+	NSTableView *tableView = notification.object;
+	[tableView noteHeightOfRowsWithIndexesChanged:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.foundKeyDicts.count)]];
 }
 
 
