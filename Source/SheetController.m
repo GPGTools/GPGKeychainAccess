@@ -28,6 +28,14 @@
 #import <sqlite3.h>
 
 
+
+
+
+static void * const importKeysEnabledContext = @"importKeysEnabled";
+static void * const selectedUserIDsContext = @"selectedUserIDs";
+
+
+
 @interface KeyLengthFormatter : NSFormatter
 @property (nonatomic) NSInteger minKeyLength;
 @property (nonatomic) NSInteger maxKeyLength;
@@ -799,7 +807,7 @@
 		[userIDDictionaries addObject:item];
 	}
 	
-	[userIDDictionaries addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, userIDDictionaries.count)] forKeyPath:@"selected" options:0 context:nil];
+	[userIDDictionaries addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, userIDDictionaries.count)] forKeyPath:@"selected" options:0 context:selectedUserIDsContext];
 	
 	_userIDs = userIDDictionaries;
 }
@@ -853,9 +861,12 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:@"selected"]) {
+	if (context == selectedUserIDsContext) {
 		[self willChangeValueForKey:@"selectedUserIDs"];
 		[self didChangeValueForKey:@"selectedUserIDs"];
+	} else if (context == importKeysEnabledContext) {
+		[self willChangeValueForKey:@"importKeysEnabled"];
+		[self didChangeValueForKey:@"importKeysEnabled"];
 	}
 }
 - (NSArray *)selectedUserIDs {
@@ -888,6 +899,18 @@
 }
 + (NSSet *)keyPathsForValuesAffectingSelectedUserIDs {
 	return [NSSet setWithObjects:@"userIDs", nil];
+}
+
+- (BOOL)importKeysEnabled {
+	for (NSDictionary *keyDict in self.foundKeyDicts) {
+		if ([keyDict[@"selected"] boolValue]) {
+			return YES;
+		}
+	}
+	return NO;
+}
++ (NSSet<NSString *> *)keyPathsForValuesAffectingImportKeysEnabled {
+	return [NSSet setWithObjects:@"foundKeyDicts", nil];
 }
 
 
@@ -1133,6 +1156,11 @@
 	if (dicts.count) {
 		dicts[0][@"selected"] = @YES;
 	}
+	
+	// Observe if the objects are selected, to enable the import button only, when at least one key is selected.
+	[self.foundKeyDicts removeObserver:self fromObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, self.foundKeyDicts.count)] forKeyPath:@"selected"];
+	[dicts addObserver:self toObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, dicts.count)] forKeyPath:@"selected" options:0 context:importKeysEnabledContext];
+	
 	
 	self.foundKeyDicts = dicts;
 	return dicts.count > 0;
