@@ -198,19 +198,32 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
+                        <binding destination="-2" name="hidden" keyPath="enableKeyserverShowInvalidKeys" previousBinding="Wxz-1a-Cir" id="U6B-rd-als"/>
                         <binding destination="-2" name="enabled" keyPath="enableKeyserverShowInvalidKeys" id="Wxz-1a-Cir">
                             <dictionary key="options">
                                 <string key="NSValueTransformerName">NSNegateBoolean</string>
                             </dictionary>
                         </binding>
-                        <binding destination="-2" name="hidden" keyPath="enableKeyserverShowInvalidKeys" previousBinding="Wxz-1a-Cir" id="U6B-rd-als"/>
                         <binding destination="-2" name="value" keyPath="options.UseSKSKeyserverAsBackup" id="Wsa-6v-1oV"/>
                     </connections>
                 </button>
+                <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Enb-bl-CHG">
+                    <rect key="frame" x="18" y="33" width="312" height="28"/>
+                    <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="When no key is found on keys.openpgp.org continue search using the old key servers." id="3hc-yG-IHp">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="-2" name="hidden" keyPath="enableKeyserverShowInvalidKeys" id="y1u-mh-kPB"/>
+                    </connections>
+                </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="Enb-bl-CHG" firstAttribute="top" secondItem="aJh-Ad-nZb" secondAttribute="bottom" constant="8" id="8xp-Wx-JbC"/>
                 <constraint firstItem="173" firstAttribute="leading" secondItem="nRW-bT-15X" secondAttribute="trailing" constant="8" id="BYb-t5-CYH"/>
                 <constraint firstItem="149" firstAttribute="top" secondItem="173" secondAttribute="top" constant="-1" id="FhV-wb-8Gr"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Enb-bl-CHG" secondAttribute="bottom" constant="20" id="Jc3-tK-tsI"/>
                 <constraint firstItem="149" firstAttribute="leading" secondItem="IBE-EH-kir" secondAttribute="leading" id="MgH-BO-tIx"/>
                 <constraint firstItem="nRW-bT-15X" firstAttribute="leading" secondItem="149" secondAttribute="trailing" constant="8" id="OyI-VF-DSm"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="IBE-EH-kir" secondAttribute="bottom" constant="69" id="Pcz-Ac-mxX"/>
@@ -218,11 +231,13 @@
                 <constraint firstItem="149" firstAttribute="leading" secondItem="136" secondAttribute="leading" constant="20" id="ZiM-aD-Sn3"/>
                 <constraint firstAttribute="trailing" secondItem="173" secondAttribute="trailing" constant="20" id="aIQ-cU-her"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="IBE-EH-kir" secondAttribute="trailing" constant="20" id="aMe-uN-Utz"/>
+                <constraint firstItem="Enb-bl-CHG" firstAttribute="leading" secondItem="aJh-Ad-nZb" secondAttribute="leading" id="bPj-15-OYT"/>
                 <constraint firstItem="nRW-bT-15X" firstAttribute="top" secondItem="149" secondAttribute="top" constant="3" id="cqC-lN-bI8"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aJh-Ad-nZb" secondAttribute="trailing" constant="20" id="gsD-cL-k6C"/>
                 <constraint firstItem="aJh-Ad-nZb" firstAttribute="leading" secondItem="149" secondAttribute="leading" id="lLW-wE-6yg"/>
                 <constraint firstItem="IBE-EH-kir" firstAttribute="top" secondItem="149" secondAttribute="bottom" constant="21" id="lfW-8t-f2r"/>
                 <constraint firstItem="aJh-Ad-nZb" firstAttribute="firstBaseline" secondItem="IBE-EH-kir" secondAttribute="firstBaseline" id="vOm-Pn-jdI"/>
+                <constraint firstItem="Enb-bl-CHG" firstAttribute="width" secondItem="149" secondAttribute="width" priority="251" id="xCh-S9-dWh"/>
             </constraints>
             <point key="canvasLocation" x="221.5" y="234"/>
         </customView>
@@ -293,6 +308,7 @@
             </connections>
         </toolbarItem>
         <customObject id="Qsx-PC-9oN" customClass="GPGUpdateController"/>
+        <userDefaultsController representsSharedInstance="YES" id="ep6-Cn-usr"/>
     </objects>
     <resources>
         <image name="Keyring" width="32" height="32"/>
