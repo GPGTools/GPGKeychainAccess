@@ -201,8 +201,10 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 			break;
 		case SheetTypeShowFoundKeys:
 			if (_keys.count == 1 && [_keys[0] fromVKS]) {
-				NSString *keyDescription = [[ActionController sharedInstance] descriptionForKeys:_keys maxLines:0 withOptions:DescriptionFingerprint];
-				self.msgText = localizedStringWithFormat(@"KeySearch_VKSFound_Msg", keyDescription);
+				NSString *keyDescription = [[ActionController sharedInstance] descriptionForKeys:_keys maxLines:0 withOptions:DescriptionFingerprint | DescriptionAllUserIDs];
+				// Show a different message, if a key without userIDs was found.
+				NSString *format = [[_keys[0] userIDs] count] > 0 ? @"KeySearch_VKSFound_Msg" : @"KeySearch_VKSFoundNoUserID_Msg";
+				self.msgText = localizedStringWithFormat(format, keyDescription);
 				self.displayedView = _foundKeysVKSView;
 			} else if ([self generateFoundKeyDicts]) {
 				self.displayedView = _foundKeysView;
