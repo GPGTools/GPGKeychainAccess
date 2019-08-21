@@ -3045,6 +3045,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	Class gpgKeyClass = [GPGKey class];
 	Class dictionaryClass = [NSDictionary class];
 	Class userIDClass = [GPGUserID class];
+	Class remoteKeyClass = [GPGRemoteKey class];
 	NSUInteger i = 0, count = keys.count;
 	if (count == 0) {
 		return @"";
@@ -3054,12 +3055,36 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	} else {
 		lines = NSUIntegerMax;
 	}
-	NSUInteger showFlags = (!(options & DescriptionNoName)) + ((!(options & DescriptionNoKeyID)) << 2);
+	BOOL showName = !(options & DescriptionNoName);
 	BOOL showEmail = !(options & DescriptionNoEmail);
 	BOOL singleLine = options & DescriptionSingleLine;
 	BOOL indent = options & DescriptionIndent;
 	BOOL showFingerprint = !!(options & DescriptionFingerprint);
 	BOOL singleKeyWithFingerprint = count == 1 && showFingerprint;
+	
+	
+	NSString *(^describeUserID)(GPGUserID *) = ^NSString *(id userID) {
+		NSString *name = nil;
+		NSString *email = nil;
+		
+		if (showName) {
+			name = [userID valueForKey:@"name"];
+		}
+		if (showEmail) {
+			email = [userID valueForKey:@"email"];
+		}
+		
+		if (name.length > 0 && email.length > 0) {
+			return [NSString stringWithFormat:@"%@ <%@>", name, email];
+		} else if (name.length > 0) {
+			return name;
+		} else {
+			// Do not check if email is set. If it's empty, the description should also be empty.
+			return email;
+		}
+	};
+	
+	
 	
 	
 	NSString *lineBreak = indent ? @"\n\t" : @"\n";
@@ -3077,7 +3102,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			break;
 		}
 
-		if (![key isKindOfClass:gpgKeyClass] && ![key isKindOfClass:dictionaryClass] && ![key isKindOfClass:userIDClass]) {
+		if (![key isKindOfClass:gpgKeyClass] && ![key isKindOfClass:dictionaryClass] && ![key isKindOfClass:userIDClass] && ![key isKindOfClass:remoteKeyClass]) {
 			GPGKeyManager *keyManager = [GPGKeyManager sharedInstance];
 			GPGKey *realKey = [[keyManager allKeysAndSubkeys] member:key];
 			
@@ -3099,14 +3124,44 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		
 		BOOL isUserID = [key isKindOfClass:userIDClass];
 		BOOL isGPGKey = [key isKindOfClass:gpgKeyClass];
+		BOOL isRemoteKey = [key isKindOfClass:remoteKeyClass];
 
-		if (isGPGKey || isUserID || [key isKindOfClass:dictionaryClass]) {
+		if (isGPGKey || isUserID || [key isKindOfClass:dictionaryClass] || isRemoteKey) {
 			GPGKey *primaryKey = key;
 			if (isGPGKey) {
 				primaryKey = key.primaryKey;
 			}
-			NSString *name = [primaryKey valueForKey:@"name"];
-			NSString *email = [primaryKey valueForKey:@"email"];
+
+			
+			NSString *userID;
+			if (count == 1 && options & DescriptionAllUserIDs && (isGPGKey || isRemoteKey)) {
+				// Only show all userIDs, if a single key is given.
+				
+				NSMutableArray *userIDLines = [NSMutableArray array];
+				for (id userIDObject in primaryKey.userIDs) {
+					NSString *userIDLine = describeUserID(userIDObject);
+					if (userIDLine.length > 0) {
+						[userIDLines addObject:userIDLine];
+					}
+				}
+				userID = [userIDLines componentsJoinedByString:@"\n"];
+			} else {
+				id userIDObject = nil;
+				if (isRemoteKey) {
+					if (primaryKey.userIDs.count > 0) {
+						userIDObject = primaryKey.userIDs[0];
+					}
+				} else {
+					userIDObject = primaryKey;
+				}
+				
+				userID = describeUserID(userIDObject);
+			}
+			if (userID.length == 0) {
+				userID = nil;
+			}
+			
+			
 			NSString *keyID;
 			if (showFingerprint) {
 				keyID = isUserID ? [(GPGUserID *)key primaryKey].fingerprint : [key valueForKey:@"fingerprint"];
@@ -3115,50 +3170,22 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 				keyID = isUserID ? [(GPGUserID *)key primaryKey].keyID : [key valueForKey:@"keyID"];
 			}
 			
-			NSUInteger mailFlag = 0;
-			if (name.length == 0) {
-				name = email;
-				email = nil;
-			}
-			if (showEmail && email.length) {
-				mailFlag = 2;
+
+
+			if ((options & DescriptionNoKeyID) && userID) {
+				[descriptions appendFormat:@"%@%@", seperator, userID];
+			} else {
+				if (userID) {
+					if (singleKeyWithFingerprint) {
+						[descriptions appendFormat:@"%@%@%@%@", seperator, userID, lineBreak, keyID];
+					} else {
+						[descriptions appendFormat:@"%@%@ (%@)", seperator, userID, keyID];
+					}
+				} else {
+					[descriptions appendFormat:@"%@%@", seperator, keyID];
+				}
 			}
 			
-			switch (showFlags + mailFlag) {
-				case 1:
-					[descriptions appendFormat:@"%@%@", seperator, name];
-					break;
-				case 2:
-					[descriptions appendFormat:@"%@%@", seperator, email];
-					break;
-				case 3:
-					[descriptions appendFormat:@"%@%@ <%@>", seperator, name, email];
-					break;
-				case 4:
-					[descriptions appendFormat:@"%@%@", seperator, keyID];
-					break;
-				case 5:
-					if (singleKeyWithFingerprint) {
-						[descriptions appendFormat:@"%@%@%@%@", seperator, name, lineBreak, keyID];
-					} else {
-						[descriptions appendFormat:@"%@%@ (%@)", seperator, name, keyID];
-					}
-					break;
-				case 6:
-					if (singleKeyWithFingerprint) {
-						[descriptions appendFormat:@"%@%@%@%@", seperator, email, lineBreak, keyID];
-					} else {
-						[descriptions appendFormat:@"%@%@ (%@)", seperator, email, keyID];
-					}
-					break;
-				default:
-					if (singleKeyWithFingerprint) {
-						[descriptions appendFormat:@"%@%@ <%@>%@%@", seperator, name, email, lineBreak, keyID];
-					} else {
-						[descriptions appendFormat:@"%@%@ <%@> (%@)", seperator, name, email, keyID];
-					}
-					break;
-			}
 		} else {
 			[descriptions appendFormat:@"%@%@", seperator, showFingerprint ? [[GKFingerprintTransformer sharedInstance] transformedValue:key.fingerprint] : key.keyID];
 		}

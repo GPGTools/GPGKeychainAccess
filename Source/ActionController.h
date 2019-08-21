@@ -28,7 +28,8 @@ typedef enum {
 	DescriptionNoName = 32,
 	DescriptionSingleLine = 64,
 	DescriptionIndent = 128,
-	DescriptionFingerprint = 256
+	DescriptionFingerprint = 256,
+	DescriptionAllUserIDs = 512
 	
 } DescriptionOptions;
 
