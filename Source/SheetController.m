@@ -1073,7 +1073,7 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	
 	BOOL showInvalidKeys;
 	if (options.isVerifyingKeyserver) {
-		showInvalidKeys = YES;
+		showInvalidKeys = NO; // Always hide expired and revoked keys from SKS, when a VKS is the default server.
 	} else {
 		showInvalidKeys = [options boolForKey:@"KeyserverShowInvalidKeys"];
 	}
