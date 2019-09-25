@@ -938,8 +938,20 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		}
 		[[KeychainController sharedInstance] selectKeys:[NSSet setWithObject:fingerprint]];
 		if ([self warningSheetWithDefault:NO string:@"NewKeyWantToUpload"]) {
-			self.currentOperation = @"SendKeysToServer";
+			self.currentOperation = SendKeysToServerOperation;
 			self.operatedKeys = @[fingerprint];
+			actionCallback callback = ^(GPGController *gc2, id value, NSDictionary *userInfo2) {
+				[self.sheetController endProgressSheet];
+				if (!gc2.error) {
+					[self.sheetController alertSheetWithTitle:localized(@"UploadSuccess_Title")
+													  message:localizedStringWithFormat(@"UploadSuccess_Msg", [self descriptionForKeys:@[fingerprint] maxLines:8 withOptions:0])
+												defaultButton:nil
+											  alternateButton:nil
+												  otherButton:nil
+											suppressionButton:nil];
+				}
+			};
+			gpgc.userInfo = @{@"action": @[[callback copy]]};
 			[gpgc sendKeysToServer:@[fingerprint]];
 		}
 	} copy];
