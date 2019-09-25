@@ -2267,6 +2267,18 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 				if ([self warningSheetWithDefault:YES string:@"UserIDsSignedWantToUpload"]) {
 					self.currentOperation = SendKeysToServerOperation;
 					self.operatedKeys = @[key];
+					actionCallback callback = ^(GPGController *gc, id value, NSDictionary *userInfo) {
+						[self.sheetController endProgressSheet];
+						if (!gc.error) {
+							[self.sheetController alertSheetWithTitle:localized(@"UploadSuccess_Title")
+															  message:localizedStringWithFormat(@"UploadSuccess_Msg", [self descriptionForKeys:@[key] maxLines:8 withOptions:0])
+														defaultButton:nil
+													  alternateButton:nil
+														  otherButton:nil
+													suppressionButton:nil];
+						}
+					};
+					gpgc.userInfo = @{@"action": @[[callback copy]]};
 					[gpgc sendKeysToServer:@[key]];
 				}
 			} else {
@@ -3248,6 +3260,18 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			if ([self warningSheetWithDefault:keyExistsOnServer string:string]) {
 				self.currentOperation = SendKeysToServerOperation;
 				self.operatedKeys = @[key];
+				actionCallback callback = ^(GPGController *gc, id value, NSDictionary *userInfo) {
+					[self.sheetController endProgressSheet];
+					if (!gc.error) {
+						[self.sheetController alertSheetWithTitle:localized(@"UploadSuccess_Title")
+														  message:localizedStringWithFormat(@"UploadSuccess_Msg", [self descriptionForKeys:@[key] maxLines:8 withOptions:0])
+													defaultButton:nil
+												  alternateButton:nil
+													  otherButton:nil
+												suppressionButton:nil];
+					}
+				};
+				gpgc.userInfo = @{@"action": @[[callback copy]]};
 				[gpgc sendKeysToServer:@[key]];
 			}
 		}
