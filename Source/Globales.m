@@ -65,7 +65,7 @@ NSString *localizedStringWithFormat(NSString *key, ...) {
 
 
 
-NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename) {
+NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename, NSString **basename) {
 	NSString *filename;
 	NSUInteger count = keys.count;
 	__block BOOL hasSecKey = NO;
@@ -84,16 +84,10 @@ NSString *filenameForExportedKeys(NSArray *keys, NSString **secFilename) {
 		filename = localizedStringWithFormat(@"ExportPublicKeyFilename", description);
 		
 		if (hasSecKey && secFilename) {
-			if (@available(macOS 10.15, *)) {
-				// On macOS Catalina the NSSavePanel is out of process, even for not sanboxed apps.
-				// It isn't possible to change the filename programmatically after the dialog is shown.
-				// This means, we can't switch between different filenames fo public and private key.
-				// So use the same name for both.
-				filename = description;
-				*secFilename = description;
-			} else {
-				*secFilename = localizedStringWithFormat(@"ExportSecretKeyFilename", description);
-			}
+			*secFilename = localizedStringWithFormat(@"ExportSecretKeyFilename", description);
+		}
+		if (basename) {
+			*basename = description;
 		}
 	} else {
 		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

@@ -205,7 +205,7 @@ NSLock *updateLock;
 	NSData *exportedData = [[ActionController sharedInstance] exportKeyData:draggedKeys];
 
 	if (exportedData.length > 0) {
-		NSString *filename = filenameForExportedKeys(draggedKeys, nil);
+		NSString *filename = filenameForExportedKeys(draggedKeys, nil, nil);
 		NSString *fullFilename = [filename stringByAppendingString:@".asc"];
 		NSString *path = dropDestination.path;
 		

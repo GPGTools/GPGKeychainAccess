@@ -519,7 +519,7 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 }
 
 - (void)runSavePanel {
-	NSString *filename;
+	NSString *defaultFilename;
 	_pubFilename = nil;
 	_secFilename = nil;
 	
@@ -527,14 +527,24 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	
 	if (!self.pattern && self.keys) {
 		NSString *secFilename = nil;
-		filename = filenameForExportedKeys(self.keys, &secFilename);
+		NSString *basename = nil;
+		defaultFilename = filenameForExportedKeys(self.keys, &secFilename, &basename);
 		
 		if (secFilename) {
 			_secFilename = secFilename;
-			_pubFilename = filename;
+			_pubFilename = defaultFilename;
+			
+			if (@available(macOS 10.15, *)) {
+				// On macOS Catalina the NSSavePanel is out of process, even for not sanboxed apps.
+				// It isn't possible to change the filename programmatically after the dialog is shown.
+				// This means, we can't switch between different filenames fo public and private key.
+				// We use the filename without showing "Public" or "Secret" in the dialog, but add
+				// it to the filename, if the user did not modify the default name.
+				defaultFilename = basename;
+			}
 		}
 	} else {
-		filename = self.pattern ? self.pattern : @"";
+		defaultFilename = self.pattern ? self.pattern : @"";
 	}
 	
     // If the user is trying to export key,
@@ -564,7 +574,7 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	panel.allowsOtherFileTypes = YES;
 	panel.canSelectHiddenExtension = YES;
 	panel.allowedFileTypes = self.allowedFileTypes;
-	panel.nameFieldStringValue = filename;
+	panel.nameFieldStringValue = defaultFilename;
 	
 	panel.accessoryView = accessoryView; //First the accessoryView is set...
 	self.exportFormat = 1; //then exportFormat is set!
@@ -581,7 +591,30 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	_clickedButton = [NSApp runModalForWindow:_modalWindow];
 	[_sheetLock unlock];
 	
-	self.URL = panel.URL;
+	NSURL *url = panel.URL;
+	if (@available(macOS 10.15, *)) {
+		// Add "Public" or "Secret" to the filename if the user did not modify the default name.
+		if (url.isFileURL) { // Only modify file URLs.
+			NSString *path = url.path;
+			NSString *filename = path.lastPathComponent;
+			NSString *basename = filename.stringByDeletingPathExtension;
+			if ([basename isEqualToString:defaultFilename]) {
+				// The user did not change the filename.
+				
+				basename = self.exportSecretKey ? _secFilename : _pubFilename;
+				NSString *newPath = [[path.stringByDeletingLastPathComponent
+									 stringByAppendingPathComponent:basename]
+									 stringByAppendingPathExtension:path.pathExtension];
+				
+				if (![[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
+					// Only use the new path, if the file does not already exist.
+					url = [NSURL fileURLWithPath:newPath];
+				}
+			}
+		}
+	}
+	
+	self.URL = url;
 	_hideExtension = panel.isExtensionHidden;
 	
 	self.savePanel = nil;
@@ -1031,16 +1064,19 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 
 - (void)setExportSecretKey:(BOOL)value {
 	_exportSecretKey = value;
-	
-	NSSavePanel *panel = self.savePanel;
-	NSString *filename = panel.nameFieldStringValue;
-	
-	NSString *basename = filename.stringByDeletingPathExtension;
-	NSString *extension = filename.pathExtension;
-	
-	if ([_pubFilename isEqualToString:basename] || [_secFilename isEqualToString:basename]) {
-		filename = [_exportSecretKey ? _secFilename : _pubFilename stringByAppendingPathExtension:extension];
-		panel.nameFieldStringValue = filename;
+	if (@available(macOS 10.15, *)) {
+		// On macOS Catalina it is not possible to modify the filename while the save dialog is shown.
+	} else {
+		NSSavePanel *panel = self.savePanel;
+		NSString *filename = panel.nameFieldStringValue;
+		
+		NSString *basename = filename.stringByDeletingPathExtension;
+		NSString *extension = filename.pathExtension;
+		
+		if ([_pubFilename isEqualToString:basename] || [_secFilename isEqualToString:basename]) {
+			filename = [_exportSecretKey ? _secFilename : _pubFilename stringByAppendingPathExtension:extension];
+			panel.nameFieldStringValue = filename;
+		}
 	}
 }
 

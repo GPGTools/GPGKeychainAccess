@@ -695,7 +695,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		}
 		
 		
-		NSString *path = [NSString stringWithFormat:@"%s/%@.asc", tempDir, filenameForExportedKeys(keys, nil)];
+		NSString *path = [NSString stringWithFormat:@"%s/%@.asc", tempDir, filenameForExportedKeys(keys, nil, nil)];
 		NSURL *url = [NSURL fileURLWithPath:path];
 		NSError *error = nil;
 		[data writeToURL:url options:0 error:&error];
