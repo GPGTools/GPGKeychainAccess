@@ -1151,9 +1151,14 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 			selected = @YES;
 		}
 				
+		NSString *formatString = localized(@"FOUND_KEY_DESCRIPTION_FORMAT");
+		if ([formatString characterAtIndex:2] == ',') {
+			// Seperate fingerprint and the other information with an newline instead of an comma.
+			formatString = [formatString stringByReplacingCharactersInRange:NSMakeRange(2, 1) withString:@"\n"];
+		}
 		
-		NSString *tempDescription = [NSString stringWithFormat:localized(@"FOUND_KEY_DESCRIPTION_FORMAT"),
-									 key.keyID,
+		NSString *tempDescription = [NSString stringWithFormat:formatString,
+									 [[GKFingerprintTransformer sharedInstance] transformedValue:key.fingerprint],
 									 [algorithmNameTransformer transformedIntegerValue:key.algorithm],
 									 key.length,
 									 [dateFormatter stringFromDate:key.creationDate]];
