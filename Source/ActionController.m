@@ -2606,7 +2606,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	[gpgc receiveKeysFromServer:keys];
 }
 
-- (NSString *)importResultWithStatusDict:(NSDictionary *)statusDict affectedKeys:(NSSet **)affectedKeys {
+- (NSDictionary *)importResultWithStatusDict:(NSDictionary *)statusDict affectedKeys:(NSSet **)affectedKeys {
 	const int stateNewKey = 1;
 	const int stateNewUserID = 2;
 	const int stateNewSignature = 4;
@@ -2694,6 +2694,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	}
 	
 	NSMutableString *output = [NSMutableString new];
+	NSString *title = nil;
 	
 	if (newKeys.count > 0) {
 		NSString *descriptions = [self descriptionForKeys:newKeys maxLines:8 withOptions:0];
@@ -2758,11 +2759,12 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		}
 	}
 	if (output.length == 0) {
-		[output appendString:localized(@"IMPORT_RESULT_NOTHING_IMPORTED")];
+		title = localized(@"IMPORT_RESULT_NOTHING_IMPORTED");
+		[output appendString:localized(@"IMPORT_RESULT_NOTHING_IMPORTED_MSG")];
 	}
 	
-	return output;
-	
+	// title can be nil. So do not use @{} syntax here.
+	return [NSDictionary dictionaryWithObjectsAndKeys:output, @"message", title, @"title", nil];
 }
 
 - (NSUndoManager *)undoManager {
@@ -3421,22 +3423,24 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 					if (gc.error) break;
 					
 					NSDictionary *statusDict = gc.statusDict;
-					if (statusDict) {
+					// It's not a nice behavior, to not show a message, when nothing was imported.
+					// So show at least a "no keys imported" message.
 						[self refreshDisplayedKeys:self];
 						
 						NSSet *affectedkeys = nil;
-						NSString *message = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
+						NSDictionary *result = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
+						NSString *title = result[@"title"];
+						NSString *message = result[@"message"];
 						affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
 						[[KeychainController sharedInstance] keysDidChange:affectedkeys.allObjects];
 						endProgressSheet();
 						
 						self.sheetController.msgText = message;
-						self.sheetController.title = localized(@"KeySearch_ImportResults_Title");
+						self.sheetController.title = title ? title : localized(@"KeySearch_ImportResults_Title");
 						self.sheetController.sheetType = SheetTypeShowResult;
 						[self.sheetController runModalForWindow:mainWindow];
 						
 						[[KeychainController sharedInstance] selectKeys:affectedkeys];
-					}
 					break;
 				}
 				case SaveDataToURLAction: { // Saves value to one or more files (@"URL"). You can specify @"hideExtension".
