@@ -2693,7 +2693,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		}
 	}
 	
-	NSMutableString *output = [NSMutableString new];
+	NSMutableString *message = [NSMutableString new];
 	NSString *title = nil;
 	
 	if (newKeys.count > 0) {
@@ -2701,28 +2701,28 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		NSString *key = newKeys.count == 1 ? @"IMPORT_RESULT_NEW_KEY" : @"IMPORT_RESULT_NEW_KEYS";
 		NSString *string = localizedStringWithFormat(key, descriptions);
 		
-		[output appendFormat:@"%@\n\n", string];
+		[message appendFormat:@"%@\n\n", string];
 	}
 	if (newUserIDs.count > 0) {
 		NSString *descriptions = [self descriptionForKeys:newUserIDs maxLines:8 withOptions:0];
 		NSString *key = @"IMPORT_RESULT_NEW_USER_ID";
 		NSString *string = localizedStringWithFormat(key, descriptions);
 		
-		[output appendFormat:@"%@\n\n", string];
+		[message appendFormat:@"%@\n\n", string];
 	}
 	if (newSignatures.count > 0) {
 		NSString *descriptions = [self descriptionForKeys:newSignatures maxLines:8 withOptions:0];
 		NSString *key = @"IMPORT_RESULT_NEW_SIGNATURE";
 		NSString *string = localizedStringWithFormat(key, descriptions);
 		
-		[output appendFormat:@"%@\n\n", string];
+		[message appendFormat:@"%@\n\n", string];
 	}
 	if (newSubkeys.count > 0) {
 		NSString *descriptions = [self descriptionForKeys:newSubkeys maxLines:8 withOptions:0];
 		NSString *key = @"IMPORT_RESULT_NEW_SUBKEY";
 		NSString *string = localizedStringWithFormat(key, descriptions);
 		
-		[output appendFormat:@"%@\n\n", string];
+		[message appendFormat:@"%@\n\n", string];
 	}
 	
 	
@@ -2733,7 +2733,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			key = revocationCount == 1 ? @"IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE" : @"IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES";
 			string = localizedStringWithFormat(key, revocationCount);
 			
-			[output appendFormat:@"%@\n\n", string];
+			[message appendFormat:@"%@\n\n", string];
 		}
 		
 		NSInteger processed = publicKeysCount;
@@ -2745,26 +2745,26 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 					// Don't show this message if only parts of a single key were imported.
 					key = @"IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED";
 					string = localizedStringWithFormat(key, imported);
-					[output appendFormat:@"%@\n", string];
+					[message appendFormat:@"%@\n", string];
 				}
 			} else if (imported == 1) {
 				key = @"IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED";
 				string = localizedStringWithFormat(key, processed);
-				[output appendFormat:@"%@\n", string];
+				[message appendFormat:@"%@\n", string];
 			} else {
 				key = @"IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED";
 				string = localizedStringWithFormat(key, processed, imported);
-				[output appendFormat:@"%@\n", string];
+				[message appendFormat:@"%@\n", string];
 			}
 		}
 	}
-	if (output.length == 0) {
+	if (message.length == 0) {
 		title = localized(@"IMPORT_RESULT_NOTHING_IMPORTED");
-		[output appendString:localized(@"IMPORT_RESULT_NOTHING_IMPORTED_MSG")];
+		[message appendString:localized(@"IMPORT_RESULT_NOTHING_IMPORTED_MSG")];
 	}
 	
 	// title can be nil. So do not use @{} syntax here.
-	return [NSDictionary dictionaryWithObjectsAndKeys:output, @"message", title, @"title", nil];
+	return [NSDictionary dictionaryWithObjectsAndKeys:message, @"message", title, @"title", nil];
 }
 
 - (NSUndoManager *)undoManager {
@@ -3425,22 +3425,22 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 					NSDictionary *statusDict = gc.statusDict;
 					// It's not a nice behavior, to not show a message, when nothing was imported.
 					// So show at least a "no keys imported" message.
-						[self refreshDisplayedKeys:self];
-						
-						NSSet *affectedkeys = nil;
-						NSDictionary *result = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
-						NSString *title = result[@"title"];
-						NSString *message = result[@"message"];
-						affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
-						[[KeychainController sharedInstance] keysDidChange:affectedkeys.allObjects];
-						endProgressSheet();
-						
-						self.sheetController.msgText = message;
-						self.sheetController.title = title ? title : localized(@"KeySearch_ImportResults_Title");
-						self.sheetController.sheetType = SheetTypeShowResult;
-						[self.sheetController runModalForWindow:mainWindow];
-						
-						[[KeychainController sharedInstance] selectKeys:affectedkeys];
+					[self refreshDisplayedKeys:self];
+					
+					NSSet *affectedkeys = nil;
+					NSDictionary *result = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
+					NSString *title = result[@"title"];
+					NSString *message = result[@"message"];
+					affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
+					[[KeychainController sharedInstance] keysDidChange:affectedkeys.allObjects];
+					endProgressSheet();
+					
+					self.sheetController.msgText = message;
+					self.sheetController.title = title ? title : localized(@"KeySearch_ImportResults_Title");
+					self.sheetController.sheetType = SheetTypeShowResult;
+					[self.sheetController runModalForWindow:mainWindow];
+					
+					[[KeychainController sharedInstance] selectKeys:affectedkeys];
 					break;
 				}
 				case SaveDataToURLAction: { // Saves value to one or more files (@"URL"). You can specify @"hideExtension".
