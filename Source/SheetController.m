@@ -1114,8 +1114,6 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 		showInvalidKeys = [options boolForKey:@"KeyserverShowInvalidKeys"];
 	}
 	
-	NSDate *now = [NSDate date];
-	
 	
 	for (GPGRemoteKey *key in _keys) {
 		NSDictionary *stringAttributes = nil;
@@ -1142,10 +1140,12 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 		
 		NSNumber *selected = @NO;
 		
-		if (key.expired || key.revoked || [key.expirationDate compare:now] == NSOrderedAscending) {
+		if (key.expired || key.revoked) {
 			if (!showInvalidKeys) {
+				// Skip invalid keys.
 				continue;
 			}
+			// Make the string red.
 			stringAttributes = [NSDictionary dictionaryWithObject:[NSColor redColor] forKey:NSForegroundColorAttributeName];
 		} else if (isGpgtoolsKey) {
 			selected = @YES;
@@ -1174,28 +1174,40 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	
 	
 	
+	// Sort the list of found keys.
 	[dicts sortUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
 		GPGRemoteKey *key1 = obj1[@"key"];
 		GPGRemoteKey *key2 = obj2[@"key"];
 		
+		// Revoked keys to the bottom.
 		if (key1.revoked && !key2.revoked) {
 			return NSOrderedDescending;
-		} else if (!key1.revoked && key2.revoked) {
+		} else if (key2.revoked && !key1.revoked) {
 			return NSOrderedAscending;
 		}
 		
+		// Expired keys to the bottom.
+		if (key1.expired && !key2.expired) {
+			return NSOrderedDescending;
+		} else if (key2.expired && !key1.expired) {
+			return NSOrderedAscending;
+		}
+		
+		// GPGTools keys to the top.
 		BOOL isGpgtools1 = [obj1[@"gpgtools"] boolValue];
 		BOOL isGpgtools2 = [obj2[@"gpgtools"] boolValue];
-		
 		if (isGpgtools1 && !isGpgtools2) {
 			return NSOrderedAscending;
 		} else if (!isGpgtools1 && isGpgtools2) {
 			return NSOrderedDescending;
 		}
 		
-		return 0 - [key1.creationDate compare:key2.creationDate];
+		// Remaining keys are sorted from new to old.
+		NSComparisonResult result = [key2.creationDate compare:key1.creationDate];
+		return result;
 	}];
 	
+	// Select the first key.
 	if (dicts.count) {
 		dicts[0][@"selected"] = @YES;
 	}
