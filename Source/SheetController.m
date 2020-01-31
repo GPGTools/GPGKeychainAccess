@@ -593,22 +593,25 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	
 	NSURL *url = panel.URL;
 	if (@available(macOS 10.15, *)) {
-		// Add "Public" or "Secret" to the filename if the user did not modify the default name.
-		if (url.isFileURL) { // Only modify file URLs.
-			NSString *path = url.path;
-			NSString *filename = path.lastPathComponent;
-			NSString *basename = filename.stringByDeletingPathExtension;
-			if ([basename isEqualToString:defaultFilename]) {
-				// The user did not change the filename.
-				
-				basename = self.exportSecretKey ? _secFilename : _pubFilename;
-				NSString *newPath = [[path.stringByDeletingLastPathComponent
-									 stringByAppendingPathComponent:basename]
-									 stringByAppendingPathExtension:path.pathExtension];
-				
-				if (![[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
-					// Only use the new path, if the file does not already exist.
-					url = [NSURL fileURLWithPath:newPath];
+		// For sec key exports, add "Public" or "Secret" to the filename if the user did not modify the default name.
+		if (_secFilename) { // It's a sec key.
+			if (url.isFileURL) { // Only modify file URLs.
+				NSString *path = url.path;
+				NSString *filename = path.lastPathComponent;
+				NSString *basename = filename.stringByDeletingPathExtension.decomposedStringWithCanonicalMapping;
+				// Compare as normalized unicode strings.
+				if ([basename isEqualToString:defaultFilename.decomposedStringWithCanonicalMapping]) {
+					// The user did not change the filename.
+					
+					basename = self.exportSecretKey ? _secFilename : _pubFilename;
+					NSString *newPath = [[path.stringByDeletingLastPathComponent
+										  stringByAppendingPathComponent:basename]
+										 stringByAppendingPathExtension:path.pathExtension];
+					
+					if (![[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
+						// Only use the new path, if the file does not already exist.
+						url = [NSURL fileURLWithPath:newPath];
+					}
 				}
 			}
 		}
