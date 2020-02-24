@@ -656,7 +656,6 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 
 // buttonClicked //
 - (IBAction)buttonClicked:(NSButton *)sender {
-	_clickedButton = sender.tag;
 	if (![_sheetWindow makeFirstResponder:_sheetWindow]) {
 		[_sheetWindow endEditingFor:nil];
 	}
@@ -664,7 +663,7 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	if (_numberOfProgressSheets > 0) {
 		[[ActionController sharedInstance] cancelGPGOperation:self];
 	} else {
-		if (_clickedButton == NSOKButton) {
+		if (sender.tag == NSModalResponseOK) {
 			switch (self.sheetType) {
 				case SheetTypeNewKey:
 					if (![self checkName]) return;
@@ -714,7 +713,7 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 		} else { // NSCancelButton
 			self.result = nil;
 		}
-		
+		_clickedButton = sender.tag;
 		[NSApp stopModal];
 	}
 }
@@ -1644,6 +1643,68 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 				goto emailIsInvalid;
 			}
 		}
+		
+		// Check if another userID with the same email address already exists.
+		NSSet *secKeys = [GPGKeyManager sharedInstance].secretKeys;
+		NSString *normalizedEmail = self.email.lowercaseString;
+		BOOL emailAlreadyExists = NO;
+		for (GPGKey *key in secKeys) {
+			if (key.validity >= GPGValidityInvalid) {
+				// Ignore invalid keys.
+				continue;
+			}
+			for (GPGUserID *userID in key.userIDs) {
+				if (!userID.email || userID.email.length == 0) {
+					continue;
+				}
+				if (userID.validity >= GPGValidityInvalid) {
+					// Ignore invalid userIDs.
+					continue;
+				}
+				if ([userID.email.lowercaseString isEqualToString:normalizedEmail]) {
+					NSInteger returnCode;
+					if (self.sheetType == SheetTypeNewKey) { // New key.
+						NSString *title = localizedStringWithFormat(@"CheckAlert_NewKeyExistingEmail_Title", self.email);
+						NSString *message = localizedStringWithFormat(@"CheckAlert_NewKeyExistingEmail_Msg", self.email, [[GKFingerprintTransformer sharedInstance] transformedValue:key.fingerprint]);
+						returnCode = [self alertSheetForWindow:mainWindow
+												   messageText:title
+													  infoText:message
+												 defaultButton:localized(@"CheckAlert_NewKeyExistingEmail_No")
+											   alternateButton:localized(@"CheckAlert_NewKeyExistingEmail_Yes")
+												   otherButton:nil
+											 suppressionButton:nil
+													 customize:^(NSAlert *alert) {
+							// Set a minimal width for the alert.
+							alert.accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 340, 0)];
+						}];
+					} else { // New userID.
+						NSString *title = localizedStringWithFormat(@"CheckAlert_NewUserIDExistingEmail_Title", self.email);
+						NSString *message = localizedStringWithFormat(@"CheckAlert_NewUserIDExistingEmail_Msg", self.email, [[GKFingerprintTransformer sharedInstance] transformedValue:key.fingerprint]);
+						returnCode = [self alertSheetForWindow:mainWindow
+												   messageText:title
+													  infoText:message
+												 defaultButton:localized(@"CheckAlert_NewUserIDExistingEmail_No")
+											   alternateButton:localized(@"CheckAlert_NewUserIDExistingEmail_Yes")
+												   otherButton:nil
+											 suppressionButton:nil
+													 customize:^(NSAlert *alert) {
+							// Set a minimal width for the alert.
+							alert.accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 340, 0)];
+						}];
+					}
+					if (returnCode != NSAlertSecondButtonReturn) {
+						return NO;
+					}
+					
+					emailAlreadyExists = YES;
+					break;
+				}
+			}
+			if (emailAlreadyExists) {
+				break;
+			}
+		}
+		
 		
 		return YES;
 		
