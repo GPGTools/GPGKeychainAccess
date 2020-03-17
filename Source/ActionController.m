@@ -3363,7 +3363,14 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 - (void)gpgController:(GPGController *)gc operationDidFinishWithReturnValue:(id)value {
 	gc.passphrase = nil;
 	
-	dispatch_async(dispatch_get_main_queue(), ^{
+	NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:gc, @"gc", value, @"value", nil];
+	// Do not use dispatch_async here, because it runs the block in any run loop mode. This can cause problems with the UI.
+	[self performSelectorOnMainThread:@selector(handleGPGControllerDidFinishWithDict:) withObject:dict waitUntilDone:NO];
+}
+- (void)handleGPGControllerDidFinishWithDict:(NSDictionary *)dict {
+	GPGController *gc = dict[@"gc"];
+	id value = dict[@"value"];
+	
 		BOOL reEvaluate;
 		
 		__block BOOL ended = NO;
@@ -3468,9 +3475,6 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			endProgressSheet();
 			
 		} while (reEvaluate);
-		
-		
-	});
 }
 
 
