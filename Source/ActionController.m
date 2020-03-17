@@ -3371,110 +3371,110 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	GPGController *gc = dict[@"gc"];
 	id value = dict[@"value"];
 	
-		BOOL reEvaluate;
+	BOOL reEvaluate;
+	
+	__block BOOL ended = NO;
+	void (^endProgressSheet)() = ^void() {
+		if (ended == NO) {
+			ended = YES;
+			[self.sheetController endProgressSheet];
+		}
+	};
+	
+	do {
+		reEvaluate = NO;
 		
-		__block BOOL ended = NO;
-		void (^endProgressSheet)() = ^void() {
-			if (ended == NO) {
-				ended = YES;
-				[self.sheetController endProgressSheet];
-			}
-		};
+		NSMutableDictionary *oldUserInfo = [NSMutableDictionary dictionaryWithDictionary:gc.userInfo];
 		
-		do {
-			reEvaluate = NO;
-			
-			NSMutableDictionary *oldUserInfo = [NSMutableDictionary dictionaryWithDictionary:gc.userInfo];
-			
-			gc.userInfo = nil;
-			self.currentOperation = nil;
-			self.operationSuffix = nil;
-			self.operatedKeys = nil;
-			
-			
-			NSInteger actionCode = 0;
-			NSArray *actions = [oldUserInfo objectForKey:@"action"];
-			id action = nil;
-			actionCallback callback = nil;
-			
-			if ([actions isKindOfClass:[NSArray class]]) {
-				if (actions.count > 0) {
-					action = actions[0];
-					
-					if (actions.count > 1) {
-						NSArray *newActions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
-						NSMutableDictionary *tempUserInfo = oldUserInfo.mutableCopy;
-						tempUserInfo[@"action"] = newActions;
-						gc.userInfo = tempUserInfo;
-					}
+		gc.userInfo = nil;
+		self.currentOperation = nil;
+		self.operationSuffix = nil;
+		self.operatedKeys = nil;
+		
+		
+		NSInteger actionCode = 0;
+		NSArray *actions = [oldUserInfo objectForKey:@"action"];
+		id action = nil;
+		actionCallback callback = nil;
+		
+		if ([actions isKindOfClass:[NSArray class]]) {
+			if (actions.count > 0) {
+				action = actions[0];
+				
+				if (actions.count > 1) {
+					NSArray *newActions = [actions subarrayWithRange:NSMakeRange(1, actions.count - 1)];
+					NSMutableDictionary *tempUserInfo = oldUserInfo.mutableCopy;
+					tempUserInfo[@"action"] = newActions;
+					gc.userInfo = tempUserInfo;
 				}
-			} else {
-				action = actions;
 			}
-			
-			if ([action isKindOfClass:NSClassFromString(@"NSBlock")]) {
-				actionCode = CallbackAction;
-				callback = action;
-			} else {
-				actionCode = [action integerValue];
+		} else {
+			action = actions;
+		}
+		
+		if ([action isKindOfClass:NSClassFromString(@"NSBlock")]) {
+			actionCode = CallbackAction;
+			callback = action;
+		} else {
+			actionCode = [action integerValue];
+		}
+		
+		
+		switch (actionCode) {
+			case CallbackAction: {
+				endProgressSheet();
+				callback(gc, value, oldUserInfo);
+				break;
 			}
-			
-			
-			switch (actionCode) {
-				case CallbackAction: {
-					endProgressSheet();
-					callback(gc, value, oldUserInfo);
-					break;
-				}
-				case ShowResultAction: {
-					if (gc.error) break;
-					
-					NSDictionary *statusDict = gc.statusDict;
-					// It's not a nice behavior, to not show a message, when nothing was imported.
-					// So show at least a "no keys imported" message.
-					[self refreshDisplayedKeys:self];
-					
-					NSSet *affectedkeys = nil;
-					NSDictionary *result = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
-					NSString *title = result[@"title"];
-					NSString *message = result[@"message"];
-					affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
-					[[KeychainController sharedInstance] keysDidChange:affectedkeys.allObjects];
-					endProgressSheet();
-					
-					self.sheetController.msgText = message;
-					self.sheetController.title = title ? title : localized(@"KeySearch_ImportResults_Title");
-					self.sheetController.sheetType = SheetTypeShowResult;
-					[self.sheetController runModalForWindow:mainWindow];
-					
-					[[KeychainController sharedInstance] selectKeys:affectedkeys];
-					break;
-				}
-				case SaveDataToURLAction: { // Saves value to one or more files (@"URL"). You can specify @"hideExtension".
-					endProgressSheet();
-					if (gc.error) break;
-					
-					NSSet *urls = [oldUserInfo objectForKey:@"URL"];
-					NSNumber *hideExtension = @([[oldUserInfo objectForKey:@"hideExtension"] boolValue]);
-					if ([urls isKindOfClass:[NSURL class]]) {
-						urls = [NSSet setWithObject:urls];
-					}
-					
-					NSFileManager *fileManager = [NSFileManager defaultManager];
-					for (NSURL *url in urls) {
-						[fileManager createFileAtPath:url.path contents:value attributes:@{NSFileExtensionHidden: hideExtension}];
-					}
-					
-					reEvaluate = YES;
-					
-					break;
-				}
-				default:
-					break;
+			case ShowResultAction: {
+				if (gc.error) break;
+				
+				NSDictionary *statusDict = gc.statusDict;
+				// It's not a nice behavior, to not show a message, when nothing was imported.
+				// So show at least a "no keys imported" message.
+				[self refreshDisplayedKeys:self];
+				
+				NSSet *affectedkeys = nil;
+				NSDictionary *result = [self importResultWithStatusDict:statusDict affectedKeys:&affectedkeys];
+				NSString *title = result[@"title"];
+				NSString *message = result[@"message"];
+				affectedkeys = [affectedkeys setByAddingObjectsFromSet:oldUserInfo[@"keys"]];
+				[[KeychainController sharedInstance] keysDidChange:affectedkeys.allObjects];
+				endProgressSheet();
+				
+				self.sheetController.msgText = message;
+				self.sheetController.title = title ? title : localized(@"KeySearch_ImportResults_Title");
+				self.sheetController.sheetType = SheetTypeShowResult;
+				[self.sheetController runModalForWindow:mainWindow];
+				
+				[[KeychainController sharedInstance] selectKeys:affectedkeys];
+				break;
 			}
-			endProgressSheet();
-			
-		} while (reEvaluate);
+			case SaveDataToURLAction: { // Saves value to one or more files (@"URL"). You can specify @"hideExtension".
+				endProgressSheet();
+				if (gc.error) break;
+				
+				NSSet *urls = [oldUserInfo objectForKey:@"URL"];
+				NSNumber *hideExtension = @([[oldUserInfo objectForKey:@"hideExtension"] boolValue]);
+				if ([urls isKindOfClass:[NSURL class]]) {
+					urls = [NSSet setWithObject:urls];
+				}
+				
+				NSFileManager *fileManager = [NSFileManager defaultManager];
+				for (NSURL *url in urls) {
+					[fileManager createFileAtPath:url.path contents:value attributes:@{NSFileExtensionHidden: hideExtension}];
+				}
+				
+				reEvaluate = YES;
+				
+				break;
+			}
+			default:
+				break;
+		}
+		endProgressSheet();
+		
+	} while (reEvaluate);
 }
 
 
