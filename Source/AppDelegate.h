@@ -23,6 +23,8 @@
 	BOOL rowWasSelected;
 	BOOL _shouldTerminate;
 	BOOL _hadFilesToOpen; // Is set to YES when GK was told to open a file. (e.g. double click on *.gpg file)
+	NSPoint _inspectorRelativeOrigin; // Origin relative to the main window.
+	NSSize _inspectorDefaultSize;
 }
 
 @property (nonatomic, assign) IBOutlet NSWindow *window;

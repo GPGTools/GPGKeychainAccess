@@ -43,7 +43,6 @@
 }
 
 - (void)showInspector:(int)show {
-	static BOOL displayedAlready = NO;
 	BOOL isVisible = self.inspectorWindow.visible;
 	
 	if (show == -1) {
@@ -52,20 +51,52 @@
 
 	if (show) {
 		if (!isVisible) {
-			if (!displayedAlready) {
-				displayedAlready = YES;
-				NSRect mainFrame = self.window.frame;
-				NSRect inspectorFrame = self.inspectorWindow.frame;
-				NSPoint origin;
-				origin.x = mainFrame.origin.x + mainFrame.size.width;
-				origin.y = mainFrame.origin.y + mainFrame.size.height - inspectorFrame.size.height;
-				[self.inspectorWindow setFrameOrigin:origin];
-			}
-			
 			[self.window addChildWindow:self.inspectorWindow ordered:NSWindowAbove];
 			[self.inspectorWindow makeKeyAndOrderFront:nil];
+
+			NSRect mainFrame = self.window.frame;
+			NSRect inspectorFrame = self.inspectorWindow.frame;
+			if (_inspectorRelativeOrigin.x == 0 && _inspectorRelativeOrigin.y == 0) {
+				inspectorFrame.origin.x = mainFrame.origin.x + mainFrame.size.width;
+				inspectorFrame.origin.y = mainFrame.origin.y + mainFrame.size.height - inspectorFrame.size.height;
+				_inspectorDefaultSize = inspectorFrame.size;
+			} else {
+				inspectorFrame.origin.x = mainFrame.origin.x + mainFrame.size.width + _inspectorRelativeOrigin.x;
+				inspectorFrame.origin.y = mainFrame.origin.y + mainFrame.size.height + _inspectorRelativeOrigin.y;
+			}
+			
+			
+			NSRect screenFrame = self.window.screen.frame;
+			if (!CGRectContainsRect(screenFrame, inspectorFrame)) {
+				// The inspector would not be (fully) on the same screen as the main window. Choose a better location.
+				// Try default size.
+				inspectorFrame.origin.y += inspectorFrame.size.height - _inspectorDefaultSize.height;
+				inspectorFrame.size = _inspectorDefaultSize;
+			}
+			if (!CGRectContainsRect(screenFrame, inspectorFrame)) {
+				// Default size doesn't solve the Problem. Try default location.
+				inspectorFrame.origin.x = mainFrame.origin.x + mainFrame.size.width;
+				inspectorFrame.origin.y = mainFrame.origin.y + mainFrame.size.height - inspectorFrame.size.height;
+			}
+			if (!CGRectContainsRect(screenFrame, inspectorFrame)) {
+				// Default location is not fully on screen. Try the other side.
+				inspectorFrame.origin.x = mainFrame.origin.x - inspectorFrame.size.width;
+			}
+			if (!CGRectContainsRect(screenFrame, inspectorFrame)) {
+				// Nothing works. Put it somewhere on the screen.
+				inspectorFrame.origin.x = screenFrame.origin.x + screenFrame.size.width * 0.8 - inspectorFrame.size.width / 2;
+				inspectorFrame.origin.y = screenFrame.origin.y + screenFrame.size.height * 0.7 - inspectorFrame.size.height / 2;
+			}
+
+			
+			[self.inspectorWindow setFrame:inspectorFrame display:YES];
+
 		}
 	} else {
+		NSRect mainFrame = self.window.frame;
+		NSRect inspectorFrame = self.inspectorWindow.frame;
+		_inspectorRelativeOrigin.x = inspectorFrame.origin.x - mainFrame.origin.x - mainFrame.size.width;
+		_inspectorRelativeOrigin.y = inspectorFrame.origin.y - mainFrame.origin.y - mainFrame.size.height;
 		[self.inspectorWindow close];
 	}
 }
