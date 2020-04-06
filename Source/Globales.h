@@ -1,5 +1,5 @@
 /*
- Copyright © Roman Zechmeister, 2019
+ Copyright © Roman Zechmeister, 2020
  
  Diese Datei ist Teil von GPG Keychain.
  
