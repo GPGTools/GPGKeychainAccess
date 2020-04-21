@@ -1524,7 +1524,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	if (keys.count > 0) {
 		self.currentOperation = RefreshKeysFromServerOperation;
 		self.operatedKeys = keys;
-		[gpgc receiveKeysFromServer:keys];
+		[gpgc refreshKeysFromServer:keys];
 	}
 }
 
