@@ -2696,29 +2696,45 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	NSMutableString *message = [NSMutableString new];
 	NSString *title = nil;
 	
+	// Prevent the list of growing too long.
+	NSUInteger maxLines = 8;
+	if (MIN(newKeys.count, maxLines) +
+		MIN(newUserIDs.count, maxLines) +
+		MIN(newSignatures.count, maxLines) +
+		MIN(newSubkeys.count, maxLines) > 20) {
+		maxLines = 5;
+		if (MIN(newKeys.count, maxLines) +
+			MIN(newUserIDs.count, maxLines) +
+			MIN(newSignatures.count, maxLines) +
+			MIN(newSubkeys.count, maxLines) > 15) {
+			maxLines = 3;
+		}
+	}
+	
+	
 	if (newKeys.count > 0) {
-		NSString *descriptions = [self descriptionForKeys:newKeys maxLines:8 withOptions:0];
+		NSString *descriptions = [self descriptionForKeys:newKeys maxLines:maxLines withOptions:0];
 		NSString *key = newKeys.count == 1 ? @"IMPORT_RESULT_NEW_KEY" : @"IMPORT_RESULT_NEW_KEYS";
 		NSString *string = localizedStringWithFormat(key, descriptions);
 		
 		[message appendFormat:@"%@\n\n", string];
 	}
 	if (newUserIDs.count > 0) {
-		NSString *descriptions = [self descriptionForKeys:newUserIDs maxLines:8 withOptions:0];
+		NSString *descriptions = [self descriptionForKeys:newUserIDs maxLines:maxLines withOptions:0];
 		NSString *key = @"IMPORT_RESULT_NEW_USER_ID";
 		NSString *string = localizedStringWithFormat(key, descriptions);
 		
 		[message appendFormat:@"%@\n\n", string];
 	}
 	if (newSignatures.count > 0) {
-		NSString *descriptions = [self descriptionForKeys:newSignatures maxLines:8 withOptions:0];
+		NSString *descriptions = [self descriptionForKeys:newSignatures maxLines:maxLines withOptions:0];
 		NSString *key = @"IMPORT_RESULT_NEW_SIGNATURE";
 		NSString *string = localizedStringWithFormat(key, descriptions);
 		
 		[message appendFormat:@"%@\n\n", string];
 	}
 	if (newSubkeys.count > 0) {
-		NSString *descriptions = [self descriptionForKeys:newSubkeys maxLines:8 withOptions:0];
+		NSString *descriptions = [self descriptionForKeys:newSubkeys maxLines:maxLines withOptions:0];
 		NSString *key = @"IMPORT_RESULT_NEW_SUBKEY";
 		NSString *string = localizedStringWithFormat(key, descriptions);
 		
