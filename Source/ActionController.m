@@ -1646,7 +1646,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 					continue;
 				}
 				
-				if (![emailAddresses containsObject:userID.email]) {
+				if (![emailAddresses containsObject:userID.email.lowercaseString]) {
 					// At least one userID of this key was not uploaded before.
 					[keysNotUploaded addObject:key];
 					break;
