@@ -122,7 +122,6 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 
 
 
-- (void)runAndWait;
 - (void)setStandardExpirationDates;
 - (void)setDataFromMailAccounts;
 - (BOOL)checkName;
@@ -158,158 +157,184 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	return [self runModalForWindow:mainWindow];
 }
 - (NSInteger)runModalForWindow:(NSWindow *)window {
-	_clickedButton = 0;
-	self.modalWindow = window;
 	
-	switch (self.sheetType) {
-		case SheetTypeNewKey:
-			self.length = 4096;
-			self.keyType = 1;
-			self.expirationDate = nil;
-			[self setStandardExpirationDates];
-			[self setDataFromMailAccounts];
-			self.comment = @"";
-			self.passphrase = @"";
-			self.confirmPassphrase = @"";
-			
-			self.displayedView = _genNewKeyView;
-			break;
-		case SheetTypeSearchKeys:
-			self.pattern = @"";
-			
-			self.displayedView = _searchKeysView;
-			break;
-		case SheetTypeReceiveKeys:
-			self.pattern = @"";
-			
-			self.displayedView = _receiveKeysView;
-			break;
-		case SheetTypeShowResult:
-			if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
-				NSAlert *alert = [NSAlert new];
-				alert.messageText = self.title;
-				alert.informativeText = self.msgText;
-				[alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
-					[NSApp stopModal];
-				}];
-				[NSApp runModalForWindow:window];
-				return 0;
-			} else {
-				self.msgText = [NSString stringWithFormat:@"%@\n%@", self.title, self.msgText];
-				self.displayedView = _resultView;
-			}
-			break;
-		case SheetTypeShowFoundKeys:
-			if (_keys.count == 1 && [_keys[0] fromVKS]) {
-				NSString *keyDescription = [[ActionController sharedInstance] descriptionForKeys:_keys maxLines:0 withOptions:DescriptionFingerprint | DescriptionAllUserIDs];
-				// Show a different message, if a key without userIDs was found.
-				NSString *format = [[_keys[0] userIDs] count] > 0 ? @"KeySearch_VKSFound_Msg" : @"KeySearch_VKSFoundNoUserID_Msg";
-				self.msgText = localizedStringWithFormat(format, keyDescription);
-				self.displayedView = _foundKeysVKSView;
-			} else if ([self generateFoundKeyDicts]) {
-				self.displayedView = _foundKeysView;
-			} else {
-				self.title = localized(@"KeySearch_NoKeysFound_Title");
+	if (![_sheetLock tryLock]) {
+		return -1;
+	}
+	
+	@try {
+		_clickedButton = 0;
+		self.modalWindow = window;
+		
+		switch (self.sheetType) {
+			case SheetTypeNewKey:
+				self.length = 4096;
+				self.keyType = 1;
+				self.expirationDate = nil;
+				[self setStandardExpirationDates];
+				[self setDataFromMailAccounts];
+				self.comment = @"";
+				self.passphrase = @"";
+				self.confirmPassphrase = @"";
+				
+				self.displayedView = _genNewKeyView;
+				break;
+			case SheetTypeSearchKeys:
+				self.pattern = @"";
+				
+				self.displayedView = _searchKeysView;
+				break;
+			case SheetTypeReceiveKeys:
+				self.pattern = @"";
+				
+				self.displayedView = _receiveKeysView;
+				break;
+			case SheetTypeShowResult:
 				if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
 					NSAlert *alert = [NSAlert new];
 					alert.messageText = self.title;
+					alert.informativeText = self.msgText;
 					[alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
 						[NSApp stopModal];
 					}];
 					[NSApp runModalForWindow:window];
 					return 0;
 				} else {
-					self.msgText = [NSString stringWithFormat:@"%@", self.title];
+					self.msgText = [NSString stringWithFormat:@"%@\n%@", self.title, self.msgText];
 					self.displayedView = _resultView;
 				}
-			}
-			break;
-		case SheetTypeExpirationDate:
-			[self setStandardExpirationDates];
-			
-			self.displayedView = _changeExpirationDateView;
-			break;
-		case SheetTypeAddUserID:
-			if (showExpertSettings) {
-				self.disableUserIDCommentsField = NO;
-				self.generateUserID_CommentConstraint.priority = 999;
-			} else {
-				self.disableUserIDCommentsField = YES;
-				self.generateUserID_CommentConstraint.priority = 1;
-			}
-			
-			[self setDataFromMailAccounts];
-			self.comment = @"";
-			
-			self.displayedView = _generateUserIDView;
-			break;
-		case SheetTypeAddSubkey:
-			self.length = 4096;
-			self.keyType = 6;
-			self.expirationDate = nil;
-			[self setStandardExpirationDates];
-			
-			self.displayedView = _generateSubkeyView;
-			break;
-		case SheetTypeAddSignature:
-			if (self.userIDs.count == 1) {
-				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_multiUserIDsView];
-				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_singleUserIDView];
-			} else {
-				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_singleUserIDView];
-				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_multiUserIDsView];
-			}
-			
-			[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_singleSecretKeyView];
-			if (self.secretKeys.count == 1) {
-				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_multiSecretKeysView];
-			} else {
-				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_multiSecretKeysView];
-			}
-			if (showExpertSettings) {
-				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_expertView];
-			} else {
-				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_expertView];
-			}
+				break;
+			case SheetTypeShowFoundKeys:
+				if (_keys.count == 1 && [_keys[0] fromVKS]) {
+					NSString *keyDescription = [[ActionController sharedInstance] descriptionForKeys:_keys maxLines:0 withOptions:DescriptionFingerprint | DescriptionAllUserIDs];
+					// Show a different message, if a key without userIDs was found.
+					NSString *format = [[_keys[0] userIDs] count] > 0 ? @"KeySearch_VKSFound_Msg" : @"KeySearch_VKSFoundNoUserID_Msg";
+					self.msgText = localizedStringWithFormat(format, keyDescription);
+					self.displayedView = _foundKeysVKSView;
+				} else if ([self generateFoundKeyDicts]) {
+					self.displayedView = _foundKeysView;
+				} else {
+					self.title = localized(@"KeySearch_NoKeysFound_Title");
+					if (NSAppKitVersionNumber >= NSAppKitVersionNumber10_9) {
+						NSAlert *alert = [NSAlert new];
+						alert.messageText = self.title;
+						[alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse returnCode) {
+							[NSApp stopModal];
+						}];
+						[NSApp runModalForWindow:window];
+						return 0;
+					} else {
+						self.msgText = [NSString stringWithFormat:@"%@", self.title];
+						self.displayedView = _resultView;
+					}
+				}
+				break;
+			case SheetTypeExpirationDate:
+				[self setStandardExpirationDates];
+				
+				self.displayedView = _changeExpirationDateView;
+				break;
+			case SheetTypeAddUserID:
+				if (showExpertSettings) {
+					self.disableUserIDCommentsField = NO;
+					self.generateUserID_CommentConstraint.priority = 999;
+				} else {
+					self.disableUserIDCommentsField = YES;
+					self.generateUserID_CommentConstraint.priority = 1;
+				}
+				
+				[self setDataFromMailAccounts];
+				self.comment = @"";
+				
+				self.displayedView = _generateUserIDView;
+				break;
+			case SheetTypeAddSubkey:
+				self.length = 4096;
+				self.keyType = 6;
+				self.expirationDate = nil;
+				[self setStandardExpirationDates];
+				
+				self.displayedView = _generateSubkeyView;
+				break;
+			case SheetTypeAddSignature:
+				if (self.userIDs.count == 1) {
+					[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_multiUserIDsView];
+					[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_singleUserIDView];
+				} else {
+					[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_singleUserIDView];
+					[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_multiUserIDsView];
+				}
+				
+				[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_singleSecretKeyView];
+				if (self.secretKeys.count == 1) {
+					[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_multiSecretKeysView];
+				} else {
+					[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_multiSecretKeysView];
+				}
+				if (showExpertSettings) {
+					[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityMustHold forView:self.sign_expertView];
+				} else {
+					[self.sign_stackView setVisibilityPriority:NSStackViewVisibilityPriorityNotVisible forView:self.sign_expertView];
+				}
 
-			
-			
-			self.expirationDate = nil;
-			[self setStandardExpirationDates];
-			self.hasExpirationDate = NO;
-			self.publish = NO;
-			
-			self.displayedView = _generateSignatureView;
-			break;
-		case SheetTypeSavePanel:
-			[self runSavePanel];
-			
-			return _clickedButton;
-		case SheetTypeOpenPanel:
-		case SheetTypeOpenPhotoPanel:
-			[self runOpenPanelWithAccessoryView:nil];
-			
-			return _clickedButton;
-		case SheetTypeExportKey: {
-			[self runSavePanel];
-			
-			return _clickedButton; }
-		case SheetTypeAlgorithmPreferences:
-			self.displayedView = _editAlgorithmPreferencesView;
-			break;
-		case SheetTypeUploadKeys:
-			self.suppress = NO;
-			self.displayedView = _uploadKeysView;
-			break;
-		case SheetTypeSelectVolume:
-			[self prepareVolumeCollection];
-			self.displayedView = _selectVolumeView;
-			break;
-		default:
-			return -1;
+				
+				
+				self.expirationDate = nil;
+				[self setStandardExpirationDates];
+				self.hasExpirationDate = NO;
+				self.publish = NO;
+				
+				self.displayedView = _generateSignatureView;
+				break;
+			case SheetTypeSavePanel:
+				[self runSavePanel];
+				
+				return _clickedButton;
+			case SheetTypeOpenPanel:
+			case SheetTypeOpenPhotoPanel:
+				[self runOpenPanelWithAccessoryView:nil];
+				
+				return _clickedButton;
+			case SheetTypeExportKey: {
+				[self runSavePanel];
+				
+				return _clickedButton; }
+			case SheetTypeAlgorithmPreferences:
+				self.displayedView = _editAlgorithmPreferencesView;
+				break;
+			case SheetTypeUploadKeys:
+				self.suppress = NO;
+				self.displayedView = _uploadKeysView;
+				break;
+			case SheetTypeSelectVolume:
+				[self prepareVolumeCollection];
+				self.displayedView = _selectVolumeView;
+				break;
+			default:
+				return -1;
+		}
+
+		
+		if (_modalWindow.isVisible) {
+			[_modalWindow beginSheet:_sheetWindow completionHandler:^(NSModalResponse returnCode) {}];
+			if (self.sheetType == SheetTypeUploadKeys) {
+				// If the table view is in a sheet, it needs to redraw, because some checkboxes would be in wrong color.
+				self.upload_userIDsTable.needsDisplay = YES;
+			}
+			[NSApp runModalForWindow:_sheetWindow];
+			[_modalWindow endSheet:_sheetWindow];
+		} else {
+			[_sheetWindow makeKeyAndOrderFront:self];
+			[NSApp runModalForWindow:_sheetWindow];
+		}
+		[_sheetWindow orderOut:self];
+
+	} @finally {
+		self.displayedView = nil;
+		[_sheetLock unlock];
 	}
-	[self runAndWait];
-	self.displayedView = nil;
+
+
 	return _clickedButton;
 }
 
@@ -583,13 +608,11 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	panel.title = self.title ? self.title : @"";
 	
 	
-	[_sheetLock lock];
 	[panel beginSheetModalForWindow:_modalWindow completionHandler:^(NSInteger result) {
 		[NSApp stopModalWithCode:result];
 	}];
 	
 	_clickedButton = [NSApp runModalForWindow:_modalWindow];
-	[_sheetLock unlock];
 	
 	NSURL *url = panel.URL;
 	if (@available(macOS 10.15, *)) {
@@ -639,13 +662,11 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	panel.title = self.title ? self.title : @"";
 	
 	
-	[_sheetLock lock];
 	[panel beginSheetModalForWindow:_modalWindow completionHandler:^(NSInteger result) {
 		[NSApp stopModalWithCode:result];
 	}];
 	
 	_clickedButton = [NSApp runModalForWindow:_modalWindow];
-	[_sheetLock unlock];
 	
 	self.URL = panel.URL;
 	self.URLs = panel.URLs;
@@ -1090,6 +1111,15 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	return _zxcvbn;
 }
 
+- (BOOL)isReady {
+	// Must be called on main thread and the result is only
+	// valid as long as no other code is run on the main thread.
+	if (![NSApp modalWindow] && [_sheetLock tryLock]) {
+		[_sheetLock unlock];
+		return YES;
+	}
+	return NO;
+}
 
 
 // Internal methods //
@@ -1437,27 +1467,6 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 
 
 
-
-
-- (void)runAndWait {
-	[_sheetLock lock];
-	GPGDebugLog(@"SheetController runAndWait. modalWindow = '%@', sheetWindow = '%@'", _modalWindow, _sheetWindow);
-	
-	if (_modalWindow.isVisible) {
-		[_modalWindow beginSheet:_sheetWindow completionHandler:^(NSModalResponse returnCode) {}];
-		if (self.sheetType == SheetTypeUploadKeys) {
-			// If the table view is in a sheet, it needs to redraw, because some checkboxes would be in wrong color.
-			self.upload_userIDsTable.needsDisplay = YES;
-		}
-		[NSApp runModalForWindow:_sheetWindow];
-		[_modalWindow endSheet:_sheetWindow];
-	} else {
-		[_sheetWindow makeKeyAndOrderFront:self];
-		[NSApp runModalForWindow:_sheetWindow];
-	}
-	[_sheetWindow orderOut:self];
-	[_sheetLock unlock];
-}
 
 - (void)showAdvanced:(BOOL)show animate:(BOOL)animate {
 	static NSUInteger fullHeight = 0;

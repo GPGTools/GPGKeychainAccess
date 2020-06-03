@@ -70,6 +70,7 @@ enum {
 @property (nonatomic, readonly) BOOL disableUserIDCommentsField;
 @property (nonatomic, readonly) double passwordStrength;
 @property (nonatomic, readonly) NSInteger clickedButton;
+@property (nonatomic, readonly) BOOL isReady;
 
 
 

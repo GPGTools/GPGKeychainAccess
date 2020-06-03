@@ -1719,15 +1719,22 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			[options setValue:alreadyUploadedKeys forKey:alreadyUploadedKeysKey];
 			
 			
-			// The array keysNotUploaded contains now a list of all the keys, with at least one missing userID on the server.
-			// Ask the user, if they want to upload there keys.
-			[self askUserToUploadKeys:keysNotUploaded];
+			if (keysNotUploaded.count > 0) {
+				// The array keysNotUploaded contains now a list of all the keys, with at least one missing userID on the server.
+				// Ask the user, if they want to upload there keys.
+				
+				// Use performSelectorOnMainThread here, because the scrolling doesn't work as expected with dispatch_sync.
+				[self performSelectorOnMainThread:@selector(askUserToUploadKeys:) withObject:keysNotUploaded waitUntilDone:NO];
+			}
 			
 		}];
 	});
 }
 - (void)askUserToUploadKeys:(NSArray<GPGKey *> *)keys {
-	if ([NSApp modalWindow]) {
+	// This method must be called on the main thread, with a good run loop.
+	// Call it using performSelectorOnMainThread. Don not call it using dispatch_sync/dispatch_async.
+	
+	if (!self.sheetController.isReady) {
 		// Some other dialog is displayed.
 		return;
 	}
@@ -1766,10 +1773,11 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			[userIDs addObject:key.primaryUserID];
 		}
 		
+		self.sheetController.userIDs = userIDs;
+		self.sheetController.selectedUserIDs = userIDs;
+		self.sheetController.sheetType = SheetTypeUploadKeys;
+		[self.sheetController runModalForWindow:mainWindow];
 		
-		// Use performSelectorOnMainThread here, because the scrolling doesn't work as expected with dispatch_sync.
-		[self performSelectorOnMainThread:@selector(showUploadDialogWithUserIDs:) withObject:userIDs waitUntilDone:YES];
-
 		if (self.sheetController.suppress) {
 			// The user don't want to see this dialog again.
 			[options setBool:YES forKey:doNotShowUploadDialogAgainKey];
@@ -1861,12 +1869,6 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	}
 	
 	dispatch_group_leave(dispatchGroup);
-}
-- (void)showUploadDialogWithUserIDs:(NSArray *)userIDs {
-	self.sheetController.userIDs = userIDs;
-	self.sheetController.selectedUserIDs = userIDs;
-	self.sheetController.sheetType = SheetTypeUploadKeys;
-	[self.sheetController runModalForWindow:mainWindow];
 }
 
 
