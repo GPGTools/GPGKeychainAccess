@@ -210,13 +210,17 @@ NSLock *updateLock;
 		NSString *path = dropDestination.path;
 		
 		NSUInteger i = 2;
-		while ([[NSFileManager defaultManager] fileExistsAtPath:[path stringByAppendingPathComponent:fullFilename]]) {
-			fullFilename = [filename stringByAppendingFormat:@" %lu.asc", i];
-			i++;
+		NSError *error = nil;
+		// Try to create the file and increment the number, if it already existed.
+		while (![exportedData writeToFile:[path stringByAppendingPathComponent:fullFilename] options:NSDataWritingWithoutOverwriting error:&error]) {
+			if (error.code == NSFileWriteFileExistsError && error.domain == NSCocoaErrorDomain) {
+				fullFilename = [filename stringByAppendingFormat:@" %lu.asc", i];
+				i++;
+			} else {
+				// Could not create the file.
+				return nil;
+			}
 		}
-		
-		
-		[[NSFileManager defaultManager] createFileAtPath:[path stringByAppendingPathComponent:fullFilename] contents:exportedData attributes:@{NSFileExtensionHidden: @YES}];
 		
 		return @[filename];
 	} else {
