@@ -328,7 +328,7 @@ ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signat
 ImportKeyErrorPGP_Title = "Import Failed";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import failed";
-ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "No secret key found";
 NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";

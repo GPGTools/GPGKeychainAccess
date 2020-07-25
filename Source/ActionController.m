@@ -349,6 +349,12 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 		if (dataToImport.length > 0) {
 			[self importFromData:dataToImport];
 		}
+		if (filesToOpen.count == 0 && dataToImport.length == 0) {
+			// No useful OpenPGP data found. Show an error message.
+			[self.sheetController errorSheetWithMessageText:localized(@"ImportKeyErrorNoPGP_Title")
+												   infoText:localized(@"ImportKeyErrorNoPGP_Msg")];
+		}
+		
 	}
 	return onlyGPGServicesUsed;
 }
