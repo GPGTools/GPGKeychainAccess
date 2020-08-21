@@ -627,14 +627,17 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 					// The user did not change the filename.
 					
 					basename = self.exportSecretKey ? _secFilename : _pubFilename;
-					NSString *newPath = [[path.stringByDeletingLastPathComponent
-										  stringByAppendingPathComponent:basename]
-										 stringByAppendingPathExtension:path.pathExtension];
+					NSString *pathWithoutExtension = [path.stringByDeletingLastPathComponent stringByAppendingPathComponent:basename];
+					NSString *newPath = [pathWithoutExtension stringByAppendingPathExtension:path.pathExtension];
 					
-					if (![[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
-						// Only use the new path, if the file does not already exist.
-						url = [NSURL fileURLWithPath:newPath];
+					NSUInteger i = 2;
+					while ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
+						// Add a trailing number, if the file already exists.
+						newPath = [[pathWithoutExtension stringByAppendingFormat:@" %lu", i] stringByAppendingPathExtension:path.pathExtension];
+						i++;
 					}
+					
+					url = [NSURL fileURLWithPath:newPath];
 				}
 			}
 		}
