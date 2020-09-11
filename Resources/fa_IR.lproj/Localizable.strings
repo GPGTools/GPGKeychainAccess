@@ -41,6 +41,16 @@ CheckAlert_PassphraseSimple_No = "رمز عبور جدید وارد کنید";
 CheckAlert_PassphraseTooLong_Title = "رمز عبور خیلی طولانی است";
 CheckAlert_PassphraseTooLong_Message = "رمز عبوری که شما وارد کرده اید، خیلی طولانی است. رمز عبوری با کمتر از %1$i کاراکتر وارد کنید.\n\nتوجه: اگر رمز عبور شما متشکل از کاراکترهای ویژه می باشد، ممکن است قادر نباشید از %1$i کاراکتر استفاده کنید.";
 
+CheckAlert_NewKeyExistingEmail_Title = "یک کلید معتبر با این آدرس از قبل موجود است";
+CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
+CheckAlert_NewKeyExistingEmail_Yes = "ایجاد کلید";
+CheckAlert_NewKeyExistingEmail_No = "انصراف";
+
+CheckAlert_NewUserIDExistingEmail_Title = "یک کلید معتبر با این آدرس از قبل موجود است";
+CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
+CheckAlert_NewUserIDExistingEmail_Yes = "Generate User ID";
+CheckAlert_NewUserIDExistingEmail_No = "انصراف";
+
 
 MoveSecring_Msg = "کلیدهای محرمانه شما در حال حاضر در \"%@\" می باشند.\nجهت انتقال کلیدهای محرمانه خود به بخش دیگر، بخش مورد نظر خود را در پایین انتخاب کنید.";
 
@@ -108,14 +118,14 @@ MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such
 PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
 PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
 PasteboardKeyFound_Yes = "وارد کردن";
-PasteboardKeyFound_No = "Cancel";
+PasteboardKeyFound_No = "انصراف";
 
 
 /* Those are abvious */
 No = "No";
 Error = "Error";
 Warning = "Warning";
-Cancel = "Cancel";
+Cancel = "انصراف";
 "Apply to all" = "Apply to all";
 
 
@@ -123,57 +133,57 @@ Cancel = "Cancel";
 RemoveUserID_Title = "Remove user ID";
 RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
 RemoveUserID_Yes = "Remove User ID";
-RemoveUserID_No = "Cancel";
+RemoveUserID_No = "انصراف";
 
 RevokeUserID_Title = "Warning: You are about to revoke a user ID";
 RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
 RevokeUserID_Yes = "Revoke User ID";
-RevokeUserID_No = "Cancel";
+RevokeUserID_No = "انصراف";
 
 RemoveSubkey_Title = "Remove Subkey";
 RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
 RemoveSubkey_Yes = "Remove Subkey";
-RemoveSubkey_No = "Cancel";
+RemoveSubkey_No = "انصراف";
 
 RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
 RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "Revoke Subkey";
-RevokeSubkey_No = "Cancel";
+RevokeSubkey_No = "انصراف";
 
 RevokeSignature_Title = "Revoke Signature";
 RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
 RevokeSignature_Yes = "Revoke Signature";
-RevokeSignature_No = "Cancel";
+RevokeSignature_No = "انصراف";
 
 RemoveSignature_Title = "Remove Signature";
 RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
 RemoveSignature_Yes = "Remove Signature";
-RemoveSignature_No = "Cancel";
+RemoveSignature_No = "انصراف";
 
 RemoveLocalSignature_Title = "Remove Signature";
 RemoveLocalSignature_Msg = "Are you sure you want to remove this local signature?";
 RemoveLocalSignature_Yes = "Remove Signature";
-RemoveLocalSignature_No = "Cancel";
+RemoveLocalSignature_No = "انصراف";
 
 RemoveLastSelfSignature_Title = "Remove last Self-Signature";
 RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
 RemoveLastSelfSignature_Yes = "Remove Signature";
-RemoveLastSelfSignature_No = "Cancel";
+RemoveLastSelfSignature_No = "انصراف";
 
 RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
 RevokeLastSelfSignature_Yes = "Revoke Signature";
-RevokeLastSelfSignature_No = "Cancel";
+RevokeLastSelfSignature_No = "انصراف";
 
 RevokeKey_Title = "Warning: You are about to revoke a key";
 RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revoke Key";
-RevokeKey_No = "Cancel";
+RevokeKey_No = "انصراف";
 
 OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key";
 OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
 OpenWithGPGServices_Yes = "Open GPGServices";
-OpenWithGPGServices_No = "Cancel";
+OpenWithGPGServices_No = "انصراف";
 
 FirstUploadForeignKey_Title = "Public key not allowed on key servers";
 FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers:\n\n%@\n\nSome key owners intentionally do not upload their public key. In order to respect that decision, you can not upload this public key. In case you think this is an error, please get in touch with the key owner.";
@@ -226,12 +236,12 @@ UserIDsSignedWantToUpload_No = "No, Thanks!";
 DeleteKey_Title = "Delete public key";
 DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
 DeleteKey_Yes = "Delete key";
-DeleteKey_No = "Cancel";
+DeleteKey_No = "انصراف";
 
 DeleteKeys_Title = "Delete public keys";
 DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
 DeleteKeys_Yes = "Delete keys";
-DeleteKeys_No = "Cancel";
+DeleteKeys_No = "انصراف";
 
 
 DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
@@ -239,27 +249,27 @@ DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all mes
 DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteSecKey_Yes = "Delete key(s)";
 DeleteSecKey_SecOnly = "Delete secret key(s) only";
-DeleteSecKey_No = "Cancel";
+DeleteSecKey_No = "انصراف";
 
 DeleteRevokedSecKey_Title = "Warning: You are about to delete revoked key pair(s)";
 DeleteRevokedSecKey_Msg = "You are about to delete the following revoked key pair(s):\n\n%@\n\nRevoked keys are still able to decrypt old messages encrypted to that key.\n\nWe recommend not to delete it.";
 DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
 DeleteRevokedSecKey_Yes = "Delete your key pair(s)";
 DeleteRevokedSecKey_SecOnly = "Delete secret key(s) only";
-DeleteRevokedSecKey_No = "Cancel";
+DeleteRevokedSecKey_No = "انصراف";
 
 
 /* New keyserver */
 SwitchToVerifyingKeyserver_Title = "New Key Server keys.openpgp.org";
 SwitchToVerifyingKeyserver_Msg = "After careful consideration we decided that the new default key server used in GPG Suite is going to be keys.openpgp.org. The new key server is more reliable than old ones and it will better protect your privacy. Search results will only show email addresses which have been verified by their owners. Otherwise keys can only be found when searching for their fingerprint.\n\nThe key owner can choose to remove the email address from appearing in search results at any given time.\n\nDo you want to switch to the new key server?";
 SwitchToVerifyingKeyserver_Yes = "Switch to new Key Server";
-SwitchToVerifyingKeyserver_No = "Cancel";
+SwitchToVerifyingKeyserver_No = "انصراف";
 SwitchToVerifyingKeyserver_LearnMore = "Learn More";
 
 UploadSingleKeyVerifyingKeyserver_Title = "Upload Public Key";
 UploadSingleKeyVerifyingKeyserver_Msg = "Your key server has been switched to keys.openpgp.org\n\nWe recommend that you upload your public key to the new key server, so others will be able to find it by searching for your email address. Once the key is uploaded, you will receive an email with a verification link for each email address associated with your key. If you don't complete the verification process, your key can only be found by searching for its fingerprint.\n\nDo you want to upload your public key?";
 UploadSingleKeyVerifyingKeyserver_Yes = "Upload Public Key";
-UploadSingleKeyVerifyingKeyserver_No = "Cancel";
+UploadSingleKeyVerifyingKeyserver_No = "انصراف";
 UploadSingleKeyVerifyingKeyserver_LearnMore = "Learn More";
 
 
@@ -273,12 +283,12 @@ BadKeyserver_Msg = "The key server you have entered is not working.\nPlease chec
 ImportRandomData_Title = "Warning: Content can probably not be imported";
 ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
 ImportRandomData_Yes = "Try Import";
-ImportRandomData_No = "Cancel";
+ImportRandomData_No = "انصراف";
 
 ImportNonImportable_Title = "Warning: Content can probably not be imported";
 ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
 ImportNonImportable_Yes = "Try Import";
-ImportNonImportable_No = "Cancel";
+ImportNonImportable_No = "انصراف";
 
 
 
@@ -318,7 +328,7 @@ ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signat
 ImportKeyErrorPGP_Title = "Import Failed";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import failed";
-ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "No secret key found";
 NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";

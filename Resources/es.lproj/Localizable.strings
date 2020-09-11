@@ -41,6 +41,16 @@ CheckAlert_PassphraseSimple_No = "Introduzca la nueva contraseña";
 CheckAlert_PassphraseTooLong_Title = "Contraseña demasiado larga";
 CheckAlert_PassphraseTooLong_Message = "La contraseña que introdujo es demasiado larga. Introduzca una contraseña con menos de %1$i caracteres.\n\nAtención: Si su contraseña incluye caracteres especiales tal vez no pueda usar los caracteres %1$i.";
 
+CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
+CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
+CheckAlert_NewKeyExistingEmail_Yes = "Generar clave";
+CheckAlert_NewKeyExistingEmail_No = "Cancelar";
+
+CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
+CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
+CheckAlert_NewUserIDExistingEmail_Yes = "Generar identificación de usuario";
+CheckAlert_NewUserIDExistingEmail_No = "Cancelar";
+
 
 MoveSecring_Msg = "Sus claves secretas (privadas) residen actualmente en \"%@\".\nPara mover sus claves secretas a otro volumen, seleccione el volumen objetivo debajo.";
 

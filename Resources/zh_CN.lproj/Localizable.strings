@@ -41,6 +41,16 @@ CheckAlert_PassphraseSimple_No = "输入新密码";
 CheckAlert_PassphraseTooLong_Title = "密码过长";
 CheckAlert_PassphraseTooLong_Message = "您所输入的密码过长，请输入不多于 %1$i 个字符。注意：如果您的密码包含特殊字符，您可能不能使用 %1$i 字符。";
 
+CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
+CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
+CheckAlert_NewKeyExistingEmail_Yes = "生成密钥";
+CheckAlert_NewKeyExistingEmail_No = "取消";
+
+CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
+CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
+CheckAlert_NewUserIDExistingEmail_Yes = "生成用户 ID";
+CheckAlert_NewUserIDExistingEmail_No = "取消";
+
 
 MoveSecring_Msg = "您的私钥当前位于 \"%@\"。\n要将私钥移动至其它卷，请在下方选择目标卷。";
 
@@ -131,33 +141,33 @@ RevokeUserID_Yes = "吊销用户 ID";
 RevokeUserID_No = "取消";
 
 RemoveSubkey_Title = "移除子钥";
-RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
+RemoveSubkey_Msg = "警告：请仅在您完全清楚您在做什么时再进行本操作。\n\n删除子密钥会破坏使用该密钥签署和解密的全部功能。\n\n如果该密钥已上传至密钥服务器，那么删除子密钥对服务器上已有的密钥并没有作用。要想让他人知道该子密钥已不再使用，请将该密钥先做吊销处理，然后将更新（吊销处理完）后的密钥上传至密钥服务器。";
 RemoveSubkey_Yes = "移除子钥";
 RemoveSubkey_No = "取消";
 
 RevokeSubkey_Title = "警告：您即将吊销用户标识";
-RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
+RevokeSubkey_Msg = "警告：请仅在您完全清楚您在做什么时再进行本操作。\n\n吊销子密钥会让该密钥无法使用该子密钥进行签署，并且其他人也不能再加密信息到本子密钥。\n\n吊销的子密钥仍可用于解密先前用其加密的文件和邮件。\n\n我们不建议删除吊销的子密钥，而是保持它的吊销状态。\n\n您确定要吊销此子密钥吗？";
 RevokeSubkey_Yes = "吊销子密钥";
 RevokeSubkey_No = "取消";
 
 RevokeSignature_Title = "吊销签名";
-RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
+RevokeSignature_Msg = "吊销您的签名会将其标记为已吊销。如果您认为该密钥被盗或者其所有人不再拥有对密钥的控制权，您可使用此选项。如果您此前曾将您的签名上传至密钥服务器，请将更新后的密钥再次上传至密钥服务器，这样他人就会知道您的签名已吊销。";
 RevokeSignature_Yes = "吊销签名";
 RevokeSignature_No = "取消";
 
-RemoveSignature_Title = "Remove Signature";
-RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
-RemoveSignature_Yes = "Remove Signature";
+RemoveSignature_Title = "删除签名";
+RemoveSignature_Msg = "您确定要删除该签名吗？删除签名只会在本地起作用。它不会也不能从存储在密钥服务器上的密钥中删除。如果您想将其标记为不可用，请吊销您的签名。";
+RemoveSignature_Yes = "删除签名";
 RemoveSignature_No = "取消";
 
-RemoveLocalSignature_Title = "Remove Signature";
+RemoveLocalSignature_Title = "删除签名";
 RemoveLocalSignature_Msg = "Are you sure you want to remove this local signature?";
-RemoveLocalSignature_Yes = "Remove Signature";
+RemoveLocalSignature_Yes = "删除签名";
 RemoveLocalSignature_No = "取消";
 
-RemoveLastSelfSignature_Title = "Remove last Self-Signature";
+RemoveLastSelfSignature_Title = "删除最后的自我签名";
 RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
-RemoveLastSelfSignature_Yes = "Remove Signature";
+RemoveLastSelfSignature_Yes = "删除签名";
 RemoveLastSelfSignature_No = "取消";
 
 RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
@@ -223,8 +233,8 @@ UserIDsSignedWantToUpload_No = "No, Thanks!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key";
-DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Title = "删除公钥";
+DeleteKey_Msg = "您打算删除以下公钥：\n\n%@\n\n您确定要删除该公钥吗？";
 DeleteKey_Yes = "删除密匙";
 DeleteKey_No = "取消";
 
@@ -265,19 +275,19 @@ UploadSingleKeyVerifyingKeyserver_LearnMore = "Learn More";
 
 
 /* Bad key server */
-BadKeyserver_Title = "Bad key server";
-BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
+BadKeyserver_Title = "密钥服务器不正确";
+BadKeyserver_Msg = "您输入的密钥服务器没有工作。\n请检查密钥服务器地址。地址形式如此：hkp://some.key.server.org\n\n密钥服务器也有可能会离线。如果是这样，请使用其他密钥服务器。";
 
 
 /* Import warnings */
-ImportRandomData_Title = "Warning: Content can probably not be imported";
-ImportRandomData_Msg = "It appears you are trying to import a message which is not an OpenPGP key.\n\nAre you sure you want to try to import this content?";
-ImportRandomData_Yes = "Try Import";
+ImportRandomData_Title = "警告：内容可能无法导入";
+ImportRandomData_Msg = "您好像尝试导入一条信息，而不是 OpenPGP 密钥。\n\n您确定要导入该内容吗？";
+ImportRandomData_Yes = "尝试导入";
 ImportRandomData_No = "取消";
 
-ImportNonImportable_Title = "Warning: Content can probably not be imported";
-ImportNonImportable_Msg = "It appears you are trying to import a signed or encrypted message.\n\nSuch messages can not be imported into GPG Keychain.\n\nInstead, please try to decrypt or verify the message in question with GPGServices.";
-ImportNonImportable_Yes = "Try Import";
+ImportNonImportable_Title = "警告：内容可能无法导入";
+ImportNonImportable_Msg = "您好像在尝试导入签署或加密的信息。\n\n这类信息无法导入到 GPG Keychain 中。\n\n请尝试解密或使用 GPGServices 验证此存在问题的信息。";
+ImportNonImportable_Yes = "尝试导入";
 ImportNonImportable_No = "取消";
 
 
@@ -313,12 +323,12 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 
 /* Errors */
 "Details:" = "Details:";
-ImportKeyError_Title = "Failed to import one or more keys";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
-ImportKeyErrorPGP_Title = "Import Failed";
-ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
-ImportKeyErrorNoPGP_Title = "Import failed";
-ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
+ImportKeyError_Title = "导入一个或多个密钥时失败";
+ImportKeyError_Msg = "由于缺少自我签名常会导致密钥无法导入。请访问\nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature 了解更多信息以及解决该问题的方法。";
+ImportKeyErrorPGP_Title = "导入失败";
+ImportKeyErrorPGP_Msg = "您好像在尝试导入加密或签署的信息。要解密或验证此类信息，请使用 GPGServices。";
+ImportKeyErrorNoPGP_Title = "导入失败";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "No secret key found";
 NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
@@ -334,7 +344,7 @@ KeyserverSearchError_Msg = "Please repeat your search and see if it works then. 
 
 
 
-CIPHER_ALGO_NONE = "None";
+CIPHER_ALGO_NONE = "无";
 CIPHER_ALGO_IDEA = "IDEA";
 CIPHER_ALGO_3DES = "3DES";
 CIPHER_ALGO_CAST5 = "CAST5";
@@ -353,7 +363,7 @@ DIGEST_ALGO_SHA256 = "SHA256";
 DIGEST_ALGO_SHA384 = "SHA384";
 DIGEST_ALGO_SHA512 = "SHA512";
 DIGEST_ALGO_SHA224 = "SHA224";
-COMPRESS_ALGO_NONE = "None";
+COMPRESS_ALGO_NONE = "无";
 COMPRESS_ALGO_ZIP = "ZIP";
 COMPRESS_ALGO_ZLIB = "ZLIB";
 COMPRESS_ALGO_BZIP2 = "BZIP2";
@@ -361,63 +371,63 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Exporting key…";
+ExportKey_Progress = "导出密钥...";
 ExportKey_Error = "密匙导出失败。";
-ImportKey_Progress  = "Importing key…";
-DeleteSecretKey_Progress = "Deleting secret key…";
-DeleteKeys_Progress = "Deleting key…";
+ImportKey_Progress  = "导入密钥...";
+DeleteSecretKey_Progress = "删除私钥...";
+DeleteKeys_Progress = "删除密钥...";
 DeleteKeys_Error = "删除密匙失败。";
-ChangePassphrase_Progress = "Changing password…";
-ChangePassphrase_Error = "Changing password failed.";
-SetDisabled_Progress = "Enabling/Disabling key…";
+ChangePassphrase_Progress = "修改密码...";
+ChangePassphrase_Error = "修改密码失败";
+SetDisabled_Progress = "启用/禁用密钥...";
 SetDisabled_Error = "启用/禁用密匙失败。";
-SetOwnerTrust_Progress = "Setting owner trust…";
+SetOwnerTrust_Progress = "设置所有人信任...";
 SetOwnerTrust_Error = "设定拥有者信任度失败。";
-ChangeExpirationDate_Progress = "Changing expiration date…";
-ChangeExpirationDate_Error = "Changing expiration date failed.";
-SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
+ChangeExpirationDate_Progress = "修改失效日期...";
+ChangeExpirationDate_Error = "修改失效日期失败。";
+SetAlgorithmPreferences_Progress = "设置算法偏好...";
 SetAlgorithmPreferences_Error = "设定算法偏好失败。";
-CleanKey_Progress = "Cleaning key…";
+CleanKey_Progress = "清理密钥...";
 CleanKey_Error = "清除密匙失败。";
-MinimizeKey_Progress = "Minimizing key…";
-MinimizeKey_Error = "Minimizing key failed.";
-GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
-GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
-SearchKeysOnServer_Progress = "Searching for key…";
-SendKeysToServer_Progress = "Sending %@ to server…";
+MinimizeKey_Progress = "最小化密钥...";
+MinimizeKey_Error = "最小化密钥失败。";
+GenerateRevokeCertificateForKey_Progress = "生成吊销证书...";
+GenerateRevokeCertificateForKey_Error = "生成吊销证书失败。";
+SearchKeysOnServer_Progress = "搜索密钥...";
+SendKeysToServer_Progress = "发送 %@ 到服务器...";
 SendKeysToServer_Error = "发送密匙失败。";
-RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
+RefreshKeysFromServer_Progress = "从服务器更新 %@...";
 RefreshKeysFromServer_Error = "更新密匙失败。";
-AddSubkey_Progress = "Adding subkey…";
+AddSubkey_Progress = "增加子密钥...";
 AddSubkey_Error = "增加子密匙失败。";
-RemoveSubkey_Progress = "Removing subkey…";
+RemoveSubkey_Progress = "删除子密钥...";
 RemoveSubkey_Error = "删除子密匙失败。";
-RevokeSubkey_Progress = "Revoking subkey…";
+RevokeSubkey_Progress = "吊销子密钥...";
 RevokeSubkey_Error = "回收子密匙失败。";
-AddUserID_Progress = "Adding user ID…";
-AddUserID_Error = "Adding user ID failed.";
-RemoveUserID_Progress = "Removing user ID…";
-RemoveUserID_Error = "Removing user ID failed.";
-SetPrimaryUserID_Progress = "Setting primary user ID…";
-SetPrimaryUserID_Error = "Setting primary user ID failed.";
-RevokeUserID_Progress = "Revoking user ID…";
-RevokeUserID_Error = "Revoking user ID failed.";
-AddPhoto_Progress = "Adding photo…";
+AddUserID_Progress = "添加用户 ID...";
+AddUserID_Error = "添加用户 ID 失败。";
+RemoveUserID_Progress = "删除用户 ID...";
+RemoveUserID_Error = "删除用户 ID 失败。";
+SetPrimaryUserID_Progress = "设置主用户 ID...";
+SetPrimaryUserID_Error = "设置主用户 ID 失败。";
+RevokeUserID_Progress = "吊销用户 ID...";
+RevokeUserID_Error = "吊销用户 ID 失败。";
+AddPhoto_Progress = "添加照片...";
 AddPhoto_Error = "增加图片失败。";
 AddPhoto_SelectMessage = "Choose photo…";
-RemovePhoto_Progress = "Removing photo…";
+RemovePhoto_Progress = "删除照片...";
 RemovePhoto_Error = "删除图片失败。";
-SetPrimaryPhoto_Progress = "Setting primary photo…";
+SetPrimaryPhoto_Progress = "设置主照片...";
 SetPrimaryPhoto_Error = "设定首选照片失败。";
-RevokePhoto_Progress = "Revoking photo…";
+RevokePhoto_Progress = "吊销照片...";
 RevokePhoto_Error = "回收图片失败。";
-AddSignature_Progress = "Signing…";
-AddSignature_Error = "Signing failed.";
-RemoveSignature_Progress = "Removing signature…";
+AddSignature_Progress = "签署...";
+AddSignature_Error = "签署失败。";
+RemoveSignature_Progress = "删除签名...";
 RemoveSignature_Error = "删除签名失败。";
-RevokeSignature_Progress = "Revoking signature…";
+RevokeSignature_Progress = "吊销签名...";
 RevokeSignature_Error = "回收签名失败。";
-ReceiveKeysFromServer_Progress = "Receiving keys…";
+ReceiveKeysFromServer_Progress = "接收密钥...";
 ReceiveKeysFromServer_Error = "密匙接收失败。";
 RevokeKey_Progress = "Revoking key…";
 RevokeKey_Error = "Revoking key failed.";

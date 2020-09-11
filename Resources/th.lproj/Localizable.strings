@@ -1,17 +1,17 @@
 /* For Key-Status */
-"Invalid" = "Invalid";
-"Revoked" = "Revoked";
-"Expired" = "Expired";
-"Disabled" = "Disabled";
-"Unknown" = "Unknown";
-"Marginal" = "Marginal";
+"Invalid" = "ไม่ถูกต้อง";
+"Revoked" = "ถูกเพิกถอนแล้ว";
+"Expired" = "หมดอายุแล้ว";
+"Disabled" = "ปิด-ไม่ใช้งาน";
+"Unknown" = "ไม่ทราบ";
+"Marginal" = "เล็กน้อย";
 "Full" = "เต็ม";
-"Ultimate" = "Ultimate";
+"Ultimate" = "สุดขีด";
 
 
 
 /* Long key types */
-"Secret and public key" = "Secret and public key";
+"Secret and public key" = "กุญแจลับและสาธารณะ";
 "Public key" = "กุญแจสาธารณะ";
 
 
@@ -30,23 +30,33 @@ ExportSecretKeyFilename = "%@ – ความลับ";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No password entered";
+CheckAlert_NoPassphrase_Title = "ไม่ได้ใส่รหัสผ่าน";
 CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
 CheckAlert_NoPassphrase_Yes = "Continue Without Password";
-CheckAlert_NoPassphrase_No = "Enter New Password";
-CheckAlert_PassphraseSimple_Title = "Password too simple";
+CheckAlert_NoPassphrase_No = "ใส่รหัสผ่านใหม่";
+CheckAlert_PassphraseSimple_Title = "รหัสผ่านง่ายเกินไป";
 CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
-CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
-CheckAlert_PassphraseSimple_No = "Enter New Password";
+CheckAlert_PassphraseSimple_Yes = "ใช้รหัสผ่านแบบเรียบง่าย";
+CheckAlert_PassphraseSimple_No = "ใส่รหัสผ่านใหม่";
 CheckAlert_PassphraseTooLong_Title = "รหัสผ่านยาวเกินไป";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
+
+CheckAlert_NewKeyExistingEmail_Title = "มีกุญแจที่ถูกต้องสำหรับที่อยู่นี้อยู่แล้ว";
+CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
+CheckAlert_NewKeyExistingEmail_Yes = "สร้างกุญแจ";
+CheckAlert_NewKeyExistingEmail_No = "ยกเลิก";
+
+CheckAlert_NewUserIDExistingEmail_Title = "มีกุญแจที่ถูกต้องสำหรับที่อยู่นี้อยู่แล้ว";
+CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
+CheckAlert_NewUserIDExistingEmail_Yes = "สร้าง ID ผู้ใช้";
+CheckAlert_NewUserIDExistingEmail_No = "ยกเลิก";
 
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
 
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "ไม่พบกุญแจ";
-KeySearch_ImportResults_Title = "Import successful";
+KeySearch_ImportResults_Title = "การนำเข้าสำเร็จ";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It might take some time, please wait.";
 
@@ -54,13 +64,13 @@ KeySearch_VKSFound_Msg = "A key with a verified email address was found:\n\n%@\n
 KeySearch_VKSFoundNoUserID_Msg = "A possible key update was found:\n\n%@\n\nDo you want to import this key?";
 
 
-GenerateKey_ProgressTitle = "Key creation in progress…";
+GenerateKey_ProgressTitle = "กำลังดำเนินการสร้างกุญแจ...";
 GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
-GenerateSubkey_Msg = "Add subkey to the following key:\n%@ %@";
-GenerateUserID_Msg = "Add email address (user ID) to the following key:\n%@ %@";
+GenerateSubkey_Msg = "เพิ่มกุญแจย่อยไปยังกุญแจนี้:\n%@ %@";
+GenerateUserID_Msg = "เพิ่มที่อยู่อีเมล (เลขระบุผู้ใช้) ไปยังกุญแจนี้:\n%@ %@";
 GenerateSignature_Msg = "Signing a key means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following key:\n%@";
 GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
-ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
+ChangeExpirationDate_Msg = "คุณกำลังจะเปลี่ยนวันหมดอายุของกุญแจของคุณ\n\n%1$@";
 ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
 
 GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
@@ -86,7 +96,7 @@ LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg was not found";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
-UNKNOWN_GPG_ERROR_TITLE = "Unknown GPG Error";
+UNKNOWN_GPG_ERROR_TITLE = "ข้อผิดพลาด GPG ที่ไม่ทราบ";
 UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 
 
@@ -112,11 +122,11 @@ PasteboardKeyFound_No = "ยกเลิก";
 
 
 /* Those are abvious */
-No = "No";
-Error = "Error";
-Warning = "Warning";
+No = "ไม่";
+Error = "ข้อผิดพลาด";
+Warning = "คำเตือน";
 Cancel = "ยกเลิก";
-"Apply to all" = "Apply to all";
+"Apply to all" = "ใช้กับทั้งหมด";
 
 
 /* Warnings */
@@ -130,56 +140,56 @@ RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from yo
 RevokeUserID_Yes = "Revoke User ID";
 RevokeUserID_No = "ยกเลิก";
 
-RemoveSubkey_Title = "Remove Subkey";
+RemoveSubkey_Title = "นำกุญแจย่อยออก";
 RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
-RemoveSubkey_Yes = "Remove Subkey";
+RemoveSubkey_Yes = "ลบกุญแจย่อย";
 RemoveSubkey_No = "ยกเลิก";
 
 RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
 RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
-RevokeSubkey_Yes = "Revoke Subkey";
+RevokeSubkey_Yes = "เพิกถอนกุญแจย่อย";
 RevokeSubkey_No = "ยกเลิก";
 
-RevokeSignature_Title = "Revoke Signature";
+RevokeSignature_Title = "เพิกถอนลายเซ็น";
 RevokeSignature_Msg = "Revoking your signature will mark it as revoked. Use this option, if you think the key got stolen from the key owner and that the original owner no longer has the key under his control. If you previously uploaded your signature to the key servers, please upload the updated key to the key servers so others are made aware, that your signature has been revoked.";
-RevokeSignature_Yes = "Revoke Signature";
+RevokeSignature_Yes = "เพิกถอนลายเซ็น";
 RevokeSignature_No = "ยกเลิก";
 
-RemoveSignature_Title = "Remove Signature";
+RemoveSignature_Title = "ลบลายเซ็น";
 RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
-RemoveSignature_Yes = "Remove Signature";
+RemoveSignature_Yes = "ลบลายเซ็น";
 RemoveSignature_No = "ยกเลิก";
 
-RemoveLocalSignature_Title = "Remove Signature";
+RemoveLocalSignature_Title = "ลบลายเซ็น";
 RemoveLocalSignature_Msg = "Are you sure you want to remove this local signature?";
-RemoveLocalSignature_Yes = "Remove Signature";
+RemoveLocalSignature_Yes = "ลบลายเซ็น";
 RemoveLocalSignature_No = "ยกเลิก";
 
-RemoveLastSelfSignature_Title = "Remove last Self-Signature";
+RemoveLastSelfSignature_Title = "ลบลายเซ็นที่เซ็นด้วยตัวเองอันล่าสุด";
 RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
-RemoveLastSelfSignature_Yes = "Remove Signature";
+RemoveLastSelfSignature_Yes = "ลบลายเซ็น";
 RemoveLastSelfSignature_No = "ยกเลิก";
 
-RevokeLastSelfSignature_Title = "Revoke last Self-Signature";
+RevokeLastSelfSignature_Title = "เพิกถอนลายเซ็นที่เซ็นด้วยตัวเองอันล่าสุด";
 RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
-RevokeLastSelfSignature_Yes = "Revoke Signature";
+RevokeLastSelfSignature_Yes = "เพิกถอนลายเซ็น";
 RevokeLastSelfSignature_No = "ยกเลิก";
 
-RevokeKey_Title = "Warning: You are about to revoke a key";
+RevokeKey_Title = "คำเตือน: คุณกำลังจะเพิกถอนกุญแจ";
 RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
-RevokeKey_Yes = "Revoke Key";
+RevokeKey_Yes = "เพิกถอนกุญแจ";
 RevokeKey_No = "ยกเลิก";
 
 OpenWithGPGServices_Title = "The OpenPGP message you tried to import is not a key";
 OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
-OpenWithGPGServices_Yes = "Open GPGServices";
+OpenWithGPGServices_Yes = "เปิด GPGServices";
 OpenWithGPGServices_No = "ยกเลิก";
 
 FirstUploadForeignKey_Title = "Public key not allowed on key servers";
 FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers:\n\n%@\n\nSome key owners intentionally do not upload their public key. In order to respect that decision, you can not upload this public key. In case you think this is an error, please get in touch with the key owner.";
 
 
-NewKeyWantToUpload_Title = "Your key was created successfully";
+NewKeyWantToUpload_Title = "กุญแจของคุณถูกสร้างเสร็จแล้ว";
 NewKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to find your public key and start communicating with you securely – encrypt messages for you and verify the authenticity of your messages – it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
 NewKeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
 NewKeyWantToUpload_No = "ไม่ ขอบคุณ!";
@@ -214,7 +224,7 @@ RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagu
 RevokedSubkeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
 RevokedSubkeyWantToUpload_No = "ไม่ ขอบคุณ!";
 
-UserIDsSignedWantToUpload_Title = "Signing successful";
+UserIDsSignedWantToUpload_Title = "เซ็นสำเร็จแล้ว";
 UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
 UserIDsSignedWantToUpload_No = "ไม่ ขอบคุณ!";
@@ -223,12 +233,12 @@ UserIDsSignedWantToUpload_No = "ไม่ ขอบคุณ!";
 
 
 /* Delete warnings */
-DeleteKey_Title = "Delete public key";
+DeleteKey_Title = "ลบกุญแจสาธารณะ";
 DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
-DeleteKey_Yes = "Delete key";
+DeleteKey_Yes = "ลบกุญแจ";
 DeleteKey_No = "ยกเลิก";
 
-DeleteKeys_Title = "Delete public keys";
+DeleteKeys_Title = "ลบกุญแจสาธารณะ";
 DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
 DeleteKeys_Yes = "Delete keys";
 DeleteKeys_No = "ยกเลิก";
@@ -250,22 +260,22 @@ DeleteRevokedSecKey_No = "ยกเลิก";
 
 
 /* New keyserver */
-SwitchToVerifyingKeyserver_Title = "New Key Server keys.openpgp.org";
+SwitchToVerifyingKeyserver_Title = "เซิร์ฟเวอร์กุญแจแห่งใหม่ keys.openpgp.org";
 SwitchToVerifyingKeyserver_Msg = "After careful consideration we decided that the new default key server used in GPG Suite is going to be keys.openpgp.org. The new key server is more reliable than old ones and it will better protect your privacy. Search results will only show email addresses which have been verified by their owners. Otherwise keys can only be found when searching for their fingerprint.\n\nThe key owner can choose to remove the email address from appearing in search results at any given time.\n\nDo you want to switch to the new key server?";
-SwitchToVerifyingKeyserver_Yes = "Switch to new Key Server";
+SwitchToVerifyingKeyserver_Yes = "สลับไปใช้เซิร์ฟเวอร์กุญแจแห่งใหม่";
 SwitchToVerifyingKeyserver_No = "ยกเลิก";
-SwitchToVerifyingKeyserver_LearnMore = "Learn More";
+SwitchToVerifyingKeyserver_LearnMore = "เรียนรู้เพิ่ม";
 
 UploadSingleKeyVerifyingKeyserver_Title = "อัปโหลดกุญแจสาธารณะ";
 UploadSingleKeyVerifyingKeyserver_Msg = "Your key server has been switched to keys.openpgp.org\n\nWe recommend that you upload your public key to the new key server, so others will be able to find it by searching for your email address. Once the key is uploaded, you will receive an email with a verification link for each email address associated with your key. If you don't complete the verification process, your key can only be found by searching for its fingerprint.\n\nDo you want to upload your public key?";
 UploadSingleKeyVerifyingKeyserver_Yes = "อัปโหลดกุญแจสาธารณะ";
 UploadSingleKeyVerifyingKeyserver_No = "ยกเลิก";
-UploadSingleKeyVerifyingKeyserver_LearnMore = "Learn More";
+UploadSingleKeyVerifyingKeyserver_LearnMore = "เรียนรู้เพิ่ม";
 
 
 
 /* Bad key server */
-BadKeyserver_Title = "Bad key server";
+BadKeyserver_Title = "เซิร์ฟเวอร์กุญแจที่ใช้ไม่ได้";
 BadKeyserver_Msg = "The key server you have entered is not working.\nPlease check the key server address. It should look something like: hkp://some.key.server.org\n\nThe key server could also be offline. In that case, please use another key server.";
 
 
@@ -283,10 +293,10 @@ ImportNonImportable_No = "ยกเลิก";
 
 
 /* Results */
-UploadSuccess_Title = "Public keys sent to key server";
+UploadSuccess_Title = "ส่งกุญแจสาธารณะไปเซิร์ฟเวอร์กุญแจแล้ว";
 UploadSuccess_Msg = "The following public keys have been uploaded:\n\n%@";
 
-ExportSuccess_Title = "Keys exported";
+ExportSuccess_Title = "ส่งออกกุญแจแล้ว";
 ExportSuccess_Msg = "The following keys were exported:\n\n%@";
 
 SignSuccess_Title = "The selected user IDs have been signed";
@@ -312,18 +322,18 @@ IMPORT_RESULT_NOTHING_IMPORTED = "No keys imported.";
 IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 
 /* Errors */
-"Details:" = "Details:";
-ImportKeyError_Title = "Failed to import one or more keys";
+"Details:" = "รายละเอียด:";
+ImportKeyError_Title = "การนำเข้ากุญแจล้มเหลวหนึ่งดอกหรือมากกว่านั้น";
 ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
-ImportKeyErrorPGP_Title = "Import Failed";
+ImportKeyErrorPGP_Title = "การนำเข้าล้มเหลว";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
-ImportKeyErrorNoPGP_Title = "Import failed";
-ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
+ImportKeyErrorNoPGP_Title = "การนำเข้าล้มเหลว";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "No secret key found";
 NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
 
-KeyserverSearchError_Title = "Searching for key failed";
+KeyserverSearchError_Title = "การค้นหากุญแจล้มเหลว";
 KeyserverSearchError_Msg = "Please repeat your search and see if it works then. Should the problem persist, file a support request via System Preferences > GPG Suite > Send Report. Please copy the entire error message into the description field and add the search term you used for your query. We recommend to include the debug log, since that provides additional helpful information to solve your problem.";
 
 

@@ -41,6 +41,16 @@ CheckAlert_PassphraseSimple_No = "Digitar Nova Senha";
 CheckAlert_PassphraseTooLong_Title = "Senha Longa Demais";
 CheckAlert_PassphraseTooLong_Message = "A senha digitada é longa demais. Digite uma senha com menos de %1$i caracteres.\n\nAtenção: se a senha incluir caracteres especiais, talvez os caracteres %1$i não possam ser usados.";
 
+CheckAlert_NewKeyExistingEmail_Title = "Já existe uma chave válida com este endereço";
+CheckAlert_NewKeyExistingEmail_Msg = "A chave existente com %1$@ tem a seguinte impressão digital:\n%2$@\n\nO uso do mesmo endereço de e‑mail em mais de uma chave pode causar problemas e não é recomendado.\nCaso deseje realmente criar uma nova chave para este e-mail, sugerimos que você revogue o e‑mail da chave existente primeiro.\n\nDeseja realmente criar uma chave com esse e‑mail agora?";
+CheckAlert_NewKeyExistingEmail_Yes = "Gerar Chave";
+CheckAlert_NewKeyExistingEmail_No = "Cancelar";
+
+CheckAlert_NewUserIDExistingEmail_Title = "Já existe uma chave válida com este endereço";
+CheckAlert_NewUserIDExistingEmail_Msg = "A chave existente com %1$@ tem a seguinte impressão digital:\n%2$@\n\nO uso do mesmo endereço de e‑mail em mais de uma chave pode causar problemas e não é recomendado.\nCaso deseje realmente criar um novo ID de Usuário para este e-mail, sugerimos que você revogue o e‑mail da chave existente primeiro.\n\nDeseja realmente criar um ID de Usuário com esse e‑mail agora?";
+CheckAlert_NewUserIDExistingEmail_Yes = "Gerar ID de Usuário";
+CheckAlert_NewUserIDExistingEmail_No = "Cancelar";
+
 
 MoveSecring_Msg = "Suas chaves secretas estão armazenadas atualmente em “%@”.\nPara movê‑las para outro volume, selecione‑o abaixo.";
 
@@ -241,7 +251,7 @@ DeleteSecKey_Yes = "Apagar Chave(s)";
 DeleteSecKey_SecOnly = "Apagar Apenas Chave(s) Secreta(s)";
 DeleteSecKey_No = "Cancelar";
 
-DeleteRevokedSecKey_Title = "Aviso: você está prestes a apagar par(es) de chaves revogada(s).";
+DeleteRevokedSecKey_Title = "Aviso: você está prestes a apagar par(es) de chaves revogadas.";
 DeleteRevokedSecKey_Msg = "Você está prestes a apagar o(s) seguinte(s) par(es) de chaves revogadas:\n\n%@\n\nChaves revogadas ainda podem descriptografar mensagens antigas criptografadas com essas chaves.\n\nÉ recomendável que você não as apague.";
 DeleteRevokedSecKey_Checkbox = "Sim, desejo apagar minha chave secreta e entendo que não poderei\nmais descriptografar as mensagens criptografadas com esta chave.";
 DeleteRevokedSecKey_Yes = "Apagar Par(es) de Chaves";

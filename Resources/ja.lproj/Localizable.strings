@@ -16,22 +16,22 @@
 
 
 /* Key descriptions */
-"and" = "and";
-KeyDescriptionAndMore = "%1$@ and %2$lu more";
+"and" = "そして";
+KeyDescriptionAndMore = "%1$@そして%2$luつ";
 SecretAndPublicKeyListing = "秘密鍵:\n\n%@\n\n公開鍵:\n\n%@";
 
 
 /* For export, as standard File-Name. */
 "untitled" = "名称未設定";
-"%@ Revoke certificate" = "%@ Revocation certificate";
-ExportKeysFilename = "%@ %u OpenPGP Keys";
+"%@ Revoke certificate" = "%@ 証明書失効";
+ExportKeysFilename = "%@ %u OpenPGP 鍵";
 ExportPublicKeyFilename = "%@ – 公開鍵";
 ExportSecretKeyFilename = "%@ – 秘密鍵";
 
 
 /* For key creation */
 CheckAlert_NoPassphrase_Title = "パスワードが入力されていません";
-CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Message = "パスワードが入力されていません。これは推奨されていません。パスワードは8桁以上にすべきです。";
 CheckAlert_NoPassphrase_Yes = "パスワードなしのまま続ける";
 CheckAlert_NoPassphrase_No = "新しいパスワードを入力";
 CheckAlert_PassphraseSimple_Title = "パスワードが簡単すぎます";
@@ -40,6 +40,16 @@ CheckAlert_PassphraseSimple_Yes = "簡単なパスワードを使う";
 CheckAlert_PassphraseSimple_No = "新しいパスワードを入力";
 CheckAlert_PassphraseTooLong_Title = "パスワードが長ぎます";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
+
+CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
+CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
+CheckAlert_NewKeyExistingEmail_Yes = "鍵を生成";
+CheckAlert_NewKeyExistingEmail_No = "キャンセル";
+
+CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
+CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
+CheckAlert_NewUserIDExistingEmail_Yes = "ユーザ ID を生成";
+CheckAlert_NewUserIDExistingEmail_No = "キャンセル";
 
 
 MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your secret keys to another volume, select the target volume below.";
@@ -74,19 +84,19 @@ CheckError_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\
 CheckError_CommentToLong = "コメントが長すぎます!";
 CheckError_NoKeyID = "有効な鍵IDを入力してください。";
 CheckError_SearchInvalid_Title = "Invalid search query!";
-CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprint.";
+CheckError_SearchInvalid_Msg = "電子メールアドレスまたはフィンガープリントで検索してください。";
 
 
 /* Message on start, if there are any Problems */
-GPG_NOT_FOUND_TITLE = "GPGがみつかりませんでした";
+GPG_NOT_FOUND_TITLE = "GPGが見つかりませんでした";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG設定エラー";
 GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
-LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg がみつかりませんでした";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
+LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg が見つかりませんでした";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpgがあなたのシステム内に見つかりませんでした。GPG Suite をここから再インストールしてください。https://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
-UNKNOWN_GPG_ERROR_TITLE = "不明な GPG エラー";
+UNKNOWN_GPG_ERROR_TITLE = "不明なGPGエラー";
 UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
 
 
@@ -95,18 +105,18 @@ UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown e
 MailKey_Subject = "%@の公開鍵";
 MailKey_Subject_Your = "My public key to secure our messages";
 MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
-MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
+MailKey_Message_Your = "こんにちは、\n\n添付された公開鍵はこちらです。\n\n%@\n\nこの鍵を利用して暗号化して、メッセージを保護できます。\n\n始めるにはOpenPGPをコンピュータにインストールする必要があります。こちらにOSごとの利用方法があります:\n\n%@\n\nローカルのOpenPGP鍵マネージャに鍵をインポートしてください。\n\n暗号化されたメッセージを交換することを楽しみにしています。\n\nよろしくお願いします。";
 MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "新しいメールを作成中…";
 MailKey_Progress_Your = "新しいメールを作成中…";
 MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "利用できない鍵が選択されています";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
 /* A key was found in the pasteboard */
 PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
-PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Msg = "%@\n\n鍵をインポートしてよろしいですか?";
 PasteboardKeyFound_Yes = "インポート";
 PasteboardKeyFound_No = "キャンセル";
 
@@ -120,14 +130,14 @@ Cancel = "キャンセル";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove user ID";
+RemoveUserID_Title = "ユーザIDを削除";
 RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove User ID";
+RemoveUserID_Yes = "ユーザIDを削除";
 RemoveUserID_No = "キャンセル";
 
-RevokeUserID_Title = "Warning: You are about to revoke a user ID";
+RevokeUserID_Title = "警告: ユーザIDを失効させようとしています";
 RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Yes = "ユーザIDを失効";
 RevokeUserID_No = "キャンセル";
 
 RemoveSubkey_Title = "副鍵を削除";
@@ -135,7 +145,7 @@ RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are
 RemoveSubkey_Yes = "副鍵を削除";
 RemoveSubkey_No = "キャンセル";
 
-RevokeSubkey_Title = "Warning: You are about to revoke a subkey";
+RevokeSubkey_Title = "警告: 副鍵を失効させようとしています";
 RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
 RevokeSubkey_Yes = "副鍵を破棄";
 RevokeSubkey_No = "キャンセル";
@@ -165,7 +175,7 @@ RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature o
 RevokeLastSelfSignature_Yes = "署名を破棄";
 RevokeLastSelfSignature_No = "キャンセル";
 
-RevokeKey_Title = "Warning: You are about to revoke a key";
+RevokeKey_Title = "警告: 鍵を破棄させようとしています";
 RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
 RevokeKey_Yes = "Revoke Key";
 RevokeKey_No = "キャンセル";
@@ -189,12 +199,12 @@ NewUserIDWantToUpload_Msg = "In order for others to be able to use your new emai
 NewUserIDWantToUpload_Yes = "公開鍵をアップロード";
 NewUserIDWantToUpload_No = "不要です";
 
-NewSubkeyWantToUpload_Title = "You have successfully added a subkey";
+NewSubkeyWantToUpload_Title = "正常に副鍵が追加されました";
 NewSubkeyWantToUpload_Msg = "In order for others to be able to use your new subkey, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
 NewSubkeyWantToUpload_Yes = "公開鍵をアップロード";
 NewSubkeyWantToUpload_No = "不要です";
 
-ExpirationDateChangedWantToUpload_Title = "You have successfully changed the expiration date";
+ExpirationDateChangedWantToUpload_Title = "正常に有効期限が変更されました";
 ExpirationDateChangedWantToUpload_Msg = "In order for others to be able to see the new expiration date, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
 ExpirationDateChangedWantToUpload_Yes = "公開鍵をアップロード";
 ExpirationDateChangedWantToUpload_No = "不要です";
@@ -318,12 +328,12 @@ ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signat
 ImportKeyErrorPGP_Title = "インポート失敗";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "インポート失敗";
-ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "秘密鍵が見つかりませんでした";
 NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
 
-KeyserverSearchError_Title = "Searching for key failed";
+KeyserverSearchError_Title = "鍵の検索に失敗しました";
 KeyserverSearchError_Msg = "Please repeat your search and see if it works then. Should the problem persist, file a support request via System Preferences > GPG Suite > Send Report. Please copy the entire error message into the description field and add the search term you used for your query. We recommend to include the debug log, since that provides additional helpful information to solve your problem.";
 
 
@@ -383,8 +393,8 @@ MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Minimizing key failed.";
 GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
 GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
-SearchKeysOnServer_Progress = "Searching for key…";
-SendKeysToServer_Progress = "Sending %@ to server…";
+SearchKeysOnServer_Progress = "鍵を検索しています...";
+SendKeysToServer_Progress = "%@をサーバへ送信しています... ";
 SendKeysToServer_Error = "鍵の送信に失敗しました。";
 RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
 RefreshKeysFromServer_Error = "鍵の更新に失敗しました。";
@@ -424,7 +434,7 @@ RevokeKey_Error = "Revoking key failed.";
 
 
 SendToKeyserver_MenuItem = "鍵サーバに送る";
-SendPublicKeyToKeyserver_MenuItem = "Send Public Key to Key Server";
+SendPublicKeyToKeyserver_MenuItem = "公開鍵を鍵サーバへ送信";
 
 FilterNoResults = "The local search for '%@' has no results.";
 FilterNoResultsSecOnly = "The local search for '%@' has no results.\nConsider disabling the option to 'Show secret keys only' to expand the search.";

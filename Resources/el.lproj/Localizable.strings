@@ -41,6 +41,16 @@ CheckAlert_PassphraseSimple_No = "Enter New Password";
 CheckAlert_PassphraseTooLong_Title = "Password too long";
 CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
 
+CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
+CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
+CheckAlert_NewKeyExistingEmail_Yes = "Generate Key";
+CheckAlert_NewKeyExistingEmail_No = "Ακύρωση";
+
+CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
+CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
+CheckAlert_NewUserIDExistingEmail_Yes = "Δημιουργία Ταυτότητας Χρήστη";
+CheckAlert_NewUserIDExistingEmail_No = "Ακύρωση";
+
 
 MoveSecring_Msg = "Τα κρυφά κλειδιά βρίσκονται στο \"%@\".\nΓια να μεταφέρετε τα κρυφά κλειδιά σας σε άλλο δίσκο, επιλέχτε το δίσκο παρακάτω.";
 
@@ -318,7 +328,7 @@ ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signat
 ImportKeyErrorPGP_Title = "Import Failed";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import failed";
-ImportKeyErrorNoPGP_Msg = "It seems that you're trying to import some non PGP related data that can't be processed.";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "No secret key found";
 NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
