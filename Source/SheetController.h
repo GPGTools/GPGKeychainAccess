@@ -56,7 +56,6 @@ enum {
 @property (nonatomic, strong) NSArray *algorithmPreferences, *keys, *emailAddresses, *secretKeys, *availableLengths, *allowedFileTypes;
 @property (nonatomic) NSInteger exportFormat, keyType, length, sheetType;
 @property (nonatomic, strong, readonly) NSArray *foundKeyDicts;
-@property (nonatomic, readonly) NSInteger daysToExpire;
 @property (nonatomic, strong) GPGKey *secretKey;
 @property (nonatomic, strong) GPGKey *publicKey;
 @property (nonatomic, strong) NSArray *userIDs;

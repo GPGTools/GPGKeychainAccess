@@ -814,9 +814,6 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	}
 }
 
-- (NSInteger)daysToExpire {
-	return self.hasExpirationDate ? self.expirationDate.daysSinceNow : 0;
-}
 - (GPGKey *)secretKey {
 	NSArray *selectedSecretKeys = [_secretKeysController selectedObjects];
 	return selectedSecretKeys.count > 0 ? selectedSecretKeys[0] : nil;

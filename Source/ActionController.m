@@ -971,7 +971,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 					   keyLength:(int)self.sheetController.length
 					  subkeyType:subkeyType
 					subkeyLength:(int)self.sheetController.length
-					daysToExpire:(int)self.sheetController.daysToExpire
+					expirationDate:self.sheetController.hasExpirationDate ? self.sheetController.expirationDate : nil
 					 preferences:nil];
 }
 - (IBAction)deleteKey:(id)sender {
@@ -1154,7 +1154,9 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	
 	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"ExpirationDateChangedWantToUpload"]]};
 	
-	[gpgc setExpirationDateForSubkey:subkey fromKey:key daysToExpire:self.sheetController.daysToExpire];
+	[gpgc setExpirationDate:self.sheetController.hasExpirationDate ? self.sheetController.expirationDate : nil
+				 forSubkeys:subkey ? @[subkey] : nil
+					  ofKey:key];
 }
 - (IBAction)editAlgorithmPreferences:(id)sender {
 	NSArray *keys = [self selectedKeys];
@@ -1899,7 +1901,10 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	
 	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"NewSubkeyWantToUpload"]]};
 
-	[gpgc addSubkeyToKey:key type:self.sheetController.keyType length:self.sheetController.length daysToExpire:self.sheetController.daysToExpire];
+	[gpgc addSubkeyToKey:key
+					type:self.sheetController.keyType
+				  length:self.sheetController.length
+			expirationDate:self.sheetController.hasExpirationDate ? self.sheetController.expirationDate : nil];
 }
 - (IBAction)removeSubkey:(id)sender {
 	NSArray *objects = [self selectedObjectsOf:subkeysTable];
@@ -2362,22 +2367,10 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	
 	gpgc.userInfo = @{@"action": @[callback]};
 	
-	if ([gpgc respondsToSelector:@selector(signUserIDs:signerKey:local:daysToExpire:)]) {
-		[gpgc signUserIDs:userIDs
-				signerKey:self.sheetController.secretKey
-					local:!self.sheetController.publish
-			 daysToExpire:(int)self.sheetController.daysToExpire];
-	} else {
-		// This is only a workaround for old Libmacgpg versions.
-		for (GPGUserID *uid in userIDs) {
-			[gpgc signUserID:uid.hashID
-					   ofKey:key
-					 signKey:self.sheetController.secretKey
-						type:0
-					   local:!self.sheetController.publish
-				daysToExpire:(int)self.sheetController.daysToExpire];
-		}
-	}
+	[gpgc signUserIDs:userIDs
+			signerKey:self.sheetController.secretKey
+				local:!self.sheetController.publish
+		 expirationDate:self.sheetController.hasExpirationDate ? self.sheetController.expirationDate : nil];
 }
 - (IBAction)removeSignature:(id)sender {
 	NSArray *objects = [self selectedObjectsOf:signaturesTable];
