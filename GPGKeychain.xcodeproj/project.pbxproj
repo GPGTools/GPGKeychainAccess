@@ -35,7 +35,6 @@
 		3052E37D144B082B00D6716A /* gpgkey.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2CE144B079F00D6716A /* gpgkey.icns */; };
 		3052E37E144B082B00D6716A /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2CF144B079F00D6716A /* Icon.icns */; };
 		3052E385144B083100D6716A /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3052E2E0144B07AC00D6716A /* LICENSE.txt */; };
-		3058A61D19D5B65D008568EA /* PLWeakCompatibilityStubs.m in Sources */ = {isa = PBXBuildFile; fileRef = 3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */; };
 		306E87271CB2A7E9001C06A0 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 306E87261CB2A7E9001C06A0 /* ScriptingBridge.framework */; };
 		307F50442139517B00D96653 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 307F503F2139517B00D96653 /* libsqlite3.tbd */; };
 		3092C3CC20A1C4490071F648 /* Zxcvbn.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3092C3C820A1C4150071F648 /* Zxcvbn.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -219,8 +218,6 @@
 		3052E361144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3052E364144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/ModalSheets.strings; sourceTree = "<group>"; };
 		3052E366144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.strings; sourceTree = "<group>"; };
-		3058A61B19D5B65D008568EA /* PLWeakCompatibilityStubs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PLWeakCompatibilityStubs.h; sourceTree = "<group>"; };
-		3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PLWeakCompatibilityStubs.m; sourceTree = "<group>"; };
 		306E87261CB2A7E9001C06A0 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		307B0081148EE19E00182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ModalSheets.strings; sourceTree = "<group>"; };
 		307F503F2139517B00D96653 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -390,8 +387,6 @@
 				30C2FB5320F4FEF20076FA73 /* GKSignaturesController.m */,
 				30ECA2C8194C8AB800C1E761 /* GKAExtensions.h */,
 				30ECA2C9194C8AB800C1E761 /* GKAExtensions.m */,
-				3058A61B19D5B65D008568EA /* PLWeakCompatibilityStubs.h */,
-				3058A61C19D5B65D008568EA /* PLWeakCompatibilityStubs.m */,
 			);
 			name = Classes;
 			path = Source;
@@ -476,7 +471,7 @@
 		3052E101144B016300D6716A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					3052E109144B016400D6716A = {
 						SystemCapabilities = {
@@ -691,7 +686,6 @@
 				3047D38E18B7C626001D9334 /* GKMenuButton.m in Sources */,
 				3052E173144B021D00D6716A /* ActionController.m in Sources */,
 				3052E174144B021D00D6716A /* AppDelegate.m in Sources */,
-				3058A61D19D5B65D008568EA /* PLWeakCompatibilityStubs.m in Sources */,
 				30C2FB5420F4FEF20076FA73 /* GKSignaturesController.m in Sources */,
 				3052E175144B021D00D6716A /* Globales.m in Sources */,
 				3052E177144B021D00D6716A /* KeychainController.m in Sources */,
@@ -948,10 +942,6 @@
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks /Library/Frameworks $(HOME)/Library/Frameworks";
 				LOCALIZE = YES;
-				OTHER_CFLAGS = (
-					"-Xclang",
-					"-fobjc-runtime-has-weak",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -978,10 +968,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks";
 				LLVM_LTO = YES;
 				LOCALIZE = YES;
-				OTHER_CFLAGS = (
-					"-Xclang",
-					"-fobjc-runtime-has-weak",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -1043,10 +1029,6 @@
 				INFOPLIST_FILE = Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks /Library/Frameworks $(HOME)/Library/Frameworks";
 				LOCALIZE = NO;
-				OTHER_CFLAGS = (
-					"-Xclang",
-					"-fobjc-runtime-has-weak",
-				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
