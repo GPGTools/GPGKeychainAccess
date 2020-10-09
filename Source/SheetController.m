@@ -460,6 +460,11 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 		cancelButtonTag = NSAlertFirstButtonReturn;
 	}
 	
+	if (@available(macOS 10.16, *)) {
+		// Define a minimum alert width for macOS Big Sur
+		alert.accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 350, 0)];
+	}
+	
 	if (cancelButtonTag != 0) {
 		// Add an invisible button to the dialog, so an user can close it by pressing the escape-key
 
