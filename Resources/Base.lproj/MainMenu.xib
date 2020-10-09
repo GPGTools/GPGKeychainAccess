@@ -475,7 +475,7 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="4AAAD79F-CE85-4575-92B9-E91BA1C2FB23" displayMode="iconAndLabel" sizeMode="regular" id="718">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="06410532-607A-4068-AD66-5F2F02DFF9EF" label="New" paletteLabel="New" toolTip="New Key" image="Add" id="729">
+                    <toolbarItem implicitItemIdentifier="06410532-607A-4068-AD66-5F2F02DFF9EF" label="New" paletteLabel="New" toolTip="New Key" image="Add" id="729" customClass="GPGToolbarItem">
                         <size key="minSize" width="37" height="25"/>
                         <size key="maxSize" width="37" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="fcF-YF-ITs">
@@ -505,7 +505,7 @@
                             <action selector="importKey:" target="1178" id="5ax-8g-jLR"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="D73630E7-60D7-409F-B9EF-F4FD25157B2B" label="Export" paletteLabel="Export" toolTip="Export" image="Export" id="730">
+                    <toolbarItem implicitItemIdentifier="D73630E7-60D7-409F-B9EF-F4FD25157B2B" label="Export" paletteLabel="Export" toolTip="Export" image="Export" id="730" customClass="GPGToolbarItem">
                         <size key="minSize" width="37" height="25"/>
                         <size key="maxSize" width="37" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="ylm-Ve-txG">
@@ -520,7 +520,7 @@
                             <action selector="exportKey:" target="1178" id="f1d-uf-4iD"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="96BB5CE0-2587-47CB-94CD-B5EF8B79ABCF" label="Lookup Key" paletteLabel="Lookup Key" toolTip="Lookup Key" image="Search" id="SGr-SW-ieo">
+                    <toolbarItem implicitItemIdentifier="96BB5CE0-2587-47CB-94CD-B5EF8B79ABCF" label="Lookup Key" paletteLabel="Lookup Key" toolTip="Lookup Key" image="Search" id="SGr-SW-ieo" customClass="GPGToolbarItem">
                         <size key="minSize" width="37" height="25"/>
                         <size key="maxSize" width="37" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="c39-u8-ldo">
@@ -535,7 +535,7 @@
                             <action selector="searchKeys:" target="1178" id="C7f-bd-pBe"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="AFB78A50-6CFC-4B10-B879-CF83822144ED" label="Delete" paletteLabel="Delete" toolTip="Delete" image="Delete" id="1421">
+                    <toolbarItem implicitItemIdentifier="AFB78A50-6CFC-4B10-B879-CF83822144ED" label="Delete" paletteLabel="Delete" toolTip="Delete" image="Delete" id="1421" customClass="GPGToolbarItem">
                         <size key="minSize" width="37" height="25"/>
                         <size key="maxSize" width="37" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="YP0-IR-WqX">
@@ -550,7 +550,7 @@
                             <action selector="deleteKey:" target="1178" id="70R-Pg-gdx"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="8657F548-AA92-400A-AA28-018298DD76E4" label="Details" paletteLabel="Details" toolTip="Details" image="Info" id="2115">
+                    <toolbarItem implicitItemIdentifier="8657F548-AA92-400A-AA28-018298DD76E4" label="Details" paletteLabel="Details" toolTip="Details" image="Info" id="2115" customClass="GPGToolbarItem">
                         <size key="minSize" width="37" height="25"/>
                         <size key="maxSize" width="37" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="e2l-Ha-Y0U">
@@ -565,7 +565,7 @@
                             <action selector="toggleInspector:" target="494" id="yTm-eS-RnD"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="B202D568-D7E9-49F2-8AC7-44B577940F90" label="" paletteLabel="" id="728">
+                    <toolbarItem implicitItemIdentifier="B202D568-D7E9-49F2-8AC7-44B577940F90" label="" paletteLabel="" id="728" customClass="GPGToolbarItem">
                         <nil key="toolTip"/>
                         <size key="minSize" width="100" height="22"/>
                         <size key="maxSize" width="200" height="22"/>
@@ -2433,7 +2433,7 @@ IA
                                                     <rect key="frame" x="17" y="236" width="392" height="191"/>
                                                     <clipView key="contentView" id="97f-Hf-HbR">
                                                         <rect key="frame" x="1" y="0.0" width="390" height="190"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveName="subkeysTable" headerView="NzI-w2-TNg" id="Phv-dG-mjf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="167"/>
