@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1090" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,16 +27,16 @@
             <value key="maxSize" type="size" width="448" height="258"/>
             <view key="contentView" id="3">
                 <rect key="frame" x="0.0" y="0.0" width="401" height="90"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="FF437343-7809-40CE-ADEE-F501EC69A8A6" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="87">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="609D3507-AAD7-4DE9-9AB3-328CB4D80420" explicitItemIdentifier="keyserver" label="Key server" paletteLabel="Key server" tag="-1" image="Keyserver" autovalidates="NO" selectable="YES" id="95">
+                    <toolbarItem implicitItemIdentifier="609D3507-AAD7-4DE9-9AB3-328CB4D80420" explicitItemIdentifier="keyserver" label="Key server" paletteLabel="Key server" tag="-1" image="Keyserver" autovalidates="NO" selectable="YES" id="95" customClass="GPGToolbarItem">
                         <connections>
                             <action selector="selectTab:" target="-2" id="134"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="8ABDB856-CACE-4F60-A69C-19F79CDA46BE" explicitItemIdentifier="updates" label="Updates" paletteLabel="Updates" tag="-1" image="Updates" autovalidates="NO" selectable="YES" id="96">
+                    <toolbarItem implicitItemIdentifier="8ABDB856-CACE-4F60-A69C-19F79CDA46BE" explicitItemIdentifier="updates" label="Updates" paletteLabel="Updates" tag="-1" image="Updates" autovalidates="NO" selectable="YES" id="96" customClass="GPGToolbarItem">
                         <connections>
                             <action selector="selectTab:" target="-2" id="135"/>
                         </connections>
@@ -135,7 +135,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="149">
-                    <rect key="frame" x="20" y="100" width="311" height="26"/>
+                    <rect key="frame" x="20" y="101" width="311" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="308" id="QVV-xg-3ig"/>
                     </constraints>
@@ -176,7 +176,7 @@
                     </connections>
                 </progressIndicator>
                 <button horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="IBE-EH-kir">
-                    <rect key="frame" x="18" y="67" width="316" height="18"/>
+                    <rect key="frame" x="18" y="68" width="316" height="18"/>
                     <buttonCell key="cell" type="check" title="Show revoked and expired keys in search results" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="u5F-TJ-cmV">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -192,7 +192,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aJh-Ad-nZb">
-                    <rect key="frame" x="18" y="67" width="209" height="18"/>
+                    <rect key="frame" x="18" y="68" width="209" height="18"/>
                     <buttonCell key="cell" type="check" title="Use old key servers as fallback" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6Ga-Wh-yR1">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -208,7 +208,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Enb-bl-CHG">
-                    <rect key="frame" x="18" y="33" width="312" height="28"/>
+                    <rect key="frame" x="18" y="34" width="312" height="28"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="When no key is found on keys.openpgp.org continue search using the old key servers." id="3hc-yG-IHp">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -257,7 +257,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Kf7-X6-gHu">
-                    <rect key="frame" x="18" y="92" width="55" height="17"/>
+                    <rect key="frame" x="18" y="92" width="55" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="51" id="zAt-nq-gBU"/>
                     </constraints>
@@ -268,7 +268,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WFj-Qt-j9u">
-                    <rect key="frame" x="77" y="92" width="409" height="17"/>
+                    <rect key="frame" x="77" y="92" width="409" height="16"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="hIO-af-jLM">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>

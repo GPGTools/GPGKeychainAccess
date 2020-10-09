@@ -25,7 +25,9 @@
 										   @"Export": @"square.and.arrow.up",
 										   @"Search": @"magnifyingglass",
 										   @"Delete": @"trash",
-										   @"Info": @"info"};
+										   @"Info": @"info",
+										   @"Updates": @"square.and.arrow.down.fill",
+										   @"Keyserver": @"key.icloud"};
 			NSString *newImageName = imageNameMap[imageName];
 			if (newImageName) {
 				if ([NSImage respondsToSelector:@selector(imageWithSystemSymbolName:accessibilityDescription:)]) {
