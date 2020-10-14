@@ -56,7 +56,7 @@
                         <rect key="frame" x="20" y="43" width="1065" height="490"/>
                         <clipView key="contentView" id="vCm-4D-amE">
                             <rect key="frame" x="1" y="0.0" width="1063" height="489"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="KeyList" headerView="591" id="590" customClass="GKTableView">
                                     <rect key="frame" x="0.0" y="0.0" width="1063" height="466"/>
@@ -490,7 +490,7 @@
                             <action selector="generateNewKey:" target="1178" id="6gC-vm-jlN"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="C2A62274-23EE-4245-8614-0963DC4DA01A" label="Import" paletteLabel="Import" toolTip="Import" image="Import" id="731">
+                    <toolbarItem implicitItemIdentifier="C2A62274-23EE-4245-8614-0963DC4DA01A" label="Import" paletteLabel="Import" toolTip="Import" image="Import" id="731" customClass="GPGToolbarItem">
                         <size key="minSize" width="37" height="25"/>
                         <size key="maxSize" width="37" height="25"/>
                         <button key="view" verticalHuggingPriority="750" id="R9s-tT-fJM">
@@ -1976,13 +1976,13 @@ IA
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9x-Fv-A5G">
-                                                                    <rect key="frame" x="20" y="30" width="392" height="145"/>
+                                                                    <rect key="frame" x="20" y="33" width="392" height="142"/>
                                                                     <clipView key="contentView" id="cYY-Bm-u71">
-                                                                        <rect key="frame" x="1" y="0.0" width="390" height="144"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <rect key="frame" x="1" y="0.0" width="390" height="141"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveName="userIDsTable" headerView="grl-ch-lFh" id="6Ho-ob-hmK" userLabel="UserIDs Table">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="390" height="121"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="390" height="118"/>
                                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2072,7 +2072,7 @@ IA
                                                                     </tableHeaderView>
                                                                 </scrollView>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="3aT-pN-jGA" customClass="GKMenuButton">
-                                                                    <rect key="frame" x="40" y="0.0" width="21" height="22"/>
+                                                                    <rect key="frame" x="40" y="2" width="21" height="23"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="21" id="esL-XV-tU3"/>
                                                                     </constraints>
@@ -2085,8 +2085,9 @@ IA
                                                                     </connections>
                                                                 </button>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="YHy-SJ-Lo4">
-                                                                    <rect key="frame" x="20" y="0.0" width="21" height="22"/>
+                                                                    <rect key="frame" x="20" y="2" width="21" height="23"/>
                                                                     <constraints>
+                                                                        <constraint firstAttribute="height" constant="23" id="LFr-s2-avK"/>
                                                                         <constraint firstAttribute="width" constant="21" id="Xqx-vK-dGo"/>
                                                                     </constraints>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" id="oRt-yu-SZN">
@@ -2152,15 +2153,16 @@ IA
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="S9x-Fv-A5G" firstAttribute="leading" secondItem="q0Z-o2-jg3" secondAttribute="leading" constant="20" symbolic="YES" id="0Zx-if-YwQ"/>
+                                                                <constraint firstItem="YHy-SJ-Lo4" firstAttribute="height" secondItem="3aT-pN-jGA" secondAttribute="height" id="2hf-hW-LU4"/>
                                                                 <constraint firstItem="S9x-Fv-A5G" firstAttribute="leading" secondItem="YHy-SJ-Lo4" secondAttribute="leading" id="7JL-kH-G9k"/>
                                                                 <constraint firstAttribute="trailing" secondItem="S9x-Fv-A5G" secondAttribute="trailing" constant="20" symbolic="YES" id="M2C-Gg-F1l"/>
                                                                 <constraint firstItem="5ih-Tm-B7V" firstAttribute="leading" secondItem="B37-qV-3eS" secondAttribute="trailing" constant="8" symbolic="YES" id="Q4a-Xn-z79"/>
                                                                 <constraint firstItem="S9x-Fv-A5G" firstAttribute="top" secondItem="q0Z-o2-jg3" secondAttribute="top" id="TWs-en-feM"/>
+                                                                <constraint firstItem="YHy-SJ-Lo4" firstAttribute="top" secondItem="3aT-pN-jGA" secondAttribute="top" id="WaJ-GX-3WM"/>
                                                                 <constraint firstItem="3aT-pN-jGA" firstAttribute="leading" secondItem="YHy-SJ-Lo4" secondAttribute="trailing" constant="-1" id="e76-2I-O0Q"/>
                                                                 <constraint firstItem="YHy-SJ-Lo4" firstAttribute="top" secondItem="S9x-Fv-A5G" secondAttribute="bottom" constant="8" symbolic="YES" id="eNM-Ka-T43"/>
                                                                 <constraint firstItem="B37-qV-3eS" firstAttribute="baseline" secondItem="5ih-Tm-B7V" secondAttribute="baseline" id="ero-wh-m37"/>
-                                                                <constraint firstItem="YHy-SJ-Lo4" firstAttribute="baseline" secondItem="3aT-pN-jGA" secondAttribute="baseline" id="j5x-wQ-rxN"/>
-                                                                <constraint firstAttribute="bottom" secondItem="YHy-SJ-Lo4" secondAttribute="bottom" id="jTu-QQ-DLX"/>
+                                                                <constraint firstAttribute="bottom" secondItem="YHy-SJ-Lo4" secondAttribute="bottom" constant="2" id="jTu-QQ-DLX"/>
                                                                 <constraint firstItem="B37-qV-3eS" firstAttribute="leading" secondItem="3aT-pN-jGA" secondAttribute="trailing" constant="8" symbolic="YES" id="kod-3Y-K31"/>
                                                                 <constraint firstAttribute="bottom" secondItem="B37-qV-3eS" secondAttribute="bottom" constant="5" id="qdF-P7-6rL"/>
                                                             </constraints>
@@ -2170,7 +2172,7 @@ IA
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <button translatesAutoresizingMaskIntoConstraints="NO" id="CDf-ni-Qfh" customClass="GKMenuButton">
-                                                                    <rect key="frame" x="40" y="20" width="21" height="22"/>
+                                                                    <rect key="frame" x="40" y="20" width="21" height="23"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="21" id="RQ4-nQ-on5"/>
                                                                     </constraints>
@@ -2184,13 +2186,13 @@ IA
                                                                     </connections>
                                                                 </button>
                                                                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaG-RE-Oc3">
-                                                                    <rect key="frame" x="20" y="50" width="392" height="176"/>
+                                                                    <rect key="frame" x="20" y="51" width="392" height="175"/>
                                                                     <clipView key="contentView" id="Rjj-nQ-dJc">
-                                                                        <rect key="frame" x="1" y="0.0" width="390" height="175"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <rect key="frame" x="1" y="0.0" width="390" height="174"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveName="signaturesTable" headerView="kNE-rm-6Iw" id="4f6-IT-Ksz" userLabel="Signatures Table">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="390" height="152"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="390" height="151"/>
                                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -2364,9 +2366,10 @@ IA
                                                                     </connections>
                                                                 </progressIndicator>
                                                                 <button tag="1" translatesAutoresizingMaskIntoConstraints="NO" id="uVx-Cg-lEI">
-                                                                    <rect key="frame" x="20" y="20" width="21" height="22"/>
+                                                                    <rect key="frame" x="20" y="20" width="21" height="23"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="21" id="XbL-xr-7Nn"/>
+                                                                        <constraint firstAttribute="height" constant="23" id="rmJ-h2-hDT"/>
                                                                     </constraints>
                                                                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" id="5rD-fQ-bvD">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2433,7 +2436,7 @@ IA
                                                     <rect key="frame" x="17" y="236" width="392" height="191"/>
                                                     <clipView key="contentView" id="97f-Hf-HbR">
                                                         <rect key="frame" x="1" y="0.0" width="390" height="190"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveName="subkeysTable" headerView="NzI-w2-TNg" id="Phv-dG-mjf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="167"/>
@@ -2916,9 +2919,9 @@ IA
                                                 <constraint firstItem="zq7-YH-dos" firstAttribute="top" secondItem="57z-Pi-DXi" secondAttribute="bottom" constant="8" id="C1v-z6-EE5"/>
                                                 <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="d88-ar-7Qy" secondAttribute="width" id="EJg-3w-Li1"/>
                                                 <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="57z-Pi-DXi" secondAttribute="width" id="Iux-C4-2Pb"/>
+                                                <constraint firstItem="iKI-hJ-DAw" firstAttribute="height" secondItem="5vH-ru-YLL" secondAttribute="height" id="KHc-3c-a2n"/>
                                                 <constraint firstItem="zq7-YH-dos" firstAttribute="width" secondItem="j21-FN-3lh" secondAttribute="width" id="Kn0-dg-F8Q"/>
                                                 <constraint firstItem="5vH-ru-YLL" firstAttribute="top" secondItem="lPK-aM-tXG" secondAttribute="bottom" constant="8" id="L0C-fU-Xwz"/>
-                                                <constraint firstItem="iKI-hJ-DAw" firstAttribute="baseline" secondItem="5vH-ru-YLL" secondAttribute="baseline" id="MxJ-tR-rHc"/>
                                                 <constraint firstItem="zq7-YH-dos" firstAttribute="leading" secondItem="57z-Pi-DXi" secondAttribute="leading" id="Nor-vc-5si"/>
                                                 <constraint firstItem="hXz-JW-tHw" firstAttribute="leading" secondItem="r0A-3i-riC" secondAttribute="leading" id="O4Y-Re-PkW"/>
                                                 <constraint firstItem="57z-Pi-DXi" firstAttribute="top" secondItem="jhi-P8-cIV" secondAttribute="bottom" constant="8" id="PGE-tM-1eU"/>
@@ -2981,7 +2984,7 @@ IA
                     <constraint firstAttribute="trailing" secondItem="U2l-O3-zDl" secondAttribute="trailing" id="mv3-qq-LfY"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-367" y="-209"/>
+            <point key="canvasLocation" x="-367" y="-209.5"/>
         </window>
     </objects>
     <resources>
