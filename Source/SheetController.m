@@ -26,6 +26,7 @@
 #import <Zxcvbn/Zxcvbn.h>
 #import <CommonCrypto/CommonDigest.h>
 #import <sqlite3.h>
+#import <Contacts/Contacts.h>
 
 
 
@@ -1321,6 +1322,13 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 			
 		} else {
 			NSDictionary<NSString *, NSString *> *emailAddresses = [self getUserEmailAddresses];
+            if (@available(macOS 10.16, *)) {
+                NSDictionary<NSString *, NSString *> *meEmailAddresses = [self getMeContactEmailAddresses];
+                NSMutableDictionary *allEmailAddresses = [NSMutableDictionary dictionaryWithDictionary:emailAddresses];
+                [allEmailAddresses addEntriesFromDictionary:meEmailAddresses];
+                emailAddresses = allEmailAddresses;
+            }
+            
 			
 			NSArray *addresses = emailAddresses.allKeys;
 			NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)];
@@ -1468,6 +1476,47 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 	}
 	
 	return [NSDictionary dictionaryWithDictionary:emailAddresses];
+}
+- (NSDictionary<NSString *, NSString *> *)getMeContactEmailAddresses API_AVAILABLE(macos(10.16)); {
+	// Return a dictionary with the email-addresses as keys and the name as values.
+
+	NSMutableDictionary<NSString *, NSString *> *emailAddresses = [NSMutableDictionary dictionary];
+
+    @try {
+        CNContactStore *contactStore = [CNContactStore new];
+        CNContact *meContact = [contactStore unifiedMeContactWithKeysToFetch:@[
+            CNContactEmailAddressesKey, CNContactGivenNameKey, CNContactFamilyNameKey]
+                                                                       error:nil];
+		
+        if (meContact) {
+            NSArray<CNLabeledValue<NSString *> *> *meAddresses = meContact.emailAddresses;
+			NSString *givenName = meContact.givenName;
+            NSString *familyName = meContact.familyName;
+			NSString *fullName = @"";
+			
+			if (givenName.length > 0 && familyName.length > 0) {
+				fullName = [givenName stringByAppendingFormat:@" %@", familyName];
+			} else if (givenName.length > 0) {
+				fullName = givenName;
+			} else if (familyName.length > 0) {
+				fullName = familyName;
+			}
+            
+            for (CNLabeledValue *email in meAddresses) {
+                [emailAddresses setObject:fullName forKey:email.value];
+            }
+            
+            if (emailAddresses.count == 0) {
+				// Add only the name.
+                [emailAddresses setObject:fullName forKey:@""];
+            }
+        }
+
+    } @catch (NSException *exception) {
+        // Ignore
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:emailAddresses];
 }
 
 
