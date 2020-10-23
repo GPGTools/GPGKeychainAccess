@@ -222,6 +222,7 @@
 		3052E364144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/ModalSheets.strings; sourceTree = "<group>"; };
 		3052E366144B07E900D6716A /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Preferences.strings; sourceTree = "<group>"; };
 		3059AF912542D17200B94BF6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3059AF932542E58D00B94BF6 /* GPG Keychain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GPG Keychain.entitlements"; sourceTree = "<group>"; };
 		306E87261CB2A7E9001C06A0 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		307B0081148EE19E00182622 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/ModalSheets.strings; sourceTree = "<group>"; };
 		307F503F2139517B00D96653 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -261,7 +262,6 @@
 		30D2004817026A6F00A3A47C /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Preferences.strings; sourceTree = "<group>"; };
 		30D2004A17026A7600A3A47C /* da */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		30D4338F2542C668008EB383 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
-		30D433912542CC44008EB383 /* GPG KeychainDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "GPG KeychainDebug.entitlements"; sourceTree = "<group>"; };
 		30E1887E1B1C9F890028BEC6 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/MainMenu.strings; sourceTree = "<group>"; };
 		30E1887F1B1C9F890028BEC6 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/ModalSheets.strings; sourceTree = "<group>"; };
 		30E188851B1C9F890028BEC6 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Preferences.strings; sourceTree = "<group>"; };
@@ -326,7 +326,7 @@
 		3052E0FF144B016300D6716A = {
 			isa = PBXGroup;
 			children = (
-				30D433912542CC44008EB383 /* GPG KeychainDebug.entitlements */,
+				3059AF932542E58D00B94BF6 /* GPG Keychain.entitlements */,
 				3014396917732F800088B59F /* Libmacgpg.xcodeproj */,
 				3092C3BE20A1C4150071F648 /* Zxcvbn.xcodeproj */,
 				3052E15E144B01EC00D6716A /* Classes */,
@@ -954,7 +954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_ENTITLEMENTS = "GPG KeychainDebug.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "GPG Keychain.entitlements";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PKV8ZPD836;
@@ -983,6 +983,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "GPG Keychain.entitlements";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PKV8ZPD836;
@@ -1048,6 +1049,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "GPG Keychain.entitlements";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PKV8ZPD836;
