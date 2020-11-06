@@ -27,7 +27,7 @@
 										   @"Delete": @"trash",
 										   @"Info": @"info",
 										   @"Updates": @"square.and.arrow.down.fill",
-										   @"Keyserver": @"key.icloud"};
+										   @"Keyserver": @"cloud"};
 			NSString *newImageName = imageNameMap[imageName];
 			if (newImageName) {
 				if ([NSImage respondsToSelector:@selector(imageWithSystemSymbolName:accessibilityDescription:)]) {
