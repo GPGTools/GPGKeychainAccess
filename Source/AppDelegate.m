@@ -288,10 +288,10 @@
 }
 
 - (IBAction)showHelp:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://support.gpgtools.org/kb/gpg-keychain-faq/"]];
 }
 - (IBAction)showSupport:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://support.gpgtools.org/"]];
 }
 - (IBAction)sendReport:(id)sender {
 	BOOL success = [GPGTask showGPGSuitePreferencesTab:@"report" arguments:nil];

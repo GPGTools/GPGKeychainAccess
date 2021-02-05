@@ -1599,7 +1599,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 
 }
 - (void)openKeyServerSwitchFAQ:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/faq/key-server"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://support.gpgtools.org/kb/faq/key-server"]];
 }
 - (void)askForKeyUpload {
 	GPGOptions *options = [GPGOptions sharedOptions];

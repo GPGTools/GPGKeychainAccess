@@ -754,7 +754,7 @@ static void * const selectedUserIDsContext = @"selectedUserIDs";
 }
 
 - (IBAction)openKeyServerUploadFAQ:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/upload-and-verify-a-key-on-keysopenpgporg"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://support.gpgtools.org/kb/gpg-keychain-faq/upload-and-verify-your-public-key"]];
 }
 
 
