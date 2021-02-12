@@ -21,12 +21,12 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="2" userLabel="Preferences Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="596" y="717" width="401" height="90"/>
+            <rect key="contentRect" x="596" y="717" width="480" height="90"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
-            <value key="minSize" type="size" width="446" height="258"/>
-            <value key="maxSize" type="size" width="448" height="258"/>
+            <value key="minSize" type="size" width="480" height="258"/>
+            <value key="maxSize" type="size" width="480" height="258"/>
             <view key="contentView" id="3">
-                <rect key="frame" x="0.0" y="0.0" width="401" height="90"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="90"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             </view>
             <toolbar key="toolbar" implicitIdentifier="FF437343-7809-40CE-ADEE-F501EC69A8A6" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="87">
@@ -53,10 +53,10 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="49"/>
             </connections>
-            <point key="canvasLocation" x="113" y="43"/>
+            <point key="canvasLocation" x="113" y="-22"/>
         </window>
         <customView id="104" userLabel="Updates">
-            <rect key="frame" x="0.0" y="0.0" width="401" height="144"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="144"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="m5w-5c-8XI">
@@ -131,11 +131,11 @@
             <point key="canvasLocation" x="668.5" y="234"/>
         </customView>
         <customView id="136" userLabel="Key server">
-            <rect key="frame" x="0.0" y="0.0" width="401" height="144"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="144"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="149">
-                    <rect key="frame" x="20" y="101" width="311" height="25"/>
+                    <rect key="frame" x="20" y="101" width="390" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="308" id="QVV-xg-3ig"/>
                     </constraints>
@@ -151,7 +151,7 @@
                     </connections>
                 </comboBox>
                 <button translatesAutoresizingMaskIntoConstraints="NO" id="173">
-                    <rect key="frame" x="360" y="102" width="21" height="21"/>
+                    <rect key="frame" x="439" y="102" width="21" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="Ec4-qo-J11"/>
                         <constraint firstAttribute="width" constant="21" id="xxX-Ay-qcN"/>
@@ -166,7 +166,7 @@
                     </connections>
                 </button>
                 <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="nRW-bT-15X">
-                    <rect key="frame" x="336" y="105" width="16" height="16"/>
+                    <rect key="frame" x="415" y="105" width="16" height="16"/>
                     <connections>
                         <binding destination="-2" name="hidden" keyPath="testingServer" id="Jpy-NF-RNw">
                             <dictionary key="options">
@@ -208,7 +208,7 @@
                     </connections>
                 </button>
                 <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Enb-bl-CHG">
-                    <rect key="frame" x="18" y="34" width="312" height="28"/>
+                    <rect key="frame" x="18" y="34" width="391" height="28"/>
                     <textFieldCell key="cell" controlSize="small" sendsActionOnEndEditing="YES" title="When no key is found on keys.openpgp.org continue search using the old key servers." id="3hc-yG-IHp">
                         <font key="font" metaFont="smallSystem"/>
                         <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -239,7 +239,7 @@
                 <constraint firstItem="aJh-Ad-nZb" firstAttribute="firstBaseline" secondItem="IBE-EH-kir" secondAttribute="firstBaseline" id="vOm-Pn-jdI"/>
                 <constraint firstItem="Enb-bl-CHG" firstAttribute="width" secondItem="149" secondAttribute="width" priority="251" id="xCh-S9-dWh"/>
             </constraints>
-            <point key="canvasLocation" x="221.5" y="234"/>
+            <point key="canvasLocation" x="113" y="194"/>
         </customView>
         <customView id="37A-tH-GDw" userLabel="Keyring">
             <rect key="frame" x="0.0" y="0.0" width="504" height="231"/>
@@ -301,6 +301,7 @@
                 <constraint firstItem="WFj-Qt-j9u" firstAttribute="leading" secondItem="Kf7-X6-gHu" secondAttribute="trailing" constant="8" symbolic="YES" id="rNj-Pe-oPz"/>
                 <constraint firstItem="Yej-1m-wwE" firstAttribute="top" secondItem="37A-tH-GDw" secondAttribute="top" constant="20" symbolic="YES" id="tiG-4t-fF9"/>
             </constraints>
+            <point key="canvasLocation" x="140" y="-329"/>
         </customView>
         <toolbarItem implicitItemIdentifier="5B57EC91-4E5F-49EC-BBEF-A3530CACE777" explicitItemIdentifier="keyring" label="Keyring" paletteLabel="Keyring" tag="-1" image="Keyring" autovalidates="NO" selectable="YES" id="YlP-Zk-RFe">
             <connections>
