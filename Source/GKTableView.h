@@ -6,5 +6,3 @@
 @property BOOL clickedRowWasSelected;
 @end
 
-@interface GKTableHeaderView : NSTableHeaderView
-@end
