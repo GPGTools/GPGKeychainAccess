@@ -29,6 +29,7 @@
 	
 	NSView *view;
 	NSArray *topLevelObjects;
+	NSWindow *_window;
 }
 
 @property (strong) IBOutlet NSWindow *window;

@@ -34,7 +34,6 @@
 
 
 @implementation PreferencesController
-@synthesize window;
 @synthesize testingServer;
 @synthesize gpgc;
 static PreferencesController *_sharedInstance = nil;
@@ -92,7 +91,7 @@ static PreferencesController *_sharedInstance = nil;
 	
 	BOOL isDir;
 	if (![fileManager fileExistsAtPath:secringPath isDirectory:&isDir] || isDir) {
-		[[SheetController sharedInstance] alertSheetForWindow:window
+		[[SheetController sharedInstance] alertSheetForWindow:_window
 												  messageText:localized(@"MoveSecringNotFound_Title")
 													 infoText:localized(@"MoveSecringNotFound_Msg")
 												defaultButton:localized(@"OK")
@@ -115,7 +114,7 @@ static PreferencesController *_sharedInstance = nil;
 		}
 	}
 	sc.URL = [NSURL fileURLWithPath:path];
-	if ([sc runModalForWindow:window] != NSOKButton) {
+	if ([sc runModalForWindow:_window] != NSOKButton) {
 		return;
 	}
 		
@@ -137,7 +136,7 @@ static PreferencesController *_sharedInstance = nil;
 	
 	if (![fileManager fileExistsAtPath:destDir]) {
 		if (![fileManager createDirectoryAtPath:destDir withIntermediateDirectories:NO attributes:nil error:&error]) {
-			[[SheetController sharedInstance] alertSheetForWindow:window
+			[[SheetController sharedInstance] alertSheetForWindow:_window
 													  messageText:localized(@"MoveSecringCantMove_Title")
 														 infoText:error.localizedDescription
 													defaultButton:localized(@"OK")
@@ -158,7 +157,7 @@ static PreferencesController *_sharedInstance = nil;
 	// Move the secring.
 	GPGDebugLog(@"Move Secring from '%@' to '%@'", secringPath, destPath);
 	if (![fileManager moveItemAtPath:secringPath toPath:destPath error:&error]) {
-		[[SheetController sharedInstance] alertSheetForWindow:window
+		[[SheetController sharedInstance] alertSheetForWindow:_window
 												  messageText:localized(@"MoveSecringCantMove_Title")
 													 infoText:error.localizedDescription
 												defaultButton:localized(@"OK")
@@ -218,7 +217,7 @@ static PreferencesController *_sharedInstance = nil;
 		[toolbar setSelectedItemIdentifier:item.itemIdentifier];
 		[self selectTab:item];
 	}
-	[window makeKeyAndOrderFront:nil];
+	[_window makeKeyAndOrderFront:nil];
 }
 
 - (IBAction)selectTab:(NSToolbarItem *)sender {
@@ -232,8 +231,8 @@ static PreferencesController *_sharedInstance = nil;
 	}
 	view = [views objectForKey:sender.itemIdentifier];
 	
-	[window setContentView:view];
-	[window setTitle:sender.label];
+	[_window setContentView:view];
+	[_window setTitle:sender.label];
 }
 
 - (IBAction)checkKeyserver:(id)sender {
@@ -275,7 +274,7 @@ static PreferencesController *_sharedInstance = nil;
 				
 			} else {
 				[self.options removeKeyserver:gc.keyserver];
-				[[SheetController sharedInstance] alertSheetForWindow:window
+				[[SheetController sharedInstance] alertSheetForWindow:_window
 														  messageText:localized(@"BadKeyserver_Title")
 															 infoText:localized(@"BadKeyserver_Msg")
 														defaultButton:nil
@@ -301,7 +300,7 @@ static PreferencesController *_sharedInstance = nil;
 	GPGOptions *options = [GPGOptions sharedOptions];
 	if (options.isVerifyingKeyserver && [options isSKSKeyserver:self.keyserverToCheck]) {
 		// The user is switching from keys.openpgp.org to an old SKS keyserver. Better warn them.
-		NSInteger result = [[SheetController sharedInstance] alertSheetForWindow:window
+		NSInteger result = [[SheetController sharedInstance] alertSheetForWindow:_window
 																	 messageText:localizedLibmacgpgString(@"SwitchToOldKeyserver_Title")
 																		infoText:localizedLibmacgpgString(@"SwitchToOldKeyserver_Msg")
 																   defaultButton:localizedLibmacgpgString(@"SwitchToOldKeyserver_No")
@@ -385,6 +384,19 @@ static PreferencesController *_sharedInstance = nil;
 	return ![GPGOptions sharedOptions].isVerifyingKeyserver;
 }
 
+- (void)setWindow:(NSWindow *)window {
+	_window = window;
+	
+	// Show default preferences toolbar style on Big Sur.
+	// This should be set in the XIB, but older Xcode versions overwrite it.
+	SEL selector = NSSelectorFromString(@"setToolbarStyle:");
+	if ([_window respondsToSelector:selector]) {
+		[_window setValue:@2 /* NSWindowToolbarStylePreference */ forKey:@"toolbarStyle"];
+	}
+}
+- (NSWindow *)window {
+	return _window;
+}
 
 /*
  * Key-Value Observing
