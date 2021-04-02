@@ -52,367 +52,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="1105" height="553"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="587">
-                        <rect key="frame" x="20" y="43" width="1065" height="490"/>
-                        <clipView key="contentView" id="vCm-4D-amE">
-                            <rect key="frame" x="1" y="0.0" width="1063" height="489"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="KeyList" headerView="591" id="590" customClass="GKTableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="1063" height="466"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <size key="intercellSpacing" width="3" height="2"/>
-                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
-                                    <tableColumns>
-                                        <tableColumn identifier="type" editable="NO" width="60" minWidth="10" maxWidth="65" id="624">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="625">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1886"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2103">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.type" id="CX8-oo-n9U">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="name" editable="NO" width="200" minWidth="100" maxWidth="1000" id="592">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="595">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <sortDescriptor key="sortDescriptorPrototype" selector="localizedCaseInsensitiveCompare:" sortKey="name"/>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.name" id="665">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1887"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2104">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="email" editable="NO" width="220" minWidth="100" maxWidth="1000" id="602">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Email">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="603">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <sortDescriptor key="sortDescriptorPrototype" selector="localizedCaseInsensitiveCompare:" sortKey="email"/>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.email" id="673">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1888"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2105">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="creationDate" editable="NO" width="90" minWidth="50" maxWidth="250" id="622">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Created">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="623" customClass="GKDateCell">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.creationDate" id="675">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1889"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2106">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="expires" editable="NO" width="77" minWidth="10" maxWidth="250" hidden="YES" id="1909">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Expires">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="1910" customClass="GKDateCell">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.expirationDate" id="1912"/>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1911"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2107">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="length" editable="NO" width="43" minWidth="10" maxWidth="50" hidden="YES" id="618">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Length">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="619">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.length" id="676">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1890"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2108">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="algorithm" editable="NO" width="64" minWidth="10" maxWidth="100" hidden="YES" id="616">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Algorithm">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="617">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.algorithm" id="1497">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                        <string key="NSValueTransformerName">GPGKeyAlgorithmNameTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1891"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2109">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="capabilities" editable="NO" width="68" minWidth="30" maxWidth="80" hidden="YES" id="2008">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Capabilities">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="2009">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.capabilities" id="2010">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="2011"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2110">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="shortKeyID" editable="NO" width="80" minWidth="75" maxWidth="90" hidden="YES" id="1345" userLabel="Table Column - Key ID">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Key ID">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="1346">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1892"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2111">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.shortKeyID" id="1654">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="fingerprint" editable="NO" width="400" minWidth="40" maxWidth="430" id="600">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Fingerprint">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingHead" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="601">
-                                                <font key="font" size="13" name="Menlo-Regular"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="fingerprint"/>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.fingerprint" id="RCE-xJ-c5N">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                        <string key="NSValueTransformerName">GKFingerprintTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1894"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2113">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="simpleValidity" editable="NO" width="75" minWidth="50" maxWidth="100" id="B8o-iP-n7s">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Validity">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <levelIndicatorCell key="dataCell" lineBreakMode="truncatingTail" state="on" alignment="left" maxValue="4" warningValue="3" criticalValue="1" id="qYj-ng-B8r"/>
-                                            <sortDescriptor key="sortDescriptorPrototype" selector="compareGPGValidity:" sortKey="validity"/>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.validity" id="By8-qq-cJT">
-                                                    <dictionary key="options">
-                                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                        <string key="NSValueTransformerName">GKAValidityInidicatorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                        <tableColumn identifier="comment" editable="NO" width="94" minWidth="10" maxWidth="1000" hidden="YES" id="620">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Comment">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
-                                            </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="621">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                            <sortDescriptor key="sortDescriptorPrototype" selector="localizedCaseInsensitiveCompare:" sortKey="comment"/>
-                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
-                                            <connections>
-                                                <binding destination="663" name="value" keyPath="arrangedObjects.comment" id="681">
-                                                    <dictionary key="options">
-                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
-                                                    </dictionary>
-                                                </binding>
-                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="2039"/>
-                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2114">
-                                                    <dictionary key="options">
-                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
-                                                    </dictionary>
-                                                </binding>
-                                            </connections>
-                                        </tableColumn>
-                                    </tableColumns>
-                                    <connections>
-                                        <action trigger="doubleAction" selector="doubleClick:" target="494" id="RFb-pL-84M"/>
-                                        <action selector="singleClick:" target="494" id="5n1-lw-i5B"/>
-                                        <outlet property="dataSource" destination="666" id="1896"/>
-                                        <outlet property="delegate" destination="666" id="668"/>
-                                        <outlet property="menu" destination="1955" id="1959"/>
-                                    </connections>
-                                </tableView>
-                            </subviews>
-                        </clipView>
-                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="589">
-                            <rect key="frame" x="1" y="469" width="870" height="15"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="588">
-                            <rect key="frame" x="953" y="17" width="15" height="520"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </scroller>
-                        <tableHeaderView key="headerView" id="591">
-                            <rect key="frame" x="0.0" y="0.0" width="1063" height="23"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </tableHeaderView>
-                    </scrollView>
-                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="734">
-                        <rect key="frame" x="17" y="19" width="109" height="16"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="X of Y keys listed" id="735">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="1380">
-                        <rect key="frame" x="930" y="18" width="157" height="18"/>
-                        <buttonCell key="cell" type="check" title="Show secret keys only" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="1381">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                        <connections>
-                            <binding destination="666" name="value" keyPath="showSecretKeysOnly" id="1383"/>
-                        </connections>
-                    </button>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="HYp-ea-h18">
                         <rect key="frame" x="20" y="43" width="1065" height="490"/>
                         <subviews>
@@ -445,6 +84,653 @@
                             </binding>
                         </connections>
                     </customView>
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="587">
+                        <rect key="frame" x="20" y="43" width="1065" height="490"/>
+                        <clipView key="contentView" id="vCm-4D-amE">
+                            <rect key="frame" x="1" y="0.0" width="1063" height="489"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <subviews>
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="KeyList" rowSizeStyle="automatic" headerView="591" viewBased="YES" id="590" customClass="GKTableView">
+                                    <rect key="frame" x="0.0" y="0.0" width="1063" height="466"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <size key="intercellSpacing" width="3" height="2"/>
+                                    <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                    <tableColumns>
+                                        <tableColumn identifier="type" editable="NO" width="60" minWidth="10" maxWidth="65" id="624">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="625">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="type"/>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="ybN-Kf-eOd">
+                                                    <rect key="frame" x="1" y="1" width="60" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jER-6g-qri">
+                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="w1Z-0D-oK3">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="ybN-Kf-eOd" name="textColor" keyPath="objectValue" id="K99-yd-meV">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="ybN-Kf-eOd" name="fontBold" keyPath="objectValue.primaryKey.secret" id="IvZ-hM-xaZ"/>
+                                                                <binding destination="ybN-Kf-eOd" name="value" keyPath="objectValue.type" id="Xde-WV-LWN"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="jER-6g-qri" id="5a5-fj-dV5"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1886"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2103">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="name" editable="NO" width="200" minWidth="100" maxWidth="1000" id="592">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="595">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <sortDescriptor key="sortDescriptorPrototype" selector="localizedCaseInsensitiveCompare:" sortKey="name"/>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="z47-ag-DPa">
+                                                    <rect key="frame" x="64" y="1" width="200" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tmf-tS-70L">
+                                                            <rect key="frame" x="0.0" y="0.0" width="200" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="VOS-Uy-nXS">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="z47-ag-DPa" name="textColor" keyPath="objectValue" id="CJk-8X-q2J">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="z47-ag-DPa" name="value" keyPath="objectValue.name" id="QpD-J8-179"/>
+                                                                <binding destination="z47-ag-DPa" name="fontBold" keyPath="objectValue.primaryKey.secret" id="hEO-uI-u7m"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="Tmf-tS-70L" id="5Kr-Ke-7x4"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1887"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2104">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="email" editable="NO" width="220" minWidth="100" maxWidth="1000" id="602">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Email">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="603">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <sortDescriptor key="sortDescriptorPrototype" selector="localizedCaseInsensitiveCompare:" sortKey="email"/>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="swJ-7g-A26">
+                                                    <rect key="frame" x="267" y="1" width="220" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8oZ-tD-3Ja">
+                                                            <rect key="frame" x="0.0" y="0.0" width="220" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Hnq-Il-6WY">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="swJ-7g-A26" name="textColor" keyPath="objectValue" id="aFa-ZK-7ql">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="swJ-7g-A26" name="value" keyPath="objectValue.email" id="AlK-mz-Egk"/>
+                                                                <binding destination="swJ-7g-A26" name="fontBold" keyPath="objectValue.primaryKey.secret" id="nCK-pg-xCz"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="8oZ-tD-3Ja" id="s5E-5P-Gcx"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1888"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2105">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="creationDate" editable="NO" width="90" minWidth="50" maxWidth="250" id="622">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Created">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="623" customClass="GKDateCell">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="orU-9a-2Zf">
+                                                    <rect key="frame" x="490" y="1" width="90" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nMb-EK-zxs">
+                                                            <rect key="frame" x="0.0" y="0.0" width="90" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="bBQ-nJ-kKJ">
+                                                                <dateFormatter key="formatter" dateStyle="medium" id="eOc-K1-xLK"/>
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="orU-9a-2Zf" name="textColor" keyPath="objectValue" id="eAv-a5-so1">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="orU-9a-2Zf" name="value" keyPath="objectValue.creationDate" id="hjL-aU-6KC"/>
+                                                                <binding destination="orU-9a-2Zf" name="fontBold" keyPath="objectValue.primaryKey.secret" id="DCP-U3-bva"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="nMb-EK-zxs" id="UDx-Bl-CVN"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1889"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2106">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="expires" editable="NO" width="77" minWidth="10" maxWidth="250" hidden="YES" id="1909">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Expires">
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" id="1910" customClass="GKDateCell">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="EqZ-8O-ACO">
+                                                    <rect key="frame" x="1" y="1" width="0.0" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="51Y-yt-KYT">
+                                                            <rect key="frame" x="-1" y="0.0" width="4" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="ZZd-3f-IpG">
+                                                                <dateFormatter key="formatter" dateStyle="medium" id="u3n-tS-9HT"/>
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="EqZ-8O-ACO" name="textColor" keyPath="objectValue" id="uw6-IZ-Y7Y">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="EqZ-8O-ACO" name="value" keyPath="objectValue.expirationDate" id="EO3-Yo-pQa"/>
+                                                                <binding destination="EqZ-8O-ACO" name="fontBold" keyPath="objectValue.primaryKey.secret" id="0JY-5S-dEs"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="51Y-yt-KYT" id="kXw-zj-N9E"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1911"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2107">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="length" editable="NO" width="43" minWidth="10" maxWidth="50" hidden="YES" id="618">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Length">
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="619">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="utt-hH-kax">
+                                                    <rect key="frame" x="1" y="1" width="0.0" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2UR-5o-LWV">
+                                                            <rect key="frame" x="-1" y="0.0" width="4" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="SBt-cG-q5V">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="utt-hH-kax" name="textColor" keyPath="objectValue" id="8vY-yF-jPk">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="utt-hH-kax" name="value" keyPath="objectValue.length" id="z3h-tm-1Hf"/>
+                                                                <binding destination="utt-hH-kax" name="fontBold" keyPath="objectValue.primaryKey.secret" id="o0P-cr-fdh"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="2UR-5o-LWV" id="p7I-Vf-wMZ"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1890"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2108">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="algorithm" editable="NO" width="64" minWidth="10" maxWidth="100" hidden="YES" id="616">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Algorithm">
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="617">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="2yb-k0-tli">
+                                                    <rect key="frame" x="1" y="1" width="0.0" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fqQ-8t-lSe">
+                                                            <rect key="frame" x="-1" y="0.0" width="4" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="WbT-pw-a1V">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="2yb-k0-tli" name="textColor" keyPath="objectValue" id="lbx-qo-vhy">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="2yb-k0-tli" name="value" keyPath="objectValue.algorithm" id="5UO-Vd-O4v">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GPGKeyAlgorithmNameTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="2yb-k0-tli" name="fontBold" keyPath="objectValue.primaryKey.secret" id="JqX-cr-npY"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="fqQ-8t-lSe" id="7dV-IT-kPB"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1891"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2109">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="capabilities" editable="NO" width="68" minWidth="30" maxWidth="80" hidden="YES" id="2008">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Capabilities">
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="2009">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="E3v-qO-vPA">
+                                                    <rect key="frame" x="1" y="1" width="0.0" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hsw-EH-fup">
+                                                            <rect key="frame" x="-1" y="0.0" width="4" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="0k8-mE-40H">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="E3v-qO-vPA" name="textColor" keyPath="objectValue" id="WDD-Xn-81J">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="E3v-qO-vPA" name="value" keyPath="objectValue.capabilities" id="Zbq-cU-SFI"/>
+                                                                <binding destination="E3v-qO-vPA" name="fontBold" keyPath="objectValue.primaryKey.secret" id="NCB-JH-KkQ"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="Hsw-EH-fup" id="neR-X3-cw6"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="2011"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2110">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="shortKeyID" editable="NO" width="80" minWidth="75" maxWidth="90" hidden="YES" id="1345" userLabel="Table Column - Key ID">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Key ID">
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="1346">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="oQe-gg-SwN">
+                                                    <rect key="frame" x="1" y="1" width="0.0" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rlb-67-Fbj">
+                                                            <rect key="frame" x="-1" y="0.0" width="4" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="4k7-uV-Q2s">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="oQe-gg-SwN" name="textColor" keyPath="objectValue" id="WGa-QH-JU2">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="oQe-gg-SwN" name="fontBold" keyPath="objectValue.primaryKey.secret" id="TQs-v2-oCs"/>
+                                                                <binding destination="oQe-gg-SwN" name="value" keyPath="objectValue.shortKeyID" id="Om4-VR-vUO"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="Rlb-67-Fbj" id="aa7-uJ-mVd"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1892"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2111">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="fingerprint" editable="NO" width="400" minWidth="40" maxWidth="430" id="600">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Fingerprint">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingHead" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="601">
+                                                <font key="font" size="13" name="Menlo-Regular"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="fingerprint"/>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="wjm-6w-dXl">
+                                                    <rect key="frame" x="583" y="1" width="400" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gj4-De-t6S">
+                                                            <rect key="frame" x="0.0" y="0.0" width="400" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="Bmf-mR-ULw">
+                                                                <font key="font" size="13" name="Menlo-Regular"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="wjm-6w-dXl" name="textColor" keyPath="objectValue" id="SMo-Ob-ZaX">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="wjm-6w-dXl" name="value" keyPath="objectValue.fingerprint" id="HRF-Qg-qMn">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKFingerprintTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="wjm-6w-dXl" name="fontBold" keyPath="objectValue.primaryKey.secret" id="qrU-gP-UiF"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="Gj4-De-t6S" id="Vbw-o6-msX"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="1894"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2113">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                        <tableColumn identifier="simpleValidity" editable="NO" width="66" minWidth="50" maxWidth="100" id="B8o-iP-n7s">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Validity">
+                                                <font key="font" metaFont="smallSystem"/>
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <levelIndicatorCell key="dataCell" lineBreakMode="truncatingTail" state="on" alignment="left" maxValue="4" warningValue="3" criticalValue="1" id="qYj-ng-B8r"/>
+                                            <sortDescriptor key="sortDescriptorPrototype" selector="compareGPGValidity:" sortKey="validity"/>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="Emb-i2-un4">
+                                                    <rect key="frame" x="986" y="1" width="66" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="heR-dQ-Cx9">
+                                                            <rect key="frame" x="2" y="-1" width="62" height="18"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                                            <levelIndicatorCell key="cell" controlSize="small" alignment="left" doubleValue="2" maxValue="4" warningValue="3" criticalValue="1" id="Pv5-Ek-lbA"/>
+                                                            <connections>
+                                                                <binding destination="Emb-i2-un4" name="value" keyPath="objectValue.validity" id="zyY-lU-bUC">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAValidityInidicatorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                            </connections>
+                                                        </levelIndicator>
+                                                    </subviews>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                        </tableColumn>
+                                        <tableColumn identifier="comment" editable="NO" width="94" minWidth="10" maxWidth="1000" hidden="YES" id="620">
+                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Comment">
+                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                            </tableHeaderCell>
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="621">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <sortDescriptor key="sortDescriptorPrototype" selector="localizedCaseInsensitiveCompare:" sortKey="comment"/>
+                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                            <prototypeCellViews>
+                                                <tableCellView id="AlE-cn-ohF">
+                                                    <rect key="frame" x="1" y="1" width="0.0" height="17"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bHb-dV-tfp">
+                                                            <rect key="frame" x="-1" y="0.0" width="4" height="16"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="wGf-eD-zZe">
+                                                                <font key="font" usesAppearanceFont="YES"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <connections>
+                                                                <binding destination="AlE-cn-ohF" name="textColor" keyPath="objectValue" id="kTC-Yx-2vX">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="AlE-cn-ohF" name="value" keyPath="objectValue.comment" id="GRd-ei-fOT"/>
+                                                                <binding destination="AlE-cn-ohF" name="fontBold" keyPath="objectValue.primaryKey.secret" id="Gws-Tp-GmB"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                    <connections>
+                                                        <outlet property="textField" destination="bHb-dV-tfp" id="M7A-Zu-3N2"/>
+                                                    </connections>
+                                                </tableCellView>
+                                            </prototypeCellViews>
+                                            <connections>
+                                                <binding destination="663" name="fontBold" keyPath="arrangedObjects.primaryKey.secret" id="2039"/>
+                                                <binding destination="663" name="textColor" keyPath="arrangedObjects.self" id="2114">
+                                                    <dictionary key="options">
+                                                        <string key="NSValueTransformerName">GKAKeyColorTransformer</string>
+                                                    </dictionary>
+                                                </binding>
+                                            </connections>
+                                        </tableColumn>
+                                    </tableColumns>
+                                    <connections>
+                                        <action trigger="doubleAction" selector="doubleClick:" target="494" id="RFb-pL-84M"/>
+                                        <action selector="singleClick:" target="494" id="5n1-lw-i5B"/>
+                                        <binding destination="663" name="content" keyPath="arrangedObjects" id="hJ2-11-r4I"/>
+                                        <binding destination="663" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="hJ2-11-r4I" id="IIN-A5-hgZ"/>
+                                        <binding destination="663" name="sortDescriptors" keyPath="sortDescriptors" previousBinding="IIN-A5-hgZ" id="pBe-d1-8Fo"/>
+                                        <outlet property="dataSource" destination="666" id="jKz-A6-4Gs"/>
+                                        <outlet property="delegate" destination="666" id="668"/>
+                                        <outlet property="menu" destination="1955" id="1959"/>
+                                    </connections>
+                                </tableView>
+                            </subviews>
+                        </clipView>
+                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="589">
+                            <rect key="frame" x="1" y="474" width="1063" height="15"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="588">
+                            <rect key="frame" x="953" y="17" width="15" height="520"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </scroller>
+                        <tableHeaderView key="headerView" wantsLayer="YES" id="591">
+                            <rect key="frame" x="0.0" y="0.0" width="1063" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </tableHeaderView>
+                    </scrollView>
+                    <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" translatesAutoresizingMaskIntoConstraints="NO" id="734">
+                        <rect key="frame" x="17" y="19" width="109" height="16"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="X of Y keys listed" id="735">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="1380">
+                        <rect key="frame" x="930" y="18" width="157" height="18"/>
+                        <buttonCell key="cell" type="check" title="Show secret keys only" bezelStyle="regularSquare" imagePosition="right" alignment="right" inset="2" id="1381">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="666" name="value" keyPath="showSecretKeysOnly" id="1383"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="734" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="19" id="2cy-jN-ghO"/>
@@ -466,7 +752,7 @@
                     <toolbarItem implicitItemIdentifier="06410532-607A-4068-AD66-5F2F02DFF9EF" label="New" paletteLabel="New" toolTip="New Key" image="Add" sizingBehavior="auto" id="729" customClass="GPGToolbarItem">
                         <button key="view" verticalHuggingPriority="750" id="fcF-YF-ITs">
                             <rect key="frame" x="0.0" y="14" width="37" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Add" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3YQ-tt-4y8">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -479,7 +765,7 @@
                     <toolbarItem implicitItemIdentifier="C2A62274-23EE-4245-8614-0963DC4DA01A" label="Import" paletteLabel="Import" toolTip="Import" image="Import" sizingBehavior="auto" id="731" customClass="GPGToolbarItem">
                         <button key="view" verticalHuggingPriority="750" id="R9s-tT-fJM">
                             <rect key="frame" x="3" y="14" width="37" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Import" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pkS-KO-f2f">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -492,7 +778,7 @@
                     <toolbarItem implicitItemIdentifier="D73630E7-60D7-409F-B9EF-F4FD25157B2B" label="Export" paletteLabel="Export" toolTip="Export" image="Export" sizingBehavior="auto" id="730" customClass="GPGToolbarItem">
                         <button key="view" verticalHuggingPriority="750" id="ylm-Ve-txG">
                             <rect key="frame" x="3" y="14" width="37" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Export" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="haA-Wp-shI">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -505,7 +791,7 @@
                     <toolbarItem implicitItemIdentifier="96BB5CE0-2587-47CB-94CD-B5EF8B79ABCF" label="Lookup Key" paletteLabel="Lookup Key" toolTip="Lookup Key" image="Search" sizingBehavior="auto" id="SGr-SW-ieo" customClass="GPGToolbarItem">
                         <button key="view" verticalHuggingPriority="750" id="c39-u8-ldo">
                             <rect key="frame" x="16" y="14" width="37" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Search" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="n10-3V-t7y">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -518,7 +804,7 @@
                     <toolbarItem implicitItemIdentifier="AFB78A50-6CFC-4B10-B879-CF83822144ED" label="Delete" paletteLabel="Delete" toolTip="Delete" image="Delete" sizingBehavior="auto" id="1421" customClass="GPGToolbarItem">
                         <button key="view" verticalHuggingPriority="750" id="YP0-IR-WqX">
                             <rect key="frame" x="2" y="14" width="37" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Delete" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ysO-QB-ODv">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -531,7 +817,7 @@
                     <toolbarItem implicitItemIdentifier="8657F548-AA92-400A-AA28-018298DD76E4" label="Details" paletteLabel="Details" toolTip="Details" image="Info" sizingBehavior="auto" id="2115" customClass="GPGToolbarItem">
                         <button key="view" verticalHuggingPriority="750" id="e2l-Ha-Y0U">
                             <rect key="frame" x="4" y="14" width="37" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="Info" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="RVf-x9-lbd">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -545,7 +831,7 @@
                         <nil key="toolTip"/>
                         <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="YES" id="726">
                             <rect key="frame" x="0.0" y="14" width="150" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Filter" usesSingleLineMode="YES" bezelStyle="round" id="727">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -580,7 +866,7 @@
             <connections>
                 <outlet property="delegate" destination="494" id="1897"/>
             </connections>
-            <point key="canvasLocation" x="-114" y="-115"/>
+            <point key="canvasLocation" x="-114.5" y="-115.5"/>
         </window>
         <customObject id="666" customClass="KeychainController">
             <connections>
@@ -1964,7 +2250,6 @@ IA
                                                                                 <tableColumns>
                                                                                     <tableColumn identifier="name" editable="NO" width="142" minWidth="50" maxWidth="1000" id="Zlz-Fg-3lR">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                                                         </tableHeaderCell>
@@ -1985,7 +2270,6 @@ IA
                                                                                     </tableColumn>
                                                                                     <tableColumn identifier="email" editable="NO" width="130" minWidth="50" maxWidth="1000" id="Sgq-kp-s0B">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Email">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                         </tableHeaderCell>
@@ -2004,9 +2288,8 @@ IA
                                                                                             <binding destination="959" name="value" keyPath="arrangedObjects.email" id="FAi-AE-NqM"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn identifier="comment" editable="NO" width="109" minWidth="50" maxWidth="1000" id="lUe-7W-PQd">
+                                                                                    <tableColumn identifier="comment" editable="NO" width="80" minWidth="50" maxWidth="1000" id="lUe-7W-PQd">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Comment">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                         </tableHeaderCell>
@@ -2147,14 +2430,13 @@ IA
                                                                         <subviews>
                                                                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveName="signaturesTable" headerView="kNE-rm-6Iw" id="4f6-IT-Ksz" userLabel="Signatures Table">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="390" height="153"/>
-                                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                                 <tableColumns>
                                                                                     <tableColumn identifier="type" editable="NO" width="40" minWidth="18" maxWidth="40" id="Vjg-3F-h7L">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                         </tableHeaderCell>
@@ -2169,9 +2451,8 @@ IA
                                                                                             <binding destination="1171" name="value" keyPath="arrangedObjects.type" id="lJx-CV-oeG"/>
                                                                                         </connections>
                                                                                     </tableColumn>
-                                                                                    <tableColumn identifier="name" editable="NO" width="119.5" minWidth="40" maxWidth="1000" id="wkR-23-emF">
+                                                                                    <tableColumn identifier="name" editable="NO" width="90.5" minWidth="40" maxWidth="1000" id="wkR-23-emF">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                                                         </tableHeaderCell>
@@ -2189,7 +2470,6 @@ IA
                                                                                     </tableColumn>
                                                                                     <tableColumn identifier="keyID" editable="NO" width="65" minWidth="27.056640625" maxWidth="1000" id="nfl-fM-902">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Key ID">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                                                         </tableHeaderCell>
@@ -2206,7 +2486,6 @@ IA
                                                                                     </tableColumn>
                                                                                     <tableColumn identifier="created" editable="NO" width="75" minWidth="45" maxWidth="150" id="m5R-sR-2Wc">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Created">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                         </tableHeaderCell>
@@ -2223,7 +2502,6 @@ IA
                                                                                     </tableColumn>
                                                                                     <tableColumn identifier="expires" editable="NO" width="75" minWidth="45" maxWidth="150" id="wDd-JS-jde">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Expires">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                         </tableHeaderCell>
@@ -2240,7 +2518,6 @@ IA
                                                                                     </tableColumn>
                                                                                     <tableColumn identifier="hashAlgorithm" editable="NO" width="45" minWidth="25" maxWidth="100" hidden="YES" id="4Os-g3-MYG" userLabel="HashAlgo">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Hash">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                         </tableHeaderCell>
@@ -2261,7 +2538,6 @@ IA
                                                                                     </tableColumn>
                                                                                     <tableColumn identifier="signatureAlgorithm" editable="NO" width="30" minWidth="20" maxWidth="100" hidden="YES" id="aIr-FD-0OQ" userLabel="SigAlgo">
                                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Algo">
-                                                                                            <font key="font" metaFont="smallSystem"/>
                                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                                         </tableHeaderCell>
@@ -2412,7 +2688,6 @@ IA
                                                                 <tableColumns>
                                                                     <tableColumn identifier="type" width="32" minWidth="10" maxWidth="40" hidden="YES" id="YEr-KG-gMd">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Type">
-                                                                            <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
@@ -2432,9 +2707,8 @@ IA
                                                                             <binding destination="925" name="value" keyPath="arrangedObjects.type" id="rja-7A-BD5"/>
                                                                         </connections>
                                                                     </tableColumn>
-                                                                    <tableColumn identifier="keyID" editable="NO" width="96" minWidth="80" maxWidth="100" id="nht-3U-47N">
+                                                                    <tableColumn identifier="keyID" editable="NO" width="80" minWidth="80" maxWidth="100" id="nht-3U-47N">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Subkey">
-                                                                            <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                                                         </tableHeaderCell>
@@ -2456,7 +2730,6 @@ IA
                                                                     </tableColumn>
                                                                     <tableColumn identifier="length" editable="NO" width="50" minWidth="30" maxWidth="60" id="Ot1-y1-Xaf">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Length">
-                                                                            <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
@@ -2478,7 +2751,6 @@ IA
                                                                     </tableColumn>
                                                                     <tableColumn identifier="algorithm" editable="NO" width="65" minWidth="30" maxWidth="150" id="ZyU-dv-qqW">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Algorithm">
-                                                                            <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
@@ -2504,7 +2776,6 @@ IA
                                                                     </tableColumn>
                                                                     <tableColumn identifier="capabilities" editable="NO" width="68" minWidth="30" maxWidth="80" hidden="YES" id="0AQ-jj-bNs">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Capabilities">
-                                                                            <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
@@ -2529,7 +2800,6 @@ IA
                                                                     </tableColumn>
                                                                     <tableColumn identifier="created" editable="NO" width="82" minWidth="45" maxWidth="150" id="NiS-dr-I21">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Created">
-                                                                            <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
@@ -2551,7 +2821,6 @@ IA
                                                                     </tableColumn>
                                                                     <tableColumn identifier="expires" editable="NO" width="82" minWidth="45" maxWidth="100" id="FCx-ax-D80">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Expires">
-                                                                            <font key="font" metaFont="smallSystem"/>
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                                         </tableHeaderCell>
@@ -2578,7 +2847,7 @@ IA
                                                         </subviews>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="AdR-FV-VAP">
-                                                        <rect key="frame" x="-100" y="-100" width="377" height="15"/>
+                                                        <rect key="frame" x="1" y="182" width="390" height="15"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="c4a-tH-N3C">
