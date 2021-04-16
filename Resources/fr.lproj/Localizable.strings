@@ -23,32 +23,32 @@ SecretAndPublicKeyListing = "Clés privées :\n\n%@\n\nClés publiques :\n\n%@";
 
 /* For export, as standard File-Name. */
 "untitled" = "sans titre";
-"%@ Revoke certificate" = "%@ Revocation certificate";
+"%@ Revoke certificate" = "%@ Certificat de révocation";
 ExportKeysFilename = "%@ %u clés OpenPGP";
-ExportPublicKeyFilename = "%@ – Public";
-ExportSecretKeyFilename = "%@ – Secret";
+ExportPublicKeyFilename = "%@ – Publique";
+ExportSecretKeyFilename = "%@ – Secrète";
 
 
 /* For key creation */
 CheckAlert_NoPassphrase_Title = "Aucun mot de passe entré";
-CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
+CheckAlert_NoPassphrase_Message = "Vous n'avez pas saisi de mot de passe. Cela est déconseillé. Les mots de passe doivent comporter au moins 8 caractères.";
 CheckAlert_NoPassphrase_Yes = "Continuer sans mot de passe";
 CheckAlert_NoPassphrase_No = "Entrer un nouveau de mot de passe";
 CheckAlert_PassphraseSimple_Title = "Mot de passe trop simple";
-CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
+CheckAlert_PassphraseSimple_Message = "Le mot de passe saisi est trop simple. Un bon mot de masse doit comporter au moins 8 caractères de  différents types.";
 CheckAlert_PassphraseSimple_Yes = "Utiliser un mot de passe simple";
 CheckAlert_PassphraseSimple_No = "Entrer un nouveau de mot de passe";
 CheckAlert_PassphraseTooLong_Title = "Mot de passe trop long";
-CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
+CheckAlert_PassphraseTooLong_Message = "Le mot de passe que vous avez saisi est trop long. Choisissez un mot de passe comportant moins de %1$i caractères.\n\nAttention : si votre mot de passe contient des caractères spéciaux, vous ne pourrez peut-être pas utiliser jusqu'à %1$i caractères.";
 
-CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
-CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "Générer une clé";
+CheckAlert_NewKeyExistingEmail_Title = "Une clé valide avec cette adresse existe déjà";
+CheckAlert_NewKeyExistingEmail_Msg = "La clé existante avec l'adresse %1$@ a pour empreinte :\n%2$@\n\nL'utilisation de la même adresse de courriel pour plusieurs clés peut conduire à des problèmes et n'est pas recommandé.\nSi vous voulez vraiment créer une nouvelle clé pour cette adresse, vous devriez la révoquer de la clé existante.\n\nVoulez-vous vraiment créer une clé avec cette adresse de courriel maintenant ?";
+CheckAlert_NewKeyExistingEmail_Yes = "Créer une clé";
 CheckAlert_NewKeyExistingEmail_No = "Annuler";
 
-CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
-CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Générer un ID d'utilisateur";
+CheckAlert_NewUserIDExistingEmail_Title = "Une clé valide avec cette adresse existe déjà";
+CheckAlert_NewUserIDExistingEmail_Msg = "La clé avec l'adresse %1$@ a l'empreinte :\n%2$@\n\nUtiliser la même adresse de courriel pour plusieurs clés peut poser des problèmes et n'est pas recommandé.\nSi vous voulez vraiment utiliser cette adresse pour cette identité, nous vous recommandons de d'abord révoquer cette adresse de la clé existante.\n\nVoulez-vous vraiment créer une identité avec cette adresse de courriel maintenant ?";
+CheckAlert_NewUserIDExistingEmail_Yes = "Créer identité";
 CheckAlert_NewUserIDExistingEmail_No = "Annuler";
 
 
@@ -60,20 +60,20 @@ KeySearch_ImportResults_Title = "Importation avec succès";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), crée: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Nous recherchons la/les clés correspondante(s) sur le serveur de clés. La recherche peut prendre un certain temps, merci de patienter.";
 
-KeySearch_VKSFound_Msg = "A key with a verified email address was found:\n\n%@\n\nDo you want to import this key?";
-KeySearch_VKSFoundNoUserID_Msg = "A possible key update was found:\n\n%@\n\nDo you want to import this key?";
+KeySearch_VKSFound_Msg = "Une clé avec une adresse de courriel vérifiée a été trouvée :\n\n%@\n\nVoulez-vous importer cette clé ?";
+KeySearch_VKSFoundNoUserID_Msg = "Une mise à jour qui peut correspondre à cette clé a été trouvée :\n%@\n\nVoulez-vous importer cette clé ?";
 
 
 GenerateKey_ProgressTitle = "Clé en cours de création…";
-GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
-GenerateSubkey_Msg = "Add subkey to the following key:\n%@ %@";
-GenerateUserID_Msg = "Add email address (user ID) to the following key:\n%@ %@";
-GenerateSignature_Msg = "Signer une clé signifie que vous confirmez que le propriétaire de la clé est bien la personne qu'elle prétend être. Une fois téléversées, les signatures peuvent être vues par les autres utilisateurs.\nDonc si vous signez la clé de Bob et que votre amie Alice n'est pas sûre que Bob soit réellement Bob, Alice voyant que vous avez signé la clé de Bob et considérant que votre clé est digne de confiance, elle en déduit que Bob est bien Bob.\n\nVous êtes sur le point de signer la clé suivante:\n%@";
-GenerateUidSignature_Msg = "Signing a user ID means, you confirm, that the key owner is indeed who they claim to be.\nOnce uploaded, signatures can be viewed by others.\nSo if you sign Bob's key and your friend Alice is not sure if Bob really is Bob, Alice will see your signature in Bob's key, and since Alice knows your key is trustworthy, she knows that Bob most likely is indeed Bob.\n\nYou are about to sign the following user ID:\n%@";
-ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
-ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
+GenerateKey_Progress = "Votre nouvelle clé est en cours de création. Cela peut prendre une minute, n'hésitez pas à vous dégourdir les jambes en attendant.";
+GenerateSubkey_Msg = "Ajouter une sous-clé à la clé suivante :\n%@ %@";
+GenerateUserID_Msg = "Ajouter une adresse de courriel (identité utilisateur) à la clé suivante :\n%@ %@";
+GenerateSignature_Msg = "Signer une clé signifie que vous confirmez que le propriétaire de la clé est bien la personne qu'elle prétend être. Une fois publiées, les signatures peuvent être vues par les autres utilisateurs.\nDonc si vous signez la clé de Bob et que votre amie Alice n'est pas sûre que Bob soit réellement Bob, Alice voyant que vous avez signé la clé de Bob et considérant que votre clé est digne de confiance, elle en déduit que Bob est bien Bob.\n\nVous êtes sur le point de signer la clé suivante:\n%@";
+GenerateUidSignature_Msg = "Signer une identité utilisateur signifie que vous confirmez que le propriétaire de la clé est bien celui qu'il prétend être.\nUne fois publiées, les signatures peuvent être consultées par les autres utilisateurs.\nAinsi, si vous signez la clé de Bob et que votre amie Alice n'est pas sure qu'elle appartient vraiment à Bob, Alice va voir votre signature dans la clé de Bob et puisque Alice vous fait confiance elle sait que la clé appartient effectivement à Bob.\n\nVous vous apprêtez à signer l'identité suivante :\n%@";
+ChangeExpirationDate_Msg = "Vous vous apprêtez à modifier la date d'expiration de votre clé\n\n%1$@";
+ChangeSubkeyExpirationDate_Msg = "Vous vous apprêtez à modifier la date d'expiration de votre sous-clé\n\n%1$@";
 
-GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "Oups, quelque chose a mal tourné. Nous avons rencontré un problème lors de la création de votre clé.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "Le nom est trop long !";
@@ -83,21 +83,21 @@ CheckError_EmailToLong = "Adresse email trop longue !\nLa longueur maximale est 
 CheckError_InvalidCharInComment = "Caractère invalide dans commentaire !\n\"(\" et \")\" non permis.";
 CheckError_CommentToLong = "Commentaire trop long !";
 CheckError_NoKeyID = "Prière entrer un identifiant de clé valide !";
-CheckError_SearchInvalid_Title = "Invalid search query!";
-CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprint.";
+CheckError_SearchInvalid_Title = "Requête invalide !";
+CheckError_SearchInvalid_Msg = "Merci de rechercher une adresse électronique ou une empreinte.";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG n'a pas été trouvé.";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
+GPG_NOT_FOUND_MESSAGE = "Oups, ça ne va pas du tout. Il semble que GPG ne soit pas présent sur votre ordinateur. Merci de réinstaller GPG Suite à partir de\nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Erreur de configuration GPG.";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oups, quelque chose ne va pas. GPG a été trouvé mais il semble y avoir un problème avec sa configuration. Merci de nous contacter à\nhttps://support.gpgtools.org\n\nDétails : %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg n'a pas été trouvé";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
-CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
-CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg n'a pas été trouvé sur votre système. Merci de réinstaller GPG Suite à partir de\nhttps://www.gpgtools.org";
+CODE_SIGN_ERROR_TITLE = "Quelqu'un a modifié votre installation de GPG Keychain.";
+CODE_SIGN_ERROR_MESSAGE = "Par sécurité, GPG Keychain va quitter immédiatement !\n\nMerci de réinstaller GPG Suiteà partir de\nhttps://gpgtools.org afin d'être sûr de disposer d'une version officielle !";
 UNKNOWN_GPG_ERROR_TITLE = "Erreur GPG inconnue";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oups, quelque chose en va pas. GPG a généré une erreur inattendue. Merci de nous contacter à\nhttps://support.gpgtools.org\n\nDétails : %@";
 
 
 
@@ -106,16 +106,16 @@ MailKey_Subject = "Clé publique de %@";
 MailKey_Subject_Your = "Ma clé publique pour sécuriser nos échanges";
 MailKey_Message = "Bonjour,\n\nVeuillez trouver ci-jointe la clé publique de \n\n%@\n\nVous pouvez utiliser cette clé pour chiffrer et signer les messages envoyés à %@.\n\nPour commencer à l'utiliser vous devez installer un logiciel OpenPGP sur votre ordinateur. Ci-dessous une liste des solutions possibles en fonction de votre système d'exploitation :\n\n%@\n\nMerci d'importer cette clé dans votre gestionnaire local de clé OpenPGP.\n\nCordialement,";
 MailKey_Message_Your = "Bonjour,\n\nVeuillez trouver ci-jointe ma clé publique\n\n%@\n\nVous pouvez utiliser cette clé pour chiffrer et signer nos échanges.\n\nPour commencer à l'utiliser, vous devez installer un logiciel OpenPGP sur votre ordinateur. Ci-dessous une liste des solutions possibles en fonction de votre système d'exploitation :\n\n%@\n\nMerci d'importer cette clé dans votre gestionnaire local de clé OpenPGP.\n\nImpatient de pouvoir échanger des messages sûrs entre nous !\n\nCordialement,";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creating new email…";
-MailKey_Progress_Your = "Creating new email…";
-MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Progress = "Création d'une nouvelle adresse électronique…";
+MailKey_Progress_Your = "Création d'une nouvelle adresse électronique…";
+MailKey_Error = "Oups, quelque chose ne va pas. Il y a un problème pour exporter votre clé.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Clé inutilisable sélectionnée";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Vous avez sélectionné une clé inutilisable. De telles clés ne peuvent être envoyées par email. Merci de mettre à jour la clé depuis le serveur de clés, afin de voir si elle a été mise à jour.\n\nSinon, entrez en contact avec le propriétaire de la clé et informez-le de l'état de la clé.\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
+PasteboardKeyFound_Title = "Une ou plusieurs clés ont été détectées dans le presse-papier";
 PasteboardKeyFound_Msg = "%@\n\nVoudriez-vous importer la/les clé(s) ?";
 PasteboardKeyFound_Yes = "Importation";
 PasteboardKeyFound_No = "Annuler";
@@ -130,33 +130,33 @@ Cancel = "Annuler";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove user ID";
-RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
+RemoveUserID_Title = "Supprimer l'ID utilisateur";
+RemoveUserID_Msg = "Vous vous apprêtez à supprimer l'ID utilisateur %@ de votre clé %@. Une fois supprimé, vous ne pourrez plus utiliser cette clé avec le compte correspondant dans l'application Mail.\n\nSi la clé a été publiée sur les serveurs de clés avec cet ID utilisateur, le supprimer ne le supprimera pas des clés présentes sur les serveurs. Dans ce cas, il vaut mieux révoquer l'ID utilisateur en question et publier la clé modifiée.";
 RemoveUserID_Yes = "Supprimer l'ID utilisateur";
 RemoveUserID_No = "Annuler";
 
-RevokeUserID_Title = "Warning: You are about to revoke a user ID";
-RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
+RevokeUserID_Title = "Attention : vous allez révoquer un ID utilisateur";
+RevokeUserID_Msg = "Vous vous apprêtez à révoquer l'ID utilisateur :\n\n%@ de la clé %@\n\nUne fois révoqué, vous ne pourrez plus signer des messages avec cet ID utilisateur et vos correspondants ne pourront pas chiffrer des message à destination de cet ID utilisateur. L'ID utilisateur révoqué pourra toujours être utilisé pour déchiffrer les messages et les fichiers qui ont été précédemment chiffrés à son adresse.\n\nNous recommandons de ne pas effacer la clé, mais de la conserver en l'état revoqué.\n\nÊtes-vous sûr de vouloir révoquer cet ID utilisateur ?";
 RevokeUserID_Yes = "Révoquer l'ID utilisateur";
 RevokeUserID_No = "Annuler";
 
 RemoveSubkey_Title = "Supprimer la sous-clé";
-RemoveSubkey_Msg = "Warning: Please only proceed if you really know what you are doing.\n\nRemoving a subkey can destroy all capabilities to sign and decrypt using this key.\n\nIn case this key has been uploaded to the key servers, removing the subkey has no effect on the existing key server entry. To signal to other people that they should no longer be using this subkey, please revoke the subkey instead and upload the updated key to the key server.";
+RemoveSubkey_Msg = "Attention : Merci de continuer uniquement si vous savez vraiment ce que vous faites.\n\nSupprimer une sous-clé peut rendre impossible la signature et le déchiffrement avec cette clé.\n\nSi cette clé a été publiée sur les serveurs de clé, supprimer la sous-clé n'a aucun effet sur la clé disponible sur ces serveurs. Pour indiquer à vos correspondants de ne pas utiliser cette sous-clé, vous devez la révoquer et publier la nouvelle clés sur les serveurs de clés.";
 RemoveSubkey_Yes = "Supprimer la sous-clé";
 RemoveSubkey_No = "Annuler";
 
 RevokeSubkey_Title = "Attention : Vous êtes sur le point de révoquer une sous-clé";
-RevokeSubkey_Msg = "Please only proceed if you really know what you are doing.\n\nRevoking a subkey can destroy the capability to sign using this subkey and others may no longer be able to encrypt messages to this subkey.\n\nThe revoked subkey can still be used to decrypt emails and files previously encrypted to it.\n\nWe do not recommend to delete the revoked subkey but keep it in revoked state.\n\nAre you sure you want to revoke this subkey?";
+RevokeSubkey_Msg = "Merci de continuer uniquement si vous savez vraiment ce que vous faites.\n\nUne fois cette sous-clé révoquée, vous ne pourrez plus l'utiliser pour signer et vos correspondants ne pourront plus l'utiliser pour chiffrer des messages.\n\nUne sous-clé peut toutefois continuer à déchiffrer des messages précédemment chiffré avec elle.\n\nNous recommandons de ne pas supprimer la sous-clé révoquée mais de la conserver dans l'état révoqué.\n\nÊtes-vous sûr de vouloir révoquer cette sous-clé ?";
 RevokeSubkey_Yes = "Révoquer la sous-clé";
 RevokeSubkey_No = "Annuler";
 
 RevokeSignature_Title = "Révoquer la signature";
-RevokeSignature_Msg = "Révoquer votre signature la marquera comme révoquée. Utilisez cette option, si vous pensez que la clé a été volée à son propriétaire et que le propriétaire original n'a plus la clé sous son contrôle. Si vous aviez précédemment téléversé votre signature sur les serveurs de clés, merci de téléverser la clé mise à jour pour que les autres soient prévenus que votre signature a été révoquée.";
+RevokeSignature_Msg = "Révoquer votre signature la marquera comme révoquée. Utilisez cette option, si vous pensez que la clé a été volée à son propriétaire et que le propriétaire original n'a plus la clé sous son contrôle. Si vous aviez précédemment publié votre signature sur les serveurs de clés, merci de publier la clé mise à jour pour que les autres soient prévenus que votre signature a été révoquée.";
 RevokeSignature_Yes = "Révoquer la signature";
 RevokeSignature_No = "Annuler";
 
 RemoveSignature_Title = "Supprimer la signature";
-RemoveSignature_Msg = "Are you sure you want to remove this signature? Removing a signature will only remove the signature locally. It will not and can not be removed from the key on the key servers. Please instead revoke your signature if you want to mark it as unusable.";
+RemoveSignature_Msg = "Voulez-vous vraiment supprimer cette signature ? La suppression sera uniquement locale. Il n'est pas possible de supprimer une signature des clés publiées sur les serveurs de clés. Vous pouvez à la place révoquer votre signature.";
 RemoveSignature_Yes = "Supprimer la signature";
 RemoveSignature_No = "Annuler";
 
@@ -166,67 +166,67 @@ RemoveLocalSignature_Yes = "Supprimer la signature";
 RemoveLocalSignature_No = "Annuler";
 
 RemoveLastSelfSignature_Title = "Supprimer la dernière auto-signature";
-RemoveLastSelfSignature_Msg = "You are about to remove the last self-signature of user ID %@. Please only proceed if you really know what you are doing.\n\nThis signature makes sure that email address, name and the description of an user ID can only be modified by its owner.\n\nIf this signature is missing, someone could modify this information and there is no way of knowing if that happened.";
+RemoveLastSelfSignature_Msg = "Vous vous apprêtez à supprimer la dernière auto-signature pour l'ID utilisateur %@. Merci de ne confirmer que si vous savez vraiment ce que vous faites.\n\nCette signature permet de s'assurer que l'adresse électronique, le nom et la description contenus dans l'ID utilisateur ne peuvent être modifiées que pas leur propriétaire.\n\nSi cette signature est supprimée, n'importe qui peut modifier ces informations et il n'y a aucun moyen de savoir si une modification a eu lieu.";
 RemoveLastSelfSignature_Yes = "Supprimer la signature";
 RemoveLastSelfSignature_No = "Annuler";
 
 RevokeLastSelfSignature_Title = "Révoquer la dernière auto-signature";
-RevokeLastSelfSignature_Msg = "You are about to revoke the last self-signature of user ID %@. Only proceed if you really know what you are doing.\n\nYou will no longer be able to use it, which includes using it to sign emails.";
+RevokeLastSelfSignature_Msg = "Vous vous apprêtez à révoquer la dernière auto-signature de l'ID utilisateur %@. Merci de confirmer uniquement si vous savez vraiment ce que vous faites.\n\nVous ne pourrez plus utiliser cet ID utilisateur, y compris pour signer des messages.";
 RevokeLastSelfSignature_Yes = "Révoquer la signature";
 RevokeLastSelfSignature_No = "Annuler";
 
 RevokeKey_Title = "Attention ! Vous êtes sur le point de révoquer une clé.";
-RevokeKey_Msg = "You are about to revoke the following key:\n\n%@\n\nOnce revoked, you will be unable to sign messages and no messages can be encrypted to this key. The revoked key can still be used to decrypt emails and files previously encrypted to it.\n\nIt is not recommended to delete it, but to keep it in GPG Keychain in revoked state.\n\nAre you sure you want to revoke this key?";
+RevokeKey_Msg = "Vous vous apprêtez à révoquer la clé suivante :\n\n%@\n\nUne fois révoquée, cette clé ne peut plus être utilisée pour signer ou chiffrer des messages. Une clé révoquée peut toutefois toujours être utilisée pour déchiffrer des messages précédemment chiffré à son intention.\n\nIl est déconseillé de la supprimer, mais sage de la conserver dans GPG Keychain à l'état révoqué.\n\nÊtes-vous sûr de vouloir révoquer cette clé ?";
 RevokeKey_Yes = "Révoquer la clé";
 RevokeKey_No = "Annuler";
 
 OpenWithGPGServices_Title = "Le message OpenPGP que vous essayé d'importer n'est pas une clé";
-OpenWithGPGServices_Msg = "You can forward the message to GPGServices in order to decrypt or verify the message.";
+OpenWithGPGServices_Msg = "Vous pouvez transférer le message à GPGServices afin de la déchiffrer ou de le vérifier.";
 OpenWithGPGServices_Yes = "Ouvrir GPGServices";
 OpenWithGPGServices_No = "Annuler";
 
-FirstUploadForeignKey_Title = "Public key not allowed on key servers";
-FirstUploadForeignKey_Msg = "The following keys do not reside on the key servers:\n\n%@\n\nSome key owners intentionally do not upload their public key. In order to respect that decision, you can not upload this public key. In case you think this is an error, please get in touch with the key owner.";
+FirstUploadForeignKey_Title = "Clé publique non autorisée sur les serveur de clés";
+FirstUploadForeignKey_Msg = "La clé suivante n'existe pas sur les serveurs de clés :\n\n%@\n\nCertains propriétaires de clés décident de ne pas publier leur clé publique. Afin de respecter leur choix, vous ne pouvez pas publier cette clé publique. Si vous pensez qu'il s'agit d'une erreur, merci de contacter directement le propriétaire de la clé.";
 
 
 NewKeyWantToUpload_Title = "Votre clé a été créée avec succès";
-NewKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to find your public key and start communicating with you securely – encrypt messages for you and verify the authenticity of your messages – it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
+NewKeyWantToUpload_Msg = "Afin de permettre à vos correspondants de trouver plus facilement votre clé publique pour chiffrer des messages à votre attention et vérifier l'authenticité de vos messages, il est recommandé de publier votre clé sur les serveurs de clés.\n\nAttention : les serveurs de clés sont publics, le nom et l'adresse électronique que vous utilisez dans votre clé seront donc accessibles par tous. Ils peuvent être révoqués mais pas supprimés.\n\nSi vous préférez ne pas utiliser les serveurs de clés, vous pouvez joindre votre clé publique à vos messages signés ou chiffrés.\n\nVoulez-vous publier votre clé publique ?";
 NewKeyWantToUpload_Yes = "Envoyé la clé publique";
 NewKeyWantToUpload_No = "Non, merci !";
 
-NewUserIDWantToUpload_Title = "Your new email address (user ID) was added successfully";
-NewUserIDWantToUpload_Msg = "In order for others to be able to use your new email address (user ID), it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your updated public key?";
+NewUserIDWantToUpload_Title = "Votre nouvelle adresse électronique (ID utilisateur) a été correctement ajoutée";
+NewUserIDWantToUpload_Msg = "Afin de permettre à vos correspondants d'utiliser votre nouvelle adresse électronique, ils doivent importer votre clé mise à jour. Nous recommandons donc de publier votre clé mise à jour sur les serveurs de clés.\n\nAttention : les serveurs de clés sont publics, le nom et l'adresse électronique que vous utilisez dans votre clé seront donc accessibles par tous. Les clés peuvent être révoquées mais pas supprimées des serveurs.\n\nSi vous préférez ne pas utiliser les serveurs de clés, vous pouvez joindre votre clé publique à vos messages signés ou chiffrés.\n\nVoulez-vous publier votre clé publique ?";
 NewUserIDWantToUpload_Yes = "Envoyé la clé publique";
 NewUserIDWantToUpload_No = "Non, merci !";
 
 NewSubkeyWantToUpload_Title = "Vous avez ajouté une sous-clé avec succès";
-NewSubkeyWantToUpload_Msg = "In order for others to be able to use your new subkey, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
+NewSubkeyWantToUpload_Msg = "Afin de permettre à vos correspondants d'utiliser votre nouvelle sous-clé, ils doivent importer votre clé mise à jour. Nous recommandons donc de publier votre clé mise à jour sur les serveurs de clés.\n\nAttention : les serveurs de clés sont publics, le nom et l'adresse électronique que vous utilisez dans votre clé seront donc accessibles par tous. Les clés peuvent être révoquées mais pas supprimées des serveurs.\n\nSi vous préférez ne pas utiliser les serveurs de clés, vous pouvez joindre votre clé publique à vos messages signés ou chiffrés.\n\nVoulez-vous publier votre clé publique ?";
 NewSubkeyWantToUpload_Yes = "Envoyé la clé publique";
 NewSubkeyWantToUpload_No = "Non, merci !";
 
-ExpirationDateChangedWantToUpload_Title = "You have successfully changed the expiration date";
-ExpirationDateChangedWantToUpload_Msg = "In order for others to be able to see the new expiration date, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
+ExpirationDateChangedWantToUpload_Title = "La date d'expiration a été modifiée";
+ExpirationDateChangedWantToUpload_Msg = "Afin de permettre à vos correspondants de voir la nouvelle date d'expiration, ils doivent importer votre clé mise à jour. Nous recommandons donc de publier votre clé mise à jour sur les serveurs de clés.\n\nAttention : les serveurs de clés sont publics, le nom et l'adresse électronique que vous utilisez dans votre clé seront donc accessibles par tous. Les clés peuvent être révoquées mais pas supprimées des serveurs.\n\nSi vous préférez ne pas utiliser les serveurs de clés, vous pouvez joindre votre clé publique à vos messages signés ou chiffrés.\n\nVoulez-vous publier votre clé publique ?";
 ExpirationDateChangedWantToUpload_Yes = "Envoyé la clé publique";
 ExpirationDateChangedWantToUpload_No = "Non, merci !";
 
 RevokedKeyWantToUpload_Title = "Votre clé à été révoquée avec succès";
-RevokedKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your revoked public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that it is now revoked and no longer to be used. You can email them the revoked public key so they can import it into their key manager.\n\nDo you want to upload your revoked public key?";
+RevokedKeyWantToUpload_Msg = "Afin de permettre à vos correspondants de connaitre le nouvel état de votre clé, il est recommandé de publier votre clé révoquée sur les serveurs de clés.\n\nAttention : les serveurs de clés sont publics, le nom et l'adresse électronique que vous utilisez dans votre clé seront donc accessibles par tous. Les clés peuvent être révoquées mais pas supprimées des serveurs.\n\nSi vous préférez ne pas utiliser les serveurs de clés, assurez-vous que vos correspondants savent que votre clé est révoquée et ne doit plus être utilisée. Vous pouvez leur adresser votre clé publique révoquée afin qu'ils l'importent dans leur gestionnaire de clés.\n\nVoulez-vous publier votre clé publique révoquée ?";
 RevokedKeyWantToUpload_Yes = "Envoyé la clé publique";
 RevokedKeyWantToUpload_No = "Non, merci !";
 
-RevokedUserIDWantToUpload_Title = "Your user ID was successfully revoked";
-RevokedUserIDWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the user ID is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
+RevokedUserIDWantToUpload_Title = "Votre ID utilisateur a été révoqué";
+RevokedUserIDWantToUpload_Msg = "Afin de permettre à vos correspondants de connaitre le nouvel état de votre clé, il est recommandé de publier votre clé mise à jour sur les serveurs de clés.\n\nAttention : les serveurs de clés sont publics, le nom et l'adresse électronique que vous utilisez dans votre clé seront donc accessibles par tous. Les clés peuvent être révoquées mais pas supprimées des serveurs.\n\nSi vous préférez ne pas utiliser les serveurs de clés, assurez-vous que vos correspondants savent que l'ID utilisateur est révoqué et ne doit plus être utilisé. Vous pouvez leur adresser votre clé publique mise à jour afin qu'ils l'importent dans leur gestionnaire de clés.\n\nVoulez-vous publier votre clé publique mise à jour ?";
 RevokedUserIDWantToUpload_Yes = "Envoyé la clé publique";
 RevokedUserIDWantToUpload_No = "Non, merci !";
 
 RevokedSubkeyWantToUpload_Title = "Votre sous-clé à été révoquée avec succès";
-RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your subkey, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the subkey is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
+RevokedSubkeyWantToUpload_Msg = "Afin de permettre à vos correspondants de connaitre le nouvel état de votre sous-clé, il est recommandé de publier votre clé publique sur les serveurs de clés.\n\nAttention : les serveurs de clés sont publics, le nom et l'adresse électronique que vous utilisez dans votre clé seront donc accessibles par tous. Les clés peuvent être révoquées mais pas supprimées des serveurs.\n\nSi vous préférez ne pas utiliser les serveurs de clés, assurez-vous que vos correspondants savent que votre sous-clé est révoqué et ne doit plus être utilisé. Vous pouvez leur adresser votre clé publique mise à jour afin qu'ils l'importent dans leur gestionnaire de clés.\n\nVoulez-vous publier votre clé publique mise à jour ?";
 RevokedSubkeyWantToUpload_Yes = "Envoyé la clé publique";
 RevokedSubkeyWantToUpload_No = "Non, merci !";
 
-UserIDsSignedWantToUpload_Title = "Signing successful";
-UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
-UserIDsSignedWantToUpload_Yes = "Envoyé la clé publique";
+UserIDsSignedWantToUpload_Title = "Signature effertuée";
+UserIDsSignedWantToUpload_Msg = "Pour permettre à vos correspondants de prendre connaissance de cette nouvelle signature, il est recommandé de publier la clé publique signée sur les serveurs de clés.\n\nVoulez-vous publier la clé publique ?";
+UserIDsSignedWantToUpload_Yes = "Clé publique publiée";
 UserIDsSignedWantToUpload_No = "Non, merci !";
 
 
@@ -234,43 +234,43 @@ UserIDsSignedWantToUpload_No = "Non, merci !";
 
 /* Delete warnings */
 DeleteKey_Title = "Effacer la clé publique";
-DeleteKey_Msg = "You are about to delete the following public key:\n\n%@\n\nAre you sure you want to delete the public key?";
+DeleteKey_Msg = "Vous vous apprêtez à supprimer la clé publique suivante :\n\n%@\n\nÊtes-vous sûr de vouloir l'effacer ?";
 DeleteKey_Yes = "Effacer clé";
 DeleteKey_No = "Annuler";
 
 DeleteKeys_Title = "Effacer les clés publiques";
-DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
+DeleteKeys_Msg = "Vous vous apprêtez à supprimer les clés publiques suivantes :\n\n%@\n\nÊtes-vous sûr de vouloir les effacer ?";
 DeleteKeys_Yes = "Effacer les clés";
 DeleteKeys_No = "Annuler";
 
 
-DeleteSecKey_Title = "Warning: You are about to delete secret and public keys";
-DeleteSecKey_Msg = "You are about to delete keys:\n\n%@\n\nOnce deleted, all messages that were and will be encrypted to this key can no longer be decrypted. We recommend not to delete it.\n\nIn order to communicate to others that this key is no longer in use, you should revoke the key instead of deleting it and upload the revoked key to the key servers. Otherwise others might still use this key to encrypt messages to you.";
-DeleteSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
+DeleteSecKey_Title = "Attention : Vous vous apprêtez à supprimer des clés secrètes et des clés publiques";
+DeleteSecKey_Msg = "Vous vous apprêtez à supprimer des clés :\n\n%@\n\nUne fois supprimées, tous les messages qui ont été chiffrés ou qui seront chiffrés avec cette clé ne pourrons plus être déchiffrés. Nous conseillons de ne pas supprimer cette clé.\n\nAfin d'indiquer à vos correspondants que cette clé n'est plus utilisable vous devriez la révoquer, au lieu de la supprimer, et publier la clé révoquée sur les serveurs de clé. Sans cela, vos correspondants pourraient continuer à utiliser cette clé pour vous adresser des messages chiffrés.";
+DeleteSecKey_Checkbox = "Oui, je confirme que je souhaite supprimer ma clé secrète et je comprends que je ne pourrai plus déchiffrer aucun message chiffré avec cette clé.";
 DeleteSecKey_Yes = "Supprimer la/les clé(s)";
 DeleteSecKey_SecOnly = "Supprimer la/les clé(s) privée(s) seulement";
 DeleteSecKey_No = "Annuler";
 
 DeleteRevokedSecKey_Title = "Attention ! Vous êtes sur le point de supprimer une/des paire(s) de clés révoquée(s)";
 DeleteRevokedSecKey_Msg = "Vous êtes sur le point sur supprimer la/les paire(s) de clés révoquées :\n\n%@\n\nLes clés révoquées sont toujours capables de déchiffrer de vieux messages chiffrés pour cette clé.\n\nNous vous recommandons de ne pas la/les supprimer.";
-DeleteRevokedSecKey_Checkbox = " Yes, I want to delete my secret key and understand, that I will no longer\nbe able to decrypt any messages that were encrypted to this key.";
+DeleteRevokedSecKey_Checkbox = "Oui, je confirme que je souhaite supprimer ma clé secrète et je comprends que je ne pourrai plus déchiffrer aucun message chiffré avec cette clé.";
 DeleteRevokedSecKey_Yes = "Supprimer la/les paire(s) de clés";
 DeleteRevokedSecKey_SecOnly = "Supprimer la/les clé(s) privée(s) seulement";
 DeleteRevokedSecKey_No = "Annuler";
 
 
 /* New keyserver */
-SwitchToVerifyingKeyserver_Title = "New Key Server keys.openpgp.org";
-SwitchToVerifyingKeyserver_Msg = "After careful consideration we decided that the new default key server used in GPG Suite is going to be keys.openpgp.org. The new key server is more reliable than old ones and it will better protect your privacy. Search results will only show email addresses which have been verified by their owners. Otherwise keys can only be found when searching for their fingerprint.\n\nThe key owner can choose to remove the email address from appearing in search results at any given time.\n\nDo you want to switch to the new key server?";
-SwitchToVerifyingKeyserver_Yes = "Switch to new Key Server";
+SwitchToVerifyingKeyserver_Title = "Nouveau serveur de clés keys.openpgp.org";
+SwitchToVerifyingKeyserver_Msg = "À la suite d'une réflexion approfondie, nous avons décidé que GPG Suite utilisera le nouveau serveur de clés keys.openpgp.org. Ce nouveau serveur est plus fiable que les anciens et protège mieux votre vie privée. Les résultats de recherche n'affichent que les adresses électroniques vérifiées par leurs propriétaires. Les clés peuvent également être retrouvées à l'aide de leur empreinte.\n\nLe propriétaire de la clé peut décider à tout moment de ne pas faire apparaitre son adresse électronique dans les résultats de recherche.\n\nVoulez-vous changer pour le nouveau serveur de clés ?";
+SwitchToVerifyingKeyserver_Yes = "Changer pour le nouveau serveur de clés";
 SwitchToVerifyingKeyserver_No = "Annuler";
-SwitchToVerifyingKeyserver_LearnMore = "Learn More";
+SwitchToVerifyingKeyserver_LearnMore = "En savoir plus";
 
 UploadSingleKeyVerifyingKeyserver_Title = "Envoyé la clé publique";
-UploadSingleKeyVerifyingKeyserver_Msg = "Your key server has been switched to keys.openpgp.org\n\nWe recommend that you upload your public key to the new key server, so others will be able to find it by searching for your email address. Once the key is uploaded, you will receive an email with a verification link for each email address associated with your key. If you don't complete the verification process, your key can only be found by searching for its fingerprint.\n\nDo you want to upload your public key?";
+UploadSingleKeyVerifyingKeyserver_Msg = "Le serveur de clés a été changé pour keys.openpgp.org.\n\nNous vous recommandons de publier votre clé publique sur ce nouveau serveur de façon à ce qu'elle soit disponible pour une recherche par adresse de courriel. Une fois votre clé publiée, vous recevrez un courriel avec un lien de vérification pour chaque adresse associée avec votre clé. Si vous ne confirmez pas, votre clé ne pourra être retrouvée qu'avec sont empreinte.\n\nVoulez-vous publier votre clé publique ?";
 UploadSingleKeyVerifyingKeyserver_Yes = "Envoyé la clé publique";
 UploadSingleKeyVerifyingKeyserver_No = "Annuler";
-UploadSingleKeyVerifyingKeyserver_LearnMore = "Learn More";
+UploadSingleKeyVerifyingKeyserver_LearnMore = "En savoir plus";
 
 
 
@@ -294,22 +294,22 @@ ImportNonImportable_No = "Annuler";
 
 /* Results */
 UploadSuccess_Title = "Les clés publiques ont été envoyé au serveur des clés";
-UploadSuccess_Msg = "The following public keys have been uploaded:\n\n%@";
+UploadSuccess_Msg = "Les clés publiques suivant ont été publiées :\n\n%@";
 
 ExportSuccess_Title = "Les clés ont été exportées";
-ExportSuccess_Msg = "The following keys were exported:\n\n%@";
+ExportSuccess_Msg = "Les clés suivantes ont été exportées :\n\n%@";
 
-SignSuccess_Title = "The selected user IDs have been signed";
+SignSuccess_Title = "Les identités utilisateur sélectionnées ont été signées";
 
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "The following keys were successfully imported:\n\n%@";
+IMPORT_RESULT_NEW_KEY = "La clé suivante a été importée :\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "Les clés suivantes ont été importées :\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user ID was added to the following keys \n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to the following keys \n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "Une identité a été ajoutée aux clés suivantes :\n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "Une signature a été ajoutée aux clés suivantes :\n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "Une sous-clé a été ajoutée aux clés suivantes :\n\n%@";
 
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 certificat de révocation a été importé.";
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i certificats de révocation ont été importés.";
@@ -324,17 +324,17 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Détails :";
 ImportKeyError_Title = "Échecs de l'importation d'une ou plusieurs clés";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "C'est généralement l'absence d'auto-signature qui empêche l'importation d'une clé. Consultez\nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one pour plus d'information et des conseils sur la manière de résoudre le problème.";
 ImportKeyErrorPGP_Title = "L'importation a échoué";
 ImportKeyErrorPGP_Msg = "Il semblerait que vous tentiez d'importer un message chiffré ou signé. Pour déchiffrer ou vérifier ce type de message, merci d'utiliser GPGServices.";
 ImportKeyErrorNoPGP_Title = "L'importation a échoué";
-ImportKeyErrorNoPGP_Msg = "Il semblerait que vous tentiez d'importer des données sans relation avec PGP que nous ne pouvons traiter.";
+ImportKeyErrorNoPGP_Msg = "Ce que vous essayez d'importer n'est pas une clé ni un message OpenPGP valide. Assurez-vous qu'il s'agit de texte brut et pas de texte formaté et demandez à votre correspondant de vous renvoyer son message.";
 
-NO_SECRET_KEY_TITLE = "No secret key found";
+NO_SECRET_KEY_TITLE = "Pas de clé secrète";
 NO_SECRET_KEY_MESSAGE = "Vous avez besoin d'une clé secrète pour effectuer cette opération.";
 
 KeyserverSearchError_Title = "La recherche de clé a échoué";
-KeyserverSearchError_Msg = "Please repeat your search and see if it works then. Should the problem persist, file a support request via System Preferences > GPG Suite > Send Report. Please copy the entire error message into the description field and add the search term you used for your query. We recommend to include the debug log, since that provides additional helpful information to solve your problem.";
+KeyserverSearchError_Msg = "Merci de recommencer votre recherche. Si le problème persiste, faites parvenir une demande d'aide en utilisant l'onglet \"Envoyer un rapport\" de l'élément \"GPG Suite\" des préférences système. Merci de recopier la totalité du message d'erreur dans la description du problème et d'indiquer la recherche que vous avez effectué. Nous vous conseillons d'inclure le journal de déboggage car cela fournit des informations utiles à la résolution du problème.";
 
 
 
@@ -381,70 +381,70 @@ ChangePassphrase_Progress = "Changement du mot de passe…";
 ChangePassphrase_Error = "Le changement du mot de passe a échoué.";
 SetDisabled_Progress = "Activation/Désactivation de la clé…";
 SetDisabled_Error = "Activation/désactivation de la clé a échoué.";
-SetOwnerTrust_Progress = "Setting owner trust…";
+SetOwnerTrust_Progress = "Paramétrage du niveau de confiance…";
 SetOwnerTrust_Error = "Paramètrage de la confiance du propriétaire a échoué.";
 ChangeExpirationDate_Progress = "Changement de la date d'expiration…";
 ChangeExpirationDate_Error = "La modification de la date d'expiration a échouée.";
-SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
+SetAlgorithmPreferences_Progress = "Paramétrage des préférences d'algorithme…";
 SetAlgorithmPreferences_Error = "Paramètrage des préférences de l'algorithme a échoué.";
 CleanKey_Progress = "Nettoyage de la clé…";
 CleanKey_Error = "Nettoyage de la clé a échoué.";
 MinimizeKey_Progress = "Réduction de la taille de clé…";
 MinimizeKey_Error = "Minimisation de la clé a échoué.";
-GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
-GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
-SearchKeysOnServer_Progress = "Searching for key…";
-SendKeysToServer_Progress = "Sending %@ to server…";
+GenerateRevokeCertificateForKey_Progress = "Création du certificat de révocation…";
+GenerateRevokeCertificateForKey_Error = "Échec de création du certificat de révocation.";
+SearchKeysOnServer_Progress = "Recherche de la clé…";
+SendKeysToServer_Progress = "Envoi de %@ au serveur…";
 SendKeysToServer_Error = "Envoi de la clé a échoué.";
-RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
+RefreshKeysFromServer_Progress = "Rafraichissement de %@ depuis le serveur…";
 RefreshKeysFromServer_Error = "Rafraichissement de la clé a échoué.";
-AddSubkey_Progress = "Adding subkey…";
+AddSubkey_Progress = "Ajout d'une sous-clé…";
 AddSubkey_Error = "Ajout de la sous-clé a échoué.";
-RemoveSubkey_Progress = "Removing subkey…";
+RemoveSubkey_Progress = "Suppression d'une sous-clé…";
 RemoveSubkey_Error = "Suppression de la sous-clé a échoué.";
-RevokeSubkey_Progress = "Revoking subkey…";
+RevokeSubkey_Progress = "Révocation d'une sous-clé…";
 RevokeSubkey_Error = "Révocation de la sous-clé a échoué.";
-AddUserID_Progress = "Adding user ID…";
-AddUserID_Error = "Adding user ID failed.";
-RemoveUserID_Progress = "Removing user ID…";
-RemoveUserID_Error = "Removing user ID failed.";
-SetPrimaryUserID_Progress = "Setting primary user ID…";
-SetPrimaryUserID_Error = "Setting primary user ID failed.";
-RevokeUserID_Progress = "Revoking user ID…";
-RevokeUserID_Error = "Revoking user ID failed.";
-AddPhoto_Progress = "Adding photo…";
+AddUserID_Progress = "Ajout d'une identité utilisateur…";
+AddUserID_Error = "Échec de l'ajout de l'identité.";
+RemoveUserID_Progress = "Suppression de l'identité…";
+RemoveUserID_Error = "Échec de la suppression de l'identité.";
+SetPrimaryUserID_Progress = "Enregistrement de l'identité principale…";
+SetPrimaryUserID_Error = "Échec de l'enregistrement de l'identité principale.";
+RevokeUserID_Progress = "Révocation de l'identité…";
+RevokeUserID_Error = "Échec de la révocation de l'identité.";
+AddPhoto_Progress = "Ajout de la photo…";
 AddPhoto_Error = "L'ajout de la photo a échoué.";
-AddPhoto_SelectMessage = "Choose photo…";
-RemovePhoto_Progress = "Removing photo…";
+AddPhoto_SelectMessage = "Choisir une photo…";
+RemovePhoto_Progress = "Suppression de la photo…";
 RemovePhoto_Error = "La suppression de la photo a échoué.";
-SetPrimaryPhoto_Progress = "Setting primary photo…";
+SetPrimaryPhoto_Progress = "Enregistrement de la photo principale…";
 SetPrimaryPhoto_Error = "Le paramétrage de la photo primaire a échoué.";
-RevokePhoto_Progress = "Revoking photo…";
+RevokePhoto_Progress = "Révocation de la photo…";
 RevokePhoto_Error = "La révocation de la photo a échoué.";
-AddSignature_Progress = "Signing…";
-AddSignature_Error = "Signing failed.";
-RemoveSignature_Progress = "Removing signature…";
+AddSignature_Progress = "Signature…";
+AddSignature_Error = "Échec de la signature.";
+RemoveSignature_Progress = "Suppression de la signature…";
 RemoveSignature_Error = "La suppression de la signature a échoué.";
-RevokeSignature_Progress = "Revoking signature…";
+RevokeSignature_Progress = "Révocation de la signature…";
 RevokeSignature_Error = " La révocation de la signature a échoué.";
-ReceiveKeysFromServer_Progress = "Receiving keys…";
+ReceiveKeysFromServer_Progress = "Réception des clés…";
 ReceiveKeysFromServer_Error = "La réception des clés a échoué.";
-RevokeKey_Progress = "Revoking key…";
+RevokeKey_Progress = "Révocation des clés…";
 RevokeKey_Error = "La révocation de la clé a échoué.";
 
 
-SendToKeyserver_MenuItem = "Send to Key Server";
-SendPublicKeyToKeyserver_MenuItem = "Send Public Key to Key Server";
+SendToKeyserver_MenuItem = "Envoi au serveur de clés";
+SendPublicKeyToKeyserver_MenuItem = "Envoi de la clé publique au serveur de clés";
 
-FilterNoResults = "The local search for '%@' has no results.";
-FilterNoResultsSecOnly = "The local search for '%@' has no results.\nConsider disabling the option to 'Show secret keys only' to expand the search.";
+FilterNoResults = "La recherche locale pour '%@' n'a donné aucun résultat/";
+FilterNoResultsSecOnly = "La recherche locale pour '%@' n'a donné aucun résultat.\nVous pouvez désactiver l'option 'Rechercher uniquement les clés secrètes' pour élargir la recherche.";
 
 
 
-SignKey_KeyClaimsMultipleIdentities = "The key:\n%@\nclaims more than one identity. Which ones have you verified?";
-SignKey_PublishSingleIdentity = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to %@.";
-SignKey_PublishMultipleIdentities = "If you choose to publish this signature, everyone in the world can see that you believe this key belongs to the identities you've checked.";
-SignKey_MainMsg = "By signing this key you confirm the identity of the key owner and that the key with fingerprint %@ belongs to them.";
+SignKey_KeyClaimsMultipleIdentities = "La clé :\n%@\ndispose de plusieurs identités. Laquelle avez-vous vérifé ?";
+SignKey_PublishSingleIdentity = "Si vous publiez cette signature, tout le monde verra que vous certifiez que cette clé appartient à %@.";
+SignKey_PublishMultipleIdentities = "Si vous publiez cette signature, tout le monde verra que vous certifiez que cette clé correspond aux identités que vous avez vérifiées.";
+SignKey_MainMsg = "En signant cette clé, vous certifiez l'identité du propriétaire de la clé et que la clé avec l'empreinte %@ lui appartient bien.";
 
 
 

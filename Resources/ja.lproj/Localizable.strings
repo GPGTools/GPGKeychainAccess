@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "The password you have entered is too lon
 
 CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "鍵を生成";
+CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
 CheckAlert_NewKeyExistingEmail_No = "キャンセル";
 
 CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "ユーザ ID を生成";
+CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
 CheckAlert_NewUserIDExistingEmail_No = "キャンセル";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "電子メールアドレスまたはフィンガ
 GPG_NOT_FOUND_TITLE = "GPGが見つかりませんでした";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG設定エラー";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg が見つかりませんでした";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpgがあなたのシステム内に見つかりませんでした。GPG Suite をここから再インストールしてください。https://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
 UNKNOWN_GPG_ERROR_TITLE = "不明なGPGエラー";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "%@の公開鍵";
 MailKey_Subject_Your = "My public key to secure our messages";
 MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
 MailKey_Message_Your = "こんにちは、\n\n添付された公開鍵はこちらです。\n\n%@\n\nこの鍵を利用して暗号化して、メッセージを保護できます。\n\n始めるにはOpenPGPをコンピュータにインストールする必要があります。こちらにOSごとの利用方法があります:\n\n%@\n\nローカルのOpenPGP鍵マネージャに鍵をインポートしてください。\n\n暗号化されたメッセージを交換することを楽しみにしています。\n\nよろしくお願いします。";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "新しいメールを作成中…";
 MailKey_Progress_Your = "新しいメールを作成中…";
 MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
@@ -324,7 +324,7 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "詳細:";
 ImportKeyError_Title = "Failed to import one or more keys";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "インポート失敗";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "インポート失敗";
@@ -391,8 +391,8 @@ CleanKey_Progress = "Cleaning key…";
 CleanKey_Error = "Cleaning key failed.";
 MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Minimizing key failed.";
-GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
-GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
+GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
 SearchKeysOnServer_Progress = "鍵を検索しています...";
 SendKeysToServer_Progress = "%@をサーバへ送信しています... ";
 SendKeysToServer_Error = "鍵の送信に失敗しました。";

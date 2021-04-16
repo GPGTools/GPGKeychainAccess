@@ -48,7 +48,7 @@ CheckAlert_NewKeyExistingEmail_No = "Abbrechen";
 
 CheckAlert_NewUserIDExistingEmail_Title = "Ein gültiger Schlüssel mit dieser Adresse existiert bereits";
 CheckAlert_NewUserIDExistingEmail_Msg = "Der vorhandene Schlüssel %1$@ hat folgenden Fingerabdruck:\n%2$@\n\nDie Verwendung derselben E-Mail-Adresse in mehr als einem Schlüssel kann zu Problemen führen und wird nicht empfohlen.\nWenn du wirklich eine neue Benutzer-ID für diese E-Mail erstellen möchtest, empfehlen wir, diese E-Mail-Adresse im bestehenden Schlüssel zunächst zu widerrufen.\n\nMöchtest du wirklich eine Benutzer-ID mit dieser E-Mail-Adresse erstellen?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Benutzer-ID erzeugen";
+CheckAlert_NewUserIDExistingEmail_Yes = "Benutzer-ID erstellen";
 CheckAlert_NewUserIDExistingEmail_No = "Abbrechen";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Bitte suche nach einer E-Mail Adresse oder einem
 GPG_NOT_FOUND_TITLE = "GPG nicht gefunden";
 GPG_NOT_FOUND_MESSAGE = "Ups, da läuft was schief. GPG scheint auf deinem System zu fehlen. Bitte lade und installiere GPG Suite erneut von\nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG Konfigurationsfehler";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, da lief etwas schief. GPG wurde auf deinem System gefunden, aber es gibt ein Problem mit der config Datei. Bitte kontaktiere uns unter\nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, da lief etwas schief. GPG wurde auf deinem System gefunden, aber es gibt ein Problem mit der config Datei. Bitte kontaktiere uns unter\nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg wurde nicht gefunden";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg wurde auf deinem System nicht gefunden. Bitte lade und installiere GPG Suite von\nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Jemand hat deine GPG Keychain Installation verändert!";
 CODE_SIGN_ERROR_MESSAGE = "Um dich zu schützen wird GPG Keychain nun beendet!\n\nBitte lade und installiere GPG Suite von https://gpgtools.org um sicherzustellen, dass du eine Originalversion von uns verwendest!";
 UNKNOWN_GPG_ERROR_TITLE = "Unbekannter GPG-Fehler";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, da lief etwas schief. GPG hat einen unbekannten Fehler ausgelöst. Bitte kontaktiere uns unter\nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, da lief etwas schief. GPG hat einen unbekannten Fehler ausgelöst. Bitte kontaktiere uns unter\nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "Öffentlicher Schlüssel von %@";
 MailKey_Subject_Your = "Mein öffentlicher Schlüssel zum Verschlüsseln unserer Nachrichten";
 MailKey_Message = "Hi\n\nim Anhang findest du den öffentlichen Schlüssel von\n\n%@\n\nDu kannst diesen Schlüssel verwenden, um Nachrichten an %@ zu verschlüsseln.\n\nDamit du sicher kommunizieren kannst, musst du eine OpenPGP Software auf deinem Computer installieren.\nHier eine Liste möglicher Lösungen für dein System:\n\n%@\n\nBitte importiere den öffentlichen Schlüssel in deine lokale OpenPGP Schlüsselverwaltung.\n\nViele Grüße";
 MailKey_Message_Your = "Hi\n\nim Anhang findest du meinen öffentlichen Schlüssel\n\n%@\n\nDu kannst diesen Schlüssel verwenden, um unsere Nachrichten zu verschlüsseln.\n\nDamit du sicher kommunizieren kannst, musst du eine OpenPGP Software auf deinem Computer installieren. Hier eine Liste möglicher Lösungen für dein System:\n\n%@\n\nBitte importiere den öffentlichen Schlüssel in deine lokale OpenPGP Schlüsselverwaltung.\n\nIch freue mich auf abhörsichere Kommunikation mit dir.\n\nViele Grüße";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/erste-schritte-gpgtools-einrichten-einen-schlssel-erstellen-deine-erste-verschlsselte-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/erste-schritte-gpgtools-einrichten-einen-schlssel-erstellen-deine-erste-verschlsselte-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Neue E-Mail wird erstellt ...";
 MailKey_Progress_Your = "Neue E-Mail wird erstellt ...";
 MailKey_Error = "Ups, da ging was schief. Es gab ein Problem beim Export deines Schlüssels.";
@@ -324,11 +324,11 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Details:";
 ImportKeyError_Title = "Importieren eines oder mehrerer Schlüssel fehlgeschlagen";
-ImportKeyError_Msg = "Oft können Schlüssel nicht importiert werden, weil eine Eigenbeglaubigung fehlt. Der folgende KB-Artikel beschreibt, was du bei diesem Problem tun kannst:\nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature";
+ImportKeyError_Msg = "Oft können Schlüssel nicht importiert werden, weil eine Eigenbeglaubigung fehlt. Der folgende KB-Artikel beschreibt, was du bei diesem Problem tun kannst:\nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one";
 ImportKeyErrorPGP_Title = "Importieren fehlgeschlagen";
 ImportKeyErrorPGP_Msg = "Du versuchst anscheinend eine signierte oder verschlüsselte Nachricht zu importieren. Um solche Nachrichten zu entschlüsseln oder verifizieren verwende bitte GPGServices.";
 ImportKeyErrorNoPGP_Title = "Importieren fehlgeschlagen";
-ImportKeyErrorNoPGP_Msg = "Es scheint du versuchst Daten zu importieren, die keine OpenPGP-Daten sind und daher nicht verarbeitet werden können.";
+ImportKeyErrorNoPGP_Msg = "Die Daten, die du versuchst zu importieren, sind weder ein gültiger OpenPGP Schlüssel noch eine gültige Nachricht. Stelle sicher, dass anstelle von formatiertem Text das txt Format verwendet wird. Frage gegebenenfalls den Schlüsselinhaber oder Autor der Nachricht, die Daten erneut zu senden.";
 
 NO_SECRET_KEY_TITLE = "Kein geheimer Schlüssel gefunden";
 NO_SECRET_KEY_MESSAGE = "Du benötigst einen geheimen Schlüssel, um diese Operation auszuführen.";

@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "The password you have entered is too lon
 
 CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "Generate Key";
+CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
 CheckAlert_NewKeyExistingEmail_No = "Annuleer";
 
 CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Genereer gebruikers-ID";
+CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
 CheckAlert_NewUserIDExistingEmail_No = "Annuleer";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprin
 GPG_NOT_FOUND_TITLE = "GPG Niet gevonden";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG Configuratie fout";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg is niet gevonden";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Someone tampered with your installation of GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "To keep you safe, GPG Keychain will exit now!\n\nPlease reinstall GPG Suite from \nhttps://gpgtools.org to be sure you have an original version from us!";
 UNKNOWN_GPG_ERROR_TITLE = "Onbekende GPG fout";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "Publieke sleutel van %@";
 MailKey_Subject_Your = "Mijn publieke sleutel om ons gesprek te versleutelen";
 MailKey_Message = "Goedendag,\n\nIn de bijlagen vind u de publieke sleutel van\n\n%@\n\nU kunt deze sleutel gebruiken om berichten te versleutelen als u communiceert met %@.\n\nOm hier gebruik van te maken moet u OpenGPG software installeren op uw computer. Hieronder vind u een lijst met beschikbare softwarepakketten voor uw besturingssysteem:\n\n%@\n\nImporteer deze publieke sleutel naar uw lokale OpenPGP Key-Manager.\n\nMet vriendelijke groet.";
 MailKey_Message_Your = "Goedendag,\n\nIn de bijlagen vind u mijn publieke sleutel\n\n%@\n\nU kunt deze sleutel gebruiken om berichten voor mij te versleutelen als u met mij communiceert.\n\nOm hier gebruik van te maken moet u OpenGPG software installeren op uw computer. Hieronder vind u een lijst met beschikbare softwarepakketten voor uw besturingssysteem:\n\n%@\n\nImporteer deze publieke sleutel naar uw lokale OpenPGP Key-Manager.\n\nIk zie er naar uit om berichten met u uit te wisselen, zonder afgetapt te worden.\n\nMet vriendelijke groet.";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Creating new email…";
 MailKey_Progress_Your = "Creating new email…";
 MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
@@ -324,7 +324,7 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Details:";
 ImportKeyError_Title = "Failed to import one or more keys";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Import Failed";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import failed";
@@ -391,8 +391,8 @@ CleanKey_Progress = "Cleaning key…";
 CleanKey_Error = "Schoonmaken van de sleutel is mislukt.";
 MinimizeKey_Progress = "Minimizing key…";
 MinimizeKey_Error = "Minimaliseren van de sleutel is mislukt.";
-GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
-GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
+GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
 SearchKeysOnServer_Progress = "Searching for key…";
 SendKeysToServer_Progress = "Sending %@ to server…";
 SendKeysToServer_Error = "Versturen van sleutel is mislukt.";

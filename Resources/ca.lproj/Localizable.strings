@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "La contrasenya que heu introduït és ma
 
 CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "Genera la clau";
+CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
 CheckAlert_NewKeyExistingEmail_No = "Cancel·la";
 
 CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Genera la identitat de l'usuari";
+CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
 CheckAlert_NewUserIDExistingEmail_No = "Cancel·la";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprin
 GPG_NOT_FOUND_TITLE = "No s'ha trobat el GPG";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Error de configuració del GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "No s'ha trobat el Libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Algú ha manipulat la instal·lació del GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "El GPG Keychain es tancarà per la vostra seguretat.\n\nTorneu a instal·lar el GPG Suite des de\nhttps://gpgtools.org per a estar segur que teniu la nostra versió original.";
 UNKNOWN_GPG_ERROR_TITLE = "Error desconegut del GPG";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "Clau pública de %@";
 MailKey_Subject_Your = "La meua clau pública per assegurar-nos els missatges";
 MailKey_Message = "Hola,\n\ntrobaràs com a fitxer adjunt la clau pública de\n\n%@\n\nPots usar aquesta clau per xifrar i assegurar els missatges quan escriguis a %@.\n\nPer començar a usar-la, has d'instal·lar un programa OpenPGP a l'ordinador. A sota hi ha una llista de solucions possibles per al teu sistema operatiu:\n\n%@\n\nImporta la clau pública al teu gestor de claus OpenPGP local.\n\nSalutacions";
 MailKey_Message_Your = "Hola,\n\ntrobaràs com a fitxer adjunt la meua clau pública\n\n%@\n\nPots usar aquesta clau per xifrar i assegurar els missatges que intercanviem.\n\nPer començar a usar-la, has d'instal·lar un programa OpenPGP a l'ordinador. A sota hi ha una llista de solucions possibles per al teu sistema operatiu:\n\n%@\n\nImporta la clau pública al teu gestor de claus OpenPGP local.\n\nEstic desitjant intercanviar missatges lliures de vigilància amb tu.\n\nSalutacions";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Creating new email…";
 MailKey_Progress_Your = "Creating new email…";
 MailKey_Error = "Alguna cosa ha anat malament. Hi ha hagut un problema en exportar la clau.";
@@ -324,7 +324,7 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Detalls";
 ImportKeyError_Title = "Failed to import one or more keys";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Import Failed";
 ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signed message. To decrypt or verify such messages please use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import failed";
@@ -391,8 +391,8 @@ CleanKey_Progress = "S'està netejant la clau...";
 CleanKey_Error = "Neteja fallida de la clau.";
 MinimizeKey_Progress = "S'està minimitzant la clau...";
 MinimizeKey_Error = "Minimitza la clau fallida.";
-GenerateRevokeCertificateForKey_Progress = "S'està generant el certificat de revocació...";
-GenerateRevokeCertificateForKey_Error = "No s'ha pogut generar el certificat de revocació.";
+GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
 SearchKeysOnServer_Progress = "S'està cercant la clau...";
 SendKeysToServer_Progress = "S'està enviant %@ al servidor...";
 SendKeysToServer_Error = "Envia fallida de la clau";

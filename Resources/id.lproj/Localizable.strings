@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "Kata sandi yang Anda masukkan terlalu pa
 
 CheckAlert_NewKeyExistingEmail_Title = "Sebuah kunci yang sah dengan alamat ini sudah ada";
 CheckAlert_NewKeyExistingEmail_Msg = "Kunci yang ada dengan %1$@ memiliki sidik jari berikut:\n%2$@\n\nMemakai alamat surel yang sama dalam lebih dari satu kunci dapat menyebabkan masalah dan tidak disarankan.\nBila Anda memang ingin membuat suatu kunci baru bagi surel ini, kami sarankan untuk pertama mencabut surel itu dari kunci yang ada.\n\nApakah Anda memang hendak membuat suatu kunci dengan surel itu sekarang?";
-CheckAlert_NewKeyExistingEmail_Yes = "Buat Kunci";
+CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
 CheckAlert_NewKeyExistingEmail_No = "Batal";
 
 CheckAlert_NewUserIDExistingEmail_Title = "Sebuah kunci yang sah dengan alamat ini sudah ada";
 CheckAlert_NewUserIDExistingEmail_Msg = "Kunci yang ada dengan %1$@ memiliki sidik jari berikut:\n%2$@\n\nMemakai alamat surel yang sama dalam lebih dari satu kunci dapat menyebabkan masalah dan tidak disarankan.\nBila Anda memang ingin membuat suatu ID pengguna baru bagi surel ini, kami sarankan untuk pertama mencabut surel itu dari kunci yang ada.\n\nApakah Anda memang hendak membuat suatu ID pengguna dengan surel itu sekarang?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Buat ID Pengguna";
+CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
 CheckAlert_NewUserIDExistingEmail_No = "Batal";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Harap cari alamat surel atau sidik jari.";
 GPG_NOT_FOUND_TITLE = "GPG Tak Ditemukan";
 GPG_NOT_FOUND_MESSAGE = "Ups, ada kesalahan parah. Tampaknya GPG hilang dari sistem Anda. Harap pasang ulang Keluarga GPG dari\n\nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Galat Konfig GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ups, ada yang salah. GPG ditemukan pada sistem Anda tapi tampaknya ada masalah dengan berkas konfig. Harap hubungi kami di \nhttps://gpgtools.tenderapp.com\n\nRincian: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg tak ditemukan";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg tidak ditemukan pada sistem Anda. Harap pasang ulang\nKeluarga GPG dari https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Seseorang mengotak-atik instalasi GPG Keychain Anda";
 CODE_SIGN_ERROR_MESSAGE = "Agar Anda tetap aman, GPG Keychain akan keluar sekarang!\n\nHarap pasang ulang GPG Suite dari\nhttps://gpgtools.org agar yakin bahwa Anda memiliki versi asli dari kami!";
 UNKNOWN_GPG_ERROR_TITLE = "Kesalahan GPG Yang Tak Dikenal";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ups, ada yang salah. GPG melaporkan kesalahan yang tidak dikenal. Harap hubungi kami di  \nhttps://gpgtools.tenderapp.com\n\nRincian: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "Kunci publik dari %@";
 MailKey_Subject_Your = "Kunci publik saya untuk mengamankan pesan-pesan kita";
 MailKey_Message = "Halo,\n\nterlampir adalah kunci publik dari \n\n%@\n\nAnda dapat memakai kunci ini untuk mengenkripsi dan mengamankan pesan ketika menulis ke %@.\n\nUntuk mulai memakainya, Anda perlu memasang suatu perangkat lunak OpenPGP pada komputer Anda. Di bawah Anda akan temukan daftar solusi yang mungkin untuk sistem operasi Anda:\n\n%@\n\nHarap impor kunci publik ke dalam Manajer Kunci OpenPGP lokal Anda.\n\nSalam";
 MailKey_Message_Your = "Halo,\n\nterlampir adalah kunci publik saya\n\n%@\n\nAnda dapat memakai kunci ini untuk mengenkripsi dan mengamankan pesan kita.\n\nUntuk mulai memakainya, Anda perlu memasang suatu perangkat lunak OpenPGP pada komputer Anda. Di bawah Anda akan temukan daftar solusi yang mungkin untuk sistem operasi Anda:\n\n%@\n\nHarap impor kunci publik ke dalam Manajer Kunci OpenPGP lokal Anda.\n\nSaya berharap bisa segera bertukar pesan bebas intip dengan Anda.\n\nSalam";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Membuat surel baru...";
 MailKey_Progress_Your = "Membuat surel baru...";
 MailKey_Error = "Ups, ada yang salah. Ada masalah saat mengekspor kunci Anda.";
@@ -324,11 +324,11 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Rincian:";
 ImportKeyError_Title = "Gagal mengimpor satu kunci atau lebih";
-ImportKeyError_Msg = "Seringkali kunci tidak dapat diimpor karena kurang tanda tangan mandiri. Harap kunjungi\nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature untuk rincian lebih jauh dan langkah-langkah tentang bagaimana mengatasi masalah ini.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Impor Gagal";
 ImportKeyErrorPGP_Msg = "Tampaknya Anda mencoba mengimpor suatu pesan bertandatangan atau terenkripsi. Untuk mendekripsi atau verifikasi pesan itu harap gunakan GPG Services.";
 ImportKeyErrorNoPGP_Title = "Impor gagal";
-ImportKeyErrorNoPGP_Msg = "Tampaknya Anda mencoba mengimpor beberapa data tak terkait PGP yang tak dapat diproses.";
+ImportKeyErrorNoPGP_Msg = "Data yang Anda coba impor bukan sebuah kunci atau pesan OpenPGP yang valid. Pastikan bahwa format adalah txt dan tidak ada teks terformat yang dipakai dan mintalah ke pemilik kunci atau penulis pesan untuk mengirim ulang data.";
 
 NO_SECRET_KEY_TITLE = "Kunci rahasia tidak ditemukan";
 NO_SECRET_KEY_MESSAGE = "Anda perlu kunci rahasia untuk melakukan operasi ini.";
@@ -391,8 +391,8 @@ CleanKey_Progress = "Membersihkan kunci...";
 CleanKey_Error = "Pembersihan kunci gagal.";
 MinimizeKey_Progress = "Meminimalisasi kunci...";
 MinimizeKey_Error = "Peminimalan kunci gagal.";
-GenerateRevokeCertificateForKey_Progress = "Sedang membuat sertifikat pencabutan...";
-GenerateRevokeCertificateForKey_Error = "Pembuatan sertifikat pencabutan gagal.";
+GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
 SearchKeysOnServer_Progress = "Mencari kunci...";
 SendKeysToServer_Progress = "Mengirim %@ke server...";
 SendKeysToServer_Error = "Pengiriman kunci gagal.";

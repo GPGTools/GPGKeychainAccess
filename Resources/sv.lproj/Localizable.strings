@@ -5,7 +5,7 @@
 "Disabled" = "Avaktiverad";
 "Unknown" = "Okänd";
 "Marginal" = "Marginell";
-"Full" = "Full";
+"Full" = "Fullständig";
 "Ultimate" = "Ultimat";
 
 
@@ -42,12 +42,12 @@ CheckAlert_PassphraseTooLong_Title = "Lösenord för långt";
 CheckAlert_PassphraseTooLong_Message = "Lösenordet som du angivit är för långt. Ange ett lösenord med färre än%1$i tecken.\n\nOBS: Om ditt lösenord innehåller speciella tecken kan du inte använda %1$i tecken.";
 
 CheckAlert_NewKeyExistingEmail_Title = "En giltig nyckel med den här adressen finns redan";
-CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
+CheckAlert_NewKeyExistingEmail_Msg = "Den existerande nyckeln med %1$@ har följande fingeravtryck:\n%2$@\n\nAtt använda samma e-postadress i fler än en nyckel kan leda till problem och rekommenderas inte.\nOm du verkligen vill skapa en ny nyckel för denna e-postadress, föreslår vi att först återkalla den e-postadressen från existerande nyckel.\n\nVill du verkligen skapa en nyckel med den e-postadressen nu?";
 CheckAlert_NewKeyExistingEmail_Yes = "Skapa nyckel";
 CheckAlert_NewKeyExistingEmail_No = "Avbryt";
 
 CheckAlert_NewUserIDExistingEmail_Title = "En giltig nyckel med den här adressen finns redan";
-CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
+CheckAlert_NewUserIDExistingEmail_Msg = "Den existerande nyckeln med %1$@ har följande fingeravtryck:\n%2$@\n\nAtt använda samma e-postadress i fler än en nyckel kan leda till problem och rekommenderas inte.\nOm du verkligen vill skapa ett nytt användar-ID för denna e-postadress, föreslår vi att först återkalla den e-postadressen från existerande nyckel.\n\nVill du verkligen skapa ett användar-ID med den e-postadressen nu?";
 CheckAlert_NewUserIDExistingEmail_Yes = "Skapa användar-ID";
 CheckAlert_NewUserIDExistingEmail_No = "Avbryt";
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Sök efter en e-postadress eller ett fingeravtry
 GPG_NOT_FOUND_TITLE = "GPG hittades inte";
 GPG_NOT_FOUND_MESSAGE = "Hoppsan, något gick riktigt fel. Det verkar som om GPG saknas på ditt system. Installera om GPG Suite från\nhttps://www.gpgtools.org.";
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfel";
-GPG_CONFIG_ERROR_MESSAGE = "Hoppsan, något blev fel. GPG hittades i ditt system, men det verkar vara något fel med din konfigurationsfil. Kontakta oss på \nhttps://gpgtools.tenderapp.com\n\nDetaljer: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Hoppsan, något gick snett. GPG har hittats på ditt system men det verkar vara ett problem med konfigurationsfilen. Kontakta oss på\nhttps://support.gpgtools.org\n\nDetaljer: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg hittades inte";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg hittades inte på ditt system. Installera om GPG Suite från\nhttps://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Någon har mixtrat med din installation av GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "För att skydda dig kommer GPG Keychain nu att avslutas!\n\nInstallera om GPG Suite från\nhttps://gpgtools.org för att försäkra dig om att du har en äkta version från oss!";
 UNKNOWN_GPG_ERROR_TITLE = "Okänt GPG-fel";
-UNKNOWN_GPG_ERROR_MESSAGE = "Hoppsan, något blev fel. GPG har fått ett okänt fel. Kontakta oss på \nhttps://gpgtools.tenderapp.com\n\nDetaljer: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Hoppsan, något gick snett. Ett okänt fel har uppstått i GPG. Kontakta oss på \nhttps://support.gpgtools.org\n\nDetaljer: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "Publik nyckel för %@";
 MailKey_Subject_Your = "Min publika nyckel för att säkra våra meddelanden";
 MailKey_Message = "Hej,\n\nsom bilaga kommer du att se den publika nyckeln för\n\n%@\n\nDu kan använda den här nyckeln för att kryptera och säkra meddelanden när du skriver till %@.\n\nFör att börja använda den behöver du installera ett OpenPGP-program på din dator. Här är en lista med möjliga alternativ för ditt operativsystem:\n\n%@\n\nImportera den publika nyckeln till din lokalt installerade OpenPGP-nyckelhanterare.\n\nMed vänliga hälsningar";
 MailKey_Message_Your = "Hej,\n\nsom bilaga kommer du att se min publika nyckel\n\n%@\n\nDu kan använda den här nyckeln för att kryptera och säkra våra meddelanden.\n\nFör att börja använda den behöver du installera ett OpenPGP-program på din dator. Här är en lista med möjliga alternativ för ditt operativsystem:\n\n%@\n\nImportera den publika nyckeln till din lokalt installerade OpenPGP-nyckelhanterare.\n\nSer fram emot att utväxla avlyssningssäkra meddelanden med dig.\n\nMed vänliga hälsningar";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Skapar ny e-post…";
 MailKey_Progress_Your = "Skapar ny e-post…";
 MailKey_Error = "Hoppsan, något blev fel. Ett problem uppstod när din nyckel skulle exporteras.";
@@ -285,7 +285,7 @@ ImportRandomData_Msg = "Det verkar som att du försöker importera ett meddeland
 ImportRandomData_Yes = "Försök importera";
 ImportRandomData_No = "Avbryt";
 
-ImportNonImportable_Title = "Varning! Innehållet kan förmodligen inte importeras";
+ImportNonImportable_Title = "Varning: Innehållet kan förmodligen inte importeras";
 ImportNonImportable_Msg = "Det verkar som att du försöker importera ett signerat eller krypterat meddelande.\n\nSådana meddelanden kan inte importeras till GPG Keychain.\n\nFörsök istället att dekryptera eller verifiera det aktuella meddelandet med GPGServices.";
 ImportNonImportable_Yes = "Försök importera";
 ImportNonImportable_No = "Avbryt";
@@ -293,7 +293,7 @@ ImportNonImportable_No = "Avbryt";
 
 
 /* Results */
-UploadSuccess_Title = "Publika nycklar är skickade till nyckelserver";
+UploadSuccess_Title = "Publika nycklar skickades till nyckelserver";
 UploadSuccess_Msg = "Följande publika nycklar har laddats upp:\n\n%@";
 
 ExportSuccess_Title = "Nycklar exporterade";
@@ -324,11 +324,11 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Detaljer:";
 ImportKeyError_Title = "Det gick inte att importera en eller flera nycklar";
-ImportKeyError_Msg = "Ofta kan nycklar inte importeras eftersom en egen-signatur saknas. Besök\nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature \n för mer information och steg för hur man löser detta problem.";
+ImportKeyError_Msg = "Ofta kan nycklar inte importeras eftersom en egen-signatur saknas. Besök\nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one för mer information och steg för hur man löser detta problem.";
 ImportKeyErrorPGP_Title = "Import misslyckades";
 ImportKeyErrorPGP_Msg = "Det verkar som att du försöker importera ett krypterat eller signerat meddelande. Använd GPGServices för att dekryptera eller verifiera sådana meddelanden.";
 ImportKeyErrorNoPGP_Title = "Import misslyckades";
-ImportKeyErrorNoPGP_Msg = "Det verkar som att du försöker importera data som inte är relaterade till PGP och som inte kan bearbetas.";
+ImportKeyErrorNoPGP_Msg = "Det du försöker importera är inte en giltig OpenPGP-nyckel eller ett giltigt meddelande. Se till att formatet är txt och att ingen formaterad text används, och be ägaren till nyckeln eller meddelandets författare att skicka om det.";
 
 NO_SECRET_KEY_TITLE = "Ingen privat nyckel hittades";
 NO_SECRET_KEY_MESSAGE = "Du behöver en privat nyckel för att utföra den här åtgärden.";

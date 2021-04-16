@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "The password you have entered is too lon
 
 CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "Generer nøkkel";
+CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
 CheckAlert_NewKeyExistingEmail_No = "Avbryt";
 
 CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Generer bruker-ID";
+CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
 CheckAlert_NewUserIDExistingEmail_No = "Avbryt";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprin
 GPG_NOT_FOUND_TITLE = "GPG ikke funnet";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG-oppsettsfeil";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg ble ikke funnet";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Noen tuklet med din installasjon av GPG-nøkkelknippe";
 CODE_SIGN_ERROR_MESSAGE = "For å beskytte deg vil GPG-nøkkelnippet avsluttes nå!\n\nReinstaller GPG Suite fra\nhttps://gpgtools.org for å forsikre deg om at du har en original versjon fra oss!";
 UNKNOWN_GPG_ERROR_TITLE = "Ukjent GPG-Feil";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "Offentlig nøkkel for %@";
 MailKey_Subject_Your = "Min offentlige nøkkel for å sikre meldinger";
 MailKey_Message = "Hei,\n\nvedlagt vil du finne den offentlige nøkkelen til\n\n%@\n\nDu kan bruke denne nøkkelen til å kryptere og sikre meldinger når du skriver til %@.\n\nFor å ta den i bruk må du installere OpenGPG-programvare på din datamaskin. Under finner du en liste over tilgjengelig løsninger for ditt operativsystem:\n\n%@\n\nVennligst importer den offentlige nøkkelen til din lokale OpenGPG-nøkkelbehandler.\n\nVennlig hilsen";
 MailKey_Message_Your = "Hei,\n\nvedlagt finner du min offentlige nøkkel\n\n%@\n\nDu kan bruke denne til å kryptere og sikre våre meldinger.\n\nFor å ta den i bruk må du installere OpenGPG-programvare på din datamaskin. Under finner du en liste over tilgjengelig løsninger for ditt operativsystem:\n\n%@\n\nVennligst importer den offentlige nøkkelen til din lokale OpenGPG-nøkkelbehandler.\n\nVennlig hilsen";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Creating new email…";
 MailKey_Progress_Your = "Creating new email…";
 MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
@@ -324,11 +324,11 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Detaljer:";
 ImportKeyError_Title = "Klarte ikke å importere én eller flere nøkler";
-ImportKeyError_Msg = "Det kan ofte hende at nøkler ikke kan importeres på grunn av en manglende selv-signatur. Besøk https://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for flere detaljer og tiltak for hvordan dette problemet kan løses.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Importering mislyktes";
 ImportKeyErrorPGP_Msg = "Det later til at du prøver å importere ei kryptert eller signert melding. For å dekryptere eller bekrefte slike meldinger, bruk GPGServices.";
 ImportKeyErrorNoPGP_Title = "Importering mislyktes";
-ImportKeyErrorNoPGP_Msg = "Det later til at du prøver å importere noe ikke- PGP-relatert data som ikke kan behandles.";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "Ingen hemmelig nøkkel funnet";
 NO_SECRET_KEY_MESSAGE = "Du trenger en hemmelig nøkkel for å utføre denne handlingen.";
@@ -391,8 +391,8 @@ CleanKey_Progress = "Renser nøkkel…";
 CleanKey_Error = "Rensing av nøkkel mislyktes.";
 MinimizeKey_Progress = "Minimerer nøkkel…";
 MinimizeKey_Error = "Minimering av nøkkel mislyktes.";
-GenerateRevokeCertificateForKey_Progress = "Genrerer tilbakekallingssertifkat…";
-GenerateRevokeCertificateForKey_Error = "Generering av tilbakekallingssertifkat mislyktes.";
+GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
 SearchKeysOnServer_Progress = "Søker etter nøkkel…";
 SendKeysToServer_Progress = "Sender %@ til tjeneren…";
 SendKeysToServer_Error = "Sending av nøkkel mislyktes.";

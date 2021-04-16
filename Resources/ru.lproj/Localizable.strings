@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "Вы ввели слишком длин�
 
 CheckAlert_NewKeyExistingEmail_Title = "Действительный ключ с этим адресом уже существует";
 CheckAlert_NewKeyExistingEmail_Msg = "Существующий ключ %1$@ имеет следующий отпечаток:\n%2$@\n\nИспользование одного и того же адреса электронной почты в нескольких ключах может привести к проблемам и не рекомендуется.\nЕсли вы действительно хотите создать новый ключ для этого письма, мы рекомендуем сначала отозвать это письмо из существующего ключа.\n\nВы действительно хотите создать ключ с этим письмом сейчас?";
-CheckAlert_NewKeyExistingEmail_Yes = "Сгенерировать ключ";
+CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
 CheckAlert_NewKeyExistingEmail_No = "Отмена";
 
 CheckAlert_NewUserIDExistingEmail_Title = "Действительный ключ с этим адресом уже существует";
 CheckAlert_NewUserIDExistingEmail_Msg = "Существующий ключ %1$@ имеет следующий отпечаток:\n%2$@\n\nИспользование одного и того же адреса электронной почты в нескольких ключах может привести к проблемам и не рекомендуется.\nЕсли вы действительно хотите создать новый идентификатор пользователя для этого письма, рекомендуем сначала отозвать это письмо из существующего ключа.\n\nВы действительно хотите создать идентификатор пользователя с этим адресом электронной почты сейчас?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Создать ID пользователя";
+CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
 CheckAlert_NewUserIDExistingEmail_No = "Отмена";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Пожалуйста, найдите адрес 
 GPG_NOT_FOUND_TITLE = "GPG не найден";
 GPG_NOT_FOUND_MESSAGE = "Ой, что-то пошло совсем не так. Похоже, GPG отсутствует в вашей системе. Пожалуйста, переустановите GPG Suite с сайта\nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Ошибка настройки GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Ой, что-то пошло не так. GPG найден, но есть проблема в файле настроек. Пожалуйста, свяжитесь с нами на сайте\nhttps://gpgtools.tenderapp.com\n\nСведения: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg не найдена";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg не был найден в вашей системе. Пожалуйста, переустановите GPG Suite с сайта\nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Кто-то трогал вашу установку связки ключей GPG";
 CODE_SIGN_ERROR_MESSAGE = "Чтобы сохранить вас в безопасности, сейчас будет существовать связка ключей GPG!\n\nПожалуйста, переустановите GPG Suite с сайта\nhttps://gpgtools.org чтобы быть уверенным, что у вас оригинальная версия от нас!";
 UNKNOWN_GPG_ERROR_TITLE = "Неизвестная ошибка GPG";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ой, что-то пошло не так. GPG выдал неизвестную ошибку. Пожалуйста, свяжитесь с нами на сайте\nhttps://gpgtools.tenderapp.com\n\nСведения: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "Публичный ключ %@";
 MailKey_Subject_Your = "Мой публичный ключ для защиты наших сообщений";
 MailKey_Message = "Привет,\n\nво вложении вы найдете открытый ключ, принадлежащий\n\n%@\n\nВы можете использовать этот ключ для шифрования и защиты сообщений при отправке сообщений %@.\n\nДля того, чтобы начать использовать его, вам необходимо установить программное обеспечение OpenPGP на вашем компьютере. Ниже вы найдете список возможных решений для вашей операционной системы:\n\n%@\n\nПожалуйста, импортируйте открытый ключ в свой локальный менеджер ключей OpenPGP.\n\nС уважением";
 MailKey_Message_Your = "Привет,\n\nВо вложении вы найдете мой открытый ключ\n\n%@\n\nВы можете использовать этот ключ для шифрования и защиты наших сообщений.\n\nДля того, чтобы начать использовать его, вам необходимо установить программное обеспечение OpenPGP на вашем компьютере. Ниже вы найдете список возможных решений для вашей операционной системы:\n\n%@\n\nПожалуйста, импортируйте открытый ключ в свой локальный менеджер ключей OpenPGP.\n\nС нетерпением жду безопасного обмена сообщениями с вами.\n\nС уважением";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Создаётся новая электронная почта...";
 MailKey_Progress_Your = "Создается новая электронная почта...";
 MailKey_Error = "Ой, что-то пошло не так. Возникла проблема при экспорте ключа.";
@@ -324,11 +324,11 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Детали:";
 ImportKeyError_Title = "Ошибка импорта одного или нескольких ключей";
-ImportKeyError_Msg = "Часто ключи не могут быть импортированы из-за отсутствия самоподписи. Пожалуйста, посетите\nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature для более подробной информации и шагов как решить эту проблему.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Ошибка импорта";
 ImportKeyErrorPGP_Msg = "Кажется, вы пытаетесь импортировать зашифрованное или подписанное сообщение. Для расшифровки или проверки таких сообщений, пожалуйста, используйте GPGServices.";
 ImportKeyErrorNoPGP_Title = "Ошибка импорта";
-ImportKeyErrorNoPGP_Msg = "Похоже, что импортируемые данные не являются PGP-данными. Их невозможно обработать.";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "Секретный ключ не найден";
 NO_SECRET_KEY_MESSAGE = "Для выполнения этой операции вам нужен секретный ключ.";
@@ -391,8 +391,8 @@ CleanKey_Progress = "Очистка ключа...";
 CleanKey_Error = "Очистка ключа не удалась.";
 MinimizeKey_Progress = "Минимизация ключа...";
 MinimizeKey_Error = "Минимизация ключа не удалась.";
-GenerateRevokeCertificateForKey_Progress = "Генерация сертификата аннулирования...";
-GenerateRevokeCertificateForKey_Error = "Генерация сертификата аннулирования не удалась.";
+GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
 SearchKeysOnServer_Progress = "Поиск ключа...";
 SendKeysToServer_Progress = "Отправка %@ на сервер...";
 SendKeysToServer_Error = "Отправка не удалась.";

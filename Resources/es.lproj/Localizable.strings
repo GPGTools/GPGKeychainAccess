@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "La contraseña que introdujo es demasiad
 
 CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "Generar clave";
+CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
 CheckAlert_NewKeyExistingEmail_No = "Cancelar";
 
 CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Generar identificación de usuario";
+CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
 CheckAlert_NewUserIDExistingEmail_No = "Cancelar";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprin
 GPG_NOT_FOUND_TITLE = "No se encontró GPG";
 GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Error de configuración de GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "No se encontró libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Alguien alteró su instalación de GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "¡Para mantenerle seguro, GPG Keychain se cerrará ahora!\n\n¡Por favor, reinstale GPG Suite desde \nhttps://gpgtools.org para asegurarse de que tiene la versión original procedente de nosotros!";
 UNKNOWN_GPG_ERROR_TITLE = "Error de GPG desconocido";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "Clave pública de %@";
 MailKey_Subject_Your = "Mi clave pública para asegurar nuestros mensajes";
 MailKey_Message = "Hola,\n\nadjunta encontrará la clave pública de \n\n%@\n\nPuede usar esta clave para cifrar y asegurar mensajes cuando escriba a %@.\n\nPara comenzar a usarla, tiene que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\n%@\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP.\n\nSaludos\n\nRegards";
 MailKey_Message_Your = "Hola,\n\nadjunta encontrará mi clave pública\n\n%@\n\nPuede usar esta clave para cifrar y asegurar nuestros mensajes.\n\nPara comenzar a usarla, tendrá que instalar un software OpenPGP en su computadora. Debajo encontrará una lista de soluciones posibles para su sistema operativo:\n\n%@\n\nPor favor importe la clave pública en su Administrador-de-claves OpenPGP local.\n\nEspero intercambiar mensajes libres-de-obsevadores con usted.\n\nSaludos\n\nRegards";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/es/module/como-usar-pgp-para-linux\nWindows	https://ssd.eff.org/es/module/como-usar-pgp-para-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain&hl=es";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Creando un correo nuevo...";
 MailKey_Progress_Your = "Creando un correo nuevo...";
 MailKey_Error = "Uups, algo fue mal. Hubo un problema al exportar su clave.";
@@ -324,11 +324,11 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Detalles:";
 ImportKeyError_Title = "No se pudieron importar una o más claves.";
-ImportKeyError_Msg = "A menudo no se pueden importar las claves debido a una auto-firma ausente. Por favor, visite \nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature para más detalles y pasos sobre como resolver este problema.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Fallo al importar";
 ImportKeyErrorPGP_Msg = "Parece que está intentando importar un mensaje cifrafo o firmado. Para descifrar o verificar tales mensajes por favor use GPGServices.";
 ImportKeyErrorNoPGP_Title = "Fallo al importar";
-ImportKeyErrorNoPGP_Msg = "Parece que está intentando importar algunos datos no relativos a PGP que no pueden procesarse.";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "No se encontró clave secreta (privada)";
 NO_SECRET_KEY_MESSAGE = "Necesita una clave secreta para efectuar esta operación.";
@@ -391,8 +391,8 @@ CleanKey_Progress = "Limpiando clave...";
 CleanKey_Error = "Fallo al limpiar clave.";
 MinimizeKey_Progress = "Minimizando clave...";
 MinimizeKey_Error = "Fallo al minimizar clave.";
-GenerateRevokeCertificateForKey_Progress = "Generando certificado de revocación...";
-GenerateRevokeCertificateForKey_Error = "La generación de certificado de revocación falló.";
+GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
 SearchKeysOnServer_Progress = "Buscando clave...";
 SendKeysToServer_Progress = "Enviando %@ al servidor...";
 SendKeysToServer_Error = "Fallo al enviar clave.";

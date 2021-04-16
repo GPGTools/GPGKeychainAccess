@@ -41,14 +41,14 @@ CheckAlert_PassphraseSimple_No = "Zadejte nové heslo";
 CheckAlert_PassphraseTooLong_Title = "Heslo je příliš dlouhé";
 CheckAlert_PassphraseTooLong_Message = "zadané heslo, je příliš dlouhé. Zadejte heslo s méně než %1$i znaky.\n\nUpozornění: Pokud vaše heslo obsahuje speciální znaky, možná nebudete moci používat %1$i znaků.";
 
-CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
-CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
+CheckAlert_NewKeyExistingEmail_Title = "Platný klíč s touto adresou již existuje.";
+CheckAlert_NewKeyExistingEmail_Msg = "Stávající klíč %1$@ má následující otisk:\n%2$@\n\nPoužití stejné e-mailové adresy ve více než jednom klíči může vést k problémům a nedoporučuje se.\nPokud si skutečně přejete pro tento e-mail vytvořit nový klíč, doporučujeme nejprve tento e-mail odvolat z existujícího klíče.\n\nSkutečně si přejete vytvořit klíč s tímto e-mailem?";
 CheckAlert_NewKeyExistingEmail_Yes = "Vytvořit klíč";
 CheckAlert_NewKeyExistingEmail_No = "Zrušit";
 
-CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
-CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Vytvořit UserID";
+CheckAlert_NewUserIDExistingEmail_Title = "Platný klíč s touto adresou již existuje.";
+CheckAlert_NewUserIDExistingEmail_Msg = "Stávající klíč %1$@ má následující otisk:\n%2$@\n\nPoužití stejné e-mailové adresy ve více než jednom klíči může vést k problémům a nedoporučuje se.\nPokud si skutečně přejete pro tento e-mail vytvořit nové UserID, doporučujeme nejprve tento e-mail odvolat z existujícího klíče.\n\nSkutečně si přejete vytvořit UserID s tímto e-mailem?";
+CheckAlert_NewUserIDExistingEmail_Yes = "Vytvořit ID uživatele";
 CheckAlert_NewUserIDExistingEmail_No = "Zrušit";
 
 
@@ -60,8 +60,8 @@ KeySearch_ImportResults_Title = "Import byl úspěšný";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bitů), vytvořeno: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Hledá se odpovídající klíč(klíče) na klíčovém serveru. Zabere nějaký čas, prosím počkejte.";
 
-KeySearch_VKSFound_Msg = "A key with a verified email address was found:\n\n%@\n\nDo you want to import this key?";
-KeySearch_VKSFoundNoUserID_Msg = "A possible key update was found:\n\n%@\n\nDo you want to import this key?";
+KeySearch_VKSFound_Msg = "Byl nalezen klíč s ověřenou e-mailovou adresou:\n\n%@\n\nPřejete si tento klíč importovat?";
+KeySearch_VKSFoundNoUserID_Msg = "Byla nalezena možná aktualizace klíče:\n\n%@\n\nPřejete si importovat tento klíč?";
 
 
 GenerateKey_ProgressTitle = "Klíč se vytváří…";
@@ -83,21 +83,21 @@ CheckError_EmailToLong = "E-mailová adresa je příliš dlouhá!\nMaximální d
 CheckError_InvalidCharInComment = "Nepovolený znak ve poznámce!\nZnaky „(“ a „)“ nejsou povoleny.";
 CheckError_CommentToLong = "Poznámka je příliš dlouhá!";
 CheckError_NoKeyID = "Zadejte prosím platný ID klíč!";
-CheckError_SearchInvalid_Title = "Invalid search query!";
-CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprint.";
+CheckError_SearchInvalid_Title = "Neplatný vyhledávací dotaz!";
+CheckError_SearchInvalid_Msg = "Hledejte prosím podle e-mailu nebo otisku klíče.";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG nebylo nalezeno";
 GPG_NOT_FOUND_MESSAGE = "Ajajaj, něco se pokazilo. Zdá se, že GPG ve vašem systému chybí. Nainstalujte prosím znovu GPG Suite, ale z tohoto umístění \nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Chyba nastavení GPG ";
-GPG_CONFIG_ERROR_MESSAGE = "Ajajaj, něco se pokazilo. Komponenta GPG byla ve vašem systému nalezena ale zdá se, že konfigurace je chybná. Obraťte se prosím na nás, na \nhttps://gpgtools.tenderapp.com\n\nPodrobnosti: %@";
+GPG_CONFIG_ERROR_MESSAGE = "A jéje, něco se pokazilo. GPG byl nalezen ve vašem systému, ale zdá se, že je chyba v konfiguračním souboru. Prosím obraťte se na \nhttps://support.gpgtools.org\n\nPodrobnosti: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Knihovna Libmacgpg nebyla nalezena";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg nebyl nalezen ve vašem systému. Nainstalujte prosím GPG Suite znovu z tohoto umístění \nhttps://www.gpgtools.org";
-CODE_SIGN_ERROR_TITLE = "Někdo měnil vaši instalaci GPG Keychain";
-CODE_SIGN_ERROR_MESSAGE = "Kvůli vaši bezpečnosti se nyní GPG Keychain ukončí!\n\nNainstalujte prosím znovu GPG Suite z umístění https://gpgtools.org abyste si byli jisti, že používáte skutečně originální verzi!";
+CODE_SIGN_ERROR_TITLE = "Někdo měnil vaši instalaci GPG Klíčenky";
+CODE_SIGN_ERROR_MESSAGE = "Kvůli vaši bezpečnosti se nyní GPG Klíčenka ukončí!\n\nNainstalujte prosím znovu GPG Suite z umístění https://gpgtools.org abyste si byli jisti, že používáte skutečně originální verzi!";
 UNKNOWN_GPG_ERROR_TITLE = "Neznámá chyba GPG";
-UNKNOWN_GPG_ERROR_MESSAGE = "Ajajaj, něco se pokazilo. Komponenta GPG zaznamenala neznámou chybu. Obraťte se prosím na nás, na \nhttps://gpgtools.tenderapp.com\n\nPodrobnosti: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "A jéje, něco se pokazilo. GPG hlásí neznámou chybu. Obraťte se prosím na \nhttps://support.gpgtools.org\n\nPodrobnosti: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "Veřejný klíč %@";
 MailKey_Subject_Your = "Můj veřejný klíč pro zabezpečení našich zpráv";
 MailKey_Message = "Zdravím,\n\nv příloze naleznete veřejný klíč\n\n%@\n\nPomocí tohoto klíče můžete šifrovat a zabezpečit zprávy, které píšete %@.\n\nPokud si přejete zabezpečení používat, musíte do svého počítače nainstalovat aplikaci OpenPGP. Níže naleznete seznam možných řešení pro váš operační systém:\n\n%@\n\nNaimportujte prosím veřejný klíč do svého správce klíčů OpenPGP.\n\nS pozdravem";
 MailKey_Message_Your = "Zdravím,\n\nv příloze naleznete můj veřejný klíč\n\n%@\n\nPomocí tohoto klíče můžete šifrovat a zabezpečit naši komunikaci.\n\nPokud si přejete zabezpečení používat, musíte do svého počítače nainstalovat aplikaci OpenPGP. Níže naleznete seznam možných řešení pro váš operační systém:\n\n%@\n\nNaimportujte prosím veřejný klíč do svého správce klíčů OpenPGP.\n\nTěším se na komunikaci s Vámi, komunikaci bez nebezpečí odposlouchávání.\n\nS pozdravem";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "Vytváří se nový e-mail…";
 MailKey_Progress_Your = "Vytváří se nový e-mail…";
 MailKey_Error = "Ajajaj, něco se pokazilo. Selhal export vašeho klíče.";
@@ -161,7 +161,7 @@ RemoveSignature_Yes = "Odstranit podpis";
 RemoveSignature_No = "Zrušit";
 
 RemoveLocalSignature_Title = "Odstranit podpis";
-RemoveLocalSignature_Msg = "Are you sure you want to remove this local signature?";
+RemoveLocalSignature_Msg = "Skutečně si přejete odstranit tento místní podpis?";
 RemoveLocalSignature_Yes = "Odstranit podpis";
 RemoveLocalSignature_No = "Zrušit";
 
@@ -176,7 +176,7 @@ RevokeLastSelfSignature_Yes = "Zneplatnit podpis";
 RevokeLastSelfSignature_No = "Zrušit";
 
 RevokeKey_Title = "Upozornění: Chystáte se zneplatnit klíč!";
-RevokeKey_Msg = "Chystáte se zneplatnit následující klíč:\n\n%@\n\nJednou zneplatněný klíč, nelze použít k podepisování zpráv a žádné zprávy nemohou být dešifrovány tímto klíčem. Zneplatněný klíč lze i nadále použít k dešifrování e-mailů a souborů dříve zašifrovaných.\n\nNedoporučujeme odstraňovat klíč, ale ponechat jej v GPG Keychain ve zneplatněném stavu.\n\nOpravdu si přejete zneplatnit tento klíč??";
+RevokeKey_Msg = "Chystáte se zneplatnit následující klíč:\n\n%@\n\nJednou zneplatněný klíč, nelze použít k podepisování zpráv a žádné zprávy nemohou být dešifrovány tímto klíčem. Zneplatněný klíč lze i nadále použít k dešifrování e-mailů a souborů dříve zašifrovaných.\n\nNedoporučujeme odstraňovat klíč, ale ponechat jej v GPG Klíčence ve zneplatněném stavu.\n\nOpravdu si přejete zneplatnit tento klíč??";
 RevokeKey_Yes = "Zneplatnit klíč";
 RevokeKey_No = "Zrušit";
 
@@ -260,17 +260,17 @@ DeleteRevokedSecKey_No = "Zrušit";
 
 
 /* New keyserver */
-SwitchToVerifyingKeyserver_Title = "New Key Server keys.openpgp.org";
-SwitchToVerifyingKeyserver_Msg = "After careful consideration we decided that the new default key server used in GPG Suite is going to be keys.openpgp.org. The new key server is more reliable than old ones and it will better protect your privacy. Search results will only show email addresses which have been verified by their owners. Otherwise keys can only be found when searching for their fingerprint.\n\nThe key owner can choose to remove the email address from appearing in search results at any given time.\n\nDo you want to switch to the new key server?";
-SwitchToVerifyingKeyserver_Yes = "Switch to new Key Server";
+SwitchToVerifyingKeyserver_Title = "Nový server keys.openpgp.org";
+SwitchToVerifyingKeyserver_Msg = "Po pečlivém zvážení jsme se rozhodli, že nový výchozí klíčový server používaný v GPG Suite bude keys.openpgp.org. Nový klíčový server je spolehlivější než starý a bude lépe chránit vaše soukromí. Výsledky vyhledávání budou zobrazovat pouze ověřené e-mailové adresy. Jinak lze klíče najít pouze při vyhledávání otisku.\n\nVlastník klíče se může kdykoliv rozhodnout odebrat e-mailovou adresu ze zobrazování ve výsledcích vyhledávání.\n\nPřejete si přepnout se na nový klíčový server?";
+SwitchToVerifyingKeyserver_Yes = "Přepnout se na nový server";
 SwitchToVerifyingKeyserver_No = "Zrušit";
-SwitchToVerifyingKeyserver_LearnMore = "Learn More";
+SwitchToVerifyingKeyserver_LearnMore = "Zjistit více";
 
 UploadSingleKeyVerifyingKeyserver_Title = "Zkopírovat veřejný klíč";
-UploadSingleKeyVerifyingKeyserver_Msg = "Your key server has been switched to keys.openpgp.org\n\nWe recommend that you upload your public key to the new key server, so others will be able to find it by searching for your email address. Once the key is uploaded, you will receive an email with a verification link for each email address associated with your key. If you don't complete the verification process, your key can only be found by searching for its fingerprint.\n\nDo you want to upload your public key?";
+UploadSingleKeyVerifyingKeyserver_Msg = "Váš klíčový server byl přepnut na keys.openpgp.org\n\nDoporučujeme zkopírovat váš veřejný klíč na nový server, aby jej ostatní mohli najít vyhledáním vaší e-mailové adresy. Jakmile je klíč zkopírován, obdržíte e-mail s ověřovacím odkazem pro každou e-mailovou adresu přidruženou k vašemu klíči. Pokud proces ověření nedokončíte, váš klíč půjde najít pouze vyhledáním jeho otisku.\n\nPřejete si zkopírovat svůj veřejný klíč na server?";
 UploadSingleKeyVerifyingKeyserver_Yes = "Zkopírovat veřejný klíč";
 UploadSingleKeyVerifyingKeyserver_No = "Zrušit";
-UploadSingleKeyVerifyingKeyserver_LearnMore = "Learn More";
+UploadSingleKeyVerifyingKeyserver_LearnMore = "Zjistit více";
 
 
 
@@ -286,7 +286,7 @@ ImportRandomData_Yes = "Zkusit importovat";
 ImportRandomData_No = "Zrušit";
 
 ImportNonImportable_Title = "Upozornění: Obsah nebyl možná správně naimportován";
-ImportNonImportable_Msg = "Zdá se, že se pokoušíte importovat podepsanou nebo zašifrovanou zprávu.\n\nTyto zprávy nelze importovat do GPG Keychain.\n\nMísto toho, pro dešifrování nebo ověření  zpráv použijte GPGServices.";
+ImportNonImportable_Msg = "Zdá se, že se pokoušíte importovat podepsanou nebo zašifrovanou zprávu.\n\nTyto zprávy nelze importovat do GPG Klíčenky.\n\nMísto toho, pro dešifrování nebo ověření  zpráv použijte GPGServices.";
 ImportNonImportable_Yes = "Zkusit importovat";
 ImportNonImportable_No = "Zrušit";
 
@@ -294,7 +294,7 @@ ImportNonImportable_No = "Zrušit";
 
 /* Results */
 UploadSuccess_Title = "Veřejné klíče odeslané na server";
-UploadSuccess_Msg = "The following public keys have been uploaded:\n\n%@";
+UploadSuccess_Msg = "Následující veřejné klíč budou zkopírovány:\n\n%@";
 
 ExportSuccess_Title = "Klíčů exportováno";
 ExportSuccess_Msg = "Následující klíče byly exportovány:\n\n%@";
@@ -307,9 +307,9 @@ SignSuccess_Title = "Vybraná UserID byla podepsána";
 IMPORT_RESULT_NEW_KEY = "Následující klíč byl naimportován úspěšně:\n\n%@";
 IMPORT_RESULT_NEW_KEYS = "Následující klíče byly naimportovány úspěšně:\n\n%@";
 
-IMPORT_RESULT_NEW_USER_ID = "A user ID was added to the following keys \n\n%@";
-IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to the following keys \n\n%@";
-IMPORT_RESULT_NEW_SUBKEY = "A subkey was added to the following keys \n\n%@";
+IMPORT_RESULT_NEW_USER_ID = "Uživatel přidal následující klíče:\n\n%@";
+IMPORT_RESULT_NEW_SIGNATURE = "Podpis byl přidán k následujícím klíčům:\n\n%@";
+IMPORT_RESULT_NEW_SUBKEY = "Podklíč byl přidán k následujícím klíčům:\n\n%@";
 
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATE = "1 zneplatněný certifikát byl naimportován.";
 IMPORT_RESULT_COUNT_REVOCATION_CERTIFICATES = "%i zneplatněných certifikátů bylo naimportováno.";
@@ -324,11 +324,11 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Podrobnosti:";
 ImportKeyError_Title = "Selhal import jednoho nebo více klíčů.";
-ImportKeyError_Msg = "Klíče často nelze naimportovat z důvodu chybějícího podpisu [self-sign]. Prodrobnosti a postup řešení problému naleznete na\nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature.";
+ImportKeyError_Msg = "Často klíče nelze naimportovat, protože chybí vlastní certifikát /self-signature/. Pro řešení a více informací, prosím navštivte \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one.";
 ImportKeyErrorPGP_Title = "Import selhal";
 ImportKeyErrorPGP_Msg = "Zdrá se, že se pokoušíte importovat zašifrované nebo podepsané zprávy. Pro dešifrování nebo ověření zpráv použijte GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import selhal";
-ImportKeyErrorNoPGP_Msg = "Vypadá to, že se snažíte importovat nějaká cizí data, která nelze zpracovat.";
+ImportKeyErrorNoPGP_Msg = "Data, která se pokoušíte importovat, nejsou platným klíčem nebo zprávou OpenPGP. Ujistěte se, že formát je prostý text tj. nepoužívá se žádné formátování a požádejte vlastníka klíče nebo autora zprávy o opětovné odeslání.";
 
 NO_SECRET_KEY_TITLE = "Žádný tajný klíč nebyl nalezen";
 NO_SECRET_KEY_MESSAGE = "Pro tuto operaci potřebujete tajný klíč.";
@@ -391,8 +391,8 @@ CleanKey_Progress = "Čistí se klíč…";
 CleanKey_Error = "Čištění klíče selhalo.";
 MinimizeKey_Progress = "Minimalizuje se klíč…";
 MinimizeKey_Error = "Minimalizace klíče selhala.";
-GenerateRevokeCertificateForKey_Progress = "Probíhá zneplatňování certifikátu…";
-GenerateRevokeCertificateForKey_Error = "Zzneplatňování certifikátu selhalo.";
+GenerateRevokeCertificateForKey_Progress = "Zneplatňuje se certifikát…";
+GenerateRevokeCertificateForKey_Error = "Zneplatnění certifikátu selhalo.";
 SearchKeysOnServer_Progress = "Hledá se klíč…";
 SendKeysToServer_Progress = "Odesílá se %@ na server…";
 SendKeysToServer_Error = "Odesílání klíče selhalo.";

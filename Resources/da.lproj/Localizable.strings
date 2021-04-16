@@ -23,32 +23,32 @@ SecretAndPublicKeyListing = "Private nøgler:\n\n%@\n\nOffentlige nøgler:\n\n%@
 
 /* For export, as standard File-Name. */
 "untitled" = "ingen titel";
-"%@ Revoke certificate" = "%@ Revocation certificate";
+"%@ Revoke certificate" = "%@ tilbagekaldelsescertifikat";
 ExportKeysFilename = "%@ %u OpenPGP nøgler";
 ExportPublicKeyFilename = "%@ - Offentlig";
 ExportSecretKeyFilename = "%@ - Hemmelig";
 
 
 /* For key creation */
-CheckAlert_NoPassphrase_Title = "No password entered";
-CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Yes = "Continue Without Password";
-CheckAlert_NoPassphrase_No = "Enter New Password";
-CheckAlert_PassphraseSimple_Title = "Password too simple";
-CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
-CheckAlert_PassphraseSimple_Yes = "Use Simple Password";
-CheckAlert_PassphraseSimple_No = "Enter New Password";
+CheckAlert_NoPassphrase_Title = "Ingen adgangskode angivet";
+CheckAlert_NoPassphrase_Message = "Du har ikke angivet en adgangskode. Dette er ikke anbefalet. Adgangskoder skal indeholde mindst 8 tegn.";
+CheckAlert_NoPassphrase_Yes = "Fortsæt uden adgangskode";
+CheckAlert_NoPassphrase_No = "Angiv ny adgangskode";
+CheckAlert_PassphraseSimple_Title = "Adgangskoden er for simpel";
+CheckAlert_PassphraseSimple_Message = "Den angivne adgangskode er for simpel. En god adgangskode skal indeholde mindst 8 tegn og bruge forskellige tegn.";
+CheckAlert_PassphraseSimple_Yes = "Brug den simple adgangskode";
+CheckAlert_PassphraseSimple_No = "Angiv ny adgangskode";
 CheckAlert_PassphraseTooLong_Title = "Kodeordet er for langt";
-CheckAlert_PassphraseTooLong_Message = "The password you have entered is too long. Enter a password with less than %1$i characters.\n\nAttention: If your password includes special characters you may not be able to use %1$i characters.";
+CheckAlert_PassphraseTooLong_Message = "Den angivne adgangskode er for lang. Skriv en adgangskode med mindre end %1$i tegn.\n\nBemærk: Hvis din adgangskode indeholder specialtegn kan du muligvis ikke bruge %1$i tegn.";
 
-CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
-CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "Generér nøgle";
+CheckAlert_NewKeyExistingEmail_Title = "Der findes allerede en gyldig nøgle med denne adresse";
+CheckAlert_NewKeyExistingEmail_Msg = "Den eksisterende nøgle med %1$@ har det følgende fingeraftryk:\n%2$@\n\nDet kan give problemer at bruge den samme e-mail adresse i flere nøgler, og anbefales derfor ikke.\nHvis du virkelig vil lave en ny nøgle til denne e-mail foreslår vi, at du tilbagekalder denne e-mail fra den eksisterende nøgle.\n\nVil du virkelig oprette en nøgle med den e-mail nu?";
+CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
 CheckAlert_NewKeyExistingEmail_No = "Annuller";
 
-CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
-CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Opret bruger ID";
+CheckAlert_NewUserIDExistingEmail_Title = "Der findes allerede en gyldig nøgle med denne adresse";
+CheckAlert_NewUserIDExistingEmail_Msg = "Den eksisterende nøgle med %1$@ har dette fingeraftryk:\n%2$@\nDet kan give problemer at bruge den samme e-mail adresse i flere nøgler, og anbefales derfor ikke.\nHvis du virkelig vil lave et nyt bruger ID for denne e-mail anbefaler vi, at du først tilbagekalder denne e-mail fra den eksisterende nøgle.\n\nVil du virkelig oprette et bruger ID med den e-mail nu?";
+CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
 CheckAlert_NewUserIDExistingEmail_No = "Annuller";
 
 
@@ -60,20 +60,20 @@ KeySearch_ImportResults_Title = "Import vellykket";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), oprettet: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Vi leder efter matchende nøgler på nøgleserveren. Det tager muligvis et stykke tid, vent venligst.";
 
-KeySearch_VKSFound_Msg = "A key with a verified email address was found:\n\n%@\n\nDo you want to import this key?";
-KeySearch_VKSFoundNoUserID_Msg = "A possible key update was found:\n\n%@\n\nDo you want to import this key?";
+KeySearch_VKSFound_Msg = "En nøgle med en bekræftet e-mail adresse blev fundet:\n\n%@\n\nVil du importere denne nøgle?";
+KeySearch_VKSFoundNoUserID_Msg = "En mulig opdatering af nøglen blev fundet:\n\n%@\n\nVil du importere denne nøgle?";
 
 
-GenerateKey_ProgressTitle = "Key creation in progress…";
-GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
+GenerateKey_ProgressTitle = "Nøglen oprettes...";
+GenerateKey_Progress = "Din nye nøgle bliver oprettet. Det kan tage et minuts tid, så stræk bare benene.";
 GenerateSubkey_Msg = "Tilføj undernøgle til denne nøgle:\n%@ %@";
 GenerateUserID_Msg = "Tilføj e-mail adresse (bruger ID) til nøglen:\n%@ %@";
 GenerateSignature_Msg = "At signere en nøgle betyder, at du bekræfter, at nøglens ejer er den han/hun giver sig ud for at være.\nNår signaturer er uploadede kan de ses af andre.\nHvis du signerer Bobs nøgle, og din ven Alice ikke er sikker på, at Bob virkelig er Bob, kan Alice se din signatur i Bobs nøgle. Da Alice ved at din nøgle er troværdig, ved hun også at Bob sandsynligvis faktisk er Bob.\n\nDu er ved at signere denne nøgle:\n%@";
 GenerateUidSignature_Msg = "At signere et bruger ID betyder, at du bekræfter, at nøglens ejer er den han/hun giver sig ud for at være.\nNår signaturer er uploadede kan de ses af andre.\nHvis du signerer Bobs nøgle, og din ven Alice ikke er sikker på, at Bob virkelig er Bob, kan Alice se din signatur i Bobs nøgle. Da Alice ved at din nøgle er troværdig, ved hun også at Bob sandsynligvis faktisk er Bob.\n\nDu er ved at signere dette bruger ID:\n%@";
-ChangeExpirationDate_Msg = "You are about to change the expiration of your key\n\n%1$@";
-ChangeSubkeyExpirationDate_Msg = "You are about to change the expiration of your subkey\n\n%1$@";
+ChangeExpirationDate_Msg = "Du er ved at ændre udløbsdatoen for din nøgle\n\n%1$@";
+ChangeSubkeyExpirationDate_Msg = "Du er ved at ændre udløbsdatoen for din undernøgle\n\n%1$@";
 
-GenerateKey_Error = "Oops, something went wrong. There was a problem creating your key.";
+GenerateKey_Error = "Ups, noget gik galt. Der var problemer med at oprette din nøgle.";
 
 /* Message for incorrect Entries */
 CheckError_NameToLong = "Navnet er for langt!";
@@ -83,21 +83,21 @@ CheckError_EmailToLong = "E-mail adressen er for lang!\nMaksimal længde er 254.
 CheckError_InvalidCharInComment = "Ugyldigt tegn i kommentar!\n\"(\" og \")\" må ikke bruges.";
 CheckError_CommentToLong = "Kommentaren er for lang!";
 CheckError_NoKeyID = "Angiv et gyldigt nøgle ID!";
-CheckError_SearchInvalid_Title = "Invalid search query!";
-CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprint.";
+CheckError_SearchInvalid_Title = "Ugyldig søgeforespørgsel!";
+CheckError_SearchInvalid_Msg = "Søg efter en e-mail adresse eller et fingeraftryk.";
 
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG kunne ikke findes";
-GPG_NOT_FOUND_MESSAGE = "Oops, something went really wrong. It seems GPG is missing on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
+GPG_NOT_FOUND_MESSAGE = "Ups, noget gik virkeligt galt. Det ser ud til, at GPG mangler på dit system. Geninstaller venligst GPG Suiten fra\nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfejl";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg blev ikke fundet";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg was not found on your system. Please reinstall GPG Suite from \nhttps://www.gpgtools.org";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg findes ikke på dit system. Geninstaller venligst GPG Suiten fra\nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Nogen har pillet ved din installation af GPG Nøglering";
 CODE_SIGN_ERROR_MESSAGE = "For en sikkerheds skyld vil GPG Nøglering lukke nu!\n\nGen-installer venligst GPG Suiten fra\nhttps://gpgtools.org for at være sikker på, at du har en original version fra os!";
 UNKNOWN_GPG_ERROR_TITLE = "Ukendt GPG fejl";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://gpgtools.tenderapp.com\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,10 +106,10 @@ MailKey_Subject = "Offentlig nøgle til %@";
 MailKey_Subject_Your = "Min offentlige nøgle til at sikre vores beskeder";
 MailKey_Message = "Hej,\n\nvedhæftet finder du den offentlige nøgle til\n\n%@\n\nDu kan bruge denne nøgle til at kryptere og sikre beskeder, når du skriver til %@.\n\nFor at bruge den skal du have et OpenPGP program på din computer. Nedenfor finder du en liste af mulige programmer til dit styresystem:\n\n%@\n\nImporter den offentlige nøgle i din lokale OpenPGP nøglering.\n\nVenlig hilsen";
 MailKey_Message_Your = "Hej,\n\nvedhæftet finder du min offentlige nøgle\n\n%@\n\nDu kan bruge denne nøgle til at kryptere og sikre vores beskeder.\n\nFor at bruge den skal du have et OpenPGP program på din computer. Nedenfor finder du en liste af mulige programmer til dit styresystem:\n\n%@\n\nImporter den offentlige nøgle i din lokale OpenPGP nøglering.\n\nJeg ser frem til at udveksle beskeder med dig, som andre ikke kan stikke næsen i.\n\nVenlig hilsen";
-MailKey_Message_Links = "macOS	https://gpgtools.tenderapp.com/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creating new email…";
-MailKey_Progress_Your = "Creating new email…";
-MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Progress = "Opretter ny e-mail..";
+MailKey_Progress_Your = "Opretter ny e-mail..";
+MailKey_Error = "Ups, noget gik galt. Der var problemer med at eksportere din nøgle.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Ubrugelig nøgle valgt";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du har valgt en ubrugelig nøgle. Sådanne nøgler kan ikke sendes via e-mail. Opdater nøglen fra nøgleserveren for at tjekke, om den er blevet opdateret.\n\nAlternativt kontakt nøglens ejer, og fortæl dem om nøglens tilstand.\n\n%@";
 
@@ -136,7 +136,7 @@ RemoveUserID_Yes = "Fjern bruger ID";
 RemoveUserID_No = "Annuller";
 
 RevokeUserID_Title = "Advarsel: Du er ved at tilbagekalde et bruger ID";
-RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
+RevokeUserID_Msg = "Du er ved at tilbagekalde det følgende bruger ID:\n\n%@ fra din nøgle %@\n\nNår det er tilbagekaldt, kan du ikke signere og kryptere beskeder med dette bruger ID, og andre kan ikke kryptere beskeder til dette bruger ID. Det tilbagekaldte bruger ID kan stadig bruges til at dekryptere e-mails og filer, der tidligere blev krypteret til det.\n\nVi anbefaler ikke at slette det, men at beholde det i din nøgle i tilbagekaldt tilstand.\n\nEr du sikker på, at du vil tilbagekalde dette bruger ID?";
 RevokeUserID_Yes = "Tilbagekald bruger ID";
 RevokeUserID_No = "Annuller";
 
@@ -264,13 +264,13 @@ SwitchToVerifyingKeyserver_Title = "New Key Server keys.openpgp.org";
 SwitchToVerifyingKeyserver_Msg = "After careful consideration we decided that the new default key server used in GPG Suite is going to be keys.openpgp.org. The new key server is more reliable than old ones and it will better protect your privacy. Search results will only show email addresses which have been verified by their owners. Otherwise keys can only be found when searching for their fingerprint.\n\nThe key owner can choose to remove the email address from appearing in search results at any given time.\n\nDo you want to switch to the new key server?";
 SwitchToVerifyingKeyserver_Yes = "Switch to new Key Server";
 SwitchToVerifyingKeyserver_No = "Annuller";
-SwitchToVerifyingKeyserver_LearnMore = "Learn More";
+SwitchToVerifyingKeyserver_LearnMore = "Lær mere";
 
 UploadSingleKeyVerifyingKeyserver_Title = "Upload offentlig nøgle";
 UploadSingleKeyVerifyingKeyserver_Msg = "Your key server has been switched to keys.openpgp.org\n\nWe recommend that you upload your public key to the new key server, so others will be able to find it by searching for your email address. Once the key is uploaded, you will receive an email with a verification link for each email address associated with your key. If you don't complete the verification process, your key can only be found by searching for its fingerprint.\n\nDo you want to upload your public key?";
 UploadSingleKeyVerifyingKeyserver_Yes = "Upload offentlig nøgle";
 UploadSingleKeyVerifyingKeyserver_No = "Annuller";
-UploadSingleKeyVerifyingKeyserver_LearnMore = "Learn More";
+UploadSingleKeyVerifyingKeyserver_LearnMore = "Lær mere";
 
 
 
@@ -324,11 +324,11 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Detaljer:";
 ImportKeyError_Title = "Import af en eller flere nøgler mislykkedes";
-ImportKeyError_Msg = "Ofte kan nøgler ikke importeres, fordi der mangler en egen-signatur. Se venligst\nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature for flere detaljer og trin til, hvordan problemet kan løses.";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "Import mislykkedes";
 ImportKeyErrorPGP_Msg = "Det ser ud til at du forsøger at importere en krypteret eller signeret besked. For at dekryptere eller verificere sådanne beskedder skal du bruge GPGServices.";
 ImportKeyErrorNoPGP_Title = "Import mislykkedes";
-ImportKeyErrorNoPGP_Msg = "Det ser ud til at du forsøger at importere nogle ikke PGP-relaterede data, der ikke kan behandles.";
+ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
 NO_SECRET_KEY_TITLE = "Ingen hemmelig nøgle fundet";
 NO_SECRET_KEY_MESSAGE = "Du skal bruge en privat nøgle til at udføre denne operation.";
@@ -391,8 +391,8 @@ CleanKey_Progress = "Renser nøgle...";
 CleanKey_Error = "Rensning af nøgle mislykkedes.";
 MinimizeKey_Progress = "Minimerer nøgle...";
 MinimizeKey_Error = "Minimering af nøgle mislykkedes.";
-GenerateRevokeCertificateForKey_Progress = "Generating revocation certificate…";
-GenerateRevokeCertificateForKey_Error = "Generating revocation certificate failed.";
+GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
 SearchKeysOnServer_Progress = "Søger efter nøgle...";
 SendKeysToServer_Progress = "Sender %@ til server...";
 SendKeysToServer_Error = "Afsendelse af nøgle mislykkedes.";

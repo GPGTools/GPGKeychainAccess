@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "您所输入的密码过长，请输入�
 
 CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "生成密钥";
+CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
 CheckAlert_NewKeyExistingEmail_No = "取消";
 
 CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "生成用户 ID";
+CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
 CheckAlert_NewUserIDExistingEmail_No = "取消";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprin
 GPG_NOT_FOUND_TITLE = "GPG没有找到";
 GPG_NOT_FOUND_MESSAGE = "哦，出现了错误。您的系统上似乎没有安装 GPG。请从 https://www.gpgtools.org 下载重新安装 GPG 套件。";
 GPG_CONFIG_ERROR_TITLE = "GPG 配置错误";
-GPG_CONFIG_ERROR_MESSAGE = "啊哦，出现了错误。GPG 在您的电脑上，但配置文件似乎有些问题。请在以下地址联系我们：\nhttps://gpgtools.tenderapp.com\n\n细节：%@";
+GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "未找到 libmacgpg";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg 没有在您的系统上找到。请在以下地址重新安装 GPG Suite：\nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "有人篡改了您的 GPG Keychain。";
 CODE_SIGN_ERROR_MESSAGE = "为保证您的安全，GPG Keychain 将会现在退出！\n\n请在 https://gpgtools.org 重新安装 GPG Keychain 来保证您从我们处得到原版！";
 UNKNOWN_GPG_ERROR_TITLE = "未知 GPG 错误";
-UNKNOWN_GPG_ERROR_MESSAGE = "啊哦，出现了错误。GPG 出现了一个未知问题。请在以下地址联系我们：\nhttps://gpgtools.tenderapp.com\n\n细节：%@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
 
 
 
@@ -106,7 +106,7 @@ MailKey_Subject = "%@ 的公钥";
 MailKey_Subject_Your = "My public key to secure our messages";
 MailKey_Message = "您好，\n\n在此附件中您可找到\n\n%@ 的公钥\n\n您可以使用此公钥将写给 %@ 的消息安全加密。\n\n要开始使用该公钥，您的计算机需要安装 OpenPGP。您可在下方找到针对你系统的可能安装方案：\n\n%@\n\n请将此公钥导入到你本地的 OpenPGP 密钥管理器中。\n\n此致";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
-MailKey_Message_Links = "OS X	https://ssd.eff.org/en/module/how-use-pgp-mac-os-x\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
+MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
 MailKey_Progress = "正在创建新电子邮件……";
 MailKey_Progress_Your = "正在创建新电子邮件……";
 MailKey_Error = "呃，发生了错误。钥匙导出过程中碰到了问题。";
@@ -324,7 +324,7 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Details:";
 ImportKeyError_Title = "导入一个或多个密钥时失败";
-ImportKeyError_Msg = "由于缺少自我签名常会导致密钥无法导入。请访问\nhttps://gpgtools.tenderapp.com/kb/gpg-keychain-faq/can-not-import-key-due-to-missing-self-signature 了解更多信息以及解决该问题的方法。";
+ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
 ImportKeyErrorPGP_Title = "导入失败";
 ImportKeyErrorPGP_Msg = "您好像在尝试导入加密或签署的信息。要解密或验证此类信息，请使用 GPGServices。";
 ImportKeyErrorNoPGP_Title = "导入失败";
@@ -391,8 +391,8 @@ CleanKey_Progress = "清理密钥...";
 CleanKey_Error = "清除密匙失败。";
 MinimizeKey_Progress = "最小化密钥...";
 MinimizeKey_Error = "最小化密钥失败。";
-GenerateRevokeCertificateForKey_Progress = "生成吊销证书...";
-GenerateRevokeCertificateForKey_Error = "生成吊销证书失败。";
+GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
+GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
 SearchKeysOnServer_Progress = "搜索密钥...";
 SendKeysToServer_Progress = "发送 %@ 到服务器...";
 SendKeysToServer_Error = "发送密匙失败。";
