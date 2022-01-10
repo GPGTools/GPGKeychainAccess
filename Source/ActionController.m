@@ -1152,7 +1152,7 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 	
 	self.currentOperation = ChangeExpirationDateOperation;
 	
-	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"ExpirationDateChangedWantToUpload"]]};
+	gpgc.userInfo = @{@"action": @[[self uploadCallbackForKey:key string:@"KeyExtendedWantToUpload"]]};
 	
 	[gpgc setExpirationDate:self.sheetController.hasExpirationDate ? self.sheetController.expirationDate : nil
 				 forSubkeys:subkey ? @[subkey] : nil

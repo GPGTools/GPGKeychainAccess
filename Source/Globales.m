@@ -45,9 +45,12 @@ NSString *localized(NSString *key) {
 	}
 	
 	NSString *notFoundValue = @"~#*?*#~";
-	NSString *localized = [bundle localizedStringForKey:key value:notFoundValue table:nil];
+	NSString *localized = [bundle localizedStringForKey:key value:notFoundValue table:nil]; // Look in the main app bundle.
 	if (localized == notFoundValue) {
-		localized = [englishBundle localizedStringForKey:key value:nil table:nil];
+		localized = localizedLibmacgpgString(key); // Look in Libmacgpg.
+		if ([localized isEqualToString:key]) {
+			localized = [englishBundle localizedStringForKey:key value:nil table:nil]; // Look in the english app translation.
+		}
 	}
 	
 	return localized;
