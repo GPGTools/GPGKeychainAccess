@@ -943,7 +943,11 @@ static NSString * const alreadyUploadedKeysKey = @"AlreadyUploadedKeys";
 			return;
 		}
 		[[KeychainController sharedInstance] selectKeys:[NSSet setWithObject:fingerprint]];
-		if ([self warningSheetWithDefault:NO string:@"NewKeyWantToUpload"]) {
+		NSString *uploadStringPrefix = @"NewKeyWantToUpload";
+		if([[GPGOptions sharedOptions] isVerifyingKeyserver]) {
+			uploadStringPrefix = @"NewKeyWantToUploadVerified";
+		}
+		if ([self warningSheetWithDefault:NO string:uploadStringPrefix]) {
 			self.currentOperation = SendKeysToServerOperation;
 			self.operatedKeys = @[fingerprint];
 			actionCallback callback = ^(GPGController *gc2, id value, NSDictionary *userInfo2) {
