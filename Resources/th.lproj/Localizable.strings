@@ -17,8 +17,8 @@
 
 /* Key descriptions */
 "and" = "และ";
-KeyDescriptionAndMore = "%1$@ and %2$lu more";
-SecretAndPublicKeyListing = "Secret keys:\n\n%@\n\nPublic keys:\n\n%@";
+KeyDescriptionAndMore = "%1$@ และอีก %2$lu";
+SecretAndPublicKeyListing = "กุญแจลับ:\n\n%@\n\nกุญแจสาธารณะ:\n\n%@";
 
 
 /* For export, as standard File-Name. */
@@ -32,7 +32,7 @@ ExportSecretKeyFilename = "%@ – ความลับ";
 /* For key creation */
 CheckAlert_NoPassphrase_Title = "ไม่ได้ใส่รหัสผ่าน";
 CheckAlert_NoPassphrase_Message = "You have not entered a password. This is not recommended. Passwords should be at least 8 characters long.";
-CheckAlert_NoPassphrase_Yes = "Continue Without Password";
+CheckAlert_NoPassphrase_Yes = "ทำต่อโดยไม่ใช้รหัสผ่าน";
 CheckAlert_NoPassphrase_No = "ใส่รหัสผ่านใหม่";
 CheckAlert_PassphraseSimple_Title = "รหัสผ่านง่ายเกินไป";
 CheckAlert_PassphraseSimple_Message = "The password you entered is too simple. A good password should be at least 8 characters long and use different characters.";
@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "The password you have entered is too lon
 
 CheckAlert_NewKeyExistingEmail_Title = "มีกุญแจที่ถูกต้องสำหรับที่อยู่นี้อยู่แล้ว";
 CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
+CheckAlert_NewKeyExistingEmail_Yes = "สร้างกุญแจ";
 CheckAlert_NewKeyExistingEmail_No = "ยกเลิก";
 
 CheckAlert_NewUserIDExistingEmail_Title = "มีกุญแจที่ถูกต้องสำหรับที่อยู่นี้อยู่แล้ว";
 CheckAlert_NewUserIDExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new user ID for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a user ID with that email now?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
+CheckAlert_NewUserIDExistingEmail_Yes = "สร้าง ID ผู้ใช้";
 CheckAlert_NewUserIDExistingEmail_No = "ยกเลิก";
 
 
@@ -57,7 +57,7 @@ MoveSecring_Msg = "Your secret keys currently reside on \"%@\".\nTo move your se
 /* For Key-Search */
 KeySearch_NoKeysFound_Title = "ไม่พบกุญแจ";
 KeySearch_ImportResults_Title = "การนำเข้าสำเร็จ";
-FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), created: %@"; /* Format für die gefundenen Schlüssel vom Server. */
+FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu บิต), สร้างเมื่อ: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "We are searching for matching key(s) on the keys server. It might take some time, please wait.";
 
 KeySearch_VKSFound_Msg = "A key with a verified email address was found:\n\n%@\n\nDo you want to import this key?";
@@ -78,12 +78,12 @@ GenerateKey_Error = "Oops, something went wrong. There was a problem creating yo
 /* Message for incorrect Entries */
 CheckError_NameToLong = "ชื่อยาวเกินไป!";
 CheckError_InvalidCharInName = "Invalid character in name!\n\"<\" and \">\" not allowed.";
-CheckError_InvalidEmail = "Not a valid email address!";
-CheckError_EmailToLong = "Email address is too long!\nMax length is 254.";
+CheckError_InvalidEmail = "ที่อยู่อีเมลผิดรูปแบบ!";
+CheckError_EmailToLong = "ที่อยู่อีเมลยาวเกินไป!\nความยาวสูงสุดคือ 254";
 CheckError_InvalidCharInComment = "Invalid character in comment!\n\"(\" and \")\" not allowed.";
 CheckError_CommentToLong = "ความเห็นยาวเกินไป!";
 CheckError_NoKeyID = "Please enter a valid key ID!";
-CheckError_SearchInvalid_Title = "Invalid search query!";
+CheckError_SearchInvalid_Title = "คำค้นผิดรูปแบบ!";
 CheckError_SearchInvalid_Msg = "Please search for an email address or fingerprint.";
 
 
@@ -103,20 +103,20 @@ UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown e
 
 /* Mail public key */
 MailKey_Subject = "กุญแจสาธารณะของ %@";
-MailKey_Subject_Your = "My public key to secure our messages";
+MailKey_Subject_Your = "กุญแจสาธารณะของฉันเพื่อทำให้ข้อความของเราปลอดภัย";
 MailKey_Message = "Hi,\n\nattached you'll find the public key of\n\n%@\n\nYou can use this key to encrypt and secure messages when writing to %@.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nRegards";
 MailKey_Message_Your = "Hi,\n\nattached you'll find my public key\n\n%@\n\nYou can use this key to encrypt and secure our messages.\n\nTo start using it, you'll need to install an OpenPGP software on your computer.  Below you'll find a list of possible solutions for your operating system:\n\n%@\n\nPlease import the public key into your local OpenPGP Key-Manager.\n\nLooking forward to exchange snooping-free messages with you.\n\nRegards";
 MailKey_Message_Links = "macOS	https://support.gpgtools.org/kb/how-to/first-steps-where-do-i-start-where-do-i-begin-setup-gpgtools-create-a-new-key-your-first-encrypted-mail\nLinux	https://ssd.eff.org/en/module/how-use-pgp-linux\nWindows	https://ssd.eff.org/en/module/how-use-pgp-windows-pc\niOS		https://itunes.apple.com/app/ipgmail/id430780873?mt=8\nAndroid	https://play.google.com/store/apps/details?id=org.sufficientlysecure.keychain";
-MailKey_Progress = "Creating new email…";
-MailKey_Progress_Your = "Creating new email…";
+MailKey_Progress = "กำลังสร้างอีเมลใหม่...";
+MailKey_Progress_Your = "กำลังสร้างอีเมลใหม่...";
 MailKey_Error = "Oops, something went wrong. There was a problem exporting your key.";
-MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Unusable key selected";
+MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "กุญแจที่ใช้ไม่ได้ถูกเลือกอยู่";
 MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such keys can not be sent via email. Please update the key from the key server, to check if it has been updated.\n\nOtherwise get in touch with the key owner and inform them about the key state.\n\n%@";
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
-PasteboardKeyFound_Msg = "%@\n\nWould you like to import the key(s)?";
+PasteboardKeyFound_Title = "ตรวจพบกุญแจหนึ่งดอกหรือมากกว่า ในคลิปบอร์ดของคุณ";
+PasteboardKeyFound_Msg = "%@\n\nคุณต้องการจะนำเข้ากุญแจดังกล่าวหรือไม่?";
 PasteboardKeyFound_Yes = "นำเข้า";
 PasteboardKeyFound_No = "ยกเลิก";
 
@@ -130,14 +130,14 @@ Cancel = "ยกเลิก";
 
 
 /* Warnings */
-RemoveUserID_Title = "Remove user ID";
+RemoveUserID_Title = "ลบ ID ผู้ใช้";
 RemoveUserID_Msg = "You are about to remove user ID %@ from your key %@. Once removed, you will no longer be able to use this key with the associated account in Mail.app.\n\nIn case the key with this user ID has been uploaded to the key servers, removing the user ID will not remove it from the key on the key servers. Please instead revoke the user ID in question and upload the updated key.";
-RemoveUserID_Yes = "Remove User ID";
+RemoveUserID_Yes = "ลบ ID ผู้ใช้";
 RemoveUserID_No = "ยกเลิก";
 
 RevokeUserID_Title = "Warning: You are about to revoke a user ID";
 RevokeUserID_Msg = "You are about to revoke the following user ID:\n\n%@ from your key %@\n\nOnce revoked, you will be unable to sign and encrypt messages using this user ID and others will not be able to encrypt messages to this user ID. The revoked user ID can still be used to decrypt emails and files previously encrypted to it.\n\nWe recommend not to delete it, but to keep it in your key in revoked state.\n\nAre you sure you want to revoke this user ID?";
-RevokeUserID_Yes = "Revoke User ID";
+RevokeUserID_Yes = "เพิกถอน ID ผู้ใช้";
 RevokeUserID_No = "ยกเลิก";
 
 RemoveSubkey_Title = "นำกุญแจย่อยออก";
@@ -194,32 +194,27 @@ NewKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to f
 NewKeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
 NewKeyWantToUpload_No = "ไม่ ขอบคุณ!";
 
-NewUserIDWantToUpload_Title = "Your new email address (user ID) was added successfully";
+NewUserIDWantToUpload_Title = "ที่อยู่อีเมล (ID ผู้ใช้) ใหม่ของคุณ ถูกเพิ่มสำเร็จแล้ว";
 NewUserIDWantToUpload_Msg = "In order for others to be able to use your new email address (user ID), it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your updated public key?";
 NewUserIDWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
 NewUserIDWantToUpload_No = "ไม่ ขอบคุณ!";
 
-NewSubkeyWantToUpload_Title = "You have successfully added a subkey";
+NewSubkeyWantToUpload_Title = "คุณได้เพิ่มกุญแจย่อยสำเร็จแล้ว";
 NewSubkeyWantToUpload_Msg = "In order for others to be able to use your new subkey, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
 NewSubkeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
 NewSubkeyWantToUpload_No = "ไม่ ขอบคุณ!";
 
-ExpirationDateChangedWantToUpload_Title = "You have successfully changed the expiration date";
-ExpirationDateChangedWantToUpload_Msg = "In order for others to be able to see the new expiration date, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
-ExpirationDateChangedWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
-ExpirationDateChangedWantToUpload_No = "ไม่ ขอบคุณ!";
-
-RevokedKeyWantToUpload_Title = "Your key was successfully revoked";
+RevokedKeyWantToUpload_Title = "เพิกถอนกุญแจของคุณสำเร็จแล้ว";
 RevokedKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your revoked public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that it is now revoked and no longer to be used. You can email them the revoked public key so they can import it into their key manager.\n\nDo you want to upload your revoked public key?";
 RevokedKeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
 RevokedKeyWantToUpload_No = "ไม่ ขอบคุณ!";
 
-RevokedUserIDWantToUpload_Title = "Your user ID was successfully revoked";
+RevokedUserIDWantToUpload_Title = "เพิกถอน ID ผู้ใช้ของคุณสำเร็จแล้ว";
 RevokedUserIDWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the user ID is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
 RevokedUserIDWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
 RevokedUserIDWantToUpload_No = "ไม่ ขอบคุณ!";
 
-RevokedSubkeyWantToUpload_Title = "Your subkey was successfully revoked";
+RevokedSubkeyWantToUpload_Title = "เพิกถอนกุญแจย่อยของคุณสำเร็จแล้ว";
 RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your subkey, it is recommended to upload your public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that the subkey is now revoked and no longer to be used. You can email them the updated public key so they can import it into their key manager.\n\nDo you want to upload your public key?";
 RevokedSubkeyWantToUpload_Yes = "อัปโหลดกุญแจสาธารณะ";
 RevokedSubkeyWantToUpload_No = "ไม่ ขอบคุณ!";
@@ -240,7 +235,7 @@ DeleteKey_No = "ยกเลิก";
 
 DeleteKeys_Title = "ลบกุญแจสาธารณะ";
 DeleteKeys_Msg = "You are about to delete the following public keys:\n\n%@\n\nAre you sure you want to delete the public keys?";
-DeleteKeys_Yes = "Delete keys";
+DeleteKeys_Yes = "ลบกุญแจ";
 DeleteKeys_No = "ยกเลิก";
 
 
@@ -294,18 +289,18 @@ ImportNonImportable_No = "ยกเลิก";
 
 /* Results */
 UploadSuccess_Title = "ส่งกุญแจสาธารณะไปเซิร์ฟเวอร์กุญแจแล้ว";
-UploadSuccess_Msg = "The following public keys have been uploaded:\n\n%@";
+UploadSuccess_Msg = "กุญแจสาธารณะดังต่อไปนี้ ถูกอัปโหลดแล้ว:\n\n%@";
 
 ExportSuccess_Title = "ส่งออกกุญแจแล้ว";
-ExportSuccess_Msg = "The following keys were exported:\n\n%@";
+ExportSuccess_Msg = "กุญแจดังต่อไปนี้ ถูกส่งออกแล้ว:\n\n%@";
 
 SignSuccess_Title = "The selected user IDs have been signed";
 
 
 
 /* For Import-Results */
-IMPORT_RESULT_NEW_KEY = "The following key was successfully imported:\n\n%@";
-IMPORT_RESULT_NEW_KEYS = "The following keys were successfully imported:\n\n%@";
+IMPORT_RESULT_NEW_KEY = "กุญแจดังต่อไปนี้ ถูกนำเข้าสำเร็จแล้ว:\n\n%@";
+IMPORT_RESULT_NEW_KEYS = "กุญแจดังต่อไปนี้ ถูกส่งออกสำเร็จแล้ว:\n\n%@";
 
 IMPORT_RESULT_NEW_USER_ID = "A user ID was added to the following keys \n\n%@";
 IMPORT_RESULT_NEW_SIGNATURE = "A signature was added to the following keys \n\n%@";
@@ -318,7 +313,7 @@ IMPORT_RESULT_ONE_PROCESSED_AND_X_IMPORTED = "1 key was processed and %i importe
 IMPORT_RESULT_X_PROCESSED_AND_ONE_IMPORTED = "%i keys were processed and 1 imported.";
 IMPORT_RESULT_X_PROCESSED_AND_X_IMPORTED = "%1$i keys were processed and %2$i imported.";
 
-IMPORT_RESULT_NOTHING_IMPORTED = "No keys imported.";
+IMPORT_RESULT_NOTHING_IMPORTED = "ไม่มีกุญแจที่ถูกนำเข้า";
 IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 
 /* Errors */
@@ -330,8 +325,8 @@ ImportKeyErrorPGP_Msg = "It seems you are trying to import an encrypted or signe
 ImportKeyErrorNoPGP_Title = "การนำเข้าล้มเหลว";
 ImportKeyErrorNoPGP_Msg = "The data you were trying to import is not a valid OpenPGP key or message. Make sure the format is txt and no formatted text is used and ask the key owner or message author to resend the data.";
 
-NO_SECRET_KEY_TITLE = "No secret key found";
-NO_SECRET_KEY_MESSAGE = "You need a secret key to perform this operation.";
+NO_SECRET_KEY_TITLE = "ไม่พบกุญแจลับ";
+NO_SECRET_KEY_MESSAGE = "คุณจำเป็นต้องมีกุญแจลับเพื่อทำปฏิบัติการนี้";
 
 KeyserverSearchError_Title = "การค้นหากุญแจล้มเหลว";
 KeyserverSearchError_Msg = "Please repeat your search and see if it works then. Should the problem persist, file a support request via System Preferences > GPG Suite > Send Report. Please copy the entire error message into the description field and add the search term you used for your query. We recommend to include the debug log, since that provides additional helpful information to solve your problem.";
@@ -339,7 +334,7 @@ KeyserverSearchError_Msg = "Please repeat your search and see if it works then. 
 
 
 /* In Main Window */
-"%i of %i keys listed" = "%i of %i keys listed";
+"%i of %i keys listed" = "แสดง %i จาก %i กุญแจ";
 
 
 
@@ -371,15 +366,15 @@ COMPRESS_ALGO_BZIP2 = "BZIP2";
 
 
 
-ExportKey_Progress = "Exporting key…";
-ExportKey_Error = "Key export failed.";
+ExportKey_Progress = "กำลังส่งออกกุญแจ...";
+ExportKey_Error = "การส่งออกกุญแจล้มเหลว";
 ImportKey_Progress  = "กำลังนำเข้ากุญแจ...";
 DeleteSecretKey_Progress = "กำลังลบกุญแจลับ...";
 DeleteKeys_Progress = "กำลังลบกุญแจ...";
-DeleteKeys_Error = "Deleting key failed.";
-ChangePassphrase_Progress = "Changing password…";
-ChangePassphrase_Error = "Changing password failed.";
-SetDisabled_Progress = "Enabling/Disabling key…";
+DeleteKeys_Error = "การลบกุญแจล้มเหลว";
+ChangePassphrase_Progress = "กำลังเปลี่ยนรหัสผ่าน...";
+ChangePassphrase_Error = "การเปลี่ยนรหัสผ่านล้มเหลว";
+SetDisabled_Progress = "กำลังเปิดใช้/ปิดใช้กุญแจ...";
 SetDisabled_Error = "Enabling/Disabling key failed.";
 SetOwnerTrust_Progress = "Setting owner trust…";
 SetOwnerTrust_Error = "Setting owner trust failed.";
@@ -387,40 +382,40 @@ ChangeExpirationDate_Progress = "Changing expiration date…";
 ChangeExpirationDate_Error = "Changing expiration date failed.";
 SetAlgorithmPreferences_Progress = "Setting algorithm preferences…";
 SetAlgorithmPreferences_Error = "Setting algorithm preferences failed.";
-CleanKey_Progress = "Cleaning key…";
-CleanKey_Error = "Cleaning key failed.";
-MinimizeKey_Progress = "Minimizing key…";
-MinimizeKey_Error = "Minimizing key failed.";
+CleanKey_Progress = "กำลังทำความสะอาดกุญแจ...";
+CleanKey_Error = "การทำความสะอาดกุญแจล้มเหลว";
+MinimizeKey_Progress = "กำลังย่อกุญแจ...";
+MinimizeKey_Error = "การย่อกุญแจล้มเหลว";
 GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
 GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
-SearchKeysOnServer_Progress = "Searching for key…";
-SendKeysToServer_Progress = "Sending %@ to server…";
-SendKeysToServer_Error = "Sending key failed.";
-RefreshKeysFromServer_Progress = "Refreshing %@ from server…";
-RefreshKeysFromServer_Error = "Refreshing key failed.";
-AddSubkey_Progress = "Adding subkey…";
-AddSubkey_Error = "Adding subkey failed.";
-RemoveSubkey_Progress = "Removing subkey…";
-RemoveSubkey_Error = "Removing subkey failed.";
-RevokeSubkey_Progress = "Revoking subkey…";
-RevokeSubkey_Error = "Revoking subkey failed.";
-AddUserID_Progress = "Adding user ID…";
-AddUserID_Error = "Adding user ID failed.";
-RemoveUserID_Progress = "Removing user ID…";
-RemoveUserID_Error = "Removing user ID failed.";
+SearchKeysOnServer_Progress = "กำลังค้นหากุญแจ...";
+SendKeysToServer_Progress = "กำลังส่ง %@ ไปยังเซิร์ฟเวอร์...";
+SendKeysToServer_Error = "การส่งกุญแจล้มเหลว";
+RefreshKeysFromServer_Progress = "กำลังปรับปรุงข้อมูล %@ ใหม่จากเซิร์ฟเวอร์...";
+RefreshKeysFromServer_Error = "การปรับปรุงข้อมูลกุญแจใหม่ล้มเหลว";
+AddSubkey_Progress = "กำลังเพิ่มกุญแจย่อย...";
+AddSubkey_Error = "การเพิ่มกุญแจย่อยล้มเหลว";
+RemoveSubkey_Progress = "กำลังลบกุญแจย่อย...";
+RemoveSubkey_Error = "การลบกุญแจย่อยล้มเหลว";
+RevokeSubkey_Progress = "กำลังเพิกถอนกุญแจย่อย...";
+RevokeSubkey_Error = "การเพิกถอนกุญแจย่อยล้มเหลว";
+AddUserID_Progress = "กำลังเพิ่ม ID ผู้ใช้...";
+AddUserID_Error = "การเพิ่ม ID ผู้ใช้ล้มเหลว";
+RemoveUserID_Progress = "กำลังลบ ID ผู้ใช้...";
+RemoveUserID_Error = "การลบ ID ผู้ใช้ล้มเหลว";
 SetPrimaryUserID_Progress = "Setting primary user ID…";
 SetPrimaryUserID_Error = "Setting primary user ID failed.";
-RevokeUserID_Progress = "Revoking user ID…";
-RevokeUserID_Error = "Revoking user ID failed.";
-AddPhoto_Progress = "Adding photo…";
-AddPhoto_Error = "Adding photo failed.";
-AddPhoto_SelectMessage = "Choose photo…";
-RemovePhoto_Progress = "Removing photo…";
-RemovePhoto_Error = "Removing photo failed.";
+RevokeUserID_Progress = "กำลังเพิกถอน ID ผู้ใช้...";
+RevokeUserID_Error = "การเพิกถอน ID ผู้ใช้ล้มเหลว";
+AddPhoto_Progress = "กำลังเพิ่มรูปภาพ...";
+AddPhoto_Error = "การเพิ่มรูปภาพล้มเหลว";
+AddPhoto_SelectMessage = "เลือกรูปภาพ...";
+RemovePhoto_Progress = "กำลังลบรูปภาพ...";
+RemovePhoto_Error = "การลบรูปภาพล้มเหลว";
 SetPrimaryPhoto_Progress = "Setting primary photo…";
 SetPrimaryPhoto_Error = "Setting primary photo failed.";
-RevokePhoto_Progress = "Revoking photo…";
-RevokePhoto_Error = "Revoking photo failed.";
+RevokePhoto_Progress = "กำลังเพิกถอนรูปภาพ...";
+RevokePhoto_Error = "การเพิกถอนรูปภาพล้มเหลว";
 AddSignature_Progress = "Signing…";
 AddSignature_Error = "Signing failed.";
 RemoveSignature_Progress = "Removing signature…";
@@ -429,14 +424,14 @@ RevokeSignature_Progress = "Revoking signature…";
 RevokeSignature_Error = "Revoking signature failed.";
 ReceiveKeysFromServer_Progress = "Receiving keys…";
 ReceiveKeysFromServer_Error = "Receiving keys failed.";
-RevokeKey_Progress = "Revoking key…";
-RevokeKey_Error = "Revoking key failed.";
+RevokeKey_Progress = "เพิกถอนกุญแจ...";
+RevokeKey_Error = "การเพิกถอนกุญแจล้มเหลว";
 
 
-SendToKeyserver_MenuItem = "Send to Key Server";
-SendPublicKeyToKeyserver_MenuItem = "Send Public Key to Key Server";
+SendToKeyserver_MenuItem = "ส่งไปเซิร์ฟเวอร์กุญแจ";
+SendPublicKeyToKeyserver_MenuItem = "ส่งกุญแจสาธารณะไปเซิร์ฟเวอร์กุญแจ";
 
-FilterNoResults = "The local search for '%@' has no results.";
+FilterNoResults = "การค้น '%@' ในเครื่อง ไม่พบผลลัพธ์";
 FilterNoResultsSecOnly = "The local search for '%@' has no results.\nConsider disabling the option to 'Show secret keys only' to expand the search.";
 
 

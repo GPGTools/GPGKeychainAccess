@@ -34,20 +34,20 @@ CheckAlert_NoPassphrase_Title = "Inget lösenord har angivits";
 CheckAlert_NoPassphrase_Message = "Du har inte angivit något lösenord. Detta rekommenderas inte. Lösenord bör vara minst 8 tecken långa.";
 CheckAlert_NoPassphrase_Yes = "Fortsätt utan lösenord";
 CheckAlert_NoPassphrase_No = "Ange nytt lösenord";
-CheckAlert_PassphraseSimple_Title = "Lösenordet är för enkelt";
+CheckAlert_PassphraseSimple_Title = "Lösenord för enkelt";
 CheckAlert_PassphraseSimple_Message = "Lösenordet du angav är för enkelt. Ett bra lösenord bör vara minst 8 tecken långt och innehålla olika tecken.";
 CheckAlert_PassphraseSimple_Yes = "Använd enkelt lösenord";
 CheckAlert_PassphraseSimple_No = "Ange nytt lösenord";
 CheckAlert_PassphraseTooLong_Title = "Lösenord för långt";
-CheckAlert_PassphraseTooLong_Message = "Lösenordet som du angivit är för långt. Ange ett lösenord med färre än%1$i tecken.\n\nOBS: Om ditt lösenord innehåller speciella tecken kan du inte använda %1$i tecken.";
+CheckAlert_PassphraseTooLong_Message = "Lösenordet som du angivit är för långt. Ange ett lösenord med färre än %1$i tecken.\n\nOBS: Om ditt lösenord innehåller specialtecken kanske du inte kan använda %1$i tecken.";
 
 CheckAlert_NewKeyExistingEmail_Title = "En giltig nyckel med den här adressen finns redan";
-CheckAlert_NewKeyExistingEmail_Msg = "Den existerande nyckeln med %1$@ har följande fingeravtryck:\n%2$@\n\nAtt använda samma e-postadress i fler än en nyckel kan leda till problem och rekommenderas inte.\nOm du verkligen vill skapa en ny nyckel för denna e-postadress, föreslår vi att först återkalla den e-postadressen från existerande nyckel.\n\nVill du verkligen skapa en nyckel med den e-postadressen nu?";
+CheckAlert_NewKeyExistingEmail_Msg = "Den befintliga nyckeln med %1$@ har följande fingeravtryck:\n%2$@\n\nAtt använda samma e-postadress i mer än en nyckel kan leda till problem och rekommenderas inte.\nOm du verkligen vill skapa en ny nyckel för den här e-postadressen föreslår vi att du först återkallar den adressen från den befintliga nyckeln.\n\nVill du verkligen skapa en nyckel med den e-postadressen nu?";
 CheckAlert_NewKeyExistingEmail_Yes = "Skapa nyckel";
 CheckAlert_NewKeyExistingEmail_No = "Avbryt";
 
 CheckAlert_NewUserIDExistingEmail_Title = "En giltig nyckel med den här adressen finns redan";
-CheckAlert_NewUserIDExistingEmail_Msg = "Den existerande nyckeln med %1$@ har följande fingeravtryck:\n%2$@\n\nAtt använda samma e-postadress i fler än en nyckel kan leda till problem och rekommenderas inte.\nOm du verkligen vill skapa ett nytt användar-ID för denna e-postadress, föreslår vi att först återkalla den e-postadressen från existerande nyckel.\n\nVill du verkligen skapa ett användar-ID med den e-postadressen nu?";
+CheckAlert_NewUserIDExistingEmail_Msg = "Den befintliga nyckeln med %1$@ har följande fingeravtryck:\n%2$@\n\nAtt använda samma e-postadress i mer än en nyckel kan leda till problem och rekommenderas inte.\nOm du verkligen vill skapa ett nytt användar-ID för den här e-postadressen föreslår vi att du först återkallar den adressen från den befintliga nyckeln.\n\nVill du verkligen skapa ett användar-ID med den e-postadressen nu?";
 CheckAlert_NewUserIDExistingEmail_Yes = "Skapa användar-ID";
 CheckAlert_NewUserIDExistingEmail_No = "Avbryt";
 
@@ -60,8 +60,8 @@ KeySearch_ImportResults_Title = "Import lyckades";
 FOUND_KEY_DESCRIPTION_FORMAT = "%@, %@ (%lu bit), skapad: %@"; /* Format für die gefundenen Schlüssel vom Server. */
 SearchingKeys_Msg = "Vi söker efter matchande nyckel/nycklar på nyckelservern. Det kan ta tid, vänligen vänta.";
 
-KeySearch_VKSFound_Msg = "En nyckel med en verifierad e-postadress hittades:\n\n%@\n\nVill du importera denna nyckel?";
-KeySearch_VKSFoundNoUserID_Msg = "En möjlig nyckeluppdatering hittades:\n\n%@\n\nVill du importera denna nyckel?";
+KeySearch_VKSFound_Msg = "En nyckel med en verifierad e-postadress hittades:\n\n%@\n\nVill du importera den här nyckeln?";
+KeySearch_VKSFoundNoUserID_Msg = "En möjlig nyckeluppdatering hittades:\n\n%@\n\nVill du importera den här nyckeln?";
 
 
 GenerateKey_ProgressTitle = "Nyckelskapande pågår…";
@@ -89,11 +89,11 @@ CheckError_SearchInvalid_Msg = "Sök efter en e-postadress eller ett fingeravtry
 
 /* Message on start, if there are any Problems */
 GPG_NOT_FOUND_TITLE = "GPG hittades inte";
-GPG_NOT_FOUND_MESSAGE = "Hoppsan, något gick riktigt fel. Det verkar som om GPG saknas på ditt system. Installera om GPG Suite från\nhttps://www.gpgtools.org.";
+GPG_NOT_FOUND_MESSAGE = "Hoppsan, något gick riktigt snett. Det verkar som om GPG saknas på ditt system. Installera om GPG Suite från\nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "GPG konfigurationsfel";
 GPG_CONFIG_ERROR_MESSAGE = "Hoppsan, något gick snett. GPG har hittats på ditt system men det verkar vara ett problem med konfigurationsfilen. Kontakta oss på\nhttps://support.gpgtools.org\n\nDetaljer: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg hittades inte";
-LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg hittades inte på ditt system. Installera om GPG Suite från\nhttps://www.gpgtools.org.";
+LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg hittades inte på ditt system. Installera om GPG Suite från\nhttps://www.gpgtools.org";
 CODE_SIGN_ERROR_TITLE = "Någon har mixtrat med din installation av GPG Keychain";
 CODE_SIGN_ERROR_MESSAGE = "För att skydda dig kommer GPG Keychain nu att avslutas!\n\nInstallera om GPG Suite från\nhttps://gpgtools.org för att försäkra dig om att du har en äkta version från oss!";
 UNKNOWN_GPG_ERROR_TITLE = "Okänt GPG-fel";
@@ -111,7 +111,7 @@ MailKey_Progress = "Skapar ny e-post…";
 MailKey_Progress_Your = "Skapar ny e-post…";
 MailKey_Error = "Hoppsan, något blev fel. Ett problem uppstod när din nyckel skulle exporteras.";
 MAIL_KEY_INVALID_KEY_SELECTED_TITLE = "Oanvändbar nyckel markerad";
-MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du har markerat en oanvändbar nyckel. Sådana nycklar kan inte skickas via e-post. Uppdatera nyckeln från nyckelservrarna för att se om den har uppdaterats.\n\nKontakta annars nyckelns ägare och informera dem om nyckelns skick.\n\n%@";
+MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "Du har markerat en oanvändbar nyckel. Sådana nycklar kan inte skickas via e-post. Uppdatera nyckeln från nyckelservern för att se om den har uppdaterats.\n\nKontakta annars nyckelns ägare och informera dem om nyckelns skick.\n\n%@";
 
 
 /* A key was found in the pasteboard */
@@ -131,22 +131,22 @@ Cancel = "Avbryt";
 
 /* Warnings */
 RemoveUserID_Title = "Ta bort användar-ID";
-RemoveUserID_Msg = "Du kommer att ta bort användar-ID %@ från din nyckel %@. Efter borttagandet kommer du inte längre att kunna använda denna nyckel med det tillhörande e-postkontot i Mail.app.\n\nOm nyckeln med detta användar-ID laddades upp till nyckelservarna kommer ett borttagande av användar-ID:t inte leda till att det tas bort på nyckelservrarna. Återkalla istället det aktuella användar-ID:t och ladda upp den uppdaterade nyckeln.";
+RemoveUserID_Msg = "Du kommer att ta bort användar-ID %@ från din nyckel %@. Efter borttagandet kommer du inte längre att kunna använda den här nyckeln med det tillhörande e-postkontot i Mail.app.\n\nOm nyckeln med detta användar-ID laddades upp till nyckelservarna kommer ett borttagande av användar-ID:t inte leda till att det tas bort på nyckelservrarna. Återkalla istället det aktuella användar-ID:t och ladda upp den uppdaterade nyckeln.";
 RemoveUserID_Yes = "Ta bort användar-ID";
 RemoveUserID_No = "Avbryt";
 
 RevokeUserID_Title = "Varning: Du kommer att återkalla ett användar-ID";
-RevokeUserID_Msg = "Du kommer att återkalla följande användar-ID:\n\n%@ från din nyckel %@\n\nNär den återkallats kommer du inte att kunna signera och kryptera meddelanden med detta användar-ID och andra kommer inte att kunna kryptera meddelanden till detta användar-ID. Det återkallade användar-ID:t kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats till det.\n\nVi rekommenderar att inte radera det, utan att behålla det i din nyckels återkallade läge.\n\nÄr du säker på att du vill återkalla det här användar-ID:t?";
+RevokeUserID_Msg = "Du kommer att återkalla följande användar-ID:\n\n%@ från din nyckel %@\n\nNär det har återkallats kommer du inte att kunna signera och kryptera meddelanden med detta användar-ID och andra kommer inte att kunna kryptera meddelanden till detta användar-ID. Det återkallade användar-ID:t kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats till det.\n\nVi rekommenderar att inte radera det,  istället bör det behållas i din nyckel med status som återkallat.\n\nÄr du säker på att du vill återkalla det här användar-ID:t?";
 RevokeUserID_Yes = "Återkalla användar-ID";
 RevokeUserID_No = "Avbryt";
 
 RemoveSubkey_Title = "Ta bort undernyckel";
-RemoveSubkey_Msg = "Varning! Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta bort en undernyckel kan förstöra alla möjligheter att signera och dekryptera med denna nyckel.\n\nOm nyckeln laddats upp till nyckelservarna, kommer borrtagningen av undernyckeln inte att ha någon effekt på den befintliga nyckeln på nyckelservarna. För att uppmärksamma andra på att de inte längre ska använda denna undernyckel, återkalla istället den aktuella undernyckeln och ladda upp den uppdaterade nyckeln till nyckelservern.";
+RemoveSubkey_Msg = "Varning: Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt ta bort en undernyckel kan förstöra alla möjligheter att signera och dekryptera med den här nyckeln.\n\nOm nyckeln laddats upp till nyckelservarna kommer borttagningen av undernyckeln inte att ha någon effekt på den befintliga nyckeln på nyckelservarna. För att uppmärksamma andra på att de inte längre ska använda den här undernyckeln, återkalla istället den aktuella undernyckeln och ladda upp den uppdaterade nyckeln till nyckelservern.";
 RemoveSubkey_Yes = "Ta bort undernyckel";
 RemoveSubkey_No = "Avbryt";
 
 RevokeSubkey_Title = "Varning: Du kommer att återkalla en undernyckel";
-RevokeSubkey_Msg = "Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt återkalla en undernyckel kan förstöra möjligheten att signera med denna undernyckel och andra kanske inte längre kan kryptera meddelanden till denna undernyckel.\n\nDen återkallade undernyckeln kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats till den.. \n\nVi rekommenderar inte att den raderas, istället bör den behållas med statusen återkallad.\n\nÄr du säker på att du vill återkalla den här undernyckeln?";
+RevokeSubkey_Msg = "Fortsätt endast om du verkligen vet vad du håller på med.\n\nAtt återkalla en undernyckel kan förstöra möjligheten att signera med den här undernyckeln och andra kanske inte längre kan kryptera meddelanden till den.\n\nDen återkallade undernyckeln kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats till den. \n\nVi rekommenderar inte att den raderas, istället bör den behållas med status som återkallad.\n\nÄr du säker på att du vill återkalla den här undernyckeln?";
 RevokeSubkey_Yes = "Återkalla undernyckel";
 RevokeSubkey_No = "Avbryt";
 
@@ -176,7 +176,7 @@ RevokeLastSelfSignature_Yes = "Återkalla signatur";
 RevokeLastSelfSignature_No = "Avbryt";
 
 RevokeKey_Title = "Varning: Du är på väg att återkalla en nyckel";
-RevokeKey_Msg = "Du kommer att återkalla följande nyckel:\n\n%@\n\nNär den återkallats kommer du inte att kunna signera meddelanden och inga meddelanden kan krypteras till denna nyckel. Den återkallade nyckeln kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats till den.\n\nVi rekommenderar inte att den raderas, istället bör den behållas i GPG Keychain med statusen återkallad.\n\nÄr du säker på att du vill återkalla den här nyckeln?";
+RevokeKey_Msg = "Du kommer att återkalla följande nyckel:\n\n%@\n\nNär den återkallats kommer du inte att kunna signera meddelanden och inga meddelanden kan krypteras till den här nyckeln. Den återkallade nyckeln kan fortfarande användas för att dekryptera e-post och filer som tidigare krypterats till den.\n\nVi rekommenderar inte att den raderas, istället bör den behållas i GPG Keychain med status som återkallad.\n\nÄr du säker på att du vill återkalla den här nyckeln?";
 RevokeKey_Yes = "Återkalla nyckel";
 RevokeKey_No = "Avbryt";
 
@@ -195,19 +195,14 @@ NewKeyWantToUpload_Yes = "Ladda upp publik nyckel";
 NewKeyWantToUpload_No = "Nej tack!";
 
 NewUserIDWantToUpload_Title = "Din nya e-postadress (användar-ID) lades till";
-NewUserIDWantToUpload_Msg = "För att andra ska kunna använda din nya e-postadress (användar-ID), är det nödvändigt för dem att importera din uppdaterade nyckel. Därför rekommenderas det att du laddar upp din uppdaterade publika nyckel till nyckelservrarna.\n\nVarning: Nyckelservrar är offentliga, så namnet och e-postadressen du använder i din nyckel kommer att synas för alla. Nycklar kan inte raderas från nyckelservrarna. De kan återkallas men inte tas bort.\n\nOm du föredrar att inte använda nyckelservrarna, överväg gärna att bifoga din publika nyckel till dina signerade och krypterade e-postmeddelanden.\n\nVill du ladda upp din uppdaterade publika nyckel?";
+NewUserIDWantToUpload_Msg = "För att andra ska kunna använda din nya e-postadress (användar-ID) är det nödvändigt för dem att importera din uppdaterade nyckel. Därför rekommenderas det att du laddar upp din uppdaterade publika nyckel till nyckelservrarna.\n\nVarning: Nyckelservrar är offentliga, så namnet och e-postadressen du använder i din nyckel kommer att synas för alla. Nycklar kan inte raderas från nyckelservrarna. De kan återkallas men inte tas bort.\n\nOm du föredrar att inte använda nyckelservrarna, överväg gärna att bifoga din publika nyckel till dina signerade och krypterade e-postmeddelanden.\n\nVill du ladda upp din uppdaterade publika nyckel?";
 NewUserIDWantToUpload_Yes = "Ladda upp publik nyckel";
 NewUserIDWantToUpload_No = "Nej tack!";
 
 NewSubkeyWantToUpload_Title = "Du har nu lagt till en undernyckel";
-NewSubkeyWantToUpload_Msg = "För att andra ska kunna använda din nya undernyckel, är det nödvändigt för dem att importera din uppdaterade nyckel. Därför rekommenderas det att du laddar upp din uppdaterade publika nyckel till nyckelservrarna.\n\nVarning: Nyckelservrar är offentliga, så namnet och e-postadressen du använder i din nyckel kommer att synas för alla. Nycklar kan inte raderas från nyckelservrarna. De kan återkallas men inte tas bort.\n\nOm du föredrar att inte använda nyckelservrarna, överväg gärna att bifoga din publika nyckel till dina signerade och krypterade e-postmeddelanden.\n\nVill du ladda upp din publika nyckel?";
+NewSubkeyWantToUpload_Msg = "För att andra ska kunna använda din nya undernyckel är det nödvändigt för dem att importera din uppdaterade nyckel. Därför rekommenderas det att du laddar upp din uppdaterade publika nyckel till nyckelservrarna.\n\nVarning: Nyckelservrar är offentliga, så namnet och e-postadressen du använder i din nyckel kommer att synas för alla. Nycklar kan inte raderas från nyckelservrarna. De kan återkallas men inte tas bort.\n\nOm du föredrar att inte använda nyckelservrarna, överväg gärna att bifoga din publika nyckel till dina signerade och krypterade e-postmeddelanden.\n\nVill du ladda upp din publika nyckel?";
 NewSubkeyWantToUpload_Yes = "Ladda upp publik nyckel";
 NewSubkeyWantToUpload_No = "Nej tack!";
-
-ExpirationDateChangedWantToUpload_Title = "Du har nu ändrat utgångsdatumet";
-ExpirationDateChangedWantToUpload_Msg = "För att andra ska kunna se det nya utgångsdatumet, är det nödvändigt för dem att importera din uppdaterade nyckel. Därför rekommenderas det att du laddar upp din uppdaterade publika nyckel till nyckelservrarna.\n\nVarning: Nyckelservrar är offentliga, så namnet och e-postadressen du använder i din nyckel kommer att synas för alla. Nycklar kan inte raderas från nyckelservrarna. De kan återkallas men inte tas bort.\n\nOm du föredrar att inte använda nyckelservrarna, överväg gärna att bifoga din publika nyckel till dina signerade och krypterade e-postmeddelanden.\n\nVill du ladda upp din publika nyckel?";
-ExpirationDateChangedWantToUpload_Yes = "Ladda upp publik nyckel";
-ExpirationDateChangedWantToUpload_No = "Nej tack!";
 
 RevokedKeyWantToUpload_Title = "Din nyckel återkallades";
 RevokedKeyWantToUpload_Msg = "För att göra det lättare för dina vänner och kollegor att få reda på din nyckels nya status, rekommenderas det att din återkallade publika nyckel laddas upp till nyckelservrarna.\n\nVarning: Nyckelservrar är offentliga, så namnet och e-postadressen du använder i din nyckel kommer att synas för alla. Nycklar kan inte raderas från nyckelservrarna. De kan återkallas men inte tas bort.\n\nOm du föredrar att inte använda nyckelservrarna, se till att dina kontakter som använder din publika nyckel vet om att den är återkallad och inte längre ska användas. Du kan e-posta dem den återkallade publika nyckeln så att de kan importera den till sin nyckelhanterare.\n\nVill du ladda upp din återkallade publika nyckel?";
@@ -220,7 +215,7 @@ RevokedUserIDWantToUpload_Yes = "Ladda upp publik nyckel";
 RevokedUserIDWantToUpload_No = "Nej tack!";
 
 RevokedSubkeyWantToUpload_Title = "Din undernyckel återkallades";
-RevokedSubkeyWantToUpload_Msg = "För att göra det lättare för dina vänner och kollegor att få reda på din undernyckels nya status, rekommenderas det att din publika nyckel laddas upp till nyckelservrarna.\n\nVarning: Nyckelservrar är offentliga, så namnet och e-postadressen du använder i din nyckel kommer att synas för alla. Nycklar kan inte raderas från nyckelservrarna. De kan återkallas men inte tas bort.\n\nOm du föredrar att inte använda nyckelservrarna, se till att dina kontakter som använder din publika nyckel vet om att undernyckeln är återkallad och inte längre ska användas. Du kan e-posta dem den uppdaterade publika nyckeln så att de kan importera den till sin nyckelhanterare.\n\nVill du ladda upp din publika nyckel?";
+RevokedSubkeyWantToUpload_Msg = "För att göra det lättare för dina vänner och kollegor att få reda på din undernyckels nya status rekommenderas det att din publika nyckel laddas upp till nyckelservrarna.\n\nVarning: Nyckelservrar är offentliga, så namnet och e-postadressen du använder i din nyckel kommer att synas för alla. Nycklar kan inte raderas från nyckelservrarna. De kan återkallas men inte tas bort.\n\nOm du föredrar att inte använda nyckelservrarna, se till att dina kontakter som använder din publika nyckel vet om att undernyckeln är återkallad och inte längre ska användas. Du kan e-posta dem den uppdaterade publika nyckeln så att de kan importera den till sin nyckelhanterare.\n\nVill du ladda upp din publika nyckel?";
 RevokedSubkeyWantToUpload_Yes = "Ladda upp publik nyckel";
 RevokedSubkeyWantToUpload_No = "Nej tack!";
 
@@ -245,15 +240,15 @@ DeleteKeys_No = "Avbryt";
 
 
 DeleteSecKey_Title = "Varning! Du kommer att radera privata och publika nycklar";
-DeleteSecKey_Msg = "Du kommer att radera nycklarna:\n\n%@\n\nNär den raderats kommer alla meddelanden som har och kommer att krypteras till denna nyckel inte längre att kunna dekrypteras. Vi rekommenderar inte att den raderas.\n\nFör att uppmärksamma andra att denna nyckel inte längre används, bör du återkalla nyckeln istället för att radera den och ladda upp den återkallade nyckeln till nyckelservrarna. Annars kommer andra kanske att använda denna nyckel för att kryptera meddelanden till dig.";
-DeleteSecKey_Checkbox = "Ja, jag vill radera min privata nyckel och förstår att jag inte längre\nkan dekryptera några meddelanden som krypterades till denna nyckel.";
+DeleteSecKey_Msg = "Du kommer att radera nycklarna:\n\n%@\n\nNär den raderats kommer alla meddelanden som har och kommer att krypteras till den här nyckeln inte längre att kunna dekrypteras. Vi rekommenderar att den inte raderas.\n\nFör att uppmärksamma andra att den här nyckeln inte längre används bör du återkalla nyckeln istället för att radera den och ladda upp den återkallade nyckeln till nyckelservrarna. Annars kommer andra kanske att fortsätta använda den här nyckeln för att kryptera meddelanden till dig.";
+DeleteSecKey_Checkbox = "Ja, jag vill radera min privata nyckel och förstår att jag inte längre\nkan dekryptera några meddelanden som krypterades till den här nyckeln.";
 DeleteSecKey_Yes = "Radera nyckel/nycklar";
 DeleteSecKey_SecOnly = "Radera endast privata nycklar";
 DeleteSecKey_No = "Avbryt";
 
 DeleteRevokedSecKey_Title = "Varning: Du kommer att radera återkallade nyckelpar";
 DeleteRevokedSecKey_Msg = "Du kommer att radera följande återkallade nyckelpar:\n\n%@\n\nÅterkallade nycklar kan fortfarande dekryptera gamla meddelanden som krypterats till den nyckeln.\n\nVi rekommenderar att den inte raderas.";
-DeleteRevokedSecKey_Checkbox = "Ja, jag vill radera min privata nyckel och förstår att jag inte längre\nkan dekryptera några meddelanden som krypterades till denna nyckel.";
+DeleteRevokedSecKey_Checkbox = "Ja, jag vill radera min privata nyckel och förstår att jag inte längre\nkan dekryptera några meddelanden som krypterades till den här nyckeln.";
 DeleteRevokedSecKey_Yes = "Radera dina nyckelpar";
 DeleteRevokedSecKey_SecOnly = "Radera endast privata nycklar";
 DeleteRevokedSecKey_No = "Avbryt";
@@ -261,7 +256,7 @@ DeleteRevokedSecKey_No = "Avbryt";
 
 /* New keyserver */
 SwitchToVerifyingKeyserver_Title = "Ny nyckelserver keys.openpgp.org";
-SwitchToVerifyingKeyserver_Msg = "Efter noggrant övervägande har vi beslutat att den nya förvalda nyckelservern som används i GPG Suite kommer att vara keys.openpgp.org. Den nya nyckelservern är mer tillförlitlig än de gamla och kommer att bättre skydda din integritet. Sökresultat kommer endast att visa e-postadresser som har verifierats av sina ägare. Annars kan nycklar endast hittas genom att söka efter deras fingeravtryck.\n\nNyckelns ägare kan när som helst välja att stoppa e-postadressen från att visas i sökresultatet.\n\nVill du byta till den nya nyckelservern?";
+SwitchToVerifyingKeyserver_Msg = "Efter noggrant övervägande har vi beslutat att den nya förvalda nyckelservern som används i GPG Suite kommer att vara keys.openpgp.org. Den nya nyckelservern är mer tillförlitlig än de gamla och kommer att skydda din integritet bättre. Sökresultat kommer endast att visa e-postadresser som har verifierats av sina ägare. Annars kan nycklar endast hittas genom att söka efter nycklarnas fingeravtryck.\n\nNyckelns ägare kan när som helst välja att stoppa e-postadressen från att visas i sökresultaten.\n\nVill du byta till den nya nyckelservern?";
 SwitchToVerifyingKeyserver_Yes = "Byt till ny nyckelserver";
 SwitchToVerifyingKeyserver_No = "Avbryt";
 SwitchToVerifyingKeyserver_LearnMore = "Läs mer";
@@ -276,11 +271,11 @@ UploadSingleKeyVerifyingKeyserver_LearnMore = "Läs mer";
 
 /* Bad key server */
 BadKeyserver_Title = "Dålig nyckelserver";
-BadKeyserver_Msg = "Den nyckelserver du angivit fungerar inte.\nKontrollera nyckelserverns adress. Den borde se ut ungefär som hkp://some.key.server.org\n\nNyckelservern kan också vara offline. Använd i så fall en annan nyckelserver.";
+BadKeyserver_Msg = "Den nyckelserver du angivit fungerar inte.\nKontrollera nyckelserverns adress. Den borde se ut ungefär så här: hkp://some.key.server.org\n\nNyckelservern kan också vara offline. Använd i så fall en annan nyckelserver.";
 
 
 /* Import warnings */
-ImportRandomData_Title = "Varning! Innehållet kan förmodligen inte importeras";
+ImportRandomData_Title = "Varning: Innehållet kan förmodligen inte importeras";
 ImportRandomData_Msg = "Det verkar som att du försöker importera ett meddelande som inte är en OpenPGP-nyckel.\n\nÄr du säker på att du vill försöka importera innehållet?";
 ImportRandomData_Yes = "Försök importera";
 ImportRandomData_No = "Avbryt";
@@ -334,7 +329,7 @@ NO_SECRET_KEY_TITLE = "Ingen privat nyckel hittades";
 NO_SECRET_KEY_MESSAGE = "Du behöver en privat nyckel för att utföra den här åtgärden.";
 
 KeyserverSearchError_Title = "Det gick inte att söka efter nyckel";
-KeyserverSearchError_Msg = "Upprepa din sökning och se om den fungerar. Om problemet kvarstår, skicka en supportbegäran via Systeminställningar > GPG Suite > Skicka rapport. Kopiera hela felmeddelandet i beskrivningsfältet och lägg till söktermen du använde för din sökning. Vi rekommenderar att felsökningsloggen inkluderas, eftersom den innehåller ytterligare nyttig information för att lösa ditt problem.";
+KeyserverSearchError_Msg = "Upprepa din sökning och se om det fungerar då. Om problemet kvarstår, skicka en supportbegäran via Systeminställningar > GPG Suite > Skicka rapport. Kopiera hela felmeddelandet i beskrivningsfältet och lägg till söktermen du använde för din sökning. Vi rekommenderar att felsökningsloggen inkluderas, eftersom den innehåller ytterligare nyttig information för att lösa ditt problem.";
 
 
 
@@ -381,8 +376,8 @@ ChangePassphrase_Progress = "Ändrar lösenord…";
 ChangePassphrase_Error = "Det gick inte att byta lösenord.";
 SetDisabled_Progress = "Aktiverar/avaktiverar nyckel…";
 SetDisabled_Error = "Det gick inte att aktivera/avaktivera nyckel.";
-SetOwnerTrust_Progress = "Ställer in ägarförtroende…";
-SetOwnerTrust_Error = "Det gick inte att ställa in ägarförtroende";
+SetOwnerTrust_Progress = "Ställer in ägartillit…";
+SetOwnerTrust_Error = "Det gick inte att ställa in ägartillit.";
 ChangeExpirationDate_Progress = "Ändrar utgångsdatum…";
 ChangeExpirationDate_Error = "Det gick inte att ändra utgångsdatum.";
 SetAlgorithmPreferences_Progress = "Ändrar algoritminställningar…";
@@ -441,7 +436,7 @@ FilterNoResultsSecOnly = "Den lokala sökningen efter '%@' har inga resultat.\n�
 
 
 
-SignKey_KeyClaimsMultipleIdentities = "Nyckeln\n%@\nuppger fler än en identitet. Vilken har du verifierat?";
+SignKey_KeyClaimsMultipleIdentities = "Nyckeln:\n%@\nuppger fler än en identitet. Vilka har du verifierat?";
 SignKey_PublishSingleIdentity = "Om du väljer att publicera denna signatur, kommer alla i hela världen att kunna se att du litar på att denna nyckel tillhör %@.";
 SignKey_PublishMultipleIdentities = "Om du väljer att publicera denna signatur, kommer alla i hela världen att kunna se att du litar på att denna nyckel tillhör de identiteter du bockat för.";
 SignKey_MainMsg = "Genom att signera denna nyckel, bekräftar du nyckelägarens identitet och att nyckeln med fingeravtrycket %@ tillhör denne.";

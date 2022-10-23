@@ -43,7 +43,7 @@ CheckAlert_PassphraseTooLong_Message = "The password you have entered is too lon
 
 CheckAlert_NewKeyExistingEmail_Title = "A valid key with this address already exists";
 CheckAlert_NewKeyExistingEmail_Msg = "The existing key with %1$@ has the following fingerprint:\n%2$@\n\nUsing the same email address in more than one key can lead to problems and is not recommended.\nIf you really want to create a new key for this email, we suggest to first revoke that email from the existing key.\n\nDo you really want to create a key with that email now?";
-CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
+CheckAlert_NewKeyExistingEmail_Yes = "Sukurti raktą";
 CheckAlert_NewKeyExistingEmail_No = "Atsisakyti";
 
 CheckAlert_NewUserIDExistingEmail_Title = "A valid key with this address already exists";
@@ -64,7 +64,7 @@ KeySearch_VKSFound_Msg = "A key with a verified email address was found:\n\n%@\n
 KeySearch_VKSFoundNoUserID_Msg = "A possible key update was found:\n\n%@\n\nDo you want to import this key?";
 
 
-GenerateKey_ProgressTitle = "Key creation in progress…";
+GenerateKey_ProgressTitle = "Vyksta rakto kūrimas…";
 GenerateKey_Progress = "Your new key is being created. This might take a minute, so feel free to stretch your legs.";
 GenerateSubkey_Msg = "Add subkey to the following key:\n%@ %@";
 GenerateUserID_Msg = "Add email address (user ID) to the following key:\n%@ %@";
@@ -115,7 +115,7 @@ MAIL_KEY_INVALID_KEY_SELECTED_MESSAGE = "You have selected an unusable key. Such
 
 
 /* A key was found in the pasteboard */
-PasteboardKeyFound_Title = "One or more keys were detected in your clipboard";
+PasteboardKeyFound_Title = "Jūsų iškarpinėje aptiktas vienas ar daugiau raktų";
 PasteboardKeyFound_Msg = "%@\n\nAr norėtumėte importuoti raktą(-us)?";
 PasteboardKeyFound_Yes = "Importuoti";
 PasteboardKeyFound_No = "Atsisakyti";
@@ -204,11 +204,6 @@ NewSubkeyWantToUpload_Msg = "In order for others to be able to use your new subk
 NewSubkeyWantToUpload_Yes = "Įkelti viešąjį raktą";
 NewSubkeyWantToUpload_No = "Ne, ačiū!";
 
-ExpirationDateChangedWantToUpload_Title = "You have successfully changed the expiration date";
-ExpirationDateChangedWantToUpload_Msg = "In order for others to be able to see the new expiration date, it is necessary for them to import your updated key. Therefore it is recommended to upload your updated public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please consider attaching your public key to your signed and encrypted emails.\n\nDo you want to upload your public key?";
-ExpirationDateChangedWantToUpload_Yes = "Įkelti viešąjį raktą";
-ExpirationDateChangedWantToUpload_No = "Ne, ačiū!";
-
 RevokedKeyWantToUpload_Title = "Jūsų raktas buvo sėkmingai panaikintas";
 RevokedKeyWantToUpload_Msg = "To make it easier for your friends and colleagues to learn about this new state of your key, it is recommended to upload your revoked public key to the key servers.\n\nWarning: Key servers are public, so the name and email you use in your key will be publicly visible. Keys can not be deleted from the key servers. They can be revoked but not removed.\n\nIf you rather prefer not to use key servers, please ensure you let your contacts using your public key know that it is now revoked and no longer to be used. You can email them the revoked public key so they can import it into their key manager.\n\nDo you want to upload your revoked public key?";
 RevokedKeyWantToUpload_Yes = "Įkelti viešąjį raktą";
@@ -224,7 +219,7 @@ RevokedSubkeyWantToUpload_Msg = "To make it easier for your friends and colleagu
 RevokedSubkeyWantToUpload_Yes = "Įkelti viešąjį raktą";
 RevokedSubkeyWantToUpload_No = "Ne, ačiū!";
 
-UserIDsSignedWantToUpload_Title = "Signing successful";
+UserIDsSignedWantToUpload_Title = "Pasirašymas sėkmingas";
 UserIDsSignedWantToUpload_Msg = "To make it easier for your friends to learn about the new signature, it is recommended to upload the signed public key to the key servers.\n\nDo you want to upload the public key?";
 UserIDsSignedWantToUpload_Yes = "Įkelti viešąjį raktą";
 UserIDsSignedWantToUpload_No = "Ne, ačiū!";

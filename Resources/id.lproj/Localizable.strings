@@ -43,12 +43,12 @@ CheckAlert_PassphraseTooLong_Message = "Kata sandi yang Anda masukkan terlalu pa
 
 CheckAlert_NewKeyExistingEmail_Title = "Sebuah kunci yang sah dengan alamat ini sudah ada";
 CheckAlert_NewKeyExistingEmail_Msg = "Kunci yang ada dengan %1$@ memiliki sidik jari berikut:\n%2$@\n\nMemakai alamat surel yang sama dalam lebih dari satu kunci dapat menyebabkan masalah dan tidak disarankan.\nBila Anda memang ingin membuat suatu kunci baru bagi surel ini, kami sarankan untuk pertama mencabut surel itu dari kunci yang ada.\n\nApakah Anda memang hendak membuat suatu kunci dengan surel itu sekarang?";
-CheckAlert_NewKeyExistingEmail_Yes = "Create Key";
+CheckAlert_NewKeyExistingEmail_Yes = "Buat Kunci";
 CheckAlert_NewKeyExistingEmail_No = "Batal";
 
 CheckAlert_NewUserIDExistingEmail_Title = "Sebuah kunci yang sah dengan alamat ini sudah ada";
 CheckAlert_NewUserIDExistingEmail_Msg = "Kunci yang ada dengan %1$@ memiliki sidik jari berikut:\n%2$@\n\nMemakai alamat surel yang sama dalam lebih dari satu kunci dapat menyebabkan masalah dan tidak disarankan.\nBila Anda memang ingin membuat suatu ID pengguna baru bagi surel ini, kami sarankan untuk pertama mencabut surel itu dari kunci yang ada.\n\nApakah Anda memang hendak membuat suatu ID pengguna dengan surel itu sekarang?";
-CheckAlert_NewUserIDExistingEmail_Yes = "Create User ID";
+CheckAlert_NewUserIDExistingEmail_Yes = "Buat ID Pengguna";
 CheckAlert_NewUserIDExistingEmail_No = "Batal";
 
 
@@ -91,13 +91,13 @@ CheckError_SearchInvalid_Msg = "Harap cari alamat surel atau sidik jari.";
 GPG_NOT_FOUND_TITLE = "GPG Tak Ditemukan";
 GPG_NOT_FOUND_MESSAGE = "Ups, ada kesalahan parah. Tampaknya GPG hilang dari sistem Anda. Harap pasang ulang Keluarga GPG dari\n\nhttps://www.gpgtools.org";
 GPG_CONFIG_ERROR_TITLE = "Galat Konfig GPG";
-GPG_CONFIG_ERROR_MESSAGE = "Oops, something went wrong. GPG was found on your system but there seems to be a problem with the config file. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
+GPG_CONFIG_ERROR_MESSAGE = "Ups, ada yang salah. GPG ditemukan pada sistem Anda tapi tampaknya ada masalah dengan berkas konfig. Harap hubungi kami di \nhttps://support.gpgtools.org\n\nRincian: %@";
 LIBMACGPG_NOT_FOUND_TITLE = "Libmacgpg tak ditemukan";
 LIBMACGPG_NOT_FOUND_MESSAGE = "Libmacgpg tidak ditemukan pada sistem Anda. Harap pasang ulang\nKeluarga GPG dari https://www.gpgtools.org.";
 CODE_SIGN_ERROR_TITLE = "Seseorang mengotak-atik instalasi GPG Keychain Anda";
 CODE_SIGN_ERROR_MESSAGE = "Agar Anda tetap aman, GPG Keychain akan keluar sekarang!\n\nHarap pasang ulang GPG Suite dari\nhttps://gpgtools.org agar yakin bahwa Anda memiliki versi asli dari kami!";
 UNKNOWN_GPG_ERROR_TITLE = "Kesalahan GPG Yang Tak Dikenal";
-UNKNOWN_GPG_ERROR_MESSAGE = "Oops, something went wrong. GPG thrown an unknown error. Please contact us at \nhttps://support.gpgtools.org\n\nDetails: %@";
+UNKNOWN_GPG_ERROR_MESSAGE = "Ups, ada yang salah. GPG melaporkan kesalahan yang tidak dikenal. Harap hubungi kami di  \nhttps://support.gpgtools.org\n\nRincian: %@";
 
 
 
@@ -203,11 +203,6 @@ NewSubkeyWantToUpload_Title = "Anda telah sukses menambahkan sebuah sub kunci";
 NewSubkeyWantToUpload_Msg = "Agar orang lain dapat memakai sub kunci baru Anda, mereka perlu mengimpor kunci Anda yang diperbarui. Maka disarankan untuk mengunggah kunci publik Anda yang diperbarui ke server kunci.\n\nPeringatan: Server kunci adalah publik, sehingga nama dan surel yang Anda pakai dalam kunci Anda akan tampak secara publik. Kunci tidak dapat dihapus dari server kunci. Mereka dapat dicabut tapi tidak dapat dibuang.\n\nBila Anda lebih suka untuk tidak memakai server kunci, harap mempertimbangkan untuk melampirkan kunci publik Anda ke surel-surel Anda yang ditandatangani dan dienkripsi.\n\nAnda hendak mengunggah kunci publik Anda?";
 NewSubkeyWantToUpload_Yes = "Unggah Kunci Publik";
 NewSubkeyWantToUpload_No = "Tidak, Terima Kasih!";
-
-ExpirationDateChangedWantToUpload_Title = "Anda telah berhasil mengubah tanggal kedaluwarsa";
-ExpirationDateChangedWantToUpload_Msg = "Agar orang lain dapat melihat tanggal kedaluwarsa baru Anda, mereka perlu mengimpor kunci Anda yang diperbarui. Maka disarankan untuk mengunggah kunci publik Anda yang diperbarui ke server kunci.\n\nPeringatan: Server kunci adalah publik, sehingga nama dan surel yang Anda pakai dalam kunci Anda akan tampak secara publik. Kunci tidak dapat dihapus dari server kunci. Mereka dapat dicabut tapi tidak dapat dibuang.\n\nBila Anda lebih suka untuk tidak memakai server kunci, harap mempertimbangkan untuk melampirkan kunci publik Anda ke surel-surel Anda yang ditandatangani dan dienkripsi.\n\nAnda hendak mengunggah kunci publik Anda?";
-ExpirationDateChangedWantToUpload_Yes = "Unggah Kunci Publik";
-ExpirationDateChangedWantToUpload_No = "Tidak, Terima Kasih!";
 
 RevokedKeyWantToUpload_Title = "Kunci Anda sukses dicabut";
 RevokedKeyWantToUpload_Msg = "Untuk mempermudah teman dan kolega Anda mempelajari keadaan baru kunci Anda, disarankan untuk mengunggah kunci publik Anda yang dicabut, ke server kunci.\n\nPeringatan: Server kunci adalah publik, sehingga nama dan surel yang Anda pakai dalam kunci Anda akan tampak secara publik. Kunci tidak dapat dihapus dari server kunci. Mereka dapat dicabut tapi tidak dapat dibuang.\n\nBila Anda lebih suka untuk tidak memakai server kunci, harap mempertimbangkan untuk melampirkan kunci publik Anda ke surel-surel Anda yang ditandatangani dan dienkripsi.\n\nAnda hendak mengunggah kunci publik Anda yang dicabut?";
@@ -324,7 +319,7 @@ IMPORT_RESULT_NOTHING_IMPORTED_MSG = "";
 /* Errors */
 "Details:" = "Rincian:";
 ImportKeyError_Title = "Gagal mengimpor satu kunci atau lebih";
-ImportKeyError_Msg = "Often keys cannot be imported due to a missing self-signature. Please visit \nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one for more details and steps on how to resolve this problem.";
+ImportKeyError_Msg = "Seringkali kunci tidak dapat diimpor karena kurang tanda tangan mandiri. Harap kunjungi\nhttps://support.gpgtools.org/kb/gpg-keychain-faq/add-self-signature-to-an-old-key-which-does-not-have-one untuk rincian lebih jauh dan langkah-langkah tentang bagaimana mengatasi masalah ini.";
 ImportKeyErrorPGP_Title = "Impor Gagal";
 ImportKeyErrorPGP_Msg = "Tampaknya Anda mencoba mengimpor suatu pesan bertandatangan atau terenkripsi. Untuk mendekripsi atau verifikasi pesan itu harap gunakan GPG Services.";
 ImportKeyErrorNoPGP_Title = "Impor gagal";
@@ -391,8 +386,8 @@ CleanKey_Progress = "Membersihkan kunci...";
 CleanKey_Error = "Pembersihan kunci gagal.";
 MinimizeKey_Progress = "Meminimalisasi kunci...";
 MinimizeKey_Error = "Peminimalan kunci gagal.";
-GenerateRevokeCertificateForKey_Progress = "Creating revocation certificate…";
-GenerateRevokeCertificateForKey_Error = "Creating revocation certificate failed.";
+GenerateRevokeCertificateForKey_Progress = "Sedang membuat sertifikat pencabutan...";
+GenerateRevokeCertificateForKey_Error = "Pembuatan sertifikat pencabutan gagal.";
 SearchKeysOnServer_Progress = "Mencari kunci...";
 SendKeysToServer_Progress = "Mengirim %@ke server...";
 SendKeysToServer_Error = "Pengiriman kunci gagal.";
