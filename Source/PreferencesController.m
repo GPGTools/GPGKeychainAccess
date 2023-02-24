@@ -368,6 +368,25 @@ static PreferencesController *_sharedInstance = nil;
 	} else {
 		// Remove leading and trailing whitespaces.
 		value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+		// GnuPG treats keyservers with https scheme differently from
+		// ones with hkps as scheme.
+		// The https version only makes sense if the user speficies a complete
+		// query which matches the API of the keyserver.
+		// Since most keyservers are based on sks or hockeypuck anyway, it is safe to
+		// automatically change http(s) to hkp(s) which in most cases
+		// is the correct version.
+		NSURL *url = [NSURL URLWithString:value];
+		NSString *host = [url host];
+		NSString *scheme = [url scheme];
+
+		if(!scheme || [scheme isEqualToString:@"http"]) {
+			scheme = @"hkp";
+		}
+		if([scheme isEqualToString:@"https"] || [value rangeOfString:@"keyserver.ubuntu.com"].location != NSNotFound) {
+			scheme = @"hkps";
+		}
+		value = [NSString stringWithFormat:@"%@://%@", scheme, [host length] > 0 ? host : value];
+
 		_keyserverToCheck = value;
 	}
 }
