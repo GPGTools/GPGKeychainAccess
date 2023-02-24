@@ -1,35 +1,34 @@
 [main]
-host = https://www.transifex.com
-lang_map = pt_BR:pt
-minimum-perc = 20
- 
-[GPGKeychain.Localizable]
-file_filter = Resources/<lang>.lproj/Localizable.strings
-source_lang = en
-source_file = Resources/en.lproj/Localizable.strings
-type = STRINGS
+host     = https://www.transifex.com
+lang_map = pt_BR: pt
 
-[GPGKeychain.MainMenu]
-file_filter = Resources/<lang>.lproj/MainMenu.strings
-source_lang = en
-source_file = Resources/en.lproj/MainMenu.strings
-type = STRINGS
-
-[GPGKeychain.ModalSheets]
-file_filter = Resources/<lang>.lproj/ModalSheets.strings
-source_lang = en
-source_file = Resources/en.lproj/ModalSheets.strings
-type = STRINGS
-
-[GPGKeychain.Preferences]
-file_filter = Resources/<lang>.lproj/Preferences.strings
-source_lang = en
-source_file = Resources/en.lproj/Preferences.strings
-type = STRINGS
- 
-[GPGKeychain.InfoPlist]
+[o:gpgtools:p:GPGKeychain:r:InfoPlist]
 file_filter = Resources/<lang>.lproj/InfoPlist.strings
-source_lang = en
 source_file = Resources/en.lproj/InfoPlist.strings
-type = STRINGS
- 
+source_lang = en
+type        = STRINGS
+
+[o:gpgtools:p:GPGKeychain:r:Localizable]
+file_filter = Resources/<lang>.lproj/Localizable.strings
+source_file = Resources/en.lproj/Localizable.strings
+source_lang = en
+type        = STRINGS
+
+[o:gpgtools:p:GPGKeychain:r:MainMenu]
+file_filter = Resources/<lang>.lproj/MainMenu.strings
+source_file = Resources/en.lproj/MainMenu.strings
+source_lang = en
+type        = STRINGS
+
+[o:gpgtools:p:GPGKeychain:r:ModalSheets]
+file_filter = Resources/<lang>.lproj/ModalSheets.strings
+source_file = Resources/en.lproj/ModalSheets.strings
+source_lang = en
+type        = STRINGS
+
+[o:gpgtools:p:GPGKeychain:r:Preferences]
+file_filter = Resources/<lang>.lproj/Preferences.strings
+source_file = Resources/en.lproj/Preferences.strings
+source_lang = en
+type        = STRINGS
+
